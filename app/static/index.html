@@ -407,12 +407,56 @@ select#pdk-select:focus { border-color: var(--primary); }
   word-break: break-word;
 }
 
+/* ── Response block (LLM output streaming) ── */
+.response-block {
+  background: rgba(99,102,241,.04);
+  border: 1px solid rgba(99,102,241,.15);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.response-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(99,102,241,.06);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary-g);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.response-header:hover { background: rgba(99,102,241,.1); }
+.response-arrow { margin-left:auto; font-size:10px; color:var(--text3); transition:transform .2s; }
+.response-arrow.open { transform:rotate(90deg); }
+.response-dots { display:flex; gap:3px; }
+.response-dots span { width:4px; height:4px; border-radius:50%; background:var(--primary-g); animation:think-bounce .9s ease-in-out infinite; }
+.response-dots span:nth-child(2){animation-delay:.15s}
+.response-dots span:nth-child(3){animation-delay:.3s}
+.response-body { display:none; padding:10px 12px; }
+.response-body.open { display:block; }
+.response-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-height: 260px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 /* ── Spec table ── */
 .spec-table { width:100%; border-collapse:collapse; }
 .spec-table tr:not(:last-child) td { border-bottom:1px solid var(--border); }
-.spec-table td { padding:7px 10px; font-size:12px; }
-.spec-table td:first-child { color:var(--text3); font-weight:500; width:38%; }
-.spec-table td:last-child  { color:var(--text); font-family:'JetBrains Mono',monospace; font-size:11.5px; }
+.spec-table td { padding:8px 10px; font-size:12px; vertical-align:top; }
+.spec-table td:first-child { color:var(--text3); font-weight:500; width:35%; }
+.spec-table td:nth-child(2) { color:var(--text); font-family:'JetBrains Mono',monospace; font-size:11.5px; width:25%; }
+.spec-table td:last-child { color:var(--text3); font-size:11px; font-style:italic; }
+.spec-val-unit { color:var(--text3); font-size:10px; margin-left:3px; }
 
 /* ── Papers ── */
 .papers-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:10px; }
@@ -438,11 +482,17 @@ select#pdk-select:focus { border-color: var(--primary); }
   cursor:pointer; transition:transform .2s;
 }
 .paper-img:hover { transform:scale(1.05); }
+.paper-links { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; align-items:center; }
 .paper-link {
-  display:inline-flex; align-items:center; gap:4px; margin-top:8px;
+  display:inline-flex; align-items:center; gap:4px;
   font-size:11px; color:var(--blue); text-decoration:none;
 }
 .paper-link:hover { text-decoration:underline; }
+.paper-link.dl {
+  background:rgba(99,102,241,.12); color:#a5b4fc;
+  padding:2px 8px; border-radius:20px; font-size:10.5px;
+}
+.paper-link.dl:hover { background:rgba(99,102,241,.25); text-decoration:none; }
 
 /* ── Params ── */
 .params-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(195px,1fr)); gap:8px; }
@@ -647,6 +697,7 @@ select#pdk-select:focus { border-color: var(--primary); }
 .ext-txt   { background:rgba(139,92,246,.15); color:#a78bfa; }
 .ext-png   { background:rgba(236,72,153,.15); color:var(--pink); }
 .ext-md    { background:rgba(45,212,191,.15); color:var(--teal); }
+.ext-pdf   { background:rgba(239,68,68,.15);  color:#f87171; }
 
 @media (max-width:1100px) { #layout { grid-template-columns:240px 1fr 280px; } }
 @media (max-width:900px)  { #layout { grid-template-columns:220px 1fr; } #preview-panel { display:none; } }
@@ -767,12 +818,13 @@ select#pdk-select:focus { border-color: var(--primary); }
 
 <script>
 /* ── STATE ── */
-let jobId      = null;
-let es         = null;
-let activeNode = null;
-const toolCards  = {};
-const thinkBlocks= {};
-const nodeCards  = {};
+let jobId        = null;
+let es           = null;
+let activeNode   = null;
+const toolCards    = {};
+const thinkBlocks  = {};
+const respBlocks   = {};   // run_id → response block element
+const nodeCards    = {};
 
 const NODE_ORDER = ['spec_parser','researcher','circuit_designer','layout_generator','verifier','summarizer'];
 const CONN_IDS   = [null,'conn-1','conn-2','conn-3','conn-4','conn-5'];
@@ -878,6 +930,8 @@ function handleEvent(ev) {
     case 'think_start':       onThinkStart(ev);      break;
     case 'think_token':       onThinkToken(ev);      break;
     case 'think_end':         onThinkEnd(ev);        break;
+    case 'response_start':    onResponseStart(ev);   break;
+    case 'response_token':    onResponseToken(ev);   break;
     case 'awaiting_approval': onAwaitingApproval(ev);break;
     case 'error':             onError(ev);           break;
     case 'done':              onDone();              break;
@@ -933,8 +987,18 @@ function onNodeEnd(ev) {
 
   const body = document.getElementById('card-body-' + ev.node);
   if (body) {
-    body.innerHTML = '';
-    renderNodeDetail(ev.node, ev.detail, body);
+    // Remove skeleton placeholders only — keep tool cards, thinking blocks, response blocks
+    body.querySelectorAll('.skeleton').forEach(s => s.remove());
+    // Close any still-open response blocks (stop streaming indicator)
+    body.querySelectorAll('.response-dots').forEach(d => d.remove());
+    body.querySelectorAll('.response-body').forEach(b => b.classList.add('open'));
+    // Append structured detail below the live content
+    if (ev.detail && Object.keys(ev.detail).length) {
+      const sep = document.createElement('div');
+      sep.style.cssText = 'height:1px;background:var(--border);margin:8px 0';
+      body.appendChild(sep);
+      renderNodeDetail(ev.node, ev.detail, body);
+    }
   }
   setPip(ev.node, 'done');
   setNavState(ev.node, 'done');
@@ -1022,6 +1086,46 @@ function onThinkEnd(ev) {
   if (label) label.innerHTML = 'Thought <span style="font-size:10px;color:var(--text3);font-weight:400">✓</span>';
 }
 
+/* ── RESPONSE START ── */
+function onResponseStart(ev) {
+  const body = document.getElementById('card-body-' + (ev.node || activeNode));
+  if (!body) return;
+  body.querySelectorAll('.skeleton').forEach(s => s.remove());
+
+  const block = document.createElement('div');
+  block.className = 'response-block';
+  block.id = 'resp-' + ev.run_id;
+  block.innerHTML = `
+    <div class="response-header" onclick="toggleResponse(this)">
+      <span>💬</span> LLM Response
+      <div class="response-dots"><span></span><span></span><span></span></div>
+      <span class="response-arrow">▶</span>
+    </div>
+    <div class="response-body open">
+      <div class="response-text" id="resp-text-${ev.run_id}"></div>
+    </div>
+  `;
+  respBlocks[ev.run_id] = block;
+  body.appendChild(block);
+}
+
+/* ── RESPONSE TOKEN ── */
+function onResponseToken(ev) {
+  const el = document.getElementById('resp-text-' + ev.run_id);
+  if (el) {
+    el.textContent += ev.token;
+    // Auto-scroll the response text area
+    el.scrollTop = el.scrollHeight;
+  }
+}
+
+function toggleResponse(header) {
+  const arrow = header.querySelector('.response-arrow');
+  const body  = header.nextElementSibling;
+  const open  = body.classList.toggle('open');
+  if (arrow) arrow.classList.toggle('open', open);
+}
+
 /* ── AWAITING APPROVAL ── */
 function onAwaitingApproval(ev) {
   const card = nodeCards[activeNode];
@@ -1088,7 +1192,7 @@ const FILE_ICONS = {
 const EXT_CLASS = {
   '.gds':'ext-gds','.json':'ext-json','.py':'ext-py',
   '.sp':'ext-sp','.spice':'ext-sp','.txt':'ext-txt',
-  '.png':'ext-png','.md':'ext-md',
+  '.png':'ext-png','.md':'ext-md','.pdf':'ext-pdf',
 };
 const FOLDER_ICONS = {
   papers:'📄', layout:'🗺️', verification:'🔬',
@@ -1104,11 +1208,11 @@ function renderOutputTree(data) {
   // Group by folder
   const groups = {};
   for (const [rel, abs] of Object.entries(files)) {
-    if (rel === 'paper_figures') {
-      // Array of paths
+    if (rel === 'paper_figures' || rel === 'paper_pdfs') {
+      // Array of absolute paths — flatten into the papers group
       const arr = Array.isArray(abs) ? abs : [];
       (groups['papers'] = groups['papers'] || []).push(
-        ...arr.map(p => ({rel: 'papers/' + p.split('/').pop(), abs: p}))
+        ...arr.map(p => ({rel: 'papers/' + p.split('/').slice(-2).join('/'), abs: p}))
       );
       continue;
     }
@@ -1185,18 +1289,61 @@ function renderNodeDetail(node, detail, body) {
   else if (node === 'summarizer')  renderSummary(detail, body);
 }
 
+const SPEC_INFO = {
+  circuit_type: {label:'Circuit Type',       unit:'',      desc:'Type of analog/RF circuit to design'},
+  topology:     {label:'Topology',           unit:'',      desc:'Circuit topology / architecture'},
+  pdk:          {label:'PDK',               unit:'',      desc:'Process Design Kit (fabrication process)'},
+  freq_GHz:     {label:'Frequency',          unit:'GHz',   desc:'Target operating / center frequency'},
+  gain_dB:      {label:'Gain',              unit:'dB',    desc:'Target voltage or power gain'},
+  nf_dB:        {label:'Noise Figure',       unit:'dB',    desc:'Maximum allowable noise figure'},
+  iip3_dBm:     {label:'IIP3',             unit:'dBm',   desc:'Input-referred 3rd-order intercept point'},
+  s11_dB:       {label:'Input Return Loss',  unit:'dB',    desc:'Input reflection (S11) — typically < −10 dB'},
+  vdd_V:        {label:'Supply Voltage',     unit:'V',     desc:'VDD supply rail voltage'},
+  ibias_uA:     {label:'Bias Current',       unit:'µA',    desc:'Available DC bias current budget'},
+  area_um2:     {label:'Area Budget',        unit:'µm²',   desc:'Maximum allowed layout area'},
+};
+
 function renderSpec(detail, body) {
   const spec = detail.spec;
   if (!spec || typeof spec !== 'object') return;
-  const lbl = mkLabel('Parsed Specification');
-  body.appendChild(lbl);
+  body.appendChild(mkLabel('Parsed Specification'));
+
   const table = document.createElement('table');
   table.className = 'spec-table';
-  Object.entries(spec).filter(([,v]) => v !== null && v !== undefined && v !== '').forEach(([k,v]) => {
+
+  for (const [k, v] of Object.entries(spec)) {
+    // Skip null/undefined/empty
+    if (v === null || v === undefined || v === '') continue;
+    // Skip extra_specs if it's empty object/array
+    if (k === 'extra_specs') {
+      const isEmpty = (typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0)
+                   || (Array.isArray(v) && v.length === 0);
+      if (isEmpty) continue;
+    }
+
+    const info = SPEC_INFO[k];
+    const label = info ? info.label : k.replace(/_/g, ' ');
+    const unit  = info ? info.unit  : '';
+    const desc  = info ? info.desc  : '';
+
+    // Format value
+    let valStr;
+    if (k === 'extra_specs' && typeof v === 'object') {
+      valStr = JSON.stringify(v, null, 2);
+    } else if (typeof v === 'object') {
+      valStr = JSON.stringify(v);
+    } else {
+      valStr = String(v);
+    }
+
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${escHtml(k)}</td><td>${escHtml(String(v))}</td>`;
+    tr.innerHTML = `
+      <td>${escHtml(label)}</td>
+      <td>${escHtml(valStr)}${unit ? `<span class="spec-val-unit">${escHtml(unit)}</span>` : ''}</td>
+      <td>${escHtml(desc)}</td>
+    `;
     table.appendChild(tr);
-  });
+  }
   body.appendChild(table);
 }
 
@@ -1212,16 +1359,33 @@ function renderPapers(detail, body) {
     const authStr = Array.isArray(p.authors)
       ? p.authors.slice(0,3).join(', ') + (p.authors.length > 3 ? ' et al.' : '')
       : (p.authors || '');
-    const imgs = (p.images || []).slice(0,3).map(src =>
-      `<img class="paper-img" src="${escAttr(src)}" alt="fig" onclick="openModal('${escAttr(src)}')" loading="lazy"/>`
-    ).join('');
-    const pdf = p.pdf_url ? `<a class="paper-link" href="${escAttr(p.pdf_url)}" target="_blank" rel="noopener">📄 PDF</a>` : '';
+
+    // Images — src is now a /output/... URL served by the backend
+    const imgs = (p.images || []).slice(0, 4).map(src => {
+      const img = document.createElement('img');
+      img.className = 'paper-img';
+      img.alt = 'fig';
+      img.loading = 'lazy';
+      img.src = src;
+      img.addEventListener('error', () => { img.style.display = 'none'; });
+      img.addEventListener('click', () => openModal(src));
+      return img.outerHTML;
+    }).join('');
+
+    // Links row: arxiv PDF (external) + local download if available
+    const arxivLink = p.pdf_url
+      ? `<a class="paper-link" href="${escAttr(p.pdf_url)}" target="_blank" rel="noopener">📄 ArXiv</a>`
+      : '';
+    const dlLink = p.pdf_local
+      ? `<a class="paper-link dl" href="${escAttr(p.pdf_local)}" download>⬇ Download PDF</a>`
+      : '';
+
     card.innerHTML = `
       <div class="paper-title">${escHtml(p.title||'Untitled')}</div>
       <div class="paper-authors">${escHtml(authStr)}</div>
       <div class="paper-abstract">${escHtml(p.abstract||'')}</div>
       ${imgs ? '<div class="paper-images">'+imgs+'</div>' : ''}
-      ${pdf}
+      <div class="paper-links">${arxivLink}${dlLink}</div>
     `;
     grid.appendChild(card);
   });
@@ -1356,6 +1520,7 @@ function resetUI() {
   jobId = null; activeNode = null;
   Object.keys(toolCards).forEach(k => delete toolCards[k]);
   Object.keys(thinkBlocks).forEach(k => delete thinkBlocks[k]);
+  Object.keys(respBlocks).forEach(k => delete respBlocks[k]);
   Object.keys(nodeCards).forEach(k => delete nodeCards[k]);
   if (es) { es.close(); es = null; }
   document.getElementById('global-status').textContent = '';

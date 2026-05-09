@@ -12,7 +12,9 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import re
 import uuid
+from datetime import date as _date
 from pathlib import Path
 from typing import Any, AsyncGenerator
 
@@ -64,6 +66,21 @@ _NODE_META: dict[str, dict[str, str]] = {
 
 _STAGE_ORDER = ["spec_parser", "researcher", "circuit_designer",
                 "layout_generator", "verifier", "summarizer"]
+
+# ── Output folder naming ───────────────────────────────────────────────────────
+
+def _make_output_slug(design: str, job_id: str) -> str:
+    """
+    Build a human-readable output folder name.
+    Example: "5 GHz cascode LNA — gf180, NF < 2 dB" + id →
+             "5_ghz_cascode_lna_gf180_nf_2_db_2026-05-09_dd938b"
+    """
+    clean = re.sub(r'[^a-zA-Z0-9\s]', ' ', design)   # strip special chars
+    clean = re.sub(r'\s+', '_', clean.strip()).lower() # collapse spaces
+    clean = re.sub(r'_+', '_', clean).strip('_')[:45]  # dedupe underscores
+    today = _date.today().strftime('%Y-%m-%d')
+    return f"{clean}_{today}_{job_id[:6]}"
+
 
 # ── In-memory store ────────────────────────────────────────────────────────────
 _JOBS: dict[str, dict[str, Any]] = {}
@@ -133,8 +150,9 @@ async def start_design(req: DesignRequest):
     from gelochip.agent.graph import build_graph, create_initial_state
     from gelochip.agent.output_manager import OutputManager
 
-    # Create per-job output directory
-    om = OutputManager(job_id, root=OUTPUT_DIR)
+    # Create per-job output directory: outputs/{slug}_{date}_{short_id}/
+    slug = _make_output_slug(req.design, job_id)
+    om = OutputManager(slug, root=OUTPUT_DIR)
 
     interrupt_nodes = ["spec_parser", "researcher", "circuit_designer",
                        "layout_generator", "verifier"]
@@ -152,6 +170,7 @@ async def start_design(req: DesignRequest):
 
     _JOBS[job_id] = {
         "id":             job_id,
+        "slug":           slug,
         "design":         req.design,
         "pdk":            req.pdk,
         "status":         "running",
@@ -292,7 +311,8 @@ async def _run_stage(job_id: str) -> None:
     first = job.pop("first_run", False)
     initial_state = job.pop("initial_state", None) if first else None
 
-    in_think:   set[str] = set()
+    in_think:    set[str] = set()
+    in_response: set[str] = set()   # run_ids whose response stream has started
     current_node: str | None = None
 
     try:
@@ -348,7 +368,7 @@ async def _run_stage(job_id: str) -> None:
                     "output": str(out)[:1200],
                 })
 
-            # ── LLM token stream — thinking detection ─────────────────────
+            # ── LLM token stream — thinking + response streaming ─────────
             elif kind == "on_chat_model_stream":
                 chunk = event["data"].get("chunk")
                 if not (chunk and hasattr(chunk, "content") and chunk.content):
@@ -370,9 +390,22 @@ async def _run_stage(job_id: str) -> None:
                     if before.strip():
                         await queue.put({"type": "think_token", "run_id": run_id, "token": before})
                     await queue.put({"type": "think_end", "run_id": run_id})
+                    # Any text after </think> starts the response stream
+                    rest = token.split("</think>", 1)[1]
+                    if rest:
+                        in_response.add(run_id)
+                        await queue.put({"type": "response_start", "run_id": run_id, "node": current_node})
+                        await queue.put({"type": "response_token", "run_id": run_id, "token": rest})
 
                 elif run_id in in_think:
                     await queue.put({"type": "think_token", "run_id": run_id, "token": token})
+
+                else:
+                    # Normal response token (Claude, Gemini, GPT — no think tags)
+                    if run_id not in in_response:
+                        in_response.add(run_id)
+                        await queue.put({"type": "response_start", "run_id": run_id, "node": current_node})
+                    await queue.put({"type": "response_token", "run_id": run_id, "token": token})
 
         # ── After stream ends: check graph state ──────────────────────────
         if _MEMORY:
@@ -397,6 +430,19 @@ async def _run_stage(job_id: str) -> None:
         job["status"] = "error"
         await queue.put({"type": "error", "message": str(e)})
         await queue.put(None)
+
+
+# ── Path → URL helper ─────────────────────────────────────────────────────────
+
+def _path_to_url(abs_path: str | None) -> str | None:
+    """Convert an absolute output-dir path to a /output/... web URL."""
+    if not abs_path:
+        return None
+    try:
+        rel = Path(abs_path).relative_to(OUTPUT_DIR)
+        return f"/output/{rel.as_posix()}"
+    except ValueError:
+        return None  # not under OUTPUT_DIR — can't serve it
 
 
 # ── Node detail / summary helpers ──────────────────────────────────────────────
@@ -438,12 +484,13 @@ def _node_detail(node: str, output: dict) -> dict:
         raw = output.get("retrieved_papers") or []
         d["papers"] = [
             {
-                "title":    p.get("title", ""),
-                "authors":  p.get("authors", []),
-                "abstract": (p.get("summary") or p.get("abstract", ""))[:400],
-                "pdf_url":  p.get("pdf_url", ""),
+                "title":     p.get("title", ""),
+                "authors":   p.get("authors", []),
+                "abstract":  (p.get("summary") or p.get("abstract", ""))[:400],
+                "pdf_url":   p.get("pdf_url", ""),
+                "pdf_local": _path_to_url(p.get("pdf_local")),
                 "published": p.get("published", ""),
-                "images":   p.get("images", []),
+                "images":    [u for u in (_path_to_url(img) for img in p.get("images", [])) if u],
             }
             for p in raw[:6]
         ]

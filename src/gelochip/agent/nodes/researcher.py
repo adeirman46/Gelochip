@@ -49,7 +49,14 @@ def researcher_node(state: GelochipAgentState, llm) -> GelochipAgentState:
                 from pathlib import Path
                 fig_dir = str(Path(output_dir) / "papers" / arxiv_id)
             else:
-                fig_dir = f"/tmp/gelochip_output/paper_figures/{arxiv_id}"
+                from pathlib import Path
+                _pkg = Path(__file__).resolve()
+                for _p in _pkg.parents:
+                    if (_p / "pyproject.toml").exists():
+                        fig_dir = str(_p / "outputs" / "papers" / arxiv_id)
+                        break
+                else:
+                    fig_dir = str(Path.cwd() / "outputs" / "papers" / arxiv_id)
             try:
                 figs = download_paper_figures.invoke({
                     "pdf_url":     pdf_url,
@@ -57,9 +64,11 @@ def researcher_node(state: GelochipAgentState, llm) -> GelochipAgentState:
                     "max_figures": 3,
                     "output_dir":  fig_dir,
                 })
-                paper["images"] = figs.get("saved_paths", [])
+                paper["images"]    = figs.get("saved_paths", [])
+                paper["pdf_local"] = figs.get("pdf_path")
             except Exception:
-                paper["images"] = []
+                paper["images"]    = []
+                paper["pdf_local"] = None
         else:
             paper["images"] = []
 

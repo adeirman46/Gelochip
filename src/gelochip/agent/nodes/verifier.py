@@ -36,7 +36,17 @@ def verifier_node(state: GelochipAgentState, llm) -> GelochipAgentState:
 
     # ── Step 1: was code compilation already failing? ──────────────────────────
     output_dir = state.get("output_dir")
-    layout_out = str(Path(output_dir) / "layout") if output_dir else "/tmp/gelochip_output"
+    if output_dir:
+        layout_out = str(Path(output_dir) / "layout")
+    else:
+        _pkg = Path(__file__).resolve()
+        for _p in _pkg.parents:
+            if (_p / "pyproject.toml").exists():
+                layout_out = str(_p / "outputs" / "layout")
+                break
+        else:
+            layout_out = str(Path.cwd() / "outputs" / "layout")
+    Path(layout_out).mkdir(parents=True, exist_ok=True)
 
     code_error = layout_result.get("error")
     if code_error and correction_count < max_corrections:

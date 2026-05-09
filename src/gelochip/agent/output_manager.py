@@ -14,6 +14,7 @@ Directory layout for one job::
     ├── papers/
     │   ├── papers.json       – metadata for all retrieved papers
     │   └── {arxiv_id}/
+    │       ├── paper.pdf     – downloaded paper PDF
     │       ├── fig_0.png
     │       └── fig_1.png
     ├── layout/
@@ -153,13 +154,18 @@ class OutputManager:
             p = self.root / rel
             if p.exists():
                 out["files"][rel] = str(p)
-        # paper figures
-        paper_figs = []
-        for paper_dir in self.papers_dir.iterdir():
-            if paper_dir.is_dir():
-                paper_figs.extend(str(f) for f in sorted(paper_dir.glob("*.png")))
+        # paper figures and PDFs
+        paper_figs: list[str] = []
+        paper_pdfs: list[str] = []
+        if self.papers_dir.is_dir():
+            for paper_dir in self.papers_dir.iterdir():
+                if paper_dir.is_dir():
+                    paper_figs.extend(str(f) for f in sorted(paper_dir.glob("*.png")))
+                    paper_pdfs.extend(str(f) for f in sorted(paper_dir.glob("*.pdf")))
         if paper_figs:
             out["files"]["paper_figures"] = paper_figs
+        if paper_pdfs:
+            out["files"]["paper_pdfs"] = paper_pdfs
         return out
 
     # ── Internal ─────────────────────────────────────────────────────────────

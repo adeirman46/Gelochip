@@ -27,7 +27,7 @@ dependencies = [
     "PySpice>=1.5",
     "schemdraw>=0.17",
     "svgutils>=0.3.4",
-    "numpy>=1.24.0",
+    "numpy>=1.24.0,<2.0",  # gdsfactory<8.0 uses np.float_ which was removed in numpy 2.0
     "pandas>=2.0.0",
     "matplotlib>=3.7.0",
     "scipy>=1.11.0",
@@ -90,6 +90,9 @@ notebooks = [
     "jupyter>=1.0.0",
     "ipykernel>=6.29.0",
     "jupyterlab>=4.2.0",
+    "gymnasium>=0.29.0,<1.0",   # 1.x has C extensions compiled against numpy 2.x
+    "stable-baselines3>=2.3.0,<2.4.0",  # 2.4+ requires gymnasium>=1.0
+    "nbconvert>=7.0.0",
 ]
 
 [project.scripts]

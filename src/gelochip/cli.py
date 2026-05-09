@@ -36,7 +36,7 @@ def ui(
 def design(
     request: str = typer.Argument(..., help="Natural language circuit design request"),
     pdk: str = typer.Option("sky130", help="Target PDK"),
-    output: str = typer.Option("/tmp/gelochip_output", help="Output directory"),
+    output: str = typer.Option("", help="Output directory (default: <project>/outputs/)"),
 ):
     """Run the Gelochip agent on a design request (CLI mode)."""
     from gelochip.agent.graph import build_graph, create_initial_state

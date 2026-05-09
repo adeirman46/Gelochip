@@ -52,43 +52,53 @@ def download_paper_figures(
     output_dir: str | None = None,
 ) -> dict:
     """
-    Download an ArXiv paper PDF and extract figures (circuit diagrams).
+    Download an ArXiv paper PDF, save it, and extract figures (circuit diagrams).
 
     Uses PyMuPDF (fitz) to extract images from the PDF pages.
     Images are filtered to >100x100 pixels to skip decorative elements.
+    The PDF itself is saved as paper.pdf alongside the figures.
 
     Args:
         pdf_url:     Direct URL to the PDF (e.g. https://arxiv.org/pdf/2301.12345).
         paper_id:    ArXiv paper ID (used as the output sub-directory name).
         max_figures: Maximum number of figures to extract (default 4).
-        output_dir:  Where to save figures. Defaults to
+        output_dir:  Where to save figures and PDF. Defaults to
                      /tmp/gelochip_output/paper_figures/{paper_id}.
 
     Returns:
         Dict with keys:
             saved_paths (list[str]): Absolute paths to saved PNG files.
+            pdf_path    (str|None):  Absolute path to the saved PDF file.
             count       (int):       Number of figures successfully extracted.
             error       (str|None):  Error message, or None on success.
     """
     try:
         import fitz  # PyMuPDF
     except ImportError:
-        return {"saved_paths": [], "count": 0, "error": "PyMuPDF not installed. Run: pip install pymupdf"}
+        return {"saved_paths": [], "pdf_path": None, "count": 0, "error": "PyMuPDF not installed. Run: pip install pymupdf"}
 
     try:
         import httpx
     except ImportError:
-        return {"saved_paths": [], "count": 0, "error": "httpx not installed. Run: pip install httpx"}
+        return {"saved_paths": [], "pdf_path": None, "count": 0, "error": "httpx not installed. Run: pip install httpx"}
 
+    import shutil
     import tempfile
 
     if output_dir:
         fig_dir = Path(output_dir)
     else:
-        fig_dir = Path("/tmp/gelochip_output/paper_figures") / paper_id
+        _here = Path(__file__).resolve()
+        for _p in _here.parents:
+            if (_p / "pyproject.toml").exists():
+                fig_dir = _p / "outputs" / "papers" / paper_id
+                break
+        else:
+            fig_dir = Path.cwd() / "outputs" / "papers" / paper_id
     fig_dir.mkdir(parents=True, exist_ok=True)
 
     saved_paths: list[str] = []
+    pdf_save_path: str | None = None
 
     try:
         # Download the PDF to a temporary file
@@ -101,6 +111,11 @@ def download_paper_figures(
             tmp_pdf_path = tmp_pdf.name
 
         try:
+            # Save a permanent copy of the PDF
+            dest_pdf = fig_dir / "paper.pdf"
+            shutil.copy2(tmp_pdf_path, str(dest_pdf))
+            pdf_save_path = str(dest_pdf)
+
             doc = fitz.open(tmp_pdf_path)
             figure_index = 0
 
@@ -143,10 +158,10 @@ def download_paper_figures(
         finally:
             Path(tmp_pdf_path).unlink(missing_ok=True)
 
-        return {"saved_paths": saved_paths, "count": len(saved_paths), "error": None}
+        return {"saved_paths": saved_paths, "pdf_path": pdf_save_path, "count": len(saved_paths), "error": None}
 
     except Exception as exc:
-        return {"saved_paths": saved_paths, "count": len(saved_paths), "error": str(exc)}
+        return {"saved_paths": saved_paths, "pdf_path": pdf_save_path, "count": len(saved_paths), "error": str(exc)}
 
 
 @tool

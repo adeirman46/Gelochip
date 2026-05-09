@@ -17,9 +17,28 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
 
     If execution fails, routes to the verifier node for correction.
     """
+    from pathlib import Path
+
     spec   = state.get("circuit_spec", {})
     params = state.get("component_params", {})
     blocks = list_available_blocks.invoke({})
+
+    # Resolve output directory BEFORE building the prompt so the correct path
+    # is injected into the LLM instruction (not a hardcoded /tmp path).
+    output_dir = state.get("output_dir")
+    if output_dir:
+        layout_out = str(Path(output_dir) / "layout")
+        Path(layout_out).mkdir(parents=True, exist_ok=True)
+    else:
+        # Fallback: project outputs/ next to this package
+        _pkg = Path(__file__).resolve()
+        for _p in _pkg.parents:
+            if (_p / "pyproject.toml").exists():
+                layout_out = str(_p / "outputs" / "layout")
+                break
+        else:
+            layout_out = str(Path.cwd() / "outputs" / "layout")
+        Path(layout_out).mkdir(parents=True, exist_ok=True)
 
     messages = [
         {"role": "system", "content": LAYOUT_GENERATOR_PROMPT},
@@ -30,7 +49,7 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
                 f"Component params:\n{json.dumps(params, indent=2)}\n\n"
                 f"Available Gelochip functions:\n{json.dumps(blocks, indent=2)}\n\n"
                 "Write complete runnable Python code to generate the GDS layout. "
-                "Save the GDS to '/tmp/gelochip_output/output.gds'. "
+                f"Save the GDS to '{layout_out}/output.gds'. "
                 "Return ONLY Python code, no markdown."
             ),
         },
@@ -43,15 +62,6 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         python_code = python_code.split("```python")[1].split("```")[0].strip()
     elif "```" in python_code:
         python_code = python_code.split("```")[1].strip()
-
-    # Determine output directory
-    output_dir = state.get("output_dir")
-    if output_dir:
-        from pathlib import Path
-        layout_out = str(Path(output_dir) / "layout")
-        Path(layout_out).mkdir(parents=True, exist_ok=True)
-    else:
-        layout_out = "/tmp/gelochip_output"
 
     # Execute the generated code
     exec_result = execute_layout_code.invoke({

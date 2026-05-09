@@ -8,6 +8,7 @@ import json
 import subprocess
 import tempfile
 import os
+from pathlib import Path
 from typing import Any
 
 from langchain_core.tools import tool
@@ -116,8 +117,21 @@ def get_pdk_info(pdk_name: str) -> dict[str, Any]:
     return pdks.get(pdk_name.lower(), {"error": f"Unknown PDK: {pdk_name}. Use sky130/gf180/ihp130"})
 
 
+def _default_layout_out() -> str:
+    """Return <project_root>/outputs/layout or cwd/outputs/layout as fallback."""
+    _here = Path(__file__).resolve()
+    for _p in _here.parents:
+        if (_p / "pyproject.toml").exists():
+            d = _p / "outputs" / "layout"
+            d.mkdir(parents=True, exist_ok=True)
+            return str(d)
+    d = Path.cwd() / "outputs" / "layout"
+    d.mkdir(parents=True, exist_ok=True)
+    return str(d)
+
+
 @tool
-def execute_layout_code(python_code: str, output_dir: str = "/tmp/gelochip_output") -> dict[str, Any]:
+def execute_layout_code(python_code: str, output_dir: str = "") -> dict[str, Any]:
     """
     Execute generated GLayout Python code and return results.
 
@@ -131,6 +145,8 @@ def execute_layout_code(python_code: str, output_dir: str = "/tmp/gelochip_outpu
     Returns:
         Dict with keys: success, stdout, stderr, gds_files, error.
     """
+    if not output_dir:
+        output_dir = _default_layout_out()
     os.makedirs(output_dir, exist_ok=True)
     with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
         f.write(python_code)
