@@ -97,6 +97,7 @@ except ImportError:
 class DesignRequest(BaseModel):
     design: str
     pdk: str = "gf180"
+    mode: str = "auto"   # "auto" | "manual"
 
 
 # ── LLM factory ───────────────────────────────────────────────────────────────
@@ -156,10 +157,11 @@ async def start_design(req: DesignRequest):
 
     interrupt_nodes = ["spec_parser", "researcher", "circuit_designer",
                        "layout_generator", "verifier"]
+    use_interrupts = (req.mode == "manual") and (_MEMORY is not None)
     graph = build_graph(
         llm=llm,
         checkpointer=_MEMORY,
-        interrupt_after=interrupt_nodes if _MEMORY else None,
+        interrupt_after=interrupt_nodes if use_interrupts else None,
     )
     initial_state = create_initial_state(
         user_request=req.design,
@@ -173,6 +175,7 @@ async def start_design(req: DesignRequest):
         "slug":           slug,
         "design":         req.design,
         "pdk":            req.pdk,
+        "mode":           req.mode,
         "status":         "running",
         "graph":          graph,
         "config":         thread_cfg,

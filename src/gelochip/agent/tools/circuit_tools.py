@@ -6,10 +6,27 @@ These tools bridge the LLM to the Gelochip building-block library.
 from __future__ import annotations
 import json
 import subprocess
+import sys
 import tempfile
 import os
 from pathlib import Path
 from typing import Any
+
+# Directory that contains the vendored glayout package (src/gelochip/).
+# Injected as sys.path prologue in every subprocess so `import glayout` works.
+_HERE = Path(__file__).resolve()
+_GELOCHIP_SRC: str | None = None
+for _p in _HERE.parents:
+    if (_p / "glayout").is_dir():
+        _GELOCHIP_SRC = str(_p)
+        break
+
+_PATH_PROLOGUE = (
+    f"import sys as _sys\n"
+    f"if {_GELOCHIP_SRC!r} not in _sys.path:\n"
+    f"    _sys.path.insert(0, {_GELOCHIP_SRC!r})\n"
+    f"del _sys\n\n"
+) if _GELOCHIP_SRC else ""
 
 from langchain_core.tools import tool
 
@@ -149,12 +166,12 @@ def execute_layout_code(python_code: str, output_dir: str = "") -> dict[str, Any
         output_dir = _default_layout_out()
     os.makedirs(output_dir, exist_ok=True)
     with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
-        f.write(python_code)
+        f.write(_PATH_PROLOGUE + python_code)
         tmp_path = f.name
 
     try:
         result = subprocess.run(
-            ["python", tmp_path],
+            [sys.executable, tmp_path],
             capture_output=True,
             text=True,
             timeout=120,

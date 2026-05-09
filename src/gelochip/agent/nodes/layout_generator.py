@@ -69,7 +69,7 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         "output_dir": layout_out,
     })
 
-    gds_file = exec_result.get("gds_files", [None])[0]
+    gds_file = (exec_result.get("gds_files") or [None])[0]
 
     # Save layout code
     if output_dir:

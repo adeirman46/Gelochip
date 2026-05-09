@@ -546,6 +546,42 @@ select#pdk-select:focus { border-color: var(--primary); }
 .final-answer th { background:var(--surface2); color:var(--text2); font-weight:600; }
 .final-answer strong { color:var(--text); font-weight:600; }
 
+/* ── Mode toggle ── */
+.mode-seg {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+.mode-opt {
+  flex: 1;
+  text-align: center;
+  padding: 5px 6px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .18s;
+  user-select: none;
+  white-space: nowrap;
+}
+.mode-opt:hover { color: var(--text2); }
+.mode-opt.active {
+  background: var(--surface3);
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+.mode-desc {
+  font-size: 10.5px;
+  color: var(--text3);
+  line-height: 1.5;
+  margin-top: 4px;
+  min-height: 30px;
+}
+
 /* ── Continue button ── */
 .continue-wrap {
   padding: 16px 18px;
@@ -749,6 +785,14 @@ select#pdk-select:focus { border-color: var(--primary); }
           </select>
         </div>
       </div>
+      <div>
+        <div class="s-label" style="margin-bottom:6px">Execution Mode</div>
+        <div class="mode-seg">
+          <div class="mode-opt active" id="mode-auto" onclick="setMode('auto')">⚡ Auto</div>
+          <div class="mode-opt"        id="mode-manual" onclick="setMode('manual')">👁 Manual Review</div>
+        </div>
+        <div class="mode-desc" id="mode-desc">Runs all stages automatically to completion.</div>
+      </div>
       <button id="run-btn" onclick="startDesign()">
         <span>▶</span> Run Pipeline
       </button>
@@ -821,6 +865,7 @@ select#pdk-select:focus { border-color: var(--primary); }
 let jobId        = null;
 let es           = null;
 let activeNode   = null;
+let currentMode  = 'auto';   // 'auto' | 'manual'
 const toolCards    = {};
 const thinkBlocks  = {};
 const respBlocks   = {};   // run_id → response block element
@@ -837,6 +882,18 @@ const NODE_META = {
   verifier:         {label:'Verifier',         icon:'🔬', color:'#ec4899', bg:'rgba(236,72,153,.12)'},
   summarizer:       {label:'Summarizer',       icon:'✍️',  color:'#8b5cf6', bg:'rgba(139,92,246,.12)'},
 };
+
+/* ── MODE TOGGLE ── */
+const MODE_DESC = {
+  auto:   'Runs all stages automatically to completion.',
+  manual: 'Pauses after each stage — you must press Continue to proceed.',
+};
+function setMode(m) {
+  currentMode = m;
+  document.getElementById('mode-auto').classList.toggle('active', m === 'auto');
+  document.getElementById('mode-manual').classList.toggle('active', m === 'manual');
+  document.getElementById('mode-desc').textContent = MODE_DESC[m];
+}
 
 /* ── EXAMPLES ── */
 function setExample(btn) {
@@ -894,7 +951,7 @@ async function startDesign() {
     const resp = await fetch('/api/design', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({design, pdk}),
+      body: JSON.stringify({design, pdk, mode: currentMode}),
     });
     if (!resp.ok) throw new Error(await resp.text());
     const data = await resp.json();
@@ -940,6 +997,11 @@ function handleEvent(ev) {
 
 /* ── NODE START ── */
 function onNodeStart(ev) {
+  // Guard: SSE reconnect replays all buffered events — skip if card exists
+  if (document.getElementById('card-' + ev.node)) {
+    activeNode = ev.node;
+    return;
+  }
   activeNode = ev.node;
   const meta = NODE_META[ev.node] || {label:ev.node, icon:'●', color:'#888', bg:'rgba(128,128,128,.1)'};
   setPip(ev.node, 'running');
@@ -977,6 +1039,8 @@ function onNodeStart(ev) {
 function onNodeEnd(ev) {
   const card = nodeCards[ev.node];
   if (!card) return;
+  // Guard: skip if card already finalized (SSE replay)
+  if (card.className.includes('done')) return;
   card.className = 'stage-card done';
 
   const badge = document.getElementById('card-badge-' + ev.node);
@@ -1010,6 +1074,7 @@ function onNodeEnd(ev) {
 
 /* ── TOOL START ── */
 function onToolStart(ev) {
+  if (document.getElementById('tool-' + ev.run_id)) return;  // SSE replay guard
   const body = document.getElementById('card-body-' + (ev.node || activeNode));
   if (!body) return;
   body.querySelectorAll('.skeleton').forEach(s => s.remove());
@@ -1052,6 +1117,7 @@ function toggleTool(header) {
 
 /* ── THINK START ── */
 function onThinkStart(ev) {
+  if (document.getElementById('think-' + ev.run_id)) return;  // SSE replay guard
   const body = document.getElementById('card-body-' + (ev.node || activeNode));
   if (!body) return;
   body.querySelectorAll('.skeleton').forEach(s => s.remove());
@@ -1088,6 +1154,7 @@ function onThinkEnd(ev) {
 
 /* ── RESPONSE START ── */
 function onResponseStart(ev) {
+  if (document.getElementById('resp-' + ev.run_id)) return;  // SSE replay guard
   const body = document.getElementById('card-body-' + (ev.node || activeNode));
   if (!body) return;
   body.querySelectorAll('.skeleton').forEach(s => s.remove());
@@ -1146,9 +1213,9 @@ function onAwaitingApproval(ev) {
   inner.appendChild(wrap);
   card.scrollIntoView({behavior:'smooth', block:'end'});
 
-  document.getElementById('global-status').textContent = 'Paused — click Continue to proceed';
+  document.getElementById('global-status').textContent = '⏸ Paused — review and click Continue';
   document.getElementById('js-status').textContent = 'paused';
-  document.getElementById('run-btn').disabled = false;
+  // Keep run-btn DISABLED while paused — user must click Continue, not Run again
 }
 
 async function continueJob(nextNode, nextLabel, nextIcon) {
