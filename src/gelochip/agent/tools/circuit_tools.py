@@ -1,0 +1,240 @@
+"""
+Circuit-level tools exposed to the LangGraph agent.
+
+These tools bridge the LLM to the Gelochip building-block library.
+"""
+from __future__ import annotations
+import json
+import subprocess
+import tempfile
+import os
+from typing import Any
+
+from langchain_core.tools import tool
+
+
+@tool
+def list_available_blocks() -> dict[str, list[str]]:
+    """
+    List all available Gelochip building blocks by category.
+
+    Returns a dict with categories: primitives, blocks, cells.
+    Each entry is a list of function names with brief descriptions.
+    """
+    return {
+        "primitives": [
+            "nmos(pdk, width, length, fingers, multipliers, ...) → NMOS transistor",
+            "pmos(pdk, width, length, fingers, multipliers, ...) → PMOS transistor",
+            "resistor(pdk, res_type, width, length) → Poly/metal resistor",
+            "capacitor(pdk, width, length) → MIM capacitor",
+            "mimcap(pdk, width, length, rows, columns) → MIM capacitor array",
+            "inductor(pdk, turns, inner_diameter, width) → Spiral inductor (stub)",
+            "via_stack(pdk, glayer_start, glayer_end) → Via stack",
+            "via_array(pdk, glayer_start, glayer_end, size) → Via array",
+            "guard_ring(pdk, enclosed_rectangle) → Substrate tap ring",
+        ],
+        "blocks": [
+            "current_mirror(pdk, mirror_ratio, ref_width, n_or_p, ...) → Basic current mirror",
+            "cascode_current_mirror(pdk, mirror_ratio, ref_width, cascode_width, ...) → Cascode mirror",
+            "wilson_current_mirror(pdk, mirror_ratio, ref_width, ...) → Wilson mirror",
+            "diff_pair(pdk, width, fingers, tail_current_width, n_or_p, ...) → Differential pair",
+            "folded_cascode(pdk, input_width, cascode_width, load_width, ...) → Folded cascode",
+            "common_source(pdk, width, fingers, load_type, ...) → CS amplifier stage",
+            "common_gate(pdk, width, fingers, ...) → CG amplifier stage",
+            "common_drain(pdk, width, fingers, ...) → Source follower",
+            "current_bias(pdk, ref_width, mirror_ratio, ...) → Beta-multiplier bias",
+            "bandgap_vref(pdk, ptat_width, ctat_width, ...) → Bandgap reference",
+        ],
+        "cells": [
+            "two_stage_opamp(pdk, diff_pair_width, diff_pair_fingers, cs_width, ...) → 2-stage OTA",
+            "folded_cascode_opamp(pdk, input_width, input_fingers, ...) → FC-OTA",
+            "lna_cascode(pdk, gm_width, gm_fingers, cas_width, ...) → Cascode LNA",
+            "lna_inductively_degenerated(pdk, gm_width, gm_fingers, ls_turns, lg_turns, ...) → Ind. deg. LNA",
+            "gilbert_cell_mixer(pdk, rf_width, lo_width, load_width, ...) → Gilbert cell mixer",
+            "passive_mixer(pdk, switch_width, switch_fingers, ...) → Passive CMOS mixer",
+            "lc_vco(pdk, xcp_width, xcp_fingers, inductor_turns, ...) → LC VCO",
+            "ring_vco(pdk, num_stages, inv_n_width, inv_p_width, ...) → Ring VCO",
+        ],
+    }
+
+
+@tool
+def get_pdk_info(pdk_name: str) -> dict[str, Any]:
+    """
+    Get key design rules and parameters for a PDK.
+
+    Args:
+        pdk_name: One of "gf180" (default), "sky130", "ihp130".
+
+    Returns:
+        Dict with Lmin, VDD, metal layers, and key design rules.
+    """
+    pdks = {
+        "gf180": {
+            "full_name": "GlobalFoundries GF180MCU 180nm  ← DEFAULT",
+            "lmin_um": 0.18,
+            "vdd_v": [1.8, 3.3, 5.0],
+            "metals": ["metal1", "metal2", "metal3", "metal4", "metal5"],
+            "nfet_model": "nfet_03v3",
+            "pfet_model": "pfet_03v3",
+            "bjt_models": ["npn_10x10", "pnp_10x10"],
+            "ft_GHz": 20,
+            "fmax_GHz": 40,
+            "notes": (
+                "DEFAULT PDK for Gelochip. Open-source (Google/efabless). "
+                "Has BJT support for bandgap circuits. 1.8V/3.3V/5V options. "
+                "Import: from gelochip.glayout.pdk.gf180_mapped import gf180_mapped_pdk"
+            ),
+        },
+        "sky130": {
+            "full_name": "SkyWater SKY130 130nm",
+            "lmin_um": 0.15,
+            "vdd_v": [1.8, 3.3],
+            "metals": ["li1", "met1", "met2", "met3", "met4", "met5"],
+            "nfet_model": "sky130_fd_pr__nfet_01v8",
+            "pfet_model": "sky130_fd_pr__pfet_01v8",
+            "ft_GHz": 50,
+            "fmax_GHz": 80,
+            "notes": (
+                "Open-source PDK, free DRC/LVS via Magic/Netgen. Well-tested in GLayout. "
+                "Import: from gelochip.glayout.pdk.sky130_mapped import sky130_mapped_pdk"
+            ),
+        },
+        "ihp130": {
+            "full_name": "IHP SG13G2 130nm BiCMOS",
+            "lmin_um": 0.13,
+            "vdd_v": [1.2, 1.5, 3.3],
+            "metals": ["Metal1", "Metal2", "Metal3", "Metal4", "Metal5", "TopMetal1", "TopMetal2"],
+            "nfet_model": "nfet",
+            "pfet_model": "pfet",
+            "hbt_models": ["npn13G2", "npn13G2L"],
+            "ft_GHz": 300,
+            "fmax_GHz": 500,
+            "notes": "High-speed BiCMOS. Best for mmWave/RF above 10GHz. HBT fT=300GHz.",
+        },
+    }
+    return pdks.get(pdk_name.lower(), {"error": f"Unknown PDK: {pdk_name}. Use sky130/gf180/ihp130"})
+
+
+@tool
+def execute_layout_code(python_code: str, output_dir: str = "/tmp/gelochip_output") -> dict[str, Any]:
+    """
+    Execute generated GLayout Python code and return results.
+
+    Runs the code in a subprocess, captures stdout/stderr,
+    and checks for GDS output files.
+
+    Args:
+        python_code: Complete Python code string to execute.
+        output_dir:  Directory where GDS files will be written.
+
+    Returns:
+        Dict with keys: success, stdout, stderr, gds_files, error.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
+        f.write(python_code)
+        tmp_path = f.name
+
+    try:
+        result = subprocess.run(
+            ["python", tmp_path],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            env={**os.environ, "GELOCHIP_OUTPUT_DIR": output_dir},
+        )
+        gds_files = [
+            os.path.join(output_dir, fn)
+            for fn in os.listdir(output_dir)
+            if fn.endswith(".gds")
+        ]
+        return {
+            "success": result.returncode == 0,
+            "stdout": result.stdout[:2000],
+            "stderr": result.stderr[:2000],
+            "gds_files": gds_files,
+            "error": result.stderr if result.returncode != 0 else None,
+        }
+    except subprocess.TimeoutExpired:
+        return {"success": False, "error": "Layout generation timed out (>120s)", "gds_files": []}
+    except Exception as e:
+        return {"success": False, "error": str(e), "gds_files": []}
+    finally:
+        os.unlink(tmp_path)
+
+
+@tool
+def estimate_performance(circuit_spec: dict[str, Any], component_params: dict[str, Any]) -> dict[str, Any]:
+    """
+    Estimate circuit performance using analytical equations.
+
+    Uses hand-analysis equations (gm/ID methodology, Friis, etc.)
+    to give first-order estimates before running SPICE simulation.
+
+    Args:
+        circuit_spec:       Parsed circuit specification dict.
+        component_params:   Sized component parameters dict.
+
+    Returns:
+        Dict with estimated performance metrics.
+    """
+    circuit_type = circuit_spec.get("circuit_type", "")
+    estimates = {}
+
+    if circuit_type == "lna":
+        gm_w = component_params.get("gm_width", 40.0)
+        gm_f = component_params.get("gm_fingers", 10)
+        pdk   = circuit_spec.get("pdk", "sky130")
+        ft = {"gf180": 20e9, "sky130": 50e9, "ihp130": 300e9}.get(pdk, 20e9)
+        total_w_um = gm_w * gm_f
+        id_ma = total_w_um * 0.2
+        gm_mS = 2 * id_ma / 0.3
+        nf_estimate_dB = 1.0 + 10 * (0.3 / gm_mS * 0.02)
+        gain_estimate_dB = 20 + 10 * (gm_mS * 50 / 20)
+        estimates = {
+            "estimated_gm_mS": round(gm_mS, 2),
+            "estimated_id_mA": round(id_ma, 2),
+            "estimated_gain_dB": round(min(gain_estimate_dB, 20), 1),
+            "estimated_nf_dB": round(max(nf_estimate_dB, 0.5), 1),
+            "estimated_power_mW": round(id_ma * circuit_spec.get("vdd_V", 1.8), 2),
+            "ft_GHz": ft / 1e9,
+        }
+
+    elif circuit_type == "opamp":
+        dp_w = component_params.get("diff_pair_width", 6.0)
+        dp_f = component_params.get("diff_pair_fingers", 4)
+        total_w_um = dp_w * dp_f
+        id_ma = total_w_um * 0.1
+        gm_mS = 2 * id_ma / 0.3
+        load_r = 50e3
+        gain_vv = gm_mS * 1e-3 * load_r
+        estimates = {
+            "estimated_gm_mS": round(gm_mS, 2),
+            "estimated_id_mA": round(id_ma, 2),
+            "estimated_dc_gain_dB": round(20 * (gain_vv ** 0.5), 1),
+            "estimated_gbw_MHz": round(gm_mS / (2 * 3.14159 * 1e-12 * 1e6), 1),
+            "estimated_power_mW": round(id_ma * circuit_spec.get("vdd_V", 1.8) * 2, 2),
+        }
+
+    elif circuit_type == "mixer":
+        estimates = {
+            "estimated_conversion_gain_dB": 4.0,
+            "estimated_nf_dB": 12.0,
+            "estimated_iip3_dBm": 5.0,
+            "note": "Analytical mixer estimates require more detail; use SPICE for accuracy.",
+        }
+
+    elif circuit_type == "vco":
+        inductance_pH = 300 * component_params.get("inductor_turns", 3)
+        cap_fF = 200
+        import math
+        f_est_GHz = 1 / (2 * math.pi * math.sqrt(inductance_pH * 1e-12 * cap_fF * 1e-15)) / 1e9
+        estimates = {
+            "estimated_freq_GHz": round(f_est_GHz, 2),
+            "estimated_tuning_range_pct": 15,
+            "note": "Actual frequency depends on varactor tuning curve and parasitics.",
+        }
+
+    estimates["disclaimer"] = "Analytical first-order estimates only. Run SPICE for accurate results."
+    return estimates

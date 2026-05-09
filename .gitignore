@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# uv
+uv.lock
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# GDS / EDA outputs
+*.gds
+*.gds2
+*.oas
+*.mag
+*.spef
+*.sdf
+/tmp/gelochip_output/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+*.log
+logs/
+
+# KLayout
+*.lyt
+*.lym
+
+# SPICE
+*.raw
+*.lis
+*.nutbin
+*.nutascii
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Vector stores (large binary files)
+data/*/faiss_index/
+data/**/*.pkl
+data/**/*.index
+
+# Model weights
+*.pt
+*.bin
+*.safetensors
+
+# Chainlit
+.chainlit/
