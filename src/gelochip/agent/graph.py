@@ -140,8 +140,28 @@ def build_graph(llm=None) -> StateGraph:
 
 
 def _auto_llm():
-    """Pick LLM based on available API keys in environment."""
-    if os.getenv("ANTHROPIC_API_KEY"):
+    """
+    Pick LLM based on environment variables.
+
+    Priority:
+        1. OLLAMA_MODEL      → local Ollama (free, no API key, needs GPU/CPU)
+        2. ANTHROPIC_API_KEY → Claude claude-sonnet-4-6 (best code quality)
+        3. GOOGLE_API_KEY    → Gemini 2.5 Pro
+        4. OPENAI_API_KEY    → GPT-4o
+
+    Local setup (8 GB VRAM, e.g. RTX 4060):
+        ollama pull qwen3.5:9b
+        echo 'OLLAMA_MODEL=qwen3.5:9b' >> .env
+    """
+    if os.getenv("OLLAMA_MODEL"):
+        from langchain_ollama import ChatOllama
+        return ChatOllama(
+            model=os.getenv("OLLAMA_MODEL", "qwen3.5:9b"),
+            base_url=os.getenv("OLLAMA_HOST", "http://localhost:11434"),
+            temperature=0.1,
+            num_ctx=8192,
+        )
+    elif os.getenv("ANTHROPIC_API_KEY"):
         from langchain_anthropic import ChatAnthropic
         return ChatAnthropic(
             model="claude-sonnet-4-6",
@@ -159,7 +179,9 @@ def _auto_llm():
         return ChatOpenAI(model="gpt-4o", temperature=0.1)
     else:
         raise EnvironmentError(
-            "No LLM API key found. Set one of: ANTHROPIC_API_KEY, GOOGLE_API_KEY, OPENAI_API_KEY"
+            "No LLM configured. Options:\n"
+            "  Local (free): set OLLAMA_MODEL=qwen3.5:9b in .env (requires Ollama)\n"
+            "  Cloud:        set ANTHROPIC_API_KEY, GOOGLE_API_KEY, or OPENAI_API_KEY"
         )
 
 

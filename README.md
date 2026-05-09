@@ -19,7 +19,7 @@ Describe the circuit you want in plain English. Gelochip designs, sizes, and gen
 | **Web Interface** | Chainlit — React-based chat UI (not Streamlit) |
 | **REST API** | FastAPI backend with async job queue |
 | **Paper RAG** | ArXiv search for topology knowledge |
-| **LLM Support** | Claude (Anthropic), Gemini (Google), GPT-4o (OpenAI) |
+| **LLM Support** | **Local:** Ollama (qwen3.5:9b, fits 8 GB VRAM) · **Cloud:** Claude, Gemini, GPT-4o |
 
 ---
 
@@ -93,18 +93,37 @@ uv sync --extra ml --extra notebooks
 
 Installs everything (EDA core, AI agent, web UI, ML fine-tuning, Jupyter).
 
-### Step 4 — Configure API keys
+### Step 4 — Configure LLM
 
 ```bash
 cp .env.example .env
 nano .env        # or code .env
 ```
 
+Pick **one** option:
+
+#### Option A — Local with Ollama (free, no internet, 8 GB VRAM)
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Pull the model (~5.2 GB download)
+ollama pull qwen3.5:9b
+```
+
+Then in `.env`:
 ```dotenv
-# .env — at least ONE key required
-ANTHROPIC_API_KEY=sk-ant-...      # Claude claude-sonnet-4-6 (recommended)
-GOOGLE_API_KEY=AIza...            # Gemini 2.5 Pro
-OPENAI_API_KEY=sk-...             # GPT-4o
+OLLAMA_MODEL=qwen3.5:9b        # or qwen3.5:4b for <6 GB VRAM
+# OLLAMA_HOST=http://localhost:11434  # default, change if needed
+```
+
+#### Option B — Cloud API
+
+```dotenv
+ANTHROPIC_API_KEY=sk-ant-...      # Claude claude-sonnet-4-6 (best code quality)
+# GOOGLE_API_KEY=AIza...          # Gemini 2.5 Pro
+# OPENAI_API_KEY=sk-...           # GPT-4o
 ```
 
 ### Step 5 — Set up gf180 PDK
@@ -206,6 +225,65 @@ vco  = lc_vco(pdk, xcp_width=8.0, xcp_fingers=4, inductor_turns=3)
 # Write GDS
 lna.write_gds("lna.gds")
 lna.show()   # open in KLayout
+```
+
+---
+
+## Verification Flow
+
+The agent runs 4 verification stages automatically after generating the layout:
+
+```
+GLayout code
+     │
+     ▼
+① Code execution  ── Python compiles + GDS generated?  ──→ fix & retry (up to 3×)
+     │
+     ▼
+② DRC             ── Design rules pass?                 ──→ report violations
+     │  (Magic VLSI)
+     ▼
+③ LVS             ── Layout matches schematic netlist?  ──→ report mismatches
+     │  (Netgen)
+     ▼
+④ PEX + SPICE     ── Performance meets spec?            ──→ fix sizing & retry
+        (Magic + ngspice)
+```
+
+| Stage | Tool | What it checks | Required |
+|-------|------|---------------|---------|
+| Code | Python | GLayout compiles, GDS produced | Always |
+| DRC | Magic VLSI | Min spacing, width, enclosure | `sudo apt install magic` + `PDK_ROOT` |
+| LVS | Netgen | Layout netlist == schematic | `sudo apt install netgen-lvs` + `PDK_ROOT` |
+| SPICE | ngspice | Gain, NF, phase margin, IIP3, etc. | `sudo apt install ngspice` |
+
+**If Magic/Netgen/ngspice are not installed**, the agent skips those stages gracefully and tells you what to install. The fastest way to get all tools: use the [IIC-OSIC-TOOLS Docker image](https://github.com/iic-jku/iic-osic-tools).
+
+### Running PEX manually
+
+```bash
+# After the agent generates output.gds:
+export PDK_ROOT=/path/to/pdks
+bash scripts/run_pex.sh /tmp/gelochip_output/lna_cascode.gds lna_cascode gf180
+# → produces lna_cascode_pex.spice (with R/C parasitics)
+```
+
+### Running SPICE manually
+
+```python
+from gelochip.verification import generate_testbench, run_simulation, check_specs
+
+tb = generate_testbench(
+    circuit_type="lna",
+    spice_path="lna_cascode_pex.spice",
+    circuit_name="lna_cascode",
+    spec={"vdd_V": 1.8, "freq_GHz": 5.0, "gain_dB": 15.0, "nf_dB": 2.0},
+    pdk="gf180",
+)
+sim    = run_simulation(tb, circuit_type="lna")
+result = check_specs(sim, spec={"gain_dB": 15.0, "nf_dB": 2.0})
+print(result)
+# {'all_passed': True, 'checks': [{'metric': 'gain_dB', 'target': 15.0, 'measured': 16.3, 'passed': True}, ...]}
 ```
 
 ---

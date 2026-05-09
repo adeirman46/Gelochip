@@ -21,8 +21,11 @@ def summarizer_node(state: GelochipAgentState, llm) -> GelochipAgentState:
                 f"Circuit spec: {json.dumps(state.get('circuit_spec', {}), indent=2)}\n\n"
                 f"Component params: {json.dumps(state.get('component_params', {}), indent=2)}\n\n"
                 f"Layout result: {json.dumps(state.get('layout_result', {}), indent=2)}\n\n"
+                f"Simulation result: {json.dumps(state.get('sim_result', {}), indent=2)}\n\n"
                 f"Errors: {state.get('errors', [])}\n\n"
-                "Write the final summary for the user."
+                "Write the final summary. Include: circuit type, topology, PDK, "
+                "component parameters table, DRC/LVS status, "
+                "simulated vs target performance, GDS path, and next steps."
             ),
         },
     ]

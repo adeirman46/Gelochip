@@ -165,6 +165,89 @@ def execute_layout_code(python_code: str, output_dir: str = "/tmp/gelochip_outpu
 
 
 @tool
+def verify_design(
+    gds_path: str,
+    circuit_name: str,
+    circuit_type: str,
+    spec: dict[str, Any],
+    pdk: str = "gf180",
+    run_sim: bool = True,
+) -> dict[str, Any]:
+    """
+    Run the full verification suite on a generated GDS layout.
+
+    Steps:
+        1. DRC  — check geometry against PDK design rules (requires Magic)
+        2. LVS  — verify layout matches schematic netlist   (requires Netgen)
+        3. PEX  — extract parasitics from layout            (requires Magic)
+        4. SPICE — simulate with ngspice, check specs        (requires ngspice)
+
+    Args:
+        gds_path:     Path to the GDS file.
+        circuit_name: Top cell name in the GDS.
+        circuit_type: "lna" | "opamp" | "mixer" | "vco"
+        spec:         Circuit specification dict (vdd_V, freq_GHz, gain_dB, etc.)
+        pdk:          "gf180" (default) | "sky130" | "ihp130"
+        run_sim:      Whether to run ngspice simulation (requires ngspice installed).
+
+    Returns:
+        Dict with keys:
+            drc:           DRC result (is_pass, total_errors)
+            lvs:           LVS result (is_pass, conclusion)
+            sim:           Simulation result (gain_dB, nf_dB, etc.)
+            spec_check:    Spec vs. measured comparison
+            overall_pass:  True if DRC + LVS + all specs met
+            summary:       Human-readable summary string
+    """
+    from pathlib import Path
+
+    result: dict[str, Any] = {}
+    summary_parts = []
+
+    # ── DRC + LVS ─────────────────────────────────────────────────────────────
+    from gelochip.verification.drc_lvs import run_full_verification
+    from gdsfactory.component import Component
+    dummy = Component(circuit_name)
+    drc_lvs = run_full_verification(gds_path, circuit_name, dummy, pdk)
+    result["drc"]     = drc_lvs.get("drc", {})
+    result["lvs"]     = drc_lvs.get("lvs", {})
+    result["physical"]= drc_lvs.get("physical", {})
+    summary_parts.append(drc_lvs.get("summary", ""))
+
+    # ── SPICE simulation ──────────────────────────────────────────────────────
+    if run_sim:
+        pex_spice = Path(gds_path).parent / (Path(gds_path).stem + "_pex.spice")
+        if pex_spice.exists():
+            from gelochip.verification.testbench import generate_testbench
+            from gelochip.verification.simulate import run_simulation, check_specs
+            try:
+                tb  = generate_testbench(circuit_type, str(pex_spice), circuit_name, spec, pdk)
+                sim = run_simulation(tb, circuit_type)
+                chk = check_specs(sim, spec)
+                result["sim"]        = sim
+                result["spec_check"] = chk
+                icon = "✅" if chk["all_passed"] else "❌"
+                summary_parts.append(f"{icon} Sim: {'all specs met' if chk['all_passed'] else 'specs not met'}")
+            except Exception as e:
+                result["sim"] = {"error": str(e)}
+                summary_parts.append(f"⚠️  Sim error: {e}")
+        else:
+            msg = (
+                f"ℹ️  SPICE simulation skipped — no PEX netlist found.\n"
+                f"   Run: bash scripts/run_pex.sh {gds_path} {circuit_name} {pdk}"
+            )
+            result["sim"] = {"skipped": True}
+            summary_parts.append(msg)
+
+    result["overall_pass"] = (
+        drc_lvs.get("drc_lvs_pass", True) and
+        result.get("spec_check", {}).get("all_passed", True)
+    )
+    result["summary"] = "\n".join(summary_parts)
+    return result
+
+
+@tool
 def estimate_performance(circuit_spec: dict[str, Any], component_params: dict[str, Any]) -> dict[str, Any]:
     """
     Estimate circuit performance using analytical equations.
