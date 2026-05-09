@@ -64,6 +64,15 @@ def circuit_designer_node(state: GelochipAgentState, llm) -> GelochipAgentState:
     except Exception:
         pass
 
+    # Save params.json (strips _performance_estimate)
+    if state.get("output_dir"):
+        from gelochip.agent.output_manager import OutputManager
+        from pathlib import Path
+        om = OutputManager.__new__(OutputManager)
+        om.root = Path(state["output_dir"])
+        om._mkdir(om.root)
+        om.save_params(component_params)
+
     return {
         **state,
         "component_params": component_params,

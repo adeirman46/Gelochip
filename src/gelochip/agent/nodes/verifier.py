@@ -35,12 +35,15 @@ def verifier_node(state: GelochipAgentState, llm) -> GelochipAgentState:
     messages         = list(state.get("messages", []))
 
     # ── Step 1: was code compilation already failing? ──────────────────────────
+    output_dir = state.get("output_dir")
+    layout_out = str(Path(output_dir) / "layout") if output_dir else "/tmp/gelochip_output"
+
     code_error = layout_result.get("error")
     if code_error and correction_count < max_corrections:
         fixed_code = _fix_code(llm, layout_result.get("python_code", ""), code_error)
         exec_result = execute_layout_code.invoke({
             "python_code": fixed_code,
-            "output_dir": "/tmp/gelochip_output",
+            "output_dir": layout_out,
         })
         layout_result = {
             "python_code": fixed_code,
@@ -69,6 +72,9 @@ def verifier_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         layout_result["drc_passed"] = drc_lvs_result.get("drc_lvs_pass")
         layout_result["drc_summary"] = drc_lvs_result.get("summary", "")
         messages.append(AIMessage(content=f"DRC/LVS:\n{drc_lvs_result.get('summary', 'skipped')}"))
+        # Save DRC/LVS reports
+        if output_dir:
+            _save_drc_lvs_reports(output_dir, drc_lvs_result)
     else:
         layout_result["drc_passed"] = None
         messages.append(AIMessage(content="DRC/LVS skipped — no GDS file generated."))
@@ -79,17 +85,21 @@ def verifier_node(state: GelochipAgentState, llm) -> GelochipAgentState:
 
     pex_spice = _find_pex_spice(gds_path)
     if pex_spice:
-        sim_result, spec_check = _run_spice(pex_spice, spec)
+        sim_result, spec_check = _run_spice(pex_spice, spec, output_dir=output_dir)
         layout_result["lvs_passed"] = sim_result.get("passed")
         messages.append(AIMessage(
             content=_format_sim_summary(sim_result, spec_check)
         ))
+        if output_dir and not sim_result.get("error"):
+            _save_sim_results(output_dir, sim_result)
     else:
         # No PEX spice → run on schematic-level SPICE if available
         schematic_spice = layout_result.get("spice_netlist")
         if schematic_spice:
-            sim_result, spec_check = _run_spice_from_string(schematic_spice, spec)
+            sim_result, spec_check = _run_spice_from_string(schematic_spice, spec, output_dir=output_dir)
             messages.append(AIMessage(content=_format_sim_summary(sim_result, spec_check)))
+            if output_dir and not sim_result.get("error"):
+                _save_sim_results(output_dir, sim_result)
         else:
             messages.append(AIMessage(
                 content=(
@@ -175,7 +185,7 @@ def _find_pex_spice(gds_path: str) -> str | None:
     return None
 
 
-def _run_spice(pex_spice_path: str, spec: dict):
+def _run_spice(pex_spice_path: str, spec: dict, output_dir: str | None = None):
     """Generate testbench, run ngspice, check specs."""
     from gelochip.verification.testbench import generate_testbench
     from gelochip.verification.simulate import run_simulation, check_specs
@@ -186,6 +196,11 @@ def _run_spice(pex_spice_path: str, spec: dict):
 
     try:
         tb = generate_testbench(circuit_type, pex_spice_path, circuit_name, spec, pdk)
+        # Save testbench
+        if output_dir:
+            tb_path = Path(output_dir) / "verification" / "testbench.sp"
+            tb_path.parent.mkdir(parents=True, exist_ok=True)
+            tb_path.write_text(tb, encoding="utf-8")
         sim = run_simulation(tb, circuit_type)
         chk = check_specs(sim, spec)
         return sim, chk
@@ -193,13 +208,29 @@ def _run_spice(pex_spice_path: str, spec: dict):
         return {"error": str(e), "passed": False}, {"all_passed": False, "checks": []}
 
 
-def _run_spice_from_string(spice_netlist: str, spec: dict):
+def _run_spice_from_string(spice_netlist: str, spec: dict, output_dir: str | None = None):
     """Write schematic netlist to file and simulate."""
     import tempfile
     with tempfile.NamedTemporaryFile(mode="w", suffix=".spice", delete=False) as f:
         f.write(spice_netlist)
         path = f.name
-    return _run_spice(path, spec)
+    return _run_spice(path, spec, output_dir=output_dir)
+
+
+def _save_drc_lvs_reports(output_dir: str, result: dict) -> None:
+    vdir = Path(output_dir) / "verification"
+    vdir.mkdir(parents=True, exist_ok=True)
+    if result.get("drc", {}).get("raw_report"):
+        (vdir / "drc_report.txt").write_text(result["drc"]["raw_report"], encoding="utf-8")
+    if result.get("lvs", {}).get("raw_report"):
+        (vdir / "lvs_report.txt").write_text(result["lvs"]["raw_report"], encoding="utf-8")
+
+
+def _save_sim_results(output_dir: str, sim: dict) -> None:
+    import json
+    vdir = Path(output_dir) / "verification"
+    vdir.mkdir(parents=True, exist_ok=True)
+    (vdir / "sim_results.json").write_text(json.dumps(sim, indent=2, default=str), encoding="utf-8")
 
 
 def _format_sim_summary(sim: dict, chk: dict) -> str:

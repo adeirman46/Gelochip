@@ -44,12 +44,15 @@ dependencies = [
     "sentence-transformers>=3.0.0",
     "arxiv>=2.1.0",
     "crawl4ai>=0.4.0",
-    # Web interface
-    "chainlit>=1.3.0",
+    # Web interface (custom FastAPI + SSE — Chainlit removed)
     "fastapi>=0.111.0",
     "uvicorn[standard]>=0.30.0",
     "httpx>=0.27.0",
     "websockets>=12.0",
+    # MCP server
+    "mcp>=1.0.0",
+    # PDF figure extraction for researcher vision
+    "pymupdf>=1.24.0",
     # Utilities
     "python-dotenv>=1.0.0",
     "pydantic>=2.7.0",

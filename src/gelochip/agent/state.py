@@ -89,3 +89,6 @@ class GelochipAgentState(TypedDict):
 
     # Error accumulation
     errors: list[str]
+
+    # Absolute path to the per-job output directory (set by web_app / CLI)
+    output_dir: Optional[str]

@@ -8,7 +8,7 @@ from langchain_core.messages import AIMessage
 
 from gelochip.agent.state import GelochipAgentState
 from gelochip.agent.prompts import RESEARCHER_PROMPT
-from gelochip.agent.tools.search_tools import arxiv_search
+from gelochip.agent.tools.search_tools import arxiv_search, download_paper_figures
 
 
 def researcher_node(state: GelochipAgentState, llm) -> GelochipAgentState:
@@ -17,7 +17,8 @@ def researcher_node(state: GelochipAgentState, llm) -> GelochipAgentState:
 
     1. Builds an ArXiv query from the circuit spec.
     2. Retrieves top papers.
-    3. Asks the LLM to synthesize topology recommendations.
+    3. Attempts to extract figures from up to 3 papers via PyMuPDF.
+    4. Asks the LLM to synthesize topology recommendations.
     """
     spec = state.get("circuit_spec", {})
     circuit_type = spec.get("circuit_type", "analog circuit")
@@ -36,6 +37,31 @@ def researcher_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         papers = arxiv_search.invoke({"query": query, "max_results": 5})
     except Exception as e:
         papers = [{"title": "ArXiv unavailable", "summary": str(e)}]
+
+    # Attempt to extract figures from the first 3 papers
+    output_dir = state.get("output_dir")
+    for paper in papers[:3]:
+        pdf_url = paper.get("pdf_url", "")
+        if pdf_url:
+            arxiv_id = pdf_url.rstrip("/").split("/")[-1]
+            # Determine figure output directory
+            if output_dir:
+                from pathlib import Path
+                fig_dir = str(Path(output_dir) / "papers" / arxiv_id)
+            else:
+                fig_dir = f"/tmp/gelochip_output/paper_figures/{arxiv_id}"
+            try:
+                figs = download_paper_figures.invoke({
+                    "pdf_url":     pdf_url,
+                    "paper_id":    arxiv_id,
+                    "max_figures": 3,
+                    "output_dir":  fig_dir,
+                })
+                paper["images"] = figs.get("saved_paths", [])
+            except Exception:
+                paper["images"] = []
+        else:
+            paper["images"] = []
 
     # Ask LLM to synthesize topology recommendations
     messages = [
@@ -57,6 +83,15 @@ def researcher_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         research_result = json.loads(clean)
     except json.JSONDecodeError:
         research_result = {"raw_recommendation": content, "papers": papers}
+
+    # Save papers metadata
+    if output_dir:
+        from gelochip.agent.output_manager import OutputManager
+        from pathlib import Path
+        om = OutputManager.__new__(OutputManager)
+        om.root = Path(output_dir)
+        om._mkdir(om.root / "papers")
+        om.save_papers(papers)
 
     return {
         **state,

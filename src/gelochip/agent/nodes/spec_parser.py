@@ -34,6 +34,15 @@ def spec_parser_node(state: GelochipAgentState, llm) -> GelochipAgentState:
             "next_node": "summarizer",
         }
 
+    # Persist spec.json
+    if state.get("output_dir"):
+        from gelochip.agent.output_manager import OutputManager
+        from pathlib import Path
+        om = OutputManager.__new__(OutputManager)
+        om.root = Path(state["output_dir"])
+        om._mkdir(om.root)
+        om.save_spec(spec)
+
     return {
         **state,
         "circuit_spec": spec,

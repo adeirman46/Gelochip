@@ -6,6 +6,7 @@ Search tools for the Gelochip agent.
 """
 from __future__ import annotations
 import asyncio
+from pathlib import Path
 from typing import Any
 
 import arxiv
@@ -41,6 +42,111 @@ def arxiv_search(query: str, max_results: int = 5) -> list[dict[str, Any]]:
             "categories": paper.categories,
         })
     return results
+
+
+@tool
+def download_paper_figures(
+    pdf_url: str,
+    paper_id: str,
+    max_figures: int = 4,
+    output_dir: str | None = None,
+) -> dict:
+    """
+    Download an ArXiv paper PDF and extract figures (circuit diagrams).
+
+    Uses PyMuPDF (fitz) to extract images from the PDF pages.
+    Images are filtered to >100x100 pixels to skip decorative elements.
+
+    Args:
+        pdf_url:     Direct URL to the PDF (e.g. https://arxiv.org/pdf/2301.12345).
+        paper_id:    ArXiv paper ID (used as the output sub-directory name).
+        max_figures: Maximum number of figures to extract (default 4).
+        output_dir:  Where to save figures. Defaults to
+                     /tmp/gelochip_output/paper_figures/{paper_id}.
+
+    Returns:
+        Dict with keys:
+            saved_paths (list[str]): Absolute paths to saved PNG files.
+            count       (int):       Number of figures successfully extracted.
+            error       (str|None):  Error message, or None on success.
+    """
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return {"saved_paths": [], "count": 0, "error": "PyMuPDF not installed. Run: pip install pymupdf"}
+
+    try:
+        import httpx
+    except ImportError:
+        return {"saved_paths": [], "count": 0, "error": "httpx not installed. Run: pip install httpx"}
+
+    import tempfile
+
+    if output_dir:
+        fig_dir = Path(output_dir)
+    else:
+        fig_dir = Path("/tmp/gelochip_output/paper_figures") / paper_id
+    fig_dir.mkdir(parents=True, exist_ok=True)
+
+    saved_paths: list[str] = []
+
+    try:
+        # Download the PDF to a temporary file
+        with httpx.Client(follow_redirects=True, timeout=60.0) as client:
+            response = client.get(pdf_url)
+            response.raise_for_status()
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp_pdf:
+            tmp_pdf.write(response.content)
+            tmp_pdf_path = tmp_pdf.name
+
+        try:
+            doc = fitz.open(tmp_pdf_path)
+            figure_index = 0
+
+            for page_num in range(len(doc)):
+                if figure_index >= max_figures:
+                    break
+
+                page = doc[page_num]
+                image_list = page.get_images(full=True)
+
+                for img_info in image_list:
+                    if figure_index >= max_figures:
+                        break
+
+                    xref = img_info[0]
+                    try:
+                        base_image = doc.extract_image(xref)
+                        width  = base_image.get("width", 0)
+                        height = base_image.get("height", 0)
+
+                        # Skip thumbnails and decorative images
+                        if width < 100 or height < 100:
+                            continue
+
+                        image_bytes = base_image["image"]
+                        png_path = fig_dir / f"fig_{figure_index}.png"
+
+                        # Convert to PNG regardless of original format using fitz
+                        pix = fitz.Pixmap(fitz.csRGB, fitz.Pixmap(image_bytes))
+                        pix.save(str(png_path))
+
+                        saved_paths.append(str(png_path))
+                        figure_index += 1
+
+                    except Exception:
+                        # Skip images that can't be extracted
+                        continue
+
+            doc.close()
+        finally:
+            Path(tmp_pdf_path).unlink(missing_ok=True)
+
+        return {"saved_paths": saved_paths, "count": len(saved_paths), "error": None}
+
+    except Exception as exc:
+        return {"saved_paths": saved_paths, "count": len(saved_paths), "error": str(exc)}
 
 
 @tool

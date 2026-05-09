@@ -32,6 +32,15 @@ def summarizer_node(state: GelochipAgentState, llm) -> GelochipAgentState:
     response = llm.invoke(messages)
     final_answer = response.content if hasattr(response, "content") else str(response)
 
+    # Save summary.md
+    if state.get("output_dir"):
+        from gelochip.agent.output_manager import OutputManager
+        from pathlib import Path
+        om = OutputManager.__new__(OutputManager)
+        om.root = Path(state["output_dir"])
+        om._mkdir(om.root)
+        om.save_summary(final_answer)
+
     return {
         **state,
         "final_answer": final_answer,

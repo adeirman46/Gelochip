@@ -1,0 +1,4 @@
+# Ignore all generated job output but keep this directory tracked
+*
+!.gitignore
+!.gitkeep

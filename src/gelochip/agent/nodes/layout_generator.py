@@ -44,15 +44,35 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
     elif "```" in python_code:
         python_code = python_code.split("```")[1].strip()
 
+    # Determine output directory
+    output_dir = state.get("output_dir")
+    if output_dir:
+        from pathlib import Path
+        layout_out = str(Path(output_dir) / "layout")
+        Path(layout_out).mkdir(parents=True, exist_ok=True)
+    else:
+        layout_out = "/tmp/gelochip_output"
+
     # Execute the generated code
     exec_result = execute_layout_code.invoke({
         "python_code": python_code,
-        "output_dir": "/tmp/gelochip_output",
+        "output_dir": layout_out,
     })
+
+    gds_file = exec_result.get("gds_files", [None])[0]
+
+    # Save layout code
+    if output_dir:
+        from gelochip.agent.output_manager import OutputManager
+        from pathlib import Path
+        om = OutputManager.__new__(OutputManager)
+        om.root = Path(output_dir)
+        om._mkdir(om.root / "layout")
+        om.save_layout_code(python_code)
 
     layout_result = {
         "python_code": python_code,
-        "gds_path": exec_result.get("gds_files", [None])[0],
+        "gds_path": gds_file,
         "error": exec_result.get("error"),
     }
 

@@ -76,7 +76,7 @@ def _route_after_spec_parser(state: GelochipAgentState) -> Literal["researcher",
     return state.get("next_node", "researcher")
 
 
-def build_graph(llm=None) -> StateGraph:
+def build_graph(llm=None, checkpointer=None, interrupt_after: list[str] | None = None) -> StateGraph:
     """
     Build and compile the Gelochip LangGraph agent.
 
@@ -136,7 +136,12 @@ def build_graph(llm=None) -> StateGraph:
     )
     graph.add_edge("summarizer", END)
 
-    return graph.compile()
+    compile_kwargs: dict = {}
+    if checkpointer is not None:
+        compile_kwargs["checkpointer"] = checkpointer
+    if interrupt_after:
+        compile_kwargs["interrupt_after"] = interrupt_after
+    return graph.compile(**compile_kwargs)
 
 
 def _auto_llm():
@@ -185,7 +190,11 @@ def _auto_llm():
         )
 
 
-def create_initial_state(user_request: str, max_corrections: int = 3) -> GelochipAgentState:
+def create_initial_state(
+    user_request: str,
+    max_corrections: int = 3,
+    output_dir: str | None = None,
+) -> GelochipAgentState:
     """Helper to create a properly initialized agent state."""
     return {
         "user_request": user_request,
@@ -201,4 +210,5 @@ def create_initial_state(user_request: str, max_corrections: int = 3) -> Gelochi
         "final_answer": None,
         "next_node": None,
         "errors": [],
+        "output_dir": output_dir,
     }

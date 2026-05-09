@@ -144,30 +144,29 @@ uv run volare enable --pdk gf180mcu --version 0.0.1
 
 ## Running
 
-> **Which one do I use?**
->
-> | | Chainlit (Web UI) | REST API |
-> |--|--|--|
-> | **Who** | You, as a user | Another program / script |
-> | **How** | Chat in a browser | HTTP requests (`curl`, Python `requests`, Postman) |
-> | **Use when** | Interactive design sessions | Batch automation, CI pipelines, custom frontends |
->
-> **→ If you just want to design circuits: use Chainlit. That's the main interface.**
-> The REST API is optional and only needed if you want to call Gelochip programmatically from another system.
-
-### Start Gelochip (Chainlit Web UI)
+### Start Gelochip Web UI
 
 ```bash
-uv run chainlit run app/chainlit_app.py --port 8080
+uv run uvicorn app.web_app:app --port 8080 --reload
 ```
 
-Open `http://localhost:8080` in your browser. Type a design request like:
+Open `http://localhost:8080` in your browser.
 
 ```
 Design a 5GHz cascode LNA in gf180 with NF < 2dB and gain > 15dB
 ```
 
-Chainlit is a React-based web application built for AI agents — real-time step streaming, downloadable GDS files, dark mode. Not Streamlit.
+The web UI shows the full agent pipeline live:
+
+| What you see | When it appears |
+|---|---|
+| 📋 **SpecParser** step card | Immediately after you submit |
+| 🔍 **Researcher** + 🔧 `arxiv_search` tool call | While papers are fetched |
+| 💭 **Thinking...** block | Qwen3.5/DeepSeek-R1 reasoning streamed token by token |
+| ⚡ **CircuitDesigner** with param table | After topology is chosen |
+| 🏗️ **LayoutGenerator** + Python code | GDS being generated |
+| Layout preview image | Right panel, after GDS is ready |
+| ✍️ **Summarizer** final answer | Markdown-rendered at the end |
 
 ### REST API (optional — for programmatic use)
 
@@ -177,11 +176,33 @@ uv run uvicorn gelochip.api.main:app --reload --port 8000
 ```
 
 ```bash
-# Example: submit a design job via curl
 curl -X POST http://localhost:8000/design/run_sync \
   -H "Content-Type: application/json" \
   -d '{"request": "Design a two-stage opamp in gf180 with 60dB gain", "pdk": "gf180"}'
 ```
+
+### MCP Server (Claude Desktop integration)
+
+Expose Gelochip as an MCP tool so Claude Desktop (or any MCP client) can design circuits directly.
+
+```bash
+uv run python app/mcp_server.py
+```
+
+Add to Claude Desktop `claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "gelochip": {
+      "command": "uv",
+      "args": ["run", "python", "app/mcp_server.py"],
+      "cwd": "/path/to/Gelochip"
+    }
+  }
+}
+```
+
+Then in Claude Desktop: *"Design a 5GHz LNA in gf180"* — Claude will call the `design_circuit` MCP tool automatically.
 
 ### Python script (optional — for automation)
 
