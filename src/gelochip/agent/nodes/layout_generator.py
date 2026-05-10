@@ -19,9 +19,10 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
     """
     from pathlib import Path
 
-    spec   = state.get("circuit_spec", {})
-    params = state.get("component_params", {})
-    blocks = list_available_blocks.invoke({})
+    spec              = state.get("circuit_spec", {})
+    params            = state.get("component_params", {})
+    blocks            = list_available_blocks.invoke({})
+    corrector_feedback = state.get("corrector_feedback")
 
     # Resolve output directory BEFORE building the prompt so the correct path
     # is injected into the LLM instruction (not a hardcoded /tmp path).
@@ -40,20 +41,39 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
             layout_out = str(Path.cwd() / "outputs" / "layout")
         Path(layout_out).mkdir(parents=True, exist_ok=True)
 
-    messages = [
-        {"role": "system", "content": LAYOUT_GENERATOR_PROMPT},
-        {
+    pyspice_code = state.get("pyspice_code") or ""
+    pyspice_ref = (
+        f"\nReference PySpice netlist (circuit topology validated, use same sizing):\n"
+        f"```python\n{pyspice_code[:1200]}\n```\n"
+        if pyspice_code else ""
+    )
+
+    user_content = (
+        f"Circuit spec:\n{json.dumps(spec, indent=2)}\n\n"
+        f"Component params:\n{json.dumps(params, indent=2)}\n\n"
+        f"{pyspice_ref}"
+        f"Available Gelochip functions:\n{json.dumps(blocks, indent=2)}\n\n"
+        "Write complete runnable Python code to generate the GDS layout. "
+        f"Save the GDS to '{layout_out}/output.gds'. "
+        "Return ONLY Python code, no markdown."
+    )
+
+    messages = [{"role": "system", "content": LAYOUT_GENERATOR_PROMPT}]
+
+    # If the corrector sent back structured feedback, inject it before the
+    # main user request so the LLM knows what went wrong in the last attempt.
+    if corrector_feedback:
+        messages.append({
             "role": "user",
             "content": (
-                f"Circuit spec:\n{json.dumps(spec, indent=2)}\n\n"
-                f"Component params:\n{json.dumps(params, indent=2)}\n\n"
-                f"Available Gelochip functions:\n{json.dumps(blocks, indent=2)}\n\n"
-                "Write complete runnable Python code to generate the GDS layout. "
-                f"Save the GDS to '{layout_out}/output.gds'. "
-                "Return ONLY Python code, no markdown."
+                "A previous layout attempt failed. Here is the corrector's analysis:\n\n"
+                f"{corrector_feedback}\n\n"
+                "Use this to avoid the same mistakes in your new code."
             ),
-        },
-    ]
+        })
+        messages.append({"role": "assistant", "content": "Understood. I will avoid those mistakes."})
+
+    messages.append({"role": "user", "content": user_content})
     response = llm.invoke(messages)
     python_code = response.content if hasattr(response, "content") else str(response)
 
@@ -86,11 +106,12 @@ def layout_generator_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         "error": exec_result.get("error"),
     }
 
-    next_node = "verifier" if not exec_result["success"] else "summarizer"
+    next_node = "corrector" if not exec_result["success"] else "summarizer"
 
     return {
         **state,
         "layout_result": layout_result,
+        "failed_node": "layout_generator" if not exec_result["success"] else None,
         "messages": state["messages"] + [
             AIMessage(content=(
                 f"Layout generation {'succeeded' if exec_result['success'] else 'failed'}. "

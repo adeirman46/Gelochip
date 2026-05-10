@@ -57,7 +57,7 @@ def verifier_node(state: GelochipAgentState, llm) -> GelochipAgentState:
         })
         layout_result = {
             "python_code": fixed_code,
-            "gds_path": exec_result.get("gds_files", [None])[0],
+            "gds_path": (exec_result.get("gds_files") or [None])[0],
             "error": exec_result.get("error"),
         }
         messages.append(AIMessage(
@@ -206,11 +206,14 @@ def _run_spice(pex_spice_path: str, spec: dict, output_dir: str | None = None):
 
     try:
         tb = generate_testbench(circuit_type, pex_spice_path, circuit_name, spec, pdk)
-        # Save testbench
+        # Save testbench to spice/ and verification/
         if output_dir:
-            tb_path = Path(output_dir) / "verification" / "testbench.sp"
-            tb_path.parent.mkdir(parents=True, exist_ok=True)
-            tb_path.write_text(tb, encoding="utf-8")
+            from gelochip.agent.output_manager import OutputManager
+            om_v = OutputManager.__new__(OutputManager)
+            om_v.root = Path(output_dir)
+            om_v._mkdir(om_v.root / "spice")
+            om_v._mkdir(om_v.root / "verification")
+            om_v.save_spice_testbench(tb)
         sim = run_simulation(tb, circuit_type)
         chk = check_specs(sim, spec)
         return sim, chk

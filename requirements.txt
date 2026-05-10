@@ -1,6 +1,23 @@
 # Gelochip – pip-compatible requirements (mirrors pyproject.toml)
 # Install with: pip install -r requirements.txt
 # OR (recommended): uv sync
+#
+# ── SYSTEM DEPENDENCIES (install before pip install) ─────────────────────────
+# These are OS-level binaries, NOT pip packages:
+#
+#   ngspice (REQUIRED for PySpice circuit validation):
+#     Ubuntu/Debian:  sudo apt install ngspice
+#     macOS:          brew install ngspice
+#     Conda:          conda install -c conda-forge ngspice
+#
+#   klayout (REQUIRED for GDS viewing and DRC):
+#     Ubuntu/Debian:  sudo apt install klayout
+#     or download:    https://www.klayout.de/build.html
+#
+#   magic + netgen (OPTIONAL — for post-layout DRC/LVS):
+#     Ubuntu/Debian:  sudo apt install magic netgen
+#     or build:       http://opencircuitdesign.com/magic/
+# ─────────────────────────────────────────────────────────────────────────────
 
 # ── EDA / GLayout core ───────────────────────────────────────────────────────
 gdsfactory>=7.0.0,<8.0.0

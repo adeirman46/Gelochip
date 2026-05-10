@@ -20,6 +20,14 @@ classifiers = [
 ]
 
 dependencies = [
+    # ── System dependencies (install separately — not pip-installable) ────────
+    # ngspice >= 38    →  sudo apt install ngspice       (Ubuntu/Debian)
+    #                  →  brew install ngspice            (macOS)
+    #                  →  conda install -c conda-forge ngspice  (Anaconda)
+    # klayout binary   →  sudo apt install klayout       (or klayout.de)
+    # magic            →  http://opencircuitdesign.com/magic/ (DRC/LVS, optional)
+    # netgen           →  http://opencircuitdesign.com/netgen/ (LVS, optional)
+    # ── Python packages ───────────────────────────────────────────────────────
     # GLayout / EDA core
     "gdsfactory>=7.0.0,<8.0.0",
     "gdstk>=0.9.0",

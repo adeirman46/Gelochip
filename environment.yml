@@ -12,5 +12,7 @@ dependencies:
   - jupyter
   - ipykernel
   - jupyterlab
+  # ── EDA system tools (conda-forge provides pre-built binaries) ───────────
+  - ngspice          # SPICE simulator — required for PySpice circuit validation
   - pip:
     - -r requirements.txt

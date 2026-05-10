@@ -60,12 +60,13 @@ _NODE_META: dict[str, dict[str, str]] = {
     "researcher":       {"label": "Researcher",      "icon": "🔍", "color": "#0ea5e9"},
     "circuit_designer": {"label": "CircuitDesigner", "icon": "⚡", "color": "#f59e0b"},
     "layout_generator": {"label": "LayoutGenerator", "icon": "🏗️", "color": "#10b981"},
+    "corrector":        {"label": "Corrector",       "icon": "🔧", "color": "#ef4444"},
     "verifier":         {"label": "Verifier",        "icon": "🔬", "color": "#ec4899"},
     "summarizer":       {"label": "Summarizer",      "icon": "✍️",  "color": "#8b5cf6"},
 }
 
 _STAGE_ORDER = ["spec_parser", "researcher", "circuit_designer",
-                "layout_generator", "verifier", "summarizer"]
+                "layout_generator", "corrector", "verifier", "summarizer"]
 
 # ── Output folder naming ───────────────────────────────────────────────────────
 
@@ -156,7 +157,7 @@ async def start_design(req: DesignRequest):
     om = OutputManager(slug, root=OUTPUT_DIR)
 
     interrupt_nodes = ["spec_parser", "researcher", "circuit_designer",
-                       "layout_generator", "verifier"]
+                       "layout_generator", "corrector", "verifier"]
     use_interrupts = (req.mode == "manual") and (_MEMORY is not None)
     graph = build_graph(
         llm=llm,
@@ -463,7 +464,15 @@ def _node_summary(node: str, output: dict) -> str:
     if node == "circuit_designer":
         params = {k: v for k, v in (output.get("component_params") or {}).items()
                   if not k.startswith("_")}
-        return f"Sized {len(params)} parameters."
+        pyspice_ok = (output.get("pyspice_result") or {}).get("success")
+        spice_tag = " · PySpice ✅" if pyspice_ok else (" · PySpice ❌" if pyspice_ok is False else "")
+        return f"Sized {len(params)} parameters{spice_tag}."
+    if node == "corrector":
+        next_n = output.get("next_node") or "?"
+        count  = output.get("correction_count", 0)
+        failed = output.get("failed_node") or "unknown"
+        action = "fixed ✅" if next_n in ("verifier", "layout_generator") and not failed else f"retrying → {next_n}"
+        return f"Attempt {count} — {action}."
     if node == "layout_generator":
         lr = output.get("layout_result") or {}
         gds = lr.get("gds_path", "")
@@ -500,8 +509,19 @@ def _node_detail(node: str, output: dict) -> dict:
 
     elif node == "circuit_designer":
         params = dict(output.get("component_params") or {})
-        params.pop("_performance_estimate", None)   # remove analytical estimates
+        params.pop("_performance_estimate", None)
         d["params"] = params
+        pyspice_result = output.get("pyspice_result") or {}
+        d["pyspice_passed"] = pyspice_result.get("success")
+        d["pyspice_output"] = pyspice_result.get("stdout", "")[:500] if pyspice_result else None
+
+    elif node == "corrector":
+        d["failed_node"]  = output.get("failed_node")
+        d["next_node"]    = output.get("next_node")
+        d["attempt"]      = output.get("correction_count", 0)
+        d["feedback"]     = (output.get("corrector_feedback") or "")[:600]
+        lr = output.get("layout_result") or {}
+        d["error"]        = lr.get("error")
 
     elif node == "layout_generator":
         lr = output.get("layout_result") or {}

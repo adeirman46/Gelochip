@@ -31,15 +31,23 @@ _PATH_PROLOGUE = (
 from langchain_core.tools import tool
 
 
+_CUSTOM_BLOCKS_DIR: Path | None = None
+for _p in _HERE.parents:
+    _cb = _p / "core" / "custom_blocks"
+    if _cb.is_dir():
+        _CUSTOM_BLOCKS_DIR = _cb
+        break
+
+
 @tool
 def list_available_blocks() -> dict[str, list[str]]:
     """
     List all available Gelochip building blocks by category.
 
-    Returns a dict with categories: primitives, blocks, cells.
+    Returns a dict with categories: primitives, blocks, cells, custom_blocks.
     Each entry is a list of function names with brief descriptions.
     """
-    return {
+    result: dict[str, list[str]] = {
         "primitives": [
             "nmos(pdk, width, length, fingers, multipliers, ...) → NMOS transistor",
             "pmos(pdk, width, length, fingers, multipliers, ...) → PMOS transistor",
@@ -64,16 +72,32 @@ def list_available_blocks() -> dict[str, list[str]]:
             "bandgap_vref(pdk, ptat_width, ctat_width, ...) → Bandgap reference",
         ],
         "cells": [
-            "two_stage_opamp(pdk, diff_pair_width, diff_pair_fingers, cs_width, ...) → 2-stage OTA",
-            "folded_cascode_opamp(pdk, input_width, input_fingers, ...) → FC-OTA",
-            "lna_cascode(pdk, gm_width, gm_fingers, cas_width, ...) → Cascode LNA",
-            "lna_inductively_degenerated(pdk, gm_width, gm_fingers, ls_turns, lg_turns, ...) → Ind. deg. LNA",
-            "gilbert_cell_mixer(pdk, rf_width, lo_width, load_width, ...) → Gilbert cell mixer",
-            "passive_mixer(pdk, switch_width, switch_fingers, ...) → Passive CMOS mixer",
-            "lc_vco(pdk, xcp_width, xcp_fingers, inductor_turns, ...) → LC VCO",
-            "ring_vco(pdk, num_stages, inv_n_width, inv_p_width, ...) → Ring VCO",
+            # Import cells from core.cells.*, NOT from glayout
+            "from core.cells.opamp import two_stage_opamp  → two_stage_opamp(pdk, diff_pair_width, diff_pair_fingers, cs_width, ...) → 2-stage OTA",
+            "from core.cells.opamp import folded_cascode_opamp  → folded_cascode_opamp(pdk, input_width, input_fingers, ...) → FC-OTA",
+            "from core.cells.lna import lna_cascode  → lna_cascode(pdk, gm_width, gm_fingers, cas_width, ...) → Cascode LNA",
+            "from core.cells.lna import lna_inductively_degenerated  → lna_inductively_degenerated(pdk, gm_width, gm_fingers, ls_turns, lg_turns, ...) → Ind. deg. LNA",
+            "from core.cells.mixer import gilbert_cell_mixer  → gilbert_cell_mixer(pdk, rf_width, lo_width, load_width, ...) → Gilbert cell mixer",
+            "from core.cells.mixer import passive_mixer  → passive_mixer(pdk, switch_width, switch_fingers, ...) → Passive CMOS mixer",
+            "from core.cells.vco import lc_vco  → lc_vco(pdk, xcp_width, xcp_fingers, inductor_turns, ...) → LC VCO",
+            "from core.cells.vco import ring_vco  → ring_vco(pdk, num_stages, inv_n_width, inv_p_width, ...) → Ring VCO",
         ],
     }
+
+    # Auto-discover custom blocks saved by corrector during previous runs
+    custom: list[str] = []
+    if _CUSTOM_BLOCKS_DIR and _CUSTOM_BLOCKS_DIR.is_dir():
+        for py_file in sorted(_CUSTOM_BLOCKS_DIR.glob("*.py")):
+            if py_file.name.startswith("_"):
+                continue
+            mod_name = py_file.stem
+            custom.append(
+                f"from core.custom_blocks.{mod_name} import {mod_name}  → Auto-generated block"
+            )
+    if custom:
+        result["custom_blocks"] = custom
+
+    return result
 
 
 @tool
@@ -354,3 +378,70 @@ def estimate_performance(circuit_spec: dict[str, Any], component_params: dict[st
 
     estimates["disclaimer"] = "Analytical first-order estimates only. Run SPICE for accurate results."
     return estimates
+
+
+# Suppress matplotlib GUI and limit ngspice output in subprocess
+_PYSPICE_PROLOGUE = """\
+import os as _os, sys as _sys, warnings as _w
+_w.filterwarnings('ignore')
+_os.environ.setdefault('MPLBACKEND', 'Agg')
+_os.environ.setdefault('NGSPICE_BATCH', '1')
+"""
+
+
+@tool
+def execute_pyspice_code(pyspice_code: str, output_dir: str = "") -> dict[str, Any]:
+    """
+    Execute PySpice circuit code to validate the netlist with ngspice.
+
+    The code should define a PySpice Circuit, run a simulation, and exit with
+    code 0 (success) or non-zero (failure / specs not met).
+
+    Args:
+        pyspice_code: Complete PySpice Python code string.
+        output_dir:   Working directory for simulation output files.
+
+    Returns:
+        Dict with keys: success, stdout, stderr, exit_code, error.
+    """
+    if not output_dir:
+        output_dir = _default_layout_out()
+    os.makedirs(output_dir, exist_ok=True)
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False, dir="/tmp") as f:
+        f.write(_PYSPICE_PROLOGUE + "\n" + pyspice_code)
+        tmp_path = f.name
+
+    try:
+        result = subprocess.run(
+            [sys.executable, tmp_path],
+            capture_output=True,
+            text=True,
+            timeout=90,
+            cwd=output_dir,
+        )
+        success = result.returncode == 0
+        return {
+            "success": success,
+            "stdout": result.stdout[:3000],
+            "stderr": result.stderr[:2000],
+            "exit_code": result.returncode,
+            "error": (result.stderr or result.stdout)[:1500] if not success else None,
+        }
+    except subprocess.TimeoutExpired:
+        return {
+            "success": False,
+            "error": "PySpice simulation timed out (>90s). Simplify the analysis.",
+            "stdout": "", "stderr": "", "exit_code": -1,
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e),
+            "stdout": "", "stderr": "", "exit_code": -1,
+        }
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass

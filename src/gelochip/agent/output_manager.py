@@ -11,6 +11,9 @@ Directory layout for one job::
     ├── spec.json             – parsed CircuitSpec
     ├── params.json           – sized component parameters
     ├── summary.md            – final answer from Summarizer
+    ├── spice/
+    │   ├── netlist.py        – PySpice validation script (circuit_designer)
+    │   └── testbench.sp      – ngspice testbench (verifier)
     ├── papers/
     │   ├── papers.json       – metadata for all retrieved papers
     │   └── {arxiv_id}/
@@ -24,7 +27,7 @@ Directory layout for one job::
     └── verification/
         ├── drc_report.txt    – Magic DRC output
         ├── lvs_report.txt    – Netgen LVS output
-        ├── testbench.sp      – ngspice testbench
+        ├── testbench.sp      – ngspice testbench (copy)
         ├── output_pex.spice  – post-layout PEX netlist (if Magic ran)
         └── sim_results.json  – ngspice simulation results
 """
@@ -58,6 +61,7 @@ class OutputManager:
         self.job_id = job_id
         self.root   = (root or _default_root()) / job_id
         self._mkdir(self.root)
+        self._mkdir(self.root / "spice")
         self._mkdir(self.root / "papers")
         self._mkdir(self.root / "layout")
         self._mkdir(self.root / "verification")
@@ -65,35 +69,41 @@ class OutputManager:
     # ── Convenience paths ────────────────────────────────────────────────────
 
     @property
-    def spec_path(self)         -> Path: return self.root / "spec.json"
+    def spec_path(self)             -> Path: return self.root / "spec.json"
     @property
-    def params_path(self)       -> Path: return self.root / "params.json"
+    def params_path(self)           -> Path: return self.root / "params.json"
     @property
-    def summary_path(self)      -> Path: return self.root / "summary.md"
+    def summary_path(self)          -> Path: return self.root / "summary.md"
     @property
-    def papers_dir(self)        -> Path: return self.root / "papers"
+    def spice_dir(self)             -> Path: return self.root / "spice"
     @property
-    def papers_meta_path(self)  -> Path: return self.root / "papers" / "papers.json"
+    def pyspice_netlist_path(self)  -> Path: return self.root / "spice" / "netlist.py"
     @property
-    def layout_dir(self)        -> Path: return self.root / "layout"
+    def spice_testbench_path(self)  -> Path: return self.root / "spice" / "testbench.sp"
     @property
-    def layout_code_path(self)  -> Path: return self.root / "layout" / "layout.py"
+    def papers_dir(self)            -> Path: return self.root / "papers"
     @property
-    def gds_path(self)          -> Path: return self.root / "layout" / "output.gds"
+    def papers_meta_path(self)      -> Path: return self.root / "papers" / "papers.json"
     @property
-    def gds_preview_path(self)  -> Path: return self.root / "layout" / "output_preview.png"
+    def layout_dir(self)            -> Path: return self.root / "layout"
     @property
-    def verification_dir(self)  -> Path: return self.root / "verification"
+    def layout_code_path(self)      -> Path: return self.root / "layout" / "layout.py"
     @property
-    def drc_report_path(self)   -> Path: return self.root / "verification" / "drc_report.txt"
+    def gds_path(self)              -> Path: return self.root / "layout" / "output.gds"
     @property
-    def lvs_report_path(self)   -> Path: return self.root / "verification" / "lvs_report.txt"
+    def gds_preview_path(self)      -> Path: return self.root / "layout" / "output_preview.png"
     @property
-    def testbench_path(self)    -> Path: return self.root / "verification" / "testbench.sp"
+    def verification_dir(self)      -> Path: return self.root / "verification"
     @property
-    def pex_spice_path(self)    -> Path: return self.root / "verification" / "output_pex.spice"
+    def drc_report_path(self)       -> Path: return self.root / "verification" / "drc_report.txt"
     @property
-    def sim_results_path(self)  -> Path: return self.root / "verification" / "sim_results.json"
+    def lvs_report_path(self)       -> Path: return self.root / "verification" / "lvs_report.txt"
+    @property
+    def testbench_path(self)        -> Path: return self.root / "verification" / "testbench.sp"
+    @property
+    def pex_spice_path(self)        -> Path: return self.root / "verification" / "output_pex.spice"
+    @property
+    def sim_results_path(self)      -> Path: return self.root / "verification" / "sim_results.json"
 
     def paper_figures_dir(self, paper_id: str) -> Path:
         d = self.papers_dir / paper_id
@@ -104,6 +114,14 @@ class OutputManager:
 
     def save_spec(self, spec: dict[str, Any]) -> None:
         self._write_json(self.spec_path, spec)
+
+    def save_pyspice_code(self, code: str) -> None:
+        self.pyspice_netlist_path.write_text(code, encoding="utf-8")
+
+    def save_spice_testbench(self, testbench: str) -> None:
+        """Save testbench to spice/ and mirror to verification/ for backwards compat."""
+        self.spice_testbench_path.write_text(testbench, encoding="utf-8")
+        self.testbench_path.write_text(testbench, encoding="utf-8")
 
     def save_params(self, params: dict[str, Any]) -> None:
         # Strip internal analytics key before saving
@@ -145,6 +163,7 @@ class OutputManager:
         out: dict[str, Any] = {"job_id": self.job_id, "root": str(self.root), "files": {}}
         for rel in [
             "spec.json", "params.json", "summary.md",
+            "spice/netlist.py", "spice/testbench.sp",
             "papers/papers.json",
             "layout/layout.py", "layout/output.gds", "layout/output_preview.png",
             "verification/drc_report.txt", "verification/lvs_report.txt",
