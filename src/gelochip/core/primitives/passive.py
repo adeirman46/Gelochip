@@ -10,14 +10,12 @@ from __future__ import annotations
 from typing import Optional
 
 from gdsfactory.component import Component
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.primitives.mimcap import mimcap as _mimcap, mimcap_array as _mimcap_array
-from gelochip.glayout.primitives.resistor import resistor as _resistor
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.mimcap import mimcap as _mimcap, mimcap_array as _mimcap_array
+from glayout.primitives.resistor import resistor as _resistor
 
 
-@validate_arguments
 def resistor(
     pdk: MappedPDK,
     *,
@@ -45,7 +43,7 @@ def resistor(
 
     Example::
 
-        from gelochip.glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
+        from glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
         r = resistor(pdk, width=2.0, length=5.0, num_series=3)
     """
     return _resistor(
@@ -58,7 +56,6 @@ def resistor(
     )
 
 
-@validate_arguments
 def capacitor(
     pdk: MappedPDK,
     *,
@@ -79,7 +76,6 @@ def capacitor(
     return _mimcap(pdk=pdk, size=(width, length))
 
 
-@validate_arguments
 def mimcap(
     pdk: MappedPDK,
     *,

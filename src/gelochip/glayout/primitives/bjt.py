@@ -1,4 +1,3 @@
-from pydantic import validate_arguments
 from sys import prefix
 import numpy as np
 from typing import Any, Optional, Union
@@ -463,7 +462,6 @@ def multiplier(
     return component_snap_to_grid(rename_ports_by_orientation(multiplier))
 
 
-@validate_arguments
 def __mult_array_macro(
     pdk: MappedPDK,
     active_area: tuple[float,float] = (5.,5.),
@@ -713,7 +711,6 @@ def __mult_array_macro(
     return component_snap_to_grid(rename_ports_by_orientation(final_arr))
 
 
-@validate_arguments
 def __mult_2dim_array_macro(
     pdk: MappedPDK,
     active_area: tuple[float,float] = (5.,5.),

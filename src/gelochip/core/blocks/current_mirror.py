@@ -17,19 +17,17 @@ from typing import Optional
 
 from gdsfactory.component import Component
 from gdsfactory.cell import cell
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.cells.elementary.current_mirror import current_mirror as _cm
-from gelochip.glayout.primitives.fet import nmos, pmos
-from gelochip.glayout.routing.c_route import c_route
-from gelochip.glayout.routing.L_route import L_route
-from gelochip.glayout.util.comp_utils import prec_ref_center, movex, movey
-from gelochip.glayout.util.port_utils import add_ports_perimeter, rename_ports_by_orientation
-from gelochip.glayout.spice.netlist import Netlist
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.cells.elementary.current_mirror import current_mirror as _cm
+from glayout.primitives.fet import nmos, pmos
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
+from glayout.util.comp_utils import prec_ref_center, movex, movey
+from glayout.util.port_utils import add_ports_perimeter, rename_ports_by_orientation
+from glayout.spice.netlist import Netlist
 
 
-@validate_arguments
 def current_mirror(
     pdk: MappedPDK,
     *,
@@ -64,7 +62,7 @@ def current_mirror(
 
     Example::
 
-        from gelochip.glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
+        from glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
         cm = current_mirror(pdk, mirror_ratio=2.0, ref_width=4.0, n_or_p="nfet")
         cm.show()
     """
@@ -84,7 +82,6 @@ def current_mirror(
     )
 
 
-@validate_arguments
 def cascode_current_mirror(
     pdk: MappedPDK,
     *,
@@ -182,7 +179,6 @@ def cascode_current_mirror(
     return rename_ports_by_orientation(top)
 
 
-@validate_arguments
 def wilson_current_mirror(
     pdk: MappedPDK,
     *,

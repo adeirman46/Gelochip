@@ -18,6 +18,7 @@ Describe the circuit you want in plain English. Gelochip designs, sizes, and gen
 | **Building Blocks** | Function-based library: `nmos`, `pmos`, `current_mirror`, `diff_pair`, `lna_cascode`, `gilbert_cell_mixer`, `lc_vco`, … |
 | **Custom Blocks** | Auto-saves manually-implemented cells to `core/custom_blocks/` for future reuse |
 | **RF/Analog Cells** | LNA, Op-Amp, Mixer, VCO with proper port wiring |
+| **Satellite RF Cells** | `rf_buffer`, `switched_cap_ps` (MTPS), `rf_combiner_8to1`, `rf_amp`, `rx_element` — full Ka-band phased array RX strip |
 | **PDK Support** | **gf180** (default), sky130, ihp130 |
 | **Web Interface** | FastAPI + SSE — real-time pipeline streaming with stage-by-stage cards |
 | **REST API** | FastAPI backend with async job queue |
@@ -406,8 +407,11 @@ Raw training datasets are in `finetuning/data/raw/` (LNA, Mixer, VCO, Opamp spec
 - [x] Custom blocks auto-save to `core/custom_blocks/`
 - [x] Per-job output directory (spec, params, spice, layout, verification)
 - [x] MCP server (Claude Desktop integration)
+- [x] Satellite RF cells: `rf_buffer`, `switched_cap_ps` (MTPS), `rf_combiner_8to1`, `rf_amp`, `rx_element`
 - [ ] Full EM-simulated spiral inductor
 - [ ] PINN device model (in progress — `finetuning/pinn/`)
+- [ ] Ka-band phased array top-level chip (8× `rx_element` + `rf_combiner_8to1`)
+- [ ] MTP (Multi-Time Programmable) calibration memory cell
 - [ ] Bayesian / RL parameter optimizer
 
 ---
@@ -437,7 +441,8 @@ Gelochip/
 │   ├── core/
 │   │   ├── primitives/           # nmos, pmos, resistor, capacitor, via, guard_ring
 │   │   ├── blocks/               # current_mirror, diff_pair, amplifier, bias
-│   │   ├── cells/                # lna, opamp, mixer, vco
+│   │   ├── cells/                # lna, opamp, mixer, vco, satellite_rf
+│   │   │   └── satellite_rf.py   # rf_buffer, switched_cap_ps (MTPS), rf_combiner_8to1, rf_amp, rx_element
 │   │   ├── custom_blocks/        # auto-saved manually-implemented cells (agent output)
 │   │   └── pdk/
 │   │       ├── gf180_mapped/     # GF180MCU PDK rules + layer map

@@ -15,13 +15,11 @@ from gdsfactory.routing.route_quad import route_quad
 from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey, to_decimal, to_float, move, align_comp_to_port, get_padding_points_cc
 from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports
 from glayout.util.snap_to_grid import component_snap_to_grid
-from pydantic import validate_arguments
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
 from glayout.spice import Netlist
 
 
 
-@validate_arguments
 def __create_sharedgatecomps(pdk: MappedPDK, rmult: int, half_pload: tuple[float,float,int]) -> tuple:
     # add diffpair current mirror loads (this is a pmos current mirror split into 2 for better matching/compensation)
     shared_gate_comps = Component("shared gate components")

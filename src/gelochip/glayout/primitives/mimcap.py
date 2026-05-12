@@ -6,12 +6,10 @@ from typing import Optional
 from glayout.primitives.via_gen import via_array
 from glayout.util.comp_utils import prec_array, to_decimal, to_float
 from glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter, print_ports
-from pydantic import validate_arguments
 from glayout.routing.straight_route import straight_route
 from decimal import ROUND_UP, Decimal
 from glayout.spice import Netlist
 
-@validate_arguments
 def __get_mimcap_layerconstruction_info(pdk: MappedPDK) -> tuple[str,str]:
 	"""returns the glayer metal below and glayer metal above capmet
 	args: pdk

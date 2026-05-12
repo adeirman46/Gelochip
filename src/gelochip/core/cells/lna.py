@@ -21,20 +21,18 @@ from __future__ import annotations
 from typing import Optional
 
 from gdsfactory.component import Component
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.primitives.fet import nmos, pmos
-from gelochip.glayout.primitives.mimcap import mimcap
-from gelochip.glayout.util.comp_utils import prec_ref_center, movex, movey
-from gelochip.glayout.util.port_utils import rename_ports_by_orientation
-from gelochip.glayout.spice.netlist import Netlist
-from gelochip.core.blocks.amplifier import common_source, common_gate
-from gelochip.core.blocks.current_mirror import current_mirror
-from gelochip.core.blocks.bias import current_bias
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.fet import nmos, pmos
+from glayout.primitives.mimcap import mimcap
+from glayout.util.comp_utils import prec_ref_center, movex, movey
+from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.spice.netlist import Netlist
+from core.blocks.amplifier import common_source, common_gate
+from core.blocks.current_mirror import current_mirror
+from core.blocks.bias import current_bias
 
 
-@validate_arguments
 def lna_cascode(
     pdk: MappedPDK,
     *,
@@ -101,7 +99,7 @@ def lna_cascode(
 
     Example::
 
-        from gelochip.glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
+        from glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
         lna = lna_cascode(pdk, gm_width=40.0, gm_fingers=10)
         lna.write_gds("lna_cascode.gds")
     """
@@ -154,7 +152,6 @@ def lna_cascode(
     return rename_ports_by_orientation(top)
 
 
-@validate_arguments
 def lna_inductively_degenerated(
     pdk: MappedPDK,
     *,
@@ -219,7 +216,7 @@ def lna_inductively_degenerated(
         Spiral inductors use stub components. Full EM-simulated inductors
         will replace these in a future release.
     """
-    from gelochip.core.primitives.passive import inductor as spiral_inductor
+    from core.primitives.passive import inductor as spiral_inductor
     gm_length = gm_length or pdk.get_grule("poly")["min_width"]
 
     top = Component("lna_ind_degen")

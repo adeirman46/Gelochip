@@ -9,11 +9,9 @@ from glayout.routing.straight_route import straight_route
 from gdsfactory.components.rectangle import rectangle
 from glayout.util.comp_utils import evaluate_bbox, get_primitive_rectangle, to_float, prec_ref_center
 from glayout.util.port_utils import add_ports_perimeter, rename_ports_by_orientation, rename_ports_by_list, print_ports, set_port_width, set_port_orientation, get_orientation
-from pydantic import validate_arguments
 from gdsfactory.snap import snap_to_grid
 
 
-@validate_arguments
 def __fill_empty_viastack__macro(pdk: MappedPDK, glayer: str, size: Optional[tuple[float,float]]=None) -> Component:
     """returns a rectangle with ports that pretend to be viastack ports
     by default creates a rectangle with size double the min width of the glayer"""

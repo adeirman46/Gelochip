@@ -6,7 +6,6 @@ import math
 from gdsfactory.pdk import Pdk
 from pathlib import Path
 from typing import Union, Optional
-from pydantic import validate_arguments
 
 def get_files_with_extension(directory, extension):
 	file_list = []
@@ -16,7 +15,6 @@ def get_files_with_extension(directory, extension):
 	return file_list
 
 
-@validate_arguments
 def write_component_matrix(components_dir: Union[str,Path,list]="./", xspace: float=400,yspace: float=280, rtr_comp: bool=False, write_name: str="big_gds_here.gds"):
 	"""Use the write_component_matrix function to create a matrix of many different components
 	reads the different components from all gds files in components_dir

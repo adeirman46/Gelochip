@@ -1,5 +1,4 @@
 from glayout.pdk.mappedpdk import MappedPDK
-from pydantic import validate_arguments
 from gdsfactory.component import Component
 from glayout.primitives.fet import nmos, pmos, multiplier
 from glayout.util.comp_utils import evaluate_bbox
@@ -106,7 +105,6 @@ XB VDD2 VG2 VSS2 VB {model} l={length} w={width} m={mtop}"""
             'mult': multipliers
         }
     )
-@validate_arguments
 def macro_two_transistor_interdigitized(
     pdk: MappedPDK,
     numcols: int,
@@ -189,7 +187,6 @@ def macro_two_transistor_interdigitized(
     return idplace
 
 
-@validate_arguments
 def two_nfet_interdigitized(
     pdk: MappedPDK,
     numcols: int,
@@ -274,7 +271,6 @@ def two_nfet_interdigitized(
 
 
 
-@validate_arguments
 def two_pfet_interdigitized(
     pdk: MappedPDK,
     numcols: int,

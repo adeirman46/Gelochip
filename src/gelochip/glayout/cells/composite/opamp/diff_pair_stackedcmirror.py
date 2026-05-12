@@ -16,7 +16,6 @@ from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey
 from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports
 from glayout.routing.straight_route import straight_route
 from glayout.util.snap_to_grid import component_snap_to_grid
-from pydantic import validate_arguments
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
 
 from glayout.cells.composite.diffpair_cmirror_bias import diff_pair_ibias
@@ -25,7 +24,6 @@ from glayout.cells.composite.differential_to_single_ended_converter import diffe
 from glayout.cells.composite.opamp.row_csamplifier_diff_to_single_ended_converter import row_csamplifier_diff_to_single_ended_converter
 
 
-@validate_arguments
 def __add_diff_pair_and_bias(pdk: MappedPDK, toplevel_stacked: Component, half_diffpair_params: tuple[float, float, int], diffpair_bias: tuple[float, float, int], rmult: int, with_antenna_diode_on_diffinputs: int) -> Component:
     clear_cache()
     diffpair_i_ref = diff_pair_ibias(pdk, half_diffpair_params, diffpair_bias, rmult, with_antenna_diode_on_diffinputs)
@@ -36,7 +34,6 @@ def __add_diff_pair_and_bias(pdk: MappedPDK, toplevel_stacked: Component, half_d
 
     return toplevel_stacked
 
-@validate_arguments
 def __add_common_source_nbias_transistors(pdk: MappedPDK, toplevel_stacked: Component, half_common_source_nbias: tuple[float, float, int, int], rmult: int) -> Component:
     clear_cache()
     x_dim_center = toplevel_stacked.xmax
@@ -61,7 +58,6 @@ def __add_common_source_nbias_transistors(pdk: MappedPDK, toplevel_stacked: Comp
         toplevel_stacked << straight_route(pdk, toplevel_stacked.ports["commonsource_cmirror_output_"+side+"_tie_S_top_met_S"], toplevel_stacked.ports["commonsource_cmirror_ref_"+side+"_tie_N_top_met_N"])
     return toplevel_stacked
 
-@validate_arguments
 def __route_bottom_ncomps_except_drain_nbias(pdk: MappedPDK, toplevel_stacked: Component, gndpin: Union[Component,ComponentReference], halfmultn_num_mults: int) -> tuple:
     clear_cache()
     # route diff pair cmirror

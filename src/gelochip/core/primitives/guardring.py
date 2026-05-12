@@ -3,13 +3,11 @@ from __future__ import annotations
 from typing import Optional
 
 from gdsfactory.component import Component
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.primitives.guardring import tapring as _tapring
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.guardring import tapring as _tapring
 
 
-@validate_arguments
 def guard_ring(
     pdk: MappedPDK,
     enclosed_rectangle: tuple[float, float],
