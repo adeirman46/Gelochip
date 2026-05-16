@@ -141,4 +141,5 @@ gf180_mapped_pdk = MappedPDK(
 
 # configure the grid size and other settings
 gf180_mapped_pdk.gds_write_settings.precision = 5*10**-9
-gf180_mapped_pdk.cell_decorator_settings.cache=False
+if hasattr(gf180_mapped_pdk.cell_decorator_settings, "cache"):
+    gf180_mapped_pdk.cell_decorator_settings.cache = False
