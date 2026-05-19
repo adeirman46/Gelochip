@@ -20,8 +20,16 @@ classifiers = [
 ]
 
 dependencies = [
+    # ── System dependencies (install separately — not pip-installable) ────────
+    # ngspice >= 38    →  sudo apt install ngspice       (Ubuntu/Debian)
+    #                  →  brew install ngspice            (macOS)
+    #                  →  conda install -c conda-forge ngspice  (Anaconda)
+    # klayout binary   →  sudo apt install klayout       (or klayout.de)
+    # magic            →  http://opencircuitdesign.com/magic/ (DRC/LVS, optional)
+    # netgen           →  http://opencircuitdesign.com/netgen/ (LVS, optional)
+    # ── Python packages ───────────────────────────────────────────────────────
     # GLayout / EDA core
-    "gdsfactory>=7.0.0,<8.0.0",
+    "gdsfactory[cad]>=7.0.0,<8.0.0",
     "gdstk>=0.9.0",
     "klayout>=0.28.0",
     "PySpice>=1.5",
@@ -90,9 +98,14 @@ notebooks = [
     "jupyter>=1.0.0",
     "ipykernel>=6.29.0",
     "jupyterlab>=4.2.0",
-    "gymnasium>=0.29.0,<1.0",   # 1.x has C extensions compiled against numpy 2.x
-    "stable-baselines3>=2.3.0,<2.4.0",  # 2.4+ requires gymnasium>=1.0
+    "gymnasium>=0.29.0,<1.0",
+    "stable-baselines3>=2.3.0,<2.4.0",
     "nbconvert>=7.0.0",
+    # GDS visualization in notebooks (inline KLayout renderer)
+    "klayout>=0.28.0",
+    "gdsfactory[cad]>=7.0.0,<8.0.0",
+    # SPICE simulation
+    "PySpice>=1.5",
 ]
 
 [project.scripts]

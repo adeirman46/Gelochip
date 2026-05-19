@@ -170,13 +170,24 @@ class Netlist:
 			self.sub_netlists.append(netlist)
 			self.netlist_connections.append(netlist.nodes.copy())
 
-	def connect_netlist(self, netlist: 'Netlist', node_mapping: list[tuple[str, str]]) -> int:
+	def connect_netlist(self, netlist, node_mapping: list[tuple[str, str]]) -> int:
 		"""Adds a sub-netlist and connects it to top-level nodes.
 
 		Parameters:
-		- `netlist`: The netlist object to add.
+		- `netlist`: The netlist object (or SPICE string) to add.
 		- `node_mapping`: A list of 2-element tuples representing the connections between the netlist nodes and the top-level nodes. The first element in the tuple is the name of the node of `netlist` and the second value is the name of the top-level to connect to.
 		"""
+		if isinstance(netlist, str):
+			# Parse SPICE string into a minimal Netlist object
+			_subckt = re.findall(r'\.subckt\s+(\w+)\s+(.*?)$', netlist, re.IGNORECASE | re.MULTILINE)
+			if _subckt:
+				_name, _node_str = _subckt[-1]
+				_nodes = [n for n in _node_str.split() if '=' not in n]
+			else:
+				_name, _nodes = 'UNKNOWN', []
+			_nl = Netlist(circuit_name=_name, nodes=_nodes)
+			_nl.source_netlist = netlist
+			netlist = _nl
 		self.add_netlists([deepcopy(netlist)])
 		netlist_index = len(self.sub_netlists) - 1
 
@@ -254,6 +265,13 @@ class Netlist:
 		global_nodes.update(set(self.global_nodes))
 
 		return global_nodes
+
+	def __str__(self) -> str:
+		"""Return SPICE netlist text so str(netlist_obj) gives valid SPICE."""
+		try:
+			return self.generate_netlist()
+		except Exception:
+			return repr(self)
 
 	def generate_netlist(self, only_subcircuits: bool = False, with_pins: bool = True) -> str:
 		"""Generates the final SPICE netlist for the design.

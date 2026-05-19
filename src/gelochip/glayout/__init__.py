@@ -37,6 +37,18 @@ from .primitives.guardring import tapring
 from .primitives.mimcap import mimcap, mimcap_array
 from .primitives.resistor import resistor
 
+# Passive RF components (inductor lives in gelochip.core.primitives.passive)
+try:
+    # Full package install: gelochip.glayout → go up one level to gelochip.core
+    from ..core.primitives.passive import inductor
+except (ImportError, ValueError):
+    try:
+        # Subprocess path-injection context: sys.path has src/gelochip/,
+        # so bare `core` resolves to src/gelochip/core/
+        from core.primitives.passive import inductor  # type: ignore[import]
+    except ImportError:
+        inductor = None
+
 # SPICE and utils
 from .spice import Netlist
 
@@ -114,10 +126,11 @@ __all__ = [
     "straight_route",
     "via_stack",
     "via_array",
-    "nmos", 
-    "pmos", 
+    "nmos",
+    "pmos",
     "multiplier",
     "tapring",
+    "inductor",
     "PortTree",
     "rename_ports_by_orientation",
     "move",

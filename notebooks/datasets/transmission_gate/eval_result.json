@@ -1,0 +1,50 @@
+{
+    "component_name": "Transmission_Gate",
+    "timestamp": "2026-05-18T19:31:36.740908",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/transmission_gate/Transmission_Gate_drc_out/drc/Transmission_Gate/Transmission_Gate.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 2,
+            "error_details": [
+                {
+                    "rule": "Metal2 width < 0.28um (M2.1)",
+                    "details": "0.250um 8.115um 0.385um 8.125um"
+                },
+                {
+                    "rule": "Metal2 width < 0.28um (M2.1)",
+                    "details": "0.250um -1.675um 0.385um -1.665um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/transmission_gate/Transmission_Gate_lvs_out/lvs/Transmission_Gate/Transmission_Gate_lvs.rpt",
+        "summary": {
+            "is_pass": true,
+            "conclusion": "LVS Pass: Netlists match.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "6                          |Number of nets: 6",
+                "devices": "4                       |Number of devices: 4",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 6183.972002000009,
+        "total_capacitance_farads": 1.8789909999999983e-14
+    },
+    "geometric": {
+        "raw_area_um2": 359.4439999999998,
+        "symmetry_score_horizontal": 1.0,
+        "symmetry_score_vertical": 0.6711365330899942
+    }
+}

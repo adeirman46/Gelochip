@@ -3,13 +3,11 @@ from __future__ import annotations
 from typing import Optional, Union
 
 from gdsfactory.component import Component
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.primitives.via_gen import via_stack as _via_stack, via_array as _via_array
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.via_gen import via_stack as _via_stack, via_array as _via_array
 
 
-@validate_arguments
 def via_stack(
     pdk: MappedPDK,
     glayer_start: str,
@@ -37,7 +35,6 @@ def via_stack(
     return _via_stack(pdk, glayer_start, glayer_end, **kwargs)
 
 
-@validate_arguments
 def via_array(
     pdk: MappedPDK,
     glayer_start: str,

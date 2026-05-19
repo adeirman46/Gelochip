@@ -11,7 +11,6 @@ from decimal import Decimal, ROUND_UP
 import tempfile
 import subprocess
 from decimal import Decimal
-from pydantic import validate_arguments
 import xml.etree.ElementTree as ET
 import pathlib, shutil, os, sys
 
@@ -316,7 +315,6 @@ class MappedPDK(Pdk):
                 )
         return glayers_obj
 
-    @validate_arguments
     def drc(
         self,
         layout: Component | PathType,
@@ -412,7 +410,6 @@ class MappedPDK(Pdk):
         drc_error_count = len(drc_root[7])
         return (drc_error_count == 0)
 
-    @validate_arguments
     def drc_magic(
         self, 
         layout: Component | PathType, 
@@ -598,7 +595,6 @@ custom_drc_save_report $::env(DESIGN_NAME) $::env(REPORTS_DIR)/$::env(DESIGN_NAM
 
         return ret_dict
 
-    @validate_arguments
     def lvs_netgen(
         self,
         layout: Component | PathType, 
@@ -747,8 +743,11 @@ custom_drc_save_report $::env(DESIGN_NAME) $::env(REPORTS_DIR)/$::env(DESIGN_NAM
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_dir_path = Path(temp_dir).resolve()
             self.pdk_files['temp_dir'] = temp_dir_path
-            print("using user specified pdk_root, will search for required files in the specified directory")
-            self.pdk_files['pdk_root'] = pdk_root 
+            if pdk_root is not None:
+                print("using user specified pdk_root, will search for required files in the specified directory")
+                self.pdk_files['pdk_root'] = pdk_root
+            else:
+                print("using default pdk_root")
             
             lvsmag_path = temp_dir_path / f"{design_name}_lvsmag.spice"
             pex_path = temp_dir_path / f"{design_name}_pex.spice"
@@ -764,12 +763,12 @@ custom_drc_save_report $::env(DESIGN_NAME) $::env(REPORTS_DIR)/$::env(DESIGN_NAM
                 
                 if netlist is None:
                     # Handle both string netlists and Netlist objects
-                    netlist_info = layout.info['netlist']
+                    netlist_info = layout.info.get('netlist') or layout.info.get('netlist_obj')
+                    if netlist_info is None:
+                        raise ValueError(f"No netlist found in component info for '{design_name}'. Cannot run LVS.")
                     if isinstance(netlist_info, str):
-                        # Already a string, use directly
                         netlist = netlist_info
                     else:
-                        # Netlist object, call generate_netlist()
                         netlist = netlist_info.generate_netlist()
                     with open(str(netlist_from_comp), 'w') as f:
                         f.write(netlist)
@@ -806,10 +805,8 @@ load {design_name}
 select top cell
 
 extract all
-ext2resist all
 
 ext2spice lvs
-ext2spice extresist on
 ext2spice -o {str(lvsmag_path)}
 
 # Sim Netlist
@@ -920,15 +917,12 @@ exit
                         os.remove(file)
                 # copy the report from the temp directory to the specified location
                 
-                if output_file_path is not None:
+                if output_file_path is not None and report_path.is_file():
                     dir_name = design_name
-                    #path_to_dir = Path(__file__).resolve().parents[1]  / "regression" / "lvs" / dir_name
                     path_to_dir = Path(output_file_path) / "lvs" / dir_name
                     if not path_to_dir.exists():
                         path_to_dir.mkdir(parents=True, exist_ok=False)
-                    #new_output_file_path = path_to_dir / output_file_path
                     new_output_file_path = path_to_dir / Path(report_path).name
-                    # Overwrite the report file if it exists
                     shutil.copy(report_path, new_output_file_path)
                     # if not new_output_file_path.exists():
                     #     shutil.copy(report_path, path_to_dir / output_file_path)
@@ -949,7 +943,6 @@ exit
         return {'magic_subproc_code': magic_subproc_code, 'netgen_subproc_code': netgen_subproc_code, 'result_str': result_str}
                     
     
-    @validate_arguments
     def has_required_glayers(self, layers_required: list[str]):
         """Raises ValueError if any of the generic layers in layers_required: list[str]
         are not mapped to anything in the pdk.glayers dictionary
@@ -965,7 +958,6 @@ exit
                 raise TypeError("glayer mapped value should be str or tuple[int,int]")
 
 
-    @validate_arguments
     def layer_to_glayer(self, layer: tuple[int, int]) -> str:
         """if layer provided corresponds to a glayer, will return a glayer
         else will raise an exception
@@ -990,7 +982,6 @@ exit
             raise ValueError("layer might not be a layer present in the pdk")
 
     # TODO: implement LayerSpec type
-    @validate_arguments
     def get_glayer(self, layer: str) -> Layer:
         """Returns the pdk layer from the generic layer name"""
         direct_mapping = self.glayers[layer]
@@ -999,7 +990,6 @@ exit
         else:
             return self.get_layer(direct_mapping)
 
-    @validate_arguments
     def get_grule(
         self, glayer1: str, glayer2: Optional[str] = None, return_decimal = False
     ) -> dict[StrictStr, Union[float,Decimal]]:
@@ -1078,7 +1068,6 @@ exit
         return mappedpdk
 
     # util methods
-    @validate_arguments
     def util_max_metal_seperation(self, metal_levels: Union[list[int],list[str], str, int] = range(1,6)) -> float:
         """returns the maximum of the min_seperation rule for all layers specfied
         although the name of this function is util_max_metal_seperation, layers do not have to be metals
@@ -1099,7 +1088,6 @@ exit
             sep_rules.append(self.get_grule(met)["min_separation"])
         return self.snap_to_2xgrid(max(sep_rules))
 
-    @validate_arguments
     def snap_to_2xgrid(self, dims: Union[list[Union[float,Decimal]], Union[float,Decimal]], return_type: Literal["decimal","float","same"]="float", snap4: bool=False) -> Union[list[Union[float,Decimal]], Union[float,Decimal]]:
         """snap all numbers in dims to double the grid size.
         This is useful when a generator accepts a size or dimension argument

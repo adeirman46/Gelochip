@@ -1,0 +1,702 @@
+{
+    "component_name": "shared_gate_components$1",
+    "timestamp": "2026-05-18T20:35:38.412111",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/differential_to_single_ended_converter/SHARED_GATE_COMPONENTS_drc_out/drc/SHARED_GATE_COMPONENTS/SHARED_GATE_COMPONENTS.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 165,
+            "error_details": [
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.940um -2.035um 1.060um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "1.060um -2.035um 1.320um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "1.320um -2.035um 1.440um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.940um -2.155um 1.440um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "2.900um -2.035um 3.020um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "3.020um -2.035um 3.280um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "3.280um -2.035um 3.400um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "2.900um -2.155um 3.400um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "4.860um -2.035um 4.980um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "4.980um -2.035um 5.240um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "5.240um -2.035um 5.360um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "4.860um -2.155um 5.360um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "6.820um -2.035um 6.940um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "6.940um -2.035um 7.200um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "7.200um -2.035um 7.320um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "6.820um -2.155um 7.320um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.780um -2.035um 8.900um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.900um -2.035um 9.370um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "9.370um -2.035um 9.490um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.780um -2.155um 9.490um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.950um -2.035um 11.070um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.070um -2.035um 11.330um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.330um -2.035um 11.450um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.950um -2.155um 11.450um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.910um -2.035um 13.030um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.030um -2.035um 13.290um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.290um -2.035um 13.410um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.910um -2.155um 13.410um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "14.870um -2.035um 14.990um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "14.990um -2.035um 15.250um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "15.250um -2.035um 15.370um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "14.870um -2.155um 15.370um -2.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "16.830um -2.035um 16.950um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "16.950um -2.035um 17.210um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "17.210um -2.035um 17.330um -2.020um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "16.830um -2.155um 17.330um -2.035um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "1.810um -1.655um 2.030um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "1.810um -2.155um 2.030um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "1.810um -2.375um 2.030um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "2.310um -1.655um 2.530um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "2.310um -2.155um 2.530um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "2.310um -2.375um 2.530um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "3.770um -1.655um 3.990um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "3.770um -2.155um 3.990um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "3.770um -2.375um 3.990um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "4.270um -1.655um 4.490um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "4.270um -2.155um 4.490um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "4.270um -2.375um 4.490um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "5.730um -1.655um 5.950um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "5.730um -2.155um 5.950um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "5.730um -2.375um 5.950um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "6.230um -1.655um 6.450um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "6.230um -2.155um 6.450um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "6.230um -2.375um 6.450um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "7.690um -1.655um 7.910um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "7.690um -2.155um 7.910um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "7.690um -2.375um 7.910um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "8.190um -1.655um 8.410um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "8.190um -2.155um 8.410um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "8.190um -2.375um 8.410um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "9.860um -1.655um 10.080um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "9.860um -2.155um 10.080um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "9.860um -2.375um 10.080um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "10.360um -1.655um 10.580um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "10.360um -2.155um 10.580um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "10.360um -2.375um 10.580um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "11.820um -1.655um 12.040um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "11.820um -2.155um 12.040um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "11.820um -2.375um 12.040um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "12.320um -1.655um 12.540um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "12.320um -2.155um 12.540um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "12.320um -2.375um 12.540um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "13.780um -1.655um 14.000um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "13.780um -2.155um 14.000um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "13.780um -2.375um 14.000um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "14.280um -1.655um 14.500um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "14.280um -2.155um 14.500um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "14.280um -2.375um 14.500um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "15.740um -1.655um 15.960um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "15.740um -2.155um 15.960um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "15.740um -2.375um 15.960um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "16.240um -1.655um 16.460um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "16.240um -2.155um 16.460um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "16.240um -2.375um 16.460um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "20.080um -1.655um 20.300um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "20.080um -2.155um 20.300um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "20.080um -2.375um 20.300um -2.155um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "20.580um -1.655um 20.800um -1.435um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "20.580um -2.155um 20.800um -1.655um"
+                },
+                {
+                    "rule": "Poly overhang of transistor < 0.22um (PL.4)",
+                    "details": "20.580um -2.375um 20.800um -2.155um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "1.710um -2.155um 2.030um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "2.310um -2.155um 2.630um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "3.670um -2.155um 3.990um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "4.270um -2.155um 4.590um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "5.630um -2.155um 5.950um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "6.230um -2.155um 6.550um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "7.590um -2.155um 7.910um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "8.190um -2.155um 8.510um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "9.760um -2.155um 10.080um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "10.360um -2.155um 10.680um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "11.720um -2.155um 12.040um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "12.320um -2.155um 12.640um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "13.680um -2.155um 14.000um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "14.280um -2.155um 14.600um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "15.640um -2.155um 15.960um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "16.240um -2.155um 16.560um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "19.980um -2.155um 20.300um -1.655um"
+                },
+                {
+                    "rule": "P-Ohmic overhang of Varactor < 0.32um (FIXME)",
+                    "details": "20.580um -2.155um 20.900um -1.655um"
+                },
+                {
+                    "rule": "Metal5 minimum area < 0.5625um^2 (MT.4)",
+                    "details": "9.750um -13.400um 10.250um -13.290um"
+                },
+                {
+                    "rule": "Metal5 minimum area < 0.5625um^2 (MT.4)",
+                    "details": "9.750um -13.680um 9.860um -13.400um"
+                },
+                {
+                    "rule": "Metal5 minimum area < 0.5625um^2 (MT.4)",
+                    "details": "9.750um -13.790um 10.250um -13.680um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "2.310um -2.155um 2.840um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "2.840um -1.790um 3.030um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "2.840um -2.020um 3.030um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "2.840um -2.155um 3.030um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "2.030um -1.415um 2.310um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "2.030um -1.655um 2.310um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "4.270um -2.155um 4.800um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "4.800um -1.790um 4.990um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "4.800um -2.020um 4.990um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "4.800um -2.155um 4.990um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "3.990um -1.415um 4.270um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "3.990um -1.655um 4.270um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "6.230um -2.155um 6.760um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "6.760um -1.790um 6.950um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "6.760um -2.020um 6.950um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "6.760um -2.155um 6.950um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "5.950um -1.415um 6.230um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "5.950um -1.655um 6.230um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "8.190um -2.155um 8.720um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "8.720um -1.790um 8.910um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "8.720um -2.020um 8.910um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "8.720um -2.155um 8.910um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "7.910um -1.415um 8.190um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "7.910um -1.655um 8.190um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "10.360um -2.155um 10.890um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "10.890um -1.790um 11.080um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "10.890um -2.020um 11.080um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "10.890um -2.155um 11.080um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "10.080um -1.415um 10.360um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "10.080um -1.655um 10.360um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "12.320um -2.155um 12.850um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "12.850um -1.790um 13.040um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "12.850um -2.020um 13.040um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "12.850um -2.155um 13.040um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "12.040um -1.415um 12.320um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "12.040um -1.655um 12.320um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "14.280um -2.155um 14.810um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "14.810um -1.790um 15.000um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "14.810um -2.020um 15.000um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "14.810um -2.155um 15.000um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "14.000um -1.415um 14.280um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "14.000um -1.655um 14.280um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "16.240um -2.155um 16.770um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "16.770um -1.790um 16.960um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "16.770um -2.020um 16.960um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "16.770um -2.155um 16.960um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "15.960um -1.415um 16.240um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "15.960um -1.655um 16.240um -1.415um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "20.580um -2.155um 21.110um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "21.110um -1.790um 21.300um -1.655um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "21.110um -2.020um 21.300um -1.790um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "21.110um -2.155um 21.300um -2.020um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "20.300um -1.415um 20.580um -1.155um"
+                },
+                {
+                    "rule": "Varactor length and width < 1um (DF.1c)",
+                    "details": "20.300um -1.655um 20.580um -1.415um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/differential_to_single_ended_converter/SHARED_GATE_COMPONENTS_lvs_out/lvs/SHARED_GATE_COMPONENTS/SHARED_GATE_COMPONENTS_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "1 **Mismatch**             |Number of nets: 5 **Mismatch**",
+                "devices": "1 **Mismatch**          |Number of devices: 4 **Mismatch**",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 0.0
+    },
+    "geometric": {
+        "raw_area_um2": 3071.1066000000774,
+        "symmetry_score_horizontal": 0.9450138591737599,
+        "symmetry_score_vertical": 0.8261469986095608
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "component_name": "DIFF_PAIR",
+    "timestamp": "2026-05-18T19:31:28.698406",
+    "drc_lvs_fail": false,
+    "drc": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/diff_pair/DIFF_PAIR_drc_out/drc/DIFF_PAIR/DIFF_PAIR.rpt",
+        "summary": {
+            "is_pass": true,
+            "total_errors": 0,
+            "error_details": []
+        }
+    },
+    "lvs": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/diff_pair/DIFF_PAIR_lvs_out/lvs/DIFF_PAIR/DIFF_PAIR_lvs.rpt",
+        "summary": {
+            "is_pass": true,
+            "conclusion": "LVS Pass: Netlists match.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "6                          |Number of nets: 6",
+                "devices": "3                       |Number of devices: 3",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 6452.345444000003,
+        "total_capacitance_farads": 8.458588999999995e-14
+    },
+    "geometric": {
+        "raw_area_um2": 1429.8092999999958,
+        "symmetry_score_horizontal": 1.0,
+        "symmetry_score_vertical": 0.9725054243247683
+    }
+}

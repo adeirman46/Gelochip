@@ -1,0 +1,54 @@
+{
+    "component_name": "fvf",
+    "timestamp": "2026-05-18T19:31:28.734301",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/fvf/fvf_drc_out/drc/fvf/fvf.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 3,
+            "error_details": [
+                {
+                    "rule": "Via2 width < 0.28um (V2.1 + 2 * V2.3)",
+                    "details": "10.805um -1.040um 11.055um -0.760um"
+                },
+                {
+                    "rule": "Via2 width < 0.28um (V2.1 + 2 * V2.3)",
+                    "details": "11.085um -1.260um 11.335um -1.040um"
+                },
+                {
+                    "rule": "Metal1 spacing < 0.23um (M1.2a)",
+                    "details": "12.715um -3.000um 12.925um -2.950um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/fvf/fvf_lvs_out/lvs/fvf/fvf_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "2 **Mismatch**             |Number of nets: 4 **Mismatch**",
+                "devices": "2 **Mismatch**          |Number of devices: 3 **Mismatch**",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 4.07058e-15
+    },
+    "geometric": {
+        "raw_area_um2": 1250.4483999999952,
+        "symmetry_score_horizontal": 0.6922291235687922,
+        "symmetry_score_vertical": 0.9664600314575154
+    }
+}

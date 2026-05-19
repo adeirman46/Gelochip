@@ -17,19 +17,17 @@ from typing import Optional
 
 from gdsfactory.component import Component
 from gdsfactory.cell import cell
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.cells.elementary.diff_pair import diff_pair as _diff_pair
-from gelochip.glayout.primitives.fet import nmos, pmos
-from gelochip.glayout.routing.c_route import c_route
-from gelochip.glayout.routing.L_route import L_route
-from gelochip.glayout.util.comp_utils import prec_ref_center, movex, movey
-from gelochip.glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter
-from gelochip.glayout.spice.netlist import Netlist
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.cells.elementary.diff_pair import diff_pair as _diff_pair
+from glayout.primitives.fet import nmos, pmos
+from glayout.routing.c_route import c_route
+from glayout.routing.L_route import L_route
+from glayout.util.comp_utils import prec_ref_center, movex, movey
+from glayout.util.port_utils import rename_ports_by_orientation, add_ports_perimeter
+from glayout.spice.netlist import Netlist
 
 
-@validate_arguments
 def diff_pair(
     pdk: MappedPDK,
     *,
@@ -80,7 +78,6 @@ def diff_pair(
     )
 
 
-@validate_arguments
 def folded_cascode(
     pdk: MappedPDK,
     *,

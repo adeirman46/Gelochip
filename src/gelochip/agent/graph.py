@@ -5,24 +5,24 @@ Graph topology:
 
     START
       │
-    spec_parser    – natural language → structured CircuitSpec
+    spec_parser      – natural language → structured CircuitSpec
       │
-    researcher     – ArXiv + web search → topology recommendations
+    researcher       – ArXiv + web search → topology recommendations
       │
-    circuit_designer – gm/ID sizing → component_params
-      │
-    layout_generator – LLM code-gen → GLayout Python → GDS
-      │
-     ┌┴──────────────────┐
-     │ success            │ failure (up to max_corrections times)
-     ▼                    ▼
-    summarizer          verifier ─┐
-      │                    │      │ retry
-     END                   └──────┘
-                             │ give up
-                           summarizer
-                              │
-                             END
+    circuit_designer – gm/ID sizing + PySpice validation → component_params
+      │ success                    │ JSON/PySpice error
+      ▼                            ▼
+    layout_generator           corrector ──→ circuit_designer (retry)
+      │ success   │ failure         │ success (layout fixed)
+      ▼           ▼                 ▼
+    summarizer  corrector ──→   verifier (DRC/LVS/SPICE)
+                    │                │
+                    └──→ layout_generator (retry with feedback)
+                    └──→ summarizer (budget exhausted)
+                                     │
+                                  summarizer
+                                     │
+                                    END
 
 Usage::
 
@@ -36,6 +36,8 @@ Usage::
         "retrieved_papers": [],
         "selected_topology": None,
         "component_params": {},
+        "pyspice_code": None,
+        "pyspice_result": None,
         "layout_result": None,
         "sim_result": None,
         "correction_count": 0,
@@ -43,6 +45,7 @@ Usage::
         "final_answer": None,
         "next_node": None,
         "errors": [],
+        "failed_node": None,
     })
     print(result["final_answer"])
 """
@@ -59,21 +62,36 @@ from gelochip.agent.nodes import (
     researcher_node,
     circuit_designer_node,
     layout_generator_node,
+    corrector_node,
     verifier_node,
     summarizer_node,
 )
 
 
-def _route_after_layout(state: GelochipAgentState) -> Literal["verifier", "summarizer"]:
+def _route_after_spec_parser(state: GelochipAgentState) -> Literal["researcher", "summarizer"]:
+    return state.get("next_node", "researcher")
+
+
+def _route_after_circuit_designer(
+    state: GelochipAgentState,
+) -> Literal["layout_generator", "corrector"]:
+    return state.get("next_node", "layout_generator")
+
+
+def _route_after_layout(
+    state: GelochipAgentState,
+) -> Literal["corrector", "summarizer"]:
+    return state.get("next_node", "summarizer")
+
+
+def _route_after_corrector(
+    state: GelochipAgentState,
+) -> Literal["verifier", "layout_generator", "circuit_designer", "summarizer"]:
     return state.get("next_node", "summarizer")
 
 
 def _route_after_verifier(state: GelochipAgentState) -> Literal["verifier", "summarizer"]:
     return state.get("next_node", "summarizer")
-
-
-def _route_after_spec_parser(state: GelochipAgentState) -> Literal["researcher", "summarizer"]:
-    return state.get("next_node", "researcher")
 
 
 def build_graph(llm=None, checkpointer=None, interrupt_after: list[str] | None = None) -> StateGraph:
@@ -88,20 +106,15 @@ def build_graph(llm=None, checkpointer=None, interrupt_after: list[str] | None =
 
     Returns:
         Compiled LangGraph StateGraph.
-
-    Example::
-
-        graph = build_graph()  # auto-detects API key from env
-        result = graph.invoke({...})
     """
     if llm is None:
         llm = _auto_llm()
 
-    # Bind LLM to each node using partial
     _spec_parser      = partial(spec_parser_node,      llm=llm)
     _researcher       = partial(researcher_node,       llm=llm)
     _circuit_designer = partial(circuit_designer_node, llm=llm)
     _layout_generator = partial(layout_generator_node, llm=llm)
+    _corrector        = partial(corrector_node,        llm=llm)
     _verifier         = partial(verifier_node,         llm=llm)
     _summarizer       = partial(summarizer_node,       llm=llm)
 
@@ -111,6 +124,7 @@ def build_graph(llm=None, checkpointer=None, interrupt_after: list[str] | None =
     graph.add_node("researcher",       _researcher)
     graph.add_node("circuit_designer", _circuit_designer)
     graph.add_node("layout_generator", _layout_generator)
+    graph.add_node("corrector",        _corrector)
     graph.add_node("verifier",         _verifier)
     graph.add_node("summarizer",       _summarizer)
 
@@ -121,14 +135,35 @@ def build_graph(llm=None, checkpointer=None, interrupt_after: list[str] | None =
         _route_after_spec_parser,
         {"researcher": "researcher", "summarizer": "summarizer"},
     )
-    graph.add_edge("researcher",       "circuit_designer")
-    graph.add_edge("circuit_designer", "layout_generator")
+    graph.add_edge("researcher", "circuit_designer")
 
+    # circuit_designer → layout_generator (success) or corrector (JSON/PySpice error)
+    graph.add_conditional_edges(
+        "circuit_designer",
+        _route_after_circuit_designer,
+        {"layout_generator": "layout_generator", "corrector": "corrector"},
+    )
+
+    # layout_generator → corrector (failure) or summarizer (success)
     graph.add_conditional_edges(
         "layout_generator",
         _route_after_layout,
-        {"verifier": "verifier", "summarizer": "summarizer"},
+        {"corrector": "corrector", "summarizer": "summarizer"},
     )
+
+    # corrector → verifier (layout fixed), layout_generator (layout retry),
+    #             circuit_designer (params retry), summarizer (budget exhausted)
+    graph.add_conditional_edges(
+        "corrector",
+        _route_after_corrector,
+        {
+            "verifier":         "verifier",
+            "layout_generator": "layout_generator",
+            "circuit_designer": "circuit_designer",
+            "summarizer":       "summarizer",
+        },
+    )
+
     graph.add_conditional_edges(
         "verifier",
         _route_after_verifier,
@@ -155,13 +190,13 @@ def _auto_llm():
         4. OPENAI_API_KEY    → GPT-4o
 
     Local setup (8 GB VRAM, e.g. RTX 4060):
-        ollama pull qwen3.5:9b
-        echo 'OLLAMA_MODEL=qwen3.5:9b' >> .env
+        ollama pull qwen3:8b
+        echo 'OLLAMA_MODEL=qwen3:8b' >> .env
     """
     if os.getenv("OLLAMA_MODEL"):
         from langchain_ollama import ChatOllama
         return ChatOllama(
-            model=os.getenv("OLLAMA_MODEL", "qwen3.5:9b"),
+            model=os.getenv("OLLAMA_MODEL", "qwen3:8b"),
             base_url=os.getenv("OLLAMA_HOST", "http://localhost:11434"),
             temperature=0.1,
             num_ctx=8192,
@@ -185,7 +220,7 @@ def _auto_llm():
     else:
         raise EnvironmentError(
             "No LLM configured. Options:\n"
-            "  Local (free): set OLLAMA_MODEL=qwen3.5:9b in .env (requires Ollama)\n"
+            "  Local (free): set OLLAMA_MODEL=qwen3:8b in .env (requires Ollama)\n"
             "  Cloud:        set ANTHROPIC_API_KEY, GOOGLE_API_KEY, or OPENAI_API_KEY"
         )
 
@@ -203,6 +238,8 @@ def create_initial_state(
         "retrieved_papers": [],
         "selected_topology": None,
         "component_params": {},
+        "pyspice_code": None,
+        "pyspice_result": None,
         "layout_result": None,
         "sim_result": None,
         "correction_count": 0,
@@ -211,4 +248,6 @@ def create_initial_state(
         "next_node": None,
         "errors": [],
         "output_dir": output_dir,
+        "corrector_feedback": None,
+        "failed_node": None,
     }

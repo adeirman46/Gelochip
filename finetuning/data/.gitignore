@@ -1,0 +1,13 @@
+# Raw downloaded data (large files — download locally via 01_pdf_extract.ipynb)
+raw/
+
+# Trained model weights
+models/
+
+# Evaluation outputs
+eval/
+
+# Keep processed JSONL structure but not the content (too large for git)
+processed/*.jsonl
+processed/*.csv
+synthetic/*.jsonl

@@ -16,7 +16,6 @@ from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey
 from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports
 from glayout.routing.straight_route import straight_route
 from glayout.util.snap_to_grid import component_snap_to_grid
-from pydantic import validate_arguments
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
 
 from glayout.cells.composite.diffpair_cmirror_bias import diff_pair_ibias
@@ -27,7 +26,6 @@ from glayout.cells.composite.opamp.diff_pair_stackedcmirror import diff_pair_sta
 from glayout.spice import Netlist
 from glayout.cells.elementary.current_mirror import current_mirror_netlist
 
-@validate_arguments
 def __create_and_route_pins(
     pdk: MappedPDK,
     opamp_top: Component,
@@ -105,7 +103,6 @@ def __create_and_route_pins(
 
 
 
-@validate_arguments
 def __add_mimcap_arr(pdk: MappedPDK, opamp_top: Component, mim_cap_size, mim_cap_rows, ymin: float, n_to_p_output_route) -> tuple[Component, Netlist]:
     mim_cap_size = pdk.snap_to_2xgrid(mim_cap_size, return_type="float")
     max_metalsep = pdk.util_max_metal_seperation()

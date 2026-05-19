@@ -11,14 +11,12 @@ from __future__ import annotations
 from typing import Optional, Union
 
 from gdsfactory.component import Component
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.primitives.fet import nmos as _glayout_nmos, pmos as _glayout_pmos
-from gelochip.glayout.spice.netlist import Netlist
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.fet import nmos as _glayout_nmos, pmos as _glayout_pmos
+from glayout.spice.netlist import Netlist
 
 
-@validate_arguments
 def nmos(
     pdk: MappedPDK,
     *,
@@ -60,7 +58,7 @@ def nmos(
 
     Example::
 
-        from gelochip.glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
+        from glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
         m1 = nmos(pdk, width=2.0, fingers=4)
         m1.show()
     """
@@ -81,7 +79,6 @@ def nmos(
     )
 
 
-@validate_arguments
 def pmos(
     pdk: MappedPDK,
     *,
@@ -107,7 +104,7 @@ def pmos(
 
     Example::
 
-        from gelochip.glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
+        from glayout.pdk.gf180_mapped import gf180_mapped_pdk as pdk
         mp = pmos(pdk, width=4.0, fingers=2)
         mp.show()
     """

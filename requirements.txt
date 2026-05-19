@@ -1,6 +1,31 @@
 # Gelochip – pip-compatible requirements (mirrors pyproject.toml)
 # Install with: pip install -r requirements.txt
 # OR (recommended): uv sync
+#
+# ── SYSTEM DEPENDENCIES (install before pip install) ─────────────────────────
+# These are OS-level binaries, NOT pip packages:
+#
+#   ngspice (REQUIRED for PySpice circuit validation):
+#     Ubuntu/Debian:  sudo apt install ngspice
+#     macOS:          brew install ngspice
+#     Conda:          conda install -c conda-forge ngspice
+#
+#   klayout (REQUIRED for GDS viewing and DRC):
+#     Ubuntu/Debian:  sudo apt install klayout
+#     or download:    https://www.klayout.de/build.html
+#
+#   magic 8.3.411+ (REQUIRED for gf180 DRC/LVS — APT version 8.3.105 is too old):
+#     Build from source into venv (see README "Step 3b"):
+#       curl -L -o magic.tar.gz https://github.com/RTimothyEdwards/magic/archive/refs/tags/8.3.644.tar.gz
+#       tar xzf magic.tar.gz && cd magic-8.3.644
+#       ./configure --prefix=/path/to/Gelochip/.venv && make -j$(nproc) && make install
+#
+#   netgen 1.5.272 (REQUIRED for LVS — APT 'netgen' is a mesh generator, NOT the EDA tool):
+#     Build from source into venv (see README "Step 3b"):
+#       curl -L -o netgen.tar.gz https://github.com/RTimothyEdwards/netgen/archive/refs/tags/1.5.272.tar.gz
+#       tar xzf netgen.tar.gz && cd netgen-1.5.272
+#       ./configure --prefix=/path/to/Gelochip/.venv && make -j$(nproc) && make install
+# ─────────────────────────────────────────────────────────────────────────────
 
 # ── EDA / GLayout core ───────────────────────────────────────────────────────
 gdsfactory>=7.0.0,<8.0.0
@@ -44,6 +69,10 @@ aiofiles>=23.2.0
 mcp>=1.0.0
 # PDF figure extraction for researcher vision
 pymupdf>=1.24.0
+
+# ── Notebooks ────────────────────────────────────────────────────────────────
+nbconvert>=7.0.0
+jupyter>=1.0.0
 
 # ── Utilities ─────────────────────────────────────────────────────────────────
 python-dotenv>=1.0.0

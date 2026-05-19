@@ -6,7 +6,8 @@ import shutil
 import tempfile
 import sys
 from pathlib import Path
-from glayout import MappedPDK, sky130,gf180
+from glayout import MappedPDK, sky130, gf180
+from glayout.pdk.gf180_mapped import gf180_mapped_pdk as _gf180_pdk
 from gdsfactory.typings import Component
 
 def parse_drc_report(report_content: str) -> dict:
@@ -137,11 +138,22 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
       - DRC: {output_dir}/drc/{design_name}/{design_name}.rpt
       - LVS: {output_dir}/lvs/{design_name}/{design_name}_lvs.rpt
     """
+    # Sanitize component name: remove gdsfactory $N suffix and special chars
+    safe_name = re.sub(r'[\$\s].*$', '', component_name).upper()
+    if not safe_name:
+        safe_name = component_name.upper()
+    if safe_name != component_name:
+        top_level.name = safe_name
+        new_gds = os.path.abspath(f"./{safe_name}.gds")
+        top_level.write_gds(new_gds)
+        layout_path = new_gds
+        component_name = safe_name
+
     verification_results = {
         "drc": {"status": "not run", "is_pass": False, "report_path": None, "summary": {}},
         "lvs": {"status": "not run", "is_pass": False, "report_path": None, "summary": {}}
     }
-    
+
     # DRC Check
     # PDK creates: {drc_output_dir}/drc/{component_name}/{component_name}.rpt
     drc_output_dir = os.path.abspath(f"./{component_name}_drc_out")
@@ -151,7 +163,7 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
         # Clean up existing directory if present
         if os.path.exists(drc_output_dir):
             shutil.rmtree(drc_output_dir)
-        sky130.drc_magic(layout_path, component_name, output_file=drc_output_dir)
+        _gf180_pdk.drc_magic(layout_path, component_name, output_file=drc_output_dir)
         report_content = ""
         if os.path.exists(drc_actual_report):
             with open(drc_actual_report, 'r') as f:
@@ -170,7 +182,7 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
         # Clean up existing directory if present
         if os.path.exists(lvs_output_dir):
             shutil.rmtree(lvs_output_dir)
-        sky130.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_output_dir)
+        _gf180_pdk.lvs_netgen(layout=top_level, design_name=component_name, output_file_path=lvs_output_dir)
         report_content = ""
         if os.path.exists(lvs_actual_report):
             with open(lvs_actual_report, 'r') as report_file:

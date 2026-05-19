@@ -16,7 +16,6 @@ from glayout.util.comp_utils import evaluate_bbox, prec_ref_center, movex, movey
 from glayout.util.port_utils import rename_ports_by_orientation, rename_ports_by_list, add_ports_perimeter, print_ports, set_port_orientation, rename_component_ports
 from glayout.routing.straight_route import straight_route
 from glayout.util.snap_to_grid import component_snap_to_grid
-from pydantic import validate_arguments
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
 from glayout.spice import Netlist
 
@@ -43,7 +42,6 @@ def opamp_output_stage_netlist(pdk: MappedPDK, output_amp_fet_ref: ComponentRefe
 
     return output_stage_netlist
 
-@validate_arguments
 def __add_output_stage(
     pdk: MappedPDK,
     opamp_top: Component,

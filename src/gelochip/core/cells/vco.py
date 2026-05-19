@@ -8,19 +8,17 @@ from __future__ import annotations
 from typing import Optional
 
 from gdsfactory.component import Component
-from pydantic import validate_arguments
 
-from gelochip.glayout.pdk.mappedpdk import MappedPDK
-from gelochip.glayout.primitives.fet import nmos, pmos
-from gelochip.glayout.primitives.mimcap import mimcap
-from gelochip.glayout.util.comp_utils import prec_ref_center, movex, movey
-from gelochip.glayout.util.port_utils import rename_ports_by_orientation
-from gelochip.glayout.spice.netlist import Netlist
-from gelochip.core.blocks.current_mirror import current_mirror
-from gelochip.core.primitives.passive import inductor as spiral_inductor
+from glayout.pdk.mappedpdk import MappedPDK
+from glayout.primitives.fet import nmos, pmos
+from glayout.primitives.mimcap import mimcap
+from glayout.util.comp_utils import prec_ref_center, movex, movey
+from glayout.util.port_utils import rename_ports_by_orientation
+from glayout.spice.netlist import Netlist
+from core.blocks.current_mirror import current_mirror
+from core.primitives.passive import inductor as spiral_inductor
 
 
-@validate_arguments
 def lc_vco(
     pdk: MappedPDK,
     *,
@@ -133,7 +131,6 @@ def lc_vco(
     return rename_ports_by_orientation(top)
 
 
-@validate_arguments
 def ring_vco(
     pdk: MappedPDK,
     *,

@@ -31,7 +31,6 @@ from glayout.util.port_utils import (
     rename_component_ports,
 )
 from glayout.util.snap_to_grid import component_snap_to_grid
-from pydantic import validate_arguments
 from glayout.placement.two_transistor_interdigitized import two_nfet_interdigitized
 from glayout.spice import Netlist
 from glayout.cells.elementary.current_mirror import current_mirror_netlist
@@ -71,7 +70,6 @@ def diff_pair_ibias_netlist(center_diffpair: Component, current_mirror: Componen
 
     return netlist
 
-@validate_arguments
 def diff_pair_ibias(
     pdk: MappedPDK,
     half_diffpair_params: tuple[float, float, int],

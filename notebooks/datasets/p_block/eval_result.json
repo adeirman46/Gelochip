@@ -1,0 +1,48 @@
+{
+    "component_name": "p_block$2",
+    "timestamp": "2026-05-18T20:35:40.950329",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/p_block/P_BLOCK_drc_out/drc/P_BLOCK/P_BLOCK.rpt",
+        "summary": {
+            "is_pass": true,
+            "total_errors": 0,
+            "error_details": []
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/p_block/P_BLOCK_lvs_out/lvs/P_BLOCK/P_BLOCK_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 1,
+            "mismatch_details": {
+                "nets": "6                          |Number of nets: 6",
+                "devices": "5 **Mismatch**          |Number of devices: 4 **Mismatch**",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": [
+                    {
+                        "type": "instance",
+                        "name": "pfet_03v3:3",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    }
+                ]
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 0.0
+    },
+    "geometric": {
+        "raw_area_um2": 2796.847699999992,
+        "symmetry_score_horizontal": 1.0,
+        "symmetry_score_vertical": 0.757648584154224
+    }
+}

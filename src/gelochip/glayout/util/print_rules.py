@@ -9,7 +9,6 @@ directions
 
 import csv
 from pathlib import Path
-from pydantic import validate_arguments
 
 
 def split_rule(rule: str) -> tuple:
@@ -84,7 +83,6 @@ def create_ruledeck_python_dictionary_definition(csvtoread: Path):
     return output
 
 
-@validate_arguments
 def visualize_ruleset(ruleset: dict):
     """use networkx to print a visual of the ruleset graph
     nodes are glayers (strings)
