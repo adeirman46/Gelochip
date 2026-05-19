@@ -7,7 +7,7 @@ GDS_FILE=$1
 LAYOUT_CELL=$2
 
 # Use PDK_ROOT to find the magicrc file
-MAGICRC="${PDK_ROOT}/sky130A/libs.tech/magic/sky130A.magicrc"
+MAGICRC="${PDK_ROOT}/gf180mcuC/libs.tech/magic/gf180mcuC.magicrc"
 
 if [ ! -f "$MAGICRC" ]; then
     echo "Error: Cannot find magicrc at $MAGICRC"

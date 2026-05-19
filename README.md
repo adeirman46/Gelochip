@@ -76,11 +76,15 @@ Describe the circuit you want in plain English. Gelochip designs, sizes, and gen
 
 | Tool | Required | Install |
 |------|----------|---------|
-| Python 3.10+ | ✅ | `sudo apt install python3.10` or pyenv |
+| Python 3.13+ | ✅ | `sudo apt install python3.13` or pyenv |
 | `uv` | ✅ | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | **ngspice** | ✅ | `sudo apt update && sudo apt install -y ngspice` |
-| KLayout | ✅ | `sudo apt install klayout` or [klayout.de](https://www.klayout.de) |
-| Magic + Netgen | optional | [opencircuitdesign.com/magic](http://opencircuitdesign.com/magic/) |
+| KLayout | ✅ | installed via pip in venv (`klayout>=0.28`) |
+| **Magic 8.3.411+** | ✅ (DRC/LVS) | Build from source — see below |
+| **Netgen 1.5.x** | ✅ (LVS) | Build from source — see below |
+| Build deps | (for magic/netgen) | `sudo apt install -y tcl-dev tk-dev libx11-dev libncurses-dev` |
+
+> **Note:** The Ubuntu 22.04 APT packages for `magic` (8.3.105) and `netgen` (wrong tool) are **too old / wrong** for gf180 DRC/LVS. Both must be built from source and installed into the project venv.
 
 ### Step 1 — Clone
 
@@ -103,6 +107,40 @@ uv sync --extra ml --extra notebooks
 ```
 
 Installs everything (EDA core, AI agent, web UI, ML fine-tuning, Jupyter).
+
+### Step 3b — Build Magic and Netgen from source (required for DRC/LVS)
+
+The Ubuntu 22.04 APT `magic` package (8.3.105) is too old for gf180mcuD.tech (requires 8.3.411+).
+The APT `netgen` package is actually a mesh generator, **not** the circuit LVS tool.
+
+Build and install both into the venv:
+
+```bash
+# Install build dependencies
+sudo apt install -y tcl-dev tk-dev libx11-dev libncurses-dev gcc make
+
+# Build Magic 8.3.644 (or latest)
+mkdir -p /tmp/magic_build && cd /tmp/magic_build
+curl -L -o magic-8.3.644.tar.gz "https://github.com/RTimothyEdwards/magic/archive/refs/tags/8.3.644.tar.gz"
+tar xzf magic-8.3.644.tar.gz && cd magic-8.3.644
+./configure --prefix="$(pwd -P)/../../.venv" --without-cairo --without-opengl
+make -j$(nproc) && make install
+cd /path/to/Gelochip  # return to project root
+
+# Build Netgen 1.5.272 (circuit LVS tool, not the mesh generator)
+mkdir -p /tmp/netgen_build && cd /tmp/netgen_build
+curl -L -o netgen-1.5.272.tar.gz "https://github.com/RTimothyEdwards/netgen/archive/refs/tags/1.5.272.tar.gz"
+tar xzf netgen-1.5.272.tar.gz && cd netgen-1.5.272
+./configure --prefix="$(pwd -P)/../../.venv" --with-tcl=/usr/lib/tcl8.6 --with-tk=/usr/lib/tk8.6
+make -j$(nproc) && make install
+cd /path/to/Gelochip  # return to project root
+
+# Verify
+.venv/bin/magic --version     # should show 8.3.644
+.venv/bin/netgen --version    # should show Netgen 1.5.272 (Tim Edwards' LVS tool)
+```
+
+Once installed, all notebooks automatically use the venv's magic and netgen (the first cell sets `PATH`).
 
 ### Step 4 — Configure LLM
 
@@ -321,6 +359,44 @@ result = check_specs(sim, spec={"gain_dB": 15.0, "nf_dB": 2.0})
 print(result)
 # {'all_passed': True, 'checks': [{'metric': 'gain_dB', 'target': 15.0, 'measured': 16.3, 'passed': True}, ...]}
 ```
+
+---
+
+## Datasets
+
+Pre-generated circuit layouts for LLM fine-tuning and evaluation are in `notebooks/datasets/`.
+Each circuit has its own directory:
+
+```
+notebooks/datasets/{circuit}/
+├── {circuit}.ipynb        # Layout generation + DRC/LVS + SPICE simulation
+├── {circuit}.gds          # Generated GDSII layout
+├── {circuit}_preview.png  # Layout image (KLayout PNG export)
+└── eval_result.json       # DRC/LVS results + area/symmetry metrics
+```
+
+### Verification Status (gf180 PDK, Magic 8.3.644 + Netgen 1.5.272)
+
+| Circuit | DRC | LVS | Notes |
+|---------|-----|-----|-------|
+| current_mirror | ✅ pass | ✅ pass | NFET/PFET current mirror |
+| diff_pair | ✅ pass | ✅ pass | Differential pair |
+| transmission_gate | ⚠ 2 DRC violations | ✅ pass | Metal2 width violations |
+| low_voltage_cmirror | ⚠ DRC violations | ✅ pass | Low-voltage NFET mirror |
+| diff_pair_stackedcmirror | ✅ pass | ⚠ mismatch | Complex routing → LVS mismatch |
+| opamp_twostage | ✅ pass | ⚠ mismatch | Two-stage opamp |
+| p_block | ✅ pass | ⚠ mismatch | P-type bias block |
+| row_csamplifier_dse | ✅ pass | ⚠ mismatch | Row CS amplifier |
+| diff_pair_cmirrorbias | ⚠ DRC violations | ⚠ mismatch | Diff pair with mirror bias |
+| fvf | ⚠ DRC violations | ⚠ mismatch | Flipped voltage follower |
+| opamp | ⚠ DRC violations | ⚠ mismatch | Single-stage opamp |
+| stacked_current_mirror | ⚠ DRC violations | ⚠ mismatch | Stacked NFET mirror |
+| differential_to_single_ended_converter | ⚠ 165 DRC violations | ⚠ mismatch | Complex cell |
+| n_block | ⏳ timeout | ⏳ timeout | Layout generation >10 min |
+| ota | ⏳ timeout | ⏳ timeout | Complex OTA |
+| sky130_ota_tapeout | ⏳ timeout | ⏳ timeout | Full OTA tapeout |
+
+> **Note:** DRC/LVS "violations" in layout cells are inherent to the GLayout cell implementations and cannot be fixed without modifying `src/gelochip/glayout/cells/` (which is out of scope for the dataset). Cells with clean DRC/LVS can be used directly for training.
 
 ---
 

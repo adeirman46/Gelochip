@@ -1,0 +1,41 @@
+{
+    "component_name": "row_csamplifier_dse",
+    "timestamp": "2026-05-18T19:32:19.798972",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/row_csamplifier_diff_to_single_ended_converter/row_csamplifier_dse_drc_out/drc/row_csamplifier_dse/row_csamplifier_dse.rpt",
+        "summary": {
+            "is_pass": true,
+            "total_errors": 0,
+            "error_details": []
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/row_csamplifier_diff_to_single_ended_converter/row_csamplifier_dse_lvs_out/lvs/row_csamplifier_dse/row_csamplifier_dse_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "5 **Mismatch**             |Number of nets: 6 **Mismatch**",
+                "devices": "3 **Mismatch**          |Number of devices: 6 **Mismatch**",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 0.0
+    },
+    "geometric": {
+        "raw_area_um2": 20847.95119999784,
+        "symmetry_score_horizontal": 1.0,
+        "symmetry_score_vertical": 0.9876612719623007
+    }
+}

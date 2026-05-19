@@ -1,0 +1,90 @@
+{
+    "component_name": "Low_voltage_current_mirror",
+    "timestamp": "2026-05-18T19:31:53.443408",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/low_voltage_cmirror/Low_voltage_current_mirror_drc_out/drc/Low_voltage_current_mirror/Low_voltage_current_mirror.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 12,
+            "error_details": [
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.130um 3.915um 0.150um 4.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.130um 4.035um 0.150um 4.295um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.130um 4.295um 0.150um 4.415um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.130um -4.415um 0.150um -4.295um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.130um -4.295um 0.150um -4.035um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "0.130um -4.035um 0.150um -3.915um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.660um -8.290um 11.940um -8.220um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.660um -8.400um 11.940um -8.290um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.270um -8.890um 11.550um -8.820um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.550um -8.890um 11.660um -8.820um"
+                },
+                {
+                    "rule": "Metal1 width < 0.23um (M1.1)",
+                    "details": "0.590um 2.575um 5.320um 2.605um"
+                },
+                {
+                    "rule": "Metal1 width < 0.23um (M1.1)",
+                    "details": "17.350um 2.575um 22.080um 2.605um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/low_voltage_cmirror/Low_voltage_current_mirror_lvs_out/lvs/Low_voltage_current_mirror/Low_voltage_current_mirror_lvs.rpt",
+        "summary": {
+            "is_pass": true,
+            "conclusion": "LVS Pass: Netlists match.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "9                          |Number of nets: 9",
+                "devices": "9                       |Number of devices: 9",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 19151.674594998723,
+        "total_capacitance_farads": 1.0149816000000002e-13
+    },
+    "geometric": {
+        "raw_area_um2": 4118.583100000129,
+        "symmetry_score_horizontal": 0.9762883987942365,
+        "symmetry_score_vertical": 0.8044469225350885
+    }
+}

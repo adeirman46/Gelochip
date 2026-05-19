@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(/home/irman/miniconda3/envs/glayout_env/bin/python3 -c \"import gdsfactory; print\\('gf', gdsfactory.__version__\\); import PySpice; print\\('PySpice OK'\\)\")"
-    ]
-  }
-}

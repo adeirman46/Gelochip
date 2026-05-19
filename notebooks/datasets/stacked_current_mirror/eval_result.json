@@ -1,0 +1,840 @@
+{
+    "component_name": "stacked_nfet_current_mirror",
+    "timestamp": "2026-05-18T20:38:02.481463",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/stacked_current_mirror/STACKED_NFET_CURRENT_MIRROR_drc_out/drc/STACKED_NFET_CURRENT_MIRROR/STACKED_NFET_CURRENT_MIRROR.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 193,
+            "error_details": [
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "0.115um 2.720um 0.130um 2.950um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.285um 2.720um 2.515um 2.950um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.705um 2.530um 2.720um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.270um 2.870um 2.285um 2.950um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.285um 2.720um 2.515um 2.950um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.705um 2.530um 2.870um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.270um 2.870um 2.530um 2.965um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um 1.555um 1.270um 1.825um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um 1.310um 1.270um 1.825um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um -0.790um 1.270um -0.520um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um -1.035um 1.270um -0.520um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "0.430um -3.000um 0.710um -2.760um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.570um -3.000um 1.850um -2.760um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.720um 2.285um 2.870um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.705um 2.530um 2.720um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.705um 2.530um 2.870um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.610um 2.410um 2.705um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.720um 2.285um 2.870um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.705um 2.530um 2.720um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.610um 2.410um 2.705um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "2.150um 2.705um 2.530um 2.870um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um 1.555um 1.270um 1.825um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um 1.310um 1.270um 1.825um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um -0.790um 1.270um -0.520um"
+                },
+                {
+                    "rule": "This layer can't abut or partially overlap between subcells",
+                    "details": "1.010um -1.035um 1.270um -0.520um"
+                },
+                {
+                    "rule": "Via1 width < 0.26um (V1.1)",
+                    "details": "2.150um 2.870um 2.270um 2.965um"
+                },
+                {
+                    "rule": "Can't overlap those layers",
+                    "details": "0.430um -3.000um 0.710um -2.760um"
+                },
+                {
+                    "rule": "Can't overlap those layers",
+                    "details": "1.570um -3.000um 1.850um -2.760um"
+                },
+                {
+                    "rule": "Can't overlap those layers",
+                    "details": "4.190um -3.000um 4.470um -2.760um"
+                },
+                {
+                    "rule": "Can't overlap those layers",
+                    "details": "3.460um -3.015um 5.200um -3.000um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.885um 5.955um 1.990um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 1.885um 6.185um 1.990um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 1.885um 6.200um 1.990um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.870um 6.200um 1.885um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.485um 5.955um 1.590um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 1.485um 6.185um 1.590um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 1.485um 6.200um 1.590um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.470um 6.200um 1.485um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.085um 5.955um 1.190um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 1.085um 6.185um 1.190um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 1.085um 6.200um 1.190um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.070um 6.200um 1.085um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um 0.515um 0.390um 0.530um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um 0.285um 0.285um 0.515um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.285um 0.285um 0.390um 0.515um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um 0.270um 0.390um 0.285um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.685um 5.955um 0.790um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 0.685um 6.185um 0.790um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 0.685um 6.200um 0.790um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.670um 6.200um 0.685um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.285um 5.955um 0.390um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 0.285um 6.185um 0.390um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 0.285um 6.200um 0.390um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.270um 6.200um 0.285um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.115um 5.955um -0.010um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -0.115um 6.185um -0.010um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -0.115um 6.200um -0.010um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.130um 6.200um -0.115um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.515um 5.955um -0.410um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -0.515um 6.185um -0.410um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -0.515um 6.200um -0.410um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.530um 6.200um -0.515um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.915um 5.955um -0.810um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -0.915um 6.185um -0.810um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -0.915um 6.200um -0.810um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.930um 6.200um -0.915um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.315um 5.955um -1.210um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -1.315um 6.185um -1.210um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -1.315um 6.200um -1.210um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.330um 6.200um -1.315um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um -1.830um 0.390um -1.815um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um -2.060um 0.285um -1.830um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.285um -2.060um 0.390um -1.830um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um -2.075um 0.390um -2.060um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.715um 5.955um -1.610um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -1.715um 6.185um -1.610um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -1.715um 6.200um -1.610um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.730um 6.200um -1.715um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.115um -2.950um 0.130um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.750um -2.950um 0.915um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.915um -2.950um 0.930um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.750um -2.965um 0.930um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "1.470um -2.965um 1.530um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.270um -2.950um 2.285um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.285um -2.950um 2.410um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.270um -2.965um 2.410um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.410um -2.950um 2.515um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.515um -2.950um 2.530um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.410um -2.965um 2.530um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.885um 5.955um 1.990um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 1.885um 6.185um 1.990um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 1.885um 6.200um 1.990um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.870um 6.200um 1.885um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.485um 5.955um 1.590um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 1.485um 6.185um 1.590um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 1.485um 6.200um 1.590um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.470um 6.200um 1.485um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.085um 5.955um 1.190um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 1.085um 6.185um 1.190um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 1.085um 6.200um 1.190um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 1.070um 6.200um 1.085um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um 0.515um 0.390um 0.530um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um 0.285um 0.285um 0.515um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.285um 0.285um 0.390um 0.515um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um 0.270um 0.390um 0.285um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.685um 5.955um 0.790um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 0.685um 6.185um 0.790um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 0.685um 6.200um 0.790um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.670um 6.200um 0.685um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.285um 5.955um 0.390um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um 0.285um 6.185um 0.390um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um 0.285um 6.200um 0.390um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um 0.270um 6.200um 0.285um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.115um 5.955um -0.010um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -0.115um 6.185um -0.010um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -0.115um 6.200um -0.010um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.130um 6.200um -0.115um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.515um 5.955um -0.410um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -0.515um 6.185um -0.410um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -0.515um 6.200um -0.410um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.530um 6.200um -0.515um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.915um 5.955um -0.810um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -0.915um 6.185um -0.810um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -0.915um 6.200um -0.810um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -0.930um 6.200um -0.915um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um -1.830um 0.390um -1.815um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um -2.060um 0.285um -1.830um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.285um -2.060um 0.390um -1.830um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.270um -2.075um 0.390um -2.060um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.315um 5.955um -1.210um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -1.315um 6.185um -1.210um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -1.315um 6.200um -1.210um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.330um 6.200um -1.315um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.715um 5.955um -1.610um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.955um -1.715um 6.185um -1.610um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "6.185um -1.715um 6.200um -1.610um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "5.940um -1.730um 6.200um -1.715um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.115um -2.950um 0.130um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.750um -2.950um 0.915um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.915um -2.950um 0.930um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "0.750um -2.965um 0.930um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "1.470um -2.965um 1.530um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.270um -2.950um 2.285um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.285um -2.950um 2.410um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.270um -2.965um 2.410um -2.950um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.410um -2.950um 2.515um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.515um -2.950um 2.530um -2.860um"
+                },
+                {
+                    "rule": "Via1 spacing < 0.26um (V1.2a)",
+                    "details": "2.410um -2.965um 2.530um -2.950um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.885um 6.185um 1.955um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.485um 6.185um 1.555um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.085um 6.185um 1.155um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 0.685um 6.185um 0.755um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 0.285um 6.185um 0.355um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.115um 6.185um -0.045um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.515um 6.185um -0.445um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.915um 6.185um -0.845um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -1.315um 6.185um -1.245um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -1.715um 6.185um -1.645um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "0.785um -2.950um 0.915um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "2.285um -2.950um 2.395um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "2.395um -2.950um 2.515um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "3.885um -2.950um 4.115um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "4.685um -2.950um 4.915um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.885um 6.185um 1.955um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.885um 6.185um 1.955um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.485um 6.185um 1.555um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.485um 6.185um 1.555um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.085um 6.185um 1.155um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 1.085um 6.185um 1.155um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 0.685um 6.185um 0.755um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 0.685um 6.185um 0.755um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 0.285um 6.185um 0.355um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um 0.285um 6.185um 0.355um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.115um 6.185um -0.045um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.115um 6.185um -0.045um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.515um 6.185um -0.445um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.515um 6.185um -0.445um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.915um 6.185um -0.845um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -0.915um 6.185um -0.845um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -1.315um 6.185um -1.245um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -1.315um 6.185um -1.245um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -1.715um 6.185um -1.645um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "5.955um -1.715um 6.185um -1.645um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "0.785um -2.950um 0.915um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "0.785um -2.950um 0.915um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "2.285um -2.950um 2.395um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "2.285um -2.950um 2.395um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "2.395um -2.950um 2.515um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "2.395um -2.950um 2.515um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "3.885um -2.950um 4.115um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "3.885um -2.950um 4.115um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "4.685um -2.950um 4.915um -2.895um"
+                },
+                {
+                    "rule": "Diffusion contact spacing < 0.24um (CO.2a - 2 * CO.6)",
+                    "details": "4.685um -2.950um 4.915um -2.895um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/stacked_current_mirror/STACKED_NFET_CURRENT_MIRROR_lvs_out/lvs/STACKED_NFET_CURRENT_MIRROR/STACKED_NFET_CURRENT_MIRROR_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 4,
+            "mismatch_details": {
+                "nets": "5 **Mismatch**             |Number of nets: 12 **Mismatch**",
+                "devices": "1 **Mismatch**          |Number of devices: 2 **Mismatch**",
+                "unmatched_nets_parsed": [
+                    {
+                        "type": "net",
+                        "name": "/Unnamed_8e719756_0/dummy_5",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    },
+                    {
+                        "type": "net",
+                        "name": "/Unnamed_8e719756_0/dummy_6",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    },
+                    {
+                        "type": "net",
+                        "name": "/Unnamed_8e719756_0/dummy_7",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    }
+                ],
+                "unmatched_instances_parsed": [
+                    {
+                        "type": "instance",
+                        "name": "Unnamed_8e719756_0/nfet_03v3:0",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    }
+                ]
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 0.0
+    },
+    "geometric": {
+        "raw_area_um2": 1012.249799999995,
+        "symmetry_score_horizontal": 1.0,
+        "symmetry_score_vertical": 1.0
+    }
+}

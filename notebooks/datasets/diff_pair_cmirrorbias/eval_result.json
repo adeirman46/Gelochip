@@ -1,0 +1,75 @@
+{
+    "component_name": "diff_pair_cmirrorbias",
+    "timestamp": "2026-05-18T19:31:56.720738",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/diff_pair_cmirrorbias/diff_pair_cmirrorbias_drc_out/drc/diff_pair_cmirrorbias/diff_pair_cmirrorbias.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 5,
+            "error_details": [
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "28.520um -7.760um 28.750um -7.650um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "28.520um -7.650um 28.750um -7.370um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "28.520um -7.370um 28.750um 7.530um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "28.520um 7.530um 28.750um 7.810um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "28.520um 7.810um 28.750um 8.200um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/diff_pair_cmirrorbias/diff_pair_cmirrorbias_lvs_out/lvs/diff_pair_cmirrorbias/diff_pair_cmirrorbias_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 2,
+            "mismatch_details": {
+                "nets": "11 **Mismatch**            |Number of nets: 8 **Mismatch**",
+                "devices": "7 **Mismatch**          |Number of devices: 8 **Mismatch**",
+                "unmatched_nets_parsed": [
+                    {
+                        "type": "net",
+                        "name": "/transformed_a2a7fc23_0/a_n3550_n985#",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    },
+                    {
+                        "type": "net",
+                        "name": "/diff_pair_c1554d2b_0/a_n4630_n1358#",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    }
+                ],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 1.6495111999999994e-13
+    },
+    "geometric": {
+        "raw_area_um2": 8810.222699999995,
+        "symmetry_score_horizontal": 0.9986052565958407,
+        "symmetry_score_vertical": 0.8086565961607303
+    }
+}

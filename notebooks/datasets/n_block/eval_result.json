@@ -1,0 +1,171 @@
+{
+  "component_name": "N_BLOCK",
+  "timestamp": "2026-05-19T11:10:11.965513",
+  "drc_lvs_fail": true,
+  "drc": {
+    "status": "fail",
+    "is_pass": false,
+    "report_path": "/home/irman/Gelochip/notebooks/datasets/n_block/N_BLOCK_drc_out/drc/N_BLOCK/N_BLOCK.rpt",
+    "summary": {
+      "is_pass": false,
+      "total_errors": 29,
+      "error_details": [
+        {
+          "rule": "Via2 width < 0.28um (V2.1 + 2 * V2.3)",
+          "details": "35.700um 0.440um 35.950um 0.720um"
+        },
+        {
+          "rule": "Via2 width < 0.28um (V2.1 + 2 * V2.3)",
+          "details": "35.980um 0.220um 36.230um 0.440um"
+        },
+        {
+          "rule": "Via2 width < 0.28um (V2.1 + 2 * V2.3)",
+          "details": "45.790um -71.910um 46.070um -71.905um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "36.490um 5.970um 36.620um 6.020um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "36.490um 6.360um 36.620um 6.410um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "36.490um 6.080um 36.600um 6.360um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "36.600um 6.080um 36.620um 6.360um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "36.490um 6.020um 36.620um 6.080um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "0.130um -45.570um 0.150um -45.450um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "0.130um -45.450um 0.150um -45.190um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "0.130um -45.190um 0.150um -45.070um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "0.130um -53.900um 0.150um -53.780um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "0.130um -53.780um 0.150um -53.520um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "0.130um -53.520um 0.150um -53.400um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "11.660um -57.775um 11.940um -57.705um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "11.660um -57.885um 11.940um -57.775um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "11.270um -58.375um 11.550um -58.305um"
+        },
+        {
+          "rule": "Metal2 spacing < 0.28um (M2.2a)",
+          "details": "11.550um -58.375um 11.660um -58.305um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "0.685um -64.410um 0.915um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "1.485um -64.410um 1.715um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "2.285um -64.410um 2.515um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "3.085um -64.410um 3.315um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "3.885um -64.410um 4.115um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "4.685um -64.410um 4.915um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "5.485um -64.410um 5.715um -64.405um"
+        },
+        {
+          "rule": "P-Diffusion overlap of contact < 0.065um (CO.4)",
+          "details": "6.285um -64.410um 6.515um -64.405um"
+        },
+        {
+          "rule": "Metal1 spacing < 0.23um (M1.2a)",
+          "details": "37.610um -1.520um 37.820um -1.470um"
+        },
+        {
+          "rule": "Metal1 width < 0.23um (M1.1)",
+          "details": "0.590um -46.910um 5.320um -46.880um"
+        },
+        {
+          "rule": "Metal1 width < 0.23um (M1.1)",
+          "details": "17.350um -46.910um 22.080um -46.880um"
+        }
+      ]
+    }
+  },
+  "lvs": {
+    "status": "fail",
+    "is_pass": false,
+    "report_path": "/home/irman/Gelochip/notebooks/datasets/n_block/N_BLOCK_lvs_out/lvs/N_BLOCK/N_BLOCK_lvs.rpt",
+    "summary": {
+      "is_pass": false,
+      "conclusion": "LVS Fail: Netlist mismatch.",
+      "total_mismatches": 2,
+      "mismatch_details": {
+        "nets": "15 **Mismatch**            |Number of nets: 18 **Mismatch**",
+        "devices": "15 **Mismatch**         |Number of devices: 16 **Mismatch**",
+        "unmatched_nets_parsed": [],
+        "unmatched_instances_parsed": [
+          {
+            "type": "instance",
+            "name": "nfet_03v3:2",
+            "present_in": "layout",
+            "missing_in": "schematic"
+          },
+          {
+            "type": "instance",
+            "name": "nfet_03v3:58",
+            "present_in": "layout",
+            "missing_in": "schematic"
+          }
+        ]
+      }
+    }
+  },
+  "pex": {
+    "status": "PEX Complete",
+    "total_resistance_ohms": 0.0,
+    "total_capacitance_farads": 1.1744538000000002e-13
+  },
+  "geometric": {
+    "raw_area_um2": 9227.781199999956,
+    "symmetry_score_horizontal": 0.9863216089258812,
+    "symmetry_score_vertical": 0.6019398249277931
+  }
+}

@@ -1,0 +1,486 @@
+{
+    "component_name": "opamp",
+    "timestamp": "2026-05-18T19:33:08.340862",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/opamp/opamp_drc_out/drc/opamp/opamp.rpt",
+        "summary": {
+            "is_pass": false,
+            "total_errors": 111,
+            "error_details": [
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "2.770um 53.930um 3.030um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "3.030um 53.930um 3.570um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "3.570um 53.930um 3.830um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "3.830um 53.930um 4.370um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "4.370um 53.930um 4.630um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "4.630um 53.930um 5.170um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "5.170um 53.930um 5.430um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "5.430um 53.930um 5.970um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "5.970um 53.930um 6.230um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "6.230um 53.930um 6.770um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "6.770um 53.930um 7.030um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "7.030um 53.930um 7.570um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "7.570um 53.930um 7.830um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "7.830um 53.930um 8.370um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.370um 53.930um 8.630um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.630um 53.930um 9.170um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "9.170um 53.930um 9.430um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "9.430um 53.930um 9.970um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "9.970um 53.930um 10.230um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.230um 53.930um 10.770um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.770um 53.930um 11.030um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.030um 53.930um 11.570um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.570um 53.930um 11.830um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.830um 53.930um 12.370um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.370um 53.930um 12.630um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.630um 53.930um 13.170um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.170um 53.930um 13.430um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.430um 53.930um 13.970um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.970um 53.930um 14.230um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "14.230um 53.930um 14.770um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "14.770um 53.930um 15.030um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "15.030um 53.930um 18.145um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "18.145um 53.930um 18.405um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "18.405um 53.930um 18.945um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "18.945um 53.930um 19.205um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "19.205um 53.930um 19.745um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "19.745um 53.930um 20.005um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "20.005um 53.930um 20.545um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "20.545um 53.930um 20.805um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "20.805um 53.930um 21.345um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "21.345um 53.930um 21.605um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "21.605um 53.930um 22.145um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "22.145um 53.930um 22.405um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "22.405um 53.930um 22.945um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "22.945um 53.930um 23.205um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "23.205um 53.930um 23.745um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "23.745um 53.930um 24.005um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "24.005um 53.930um 24.545um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "24.545um 53.930um 24.805um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "24.805um 53.930um 25.345um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "25.345um 53.930um 25.605um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "25.605um 53.930um 26.145um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "26.145um 53.930um 26.405um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "26.405um 53.930um 26.945um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "26.945um 53.930um 27.205um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "27.205um 53.930um 27.745um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "27.745um 53.930um 28.005um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "28.005um 53.930um 28.545um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "28.545um 53.930um 28.805um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "28.805um 53.930um 29.345um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "29.345um 53.930um 29.605um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "29.605um 53.930um 30.145um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "30.145um 53.930um 30.405um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "30.405um 53.930um 36.410um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "36.410um 53.920um 36.690um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "36.690um 53.920um 36.800um 53.990um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.540um 41.150um 8.800um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "8.800um 41.150um 9.340um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "9.340um 41.150um 9.600um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "9.600um 41.150um 10.140um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.140um 41.150um 10.400um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.400um 41.150um 10.940um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "10.940um 41.150um 11.200um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.200um 41.150um 11.740um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.740um 41.150um 11.890um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.890um 41.150um 12.000um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.000um 41.150um 12.170um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.170um 41.150um 12.540um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.540um 41.150um 12.800um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.800um 41.150um 13.340um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.340um 41.150um 13.600um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "13.600um 41.150um 36.410um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "11.890um 41.140um 12.170um 41.150um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "12.170um 41.140um 36.410um 41.150um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "36.410um 41.140um 36.690um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "36.690um 41.140um 36.800um 41.260um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "41.875um -24.205um 41.985um -24.180um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "41.985um -24.205um 42.265um -24.180um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "42.265um -24.205um 43.205um -24.180um"
+                },
+                {
+                    "rule": "Metal2 spacing < 0.28um (M2.2a)",
+                    "details": "41.875um -24.315um 43.205um -24.205um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 53.600um 37.080um 53.920um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 53.320um 37.080um 53.600um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 53.210um 37.080um 53.320um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 53.920um 37.080um 54.200um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 62.780um 37.080um 68.500um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 62.500um 37.080um 62.780um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 54.200um 37.080um 62.500um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 68.500um 37.080um 68.780um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "36.850um 68.780um 37.080um 69.170um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um -5.015um 29.290um -1.395um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um -5.295um 29.290um -5.015um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um -5.405um 29.290um -5.295um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um -1.395um 29.290um -1.115um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um -1.115um 29.290um 13.865um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um 13.865um 29.290um 14.145um"
+                },
+                {
+                    "rule": "Metal3 spacing < 0.28um (M3.2a)",
+                    "details": "29.060um 14.145um 29.290um 14.535um"
+                },
+                {
+                    "rule": "Metal4 spacing < 0.28um (M4.2a)",
+                    "details": "36.850um 83.460um 80.000um 83.690um"
+                },
+                {
+                    "rule": "Metal4 spacing < 0.28um (M4.2a)",
+                    "details": "2.500um 82.410um 2.780um 82.640um"
+                },
+                {
+                    "rule": "Metal4 spacing < 0.28um (M4.2a)",
+                    "details": "80.000um 83.460um 240.000um 83.690um"
+                },
+                {
+                    "rule": "Metal4 spacing < 0.28um (M4.2a)",
+                    "details": "240.000um 83.460um 307.280um 83.690um"
+                },
+                {
+                    "rule": "Metal4 spacing < 0.28um (M4.2a)",
+                    "details": "307.280um 83.460um 307.560um 83.690um"
+                }
+            ]
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/opamp/opamp_lvs_out/lvs/opamp/opamp_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 0,
+            "mismatch_details": {
+                "nets": "8 **Mismatch**             |Number of nets: 16 **Mismatch**",
+                "devices": "12 **Mismatch**         |Number of devices: 21 **Mismatch**",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": []
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 2.3795345000000003e-13
+    },
+    "geometric": {
+        "raw_area_um2": 137897.09679995375,
+        "symmetry_score_horizontal": 0.9634382338932483,
+        "symmetry_score_vertical": 0.563781145535906
+    }
+}

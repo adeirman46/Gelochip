@@ -1,0 +1,48 @@
+{
+    "component_name": "diff_pair_stackedcmirror",
+    "timestamp": "2026-05-18T19:32:17.547623",
+    "drc_lvs_fail": true,
+    "drc": {
+        "status": "pass",
+        "is_pass": true,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/diff_pair_stackedcmirror/diff_pair_stackedcmirror_drc_out/drc/diff_pair_stackedcmirror/diff_pair_stackedcmirror.rpt",
+        "summary": {
+            "is_pass": true,
+            "total_errors": 0,
+            "error_details": []
+        }
+    },
+    "lvs": {
+        "status": "fail",
+        "is_pass": false,
+        "report_path": "/home/irman/Gelochip/notebooks/datasets/diff_pair_stackedcmirror/diff_pair_stackedcmirror_lvs_out/lvs/diff_pair_stackedcmirror/diff_pair_stackedcmirror_lvs.rpt",
+        "summary": {
+            "is_pass": false,
+            "conclusion": "LVS Fail: Netlist mismatch.",
+            "total_mismatches": 1,
+            "mismatch_details": {
+                "nets": "9 **Mismatch**             |Number of nets: 10 **Mismatch**",
+                "devices": "9 **Mismatch**          |Number of devices: 8 **Mismatch**",
+                "unmatched_nets_parsed": [],
+                "unmatched_instances_parsed": [
+                    {
+                        "type": "instance",
+                        "name": "Unnamed_1f3495a9_0/nfet_03v3:0",
+                        "present_in": "layout",
+                        "missing_in": "schematic"
+                    }
+                ]
+            }
+        }
+    },
+    "pex": {
+        "status": "PEX Complete",
+        "total_resistance_ohms": 0.0,
+        "total_capacitance_farads": 0.0
+    },
+    "geometric": {
+        "raw_area_um2": 23433.55119999783,
+        "symmetry_score_horizontal": 0.9968786207700348,
+        "symmetry_score_vertical": 0.9780241844010374
+    }
+}
