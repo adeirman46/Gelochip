@@ -25,6 +25,14 @@ def __error_check_order_layers(
 ) -> tuple[tuple[int, int], tuple[str, str]]:
     """correctly order layers (level1 should be lower than level2)"""
     pdk.activate()
+    def _normalize(glayer: str) -> str:
+        for suffix in ("_pin", "_label"):
+            if glayer.endswith(suffix):
+                return glayer[: -len(suffix)]
+        return glayer
+
+    glayer1 = _normalize(glayer1)
+    glayer2 = _normalize(glayer2)
     # check that the generic layers specfied can be routed between
     if not all([pdk.is_routable_glayer(met) for met in [glayer1, glayer2]]):
         raise ValueError("via_stack: specify between two routable layers")

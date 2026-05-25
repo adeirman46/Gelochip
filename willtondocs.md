@@ -11,3 +11,12 @@
   - `combiner_8to1`: Passive 8:1 combiner.
   - `rx_frontend`: RX front-end combining LNA and switches.
   - `mtp_memory_wrapper`: MTP memory macro wrapper.
+
+- DRC/LVS verification (gf180 via Magic/Netgen in IIC-OSIC-TOOLS):
+  - Summary JSON: [outputs/rf_blocks_verification/summary.json](outputs/rf_blocks_verification/summary.json)
+  - `lna_block`: DRC PASS; LVS FAIL (report generated, netlist stub/no devices).
+  - `rf_amp_block`: DRC PASS; LVS FAIL (report generated, netlist stub/no devices).
+  - `buffer_block`: DRC PASS; LVS FAIL (report generated, netlist stub/no devices).
+  - `combiner_8to1`: DRC PASS; LVS ERROR (report missing).
+  - `rx_frontend`: DRC PASS; LVS FAIL (report generated, netlist stub/no devices).
+  - `mtp_memory_wrapper`: DRC PASS; LVS ERROR (report missing).
