@@ -1,0 +1,1407 @@
+Draft Version November 6, 2018
+Preprint typeset using LATEX style AASTeX6 v. 1.0
+GAS LOSS BY RAM PRESSURE STRIPPING AND INTERNAL FEEDBACK FROM LOW MASS MILKY WAY
+SATELLITES
+Andrew Emerick1,2, Mordecai-Mark Mac Low2,1,3, Jana Grcevich2, Andrea Gatto4
+(Dated: November 6, 2018)
+1Department of Astronomy, Columbia University, New York, NY, USA
+2Department of Astrophysics, American Museum of Natural History, New York, NY, USA
+3Institut f¨ur Theoretische Astrophysik, Zentrum f¨ur Astronomie der Universit¨at Heidelberg, Heidelberg, Germany
+4Max-Planck-Institute f¨ur Astrophysik, Garching, bei M¨unchen, Germany
+ABSTRACT
+The evolution of dwarf satellites of the Milky Way is aﬀected by the combination of ram pressure
+and tidal stripping, and internal feedback from massive stars. We investigate gas loss processes in the
+smallest satellites of the Milky Way using three-dimensional, high resolution, idealized wind tunnel
+simulations, accounting for gas loss through both ram pressure stripping and expulsion by supernova
+feedback. Using initial conditions appropriate for a dwarf galaxy like Leo T, we investigate whether
+or not environmental gas stripping and internal feedback can quench these low mass galaxies on the
+expected timescales, shorter than 2 Gyr. We ﬁnd that supernova feedback contributes negligibly to
+the stripping rate for these low star formation rate galaxies. However, we also ﬁnd that ram pressure
+stripping is less eﬃcient than expected in the stripping scenarios we consider. Our work suggests
+that, although ram pressure stripping can eventually completely strip these galaxies, other physics is
+likely at play to reconcile our computed stripping times with the rapid quenching timescales deduced
+from observations of low mass Milky Way dwarf galaxies. We discuss the roles additional physics may
+play in this scenario, including host-satellite tidal interactions, cored vs. cuspy dark matter proﬁles,
+reionization, and satellite pre-processing.
+We conclude that a proper accounting of these physics
+together is necessary to understand the quenching of low mass Milky Way satellites.
+1. INTRODUCTION
+Environmental eﬀects on galaxy evolution have been
+well studied for massive galaxies in galaxy clusters, both
+observationally (e.g. Cayatte et al. 1994; Chung et al.
+2007; Vollmer et al. 2010; Abramson et al. 2011; Ken-
+ney et al. 2014) and with hydrodynamic simulations
+(e.g. Abadi et al. 1999; Quilis et al. 2000; Roediger &
+Hensler 2005; Tonnesen et al. 2007; Kronberger et al.
+2008; Roediger 2009; Ruszkowski et al. 2014).
+pressure stripping (RPS) of satellite galaxies by halo
+gas is a well established mechanism for quenching star
+formation, and is one mechanism responsible for the ob-
+served density-morphology relationship in galaxy clus-
+ters (Gunn & Gott 1972; Abadi et al. 1999; Poggianti
+et al. 1999). With the exception of the Large and Small
+Magellanic Clouds (LMC and SMC), the most massive
+of the Milky Way’s (MW) satellites, all known dwarf
+galaxies within 300 kpc of the MW remain undetected
+in H I (Grcevich & Putman 2009), and have no ob-
+servable star formation (McConnachie 2012). This sug-
+gests strong, environmental quenching of satellite dwarf
+galaxies after infall (Wetzel et al. 2015b), which has
+been argued to be produced by rapid RPS after ﬁrst
+pericenter passage (Slater & Bell 2013, 2014). The im-
+portance of environmental quenching is further demon-
+strated by the lack of quenched dwarf galaxies in the
+ﬁeld (Geha et al. 2012). Work combining the properties
+of observed satellites with accretion histories of subhalos
+in large scale cosmological simulations (e.g. Slater & Bell
+2014; Wheeler et al. 2014; Wetzel et al. 2015b; Filling-
+ham et al. 2015) has placed constraints on the required
+conditions for quenching and associated timescales over
+the galaxy stellar mass range 104 M⊙< M∗< 1011 M⊙,
+complimenting observational work examining quenching
+in these galaxies (e.g Geha et al. 2006, 2012; Bradford
+et al. 2015; Weisz et al. 2015).
+Much focus has been placed on the ineﬃcient quench-
+ing of more massive dwarf galaxies, 108 M⊙< M∗<
+1011 M⊙(e.g. Wheeler et al. 2014). For the lowest mass
+dwarf galaxies, M∗< 106 M⊙, these works suggest that
+rapid quenching timescales < 2 Gyr are required in order
+to explain the near unity quenched fraction of galax-
+ies with this stellar mass.
+Although RPS is a likely
+candidate for rapid, environmental quenching, this pro-
+cess has yet to be simulated in detail for these low mass
+arXiv:1605.02746v1  [astro-ph.GA]  9 May 2016
+
+--- PAGE BREAK ---
+
+dwarfs; simulation work on stripping of dwarfs around
+the MW has focused on more massive dwarf satellites
+(e.g. Mayer et al. 2006; Nichols et al. 2015; Salem et al.
+2015). In this work, we use hydrodynamic simulations
+to examine RPS for these low mass dwarf galaxies to
+determine its ability to quench these galaxies on short
+timescales.
+In addition, we examine whether or not internal feed-
+back in these dwarf galaxies plays a signiﬁcant role in
+the environmental quenching process. Supernova feed-
+back within massive galaxies can drive large scale galac-
+tic winds that can aid in the stripping process by driving
+gas out to large radii where it is more easily stripped
+(Creasey et al. 2013; Girichidis et al. 2016). However,
+the star formation rate in these tiny galaxies is small,
+on the order of 10−5 M⊙yr−1 based on observations
+of the gaseous, star forming galaxies Leo T, with M∗
+∼1.2 × 105 M⊙(Irwin et al. 2007; Ryan-Weber et al.
+2008), and Leo P, with M∗∼5.7 × 105 M⊙(Rhode et al.
+2013). Although the injection of energy through super-
+nova feedback could, in principle, drive gas out from the
+shallow potential wells of these galaxies, the low star
+formation and therefore low supernova rates may pre-
+vent substantial outﬂows (D’Ercole & Brighenti 1999;
+Mac Low & Ferrara 1999; Caproni et al. 2015; Melioli
+et al. 2015). Two-dimensional simulations suggest there
+may be a galaxy stellar mass regime below which the
+supernova rate is too low to aﬀect stripping, and above
+which feedback makes a signiﬁcant contribution to the
+quenching process (Gatto et al. 2013). For more massive
+dwarfs, the necessary rapid quenching of satellite dwarfs
+may very well only be possible through the combined ef-
+fects of gas stripping and internal feedback, rather than
+stripping or feedback alone (Nichols & Bland-Hawthorn
+2011). However, it is unclear whether or not this is the
+case for the lowest mass dwarf galaxies.
+Previous simulation work on the evolution of dwarf
+satellites around the MW generally focused on more
+massive galaxies (e.g. Mayer et al. 2006; Nichols et al.
+2015; Salem et al. 2015), were run in two-dimensions at
+low resolution (Gatto et al. 2013), focused on dwarfs in
+denser environments - such as groups or clusters - (Mori
+& Burkert 2000; Marcolini et al. 2003), or were cosmo-
+logical (e.g Zolotov et al. 2012; Brooks & Zolotov 2014;
+Raﬁeferantsoa et al. 2015) and unable to adequately re-
+solve the lowest mass dwarf galaxies.
+We conduct the ﬁrst set of high resolution, three-
+dimensional simulations examining the stripping and
+quenching process in the lowest mass dwarf satellites
+around the MW. We examine in detail whether or not
+RPS, in combination with supernova feedback, can strip
+such galaxies within the ∼2 Gyr time frame necessary
+to explain the observed quenched fraction of low mass
+galaxies. We discuss the implications our results might
+have on star formation quenching in the lowest mass
+dwarf galaxies.
+In Section 2 we describe our dwarf galaxy models, sim-
+ulation physics, and numerical methods. Initial condi-
+tions for each of our simulations are discussed in detail
+in Section 3. We present our results in Section 4 and
+discuss their implications in Section 5.
+2. MODELS
+In Section 2.1 we discuss the initial conditions of our
+dwarf galaxy models that are implemented in both our
+hydrodynamical simulations and our semi-analytic mod-
+els. In Section 2.2 we describe our numerical methods,
+in Section 2.3 we discuss our models of radiative heat-
+ing and cooling, and in Section 2.4 we discus our pre-
+scription for supernova feedback. We discuss the current
+understanding of the hot halo around the MW in Sec-
+tion 2.5, and in this context, motivate our wind tunnel
+simulations in Section 2.6.
+2.1. Dwarf Galaxy Model
+Our dwarf galaxy models consist of an initially isother-
+mal, spherically symmetric distribution of gas placed
+in hydrostatic equilibrium with a static, spherical dark
+matter potential (Navarro et al. 1997, hereafter NFW).
+The dark matter density distribution is given as
+ρ(R) =
+R (1 + R)2 ,
+where R = r/rs, for the dark matter scale radius rs,
+and ρs is the characteristic density given as ρs = δcρcrit.
+The parameter δc deﬁnes the characteristic density and
+depends on the concentration parameter c, where c =
+R200/rs and
+δc = 200
+log(1 + c) −c/(1 + c).
+The critical density of the universe, ρcrit is taken at its
+z = 0 value. The virial radius is deﬁned as R200, or the
+point at which the average density of the halo is 200 ρcrit
+(Bryan & Norman 1998). Parameter values deﬁning the
+dark matter proﬁle are given in Table 1, taking H =
+70 km s−1 Mpc−1. The dark matter potential from the
+NFW distribution in Equation (1) is
+φNF W (R) = −φNFW
+log(1 + R)
+where the constant φNF W
+= 4πGρsr2
+An isother-
+mal gas in hydrostatic equilibrium with the potential
+
+--- PAGE BREAK ---
+
+Table 1. Dark Matter Properties of Dwarf Galaxy Models
+Property
+Value
+MDM(r < 300 pc)
+7.3 × 106 M⊙
+M200
+3.1 × 108 M⊙
+R200
+13.70 kpc
+795 pc
+1.69 × 10−24 g cm−3
+ρcrit(z = 0)
+9.74 × 10−30 g cm−3
+in Equation (3) follows the density distribution
+ρ(R) = ρo exp
+−CgasφNFW
+1 −log (1 + R)
+where Cgas = µmp/(kBTdwarf), with mp the mass of
+a proton, kB Boltzman’s constant, and µ is the mean
+molecular mass; µ = 1.31 for the dwarf galaxy gas. In
+all models, the gas distribution is truncated at some
+speciﬁed radius, rgas, given in Table 2..
+The dark matter potential is deﬁned given the dark
+matter mass, MDM (< rDM), interior to some radius
+and rs. We ﬁx the radial extent of the gas proﬁle in each
+simulation and require pressure equilibrium between the
+ambient halo medium and the edge of the dwarf galaxy.
+This is obtained by ﬁxing the hot halo number den-
+sity and modifying the temperature to establish ther-
+mal equilibrium. With these conditions, the gas proﬁle
+of the dwarf galaxy is described by additionally setting
+no, rgas, Tgas, and nhalo (see Table 2 and Section 3).
+Therefore, the halo temperature, Thalo, and the dwarf’s
+total gas mass, Mgas, depend on the values of these pa-
+rameters.
+We discuss our parameter choices in more
+detail in Section 3.
+2.2. Numerical Methods
+We use the Eulerian, grid-based, adaptive mesh re-
+ﬁnement code FLASH v4.2 (Fryxell et al. 2000) for
+our simulations.
+FLASH is a multi-dimensional hy-
+drodynamics code that includes multiple solvers.
+choose to use the Godunov based, Roe-type, split solver
+to approximately solve the Riemann equations. The gas
+in our simulations obeys a polytropic equation of state
+with ﬁxed adiabatic index γ = 5/3. Most previous work
+on gas loss processes for dwarf galaxy satellites has used
+either two-dimensional grid codes (e.g. Mori & Burk-
+ert 2000; Gatto et al. 2013), or smooth particle hydro-
+dynamics (e.g. Mayer et al. 2006); few have employed
+a three-dimensional grid-based code (e.g Salem et al.
+2015). Our simulations are all run in three dimensions
+at high resolution.
+To prevent numerical errors from shocks colliding
+with the simulation boundaries, our dwarf galaxies are
+placed in a large 20×10×10 kpc rectangular box on a
+128×64×64 root grid. This corresponds to a base reso-
+lution of 156.25 pc. The dwarf is centered 2 kpc from the
+left, inﬂowing boundary in the center of a high resolu-
+tion region of the domain where we enforce a minimum
+of 3 levels of reﬁnement to a resolution of 39.06 pc, and
+allow up to 5 levels of reﬁnement at our ﬁducial resolu-
+tion to 9.77 pc. We discuss the eﬀects of resolution on
+our results with a resolution study in Section 5.3.
+The high resolution region is centered on the dwarf
+galaxy with a side length of 1.7 kpc, or 100 pc plus
+4 times the initial dwarf gas radius.
+This limits the
+amount of stripped tail we fully resolve but saves sub-
+stantial computing time. We performed tests extending
+this high resolution box an additional 1.5 kpc down-
+stream of the dwarf galaxy. This did not aﬀect the re-
+covered stripping time in any of the test cases.
+If it
+does occur, our initial (1.7 kpc)3 high resolution box is
+suﬃcient to capture any re-accretion of stripped gas.
+Our analysis of these simulations makes extensive use
+of the yt analysis toolkit (Turk et al. 2011). We note
+that our simulation outputs have a time resolution of 10
+Myr.
+2.3. Radiative Cooling
+Radiative cooling plays an important role in the
+physics of gas stripping. Including radiative cooling can
+weaken gas removal due to RPS by more quickly dissi-
+pating heating from the initial shock wave. This results
+in a comparatively cooler and denser ISM that takes
+longer to strip when compared to runs without radia-
+tive cooling (Mayer et al. 2006).
+However, Tonnesen
+& Bryan (2009) found that radiative cooling can in-
+crease the stripping rate in their disk galaxy simulations,
+though the total amount of stripped gas remained com-
+parable. In the gaseous wake of the galaxy undergoing
+stripping, cooling can increase fragmentation, forming
+dense clumps that can fall back onto the galaxy (Mayer
+et al. 2006). It is unclear which of these eﬀects will dom-
+inate in any given situation, and therefore what the net
+result of including cooling will be, but it does play an
+important role in the stripping evolution.
+We include the eﬀects of radiative cooling in our sim-
+ulations following the method described by Joung &
+Mac Low (2006) and Joung et al. (2009).
+The cool-
+ing function, Λ(T), follows the radiative cooling curve
+from Sutherland & Dopita (1993) at T > 2 × 104 K,
+assuming an optically thin plasma at cosmic abundance
+(Z/Z⊙= 1) and equilibrium ionization. For low temper-
+atures, T ≤2×104 K, cooling is adopted from Dalgarno
+& McCray (1972), assuming an ionization fraction of
+10−2. In the presence of realistic distributed photoelec-
+
+--- PAGE BREAK ---
+
+tric heating, this cooling curve would yield a thermally
+stable regime at 104K ≤T < 1.7×104 K (see Figure 1 of
+Joung & Mac Low 2006). Gas below 104 K would cool
+until the next thermally stable regime at around 40 K.
+However, we instead adopt the common practice of using
+a cooling ﬂoor as a simple means to mimic the eﬀects of
+a distributed heating rate within the ISM of the dwarf
+galaxy, preventing runaway overcooling of gas within the
+galaxy without having to explicitly model heating from
+various sources such as photoionization and photoelec-
+tric heating from stars and heating from a metagalactic
+UV background. This ﬂoor is set to the initial gas tem-
+perature of the dwarf galaxies, Tmin = Tgas.
+2.4. Supernova Feedback
+Our simulations adopt a supernova implementation
+used previously to model the turbulent evolution of the
+ISM (Joung & Mac Low 2006; Joung et al. 2009; Hill
+et al. 2012). We summarize the method of energy injec-
+tion here, as implemented previously, and discuss our
+implementation of the core collapse and Type Ia su-
+pernova rates. Each supernova explosion, regardless of
+type, injects 1051 ergs of thermal energy into the volume
+surrounding the supernova’s location. To prevent over-
+cooling, we choose the mass of the heated gas to be small
+enough to ensure that the initial temperature lies above
+106 K, near the minimum in the cooling curve.
+energy is injected into the spherical region surrounding
+the supernova location that encompasses 60 M⊙of gas.
+In our simulations, supernova have minimum radii of at
+least 7 pc, up to about 20-30 pc; supernovae occur in our
+simulations with typical radii around 10 – 14 pc.Within
+this volume, the ∼60 M⊙of gas is distributed evenly
+across the aﬀected grid cells. The 1051 ergs are injected
+over a uniform density distribution in this region.
+Our simulations contain no explicit star formation,
+and therefore no star particles to determine supernova
+locations and times. Instead, we implement two sepa-
+rate methods for determining the Type Ia and core col-
+lapse supernova rates. Type Ia supernovae can occur
+during and well after periods of star formation in galax-
+ies. To account for this, we implement a constant Type
+Ia supernova rate based on a two component delay-time
+function from Sullivan et al. (2006). The supernova rate
+is given as
+RIa = AM∗(t) + B ˙M∗(t)
+where M∗(t) is the total stellar mass of the galaxy at
+a given time, and
+˙M∗(t) is the star formation rate at a
+given time. Sullivan et al. (2006) ﬁnds A = 5.3 ± 1.1
+× 10−14 (Ho/70)2 SNe yr−1 M−1
+⊙and B = 3.9 ± 0.7 ×
+10−4 (Ho/70)2 SNe yr−1 (M⊙yr−1)−1. We compute M∗
+for each of our galaxies by scaling to Leo T’s M∗/Mgas
+ratio, 0.43 (Ryan-Weber et al. 2008); and we use Equa-
+tion (6) below to compute
+˙M∗. The computed, initial
+value of RIa is used for the entire simulation, with a su-
+pernova occurring every τIa = 1/RIa. The location of
+the supernova is chosen randomly with an exponentially
+decreasing probability using a scale radius equal to the
+adopted stellar extent (see Section 3 for more details),
+centered on the initial center of the dwarf galaxy and
+truncated at the dwarf’s initial gas radius.
+Short lived, massive stars are the progenitors of core
+collapse supernovae, so the core collapse rate should cor-
+relate with star formation in the dwarf galaxy and, by
+extension, the cold gas content of the galaxy. Since we
+do not have explicit star formation, we estimate the
+core collapse supernova rate using the amount of cold
+gas bound to the galaxy at a given time. Given that
+the probability of a supernova occurring in a given time
+step is RII × dt, we use a random number generator to
+determine whether or not a supernova should occur. We
+follow a similar method to Gatto et al. (2013) to deter-
+mine this rate. The Kennicutt-Schmidt law for galaxies
+(Kennicutt 1998), extended to low surface densities (<
+10 M⊙pc−2) in Roychowdhury et al. (2009), is given as
+ΣSFR = (2.13 ± 0.6) × 10−5Σ2.47
+gas ,
+where ΣSFR is given in units of M⊙yr−1 kpc−2 and
+Σgas in units of M⊙pc−2. We compute the total cold
+gas surface density in our galaxy at each time step to
+obtain the star formation rate of the galaxy.
+This is
+translated to a supernova rate by assuming a Salpeter
+IMF (Salpeter 1955) using
+RII ≃6 × 10−3
+M⊙yr−1 SFR yr−1,
+where SFR is in units of M⊙yr−1. If a core collapse su-
+pernova occurs, its position is determined by randomly
+sampling an exponentially decreasing probability distri-
+bution centered on the galaxy center and cut oﬀat some
+radius r∗, where r∗< rgas, or 300 pc (Table 2). In ad-
+dition, we require that the supernova occurs within a
+region of cold gas (T < 2 × 104 K), redrawing a ran-
+dom position until this condition is met. In general, the
+Type II supernova rate is a factor of several higher than
+the initial Type Ia supernova rate in our galaxies. How-
+ever, while the Type II supernovae dominate initially,
+Type Ia supernovae become the dominant (though infre-
+quent) source of supernova energy injection during the
+later evolution of the dwarfs, once a substantial amount
+of cold gas has been stripped.
+2.5. Hot Halo Density
+Direct observational constraints on the MW’s hot halo
+are limited, probed primarily by O VII and O VIII X-ray
+absorption lines (Miller & Bregman 2013, 2015, MB13
+
+--- PAGE BREAK ---
+
+and MB15).
+These observations are conducted along
+a limited number of sightlines, but constrain the ra-
+dial distribution of the MW’s hot gas to a beta model
+(Makino et al. 1998), which has a power law decay at
+large radii.
+Theoretical constraints on the MW’s hot
+halo have been found using RPS arguments for Carina,
+Ursa Minor, Sculptor, and Fornax dSph’s (Grcevich &
+Putman 2009, GP09), hydrodynamic stripping simula-
+tions of Carina and Sextans (Gatto et al. 2013), and
+stripping simulations of the LMC (Salem et al. 2015).
+We plot these constraints in Figure 1 along with a model
+for the hot halo of the MW developed from hydrody-
+namic simulations of disk galaxies (Kaufmann et al.
+2009).
+We note the ram pressure arguments provide
+upper limits and are generally well above the observed
+proﬁle.
+We use a constant wind density and velocity through-
+out this work. The temperature of the oncoming wind
+is set by requiring thermal pressure equilibrium between
+the halo medium and the edge of the dwarf galaxy. This
+means our wind’s thermal properties may be inconsis-
+tent with the halo of the MW, but this is suﬃcient for
+our purposes as wind temperature does not aﬀect the
+stripping rate (Roediger & Hensler 2005; Tonnesen &
+Bryan 2009; Salem et al. 2015). We choose a wind num-
+ber density of nhalo = 10−4 cm−3 for our simulations, in
+agreement with the constraints provided by Salem et al.
+(2015) at r ∼50 kpc, but slightly below the upper limit
+constraints from GP09.
+This density corresponds to pericenter distances of
+20 – 30 kpc based on the proﬁles from MB13 and MB15.
+Most of the MW hot halo volume has a density lower
+than this value. In preliminary tests we ran our simula-
+tions with wind densities of 10−3 cm−3 and 10−5 cm−3
+and found that the former produces very rapid stripping
+in about 0.5 – 1.5 Gyr. The stripping time for the latter,
+as extrapolated from 2 Gyr of simulation time, is a Hub-
+ble time or more. Number densities higher than about
+10−4 cm−3 could be reached by orbits that bring the
+dwarf very close to the MW. We note, however, at this
+point is is highly likely that tidal stripping may domi-
+nate the evolution of the dwarf, possibly completely de-
+stroying the satellite.
+2.6. Wind Tunnel
+We use wind tunnel simulations in order to mimic the
+dwarf’s motion through its host’s hot halo. This allows
+us to achieve high resolution, allowing us to study these
+low mass dwarfs without simulating both the entirety
+of the MW disk or the large volume its orbit would
+occupy. This has the advantage of both reducing the
+computational cost of these simulations and allowing us
+to isolate and examine only the gas stripping physics.
+Use of wind tunnel simulations to study gas stripping is
+Figure 1. Current observational constraints on the number
+density proﬁle of the MW’s hot halo from Miller & Bregman
+(2013) (black, MB13) and Miller & Bregman (2015) (black,
+dash-dotted, MB15).
+We also include a theoretical model
+from Kaufmann et al. (2009) (purple, K09), and constraints
+from both analytic ram pressure stripping arguments with
+MW dSph’s from GP09 (blue, circle), simulations of dSph’s
+from Gatto et al. (2013) (orange, square, G13), and simula-
+tions of the LMC from Salem et al. (2015) (black, diamond,
+S15).
+standard practice for both massive galaxies and dwarf
+galaxies (e.g. Mayer et al. 2006; Gatto et al. 2013; Salem
+et al. 2015). We use a constant wind density and velocity
+throughout our simulations for better control over the
+stripping process without having to model variations in
+cosmologically realistic orbits.
+With constant density
+and velocity, our simulations are equivalent to a dwarf
+satellite on a circular orbit. Alternatively, since a ma-
+jority of stripping occurs during pericenter of a given
+orbit, our simulations can be thought of as examining
+how long a dwarf would have to spend at a given peri-
+center radius and velocity to be stripped. We test two
+speeds, vwind = 200 km s−1 and vwind = 400 km s−1,
+directed from the left edge of the simulation box with
+only a positive x velocity component.
+3. SIMULATION INITIAL CONDITIONS
+We focus on stripping and feedback in the lowest mass
+dwarf satellites around the MW, a previously unexplored
+regime in simulations studying gas stripping. To do this
+we use observationally motivated initial conditions for
+our dwarf galaxies. Rather than taking a present day
+dSph and determining the gas, stellar, and dark mat-
+ter properties of its pre-infall progenitor, we instead use
+initial conditions mimicking a current, gaseous low mass
+satellite of the MW, Leo T. We note that our initial con-
+ditions are not meant to be an exact ﬁt to the observed
+gas and dark matter properties of this galaxy. Leo T is
+located at ∼420 kpc and was the ﬁrst ultrafaint dwarf
+galaxy detected around the MW (Irwin et al. 2007). It
+contains both an old stellar population, 6-8 Gyr, and a
+
+--- PAGE BREAK ---
+
+young population, 200 Myr, suggesting ongoing star for-
+mation. It has an observed HI mass interior to 300 pc of
+MHI = 2.8 × 105 M⊙, a stellar mass of M∗= 1.2 × 105
+M⊙, and a low star formation rate of 1.5 −2 × 10−5 M⊙
+yr−1 (Ryan-Weber et al. 2008). The initial conditions
+for our two simulated dwarf models are outlined below.
+In this work, we ﬁx the dark matter halo for each
+of our dwarf galaxies, implemented as a static, non-
+evolving gravitational potential in our simulations; these
+properties are given in Table 1. Our adopted dark mat-
+ter mass MDM(r < 300 pc) = 7.3 × 106 M⊙is consis-
+tent with and bracketed by measurements from Ryan-
+Weber et al. (2008), MDM > 3.3 × 106 M⊙, and Stri-
+gari et al. (2008), MDM = 1.30+0.88
+−0.42 × 107 M⊙, and
+consistent with ﬁts from Faerman et al. (2013) with
+MDM = 6.5 × 106 M⊙for an NFW proﬁle ﬁt, and
+MDM = 8.0 × 106 M⊙for a Burkert proﬁle ﬁt.
+adopt rs = 795 pc following Walker et al. (2009), as
+determined from NFW proﬁle ﬁts to 8 MW dSph’s.
+We test two diﬀerent models for the dwarf galaxy gas
+proﬁles that are diﬀerentiated by their central gas den-
+sity, set to either no = 0.75 cm−3 or no = 1.50 cm−3.
+Each dwarf contains an isothermal gas distribution at
+Tdwarf = 6000 K with an initial gas extent of 300 pc.
+We note that the resulting peak (central) column den-
+sity of gas in these two models is 1.76 × 1020 cm−2and
+3.52 × 1020 cm−2 respectively. Leo T has an observed
+peak NHI of 7 × 1020 cm−2 (Ryan-Weber et al. 2008).
+Thus the gas in our dwarfs is generally more diﬀuse than
+in Leo T.
+The total gas mass of the dwarf, 2.34 × 105 M⊙or
+4.74 × 105 M⊙(Table 2), is determined by these values,
+by requiring that the dwarf be in hydrostatic equilib-
+rium with its dark matter potential, and by requiring
+that the edge be in pressure equilibrium with the sur-
+rounding gaseous halo. Since we ﬁx the density of the
+gaseous halo, we ﬁnd this latter condition by changing
+the halo temperature; Thalo = 2.9×106 K and 3.9×106 K
+for the no = 0.75 cm−3 and 1.50 cm−3 dwarfs respec-
+tively. To compute the supernova locations and rates,
+we must assume some stellar properties of our dwarf
+galaxy. We again note that we do not include star for-
+mation nor the gravitational eﬀect due to a stellar pop-
+ulation. We assume instead a stellar radius like Leo T’s
+of r∗= 170 pc (McConnachie 2012); this is used as the
+truncation radius in choosing the supernova locations.
+We use M∗/Mgas = 0.43 (Ryan-Weber et al. 2008) for
+Leo T to set M∗in each dwarf to determine the their
+constant Type Ia supernova rates.
+These parameters
+and the resulting supernova rates are given in Table 2.
+Figure 2 gives the initial gas and dark matter density
+proﬁles for each of our two dwarf galaxies.
+4. RESULTS
+Figure 2.
+Initial gas density (colored, left axis) and dark
+matter density (dashed, right axis) proﬁles for the two dwarf
+galaxy models. The proﬁle and total gas mass interior to rgas
+= 300 pc are shown for the no = 0.75 cm−3 (green) and no
+= 1.50 cm−3 (blue) dwarf galaxies, as well as the total dark
+matter mass interior to 300 pc (black). These properties are
+summarized in Tables 1 and 2.
+Figure 3 shows density slices at four diﬀerent times
+during the simulations, comparing the evolution of the
+two diﬀerent dwarf galaxies at the two diﬀerent wind
+velocities. We show the evolution of the cold gas mass
+gravitationally bound to the dwarf galaxy over time in
+Figure 4. The solid black lines in Figure 4 correspond to
+the density slices in Figure 3. The total stripping time
+and fraction of cold gas remaining at 2 Gyr are presented
+in Table 3 for each of the lines in Figure 4. We use a
+linear extrapolation from the mass loss over 1.9 – 2.0
+Gyr to estimate the stripping time for simulations that
+still contain gas at 2 Gyr.
+Stripping in ≲2 Gyr only occurs in the vwind = 400
+km s−1 simulations, with the no = 1.50 cm−3 runs tak-
+ing just slightly more than 2 Gyr to strip.
+The ex-
+trapolated stripping time for the vwind = 200 km s−1
+simulations, however, ranges between about 4 – 7 Gyr;
+much longer than the 2 Gyr timescale. This signiﬁcant
+diﬀerence in stripping behaviors between the wind ve-
+locities is understandable, as the ram pressure force ex-
+perienced by these galaxies scales as velocity squared
+(Pram ∝ρwindv2
+wind). In each of these simulations, the
+stripping rate is fairly low, with a roughly uniform strip-
+ping rate over the entire simulation.
+This generally
+agrees with the picture of stripping developed in sim-
+ulations of disk galaxies, where a majority of the evo-
+lution time is spent undergoing slow stripping, rather
+than dominated by rapid, impulsive stripping (Marcolini
+et al. 2003; Roediger & Hensler 2005; Weinberg 2014).
+We conﬁrm this in adiabatic simulations of these dwarf
+
+--- PAGE BREAK ---
+
+Figure 3. Selected density slices at four times for a subset of our simulations, each of the solid black lines in Figure 4. The left
+two columns give the no = 0.75 cm−3 galaxy run with supernova at the two wind velocities used, while the right columns show
+the corresponding no = 1.50 cm−3 simulations. In this orientation, the wind is inﬂowing from the bottom of each box. We note
+that these 2 kpc × 2.6 kpc panels only show a subset of the full simulation volume.
+
+--- PAGE BREAK ---
+
+Table 2. Dwarf Galaxy Gas and Feedback Properties
+no (cm−3)
+rgas (pc)
+Mgas (105 M⊙)
+Tgas (K)
+r∗(pc)
+SFRa (10−6 M⊙yr−1)
+τSN,1a
+b (Myr)
+τSN,II
+c (Myr)
+0.75
+300.0
+2.37
+6.0×103
+3.90
+42.73
+1.50
+4.74
+21.6
+52.1
+7.712
+aComputed from Equation (6) given Mgas
+bFixed rate used in simulation from Equation (5)
+cThe estimated initial Type II supernova rate from Equation (7).
+Note—These properties determine the initial conditions for each of our dwarf galaxies. The Type Ia supernova rate is
+implemented as a constant rate in our simulations, while the Type II rate given is the average expected rate if the dwarf were
+to evolve in isolation without a wind.
+Figure 4. The gravitationally bound cold gas mass for each dwarf galaxy run over the 2 Gyr simulation time. For each dwarf
+model, we run a supernova (black, solid, slices shown in Figure 3) and no supernova simulation (black, dashed). We additionally
+run 3 simulations for the vwind = 400 km s−1 galaxies where we increase the supernova rate by a factor of 2 (blue, dashed) and
+5 (orange, dash-dot). See Table 3 for a list of the obtained and extrapolated stripping times for each simulation.
+
+--- PAGE BREAK ---
+
+Table 3. Stripping Timescales
+no cm−3
+v (km s−1)
+SN Use
+fgas at 2 Gyr
+τstrip
+a (Myr)
+0.75
+No SN
+0.56
+(4100)
+0.57
+(4320)
+No SN
+1440
+1340
+SN × 2
+1220
+1.50
+No SN
+0.73
+(6880)
+0.74
+(7350)
+No SN
+0.22
+(2480)
+0.10
+(2240)
+SN × 2
+0.08
+(2270)
+SN × 5
+1830
+aValues in parenthesis are linear extrapolations
+Note—Given is the fraction of cold gas bound to the dwarf
+galaxy at the end of simulation time (2 Gyr) along with the
+stripping timescale if stripped within this time. If fgas > 0,
+we give a parenthesized stripping timescale extrapolated
+from the last 100 Myr of the simulation.
+galaxies (no radiative cooling and no supernovae) which
+exhibit a short, initial period of rapid stripping, followed
+by continuous, low level stripping through the remainder
+of the simulation.
+For these runs, the gas stripping is minimally aﬀected
+by the inclusion of supernova feedback. This is a diﬀer-
+ent outcome than is seen in massive, disk galaxy simula-
+tions, where including supernova feedback plays an im-
+portant role in driving out gas from the galaxy, assisting
+stripping. We ﬁnd here that the supernova rate in these
+galaxy models is so small, that they only play a minimal
+role in amplifying the gas stripping rate. We performed
+three additional tests with supernova (blue and orange/
+dotted and dot-dashed lines) where we multiplied the
+Type II supernova rate by a constant factor (2 or 5),
+leaving the Type Ia supernovae at the original rate. The
+SN × 2 runs still show little diﬀerence in evolution until
+the very end of the simulation. Only the SN × 5 run
+shows a signiﬁcant impact on the gas stripping evolu-
+tion. Based on visual inspection, the normal supernova
+rate is infrequent enough that the gas is able to dissi-
+pate most of the injected energy from a given supernova
+before the next one explodes. It is only when the super-
+nova rate increases to the point that multiple supernova
+contribute to a common superbubble that they are able
+to drive out gas and assist stripping.
+5. DISCUSSION
+Here we focus on the role of supernova driven feedback
+in gas stripping in these dwarf galaxies in Section 5.1 and
+reconcile the stripping timescales seen in our simulations
+with the expected stripping timescales of observed, low
+mass dSph’s in Section 5.2. Finally, we include a reso-
+lution study in Section 5.3.
+5.1. Ineﬃciencies of Supernova Feedback in Low Mass
+Dwarfs
+Our simulations demonstrate that the supernova feed-
+back in the lowest mass dwarf galaxies is a minor factor
+in the gas removal process.
+The star formation rates
+computed for our dwarf galaxy models are too low to
+produce enough supernovae to drive substantial out-
+ﬂows. This appears to be because the dwarf’s gas has
+enough time to dissipate the injected supernova energy
+by the time another occurs. Stacking the eﬀects of mul-
+tiple supernovae seems to be necessary to drive outﬂows
+and aﬀect the gas stripping evolution.
+Although Mac Low & Ferrara (1999) showed low mass
+dwarf galaxies (Mgas ∼106 M⊙) can be completely de-
+stroyed with enough supernova feedback, the supernova
+rates in our dwarfs are over an order of magnitude be-
+low the lowest rate sampled in that work, the lowest of
+which exhibited a mass ejection fraction of only 20%.
+Our results agree with Mac Low & Ferrara (1999), in
+that low mass dwarfs cannot drive large outﬂows from
+weak supernova feedback. The Carina dwarf galaxy sim-
+ulations (Mgas = 6.3 × 105 M⊙) in Gatto et al. (2013)
+also have too low a supernova rate to aﬀect the gas
+stripping process. The two lowest mass dwarfs in the
+Shen et al. (2014) simulation sample have stellar masses
+of 9.6 × 104 M⊙and 5.3 × 105 M⊙, and are unable to
+drive large outﬂows. However, it appears that the larger
+star formation and supernova rates in more massive
+dwarf galaxies, in spite of a deeper potential well, drive
+stronger outﬂows (Shen et al. 2014; Caproni et al. 2015).
+This is seen also in Gatto et al. (2013), where feedback
+does play an important role in modifying the stripping
+rate of their Sextans simulations (Mgas = 7.0×106 M⊙).
+The lack of observed quenched, isolated dwarf galaxies
+coupled with their long gas consumption timescales sug-
+gests that environmental stripping is necessary for com-
+plete gas removal and quenching of dwarf galaxies (Geha
+et al. 2012).
+Though the exact signiﬁcance of feedback driven
+winds in a given galaxy is dependent on the gas geom-
+etry, the star formation rate and distribution of star
+forming regions within the galaxy, and depth of the
+galaxy’s potential well (Mac Low & Ferrara 1999), we
+further add to the picture of environmental quenching
+of dwarf galaxies by ﬁnding that gas removal in the low-
+est mass dwarf galaxies must be due to environmental
+eﬀects alone.
+5.2. Reconciling Ineﬃcient Stripping with the Expected
+Stripping Timescale
+
+--- PAGE BREAK ---
+
+There has been much recent work examining the
+quenching processes of dwarf galaxy satellites around
+the MW and M31 both observationally and theoretically
+(e.g. Geha et al. 2012; Karachentsev et al. 2013; Brooks
+et al. 2013; Weisz et al. 2015; Wetzel et al. 2015b; Dea-
+son et al. 2015; Wetzel et al. 2015a; Fillingham et al.
+2015; Wheeler et al. 2014; Phillips et al. 2014, 2015;
+Slater & Bell 2013, 2014; Slater et al. 2015). Most of
+this work, however, has focused on dwarf galaxy stellar
+masses of 108 −1010 M⊙where observations indicate
+that quenching is a highly ineﬃcient process for both
+satellite and ﬁeld galaxies.
+At these masses, roughly
+20 – 40% of observed satellite galaxies are quenched,
+suggesting quenching timescales around 6 – 9 Gyr. For
+galaxies of lower stellar mass, about 80% are quenched
+at around M∗= 106 M⊙, and all are quenched for
+masses down to M∗= 105 M⊙.
+Studies examining
+the observed quenched fraction for these low mass dwarf
+galaxies (the focus of our work), coupled with accretion
+histories derived from cosmological dark matter simula-
+tions (Slater & Bell 2014; Wetzel et al. 2015b; Fillingham
+et al. 2015) suggest eﬃcient quenching timescales, ≤2
+Gyr. Environmental gas stripping is generally assumed
+as the quenching mechanism for these dwarf galaxies
+(e.g. Wheeler et al. 2014; Slater & Bell 2014).
+How-
+ever, our work suggests that gas stripping alone, even in
+combination with internal feedback, is ineﬃcient in the
+cases we consider and cannot universally quench galax-
+ies within the expected 2 Gyr time frame.
+Our vwind = 400 km s−1 simulations have stripping
+timescales in the range of 1.5 – 2.2 Gyr, comparable
+to the derived 2 Gyr quenching time. However, this is
+an optimistic stripping time given that we use a con-
+stant 400 km s−1 wind for the entire 2 Gyr simula-
+tion.
+This overestimates stripping in a galaxy with
+vperi = 400 km s−1 as a realistic orbit would not re-
+sult in these wind velocities (or wind densities) for this
+long. For dwarfs with lower eﬀective average velocities,
+like our vwind = 200 km s−1 simulations, the situation
+becomes more problematic. These simulations suggest
+additional physics may be required, beyond what is con-
+sidered in this work, in order to understand the large
+quenched fraction of low mass dwarf galaxies.
+Although we ﬁnd that relying on gas stripping and
+feedback alone to quench every case of these low mass
+dwarfs is problematic, these are not the only physical
+processes that can aﬀect quenching in low mass dwarf
+satellites of the MW. Tidal interactions between the
+dwarf and the MW, for example, are often not consid-
+ered and may be important in the quenching process.
+We investigate and discuss the role these eﬀects may
+have in the quenching of these low mass dwarf galaxies
+below.
+5.2.1. Stripping Under a Weakened Potential
+Recent studies of the kinematics of dwarf galaxies in
+the Local Group suggest that the dark matter density
+proﬁles of dwarfs may contain central cores (e.g. Oh
+et al. 2011) rather than the cuspy proﬁles expected (see
+de Blok (2010) for a recent observational review). As-
+suming galaxies initially contain cuspy proﬁles, the most
+likely mechanism of core formation is the gravitational
+heating of dark matter in the centers of these galaxies
+through gas motions produced by supernova feedback
+(e.g. Zolotov et al. 2012; Arraki et al. 2014; Pontzen &
+Governato 2014; Pontzen et al. 2015; Nipoti & Binney
+2015; Di Cintio et al. 2014b; Ogiya & Burkert 2015; Read
+et al. 2016). Core formation through this mechanism
+is dependent upon the stellar-to-halo mass fraction (Di
+Cintio et al. 2014b); too low and feedback is too weak
+to aﬀect the dark matter distribution, too high and the
+stars dominate the potential in the centers of the galaxy,
+preventing the heating of the dark matter. We note here
+that our Leo T-like models, with M∗= 1.2×105 M⊙and
+M200 = 3.1 × 108 M⊙, likely have too little supernova
+feedback to produce signiﬁcant cores (Di Cintio et al.
+2014a,b).
+In our simulations we assume a cuspy, NFW dark mat-
+ter potential for each dwarf. If cores were to form in
+these galaxies, it would weaken the gravitational poten-
+tial and may lead to more rapid stripping. To test this
+hypothesis, we re-run two no = 1.50 cm−3 simulations
+with supernova feedback using a cored, Burkert (1995)
+proﬁle instead of a NFW proﬁle. The proﬁle was con-
+structed such that it contained the same total gas and
+dark matter mass interior to 300 pc as our NFW galax-
+ies, with the same central gas density. We present the
+results of these two simulations in Figure 5 (dashed)
+compared to the equivalent models from Figure 4 (solid).
+We ﬁnd that a cored potential does very little to aﬀect
+the overall evolution at either wind velocity. The ex-
+pected stripping times for the vwind = 200 km s−1 and
+vwind = 400 km s−1 simulations are 7.0 Gyr and 2.2 Gyr
+respectively for the Burkert proﬁles, and 7.4 Gyr and 2.2
+Gyr respectively for the NFW proﬁles.
+5.2.2. Tidal Eﬀects from the Milky Way
+Our simulations neglect tidal eﬀects the MW might
+have on gas stripping.
+They may weaken the stellar
+and dark matter potentials of our dwarf galaxy, decreas-
+ing the stripping timescale. However, the signiﬁcance
+of tides strongly depends upon the nature of the dwarf
+galaxy’s orbit and its pericenter distance; being most
+signiﬁcant for orbits that plunge deep into the MW po-
+tential. Our assumed halo density of 10−4 cm−3 corre-
+sponds to orbital pericenters around 30 kpc, as seen in
+Figure 1. Taking the simple scaling relation for the tidal
+radius (Johnston 1998) rt as a function of satellite mass
+
+--- PAGE BREAK ---
+
+Figure 5. Evolution of bound cold gas mass remaining over time. Both models have the same initial gas and dark matter mass
+within 300 pc, and central gas densities, no = 1.50 cm−3. The solid lines give the evolution for a cuspy NFW proﬁle, and dashed
+for a cored Burkert proﬁle. The latter results in a lower virial mass and overall smaller potential well than the NFW proﬁle,
+but only reduces the stripping time marginally.
+m, host mass M, and orbital pericenter rp
+rt =
+1/3
+the tidal radius is about 3 kpc for rp = 30 kpc and
+MMW = 1012 M⊙. Since including tidal eﬀects in de-
+tail is not possible in our wind tunnel simulations, we
+approximate tidal interactions by assuming the dark
+matter distribution of our dwarf galaxy is truncated at
+r ≥rt and unaﬀected at r < rt.
+The reduction in
+gravitational potential over r < 2 rgas, or 600 pc, for
+our dwarfs is roughly uniform at ∼20% of the origi-
+nal.
+We use this reduction to approximately account
+for tidal stripping in our simulations by re-running our
+no = 1.50 cm−3 supernova simulations with a constant
+20% reduction applied to the dark matter potential. We
+run an additional simulation using rp = 100 kpc, cor-
+responding to a 10% reduction in the gravitational po-
+tential over r < 2 rgas. We note these simulations were
+not initially in hydrostatic equilibrium, as they were run
+with the original gas initial conditions in spite of the
+reduced potential. However, we do not expect this ap-
+proximation to signiﬁcantly aﬀect the results, and in any
+case it will at least give us a lower limit on the stripping
+timescale.
+The results of this test are shown in Figure 6, with
+rp = 100 kpc (dashed) and rp = 30 kpc (dotted) as
+compared to the original simulations (solid) shown in
+4. As expected, the weakened potentials result in faster
+stripping in each case.
+The eﬀect is unable to bring
+the stripping timescales for the v = 200 km s−1 simu-
+lation under 2 Gyr, but is signiﬁcant. The new strip-
+ping timescales are 3.5 and 5.0 Gyr for the rp = 30 kpc
+and rp = 100 kpc simulations respectively. A compa-
+rable fractional decrease is seen in the v = 400 km s−1
+simulation, yet in this case the tidal eﬀects can reduce
+stripping to below 2 Gyr, at 1.3 and 1.8 Gyr respec-
+tively. Although they may not be relevant in every case,
+this suggests that accounting for tidal eﬀects between
+the MW and the infalling dwarf galaxy can be impor-
+tant. Including tidal forces between host and satellite
+in detail is thus an important area of future study, par-
+ticularly in capturing cosmologically motivated satellite
+orbits. Doing so in a cosmological simulation to capture
+a statistical sample of low mass dwarfs and their orbits
+is particularly attractive. However, this becomes com-
+putationally expensive as it would require the ability to
+simulate a massive MW-like host galaxy in tandem with
+its satellites in a hydrodynamic simulation. Although
+simulations like this have been done focusing on more
+massive satellites (e.g. Mayer et al. 2006), this is a chal-
+lenging prospect when the mass of the satellites we are
+concerned with, M∗∼105 M⊙, are roughly six orders
+of magnitude smaller than that of the MW.
+5.2.3. Cosmological Orbits and the Halo Density
+We have presented a series of wind tunnel simulations
+at ﬁxed wind velocity and wind density. In reality, dwarf
+satellites travel along cosmological orbits encountering
+a range of wind velocities and densities. Since RPS at
+pericenter passage dominates, where PRPS = ρwindv2
+peaks, stripping in real dwarfs is more impulsive than
+
+--- PAGE BREAK ---
+
+Figure 6. Approximate eﬀects of tidal stripping by the MW on our no = 1.5 cm−3 galaxy. We examined the tidal stripping
+radius for two pericenter distances, 30 kpc and 100 kpc, dashed and dotted respectively, corresponding to rtidal of 5.6 kpc (0.41
+Rvir)and 9.4 kpc (0.69 Rvir) respectively. Assuming the galaxy is unaﬀected at r < rt, we compute the resulting change in the
+depth of the potential in each case within 2Rgas, or 600 pc. We took the mean change of the potential in each case, which was
+nearly linear and constant over this range, and re-ran our simulations with a reduced background potential and same initial
+conditions.
+the continual cases we examine here.
+It is unclear
+whether or not this will make stripping more or less eﬃ-
+cient in a given case. We consider here the universality
+of our adopted PRPS compared to expected peak PRPS
+inferred for satellites of MW mass systems.
+Slater & Bell (2014) consider accretion histories of
+subhalos in the Via Lactea 1 and 2 dark matter only
+simulations to estimate the peak PRPS felt by MW sub-
+halos assuming the Miller & Bregman (2013) hot halo
+density proﬁle shown in Figure 1. If RPS is the dominant
+quenching mechanism, quenching 90% of MW satellites,
+they consider the peak PRPS felt by 90% or more of the
+Via Lactea halos, calculated as 10−14.8 dyne cm−2. This
+value can be interpreted to mean that if RPS is the sole
+cause of gas quenching in MW satellites, it must operate
+eﬃciently down to the given PRPS. PRPS for our sim-
+ulations is 10−13.4 dyne cm−2 and 10−12.79 dyne cm−2
+for the 200 km s−1 and 400 km s−1 wind velocities re-
+spectively. Our values correspond to the PRPS felt by at
+least ∼75% and ∼50% of the subhalos in Slater & Bell
+(2014) respectively. Although RPS operates impulsively
+in satellites with realistic orbits, the time spent at peri-
+center in a given orbit is on the order of a few hundred
+Myr, far shorter than the 2 Gyr in our simulations. We
+expect, then, that our simulations set lower limits for
+the stripping timescale at the given PRPS. Based on the
+peak PRPS models from Slater & Bell (2014), we argue
+that at least 25% of subhalos do not experience suﬃcient
+PRPS for eﬃcient quenching, and only at most 50% ex-
+perience strong enough peak PRPS to quench within the
+expected timescales. This generally agrees with a simi-
+lar analysis presented in Fillingham et al. (2015).
+Finally, uncertainties in the MW’s hot halo density are
+relevant to the universality of our ﬁndings. If the MW
+halo’s density is generally higher or has a more shallow
+fall oﬀwith radius than the observations shown in Fig-
+ure 1, our work and previous studies would generally
+underestimate the typical RPS forces felt by orbiting
+satellites. Better observational constraints of the MW’s
+halo density proﬁle out to large radii and improved the-
+oretical models of hot halos around MW mass galaxies
+may help to reconcile the diﬀerences between expected
+stripping timescales and those presented here.
+5.2.4. Group Pre-processing of Low Mass Dwarfs
+Accounting for the complete, cosmological accretion
+history of a given dwarf satellite may be necessary to
+recover < 2 Gyr quenching timescales. Tracing the in-
+fall histories of subhalos in the ELVIS (Garrison-Kimmel
+et al. 2014) suite of cosmological N-body simulations
+of MW/M31 analogs, Wetzel et al. (2015a) ﬁnds that
+a substantial fraction of present day subhalos of MW-
+like galaxies were subhalos of a diﬀerent pair or group
+prior to or during infall onto the MW. They ﬁnd that
+this “group preprocessing” is most prevalent for low
+mass dwarfs, M∗≤106 M⊙.
+On average, 50% of
+these subhalos were preprocessed. Tidal interactions be-
+tween dwarfs within these pre-infall groups may play a
+signiﬁcant role in the quenching process of these low
+
+--- PAGE BREAK ---
+
+mass galaxies. They may disturb and weaken the dwarf
+galaxy potential wells, leading to more eﬃcient stripping
+upon infall to the MW. Additionally, tidal stirring may
+heat and puﬀup the gas within the dwarf, again leading
+to more eﬃcient stripping. Observational and theoreti-
+cal work investigating these eﬀects in detail, however, is
+currently limited.
+Recent work as part of the TiNy Titans study (Stier-
+walt et al. 2015) demonstrates that tidal interactions in
+dwarf-dwarf pairs drives gas into their outskirts, com-
+pared to non-paired dwarf irregulars, as determined by
+their HI extent (Pearson et al. 2016). If this puﬃng up
+of dwarfs is universal in group preprocessing, it would
+result in more eﬃcient stripping upon infall to a more
+massive host. Exactly how much this would change the
+stripping timescales we ﬁnd is unclear and is an area
+worthy of future research.
+Identifying observational signatures of preprocessing
+of MW satellites (Deason et al. 2015) would be vital to
+understanding whether or not it played a role for MW
+dwarfs in particular. Future simulation work could also
+provide insight into preprocessing. However, doing so
+in a full cosmological context would again require ex-
+tremely high resolution hydrodynamic simulations that
+are able to resolve both these low mass galaxies, M∗
+∼105 M⊙, and their massive host at the same time.
+Producing such a simulation is additionally attractive
+as it would naturally include MW-dwarf tidal interac-
+tions post-infall. Although recent work has been able
+to resolve low mass satellites (M∗> 103 M⊙) in orbit
+around a M∗> 106 M⊙host (Wheeler et al. 2015), this
+has yet to be done on the required scales.
+5.2.5. Reionization
+A ﬁnal possibility is that reionization, rather than
+RPS or tidal stripping, is the dominant quenching mech-
+anism for low mass dwarf galaxies. This would alleviate
+any need for the MW environment to remove gas from
+these galaxies.
+Inferring infall times from abundance
+matching in Rocha et al. (2012), Weisz et al. (2015)
+compares these to the quenching times derived from the
+SFH’s of MW dwarfs (Weisz et al. 2014a). They ﬁnd
+that several galaxies with M∗≤108 M⊙were quenched
+prior to infall onto the MW halo. In fact, a few of these
+galaxies have been identiﬁed as fossils of reionization
+(See Weisz et al. 2014b, and references therein). This
+points to reionization, rather than environmental strip-
+ping, as the quenching mechanism for low mass MW
+dwarfs. Analysis of ELVIS subhalo accretion histories
+shows that all subhalos of the MW/M31 analogs were
+outside the MW/M31 virial radius during reionization,
+and did not enter it until 2 – 4 Gyr later (Wetzel et al.
+2015a). These authors suggest that the eﬀects of reion-
+ization and the MW environment should be separable in
+observations. Distinguishing the eﬀects of reionization
+from environmental quenching in these dwarf galaxies
+through both observation and simulations would be a
+valuable insight into the evolution of MW satellites. In
+particular, simulations can answer in detail how reion-
+ization aﬀects these galaxies (e.g Simpson et al. 2013;
+Ocvirk et al. 2015). However, if reionization is the dom-
+inant quenching mechanism for these dwarfs, then it
+must also be able to explain why low mass dwarfs like
+Leo T and Leo P (Giovanelli et al. 2013; McQuinn et al.
+2015), both nearby, low mass dwarfs outside the MW
+virial radius, contain gas and show observable star for-
+mation.
+5.3. Resolution Study
+We perform the highest resolution three-dimensional
+simulations of dwarf galaxy RPS to date at our ﬁducial
+resolution of 9.77 pc. To understand the eﬀect of reso-
+lution in ram pressure stripping simulations of this kind
+we present a resolution study of the no = 1.50 cm−3
+dwarf galaxy at both vwind
+200 km s−1 and
+vwind
+400 km s−1 in Figure 7.
+We present two
+full low resolution simulations for each, at 39.06 pc and
+19.54 pc, and partial runs at 4.89 pc resolution.
+Each velocity case shows a large qualitative change
+in behavior moving from a resolution of 19.5 to 9.8 pc,
+corresponding to a change from ∼15 to ∼31 grid cells
+across the galaxy gas radius. In each case, there is appre-
+ciable gas stripping at a roughly uniform rate for most of
+the 2 Gyr. Moving to higher resolution, 4.9 pc, shows a
+quantitative, yet not qualitative change. However, this
+change is likely too large to consider our 9.8 pc simula-
+tions fully converged. Extrapolating the high resolution
+runs to 2 Gyr, we ﬁnd that for a factor of two change
+in resolution, there is only a 41.3% and 14.6% change
+in the recovered stripping times (Table 3), to 4.31 Gyr
+and 1.92 Gyr for the 200 km s−1 and 400 km s−1 runs
+respectively.
+The qualitative diﬀerence in the behavior moving from
+low to high resolution for the two diﬀerent velocities
+is likely due to the diﬀerent nature of the gas strip-
+ping in each case.
+While the 200 km s−1 simulation
+is dominated by low level stripping through ﬂuid in-
+stabilities, the factor of four increase in ram pressure
+force in the 400 km s−1 run leads to more momentum
+driven stripping.
+Unresolved ﬂuid instabilities in the
+lowest resolution 200 km s−1 run lead to no stripping,
+but rather gradual accretion onto the galaxy over time.
+The low resolution runs in the 400 km s−1 case contain
+far too much numerical diﬀusion, allowing the ram pres-
+sure force to more eﬃciently strip these low resolution
+galaxies.
+This study demonstrates that our stripping times are
+converging at an acceptable rate in the 200 km s−1
+
+--- PAGE BREAK ---
+
+Figure 7. Resolution study using the no = 1.50 cm−3 dwarf galaxy at both vwind = 200 km s−1 (left) and vwind = 400 km s−1
+(right). Given is our ﬁducial resolution, 9.77 pc (solid), as compared to two low resolution runs, 19.54 pc (dash-dot) and 39.06 pc
+(dot), and a partial simulation at higher resolution, 4.89 pc (dashed).
+case, suggesting that our standard resolution represents
+a strong upper limit to the result, but one that appears
+to be well within a factor of two of the converged result.
+On the other hand, the 400 km s−1 case may be con-
+verged and showing results of random ﬂuctuations (Ko-
+rycansky et al. 2002), so that one should interpret the
+result as a ﬁnal value subject to variation of order 10–
+20%. At our ﬁducial resolution, each 400 km s−1 simula-
+tion to 2 Gyr costs on order of 4000 – 5000 CPU hours,
+or about 3 days on 64 cores.1 While this is relatively
+inexpensive, the 4.89 pc simulation with a 400 km s−1
+wind cost 30,720 CPU hours (10 days, 128 cores) out
+to 780 Myr. In total, we estimate the simulations pre-
+sented in Figures 4 – 6 would require ∼1.4 million CPU
+hours at 4.89 pc resolution. Performing multiple simu-
+lations at the resolution required for full convergence is
+computationally expensive. We conclude that our qual-
+itative result, that ram pressure alone is not responsible
+for low mass satellite quenching, remains valid.
+6. CONCLUSION
+In this work we present a set of simulations examining
+the ability of RPS and supernova feedback to remove gas
+in the lowest mass dwarf galaxy satellites of the MW
+(M∗∼105 M⊙).
+In our high resolution wind tunnel
+simulations, we demonstrate the surprising diﬃculty of
+stripping these galaxies, given reasonable assumptions
+1 We note that the 200 km s−1 simulations are about 25%
+cheaper than the 400 km s−1 simulations as the slower wind ve-
+locity results in a larger average timestep.
+for the orbital velocity and density of the MW’s hot
+halo. Assuming quenching occurs once the galaxy con-
+tains no cold gas, this casts doubt on the ability for RPS
+alone or with supernova feedback to quench these galax-
+ies on the < 2 Gyr timescales expected for low mass MW
+dwarf satellites. We ﬁnd that the expected supernova
+rate in these galaxies is too low to eﬀectively inﬂuence
+the stripping rate.
+We conclude that additional physics must be at play,
+operating in addition to gas stripping, in order to quench
+these galaxies on relatively short timescales. Tidal strip-
+ping eﬀects from interactions between the dwarf and the
+MW may play a signiﬁcant role in a fraction of MW
+dwarfs, but is strongly dependent upon the particular
+orbits and pericenter distances of the dwarf satellites.
+In addition, tidal eﬀects during group preprocessing may
+play a role in either removing gas before infall onto the
+MW, or puﬃng up galaxies, allowing for more eﬃcient
+gas stripping.
+Finally, re-ionization in the early Uni-
+verse may have quenched a substantial fraction of these
+low mass dwarfs, obviating the need for invoking envi-
+ronmental quenching in the ﬁrst place. However, we do
+not yet have a complete understanding of which galaxies
+are quenched during re-ionization, which, if any, galax-
+ies quenched during re-ionization can re-accrete gas and
+form stars, and what these quenched galaxies would look
+like at z = 0.
+Our results demonstrate that RPS does not univer-
+sally dominate quenching in low mass dwarf satellites.
+However, this does not mean that RPS is unable to dom-
+inate quenching for dwarfs with higher pericenter veloc-
+
+--- PAGE BREAK ---
+
+ities, which may also experience higher halo densities.
+As shown in Slater & Bell (2014), approximately half of
+MW subhalos may have experienced higher RPS forces
+than we study here. This estimate is dependent upon
+our understanding of the MW’s hot halo density pro-
+ﬁle, which requires further observations to be well con-
+strained. Modeling each quenching mechanism together
+with realistic orbits and a range of halo density proﬁles
+to estimate the relative importance of each mechanism
+as a function of satellite stellar mass is a fruitful area of
+future research.
+Disentangling these processes observationally would
+contribute to a better understanding of the cosmologi-
+cal evolution of the satellites of the MW. In addition, the
+relative importance of each of these physical processes
+should be examined further in both semi-analytic mod-
+els and cosmological hydrodynamics simulations that in-
+corporate tidal eﬀects between host and satellite, the
+complete accretion history of satellites, group prepro-
+cessing, realistic orbits, and the eﬀects of re-ionization
+in the early Universe.
+Unfortunately, capturing these
+physical processes while resolving the lowest mass dwarf
+satellites around a MW-like host remains computation-
+ally challenging, but can be pursued with current semi-
+analytic models.
+A.E. is supported by a National Science Founda-
+tion Graduate Research Fellowship Grant No.
+DGE-
+11-44155. M-MML is partly supported by NSF grant
+AST11-09395, and the Humboldt Foundation.
+holds a Kathryn W. Davis Postdoctoral Fellowship.
+AG acknowledges the Deutsche Forschungsgemeinschaft
+(DFG) for funding through the SPP 1573 “The Physics
+of the Interstellar Medium”.
+The FLASH code was
+in part developed by the DOE-supported ASC/Alliance
+center for Astrophysical Thermonuclear Flashes at the
+University of Chicago.
+We gratefully recognize com-
+putational resources provided by NSF XSEDE through
+grant number TG-MCA99S024 and Columbia Univer-
+sity. Analysis in this work made signiﬁcant use of the
+publicly-available yt (http://yt-project.org) toolkit. yt
+is the product of a collaborative eﬀort of many indepen-
+dent scientists from numerous institutions around the
+world. Their commitment to open science has helped
+make this work possible.
+Software: FLASH (Fryxell et al. 2000), yt (Turk
+et al. 2011)
+REFERENCES
+Abadi, M. G., Moore, B., & Bower, R. G. 1999, MNRAS, 308,
+Abramson, A., Kenney, J. D. P., Crowl, H. H., et al. 2011, AJ,
+141, 164
+Arraki, K. S., Klypin, A., More, S., & Trujillo-Gomez, S. 2014,
+MNRAS, 438, 1466
+Bradford, J. D., Geha, M. C., & Blanton, M. R. 2015, ApJ, 809,
+Brooks, A. M., Kuhlen, M., Zolotov, A., & Hooper, D. 2013,
+ApJ, 765, 22
+Brooks, A. M., & Zolotov, A. 2014, ApJ, 786, 87
+Bryan, G. L., & Norman, M. L. 1998, ApJ, 495, 80
+Burkert, A. 1995, ApJL, 447, L25
+Caproni, A., Lanfranchi, G. A., da Silva, A. L., &
+Falceta-Gon¸calves, D. 2015, ApJ, 805, 109
+Cayatte, V., Kotanyi, C., Balkowski, C., & van Gorkom, J. H.
+1994, AJ, 107, 1003
+Chung, A., van Gorkom, J. H., Kenney, J. D. P., & Vollmer, B.
+2007, ApJL, 659, L115
+Creasey, P., Theuns, T., & Bower, R. G. 2013, MNRAS, 429,
+1922
+Dalgarno, A., & McCray, R. A. 1972, ARA&A, 10, 375
+de Blok, W. J. G. 2010, Advances in Astronomy, 2010, 789293
+Deason, A. J., Wetzel, A. R., Garrison-Kimmel, S., & Belokurov,
+V. 2015, MNRAS, 453, 3568
+D’Ercole, A., & Brighenti, F. 1999, MNRAS, 309, 941
+Di Cintio, A., Brook, C. B., Dutton, A. A., et al. 2014a,
+MNRAS, 441, 2986
+Di Cintio, A., Brook, C. B., Macci`o, A. V., et al. 2014b,
+MNRAS, 437, 415
+Faerman, Y., Sternberg, A., & McKee, C. F. 2013, ApJ, 777, 119
+Fillingham, S. P., Cooper, M. C., Wheeler, C., et al. 2015,
+MNRAS, 454, 2039
+Fryxell, B., Olson, K., Ricker, P., et al. 2000, ApJS, 131, 273
+Garrison-Kimmel, S., Boylan-Kolchin, M., Bullock, J. S., & Lee,
+K. 2014, MNRAS, 438, 2578
+Gatto, A., Fraternali, F., Read, J. I., et al. 2013, MNRAS, 433,
+2749
+Geha, M., Blanton, M. R., Masjedi, M., & West, A. A. 2006,
+ApJ, 653, 240
+Geha, M., Blanton, M. R., Yan, R., & Tinker, J. L. 2012, ApJ,
+757, 85
+Giovanelli, R., Haynes, M. P., Adams, E. A. K., et al. 2013, AJ,
+146, 15
+Girichidis, P., Walch, S., Naab, T., et al. 2016, MNRAS, 456,
+3432
+Grcevich, J., & Putman, M. E. 2009, ApJ, 696, 385
+Gunn, J. E., & Gott, III, J. R. 1972, ApJ, 176, 1
+Hill, A. S., Joung, M. R., Mac Low, M.-M., et al. 2012, ApJ, 750,
+Irwin, M. J., Belokurov, V., Evans, N. W., et al. 2007, ApJL,
+656, L13
+Johnston, K. V. 1998, ApJ, 495, 297
+Joung, M. K. R., & Mac Low, M.-M. 2006, ApJ, 653, 1266
+Joung, M. R., Mac Low, M.-M., & Bryan, G. L. 2009, ApJ, 704,
+Karachentsev, I. D., Makarov, D. I., & Kaisina, E. I. 2013, AJ,
+145, 101
+Kaufmann, T., Bullock, J. S., Maller, A. H., Fang, T., &
+Wadsley, J. 2009, MNRAS, 396, 191
+Kenney, J. D. P., Geha, M., J´achym, P., et al. 2014, ApJ, 780,
+Kennicutt, Jr., R. C. 1998, ApJ, 498, 541
+Korycansky, D. G., Zahnle, K. J., & Low, M.-M. M. 2002,
+Icarus, 157, 1
+
+--- PAGE BREAK ---
+
+Kronberger, T., Kapferer, W., Ferrari, C., Unterguggenberger,
+S., & Schindler, S. 2008, A&A, 481, 337
+Mac Low, M.-M., & Ferrara, A. 1999, ApJ, 513, 142
+Makino, N., Sasaki, S., & Suto, Y. 1998, ApJ, 497, 555
+Marcolini, A., Brighenti, F., & D’Ercole, A. 2003, MNRAS, 345,
+1329
+Mayer, L., Mastropietro, C., Wadsley, J., Stadel, J., & Moore, B.
+2006, MNRAS, 369, 1021
+McConnachie, A. W. 2012, AJ, 144, 4
+McQuinn, K. B. W., Skillman, E. D., Dolphin, A., et al. 2015,
+ApJ, 812, 158
+Melioli, C., Brighenti, F., & D’Ercole, A. 2015, MNRAS, 446, 299
+Miller, M. J., & Bregman, J. N. 2013, ApJ, 770, 118
+—. 2015, ApJ, 800, 14
+Mori, M., & Burkert, A. 2000, ApJ, 538, 559
+Navarro, J. F., Frenk, C. S., & White, S. D. M. 1997, ApJ, 490,
+Nichols, M., & Bland-Hawthorn, J. 2011, ApJ, 732, 17
+Nichols, M., Revaz, Y., & Jablonka, P. 2015, A&A, 582, A23
+Nipoti, C., & Binney, J. 2015, MNRAS, 446, 1820
+Ocvirk, P., Gillet, N., Shapiro, P. R., et al. 2015, MNRAS,
+submitted, arXiv:1511.00011
+Ogiya, G., & Burkert, A. 2015, MNRAS, 446, 2363
+Oh, S.-H., de Blok, W. J. G., Brinks, E., Walter, F., &
+Kennicutt, Jr., R. C. 2011, AJ, 141, 193
+Pearson, S., Besla, G., Putman, M. E., et al. 2016, MNRAS, 459,
+1827
+Phillips, J. I., Wheeler, C., Boylan-Kolchin, M., et al. 2014,
+MNRAS, 437, 1930
+Phillips, J. I., Wheeler, C., Cooper, M. C., et al. 2015, MNRAS,
+447, 698
+Poggianti, B. M., Smail, I., Dressler, A., et al. 1999, ApJ, 518,
+Pontzen, A., & Governato, F. 2014, Nature, 506, 171
+Pontzen, A., Read, J. I., Teyssier, R., et al. 2015, MNRAS, 451,
+1366
+Quilis, V., Moore, B., & Bower, R. 2000, Science, 288, 1617
+Raﬁeferantsoa, M., Dav´e, R., Angl´es-Alc´azar, D., et al. 2015,
+MNRAS, 453, 3980
+Read, J. I., Agertz, O., & Collins, M. L. M. 2016, MNRAS,
+arXiv:1508.04143
+Rhode, K. L., Salzer, J. J., Haurberg, N. C., et al. 2013, AJ, 145,
+Rocha, M., Peter, A. H. G., & Bullock, J. 2012, MNRAS, 425,
+Roediger, E. 2009, Astronomische Nachrichten, 330, 888
+Roediger, E., & Hensler, G. 2005, A&A, 433, 875
+Roychowdhury, S., Chengalur, J. N., Begum, A., &
+Karachentsev, I. D. 2009, MNRAS, 397, 1435
+Ruszkowski, M., Br¨uggen, M., Lee, D., & Shin, M.-S. 2014, ApJ,
+784, 75
+Ryan-Weber, E. V., Begum, A., Oosterloo, T., et al. 2008,
+MNRAS, 384, 535
+Salem, M., Besla, G., Bryan, G., et al. 2015, ApJ, 815, 77
+Salpeter, E. E. 1955, ApJ, 121, 161
+Shen, S., Madau, P., Conroy, C., Governato, F., & Mayer, L.
+2014, ApJ, 792, 99
+Simpson, C. M., Bryan, G. L., Johnston, K. V., et al. 2013,
+MNRAS, 432, 1989
+Slater, C. T., & Bell, E. F. 2013, ApJ, 773, 17
+—. 2014, ApJ, 792, 141
+Slater, C. T., Bell, E. F., Martin, N. F., Tollerud, E. J., & Ho, N.
+2015, ApJ, 806, 230
+Stierwalt, S., Besla, G., Patton, D., et al. 2015, ApJ, 805, 2
+Strigari, L. E., Bullock, J. S., Kaplinghat, M., et al. 2008,
+Nature, 454, 1096
+Sullivan, M., Le Borgne, D., Pritchet, C. J., et al. 2006, ApJ,
+648, 868
+Sutherland, R. S., & Dopita, M. A. 1993, ApJS, 88, 253
+Tonnesen, S., & Bryan, G. L. 2009, ApJ, 694, 789
+Tonnesen, S., Bryan, G. L., & van Gorkom, J. H. 2007, ApJ, 671,
+1434
+Turk, M. J., Smith, B. D., Oishi, J. S., et al. 2011, ApJS, 192, 9
+Vollmer, B., Soida, M., Chung, A., et al. 2010, A&A, 512, A36
+Walker, M. G., Mateo, M., Olszewski, E. W., et al. 2009, ApJ,
+704, 1274
+Weinberg, M. D. 2014, MNRAS, 438, 3007
+Weisz, D. R., Dolphin, A. E., Skillman, E. D., et al. 2014a, ApJ,
+789, 147
+—. 2014b, ApJ, 789, 148
+—. 2015, ApJ, 804, 136
+Wetzel, A. R., Deason, A. J., & Garrison-Kimmel, S. 2015a,
+ApJ, 807, 49
+Wetzel, A. R., Tollerud, E. J., & Weisz, D. R. 2015b, ApJL, 808,
+Wheeler, C., O˜norbe, J., Bullock, J. S., et al. 2015, MNRAS,
+453, 1305
+Wheeler, C., Phillips, J. I., Cooper, M. C., Boylan-Kolchin, M.,
+& Bullock, J. S. 2014, MNRAS, 442, 1396
+Zolotov, A., Brooks, A. M., Willman, B., et al. 2012, ApJ, 761,

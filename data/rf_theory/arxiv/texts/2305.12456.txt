@@ -1,0 +1,951 @@
+arXiv:2305.12456v2  [math.CO]  4 Jul 2024
+RECURSIONS AND CHARACTERISTIC POLYNOMIALS OF THE ROWS
+OF THE CIRCUIT ARRAY
+EMILY J. EVANS AND RUSSELL JAY HENDEL
+Abstract. This paper extends our previous result on the circuit array, a two-dimensional
+array associated with the resistances in circuits whose underlying graph when embedded in
+the Cartesian plane has the form of a triangular n-grid. This paper extends the results of the
+prior paper by considering the circuit array in terms of polynomials instead of numbers as a
+means to facilitate ﬁnding patterns. The main discovery of this paper states that the char-
+acteristic polynomials corresponding to the recursions of single or multi-variable polynomial
+formulations of the circuit array exclusively have powers of 9 as roots. Several initial cases
+and one major sub-case are proven.
+KEYWORDS: eﬀective resistance, resistance distance, triangular grids, circuit simpliﬁca-
+tion, circuit array, annihilator, polynomial recursions
+1. Introduction
+In prior work [7], the authors introduced the circuit array, a two-dimensional array associ-
+ated with the resistance values in electrical circuits whose underlying graphs when embedded
+in the Cartesian plane have the form of a triangular n-grid. The circuit array is constructed
+by applying to an initial electric circuit with speciﬁed resistances a sequence of equivalent net-
+work transformations. The prior work showed certain patterns in the circuit array that formed
+linear homogeneous recursions with constant coeﬃcients and suggested several approaches for
+studying further patterns in the sequences of the rows of the circuit array. The main result
+of this paper states that the characteristic polynomial (annihilator) of certain rows i, i ≥0,
+of the circuit array, when it is re-formulated in terms of single or multi-variable polynomials,
+exclusively has roots that are powers of 9.
+We begin by brieﬂy reviewing the history of approaches to (exact) computations of eﬀective
+resistance in a graph. First, we recall that eﬀective resistance, also termed in the literature
+resistance distance, is a graph metric whose deﬁnition was motivated by the consideration of
+a graph as an electrical circuit. A formal deﬁnition of this metric can be found in [7] but the
+eﬀective resistance r(i, j) between nodes i and j of a graph is the resistance measured between
+those nodes where each link in the graph has a given resistance (typically one ohm).
+The initial approach to computing resistances was to use the Kirchhoﬀlaws which at least
+theoretically allowed solving any electrical circuit. However, for a circuit whose underlying
+graph is embeddable in the Cartesian plane, all computations and simpliﬁcations of this circuit
+can be made with four well-known circuit transformation functions: parallel, series, ∆–Y and
+Y–∆. These four circuit transformation functions reduce the complexity of the underlying
+graph while leaving the eﬀective resistance between two vertices of interest the same.
+For circuits derived from small graphs or graphs with special structures, the combinatorial
+Laplacian is frequently used to compute resistances between two points in a circuit [1, 2]. For
+Acknowledgement is given to an anonymous referee for a very thorough, detailed, and comprehensive review
+of the manuscript.
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+triangular n-grids, [2, 11] exploit the idea of reducing the number of rows in the underlying,
+initial, triangular n-grid one row at a time. This can be accomplished by the four electrical
+circuit functions. [2] used this idea to accomplish proofs while [11] was the ﬁrst to show its
+computational advantages in discovering patterns.
+To simplify the computations of resistances arising from reductions, [7, 8] showed that only
+four local functions, each of which takes up to nine arguments, need to be considered. These
+four functions calculate resistances for a (i) left-boundary, (ii) left-interior, (iii) right, and (iv)
+base edge of a given triangle in a triangular n-grid reduced once.
+An outline of this paper is the following. Section 2 presents necessary terminology, notation,
+and conventions; introduces the four transformation functions; and deﬁnes the various circuit
+arrays. Familiarity with the prior paper [7] is not assumed; a modest example illustrates basic
+computations and patterns. Section 3 reviews the method of annihilators. The main results
+of the paper for single-variable polynomials and multi-variable polynomials is presented in
+Section 4. Generalization of these results are conjectured with certain partial results proven.
+The paper closes with the observation that the patterns studied in this paper should prove
+fertile ground for future researchers.
+2. Background, Notation, Conventions, Functions, and Arrays
+In this section, we review important terminology and concepts. The material in this section
+is taken almost verbatim from [7, 8, 11]; therefore, attribution to the original and subsequent
+sources are omitted below except for a few important concepts.
+Deﬁnition 2.1. A n-triangular-grid (usually abbreviated as an n-grid) is any graph that is
+(graph-) isomorphic to the graph, whose vertices are all integer pairs (x, y) = (2r + s, s) in
+the Cartesian plane, with r and s integer parameters satisfying 0 ≤r ≤n, 0 ≤s ≤n −r; and
+whose edges consist of any two vertices (x, y) and (x′, y′) with (i) x′ −x = 1, y′ −y = 1, (ii)
+x′ −x = 2, y′ −y = 0, or (iii) x′ −x = 1, y′ −y = −1.
+(3, 3)
+(2, 2)
+(4, 2)
+(1, 1)
+(3, 1)
+(5, 1)
+(6, 0)
+(4, 0)
+(2, 0)
+(0, 0)
+T3,1
+T3,2
+T3,3
+T2,1
+T2,2
+T1,1
+Figure 1. A 3-grid embedded in the Cartesian Plane constructed using Deﬁ-
+nition 2.1 (Left Panel) with row and diagonal coordinates (Right Panel).
+Figure 1 illustrates this deﬁnition along with various notational conventions which are
+thoroughly explained below.
+As mentioned in the introduction, the focus of this paper is on recursions, and not the
+underlying circuit theory. The recursions studied in this paper arise by applying three circuit
+transformations to the n–grid: the well-known series rule (from physics), the ∆–Y, and the Y-
+∆transformations. The ∆–Y transformation is a mathematical technique to convert resistors
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+in a triangle (∆) formation to an equivalent system of three resistors in a “Y” format as
+illustrated in Figure 2.
+More formally, the ∆–Y and Y–∆functions deﬁned from circuit
+transformations are given by:
+∆(x, y, z) =
+x + y + z ;
+Y (a, b, c) = ab + bc + ca
+(2.1)
+Conventions on the order of the arguments are illustrated in Figure 2.
+Y12 = ∆(L, R, B)
+Y4 = ∆(R, B, L)
+Y8 = ∆(B, L, R)
+R = Y (Y8, Y12, Y4)
+B = Y (Y12, Y4, Y8)
+L = Y (Y4, Y8, Y12)
+Figure 2. Deﬁnition and assumed orientation of the ∆(that is ∆–Y) and Y
+(that is the Y–∆) resistance functions. P, Q, S are vertex labels; L, R, B are
+edge labels standing for left, right, and bottom edge. We use e.g. L to refer
+both to the left edge and the label of the left edge; the meaning should be clear
+from the context.
+As mentioned in the introduction, row reduction is an algorithm, formulated using series,
+∆–Y, and Y–∆transformations, that takes an n-grid and creates an n −1 grid. Given an
+n-grid with given resistance values, the row-reduction of this n-grid (to a n −1 grid) refers to
+the sequential performance of the following steps (with illustrations of the steps provided by
+Figure 3).
+• Step 1: Start with an n-grid (Figure 3 illustrates with n = 3).
+• Step 2: Apply a ∆–Y transformation to each upright triangle (a 3-loop) resulting in a
+grid of n rows of out-stars.
+• Step 3: Discard the corner tails, that is, edges with a vertex of degree one. This does
+not aﬀect the resistances in the reduced two grid shown in Step 5. (However, these
+corner tails are useful for computing certain eﬀective resistances as shown in [3, 9]).
+• Step 4: Perform series transformations on all consecutive pairs of boundary edges (i.e.,
+the dashed edges in Step 3).
+• Step 5: Apply Y–∆transformations to any remaining out-stars, transforming them
+into loops.
+In Figure 3 the step labels correspond to the ﬁve steps indicated in the narrative. Although the
+reduction algorithm is stated generally for any initial n-grid – regardless of initial resistance
+values– we illustrate it with a simple numerical example. Suppose, all edges have resistance
+equal to 1 in Step 1 (in the sequel an initial n–grid whose resistance values are identically
+one will be called an all one n–grid). Then in Steps 2 and 3 all resistances are uniformly
+Y (1, 1, 1) = 1
+3. In Step 4 the boundary edges have resistance value equal to 2
+3. In Step 5 the
+non-boundary edges have resistance Y (1
+3, 1
+3, 1
+3) = 1.
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+Step 1
+Step 2
+Step 3
+Step 4
+Step 5
+Figure 3. Illustration of the reduction algorithm, on a 3-grid.
+Throughout this paper the label of edge e, e ∈{L, R, B} (standing, respectively, for the left,
+right, and base edges of a triangle in the upright oriented position), of the triangle in row r
+diagonal d is indicated by Tr,d,e. (Diagonals are in the left direction numbered from left to
+right as shown in Figure 1.)
+The notations T c
+r,d,e and T c
+r,d refer respectively to edges and triangles in an initial all-one
+n–grid reduced c times (T 0 refers to the initial n-grid).
+Using these notations we can reformulate the reduction algorithm in terms of functions
+whose arguments are resistances in a parent grid and whose return values are resistances in a
+child grid. Tracing through Steps 1-5 of Figure 3 shows that starting with an all one 3-grid,
+T, that
+1,1,L = ∆(T1,1,B, T1,1,L, T1,1,R) + ∆(T2,1,L, T2,1,R, T2,1,B)
+2,1,L = ∆(T2,1,B, T2,1,L, T2,1,R) + ∆(T3,1,L, T3,1,R, T3,1,B)
+This motivates deﬁning the following function.
+T m+1
+r,1,L = P(T m
+r,1, T m
+r+1,1) = ∆(T m
+r,1,B, T m
+r,1,L, T m
+r,1,R) + ∆(T m
+r+1,1,L, T m
+r+1,1,R, T m
+r+1,1,B).
+(2.2)
+Here, P stands for the left-side perimeter of the grid. As pointed out in [7, 8], because of the
+symmetries of the m-grid, knowledge of edge values on the left half of the m–grid suﬃces to
+determine the edge values on its right half.
+Besides the left-side perimeter function, only 3 other functions are needed to perform all
+computations [7, 8]. These functions compute right-edges (R), non-boundary left edges (L),
+and base-edges (B) in a once-reduced parent grid.
+T m+1
+r,d,B = B(T m
+r+2,d+1, T m
+r+1,d, T m
+r+1,d+1) = Y (∆(T m
+r+2,d+1,L, T m
+r+2,d+1,R, T m
+r+2,d+1,B),
+∆(T m
+r+1,d,R, T m
+r+1,d,B, T m
+r+1,d,L), ∆(T m
+r+1,d+1,B, T m
+r+1,d+1,L, T m
+r+1,d+1,R)),
+(2.3)
+T m+1
+r,d,R = R(T m
+r,d, T m
+r,d+1, T m
+r+1,d) = Y (∆(T m
+r,d,R, T m
+r,d,B, T m
+r,d,L), ∆(T m
+r,d+1,B, T m
+r,d+1,L, T m
+r,d+1,R,
+∆(T m
+r+1,d,L, T m
+r+1,d,R, T m
+r+1,d,B)),
+(2.4)
+T m+1
+r,d,L = L(T m
+r,d−1, T m
+r,d, T m
+r+1,d) = Y (∆(T m
+r,d−1,R, T m
+r,d−1,B, T m
+r,d−1,L), ∆(T m
+r,d,B, T m
+r,d,L, T m
+r,d,R),
+∆(T m
+r+1,d,L, T m
+r+1,d,R, T m
+r+1,d,B)).
+(2.5)
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+Further details of these transformations can be found in [7, 8]. The following example from
+[7] motivates the circuit array.
+Example 2.2. In Figure 3, T 1
+1,1,L = 2
+3. This is true for any initial all one n–grid, n ≥2. A
+derivation similar to the one connected with Figure 3 shows that for an all-one n-grid, n ≥2,
+the boundary edges are uniformly 2
+3 while the remaining edges are uniformly 1. Therefore, if
+T is an all one n–grid, n ≥6, then
+3,2,L = L(T 1
+3,1, T 1
+3,2, T 1
+4,2) = Y (∆(1, 1, 2
+3), ∆(1, 1, 1), ∆(1, 1, 1)) = 26
+Generally, if T is an all one n-grid, n ≥4s −2, then
+2s−1,s,L =
+39s −1
+(2.6)
+The denominators of the sequence T s
+2s−1,s,L, s ≥1 satisfy Gn+1 = 9Gn while the numerators
+satisfy Gn+1 = 9Gn +8. These numbers form Row 0 in Table 1. The proof of (2.6) is reviewed
+in Section 4.
+Deﬁnition 2.3. The circuit array {Ci,j} is an inﬁnite array such that for 0 ≤i ≤2(j−1), j ≥
+Ci,j = T j
+2j−1,j−⌊i+1
+2 ⌋,LR
+where LR refers to the left edge (right edge) if i is even (odd) [7].
+Table 1 gives the numerical values of the ﬁrst few rows and columns of the circuit array;
+they can be computed using the reduction algorithm or the four local functions introduced
+above. Further details are presented in [7]. Although this is not needed later, based on the
+Uniform Center Theorem [8], it can be shown that Deﬁnition 2.3 gives all numbers in column
+j provided the initial all one n–grid satisﬁes n ≥4j −2. Example 2.2 illustrates this for Row
+Table 1.
+First four rows and columns of the numerical values of the circuit array.
+2186
+2187
+1093
+1092
+16243
+16562
+1157
+1965403
+1904448
+As pointed out in [7], attempts to ﬁnd recursive patterns in the rows of Table 1 failed; instead, it
+was suggested that it might be easier to ﬁnd patterns in single or multiple variable polynomials
+and rational functions.
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+Deﬁnition 2.4. To create the one-variable circuit array, CX, we rewrite the value of C0,1 =
+1,1,L =
+3 as a rational function,
+X . We then proceed to calculate, using the four local
+functions, the resistance values of further reductions.
+What results is a circuit array of rational functions in a single variable X as shown in
+Table 2. When the substitution X = 9 is made we recover the numerical circuit array, Table
+Table 2. First four rows and columns of CX, the one-variable circuit array.
+9 X−1
+3X−1
+27X−1
+243X−1
+243X
+3X−1
+3X−3
+27X−1
+27X−3
+243X−1
+243X−3
+3X+ 1
+(X−1)2
+213−36X+39X2
+(9X−1)2
+2121−540X+3267X2
+(81X−1)2
+3X−1
+9X−1
+13−36X+39X2
+1−2X+X2
+27X−1
+81X−1
+121−540X+3267X2
+10−36X+45X2
+Deﬁnition 2.5. The multivariable circuit array, CM, is constructed analogously to the con-
+struction of CX. We sequentially compute, one reduction at a time, the values in Table 1 replac-
+ing certain numerical values with variables. More speciﬁcally, we set C0,1 = 2
+3 = T 1
+2,1,L = X1,
+C2,2 = 1
+2 = T 2
+3,1,L = X2, C4,3 = 13
+32 = T 3
+5,1,L = X3, . . . , C2i,2i−1 = T i
+2i+1,1,L = Xi, i ≥0. The
+{Xi} constitute the left-side diagonal of C [7].
+As a result of this construction, we obtain Table 3. Entries in the ﬁrst two rows of CM
+are functions of X1, entries in the next two rows are functions of X1 and X2, etc. As with
+CX, we can recover the numerical circuit array by making the appropriate substitutions for
+X1, X2, . . ..
+Table 3. First four rows and columns of CM, the multivariable circuit array
+X1+8
+X1+80
+X1+728
+X1+8
+3X1+6
+X1+80
+3(X1+26)
+X1+728
+3(X1+242)
+1 X2+8X2
+1 +36X1X2+128X1+36X2+512
+(X1+26)2
+81X2
+1 X2+80X2
+1 +324X1X2+2432X1+324X2+55808
+(X1+242)2
+(X1+8)(9X2
+1 X2+8X2
+1 +36X1X2+128X1+36X2+512)
+3(X1+2)(X1+26)(3X1X2+2X1+6X2+16)
+(X1+80)(81X2
+1 X2+80X2
+1 +324X1X2+2432X1+324X2+55808)
+3(X1+242)(27X2
+1 X2+26X2
+1 +108X1X2+596X1+108X2+5696)
+For i ≥0, we let Ci = {Ci,j}{all j where deﬁned} denote the i-th row of the circuit array. CX
+and CM
+are similarly deﬁned.
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+3. Annihilators
+The main result of this paper identiﬁes recursive patterns in the row sequences of CX and
+CM. The motivation, formulation, and proof of results, require the use of the method of
+annihilators [4, 5, 10]. Annihilator techniques were established by Boole in the ﬁrst edition
+of [4], are easy to use, and are a less messy approach to traditional inductive approaches in
+proofs connected with recursive sequences. Several authors [5, 10] have recently begun using
+them again when dealing with recursions. This section reviews the basic theory.
+Deﬁnition 3.1. Given a sequence, G = {Gs}s≥0 (numerical or polynomial), the translation
+operator, E, is deﬁned for s ≥0, by E(Gs) = Gs+1.
+We let 1 be the identity operator. Scalar multiplication and addition of expressions in E is
+deﬁned componentwise. Multiplication of expressions in E refers to composition.
+Lemma 3.2. With F any ﬁeld (numerical or functional), F[E] is an algebra over F. (The
+elements of F are called operators.)
+Deﬁnition 3.3. An operator, O, is an annihilator of a sequence G if O(G) ≡0 (with 0, the
+0 sequence).
+Lemma 3.4. Any characteristic polynomial of a sequence, G, is also an annihilator of G.
+Example 3.5. Let F = {Fs}s≥0, indicate the Fibonacci numbers, whose minimal polynomial
+is X2−X −1. Then for s ≥0, (E2−E −1)(Fs) = E2(Fs)−E(Fs)−Fs = Fs+2−Fs+1−Fs = 0,
+the last equality following from the Fibonacci recursion.
+Remark 3.6. The ideal in Z[X] generated by the minimal polynomial X2 −X −1 consists
+of all characteristic polynomials of the Fibonacci numbers. For example, X3 −2X2 + 1 is
+also a characteristic polynomial for the Fibonacci numbers. Similarly, annihilators need not
+be unique.
+To eﬀectively use annihilators in proofs we will need two lemmas, one presenting trivial facts
+and another dealing with sums and products. The proofs of these lemmas are straightforward
+consequences of the fact that the annihilators form an algebra.
+Lemma 3.7 (The Trivial Lemma). (i)With c an arbitrary constant,
+E −c annihilates the
+sequence {cs}s≥0.
+(ii) For any constants a, b, if A annihilates the sequence G, then it also annihilates aG + b
+Lemma 3.8 (The Addition-Multiplication Lemma). (i) Suppose Ai, i ∈I are annihilators of
+the sequences Gi, i ∈I. Then for arbitrary constants ci, P
+i∈I ciGi is annihilated by Q
+i∈I Ai.
+(ii)[12] Suppose Ai, i = 1, 2 annihilate the sequences Gi with characteristic polynomials, pi
+with roots ri,j, 1 ≤j ≤ki, i = 1, 2. Then A = Q
+all pairs (i, j), (i′, j′)(E −ri,jri′,j′), annihilates the
+(term by term) product G1 · G2.
+Example 3.9. Using these two lemmas, we may calculate the annihilator of the function
+sequence G = {Gs = (3s +2s)2 = 9s +4s +2·6s}s≥0, as follows. (i) E −3 and E −2 annihilate
+{3s}s≥0 and {2s}s≥0 respectively. (ii) Hence their product, (E −3)(E −2) annihilates the sum
+3s + 2s. (iii) Since (E −3)(E −2) has roots 3, 2 we may obtain the annihilator of (3s + 2s)2
+by taking into consideration all products of pairs of roots: (E −9)(E −6)(E −4).
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+4. Main Results
+This section motivates and states the main result of this paper by presenting examples,
+detailing several patterns, stating the generalized pattern as the Main Conjecture, and indi-
+cating proven results (proof methods and special cases). We ﬁrst state and prove an inductive
+characterization of CX, followed by computational corollaries and illustrative examples.
+To prepare for the next proposition we adopt the convention that the functions (2.2)-(2.5)
+can be stated with either triangle or triangle-side arguments.
+For example, (2.2) can be
+functionally written as
+T m+1
+r,1,L = P(T m
+r,1, T m
+r+1,1) = P(T m
+r,1,L, T m
+r,1,R, T m
+r,1,B, T m
+r+1,1,L, T m
+r+1,1,R, T m
+r+1,1,B),
+(4.1)
+where we substitute for each triangle argument the set of its edges listed in clockwise order
+starting from the left edge and separated by commas.
+Although Deﬁnition 2.3 suﬃces to compute entries of CX, the following proposition facili-
+tates the computations.
+Proposition 4.1. CX
+i,j may be computed using the inductive relations (i) – (iii), with the
+boundary conditions indicated by Parts (iv) and (v).
+(i) For c ≥2,
+2(c−1),c = P
+2(c−2),(c−1), CX
+2(c−2)−1,(c−1),
+2(c−2)−1,(c−1), CX
+2(c−2),(c−1), CX
+2(c−2)−1,(c−1), CX
+2(c−2)−1,(c−1)
+(ii) For j > c ≥2,
+2(c−1),j = L
+2(c−1),j−1, CX
+2(c−1)−1,j−1, CX
+2(c−1)−1,j−1,
+2(c−1)−2,j−1, CX
+2(c−1)−3,j−1, CX
+2(c−1)−3,j−1, CX
+2(c−1)−2,j−1, CX
+2(c−1)−3,j−1, CX
+2(c−1)−3,j−1
+(iii) For j ≥c ≥2,
+2(c−1)−1,j = R
+2(c−1)−2,j−1, CX
+2(c−1)−3,j−1, CX
+2(c−1)−3,j−1,
+2(c−1−4),j−1, CX
+2(c−1)−5,j−1, CX
+2(c−1)−5,j−1, CX
+2(c−1)−4,j−1, CX
+2(c−1)−5,j−1, CX
+2(c−1)−5,j−1
+(iv) CX
+0,1 = X−3
+(v) CX
+i (j) = 1, −3 ≤i ≤−1, all j.
+Proof. Proof of (i).
+• By Deﬁnition 2.3, CX
+2(c−1),c = T j
+2c−1,1,L.
+• By (2.2), T j
+2c−1,1,L = P(T j−1
+2c−1,1, T j−1
+2c,1 ).
+• We prove immediately below this bulleted list that for c ≥3
+P(T j−1
+2c−1,1, T j−1
+2c,1 ) = P(T j−1
+2c−3,1, T j−1
+2c−3,1).
+(4.2)
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+• By Deﬁnition 2.3, CX
+2(c−2),c−1 = T c−1
+2c−3,1,L and CX
+2(c−2)−1,c−1 = T c−1
+2c−3,1,R. We prove
+immediately below this bulleted list that
+T c−1
+2c−3,1,R = T c−1
+2c−3,1,B.
+(4.3)
+Combining this with (4.2) and our notational conventions (4.1) completes the proof of
+Part (i).
+We have left to prove (4.2) and (4.3).
+Both these assertions follow from the Uniform
+Center Theorem [8] which we now brieﬂy describe.
+The Uniform Center Theorem states
+that for suﬃciently large n, the triangles in the central region of the diagonal d = 1, (in fact
+for rows r ≥3) are uniformly labeled, that is corresponding sides have the same labels, [8,
+Deﬁnition 6.2, Equation (12), and Theorem 6.5(a)], and moreover, the right and base sides are
+identically labeled [8, Theorem 6.5(d)]. This implies that corresponding sides of the triangles
+T c−1
+r,1 , r ∈{2c −3, . . . , 2c} are identically labeled and moreover their base and right-side labels
+are the same, proving (4.2) and (4.3).
+Proof of (ii)–(iii) The proofs for Parts (ii) and (iii) are similar to the proof for Part (i)
+just presented, and hence they are omitted.
+Proof of (iv). This is simply Deﬁnition 2.4
+Proof of (v). The recursions for computing CX
+in Parts (i)–(iii) make use of the prior 3
+or 4 rows depending on the parity of r. Thus, these recursions suﬃce (assuming certain prior
+row or column values computed) for computation of CX
+r , r ≥4. To prove these boundary
+conditions valid, we need to show that they can be used to compute rows 0,1,2,3. We prove
+this for r = 0, the proofs for the other rows being similar and hence omitted. What has to be
+proven is that Part (ii) coupled with the boundary conditions of Part (v) correctly compute
+row 0. This proof for row 0 is similar to the proof of Part (i) .
+• By Deﬁnition 2.3 CX
+0,j = T j
+2j−1,j,L,
+j ≥2.
+• By (2.5), T j
+2j−1,j,L = L
+ T j−1
+2j−1,j−1, T j−1
+2j−1,j, T j−1
+2j,j
+• We claim T j
+2j−1,j,L = L
+ T j−1
+2j−1,j−1, T j−1
+2j−1,j, T j−1
+2j,j )
+ T j−1
+2j−3,j−1, 1, 1
+, where 1 refers
+to a triangle whose sides are uniformly labeled 1.
+This follows from the Uniform
+Center Theorem described above. First, the following triangles are identically labeled:
+T j−1
+r,j−1, r ∈{2j −3, 2j −2, 2j −1}. Second, by [8, Deﬁnition 2.13 with either Lemma
+5.3 or Theorem 6.5(c)] the triangles T j−1
+2j−1,j and T j−1
+2j,j ) are uniformly labeled 1.
+• But by Deﬁnition 2.3, T j−1
+2j−3,j−1 = CX
+0,j−1, and by Part (v), CX
+r = 1, r ≤−1. Combining
+the above shows that Part (iv), under the boundary conditions of Part (v), yields the
+correct computational formula, as was to be shown.
+The power of this proposition lies in the ease by which it allows proofs of closed forms for
+the circuit array rows.
+Corollary 4.2. For c ≥1 :
+(i) To prove CX
+2(c−1),j = rj(X), j ≥c, with rj(X) a rational function in j and X, it suﬃces
+to verify that CX
+2(c−1),c = rc(X), and CX
+2(c−1),j = rj(X), j > c..
+(ii) To prove CX
+2(c−1)−1,j = rj(X) it suﬃces to verify that CX
+2(c−1)−1,j = rj(X), j ≥c.
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+Remark 4.3. In practice one uses the prior corollary in conjunction with Proposition 4.1
+which computes row and column values CX using the four local functions, (2.2)-(2.5), evaluated
+at values that occur in prior rows or columns of CX.. This requires proving that two rational
+functions are equal which is then conveniently accomplished by algebraic software.
+Using the corollary, we can immediately present closed forms for rows 0,1,2 of CX and row
+2 of CM. (For CM we make explicit the veriﬁcation since technically Proposition 4.1 applies
+to CX not to CM. Although an analogous proposition could be presented for CM we only
+deal with rows 0–2 of CM and do not need elaborate machinery.)
+Corollary 4.4. For CX
+0 , (2.6) (and the associated recursions) in Example 2.2 provides a closed
+form.
+Similarly, we have
+Corollary 4.5. CX
+1,s = c1(s, X) = 3·9s−2X−1
+3·9s−2X .
+Corollary 4.6. Deﬁne c2,0(s) = 27 · 9s−3 −1, c2,1(s) = 24 · (2s −3) · 9s−3, and c2,2(s) =
+81 · 81s−3 −3 · 9s−3. Then CX
+2,s = r2(s, X) = c2,0(s)−c2,1(s)X+c2,2(X2)
+(9s−2X−1)2
+Remark 4.7. The functions c(2, i), 0 ≤i ≤2, are respectively the coeﬃcients of Xi in the
+numerator of r2(s, X). The ﬁrst few terms are given by
+22(1 −4
+3X + 1
+3X2)
+(X −1)2
+, 213 −36X + 39X2
+(9X −1)2
+, 2121 −540X + 3267X2
+(81X −1)2
+, . . . ,
+Besides this closed form, we may describe CX
+2 with recursions and annihilators. The c2,i, 0 ≤
+i ≤2, satisfy respectively the recursions, Gn = 10Gn−1 −9Gn−2, Gn = 18Gn−1 + 81Gn−2, and
+Gn = 90Gn−1 −81Gn−2. The corresponding annihilators are (X −1)(X −9), (X −9)2, and
+(X −9)(X −81), respectively.
+Notice that the annihilators immediately suggest a pattern of products of linear factors of
+the form X −9k, k ≥0. In contrast, neither the recursions nor the closed formula immediately
+suggest any pattern. For this reason the main result of this paper is formulated in terms of
+annihilators. It turns out what was just seen in the second row appears to be true in all rows:
+the annihilators of the closed forms are products of linear factors of the form X −9k, k ≥0.
+Before formulating this result we show that (i) this pattern is true for CM, thus supporting the
+patterns noted and (ii) also motivate a stronger formulation of the patterns.
+Corollary 4.8. For s ≥1, deﬁne cM
+0 (s, X1) = 9s−1−1+X1
+9s−1
+, s ≥1. Then, cM
+0 (s, X1) = cM
+0,s.
+Remark 4.9. Technically, we cannot prove this corollary with Proposition 4.1 which is for-
+mulated for CX not for CM. Rather than create an analogous proposition, we provide details
+for CM
+below and note here that the derivation for CM
+i , i = 0, 1 is similar and hence omitted.
+Notice that the coeﬃcients of the constant and X1 term in numerators of cM
+o (s, X1) satisfy
+the recursions Gs = Gs−1 and Gs = 10Gs−1−9Gs−2 respectively. No apparent pattern emerges.
+In contrast, the annihilators of the constant and X1 term are (E −1) and (E −1)(E −9). This
+is consistent with our observation that the patterns for CX; are more naturally formulated in
+terms of annihilators.
+Corollary 4.10. For s ≥2, CM
+1,s = cM
+1 (s, X1) =
+(9s−1−1)+X1
+3(X1+3·9s−2−1).
+Remark 4.11. The annihilators of the coeﬃcient sequences of 1 and X1 are similar to those
+for CM
+0 (s, X1) and are therefore consistent with the idea of formulating patterns in terms of
+annihilators.
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+Corollary 4.12. Deﬁne coeﬃcient functions,
+c2,1(s) = 9s−2
+c2,0(s) = 9s−2 −1
+c1,1(s) = 4 · 9s−2
+c1,0(s) = 2 + (16(s −2) −2)9s−2
+c0,1(s) = 4 · 9s−2
+c0,0(s) = −1 + 9 · 81s−2 −(8 + 16(s −2))9s−2
+ci,j(s) = 0, otherwise.
+By the Trivial and Addition-Multiplication Lemma of Section 3 these coeﬃcient functions are
+annihilated by the annihilators listed in Table 4 and satisfy the recursions presented there.
+Deﬁne
+2 (s, X1, X2) =
+0≤i,j≤2
+ci,j(s)Xi
+(3 · 9s−2 −1 + X1)2 .
+Then
+2,s = cM
+2 (s, X1, X2).
+(4.4)
+Proof. The proof is by induction. The base case veriﬁes (4.4) for s = 3. Using an induction
+assumption we complete the proof by verifying the following algebraic identity of rational
+functions:
+2 (s + 1, X1, X2) = L(cM
+2 (s, X1, X2), cM
+1 (X1, s), cM
+0 (s, X1), 1).
+Coeﬃcient
+Recursion
+Annihilator
+Gs = 100Gs−1 −1638Gs−2 + 8100Gs−3 −6561Gs−4
+(E −81)(E −9)2(E −1)
+Gs = 10Gs−1 −Gs−2
+(E −1)(E −9)
+Gs = 19Gs−1 −99Gs−2 + 81Gs−3
+(E −9)2(E −1)
+Gs = 9Gs−1
+(E −9)
+Gs = 10Gs−1 −9Gs−2
+(E −1)(E −9)
+Gs = 9Gs−1
+(E −9)
+Table 4. The recursions satisﬁed by the coeﬃcients of the numerator of CM
+2,s.
+As remarked earlier, prior to stating the main results of this paper, we present a stronger
+formulation of the patterns of the factorizations of annihlators of the rows CX
+r . The following
+example provides motivation.
+Example 4.13. Using either Proposition 4.1 or directly using Deﬁnition 2.3, we may calculate
+the following.
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+3,4 =
+(−1 + 27X)(121 −540X + 3267X2)
+24(−1 + 81X)(5 −18X + 45X2)
+4,4 =
+(−1 + 27X)(−89 + 333X −447X2 + 267X3)
+(5 −18X + 45X2)2
+5,4 =
+(13 −36X + 39X2)(−89 + 333X −447X2 + 267X3)
+192(−1 + X)3(5 −18X + 45X2)
+Notice, that each CX
+i,4, i ∈{3, 4, 5} is a ratio of products of two polynomials (with an extra
+constant term). Moreover, the following factors are identical: the linear factor occurring in
+3,4, CX
+4,4, the cubic factors occurring in CX
+4,4, CX
+5,4, and the quadratic factor occurring in the
+denominators of CX
+i,4, i ∈{3, 4, 5} with this factor being squared in CX
+4,4.
+It turns out that these factors when restricted to any particular row have coeﬃcients that
+satisfy recursions whose underlying annihilator consists of linear factors of the form X −
+9k. Remarkably, we can completely describe these factorizations using a 3-dimensional array
+satisfying order 1 (albeit non-homogeneous) recursions. This suggests a stronger form of the
+main result. The main results of this paper are stated as conjectures with a strong and weak
+form.
+Conjecture 4.14 (Main Result, Weak Form). For each row r ∈{2(c −1), 2(c −1) −1},
+each of the sequences Num[CX
+r (j)], Den[CX
+r (j)], Num[CM
+r (j)], Den[CM
+r (j)], j ≥c satisﬁes
+a recursion whose corresponding annihilators are products of linear factors (possibly with
+repetition) of the form X −9k, k ≥0.
+Conjecture 4.15 (Main Result, Strong Form). For c = 1, r = 0 and for each c ≥2 and
+corresponding r ∈{2(c −1), 2(c −1) −1} there exists a sequence of polynomials pr(j, X), j ≥c
+such that
+(i) If c ≥1, and r = 2(c −1) −1 then there exists a constant, K, depending at most on c,
+with
+r,j = K pr−3(j −1)pr−1(j)
+pr−2(j)pr(j)
+(ii) If c ≥1, and r = 2(c −1) then there exists a constant, K, with
+r,j = K pr−4(j −1)pr(j)
+pr−1(j)2
+Moreover, we can completely describe the factorizations of the annihilators of the coef-
+ﬁcient sequences of the pr. Towards this end we ﬁrst deﬁne the following 3-dimensional
+recursive array, e (standing for exponent) the ﬁrst four rows of which are presented in
+Table 5.
+(a) ei,j,k = 0, otherwise (i.e., if not deﬁned by the remaining equations),
+(b) ei,0,i = 1,
+i ≥0,
+(c) ei+1,0,k = ei,0,k + k,
+i ≥0, 0 ≤k ≤i,
+(d) ei,i+1,k+1 = ei,0,k,
+i ≥0, 0 ≤k ≤i,
+(e) ei,i,k = ei,i−1,k + k,
+i ≥1, 1 ≤k ≤i,
+(f) ei,j,k = ei−1,j,k + k,
+i > j, 1 ≤j ≤i, 1 ≤k ≤i.
+(iii) For c ≥1, and r ∈{2(c −1), 2(c −1) + 1}, deg(pr) = c. For each j, 0 ≤j ≤c,
+the degree-j sequence, that is, the sequence of coeﬃcients of Xj in pr(X), satisﬁes a
+recursion whose annihilators are as follows:
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+• The annihilator of the degree-0 coeﬃcient sequence is Qc
+k=0(X −9k)e2r,0,k.
+• The annihilator of the degree-j coeﬃcient sequence, j > 0, is Qc
+k=1(X −9k)e2r,j,k.
+Table 5.
+First 4 rows and columns of the 3-dimensional array e. Rows and
+columns start at index 0, while within a given cell, indices start at 0 (respec-
+tively 1) for column 0 (respectively column j, j > 0).
+Row index, r
+Coeﬃcient of X0
+Coeﬃcient of X1
+Coeﬃcient of X2
+Coeﬃcient of X3
+Starts at (X −1)e
+Starts at (X −9)e
+Starts at (X −9)e
+Starts at (X −9)e
+1,2,1
+1,2,1
+1,3,3,1
+4,4,2
+3,5,3
+2,4,4
+Example 4.16. To illustrate Part (iii) of the strong form of the main conjecture we cal-
+culate, for c ≥3, the annihilator of X of the cubic polynomial, pr, r ∈{4, 5}. By Table 5,
+e3,1,i{i=1,2,3} = {4, 4, 2}. By Part (iii) of the Strong Form of the Main Conjecture the coeﬃ-
+cient sequence of of X in {p3(i)}i≥3 is annihilated by (X −9)4(X −81)4(X −729)2.
+The illustrations for Parts (i) and (ii) are similar so we suﬃce with an illustration of Part
+(ii) using the explicit value of CX
+5,4 presented in Example 4.13. Using the notation of Part (ii),
+for CX
+5,4 we have r = 5, c = 3, j = 4. To show that Part (ii) describes the right hand side of
+the equation with CX
+5,4 we must compute pr−3(j −1), pr−2(j), pr−1(j), and show that the cubic
+pr(j) is a factor of CX
+5,j.
+Using Proposition 4.1 we may compute
+• {CX
+2,k}{k≥2} =
+2(X−3)
+3(X−1), 213−36X+39X2
+(1−9X)2
+, 2121−540X+3267X2
+(1−81X)2
+, . . .
+conﬁrming the value of
+pr−3(j −1) = 13 −36X + 39X2.
+• {CX
+3,k}{k≥3} =
+(3X−1)(39X2−36X+13)
+12(X−1)2(9X−1)
+(27X−1)(3267X2−540X+121)
+24(81X−1)(45X2−18X+5) ,
+(243X−1)(265599X2−6804X+1093)
+12(729X−1)(7371X2−486X+91) , . . .
+conﬁrming the value of pr−2(j) = 5 −18X + 45X2.
+• {CX
+4,k}{k≥3} =
+(X−3)(3X−1)
+6(X−1)2
+(27X−1)(267X3−447X2+333X−89)
+4(45X2−18X+5)2
+(243X−1)(438561X3−187029X2+87399X−16243)
+2(7371X2−486X+91)2
+, . .
+conﬁrming the value of pr−1(j) = −89 + 333X −447X2 + 267X3.
+• {CX
+5,k}{k≥4} =
+(39X2−36X+13)(267X3−447X2+333X−89)
+192(X−1)3(45X2−18X+5)
+, (3267X2−540X+121)(438561X3−187029X2+87399X−16243)
+192(7371X2−486X+91)(981X3−855X2+495X−109)
+conﬁrming that (X −1)3 is a cubic factor (of the denominator) of CX
+Using
+above
+lists
+also
+verify,
+consistent
+with
+Part
+(ii)
+Strong
+Form
+Main
+Conjecture,
+that
+K p2(5)p4(5)
+p3(5)p5(5)
+(3267X2−540X+121)(438561X3−187029X2+87399X−16243)
+192(7371X2−486X+91)(981X3−855X2+495X−109)
+, with K =
+192.
+It is natural to ask what can and cannot currently be proven as well as what evidence we
+have for believing the Main Conjectures. Using the fact that the product of the characteristic
+MONTH YEAR
+
+--- PAGE BREAK ---
+
+THE FIBONACCI QUARTERLY
+polynomials of two recursive sequences has as its root products of roots of the individual
+characteristic polynomials, [12], we have the following elementary result.
+Corollary 4.17. The Strong Form of the Main Conjecture implies the Weak Form of the
+Main Conjecture.
+Besides Corollaries 4.4-4.6 we have the following.
+Corollary 4.18. The Strong Form of the Main Conjecture is true for rows r, 0 ≤r ≤7.
+Proof. We can obtain explicit forms for the pr, 0 ≤r ≤7. We then simply apply Corollary
+4.2.
+This proof sheds light on what we can’t do. Although we conjecture that each entry of CX
+is a quotient of a numerator and denominator of products of two polynomials, and although we
+can explicitly give the underlying recursions satisﬁed by the coeﬃcients of these polynomials,
+we have not found explicit forms for all entries; equivalently, we have not found explicit
+patterns for the initial conditions. It is this which is holding up a complete proof. However
+we believe the conjecture true because of the many initial cases we can prove as well as the
+very transparent and simple patterns underlying them.
+We also note that because of the computational complexity involved we have not pursued
+CM further beyond Corollaries 4.8 and 4.10. We do however believe that at least the weak
+form of the conjecture (with CM replacing CX in the weak form of the Main Conjecture) is
+true.
+5. Conclusion
+This paper has explored the polynomial sequences of CX which is a polynomial general-
+izations of the numerical circuit array, which presents resistance distances occurring in the
+central regions of the collection of n-grids and their reductions. Interesting simply stated pat-
+terns emerge some of which we have proved. We believe this to be a fertile ground for future
+research.
+References
+[1] R. B. Bapat and S. Gupta. Resistance distance in wheels and fans. Indian. J. Pure App. Math., 41(1):1–13,
+Feb 2010.
+[2] W. Barrett, E. J. Evans, and A. E. Francis. Resistance distance in straight linear 2-trees. Discrete Appl.
+Math., 258:13–34, 2019.
+[3] W. Barrett, E. J. Evans, and A E. Francis. Resistance distance and spanning 2-forest matrices of linear
+2-trees. Linear Algebra Appl., 606:41–67, 2020.
+[4] G. Boole. A Treatise on the Calculus of Finite Diﬀerences, 2nd Edition. Dover, Mineola:New York, 2014.
+[5] D. DeTemple and W. Webb. Combinatorial Reasoning: An Introduction to the Art of Counting. Wiley,
+Hoboken:NJ, 2014.
+[6] P.G. Doyle and J.L. Snell. Random Walks and Electric Networks, The Carus Mathematical Monographs,
+Volume 22, Washington, DC: MAA, 1988
+[7] E. J. Evans and R. J. Hendel. An inﬁnite 2-dimensional array associated with electric circuits. The Fibonacci
+Quarterly, 60(5):151–171, Dec 2022.
+[8] E. J. Evans and R. J. Hendel, Resistance values under transformations in regular triangular grids, Discrete
+Applied Mathematics, 355(15):129–141, 2024.
+[9] E.J. Evans and A.E. Francis. Algorithmic techniques for ﬁnding resistance distances on structured graphs.
+Discrete Applied Mathematics, 320:387–407, 2022.
+[10] R.J. Hendel, Continued fractions consisting of alternating string functions. Proceedings of the 14th Fibonacci
+Conference, pages 123–139, 2011.
+[11] R.J. Hendel. Limiting behavior of resistances in triangular graphs. https://arxiv.org/abs/2109.01959, 2021.
+VOLUME, NUMBER
+
+--- PAGE BREAK ---
+
+RECURSIONS OF THE CIRCUIT ARRAY
+[12] D.
+Jarden.
+Recurring
+sequences;
+collection
+Papers
+(3rd
+Edition).
+Riveon
+LeMathematica,
+Jerusalem:Israel, 1973.
+Brigham Young University
+Email address: EJEvans@math.byu.edu
+Towson University
+Email address: RHendel@Towson.Edu
+MONTH YEAR

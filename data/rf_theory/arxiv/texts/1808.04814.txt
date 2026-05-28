@@ -1,0 +1,823 @@
+Automatic Delay Tuning of a Novel Ring
+Resonator-based Photonic Beamformer for a
+Transmit Phased Array Antenna
+Laurens Bliek, Sander Wahls Senior Member, IEEE, Ilka Visscher, Caterina Taddei, Roelof Bernardus Timens,
+Ruud Oldenbeuving, Chris Roeloffzen Member, IEEE, Michel Verhaegen, Member, IEEE
+Abstract—We present a novel photonic beamformer for a
+fully integrated transmit phased array antenna, together with
+an automatic procedure for tuning the delays in this system.
+Such an automatic tuning procedure is required because the
+large number of actuators makes manual tuning practically
+impossible. The antenna system is designed for the purpose of
+broadband aircraft-satellite communication in the Ku-band to
+provide satellite Internet connections on board the aircraft. The
+goal of the beamformer is to automatically steer the transmit
+antenna electronically in the direction of the satellite. This is
+done using a mix of phase shifters and tunable optical delay lines,
+which are all integrated on a chip and laid out in a tree structure.
+The Ku-band has a bandwidth of 0.5 GHz. We show how an
+optical delay line is automatically conﬁgured over this bandwidth,
+providing a delay of approximately 0.4 ns. The tuning algorithm
+calculates the best actuator voltages based on past measurements.
+This is the ﬁrst time that such an automatic tuning scheme is
+used on a photonic beamformer for this type of transmit phased
+array antenna. We show that the proposed method is able to
+provide accurate beamforming (< 11.25◦phase error over the
+whole bandwidth) for two different delay settings.
+Index Terms—microwave photonics, photonic beamforming,
+phased array antenna, automatic beamformer tuning
+I. INTRODUCTION
+EAMFORMERS are used to steer the beam of a phased
+array antenna by controlling the phase added to the
+signal at each antenna element (AE) [1]. This can be done
+by providing either a phase shift or a time delay to the signal.
+When the phase or delay of the signal corresponding to each
+AE has been set correctly according to the desired beam angle,
+signals are received or transmitted in the desired direction,
+while other directions are suppressed. This results in a highly
+directional antenna system for which the beam angle can be
+adapted without any mechanical movement. See Figure 1 for
+the case of a transmit phased array antenna. A receive antenna
+uses the same principle, but in this work we only consider a
+transmit antenna.
+This research was supported by the Dutch Technology Foundation STW
+under Project 13336, and partly by the Netherlands Organisation for Scientiﬁc
+Research (NWO) under Project 628.009.012.
+Corresponding author: l.bliek@tudelft.nl.
+L. Bliek, S. Wahls and M. Verhaegen are with the Delft Center for Systems
+and Control, Delft University of Technology, Mekelweg 2, 2628 CD, Delft,
+Netherlands.
+I. Visscher, C. Taddei, R. B. Timens, R. Oldenbeuving and C. Roeloffzen
+are with LioniX International B.V., P.O. Box 456, 7500 AL, Enschede,
+Netherlands.
+Antenna elements
+Fig. 1.
+Beamforming for a phased array antenna explained. Each antenna
+element transmits the same signal after a certain time delay. This delay can
+be chosen in such a way that constructive interference occurs in a certain
+direction, making it possible to transmit a highly directional signal with a
+high gain and a focused beam.
+In order to get the same signal to each AE with a certain
+delay, a beamformer for a transmit phased array antenna
+consists of splitters and delay elements. These can be arranged
+in a tree structure to reduce the required number of delay
+elements [2], [3], [4]. The beamformer considered in this work
+is part of a transmit phased array antenna system with 1536
+AEs. It uses a tree structure with four different splitting stages,
+as shown on the top of Figure 2. This system is designed to
+be used for aircraft-satellite communication in order to satisfy
+the ever-increasing demand of high-speed Internet on board of
+aircrafts. This large number of AEs is required to make sure
+that the signals have enough power when they arrive at the
+satellite [5], [6]. The system establishes an uplink with the
+satellite in the Ku-band (14.0 to 14.5 GHz frequency range).
+This is the range used to provide satellite Internet connections
+on board the aircraft. Therefore, the system will operate under
+a bandwidth of 0.5 GHz.
+The delay that needs to be provided for one path of the tree
+structure depends on the distance between the AEs, which has
+been chosen to be 1.03 cm in this work as explained later.
+AEs that are close together correspond to only a small delay
+difference. This is why the middle of Figure 2 contains differ-
+ent types of beamformers: radio frequency (RF) beamformers
+are better suited for very small delay values, while photonic
+beamformers (explained in the next section) are better suited
+for larger delay values [2]. The bottom of Figure 2 shows a top
+view of how the AEs are situated on the full antenna system
+that consists of 24 transmit tiles. The transmit tiles are 8.24
+by 8.24 cm in size and contain 8 × 8 AEs each, resulting in
+a 1 × 1536 transmit scheme with 1536 AEs in total. Both the
+photonic and RF beamformers are integrated in the transmit
+arXiv:1808.04814v2  [physics.app-ph]  11 Jul 2019
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+Fig. 2. From top to bottom: tree structure of the full beamformer system with 1536 antenna elements (the highlighted path is explained in the remainder of
+the ﬁgure). Photonic and RF beamformer systems, where dashed arrows indicate signals in RF domain and solid arrows indicate signals in the optical domain
+(the photonic beamformers are shown in more detail in Figure 3). Full antenna system architecture with 24 transmit tiles containing 64 antenna elements
+each.
+tile, giving rise to a modular system.
+The antenna system is an adapted version of an earlier
+proposed phased array receiver [6] that is to be used in transmit
+mode. In order to tune the beamformer actuators of these
+earlier phased array antenna systems, either a manual tuning
+procedure was used [2], [3], which is only possible for a small
+number of actuators, or a nonlinear optimization algorithm
+based on a physical model of the system was used [4, Sec.
+6]. However, the approach that uses a nonlinear optimization
+algorithm is very sensitive to model errors [7], requires a
+labor-intensive measurement procedure for certain parts of
+the physical model [4, App. B], and can not be used while
+the system is already running. In this work we describe
+the beamformer for the transmit phased array antenna from
+Figure 2 together with its requirements, and we show how to
+tune this system with a different optimization algorithm. This
+online algorithm is not sensitive to model errors and can be
+used while the system is running.
+II. FULLY INTEGRATED TRANSMIT PHASED ARRAY
+ANTENNA
+A. Beamformer requirements
+In order to determine the requirements of the beamformer,
+the delay between the AEs needs to be calculated. This
+depends on two factors: the angle of the beam, and the distance
+between the AEs. For rectangular array grids, the latter should
+be equal to half the wavelength corresponding to the highest
+frequency used in the application [2, Sec. V], which is 14.5
+GHz in this case. This leads to a distance of 1.03 cm between
+two consecutive AEs. As for the beam angle, this is chosen
+to be no more than 60 degrees compared to the normal (i.e. a
+beam sent straight upwards). The maximum delay τmax that
+needs to be provided by each beamformer in Figure 2 can now
+be calculated as follows:
+τmax = sin(60◦)dmax/c0,
+where dmax is the maximum distance between the centers of
+the different elements of the beamformer and c0 is the speed
+of light. For the rightmost RF beamformer in Figure 2, dmax =
+2·0.0103 m (distance between the centers of two diagonally
+intersecting AEs), for the other RF beamformer dmax =
+2 · 0.0103 m, for the 1 × 4 photonic beamformer dmax =
+4·0.0103 m, and for the 1×24 photonic beamformer dmax =
+52 + 12 · 0.0824 m. This leads to the following maximum
+delays for each beamformer in Figure 2: τmax = 42 ps for
+the rightmost RF beamformer, τmax = 84 ps for the other RF
+beamformer, τmax = 168 ps for the 1×4 photonic beamformer,
+and τmax = 1.214 ns for the other photonic beamformer.
+After calculating the maximum delays for each beamformer
+subsystem, the requirements for the phase can be calculated.
+The phase response of each beamformer should be a linear
+function of the frequency, with a slope equal to −2πτ, where
+τ is the required delay. Traditionally, phase shifters are used
+for beamformer subsystems, which provide a phase shift that
+is a constant function of the frequency. In other words, phase
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+Fig. 3. Photonic beamformer design with several highlighted subsystems. Subsystems 1. and 3. belong to the 1 × 24 photonic beamformer in Figure 2, while
+the other three subsystems belong to the 1 × 4 photonic beamformer. Dashed arrows indicate signals in RF domain and solid arrows indicate signals in the
+optical domain. The small circles indicate the presence of on-chip optical ring resonators. Power and phase responses of the signal at several locations on the
+chip are shown on the bottom, where the desired phase response is indicated by a dashed line.
+shifters provide a linear phase response with a slope of 0. For
+very small delays (e.g. τmax < 100 ps in this case), using such
+a constant phase response with a slope of 0 instead of −2πτ
+gives a negligible slope mismatch, but for larger delays this
+mismatch will have a negative inﬂuence on the antenna beam.
+This problem is called beam squint.
+The effects of beam squint are negligible in the two RF
+beamformer subsystems in Figure 2. Therefore, these beam-
+formers are based on phase shifters that change the phase of
+the RF signal. The photonic beamformers, however, need to
+deal with larger delays. Therefore, they make use of optical
+delay lines rather than phase shifters. The key principle here is
+that the RF signals are converted to the optical domain, where
+their phase is adjusted accordingly, and then they are converted
+back to RF domain. This combination of RF and photonic
+signal processing has many advantages such as low loss, low
+weight, and large bandwidth, especially when implemented on
+a chip [2], [3], [8], [9], [10], [11]. In this work, each transmit
+tile from Figure 2 is connected to a corresponding chip, as
+explained later on in this section.
+The way the photonic beamformers provide a linear phase
+response with the correct slope is by using a cascade of optical
+ring resonators as tunable optical delay lines, arranged in a tree
+structure [2], [3], [12]. These ring resonators control the phase
+response of the signal by using thermo-optic heater actuators.
+Though some ﬂuctuations in the phase response are allowed,
+these ﬂuctuations should not be larger than 11.25◦[3].
+B. Photonic beamformer chip design
+Figure 3 shows the chip design of the photonic beamform-
+ers. The chip contains optical ring resonators that each belong
+to different subsystems. The effect of the different subsystems
+on the frequency response of the signal is shown as well. An
+RF splitter (subsystem 1. in Figure 3) makes sure that the
+same baseband signal arrives at all of the 24 transmit tiles
+shown in Figure 2. Each transmit tile is connected to one
+chip containing photonic and RF beamformer systems. The
+photonic beamformers use a combination of TriPleXTM waveg-
+uide technology [13] and indium phosphide (InP). TriPleXTM
+is a silicon nitride planar waveguide technology developed by
+LioniX International.
+The corresponding power response of the electrical signal
+entering the chip in Figure 3 is that of a broadband signal
+centered around the frequency fRF
+= 14.25 GHz in the
+Ku-band. This signal is modulated on an optical carrier with
+a Mach-Zehnder modulator (electrical-to-optical conversion),
+after which the optical signal consists of the optical carrier fc
+in the THz range and two sidebands. One of these sidebands is
+suppressed by the optical sideband ﬁlter (OSBF, subsystem 2.
+in Figure 3). This is done to reduce the required bandwidth[2].
+After this stage the signal goes through a cascade of ﬁve ring
+resonators (subsystem 3. in Figure 3) that supply the required
+delay for one branch of the 1×24 beamformer. As mentioned
+earlier, the maximum delay that needs to be provided by the
+1 × 24 beamformer is τmax = 1.214 ns. This should be no
+problem for a cascade of ﬁve ring resonators, as beamforming
+with a cascade of only three ring resonators has been illustrated
+for delays of more than 1.2 ns with a bandwidth of 0.5 GHz
+using a manual tuning approach [14]. With ﬁve ring resonators,
+these results can be achieved with even higher accuracy.
+The signal then arrives at a 1 × 4 optical beamforming
+network (OBFN, susbystem 4. in Figure 3), consisting of an
+optical splitter and more ring resonators. These ring resonators
+provide a linear phase response for a maximum delay of
+168 ps, as calculated earlier in this section. As seen in the
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+phase response in Figure 3, the linear phase response is
+only provided in the region of interest, the sideband around
+frequency fc + fRF . However, the OBFN only makes sure
+that this linear phase response has the correct slope, not the
+correct absolute phase. The last subsystem (subsystem 5. in
+Figure 3) provides an additional phase shift so that the correct
+phase response is provided at the sideband and also at the
+optical carrier frequency fc. This is again done with optical
+ring resonators, using a principle called separate carrier tuning
+(SCT) [15] (see also Section III-D). Finally, the signal is
+converted back to RF domain with photodetectors (optical-to-
+electrical conversion), after which it can be converted to the
+correct frequency range for transmission (14.0 to 14.5 GHz).
+The ring resonators in the beamformer subsystems are all
+actuated with two heaters: one for the phase, and one for the
+tunable coupling [16], [14]. By changing the voltages of these
+two heater actuators for several ring resonators, the magnitude
+and phase response of the subsystems can be altered. There are
+27 ring resonators shown in Figure 3, resulting in 54 heaters.
+Three other heaters in the OSBF subsystem and three heaters
+in the 1-to-4 splitter are not shown in the ﬁgure but increase
+the number of heaters to 60. So the total number of heaters in
+the two photonic beamformer stages is 24 × 60 = 1440. One
+of the main reasons for investigating automatic procedures is
+that tuning all these heaters correctly by hand would not be
+practical.
+III. AUTOMATIC TUNING RESULTS
+A. Automatic tuning method
+In this paper we look at an automatic tuning procedure for
+one branch of the OBFN subsystem. The traditional approach
+to automatically tune one branch of the photonic beamformer
+is to use a nonlinear optimization algorithm that minimizes
+a performance metric [4, Sec. 6]. An example performance
+metric is the mean square error (MSE) between the desired and
+actual phase response of the system (φD(f, V ) and φP (f, V )
+respectively):
+(φD(fk, V ) −φP (fk, V ))2 .
+Here, V represents a vector of actuator voltages while the
+fk represent the different frequencies that are relevant to the
+system. The actual phase response φP (f, V ) can be calcu-
+lated from physical models of the heaters and optical ring
+resonators.
+The procedure described above has several disadvantages.
+First of all, we have shown in earlier work that even very
+small errors in the physical model can have a large detrimental
+effect on the accuracy of the procedure [7]. Such model errors
+can never completely be avoided. Second, although physical
+models are available for each system component, the heater
+actuators inﬂuence each other by means of electrical and
+thermal crosstalk. This crosstalk can also be modeled, but this
+requires a number of measurements that is at least equal to
+the square of the number of heater actuators [4, App. B]. This
+becomes a problem when the number of heater actuators is
+large, and it gives even more room for model errors. Finally,
+Fig. 4. Schematic for the automatic tuning method.
+the procedure has to be performed before actually running the
+system, and any changes to the system are not automatically
+taken into account.
+To avoid the drawbacks mentioned above, recently auto-
+matic tuning algorithms based on machine learning techniques
+have been derived [7], [17], [18]. These algorithms use system
+measurements in the performance metric. Instead of calcu-
+lating the phase response from physical models, the phase
+response is measured directly:
+(φD(fk, V ) −φM(fk, V ))2 .
+Here, φM(f, V ) denotes the measured phase response. This
+data-based algorithm learns the relation between the actuator
+voltages and the performance metric in (3) and chooses those
+voltages that optimize this metric. After several iterations, the
+algorithm converges to a setting of actuator voltages V with
+the best performance according to the data-based performance
+metric (3). Here, each iteration consists of updating the per-
+formance metric with the measured phase response, ﬁnding
+the optimal values for V , and setting the actuator voltages to
+these values and performing a new measurement. In this work
+this is done with the data-based online nonlinear extremum-
+seeker (DONE) algorithm [17]. See Figure 4. This algorithm
+is especially designed for systems where the measurements
+take some time to be performed, where measurement noise
+is present, and where the relation between the MSE and
+the actuators is too complicated to model accurately. The
+beamformer system described in this paper is an example of
+such a system, and the DONE algorithm has already been
+successfully applied to a simulation of a beamformer system
+with 8 antenna elements [17]. Using such an automatic tuning
+procedure on this system with over a thousand actuators is
+unavoidable if it is ever to be used in a real life application.
+Besides this, the DONE algorithm only uses the MSE in (3),
+which is a single scalar value. In a practical situation, one
+can thus use very simple metrics such as, e.g., the total
+output power in order to guide the automatic tuning algorithm.
+In this paper, where the performance is shown of both the
+automatic tuning method and a human expert that relies on
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+the complete phase response for tuning, we however used the
+average squared phase error in order to guide the automatic
+tuning method such that both use a similar criterion. We
+emphasize that the human expert knew the phase error
+frequency (by looking at the frequency response), while the
+automatic tuning method only knew the mean squared phase
+error that is obtained after averaging over all frequencies. It
+should be noted that the traditional approach with the nonlinear
+optimization method also uses a scalar-valued objective, but it
+becomes very slow and struggles with local minima when the
+output power is used as the objective [19, Sec. 4.4.2].
+Unlike the traditional approach (2), the data-based ap-
+proach (3) does not require a physical model (including a
+model for the heater crosstalk) and is therefore not sensitive
+to model errors. It is also an online algorithm, which means
+that it can be used while the system is running, and it will
+continually search for better conﬁgurations. This can also
+easily be adapted to allow the procedure to work for systems
+that change over time, which is crucial when applied to
+antenna systems on moving vehicles such as aircrafts. On
+moving vehicles, the beam angle changes over time, and
+therefore the objective function also changes over time.
+B. Optical sideband ﬁlter tuning
+Earlier in this paper, several subsystems of the photonic
+beamformer were described. See Figure 3. The OSBF and
+SCT subsystems drastically reduce the required bandwidth of
+the system [2], [15]. The goal of the OSBF is to ﬁlter out one
+of the sidebands resulting from the modulation scheme used
+for the E/O conversion, as shown in the frequency responses
+of Figure 3. The result is an optical single sideband full carrier
+modulation that can be used by the OBFN. With one sideband
+ﬁltered out, beamforming would need to be performed over
+the sideband, the optical carrier frequency, and the frequencies
+in between, giving a total of 14.5 GHz instead of the whole
+region of 29 GHz. To further reduce the bandwidth, the SCT
+subsystem is used to ensure that the correct phase is achieved
+at the optical carrier frequency (see Section III-D). If both the
+OSBF and SCT subsystems are tuned correctly, a linear phase
+response only needs to be provided in one sideband with a
+bandwidth of 0.5 GHz.
+Figure 5 shows the power response of the full beamformer
+system after tuning the OSBF subsystem by hand. This was
+done by measuring the power response with a vector network
+analyzer (VNA) and tuning the OSBF heaters until the desired
+response was achieved. The shown frequencies are relative to
+the optical carrier frequency. The response features a stopband,
+that ﬁlters out one of the sidebands as shown in Figure 3,
+and a passband that keeps the other sideband. The difference
+between the stopband and passband is 30 dB.
+The automatic tuning method has also been applied to the
+OSBF subsystem, see the end of Section III-C. No matter
+which tuning method is used, once tuned, the heaters can be
+set to the desired values within 200 µs.
+C. Automatic optical beamforming network tuning
+The optical beamforming network (OBFN) subsystem is
+used to provide different delays to the signals of each antenna
+Frequency (GHz)
+-110
+-100
+Power (dB)
+30dB
+Fig. 5. Measured power response of the full beamformer system after tuning
+the optical sideband ﬁlter by hand. Frequencies are shown relative to the
+optical carrier frequency.
+element in such a way that a strong signal is transmitted in one
+speciﬁc direction by positive interference. The correct delays
+can be calculated from the desired beam angle and the distance
+between two antenna elements, as shown in the introduction.
+This leads to a maximum delay of 168 ps for the 1×4 photonic
+beamformer, which is the one investigated in this work. Larger
+delay values were considered in this work to show that the
+maximum delays can indeed be achieved, to allow different
+antenna conﬁgurations or scan angles, and for better visibility
+of the measurements.
+The desired group delay response for each OBFN path is a
+ﬂat response with a value between 0 ps and the maximum
+group delay value, depending on the desired beam angle.
+The group delay response can be made ﬂat by using a serial
+conﬁguration of ring resonators for each OBFN path [14]. This
+ﬂat response has to be provided over the whole frequency
+range of interest, which would require a combination of
+many ring resonators. However, by implementing the SCT
+scheme [15] explained in Section III-D, the only part of the
+frequency domain for which a ﬂat group delay response needs
+to be provided is the sideband that is not ﬁltered by the
+OSBF, as shown in Fig. 3. This greatly reduces the required
+number of ring resonators and therefore the complexity of
+the system, because there is a trade-off between the required
+number of ring resonators, the maximum group delay, and the
+bandwidth [2].
+The procedure for tuning the OBFN is similar to the one for
+tuning the OSBF: the group delay response is measured with a
+VNA, and the heaters of each ring resonator are tuned until the
+desired group delay response is achieved. Here, we made use
+of the automatic tuning method described in this paper. The
+top of Figure 6 shows the resulting phase response of both the
+manual and the automatic tuning procedures of one path of the
+photonic beamformer system for two different delay settings
+(250 ps and 408 ps). The 1-to-4 splitter shown in Figure 3 has
+been set to provide this path with 100% of the signal power.
+The manual tuning procedure aimed at providing a linear phase
+response for a bandwidth of at least 0.5 GHz, though no exact
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+Frequency (GHz)
+-120
+-100
+Magnitude (dB)
+408 ps (manual)
+250 ps (manual)
+408 ps (auto)
+250 ps (auto)
+Frequency (GHz)
+Phase response (degrees)
+408 ps (manual)
+250 ps (manual)
+408 ps (auto)
+250 ps (auto)
+Desired phase
+Frequency (GHz)
+Phase response (degrees)
+408 ps (manual)
+250 ps (manual)
+408 ps (auto)
+250 ps (auto)
+Desired phase
+Fig. 6.
+Measured phase response (top) and power response (bottom) of one path of the full beamformer system from Figure 3 after tuning the optical
+beamforming network automatically (using the DONE algorithm) and by hand for two different delay settings. The right side zooms in on the highlighted
+region. Desired phase responses are shown with dashed lines. The maximum difference between the measured and desired phase response for the four plots
+is shown in Table I. Frequencies are shown relative to the optical carrier frequency, and the phase responses are shown relative to the phase response of the
+system with no delay.
+frequencies were provided. The automatic procedure aimed
+at providing a linear phase response for the same bandwidth,
+but around a frequency of 5.5 GHz. Since all signals can be
+converted to the correct transmit frequencies later (for example
+with a RF mixer), only the bandwidth is considered relevant
+in this work, not the exact frequencies. All results were time
+averaged to reduce noise.
+The difference between the desired and the measured phase
+response must remain within 11.25◦in the bandwidth of
+interest. The maximum errors are shown in Table I. As can
+be seen, all phase errors remain well within the requirements.
+This shows that the automatic tuning procedure can be used
+instead of the manual tuning procedure for the photonic
+beamformer system.
+The bottom of Figure 6 shows the corresponding power re-
+sponse. For the manual tuning method this is similar to the one
+shown in Figure 5, with some inﬂuence of the ring resonators.
+For the automatic tuning method, the magnitude response was
+tuned automatically too, using the same procedure for the
+OSBF as for tuning the OBFN, with the magnitude instead of
+the phase response. However, some improvement is possible
+here, as the loss in the passband could still be reduced. It
+seems that the MSE criterion does not work too well with the
+logarithmic scale. The MSE criterion is especially sensitive to
+data points in the stop band in this case. This was already
+TABLE I
+MAXIMUM PHASE ERROR IN DEGREES FOR TUNING THE OBFN
+SUBSYSTEM AUTOMATICALLY (A) AND BY HAND (M) FOR DIFFERENT
+DELAY VALUES. ALL ERRORS ARE WELL BELOW THE MAXIMUM
+ALLOWED ERROR OF 11.25◦.
+Delay
+408 ps
+250 ps
+408 ps
+250 ps
+Method
+Max error
+6.2◦
+4.9◦
+5.5◦
+6.4◦
+somewhat circumvented by scaling the data points in the
+stopband by a factor 0.3, but other objective functions should
+be considered in the future.
+After tuning the OSBF, while tuning the OBFN, heater
+crosstalk could cause an unwanted perturbation in the OSBF
+ﬁlter response. For this reason, the OSBF actuators were still
+included in the tuning procedure while tuning the OBFN
+automatically, allowing the algorithm to counteract the heater
+crosstalk and ﬁne-tune the system. This lead to stability in the
+ﬁlter response of the OSBF, i.e., there was no deterioration in
+performance in the OSBF while tuning the OBFN.
+D. Separate carrier tuning
+The results of the previous subsection show that both the
+manual and automatic tuning procedures result in a phase
+response with the correct slope, satisfying the requirements.
+However, besides the slope of the phase response, the height
+of the phase response also needs to be set correctly [15],
+[20]. Where the slope of the phase response is controlled
+by the OBFN subsystem, the height of the phase response
+is controlled by the separate carrier tuning (SCT) subsystem.
+This is also shown in Figure 3. More information about the
+SCT subsystem can be found in [15].
+Like the other subsystems, the SCT subsystem makes use of
+optical ring resonators. Two ring resonators are tuned in such a
+way that they affect the phase response in the region between
+the optical carrier frequency and the sideband. This region
+contains no information, so it is not necessary to follow the
+desired linear phase response here, which would require a large
+quantity of ring resonators because of the large difference in
+frequency between the optical carrier and the sideband. Tuning
+the two ring resonators of the SCT subsystem gives an extra
+phase shift while leaving the shape and the slope of the phase
+response unaffected. This ensures that the phase response
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+Frequency (GHz)
+-1000
+-500
+1000
+Phase response (°)
+408 ps (manual)
+250 ps (manual)
+408 ps (auto)
+250 ps (auto)
+Desired phase
+Frequency (GHz)
+-1000
+-500
+1000
+Phase response (°)
+408 ps (manual)
+250 ps (manual)
+408 ps (auto)
+250 ps (auto)
+Desired phase
+360°
+360°
+Fig. 7. Measured phase response of the full beamformer system before (left) and after (right) manually tuning the SCT subsystem. The word ‘auto’ in the
+legend refers to the automatic tuning of the OSBF and OBFN subsystems. Using the SCT principle, the height of the phase responses is adapted in such a
+way that the corresponding linear responses meet at the optical carrier frequency, up to multiples of 360 degrees, as indicated by the red circles. These results
+have also been published in [20].
+follows the desired linear phase response at the optical carrier
+frequency too. It should be noted that phase differences of
+multiples of 360◦do not affect the system [15]. This makes
+it theoretically possible to use only one ring resonator for this
+adjustment, though in practice it is easier to use two of them.
+The ring resonators in the SCT subsystem were adjusted by
+hand after tuning their heater actuators in such a way that
+the ring resonators only operate in the region near the optical
+carrier frequency.
+Figure 7 shows the effect of not using the SCT subsystem
+on the left. Although the phase response has the desired slope,
+there is a phase mismatch at the optical carrier frequency (at 0
+GHz). Tuning the ring resonators of the SCT subsystem solves
+this problem. The effect of tuning the SCT subsystem is shown
+in the same ﬁgure on the right. This time, the phase responses
+have been shifted up or down in such a way that the corre-
+sponding linear phase responses are a multiple of 360 degrees
+off at the optical carrier frequency. The accuracy can still be
+improved, however: due to their proximity on the photonic
+chip, the heaters of the SCT subsystem slightly inﬂuence the
+heaters of the OBFN subsystem, which leads to small changes
+to the slope of the phase response. This causes the desired
+phase response at the carrier to be about 30 degrees off, so
+exact multiples of 360 degrees are not yet achieved. These
+errors are unacceptable for practical applications. However,
+using the same automatic tuning procedure for this subsystem
+together with the other two subsystems could circumvent this
+problem. This remains for future work.
+E. Towards a fully automated transmit antenna tile
+Besides testing the proposed automatic tuning procedure on
+all of the three different subsystems described in this section
+and improving the objective for the OSBF subsystem, one
+more step is required to achieve a fully automated trans-
+mit antenna tile in a practical situation. First of all, since
+phase response measurements require a measurement set-up
+that is too cumbersome for a real-life application, the effect
+of using a different criterion needs to be investigated. As
+mentioned earlier, the proposed automatic tuning procedure
+uses only a scalar value to tune the system, even with the
+phase measurements used in this work, therefore the criterion
+used in practice is allowed to be scalar-valued. The output
+power of the system is an example of such a more practical
+criterion. Traditional nonlinear optimization algorithms based
+on physical models of this criterion are known to struggle
+with local minima [19, p. 43]. However, we found that using
+the DONE algorithm on this same criterion [19, eq. 4.4] in a
+simple simulation, the global optimum was found, even when
+tuning four beamformer branches at the same time. The phase
+errors were also within 11.25◦for all four branches. This
+indicates that it should be possible to tune all paths of a 1 × 4
+photonic beamformer using the automatic tuning procedure
+with a power criterion. A next step would be to verify this
+experimentally in a real system.
+The second step concerns the tuning of the 1 × 24 beam-
+former, indicated by the ﬁve ring resonators of subsystem 3
+in Figure 3. As mentioned earlier, manual tuning of these ﬁve
+rings has already been shown to achieve the desired delay
+values [14], and automatically tuning these ﬁve rings should
+give no problems. However, tuning these ﬁve rings for 24
+different beamformer paths using only one scalar value as
+feedback is much more challenging, as this would increase
+the number of variables to be tuned simultaneously to 240.
+Still, this number is a drastic reduction compared to the
+situation where all heaters in the full photonic beamformer are
+tuned simultaneously (1440 variables). The DONE algorithm
+has already been successfully applied to a problem with 150
+variables in the past [17], so increasing this number to 240 is
+not unachievable in the near future.
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+IV. CONCLUSION
+We have proposed a novel photonic beamformer for a
+transmit phased array antenna. The beamformer is based on
+optical ring resonators and is fully integrated on a chip. We
+have investigated manual and automatic procedures for tuning
+the delays of the photonic beamformer. Automatic procedures
+are essential in real-life applications where thousands of actu-
+ators are considered and where a limited number of variables
+can be measured, such as the signal-to-noise ratio. Both
+the manual and automatic procedures provided beamforming
+functionalities with a phase error of less than 11.25◦over the
+whole frequency band that contains signal information. This
+is the ﬁrst time that part of this transmit antenna tile has been
+tuned automatically.
+The system is designed with aircraft-satellite communi-
+cation in mind as the main application, providing satellite
+Internet connections on board the aircraft using the Ku-
+band. The separate carrier tuning principle greatly reduces the
+operating bandwidth for the photonic beamformer, from 29
+GHz to 0.5 GHz. The ring resonator-based subsystems of the
+beamformer make squint-free beamforming possible. A fully
+automated transmit antenna tile remains for future work.
+APPENDIX A
+MEASUREMENT SETUP
+Figure 8 shows the measurement set-up for the frequency re-
+sponse measurements shown in this paper. A Rohde& Schwarz
+ZVA40 VNA generated a 50 MHz RF signal to modulate a
+laser with a Mach-Zehnder modulator. The modulated optical
+signal was coupled into the beamformer control box. The
+control box was connected via USB to a laptop with heater
+control software. This laptop also contained the automatic tun-
+ing software and software for reading the VNA measurements.
+The integrated photodetectors inside the control box were
+connected with RF cables to the second VNA port. Although
+integrated modulators were also available, these have not been
+used in order to prevent crosstalk with the integrated detectors.
+The VNA measurements were sent to the laptop with the
+automatic tuning and heater control software via an ethernet
+cable. The phase-shift method [3, Sec. IV-A] was used for
+the group delay and power response measurements, using a
+function generator for the laser. With this method, the phase
+response shown on the VNA is actually equivalent to the group
+delay response of the system, so the objective (3) minimized
+by the DONE algorithm is actually equal to the mean square
+error between the desired and measured group delay response.
+In Figures 6 and 7, after the minimization procedure, the
+phase response was measured directly using a frequency sweep
+on the VNA (without the external trigger from the function
+generator). Here, the laser current was chosen in such a way
+that the optical carrier would be at 0 GHz in Figure 5 after
+tuning the OSBF.
+APPENDIX B
+ALGORITHM SETTINGS
+The automatic tuning algorithm used in this paper contains
+several hyper-parameters that are explained and investigated
+TABLE II
+VALUES OF THE HYPER-PARAMETERS USED BY THE AUTOMATIC TUNING
+ALGORITHM.
+Hyper-parameter
+Value
+(OSBF
+tuning)
+Value
+(OBFN
+tuning)
+Total
+num.
+measurements
+2000
+1000
+Num. of basis func-
+tions
+3000
+3000
+Regularization
+parameter
+Standard deviation of
+frequencies
+Exploration parameter
+0.01
+0.05
+Sliding window size
+in [17]. Their values as used in this paper are shown in
+Table II for the OSBF and OBFN tuning results. The last
+value indicates the size of the sliding window: only the last
+60 measurements are used in updating the model used by
+the algorithm, using the same adaptation of the algorithm as
+in [21].
+REFERENCES
+[1] R. C. Hansen, Phased array antennas.
+John Wiley & Sons, 2009, vol.
+213.
+[2] A. Meijerink, C. G. Roeloffzen, R. Meijerink, L. Zhuang, D. A.
+Marpaung, M. J. Bentum, M. Burla, J. Verpoorte, P. Jorna, A. Hulzinga
+et al., “Novel ring resonator-based integrated photonic beamformer for
+broadband phased array receive antennaspart I: Design and performance
+analysis,” J. Lightwave Technol., vol. 28, no. 1, pp. 3–18, 2010.
+[3] L. Zhuang, C. G. Roeloffzen, A. Meijerink, M. Burla, D. A. Marpaung,
+A. Leinse, M. Hoekman, R. G. Heideman, and W. van Etten, “Novel
+ring resonator-based integrated photonic beamformer for broadband
+phased array receive antennaspart II: Experimental prototype,” Journal
+of lightwave technology, vol. 28, no. 1, pp. 19–31, 2010.
+[4] L. Zhuang, “Ring resonator-based broadband photonic beam former for
+phased array antennas,” Ph.D. dissertation, 2010.
+[5] J. Verpoorte, H. Schippers, P. Jorna, C. G. Roeloffzen, D. A. Marpaung,
+R. Baggen, and B. Sanadgol, “Architectures for ku-band broadband
+airborne satellite communication antennas,” in 32nd EAS Antenna Work-
+shop, 2010.
+National Aerospace Laboratory NLR, 2010.
+[6] M. van der Vossen, G. Voshaar, C. Roeloffzen, A. Hulzinga, and M. Iven,
+“Design of a highly integrated Ku-band planar broadband phased array
+receiver with dual polarization,” in Microwave Conference (EuMC),
+2014 44th European.
+IEEE, 2014, pp. 1695–1698.
+[7] L. Bliek, M. Verhaegen, and S. Wahls, “Data-driven minimization
+with random feature expansions for optical beam forming network
+tuning,” in 16th IFAC Workshop on Control Applications of Optimization
+(CAO2015), vol. 48, no. 25, 2015, pp. 166 – 171.
+[8] J. Capmany and D. Novak, “Microwave photonics combines two
+worlds,” Nature photonics, vol. 1, no. 6, p. 319, 2007.
+[9] N. Shi, M. Li, Y. Deng, L. Zhang, S. Sun, J. Tang, W. Li, and N. Zhu,
+“Experimental demonstration of a multi-target detection technique using
+an x-band optically steered phased array radar,” Optics Express, vol. 24,
+no. 13, pp. 14 438–14 450, 2016.
+[10] L. Zhang, M. Li, N. Shi, X. Zhu, S. Sun, J. Tang, W. Li, and N. Zhu,
+“Photonic true time delay beamforming technique with ultra-fast beam
+scanning,” Optics express, vol. 25, no. 13, pp. 14 524–14 532, 2017.
+[11] D. Marpaung, C. Roeloffzen, R. Heideman, A. Leinse, S. Sales, and
+J. Capmany, “Integrated microwave photonics,” Laser & Photonics
+Reviews, vol. 7, no. 4, pp. 506–538, 2013.
+[12] L. Zhuang, C. Roeloffzen, R. Heideman, A. Borreman, A. Meijerink, and
+W. Van Etten, “Single-chip optical beam forming network in LPCVD
+waveguide technology based on optical ring resonators,” in International
+Topical Meeting on Microwave Photonics, 2006. MWP’06. IEEE, 2006,
+pp. 1–4.
+[13] C. G. Roeloffzen, M. Hoekman, E. J. Klein, L. S. Wevers, R. B.
+Timens, D. Marchenko, D. Geskus, R. Dekker, A. Alippi, R. Grootjans
+et al., “Low-loss Si3N4 TriPleX optical waveguides: Technology and
+
+--- PAGE BREAK ---
+
+JOURNAL OF LIGHTWAVE TECHNOLOGY, VOL. XX, NO. X, AUGUST 2018
+Fig. 8. Measurement set-up for the frequency response measurements used in this paper.
+applications overview,” IEEE journal of selected topics in quantum
+electronics, vol. 24, no. 4, pp. 1–21, 2018.
+[14] P. Megret, C. Roeloffzen, M. Wuilpart, L. Zhuang, R. Heideman,
+S. Bette, A. Borreman, N. Staquet, and W. van Etten, “Ring resonator-
+based tunable optical delay line in LPCVD waveguide technology,”
+in 10th Annual Symposium of the IEEE/LEOS Benelux Chapter 2005,
+Mons, Belgium, 2005, pp. 79–82.
+[15] M. Burla, M. R. Khan, D. A. Marpaung, L. Zhuang, C. G. Roeloffzen,
+A. Leinse, M. Hoekman, and R. Heideman, “Separate carrier tuning
+scheme for integrated optical delay lines in photonic beamformers,” in
+International Topical Meeting on Microwave Photonics, 2011 & Mi-
+crowave Photonics Conference, 2011 Asia-Paciﬁc, MWP/APMP. IEEE,
+2011, pp. 65–68.
+[16] L. F. Stokes, M. Chodorow, and H. J. Shaw, “All-single-mode ﬁber
+resonator,” Optics Letters, vol. 7, no. 6, pp. 288–290, 1982.
+[17] L. Bliek, H. R. G. W. Verstraete, M. Verhaegen, and S. Wahls, “Online
+optimization with costly and noisy measurements using random Fourier
+expansions,” IEEE Transactions on Neural Networks and Learning
+Systems, vol. 29, no. 1, pp. 167–182, Jan 2018.
+[18] L. Bliek, H. Verstraete, S. Wahls, R. B. Timens, R. Oldenbeuving,
+C. Roeloffzen, and M. Verhaegen, “Automatic tuning of a ring resonator-
+based optical delay line for optical beamforming,” in Symposium on
+Information Theory and Signal Processing in the Benelux, 2017. IEEE,
+2017, pp. 23–24.
+[19] R. Blokpoel, “Staggered delay tuning algorithms for ring resonators in
+optical beam forming networks,” Master’s thesis, 2007.
+[20] C. Roeloffzen, I. Visscher, C. Taddei, D. Geskus, R. Oldenbeuving,
+J. Epping, R. B. Timens, P. van Dijk, R. Heideman, M. Hoekman,
+R. Grootjans, L. Bliek, S. Wahls, and M. Verhaegen, “Integrated
+microwave
+photonics
+5G,”
+Conference
+Lasers
+Electro-Optics.
+Optical Society of America, 2018, p. JTh3D.2.
+[Online].
+Available:
+http://www.osapublishing.org/abstract.cfm?URI=
+CLEO QELS-2018-JTh3D.2
+[21] P. Pozzi, D. Wilding, O. Soloviev, H. Verstraete, L. Bliek, G. Vdovin, and
+M. Verhaegen, “High speed wavefront sensorless aberration correction in
+digital micromirror based confocal microscopy,” Optics Express, vol. 25,
+no. 2, pp. 949–959, 2017.

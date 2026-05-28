@@ -17,6 +17,8 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
@@ -52,6 +54,13 @@ dependencies = [
     "sentence-transformers>=3.0.0",
     "arxiv>=2.1.0",
     "crawl4ai>=0.4.0",
+    # Kaizen RAG agent (local ChromaDB + HF embeddings + Ollama qwen3.5:9b)
+    "chromadb>=0.5.0",
+    "langchain-chroma>=0.1.4",
+    "langchain-huggingface>=0.1.0",
+    "langchain-text-splitters>=0.3.0",
+    "pypdf>=4.0.0",
+    "grandalf>=0.8",
     # Web interface (custom FastAPI + SSE — Chainlit removed)
     "fastapi>=0.111.0",
     "uvicorn[standard]>=0.30.0",
@@ -72,6 +81,7 @@ dependencies = [
     "nltk>=3.8.0",
     "prettyprint>=0.1.5",
     "ipywidgets>=8.1.0",
+    "h5py>=3.16.0",
 ]
 
 [project.optional-dependencies]
@@ -87,10 +97,12 @@ dev = [
 ]
 ml = [
     "torch>=2.3.0",
+    "torchvision>=0.18.0",
     "transformers>=4.41.0",
     "datasets>=2.20.0",
     "accelerate>=0.30.0",
     "scikit-learn>=1.5.0",
+    "scikit-rf>=0.29.0",
     "google-generativeai>=0.7.0",
     "tqdm>=4.66.0",
 ]
@@ -106,6 +118,24 @@ notebooks = [
     "gdsfactory[cad]>=7.0.0,<8.0.0",
     # SPICE simulation
     "PySpice>=1.5",
+    # PixelatedRF — RF/EM analysis
+    # openEMS (FDTD engine) is NOT on PyPI; install via:
+    #   sudo apt install openems python3-openems
+    "scikit-rf>=0.29.0",
+]
+sft = [
+    # QLoRA fine-tuning of Qwen3.5-VL-9B-Instruct on GDS layout datasets
+    # notebooks/sft_finetuning/finetune_qwen.ipynb
+    # PyTorch must be installed first with CUDA 12.8:
+    #   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+    "unsloth>=2024.12.0",
+    "trl>=0.15.0",
+    "peft>=0.14.0",
+    "bitsandbytes>=0.43.0",
+    "qwen-vl-utils>=0.0.14",
+    "transformers>=4.50.0",
+    "datasets>=3.0.0",
+    "accelerate>=0.30.0",
 ]
 
 [project.scripts]
@@ -121,9 +151,9 @@ packages = ["src/gelochip"]
 [tool.hatch.build.targets.sdist]
 include = ["src/gelochip", "README.md", "LICENSE"]
 
-# ── uv workspace (optional, for multi-package monorepos) ──
-[tool.uv]
-dev-dependencies = [
+# ── dev dependencies (PEP 735, replaces deprecated [tool.uv].dev-dependencies) ──
+[dependency-groups]
+dev = [
     "pytest>=8.2.0",
     "pytest-asyncio>=0.23.0",
     "black>=24.4.0",
@@ -133,18 +163,18 @@ dev-dependencies = [
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py313"
 select = ["E", "F", "I", "UP"]
 ignore = ["E501"]
 
 [tool.black]
 line-length = 100
-target-version = ["py310", "py311"]
+target-version = ["py310", "py311", "py312", "py313"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.13"
 ignore_missing_imports = true

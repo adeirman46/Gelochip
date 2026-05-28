@@ -1,0 +1,4 @@
+.subckt CMIRROR VB VCOPY VSS
+XMR VB    VB VSS VSS nfet_03v3 w=4 l=0.5 m=2
+XMC VCOPY VB VSS VSS nfet_03v3 w=4 l=0.5 m=2
+.ends CMIRROR

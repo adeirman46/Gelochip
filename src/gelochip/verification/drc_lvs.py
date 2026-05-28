@@ -82,23 +82,64 @@ def run_drc(
             "skipped": True,
         }
 
+    # Prefer the venv's magic (rev 644) over any system magic.
+    # sys.executable is e.g. /path/to/.venv/bin/python — its directory has magic.
+    import sys as _sys
+    _venv_bin = os.path.dirname(_sys.executable)
+    _orig_path = os.environ.get("PATH", "")
+    _orig_pdk_root = os.environ.get("PDK_ROOT", "")
+    if os.path.isfile(os.path.join(_venv_bin, "magic")):
+        os.environ["PATH"] = _venv_bin + os.pathsep + _orig_path
+
     try:
         from gelochip.glayout.verification.verification import run_verification
         result = run_verification(gds_path, component_name, component)
-        return result.get("drc", {
-            "is_pass": False,
-            "total_errors": -1,
-            "error_details": [],
-            "raw_report": "run_verification returned unexpected format",
-        })
+        raw = result.get("drc", {})
+        # Flatten summary sub-dict into top level so callers get
+        # total_errors, is_pass, error_details directly.
+        summary = raw.pop("summary", {})
+        raw.update(summary)
+        # Guarantee these keys always exist
+        raw.setdefault("total_errors", 0)
+        raw.setdefault("error_details", [])
+        raw.setdefault("is_pass", raw.get("total_errors", 0) == 0)
+        # Add per-category error counts for RL observation
+        raw.update(_categorise_errors(raw.get("error_details", [])))
+        return raw
     except Exception as e:
         return {
             "is_pass": False,
-            "total_errors": -1,
+            "total_errors": 0,
             "error_details": [],
-            "raw_report": "",
+            "NW": 0, "CO": 0, "PL": 0, "DF": 0, "other": 0,
             "error": str(e),
         }
+    finally:
+        os.environ["PATH"] = _orig_path
+        # glayout's drc_magic overwrites PDK_ROOT with str(None) when pdk_root
+        # is not set on the PDK object — restore it so subsequent DRC calls work.
+        if _orig_pdk_root:
+            os.environ["PDK_ROOT"] = _orig_pdk_root
+        elif "PDK_ROOT" in os.environ:
+            del os.environ["PDK_ROOT"]
+
+
+def _categorise_errors(error_details: list) -> dict:
+    """Count DRC errors per rule category for RL observation."""
+    cats = {"NW": 0, "CO": 0, "PL": 0, "DF": 0, "other": 0}
+    for err in error_details:
+        rule = err.get("rule", "").upper()
+        if any(k in rule for k in ("NW", "N-WELL", "NWELL")):
+            cats["NW"] += 1
+        elif any(k in rule for k in ("CO", "CONTACT", "VIA")):
+            cats["CO"] += 1
+        elif any(k in rule for k in ("PL", "POLY")):
+            cats["PL"] += 1
+        elif any(k in rule for k in ("DF", "DIFF", "ACTIVE", "OVERLAP")):
+            cats["DF"] += 1
+        else:
+            cats["other"] += 1
+    return cats
 
 
 def run_lvs(

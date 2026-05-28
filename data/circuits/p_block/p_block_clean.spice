@@ -1,0 +1,4 @@
+.subckt P_BLOCK VIN VOUT VX VDD
+XM1 VX   VIN VOUT VDD pfet_03v3 w=6 l=0.5 m=1
+XM2 VOUT VX  VDD  VDD pfet_03v3 w=3 l=0.5 m=1
+.ends P_BLOCK

@@ -1,0 +1,23 @@
+{
+  "component_name": "DIFF_PAIR",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": 21.56,
+      "bw_3db_hz": 271227258.0
+    },
+    "theory": "Resistive-load NMOS differential pair: single-ended gain \u2248 gm\u00b7RL. Pass if in-band |gain| > 6 dB (real voltage gain).",
+    "theory_pass": true
+  },
+  "area_um2": 452.1
+}

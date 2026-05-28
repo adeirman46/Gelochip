@@ -1,0 +1,3398 @@
+Publications of the Astronomical Society of Australia (PASA)
+doi: 10.1017/pas.2018.xxx.
+Cosmology with Phase 1 of the Square Kilometre Array
+Red Book 2018: Technical speciﬁcations and performance forecasts
+Square Kilometre Array Cosmology Science Working Group: David J. Bacon1, Richard A. Battye2,∗, Philip
+Bull3, Stefano Camera4,5,6,2, Pedro G. Ferreira7, Ian Harrison2,7, David Parkinson8, Alkistis Pourtsidou3,
+Mário G. Santos9,10,11, Laura Wolz12,∗, Filipe Abdalla13,14, Yashar Akrami15,16, David Alonso7, Sambatra
+Andrianomena9,10,17, Mario Ballardini9,18, José Luis Bernal19,20, Daniele Bertacca21,36, Carlos A.P. Bengaly9,
+Anna Bonaldi22, Camille Bonvin23, Michael L. Brown2, Emma Chapman24, Song Chen9, Xuelei Chen25,
+Steven Cunnington1, Tamara M. Davis27, Clive Dickinson2, José Fonseca9,36, Keith Grainge2, Stuart
+Harper2, Matt J. Jarvis7,9, Roy Maartens1,9, Natasha Maddox28, Hamsa Padmanabhan29, Jonathan R.
+Pritchard24, Alvise Raccanelli19, Marzia Rivi13,18, Sambit Roychowdhury2, Martin Sahlén30, Dominik J.
+Schwarz31, Thilo M. Siewert31, Matteo Viel32, Francisco Villaescusa-Navarro33, Yidong Xu25, Daisuke
+Yamauchi34, Joe Zuntz35
+Afﬁliations listed after references
+∗Corresponding Authors: richard.battye@manchester.ac.uk and laura.wolz@unimelb.edu.au
+Abstract
+We present a detailed overview of the cosmological surveys that will be carried out with Phase 1 of the Square
+Kilometre Array (SKA1), and the science that they will enable. We highlight three main surveys: a medium-deep
+continuum weak lensing and low-redshift spectroscopic HI galaxy survey over 5,000 deg2; a wide and deep
+continuum galaxy and HI intensity mapping survey over 20,000 deg2 from z = 0.35−3; and a deep, high-redshift
+HI intensity mapping survey over 100 deg2 from z = 3−6. Taken together, these surveys will achieve an array
+of important scientiﬁc goals: measuring the equation of state of dark energy out to z ∼3 with percent-level
+precision measurements of the cosmic expansion rate; constraining possible deviations from General Relativity
+on cosmological scales by measuring the growth rate of structure through multiple independent methods;
+mapping the structure of the Universe on the largest accessible scales, thus constraining fundamental properties
+such as isotropy, homogeneity, and non-Gaussianity; and measuring the HI density and bias out to z = 6.
+These surveys will also provide highly complementary clustering and weak lensing measurements that have
+independent systematic uncertainties to those of optical surveys like LSST and Euclid, leading to a multitude of
+synergies that can improve constraints signiﬁcantly beyond what optical or radio surveys can achieve on their
+own. This document, the 2018 Red Book, provides reference technical speciﬁcations, cosmological parameter
+forecasts, and an overview of relevant systematic effects for the three key surveys, and will be regularly updated
+by the Cosmology Science Working Group in the run up to start of operations and the Key Science Programme of
+SKA1.
+Keywords: Radio Telescopes, Cosmology, Galaxy Redshift Surveys, Weak Lensing, Intensity Mapping.
+CONTENTS
+Introduction and rationale
+Cosmological surveys with SKA1
+SKA1-MID . . . . . . . . . . . . . . . . . . . . .
+SKA1-LOW . . . . . . . . . . . . . . . . . . . . .
+Proposed cosmology surveys . . . . . . . . . .
+Survey Processing Requirements . . . . . . . .
+Synergies with other surveys
+. . . . . . . . . .
+Fiducial cosmological model and extensions .
+Continuum galaxy surveys
+Modeling the continuum sky . . . . . . . . . .
+Weak lensing . . . . . . . . . . . . . . . . . . . .
+3.2.1
+Cosmic shear simulations for SKA . . .
+3.2.2
+Results from autocorrelation . . . . . .
+3.2.3
+Results from radio-optical cosmic
+shear cross-correlations . . . . . . . . .
+Angular Correlation Function and Integrated
+Sachs Wolfe Effect . . . . . . . . . . . . . . . . . 10
+3.3.1
+Forecasting
+. . . . . . . . . . . . . . . . 11
+3.3.2
+Results . . . . . . . . . . . . . . . . . . . 11
+Cosmic dipole . . . . . . . . . . . . . . . . . . . 11
+3.4.1
+Forecasting
+. . . . . . . . . . . . . . . . 12
+arXiv:1811.02743v1  [astro-ph.CO]  7 Nov 2018
+
+--- PAGE BREAK ---
+
+3.4.2
+Results . . . . . . . . . . . . . . . . . . . 12
+HI galaxy redshift survey
+Survey characteristics
+. . . . . . . . . . . . . . 14
+Cosmological probes . . . . . . . . . . . . . . . 15
+4.2.1
+Baryon Acoustic Oscillations and Red-
+shift Space Distortions . . . . . . . . . . 15
+4.2.2
+Doppler magniﬁcation . . . . . . . . . . 17
+4.2.3
+Direct peculiar velocity measurements
+4.2.4
+Void statistics . . . . . . . . . . . . . . . 18
+4.2.5
+Particle dark matter searches in cross-
+correlation with γray maps . . . . . . . 19
+4.2.6
+Cross-correlation with gravitational
+wave sources . . . . . . . . . . . . . . . . 19
+4.2.7
+HI model uncertainties
+. . . . . . . . . 19
+HI intensity mapping
+The HI signal and power spectrum . . . . . . . 21
+5.1.1
+Temperature and bias . . . . . . . . . . 21
+5.1.2
+Power Spectrum . . . . . . . . . . . . . . 21
+Cosmological probes using HI Intensity Map-
+ping . . . . . . . . . . . . . . . . . . . . . . . . . 23
+5.2.1
+Baryon Acoustic Oscillations and Red-
+shift Space Distortions . . . . . . . . . . 23
+5.2.2
+Ultra-large scale effects
+. . . . . . . . . 23
+5.2.3
+HI detection via synergies with optical
+surveys . . . . . . . . . . . . . . . . . . . 24
+5.2.4
+Neutrino masses
+. . . . . . . . . . . . . 25
+5.2.5
+Probing inﬂationary features . . . . . . 25
+5.2.6
+Unveiling the nature of dark matter . . 27
+5.2.7
+Photometric redshift calibration . . . . 27
+Systematics
+. . . . . . . . . . . . . . . . . . . . 28
+5.3.1
+Foregrounds . . . . . . . . . . . . . . . . 28
+5.3.2
+Red Noise
+. . . . . . . . . . . . . . . . . 29
+5.3.3
+Bandpass Calibration
+. . . . . . . . . . 29
+5.3.4
+RFI from Navigation Satellites
+. . . . . 29
+Discussion and conclusions
+1 INTRODUCTION AND RATIONALE
+Recent progress in deﬁning the standard cosmological
+model - known as ΛCDM - has been dominated by observa-
+tions of the Cosmic Microwave Background (CMB, Hinshaw
+et al. 2013; Planck Collaboration et al. 2016a, 2018). Maps of
+the microwave sky made by the Planck satellite between 30
+and 857 GHz, have allowed almost cosmic variance limited
+measurements of the temperature anisotropy spectrum
+out to multipoles in excess of ℓ= 1000 as well as high ﬁ-
+delity measurements of the polarization of the CMB. These
+measurements have constrained the ﬁve of the standard
+six parameters ΛCDM to 1% precision and the ﬁnal one
+(the optical depth to reionization) to 10%. The parameter
+constraints from CMB observations are broadly compat-
+ible with other cosmological indicators such as measure-
+ments of the cosmic distance scale using standard candles
+(Cepheids and Supernovae, Astier et al. 2006) and number
+counts of clusters of galaxies (Planck Collaboration et al.,
+2016c).
+A wide range of physical phenomena can be probed
+beyond the ΛCDM model. These include the dark sector
+which is responsible for cosmic acceleration, massive neu-
+trinos and primordial non-Gaussianity. Although these phe-
+nomena can be constrained with further observations of
+the CMB, probes of large scale structure, mapping the Uni-
+verse at relatively lower redshifts, are essential to break
+some of the degeneracies inherent in CMB observations.
+Measurements of the matter power spectrum through
+galaxy redshift surveys have been around for some time
+(Cole et al., 2005), indeed before the detection of the CMB
+anisotropies, and have played a signiﬁcant role in deﬁning
+ΛCDM (Efstathiou et al., 1990). The next two decades will
+see rapid progress in the ﬁeld of Large Scale Structure (LSS)
+surveys with the advent of the Euclid Satellite (Laureijs et al.,
+2011a), the Large Synoptic Survey Telescope (LSST, LSST
+Science Collaboration & et al. 2009) and the Dark Energy
+Spectroscopic Instrument (DESI, DESI Collaboration et al.
+2016) which will create large scale maps of the Universe.
+In particular they will use measurements of the angular
+positions and redshifts of galaxies to infer the matter power
+spectrum, facilitating measurements of Baryonic Acoustic
+Oscillations (BAOs) and Redshift Space Distortions (RSDs),
+and measurements of cosmic shear power spectrum by
+estimation of galaxy shapes. There are many challenges in
+achieving the fantastic levels of statistical precision which
+will be possible with these instruments, notably reducing
+the levels of observational systematic errors.
+The Square Kilometre Array1 (SKA) is an international
+project to build a next generation radio observatory which
+will ultimately have a collecting area of 106 m2, i.e. the
+collecting area necessary to detect the neutral hydrogen
+(HI) emission at 21cm from an L∗galaxy at z ∼1 in a few
+hours (Wilkinson, 1991). The SKA will comprise of two tele-
+scopes: a dish array (SKA-MID) based in the Northern Cape
+province of South Africa, and an array of dipole antennas
+(SKA-LOW) based near Geraldton in Western Australia, with
+the international headquarters on the Jodrell Bank Obser-
+vatory Site in the United Kingdom. There will be two phases
+to the project dubbed SKA1 and SKA2 with a cost cap of
+∼675 MEuros being set for the SKA1. Only when SKA2 is
+built will the SKA live up to its name.
+The science case for the SKA has been presented in some
+detail in two volumes produced in 2015 (Braun et al., 2015),
+with 18 separate chapters presenting the cosmology science
+case for the SKA (see Maartens et al. 2015 for the overview
+chapter). The aim of this Red Book is to present the status
+of this science case, with updated forecasts based on the
+now agreed instrumental design of SKA1, to the cosmology
+community and beyond. We will not attempt to make de-
+tailed forecasts for SKA2 since its precise conﬁguration is
+1https://www.skatelescope.org
+
+--- PAGE BREAK ---
+
+yet to be decided; sufﬁce to say that it will have a signiﬁcant
+impact on cosmology when it comes online. Furthermore,
+this is not intended to be a complete review of the subject
+area, rather it is a summary of the main science goals. We
+refer the reader to the individual papers for many of the
+details of the individual science cases.
+The observations we will focus on here are:
+• Continuum emission largely due to synchrotron emis-
+sion from electrons moving in the magnetic ﬁeld of
+galaxies. Selecting galaxies in this way will allow the
+measurements of the positions and shapes of galaxies.
+• Line emission due to the spin-ﬂip transition between
+the hyperﬁne states of neutral hydrogen (HI) at 21cm.
+Using the redshifted HI line, it is possible to perform
+spectroscopic galaxy redshift surveys and also to use a
+new technique called Intensity Mapping (IM) whereby
+one measures the large-scale correlations in the HI
+brightness temperature without detecting individual
+galaxies.
+Note that it should be possible to perform continuum and
+line surveys at the same time and that it may be possible to
+use the line emission of the galaxies to deduce redshifts, at
+least statistically, for the continuum galaxy samples2.
+We have already pointed out that the next generation
+of LSS surveys such as those made by Euclid, LSST and
+DESI could suffer from observational systematics. The ad-
+dition of radio observations by the SKA could be crucial to
+achieving their ultimate goals, as cross-correlating the dis-
+tribution and shapes of galaxies in two different wavebands
+will heavily suppress systematic effects. This is because one
+only expects weak correlations between the contaminants
+in the different wavebands. Furthermore, additional wave-
+bands can lead to a host of other synergies, a topic we will
+return to in the discussion section.
+2 COSMOLOGICAL SURVEYS WITH SKA1
+In this section we will present the speciﬁcations of SKA1
+telescopes required for forecasting cosmological parame-
+ters, adopting the SKA1 Design Baseline in accordance with
+SKA-TEL-SKO-00008183 (Anticipated SKA1 Science Perfor-
+mance). In addition we will deﬁne the ﬁducial cosmological
+model.
+2.1 SKA1-MID
+SKA1-MID will be a dish array consisting of a set of sub-
+arrays. The ﬁrst is the South African SKA precursor MeerKAT
+which has 64 13.5 m diameter dishes which will be supple-
+mented by 133 SKA1 dishes with 15 m diameter. These
+2Furthermore, the same surveys are compatible with the aims of many
+of the other science goals of the SKA related to extragalactic astronomy
+including understanding star formation and galaxy evolution, cosmic
+magnetism and neutral hydrogen in galaxies.
+3To be found under https://astronomers.skatelescope.org/documents/
+Table 1 Summary of the array properties of SKA1-MID which will
+comprise purpose-built SKA dishes and those from the South
+African precursor instrument, MeerKAT.
+SKA dishes
+SKA dish diameter
+15 m
+MeerKAT dishes
+MeerKAT dish diameter
+13.5 m
+Maximum Baseline
+150 km
+Resolution at 1.4 GHz
+0.3 arcsec
+Table 2 Receiver bands on SKA1-MID. Included also is the range of
+redshift these receiver bands will probe using the 21 cm spectral
+line.
+Band
+ν/GHz
+z range
+0.35-1.05
+0.35-3
+0.95-1.75
+0-0.5
+1.65-3
+3-5.2
+4.6-15.8
+will be conﬁgured with a compact core and three log-
+arithmically spaced spiral arms with a maximum base-
+line of 150km which corresponds to an angular resolution
+∼0.3arcsecs at frequency of 1.4GHz. The details of the tele-
+scope conﬁguration are presented in Table 1. It is planned
+that ultimately these dishes will be equipped with receivers
+sensitive to 5 different frequency ranges or bands. The fre-
+quency ranges and, where appropriate, the redshift range
+for HI line observations are tabulated in Table 24. In the
+present SKA baseline conﬁguration there are only sufﬁcient
+funds to deploy Bands 1 and 2, which are most relevant to
+cosmology, and Band 5.
+The overall system temperature for the SKA1-MID array
+can be calculated using
+Tsys = Trx +Tspl +TCMB +Tgal ,
+where we have ignored contributions from the atmosphere.
+Tspl ≈3K is the contribution from spill-over, TCMB ≈2.73K
+is the temperature of the CMB, Tgal ≈25K(408MHz/f )2.75
+is the contribution of our own galaxy at frequency f and Trx
+is the receiver noise temperature. In Band 1 we will assume
+Trx = 15K+30K
+GHz −0.75
+and in Band 2 Trx = 7.5K.
+4The situation is somewhat complicated by the fact that the relevant
+MeerKAT bands do not have the same boundaries as the SKA Bands 1 and
+2. They are: the UHF band 580 −1015MHz (0.4 < z < 1.45) and L-band
+900−1670MHz (0 < z < 0.58). The table only refers to the SKA dishes.
+
+--- PAGE BREAK ---
+
+2.2 SKA1-LOW
+The SKA1-LOW interferometer array will consist of 512 sta-
+tions, each containing 256 dipole antennas observing in
+one band at 0.05GHz < ν < 0.35GHz. Most of the large-
+scale sensitivity comes from the tightly packed “core" con-
+ﬁguration of the array with Nd = 224 stations, however the
+long baselines will be crucial for calibration and foreground
+removal. We assume that the core stations are uniformly
+distributed out to a 500 m radius, giving a maximum base-
+line Dmax = 1km. The station size is D = 40m, the area
+per antenna is 3.2m2 at 110 MHz, and the instantaneous
+ﬁeld of view is (1.2λ/D)2 sr, with λ = 21(1+z)cm. Although
+multi-beaming should be possible, we consider the con-
+servative case of one beam only. The system temperature
+is given by Tsys = Trx +Tgal, with the receiver temperature
+Trx = 0.1Tgal +40K, and Tgal deﬁned as for SKA-MID.
+2.3 Proposed cosmology surveys
+In this document we will refer to the following surveys tar-
+geting cosmology with the SKA:
+• Medium-Deep Band 2 Survey : SKA1-MID in Band 2
+covering 5,000deg2 and an integration time of approx-
+imately ttot = 10,000 hrs on sky. Main goals: a contin-
+uum weak lensing survey and an HI galaxy redshift
+survey out to z ∼0.4 (see sections 3.2 and 4).
+• Wide Band 1 Survey : SKA1-MID in Band 1 covering
+20,000deg2 and an integration time of approximately
+ttot = 10,000 hrs on sky. Main goals: a wide continuum
+galaxy survey and HI intensity mapping in the redshift
+range z = 0.35−3 (see sections 3.3, 3.4 and 5).
+• Deep SKA1-LOW Survey : This survey will naturally
+follow the Epoch of Reionisation (EoR) survey strat-
+egy. Currently, a three-tier survey consisting of a wide-
+shallow, a medium-deep, and a deep survey is planned.
+For our forecasts in this paper we have assumed a
+deep-like survey with 100deg2 sky coverage and an
+integration time of approximately ttot = 5,000 hrs
+on sky using data from sub-bands at frequencies
+200−350MHz, equivalent to 3 < z < 6 (see section 5).
+2.4 Survey Processing Requirements
+The production of SKA data products will be performed by
+the Science Data Processor (SDP) element through High
+Performance Computer facilities at Perth and Cape Town
+for SKA1-LOW and SKA1-MID respectively. The SKA1 De-
+sign Baseline for the telescope will deliver a compute power
+of 260 PFLOPs to deliver the science data products that will
+be transported to Regional Data Centres for further analysis.
+However, in order to meet the overall telescope cost cap a
+Deployment Baseline has been deﬁned which will deliver
+only 50 PFLOPs of compute power when telescope opera-
+tions start, with a plan to increase to the full capability then
+being delivered over a 5-year period. Although it is already
+planned that scientiﬁc programmes will be scheduled to
+spread the computational load across a period deﬁned by
+the SDP ingest buffer, here we assess the computational
+load that will result from the surveys deﬁned in section 2.3.
+This assessment is based upon document SKA-TEL-SKO-
+00009415 (Anticipated SKA1 HPC Requirements).
+Medium-Deep Band 2 Survey: This survey will require
+approximately 2 hours of observing time on each individ-
+ual ﬁeld. Since the survey is assumed to be commensal
+with the project to create and an all sky rotation measure
+map to probe the galactic magnetic ﬁeld, data products
+for all 4 polarisations will be required. The weak lensing
+experiment (section 3.2) requires use of the longest base-
+lines (150km). The HI galaxy redshift survey requires that
+spectral line data products are generated in addition to
+the continuum ones needed for other purposes. Although
+combining these various requirements would seem to im-
+ply a maximally difﬁcult data processing task, one of the
+key ﬁndings of SKA-TEL-SKO-0000941 is that the dominant
+computational cost is driven by the calibration step and
+that after this has been achieved the delivery of multiple
+different science products to address their differing require-
+ments at minimal incremental cost. Assuming that obser-
+vations are only required in sub-band Mid sb4 (as deﬁned
+in SKA-TEL-SKO-0000941) we therefore estimate that the
+computational cost of this experiment is approximately 75
+PFLOPs (assuming 10% efﬁciency). While sb4 observations
+are sufﬁcient for most continuum science goals, note that
+this would only cover z > 0.2 for HI galaxy surveys, and
+additional sb5 observations doubling the computational
+cost might be necessary.
+Wide Band 1 Survey: The primary data products required
+for the HI IM experiment (section 5) are the antenna auto-
+correlations, potentially complemented with additional cal-
+ibration derived from the shortest interferometer baselines.
+The compute power needed for processing autocorrelation
+data is negligible compared with that for visibility data. This
+survey will also be used to generate the Band 1 continuum
+source sample discussed in section 3. The total observing
+time on each individual ﬁeld is around 1 hour, so the anal-
+ysis in SKA-TEL-SKO-0000941 suggests that the computa-
+tional cost of this survey is approximately 50 PFLOPs (as-
+suming 10% efﬁciency) for each of the three sub-bands in
+Band 1 that are desired. However, as discussed in section 5,
+in order to beat down systematic errors on the autocor-
+relation measurements, a fast scanning strategy may be
+adopted for this survey. Commensality with the continuum
+survey will then require an on-the-ﬂy observing mode for
+the interferometer6. Although it seems technically feasible
+to implement such mode with SKA1-MID up to scanning
+speeds of 1 deg/s, further assessments are still needed on
+the calibration requirements for the continuum survey and
+on the extra computational costs.
+5To be found under https://astronomers.skatelescope.org/documents/
+6Such observing mode is currently available with the VLA
+
+--- PAGE BREAK ---
+
+Deep SKA1-LOW Survey: This survey consists of more
+than 1000 hour integrations on a small number of indi-
+vidual ﬁelds with observations being commensal with the
+EoR Key Science Project (KSP). The computational load of
+calibrating such deep observations is severe, but is also a
+strong function of frequency across the SKA1-LOW band,
+with 200-350 MHz being substantially easier than 50-200
+MHz. Although the signal of interest resides on the short-
+est baselines, it is likely that high angular resolution image
+data products will be required in order to remove the ef-
+fects of contamination of discrete radio sources in the ﬁeld,
+so we assume that baselines out to 65km will need to be
+processed. We therefore estimate that the computational
+load for the 200-350 MHz survey is approximately 130 and
+70 PFLOPs (assuming 10% efﬁciency) for sub-bands LOW
+sb5 and sb6. It should be noted that if these observations
+are performed commensally with the EoR, the requirement
+for the Low sb 1,2,3,4 data are approximately 200, 300, 200
+and 200 PFLOPs (assuming 10% efﬁciency) respectively.
+In conclusion, if balanced against other projects with low
+computational demands such as the pulsar search and tim-
+ing, then both the Medium-Deep Band 2 Survey should be
+feasible to conduct even with the reduced capability offered
+by the Deployment Baseline. The Wide intensity mapping
+survey by itself will not be constrained by computational de-
+mands, but commensality with the Wide continuum source
+survey requires further assessments depending on the scan-
+ning strategy. Observing a single sub-band of the Wide Band
+1 Survey should be feasible with the initial HPC capability,
+but processing all three sub-bands simultaneously will be
+challenging until the HPC capability increases. The Deep
+SKA1-LOW Survey will be more problematic and may need
+to wait until the HPC capability increases. A caveat to this is
+that the EoR observing is planned to be conducted in only
+the best ionospheric conditions, or approximately 15% of
+the total available time, so potentially this work can start
+before the full Design Baseline capability is realised.
+2.5 Synergies with other surveys
+SKA cosmology will greatly beneﬁt from synergies with op-
+tical surveys. Throughout this paper we refer to the clas-
+siﬁcation of surveys in the report of the Dark Energy Task
+Force (DETF, Albrecht et al. 2009), which describes dark
+energy research developing in stages. Stage III comprises
+current and near-term projects, which improve the dark
+energy ﬁgure of merit by at least a factor of 3 over previous
+measurements; representatives of cosmic shear and galaxy
+clustering Stage III DETF experiments are, respectively, the
+Dark Energy Survey (DES) and SDSS Baryon Oscillation
+Spectroscopic Survey (BOSS). It is also customary to cate-
+gorize Phase 1 of the SKA as Stage III. Stage IV experiments
+increase the dark energy ﬁgure of merit by at least a factor
+of 10 over previous measurements; Euclid, LSST and the full
+SKA stand as Stage IV observational campaigns. In the fol-
+lowing, we outline various optical experiments suggested
+for synergies with the SKA1 throughout this document.
+The Stage III Dark Energy Survey (DES) explores the cos-
+mic acceleration via four distinct cosmological probes: type
+Ia supernovae, galaxy clusters, Baryon Acoustic Oscillations,
+and weak gravitational lensing. Over a 5 year programme it
+is covering 5,000deg2 in the Southern hemisphere, with a
+median redshift z ≈0.7 (Dark Energy Survey Collaboration
+et al., 2016).
+DESI (Dark Energy Spectroscopic Instrument) is a Stage
+IV ground-based spectroscopic survey with 14,000 deg2 sky
+coverage (Aghamousa et al., 2016). It will use a number of
+tracers of the underlying dark matter ﬁeld: luminous red
+galaxies (LRGs) up to z = 1; emission line galaxies (ELGs)
+up to z = 1.7; and quasars and Ly-α features up to z = 3.5.
+It plans to measure around 30 million galaxy and quasar
+redshifts and obtain extremely precise measurements of
+the Baryon Acoustic Oscillation features and matter power
+spectrum in order to constrain dark energy and gravity, as
+well as inﬂation and massive neutrinos.
+The Euclid satellite is a European Space Agency’s
+medium class astronomy and astrophysics space mission.
+It comprises of two different instruments: a high quality
+panoramic visible imager (VIS); and a near infrared 3-ﬁlter
+(Y, J and H) photometer (NISP-P) together with a slitless
+spectrograph (NISP-S) (see Markovic et al. (2017) for details
+on the survey strategy). With these instruments, Euclid will
+probe the expansion history of the Universe and the evolu-
+tion of cosmic structures, by measuring the modiﬁcation of
+shapes of galaxies induced by gravitational lensing, and the
+three-dimensional distribution of structures from spectro-
+scopic redshifts of galaxies and clusters of galaxies (Laureijs
+et al., 2011b; Amendola et al., 2013, 2018)
+The Large Synoptic Survey Telescope (LSST) is a forth-
+coming ground based, wide ﬁeld survey telescope. It will
+examine several probes of dark energy, including weak lens-
+ing tomography and baryon acoustic oscillations. The LSST
+survey will cover 18,000deg2, with a number density of
+galaxies 40arcmin−2, redshift range 0 < z < 2 with median
+redshift z ≈1 (LSST Dark Energy Science Collaboration,
+2012).7
+2.6 Fiducial cosmological model and extensions
+The standard cosmological model that we have used is
+a ΛCDM model based on the the parameters preferred
+by the 2015 Planck analysis (TTTEEE+lowP) . In particu-
+lar the physical baryon and cold dark matter (CDM) den-
+sities are Ωbh2 = 0.02225 and Ωch2 = 0.1198, the value
+of the Hubble constant is H0 = 100h kmsec−1 Mpc−1 =
+67.27kmsec−1 Mpc−1, the amplitude and spectral index of
+density ﬂuctuations are given by log(AS) = 3.094 and nS =
+0.9645, and the optical depth to reionisation is τ = 0.079.
+7Note that these numbers, used also in forecasts in the present
+work, have recently been updated to more conservative values, such as
+14,300deg2 for the area, and smaller number densities and median red-
+shift (Alonso et al., 2018).
+
+--- PAGE BREAK ---
+
+We note that these parameter constraints were derived un-
+der the assumption that the sum of the neutrino masses
+is ﬁxed to Pmν = 0.06eV and therefore we use this in the
+deﬁnition of our ﬁducial model.
+We also consider extensions to the standard model, fo-
+cusing on those where addition of information from SKA1
+can have an impact. Speciﬁcally we will consider the follow-
+ing possibilities.
+• Curvature: parameterized by Ωk.
+• Massive neutrinos: parameterized by the sum of the
+masses Mν = Pmν.
+• Modiﬁcations to the dark sector equation of state: us-
+ing the CPL parameterization (Chevallier & Polarski,
+2001), P/ρ = w(a) = w0 +(1−a)wa.
+• Modiﬁed gravity: deviations from General Relativity
+(GR) can be encoded by an effective description of the
+relation between the metric potentials of the form
+−2k2Ψ = 8πGN a2µ(a,k)ρ∆,
+Ψ = γ(a,k),
+where the GR limit is µ = γ = 1 and ∆is the comoving
+density perturbation. We consider scale independent
+deviations from GR which emerge at late times (we
+neglect the effect at z > 5), hence we assume they are
+proportional to the dark energy density parameter:
+µ(a,k) = 1+µ0
+ΩΛ(a)
+ΩΛ,0
+γ(a,k) = 1+γ0
+ΩΛ(a)
+ΩΛ,0
+. (5)
+µ0 and γ0 are the free parameters in our analysis.
+• Non-Gaussianity: this is parameterised using the local
+fNL deﬁned in terms of the amplitude of the quadratic
+contributions to the metric potential Φ as a local func-
+tion of a single Gaussian ﬁeld φ,
+Φ(x) = φ(x)+ fNL
+φ2(x)−〈φ2〉
++... .
+At various stages during the analysis we have imposed a
+Planck prior on our forecast cosmological parameter con-
+straints. Unless stated otherwise, this is based on the Planck
+2015 CMB + BAO + lensing results presented in Planck Col-
+laboration et al. (2016a). This was implemented by taking
+published MCMC chains8 and calculating the covariance
+matrix for the following extended set of cosmological pa-
+rameters: ns, σ8, Ωbh2, Ωmh2, h, w0, and wa. The covari-
+ance matrix was then inverted to obtain an effective Fisher
+matrix for the prior, which is marginalised over all other
+parameters (including nuisance parameters) that were in-
+cluded in the Planck analysis. Applying the prior is then
+simply a matter of adding it to the forecast Fisher matrix
+for the survey of interest. While this method is approximate
+(e.g. it discards non-Gaussian information from the Planck
+posterior), it is sufﬁciently accurate for forecasting.
+8base_w_wa_plikHM_TT_lowTEB_BAO_post_lensing
+Figure 1. The total and number of each galaxy species as function of
+redshift N(z) for a 5,000deg2 survey (above) and a 20,000deg2 survey (be-
+low) on SKA1-MID, assuming a ﬂux limit of 8.2µJy (for the Medium-Deep
+Band 2 Survey) and 22.8µJy (for the Wide Band 1 Survey), both assuming
+10σ detection. The galaxy types are star forming galaxy (SFG), starburst
+(SB), Fanaroff-Riley type-I and type-II radio galaxies (FR1 & FR2), and
+radio-quiet quasars (RQQ).
+3 CONTINUUM GALAXY SURVEYS
+3.1 Modeling the continuum sky
+In this section, we outline how to model the continuum
+sky and the science cases for the Wide Band 1 Survey and
+Medium-Deep Band 2 Survey. The continuum ﬂux density
+limit of the Medium-Deep Band 2 Survey is estimated to be
+8.2µJy assuming a 10σ r.m.s. detection threshold whereas
+the Wide Band 1 Survey will cover four times the area,
+to approximately slightly less than half the depth and the
+ﬂux density limit is predicted to be more than double the
+Medium-Deep Band 2 Survey, at 22.8µJy assuming a 10σ
+r.m.s. detection threshold. Note that this is not exactly a
+factor of two different to that for the Medium-Deep Band 2
+Surveysince the overall sensitivity of the array varies with
+frequency.
+
+--- PAGE BREAK ---
+
+Figure 2. Bias as a function of redshift for the different source types, as
+following the simulated S3 catalogues of Wilman et al. (2008) including
+the cut-off above some redshift as described in the text.
+In Fig. 1 we plot the expected number distribution as a
+function of redshift of all radio galaxies as well as split by
+galaxy type, for the two different surveys in the top and bot-
+tom panel respectively. These distributions are generated
+using the SKA Simulated Skies (S3) simulations9, based on
+Wilman et al. (2008).
+We also need to choose a model for the galaxy bias. Each
+of the species of source (i.e. starburst, star-forming galaxy,
+FRI-type radio galaxy, etc.) from the S3 simulation has a
+different bias model, as described in Wilman et al. (2008).
+The bias in these models increases continuously with red-
+shift, which is unphysical at high redshift; to avoid this we
+follow the approach of Raccanelli et al. (2011) holding the
+bias constant above a cut-off redshift (see Fig. 2). Having
+a handle on the redshift evolution of bias and structure
+will represent a strong improvement for radio continuum
+galaxy surveys, thanks to the high-redshift tail of contin-
+uum sources and will translate into tighter constraints on
+dark energy parameters compared to the unbinned case, as
+shown in Camera et al. (2012). The true nature of the bias
+for high-redshift, low-luminosity radio galaxies, remains
+currently unknown; the choice of a bias model therefore
+remains a source of uncertainty, but one that the SKA will
+be able to resolve.
+As well as predicting the number and bias of the galaxies
+for the two strategies, we also use the ﬂuxes from the S3
+simulation to predict values for the slope of the source-ﬂux
+to number density power law, which couples the observed
+number density to the magniﬁcation (magniﬁcation bias),
+given by
+αmag(S) = −d(logn)
+d(logS) ,
+where S is the ﬂux density and n is the unmagniﬁed num-
+9http://s-cubed.physics.ox.ac.uk/
+zmin
+zmax
+N/106
+bias
+αmag
+Wide Band 1 Survey
+17.53
+0.94
+0.95
+23.98
+1.26
+1.31
+22.80
+1.85
+1.48
+13.20
+2.26
+1.34
+20.30
+3.72
+1.26
+Total
+97.81
+Medium-Deep Band 2 Survey
+4.14
+0.86
+0.76
+6.25
+0.86
+1.04
+8.06
+0.90
+1.05
+7.78
+1.21
+1.19
+7.85
+1.52
+1.30
+5.77
+1.58
+1.22
+4.54
+2.09
+1.46
+7.90
+2.39
+1.25
+6.12
+2.85
+1.25
+Total
+58.41
+Table 3 For each redshift bins used in our analysis we present
+the redshift range, expected number of galaxies, galaxy bias, and
+magniﬁcation bias (αmag), for the two continuum surveys. The
+bias refers to the number-weighted average of the bias of all galax-
+ies in the bin. These surveys are expected to have a total angular
+number density n ≈1.4arcmin−2 for the Wide Band 1 Survey and
+≈3.2arcmin−2 for the Medium-Deep Band 2 Survey.
+ber density (Bartelmann & Schneider, 2001). Magniﬁcation
+bias arises because faint objects are more likely to be seen
+if they are magniﬁed by gravitational lenses due to overden-
+sities along the line of sight. This changes the clustering
+properties of the sample, and thus contains cosmological
+information.
+Finally, we will be able to divide our sample into red-
+shift bins, based on photometric or statistical information
+(Kovetz et al., 2017b; Harrison et al., 2017). While these bins
+will not be as accurate as spectroscopic redshifts, they will
+still allow us to recover some of the 3D information from
+the distribution of galaxies. The Medium-Deep Band 2 Sur-
+vey will have cross-identiﬁcations from other wave-bands
+(optical from the Dark Energy Survey, for example) over
+its smaller area, allowing for accurate photometric redshift
+bins, whereas the Wide Band 1 Survey will have limited all
+sky optical/IR information. We assume nine photo-z bins
+for Medium-Deep Band 2 Survey, and ﬁve for Wide Band
+1 Survey. The assumed redshift bin distribution, as well as
+the number of galaxies, bias and slope of the source count
+power-law, is given in Table 3.
+3.2 Weak lensing
+A statistical measurement of the shapes of millions of galax-
+ies as a function of sky position and redshift enables us to
+measure the gravitational lensing effect of all matter - dark
+
+--- PAGE BREAK ---
+
+and baryonic - along the line of sight between us and those
+galaxies. Weak lensing shear measurements are insensitive
+to factors such as galaxy bias. A number of studies have
+made marginal detections of the radio weak lensing signal
+(Chang et al., 2004) and radio-optical cross correlation sig-
+nals (Demetroullas & Brown, 2016, 2018), but convincing
+detections have not yet been possible due to a lack of high
+number densities of resolved, high redshift sources (see
+Patel et al., 2010; Tunbridge et al., 2016; Hillier et al., 2018).
+Here, we demonstrate the capabilities of SKA1 as a weak
+lensing experiment, both alone and in cross-correlation
+with optical lensing experiments. We consider only a total
+intensity continuum lensing survey, but note that useful
+information could also be gained on the important intrin-
+sic alignment astrophysical systematic by using polarisa-
+tion (Brown & Battye, 2010, 2011; Thomas et al., 2017) and
+resolved rotational velocity (e.g. Morales, 2006) measure-
+ments.
+3.2.1 Cosmic shear simulations for SKA
+We create forecasts for the SKA1 Medium-Deep Band 2 Sur-
+vey. This survey is very similar to the optimal observing
+conﬁguration found from catalogue-level simulations in
+Bonaldi et al. (2016). We assume the survey will use the
+lower 1/3 of Band 2 and the weak lensing data will be
+weighted to give an image plane point spread function (PSF)
+width of 0.55arcsec, with the source population cut to in-
+clude all sources which have ﬂux > 10σ and a size > 1.5×
+the PSF size. These source populations are also rescaled, as
+in Bonaldi et al. (2016), to more closely match more recent
+data and the T-RECS simulation (Bonaldi et al., 2018). For
+comparison to a similar Stage III optical weak lensing ex-
+periment, and for use in shear cross-correlations, we take
+the DES with expectations for the full 5-year survey. The
+assumed parameters of the two surveys are fully speciﬁed
+in Table 4. For the Medium-Deep Band 2 Survey we assume
+a sensitivity corresponding to baseline weighting resulting
+in an image plane PSF with a best-ﬁtting Gaussian FWHM
+of 0.55arcsec.
+We assume redshift distributions for weak lensing galax-
+ies follow a distribution for the number density of the form
+dz ∝z2 exp
+−(z/z0)γ¢
+where z0 = zm/
+2 and zm is the median redshift of sources
+using best ﬁtting parameters for the SKA1-MID Medium-
+Deep Band 2 Survey population and DES survey given in
+Table 4. Sources are split into ten tomographic redshift bins,
+with equal numbers of sources in each bin and each source
+is attributed an error as follows. A fraction fspec-z out to
+a redshift of zspec-max are assumed to have spectroscopic
+errors, in line with the predictions of Yahya et al. (2015);
+Harrison et al. (2017). The remainder are given photometric
+redshift errors with a Gaussian distribution (constrained
+with the physical prior z > 0) of width (1+ z)σphoto-z out to
+a redshift of zphoto-max. Beyond zphoto-max we assume very
+poor redshift information, with (1+ z)σno-z.
+Of crucial importance to weak lensing cosmology is pre-
+cise, accurate measurement of source shapes in order to
+infer the shear transformation resulting from gravitational
+lensing. For our forecasts, we assume systematic errors due
+to shear measurement will be sub-dominant to statistical
+ones. For the Medium-Deep Band 2 Survey, the formulae of
+Amara & Réfrégier (2008) allow us to calculate requirements
+on the multiplicative shear bias of σm < 6.4×10−3 and ad-
+ditive shear bias of σc < 8.0 × 10−4. These requirements
+are of the same order of magnitude as those achieved in
+current optical weak lensing surveys such as DES and the
+Kilo-Degree Survey10, but tighter (by an order of magnitude
+in the case of multiplicative bias) than current methods for
+radio interferometer to date (Rivi & Miller, 2018; Rivi et al.,
+2018). We assume that in the period to 2028, when obser-
+vations are currently expected to begin, sufﬁcient progress
+will be made in radio shear measurement methods such
+that biases are comparable to those achievable in optical
+surveys today. Previous work has shown this is highly un-
+likely to be possible with images created with the CLE AN
+algorithm (Högbom, 1974) meaning access to lower level
+data products such as gridded visibilities (or equivalently
+dirty images) will be essential (see also Patel et al., 2015;
+Harrison & Brown, 2015). For the intrinsic ellipticity distri-
+bution of galaxies we use a shape dispersion of σgi = 0.3.
+There are signiﬁcant advantages to forming cosmic
+shear power spectra by cross-correlating shear maps made
+using two different experiments. In such power spectra,
+wavelength-dependent additive and multiplicative system-
+atics can be removed (Camera et al., 2017) and almost all of
+the statistical constraining power on cosmological parame-
+ters is retained (Harrison et al., 2016). Care must be taken
+in identifying the noise power spectra in the case of cross-
+power spectra; it will be affected by the overlap in shape
+information between cross-experiment bins. We note that
+constraints are relatively insensitive to the number of galax-
+ies which are present in both bins, being degraded by only
+4% when the fraction of overlap is varied between zero and
+one (see Harrison et al., 2016, Fig. 1).
+3.2.2 Results from autocorrelation
+We show forecast constraints in three cosmological param-
+eter spaces in Fig. 3: matter (Ωm-σ8), Dark Energy equation
+of state in the CPL parameterisation (w0-wa) and modiﬁed
+gravity modiﬁcations to the Poisson equation and Gravita-
+tional slip (µ0-γ0). Our results show that the SKA1 Medium-
+Deep Band 2 Survey will be capable of comparable con-
+straints to other DETF Stage III surveys such as DES and
+also, powerfully, that cross-correlation constraints (which
+are free of wavelength-dependent systematics) retain al-
+most all of the statistical power of the individual experi-
+ments. In Fig. 4 we also present forecast constraints in the
+10http://kids.strw.leidenuniv.nl
+
+--- PAGE BREAK ---
+
+Weak lensing
+Asky
+fspec-z
+zspec-max
+σphoto-z
+zphoto-max
+σno-z
+experiment
+[deg2]
+[arcmin−2]
+SKA1 Medium-Deep
+5,000
+1.25
+0.15
+0.05
+5,000
+0.05
+Table 4 Parameters used in the creation of simulated weak lensing data sets for SKA1 Medium-Deep Band 2 Survey and DES 5-year
+survey considered in this section.
+Figure 3. Forecast constraints for weak lensing with the SKA1 Medium-
+Deep Band 2 Survey as speciﬁed in the text, compared to the Stage III
+optical weak lensing DES and including cross-correlation constraints.
+Figure 4. The effect of including a prior from the Planck satellite (Planck
+2015 CMB + BAO + lensing as described in section 2.6) on the forecast
+Dark Energy constraints for the speciﬁed cross-correlation weak lensing
+experiment (note that constraints in the other two parameter spaces on
+not signiﬁcantly affected).
+Dark Energy parameter space including priors from the
+Planck CMB experiment, speciﬁcally a Gaussian approxi-
+mation to the Planck 2015 CMB + BAO + lensing likelihood
+as described in section 2.6 with constraints on the other
+parameters considered not signiﬁcantly affected by appli-
+cation of the Planck prior. We also display tabulated sum-
+maries of the one dimensional marginalised uncertainties
+on these parameters in Table 5.
+3.2.3 Results from radio-optical cosmic shear
+cross-correlations
+A key consideration in weak lensing surveys are the sys-
+tematics induced by the instrument on galaxy shape mea-
+surements, which must be controlled to high levels in order
+to ensure unbiased constraints on cosmological parame-
+ters. In contrast with the optical weak lensing surveys con-
+ducted to date, radio weak lensing surveys will measure
+galaxy shapes from uv-data, allowing for direct Fourier
+plane measurement, as well as measurement in images
+reconstructed by deconvolving the interferometer PSF. The
+systematics from these shape measurements will be very
+different, and uncorrelated with, those from measuring
+shapes from CCD images. In Rivi & Miller (2018), the au-
+thors adapted the optical method lensﬁt to shape measure-
+ment on Fourier-domain interferometer data which is ca-
+pable of satisfying the requirements for the SKA1 Medium-
+
+--- PAGE BREAK ---
+
+Experiment
+σ(Ωm)/Ωm,
+σ(σ8)/σ8
+σ(w0),
+σ(wa)
+σ(µ0),
+σ(γ0)
+DETF FoM
+SKA1-Medium-deep
+0.083
+0.040
+0.52
+0.77
+0.63
+SKA1-Medium-deep + Planck
+0.084
+0.040
+0.28
+0.43
+0.056
+0.032
+0.43
+0.64
+0.52
+DES + Planck
+0.058
+0.033
+0.22
+0.33
+SKA1-Medium-deep×DES
+0.046
+0.024
+0.45
+0.59
+0.48
+SKA1-Medium-deep×DES + Planck
+0.046
+0.024
+0.23
+0.36
+Table 5 One dimensional marginalised constraints, from weak lensing alone and in combination with Planck CMB (PlanckCMB2015 +
+BAO + lensing as described in section 2.6), on the parameters considered, where all pairs (indicated by brackets) are also marginalised
+over the base ΛCDM parameter set.
+Figure 5. Weak lensing marginal joint 1σ error contours in the dark energy
+equation-of-state parameter plane with additive (left) and multiplicative
+(right) systematics on the shear power spectrum measurement. The black
+cross indicates the ΛCDM ﬁducial values for dark energy parameters. Blue,
+red and green ellipses are for radio and optical/near-IR surveys and their
+cross-correlation, respectively. (Details in the text.)
+Deep Band 2 Survey on sources with SNR > 18. Residual
+systematics are typically modelled as linear in the shear and
+shear power spectrum, with an additive and multiplicative
+component. In Fig. 3 (and Harrison et al., 2016) the unﬁlled
+black contours show the constraints from cross-correlating
+radio and optical weak lensing experiments, demonstrat-
+ing that nearly all of the statistical constraining power re-
+mains. In Fig. 5 (and Camera et al., 2017) we show explicitly
+how multi-wavelength cosmic shear analyses measuring
+the dark energy equation of state parameters {w0,wa} can
+be made free of both additive and multiplicative system-
+atics. The left panel shows how cross-correlation of radio
+and optical (green) experiments directly removes additive
+systematics in both radio-radio (blue) and optical-optical
+(red) experiments. Solid, dashed, dash-dotted and dotted
+ellipses represent increasing values for the residual system-
+atics power spectrum. Also in the right panel of Fig. 5 we
+show constraints for systematics which are multiplicative
+on shear power spectrum measurements. Here the radio-
+radio, optical-optical and radio-optical measurements are
+all biased away from the input cosmology individually, but
+may be used in self-calibration to recover it correctly. Miti-
+gation of such multiplicative systematics is expected to be
+extremely important even at the level of Stage III surveys
+and represents a powerful argument for performing weak
+lensing in the radio band.
+3.3 Angular Correlation Function and Integrated
+Sachs Wolfe Effect
+The angular distribution of galaxies and the cross-
+correlation of the galaxy positions with other tracers can
+yield important cosmological tests. The two-point distri-
+bution of radio galaxy positions in angle space can be rep-
+resented by the angular correlation power spectrum C i,j
+where ℓis the multipole number and i, j label redshift bins
+with the galaxies distributed across these bins deﬁned by
+window functions, Wi(z). This statistic encodes the den-
+sity distribution projected on to the sphere of the sky, and
+so smooths over structure along the line of sight. This can
+dampen the effect of Redshift Space Distortions (RSDs) on
+the angular power spectrum for broad redshift distribu-
+
+--- PAGE BREAK ---
+
+tions, but these can become important as the distributions
+narrow (Padmanabhan et al., 2007).
+When two non-overlapping redshift bins are consid-
+ered the cross-correlation of density perturbations between
+these two bins measured through C i,j
+will be negligible in
+the absence of lensing. However, the observed galaxy dis-
+tribution is also affected by gravitational lensing through
+magniﬁcation, which can induce a correlation between the
+two bins, creating an observed correlation between the po-
+sitions of some high redshift galaxies and the distribution
+of matter at low redshift.
+The distribution of matter in the Universe can also
+be measured by the effect on the CMB temperature
+anisotropies, through the Integrated Sachs-Wolfe effect
+(ISW), where the redshifting and blueshifting of CMB pho-
+tons by the intervening gravitational potentials generates
+an apparent change in temperature (Sachs & Wolfe, 1967).
+Since the distribution of matter (which generates the grav-
+itational potentials) can be mapped through the distribu-
+tion of tracer particles, such as galaxies, the effect is de-
+tected by cross-correlating the positions of galaxies and
+temperature anisotropies on the sky. For a more detailed
+description of the use of the ISW with SKA continuum sur-
+veys, see Raccanelli et al. (2015).
+Here, we demonstrate the capabilities of SKA for us-
+ing the angular correlation function and relevant cross-
+correlations as a cosmological probe.
+3.3.1 Forecasting
+In order to estimate the effectiveness of the surveys and
+make predictions for the constraints on the cosmological
+parameters, we simulate the auto- and cross-correlation
+galaxy clustering angular power spectra, including the ef-
+fects of cosmic magniﬁcation and the ISW. As only the ob-
+served galaxy distributions (which are affected by gravita-
+tional lensing) can be measured, it is impossible to mea-
+sure the galaxy angular power spectrum decoupled from
+magniﬁcation. Hence, the galaxy clustering angular power
+spectrum contains both the density and magniﬁcation per-
+turbations.
+We use the simulated source count and galaxy bias model
+from section 3.1 to simulate the angular correlation and
+cross-correlation functions Cℓ, and the relevant measure-
+ment covariance matrices, for the Wide Band 1 Survey and
+Medium-Deep Band 2 Survey. In the case of galaxy clus-
+tering and ISW, we limit the analysis to the multipoles
+ℓmin ≤ℓ≤200, where ℓmin = π/(2fsky) and fsky is the frac-
+tion of sky surveyed.
+When making our forecasts, we also compare to and com-
+bine with current constraints from Planck CMB 2015, BAO
+and RSD observations, as described in 2.6 (with additional
+relevant information for the extension parameters under
+consideration). We also assume that the overall bias for a
+particular redshift bin to be unknown, and so marginalised
+over. As such there are ﬁve (or nine, depending on the num-
+ber of photometric bins for the given survey) extra param-
+eters being considered in the Fisher matrix, which will de-
+grade the performance of these cosmological probes.
+3.3.2 Results
+The 68% conﬁdence level constraints on the different pa-
+rameters described in section 2.6 for the Wide Band 1 Sur-
+vey and the Medium-Deep Band 2 Survey are given Table 6.
+We show the predicted 68% and 95% conﬁdence level
+constraints as a 2D contour, for the dark energy parameters
+w0 and wa in Fig. 6, and the modiﬁed gravity parameters µ0
+and γ0 in Fig. 7. These constraints are shown for the Wide
+Band 1 Survey and the Medium-Deep Band 2 Survey in red,
+combining measurements from all photometric redshift
+bins, and including constraints from the ISW. In the dark
+energy case, we also show current constraints from Planck
+in blue, but for the modiﬁed gravity case the Planck MCMC
+chains for these models are not public.
+The predicted constraints on the dark energy parameters
+do not improve signiﬁcantly on those presently available.
+This is also somewhat the case for the modiﬁed gravity
+parameters and the curvature, in the case of the Medium-
+Deep Band 2 Survey, though the Wide Band 1 Survey does
+improve on current knowledge. However, such constraints
+will improve with a better knowledge of the bias (decreasing
+the number of extra parameters to be marginalised over)
+and with a larger number of photometric redshift bins.
+Constraints on fNL from the Medium-Deep Band 2 Sur-
+vey will not be signiﬁcantly better than those currently
+made by the Planck surveyor, fNL = 2.5±5.7 (Planck Collab-
+oration et al., 2016b). In contrast the Wide Band 1 Survey is
+capable of improving the constraint, with further potential
+gain from an increased number of redshift bins (Raccanelli
+et al., 2017). Finally, more competitive constraints on all pa-
+rameters, but especially for fNL, may be achievable through
+the use of different radio galaxy populations as tracers of dif-
+ferent mass halos, as described in Ferramacho et al. (2014).
+3.4 Cosmic dipole
+The standard model of cosmology predicts that that the
+radio sky should be isotropic on large scales. Deviations
+from isotropy are expected to arise from proper motion
+of the Solar system with respect to the isotropic CMB (the
+cosmic dipole), the formation of large scale structures and
+light propagation effects like gravitational lensing.
+The CMB dipole is normally associated with the proper
+motion of the Sun with respect to the cosmic heat bath at
+T0 = 2.725K. However, the CMB dipole could also contain
+other contributions, e.g. a primordial temperature dipole or
+an integrated Sachs-Wolfe (ISW) effect, and measurements
+using only CMB data are limited by cosmic variance.
+The extragalactic radio sky offers an excellent opportu-
+nity to perform an independent test of the origin of the
+cosmic dipole. It is expected that the radio dipole is domi-
+nated by the kinematic dipole, as radio continuum surveys
+have median redshifts well above one (unlike visible or in-
+
+--- PAGE BREAK ---
+
+Table 6 Predicted constraints from continuum galaxy clustering measurements using the two different survey strategies (Wide Band 1
+Survey and Medium-Deep Band 2 Survey). These are 68% conﬁdence levels on each of the parameters of the four different cosmological
+models we tested. The three main columns show results of galaxy clustering (GC) by itself (left), GC combined with Integrated Sachs
+Wolfe (ISW) constraints (centre), and when Planck priors from Planck CMB 2015+BAO are added to GC+ISW (right). Note that these
+cases assume that the overall bias in each of the photometric redshift bins is unknown, and needs to be marginalised over.
+Data combination and parameters
+Survey
+Model
+Galaxy Clustering (GC)
+GC+ISW
+GC+ISW+Planck
+σ(w0)
+σ(wa)
+σ(w0)
+σ(wa)
+σ(w0)
+σ(wa)
+SKA1-Wide
+(w0wa)CDM
+0.29
+0.79
+SKA1-Medium-Deep
+(w0wa)CDM
+0.28
+0.77
+σ(µ0)
+σ(γ0)
+σ(µ0)
+σ(γ0)
+σ(µ0)
+σ(γ0)
+SKA1-Wide
+ΛCDM+µ0+γ0
+0.88
+0.15
+0.35
+SKA1-Medium-Deep
+ΛCDM+µ0+γ0
+0.16
+0.37
+σ(Ωk)
+σ(Ωk)
+σ(Ωk)
+SKA1-Wide
+ΛCDM+Ωk
+18×10−2
+14×10−2
+2.0×10−3
+SKA1-Medium-Deep
+ΛCDM+Ωk
+12×10−2
+12×10−2
+2.0×10−3
+σ(fNL)
+σ(fNL)
+σ(fNL)
+SKA1-Wide
+ΛCDM+fNL
+SKA1-Medium-Deep
+ΛCDM+fNL
+frared surveys). Current estimates of the radio dipole show
+good agreement with the CMB dipole direction, but ﬁnd
+a dipole amplitude that is a factor of 2 to 5 larger than ex-
+pected (Blake & Wall, 2002; Singal, 2011; Rubart & Schwarz,
+2013; Colin et al., 2017; Bengaly et al., 2018b). See also Ben-
+galy et al. (2018a) for a study on dipole measurements with
+the SKA1 and SKA2.
+3.4.1 Forecasting
+In this section, we estimate the ability of SKA1 continuum
+surveys to measure the cosmic radio dipole using realistic
+mock catalogues, which include the effects of large scale
+structure and the kinematic dipole. Details of that study
+will be published elsewhere. Brieﬂy, the mock catalogues
+assumed an angular power spectrum of the radio galaxies
+generated by CAMB S O U R C E S (Challinor & Lewis, 2011),
+assuming the Planck best-ﬁt ﬂat ΛCDM model (Planck
+Collaboration et al., 2016a). The redshift distribution N(z)
+is shown in Fig. 1, and the bias b(z) follows Alonso et al.
+(2015c). The available sky area is fsky ≈0.52 due to the re-
+moval of the galactic plane on low latitudes (|b| ≤10◦). Us-
+ing the lognormal code F L A S K (Xavier et al., 2016), we pro-
+duced ensembles of 100 catalogues each, where the radio
+source positions follow the expected clustering distribu-
+tion.
+The effect of the kinetic dipole is implemented by boost-
+ing the maps of galaxy number densities according to the
+theoretical expectation (Ellis & Baldwin, 1984),
+dΩ(S,n)
+dΩ(S,n)
+rest
+1+[2+β(1+α)]n·v
+where S denotes the ﬂux density threshold of the survey, n
+the direction on the sky and v the Sun’s proper motion. This
+expression assumes that radio sources follow a power-law
+spectral energy distribution, S ∝ν−β with β = 0.75. The
+source counts are assumed to scale with S as dn/dS ∝S−α,
+and we assume α = 1 (which is very similar to the values of
+α for the individual redshift bins from simulations given in
+Table 3).
+Here we show results from estimations of the radio dipole
+direction and amplitude, A = [2+β(1+α)]|v|/c, of the gen-
+erated mock catalogues by means of a quadratic estimator
+in pixel space on a HEALPix11 grid with Nside = 64. Using
+pixel space has the advantage that incomplete sky coverage
+does not bias the results.
+3.4.2 Results
+Fig. 8 shows an example of a simulated sky for a ﬂux den-
+sity threshold of 22.8µJy at a central frequency of 700 MHz
+(Band 1), demonstrating the effect of the dipole on the
+source counts, as the southern sky appears to be slightly
+more dominated by blue than the northern hemisphere.
+The results from a set of 100 such simulations is shown
+in Fig. 9. Given the assumptions, we would expect our
+mocks to produce a kinematic radio dipole amplitude of
+A = 0.0046, pointing to the CMB dipole direction. The large
+scale structure contributes a dipole with a mean amplitude
+of A = 0.0031±0.0016. This prediction depends on the as-
+sumed luminosity functions, spectral energy distributions,
+bias, redshift and luminosity evolution of radio sources, see
+e.g. Tiwari & Nusser (2016).
+Fig. 9 shows the expected total radio dipole, which com-
+prises contributions from large scale structure and the
+proper motion of the solar system. The expected kinematic
+contribution dominates the structure contribution and the
+measured amplitude is A = 0.0056 ± 0.0017 in direction
+11HEALPix package http://healpix.sourceforge.net/
+
+--- PAGE BREAK ---
+
+Wide
+Planck+BAO
+SKA+Planck+BAO
+Medium-deep
+Figure 6. 68% and 95% conﬁdence level forecast constraints on the devia-
+tion of the dark energy parameters w0,wa from their ﬁducial values for
+the Wide Band 1 Survey (top) and Medium-Deep Band 2 Survey (bottom),
+using galaxy clustering data, including the effects of cosmic magniﬁcation.
+We show constraints from Planck CMB 2015 and BAO and RSD observa-
+tions, as described in 2.6 in blue, SKA1 forecasts in red and the constraints
+for the combination of both experiments in green. We show here that for
+the dark energy parameters, the continuum data adds little to the existing
+constraints, owing to the uncertainty in the bias in each redshift bin.
+Wide
+SKA+Planck+BAO
+Medium-deep
+Figure 7. 68% and 95% conﬁdence level forecast constraints on the devia-
+tion of the modiﬁed gravity parameters µ0,γ0 from their ﬁducial values for
+the Wide Band 1 Survey (top) and Medium-Deep Band 2 Survey (bottom),
+using galaxy clustering data, including the effects of cosmic magniﬁca-
+tion. We show SKA forecasts constraints in red and the constraints for the
+combination of SKA1 with Planck CMB 2016 and BAO in green.
+
+--- PAGE BREAK ---
+
+Figure 8. Simulated source count per pixel for the SKA1-MID Wide Band 1
+Survey at a central frequency of 700 MHz and a ﬂux threshold of 22.8µJy
+in galactic coordinates and Mollweide projection at HEALPix resolution
+Nside = 64 including the kinematic dipole and cosmic structure up to
+multipole moment ℓmax = 128. This shows the effect of the dipole on the
+source counts, as the southern sky appears here slightly bluer than the
+northern hemisphere.
+(l,b) = (263.5 ± 28.0,38.8 ± 19.7) deg. The distribution of
+dipole directions from the mocks is centered on the CMB
+dipole direction, but with some scatter due to the large
+scale structure.
+The structure dipole is in fact dominated by contribu-
+tions from local structure. Removing the low-redshift struc-
+ture dipole (z < 0.5), which might be possible using op-
+tical or infra-red catalogues, or by means of the HI red-
+shift measured by the SKA, we measure the dipole direction
+(l,b) = (265.3±4.9,46.4±4.3) deg, in excellent agreement
+with the simulated dipole direction, with an amplitude of
+A = 0.0047±0.0004, also agreeing with the input value. The
+distributions of dipole amplitudes is shown in the right
+panel of Fig. 9.
+We also simulated catalogues with S = 5,10 and 16µJy,
+which show that the structure dipole depends on the ﬂux
+density threshold, providing an extra handle to separate
+them from the kinematic dipole. In none of our simulations
+was shot noise a limitation, in contrast to contemporary
+radio continuum surveys (Schwarz et al., 2015).
+4 HI GALAXY REDSHIFT SURVEY
+The HI galaxy redshift survey mode involves detecting the
+redshifted 21cm emission from many individual galaxies
+above the confusion limit, predominantly at low redshift
+(z ≲0.4). At a minimum, the positions and spectroscopic
+redshifts of the detected galaxies will be available. The 21cm
+line widths and angular sizes of some subset of the galaxies
+will also be measured, allowing direct estimates of pecu-
+liar velocities to be made via the Tully-Fisher relation and
+Doppler magniﬁcation effects respectively.
+The galaxies detected in this survey mode will not neces-
+sarily be well-resolved, but resolved detections can be used
+to study galaxy dynamics. The variation of the HI content of
+galaxies over cosmic time is also an important observable
+for studies of galaxy formation and evolution. All galaxies
+with a detectable 21cm line are expected to have strong
+continuum detections, and so this survey is expected to be
+carried out commensally with a continuum galaxy survey.
+In fact, characterising the continuum emission along the
+line of sight to HI-emitting galaxies may be a necessary step
+in detecting the 21cm line.
+In this section, we describe the properties of a HI galaxy
+redshift survey using the SKA1 Medium-Deep Band 2 Sur-
+vey , and the main cosmological applications of the result-
+ing dataset.
+4.1 Survey characteristics
+The HI galaxy sample from the SKA1-MID Medium-Deep
+Band 2 Survey will be sample variance-limited out to zmax ∼
+0.4. It will be signiﬁcantly oversampled (i.e. n(z)P(k) ≫1
+where here n(z) is the comoving number density of galaxies
+in this context) at z ≲0.2, which provides an opportunity
+for multi-tracer studies, in which the uncertainty on cer-
+tain cosmological quantities is dominated by shot noise
+rather than sample variance. Similarly, procedures such as
+void detection will be more robust thanks to the high num-
+ber density. Note that Band 1 is expected to yield too few
+galaxies for a cosmological survey, but deep and narrow
+surveys may be carried out in this band to characterise the
+evolution of HI galaxies.
+Basic predictions for the number density (and corre-
+sponding bias) of galaxies that will be detected by a blind
+SKA1 HI galaxy survey were made in Yahya et al. (2015) for
+the original SKA1 speciﬁcations, and Camera et al. (2015a)
+provided a companion ﬁtting function for the estimated
+magniﬁcation bias. These calculations were based on the
+S3-SAX simulations (Obreschkow & Rawlings, 2009), and
+assumed that any galaxy with an integrated line ﬂux above
+a given (linewidth-dependent) SNR threshold would be de-
+tectable. This detection criterion implicitly assumes that a
+matched ﬁlter has been applied to the sources (e.g. so the
+total detected ﬂux of galaxies is taken into account, even
+if it is spread across multiple resolution elements). Yahya
+et al. (2015) also includes ﬁtting functions that can be used
+to rescale the number density and bias for different instru-
+mental speciﬁcations.
+Updated number density and bias predictions for the
+current SKA1 speciﬁcations were presented in Bull (2016),
+and are reproduced in Table 7, using the following ﬁtting
+functions:
+10c1deg−2 zc2 exp(−c3z),
+(10)
+b(z)
+c4 exp(c5z).
+(11)
+Redshift-binned numerical values of the number density
+and bias are given in Table 8. Bull (2016) also included a
+survey optimisation study to establish the optimal survey
+area as a function of total survey time, ﬁnding that the Wide
+Band 1 Survey would optimise the survey volume that is
+
+--- PAGE BREAK ---
+
+CMB dipole
+structure dipole
+kinematic &
+structure dipole
+kinematic &
+structure dipole,
+w/o local structure
+kinetic dipole
+0.000
+0.002
+0.004
+0.006
+0.008
+0.010
+0.012
+dipole amplitude
+counts
+Figure 9. Dipole directions (left) and histogram of dipole amplitudes (right) based on 100 large scale structure simulations each for a ﬂux density threshold
+of 22.8µJy at 700 MHz without kinetic dipole (pink), with kinetic dipole (purple) and with the contribution from the local structure dipole removed (red).
+The blue dot shows the direction of the CMB dipole. The results are displayed in galactic coordinates and in stereographic projection.
+Table 7 Fitting coefﬁcients for dn/dz and b(z) for a HI galaxy sample from the SKA1 Medium-Deep Band 2 Survey, for two detection
+thresholds. zmax is the maximum redshift at which n(z)P(kNL) > 1, where kNL is the non-linear scale.
+Survey
+Thres.
+zmax
+Ngal/106
+SKA1 Medium-Deep Band 2 Survey
+5.450
+1.310
+14.394
+0.616
+1.017
+0.391
+3.49
+4.939
+1.027
+14.125
+0.913
+-0.153
+0.329
+2.04
+Table 8 Binned number density and bias of HI galaxies, and corre-
+sponding ﬂux r.m.s. sensitivity, for the SKA1 Medium-Deep Band
+2 Survey. The assumed detection threshold is 5σ.
+zmin
+zmax
+n(z) [Mpc−3]
+b(z)
+Srms [µJy]
+2.73×10−2
+0.657
+117.9
+4.93×10−3
+0.714
+109.6
+9.49×10−4
+0.789
+102.9
+2.23×10−4
+0.876
+97.5
+6.44×10−5
+0.966
+93.1
+sample variance limited, while the Medium-Deep Band 2
+Survey would provide a reasonable trade-off between total
+volume and maximum redshift.
+Alternative number density predictions were made in
+Harrison et al. (2017), using a Bayesian line-ﬁtting method
+on simulated spectra for continuum-selected galaxies (i.e.
+a non-blind survey). The population of galaxies that is se-
+lected by this method is quite different to those selected us-
+ing the SNR threshold of Yahya et al. (2015) but, coinciden-
+tally, the predicted number density curves are very similar.
+Typically ∼10% of continuum galaxies (for the Medium-
+Deep Band 2 Survey) will have signiﬁcant detections of the
+21cm line using this method.
+We note that bright RFI from navigation satellites is ex-
+pected to impact our ability to detect HI galaxies in the
+redshift range from approximately 0.09 ≲z ≲0.23, corre-
+sponding to 1164 −1300 MHz. Terrestrial RFI is also ex-
+pected to be present elsewhere in the band, but at a much
+lower level thanks to the excellent radio-quietness of the
+SKA1-MID site. Source detection algorithms can also incor-
+porate features to reject RFI.
+4.2 Cosmological probes
+The primary purpose of spectroscopic galaxy redshift sur-
+veys is generally to measure the 3D clustering of galaxies,
+particularly the Baryon Acoustic Oscillation scale and Red-
+shift Space Distortion features in the galaxy 2-point func-
+tion, which we discuss below. Several other probes will be
+supported by the HI galaxy survey, however, providing ad-
+ditional information about galaxy velocities, weak lensing
+convergence, and the distribution of cosmic voids. Each
+of these will require alternative analysis pipelines to be de-
+veloped, with the ability to measure marked correlation
+functions, galaxy sizes, and 21cm line widths, in addition
+to the usual 3D position information. While these probes
+will not drive the survey optimization, they provide new
+information that will enable a number of novel cosmolog-
+ical analyses, and hence it is important to make sure that
+they are accommodated in the survey speciﬁcations. It is
+also important to ensure appropriate sky overlap with other
+surveys that provide complementary information, such as
+optical images (for lensing studies) and γ-ray maps (for
+detecting dark matter annihilation in cross-correlation).
+4.2.1 Baryon Acoustic Oscillations and Redshift Space
+Distortions
+The Baryon Acoustic Oscillation (BAO) feature is a preferred
+scale in the clustering of galaxies, set by sound waves emit-
+ted in the early Universe when photons and baryons were
+coupled. Since the true physical scale of the BAO is known
+from CMB observations, we can use the feature as a ‘stan-
+dard ruler’ to measure the cosmological expansion rate and
+distance-redshift relation. This is achieved by separately
+measuring the apparent size of the BAO feature in the trans-
+verse and radial directions on the sky, and comparing with
+its known physical size (set by the size of the comoving
+
+--- PAGE BREAK ---
+
+SKA Wide (IM, Band 1)
+SKA Medium-Deep (IM, Band 2)
+SKA Medium-Deep (GS, Band 2)
+Euclid-like (GS)
+HETDEX (GS)
+DA/DA
+Figure 10. Forecast constraints on the cosmic expansion rate, H, (left panel) and angular diameter distance, D A(z), (right panel) for several different
+experiments, following the forecasting methodology described in Bull (2016). The SKA1 Medium-Deep Band 2 Survey for HI galaxy redshifts is shown in
+light blue, HI intensity mapping are shown in red/pink (see Sec. 5 for details), and optical/NIR spectroscopic galaxy surveys are shown in black/grey.
+8)/(f
+Figure 11. Forecast constraints on the linear growth rate of large-scale
+structure, f σ8, for the same surveys as in Fig. 10. Open circles show a
+compilation of current constraints on f σ8 from Macaulay et al. (2013).
+sound horizon during the baryon drag epoch, rs(zd)). The
+radial BAO scale is sensitive to the expansion rate, H(z),
+while the transverse BAO scale is sensitive to the angular
+diameter distance, D A(z).
+The HI galaxy Medium-Deep Band 2 Survey will be able
+to detect and measure the BAO feature at low redshift
+(Yahya et al., 2015; Abdalla et al., 2015; Bull, 2016). This
+measurement has already been performed by optical spec-
+troscopic experiments, such as BOSS and WiggleZ (Alam
+et al., 2017; Kazin et al., 2014), but over different redshift
+ranges and patches of the sky. An SKA1 HI galaxy redshift
+survey will add independent data points at low redshift,
+z ≲0.3, which will help to better constrain the time evo-
+lution of the energy density of the various components
+of the Universe – particularly dark energy. The expected
+constraints on H(z) and D A(z) are shown in Fig. 10, and
+are typically a few percent for the HI galaxy survey. While
+this is not competitive with the precision of forthcoming
+optical/near-IR spectroscopic surveys such as DESI and
+Euclid, it will be at lower redshift than these experiments
+can access, and so is complementary to them.
+Another feature that is present in the clustering pattern
+of galaxies are Redshift Space Distortions (RSDs), a charac-
+teristic squashing of the 2D correlation function caused by
+the peculiar motions of galaxies (Kaiser, 1987; Scoccimarro,
+2004; Percival et al., 2011). Galaxies with a component of
+motion in the radial direction have their spectral line emis-
+sion Doppler shifted, making them appear closer or further
+away than they actually are according to their observed
+redshifts. This results in an anisotropic clustering pattern
+as seen in redshift space. The degree of anisotropy is con-
+trolled by several factors, including the linear growth rate of
+structure, f (z), and the clustering bias of the galaxies with
+respect to the underlying cold dark matter distribution,
+b(z). The growth rate in particular is valuable for testing
+alternative theories of gravity, which tend to enhance or
+suppress galaxy peculiar velocities with respect to the GR
+prediction (Jain & Zhang, 2008; Baker et al., 2014). RSDs
+occur on smaller scales than the BAO feature, but can also
+be detected by an HI galaxy redshift survey as long as the
+shot noise level is sufﬁciently low. The SKA1 HI galaxy sur-
+vey will be able to measure the normalised linear growth
+rate, f σ8, to ∼3% at z ≈0.3 (see Fig. 11). This is roughly in
+line with what existing optical experiments can achieve at
+similar redshifts (see Macaulay et al. (2013) for a summary).
+Fig. 12 shows results for when the growth rate constraints
+are mapped onto the phenomenological modiﬁed grav-
+ity parametrisation deﬁned in Eqs. (3) and (4).12 The con-
+12The results in Fig. 12 used the forecasting code and Planck prior de-
+scribed in Raveri et al. (2016a,b).
+
+--- PAGE BREAK ---
+
+Figure 12. Forecast constraints on phenomenological modiﬁed gravity
+parameters using the broadband shape of the power spectrum, detected
+using the HI galaxy sample of the Medium-Deep Band 2 Survey. Planck
+and DES (galaxy clustering only) constraints are included for comparison.
+The improvement from adding SKA1 is comparable to DES. Speciﬁcations
+for DES were taken from Lahav et al. (2010).
+straints on both µ0 and γ0 are improved by roughly a factor
+of two over Planck - comparable to what can be achieved
+with DES (galaxy clustering only). This is not competitive
+with bigger spectroscopic galaxy surveys like Euclid or DESI,
+but does provide an independent datapoint at low redshift.
+4.2.2 Doppler magniﬁcation
+There is a contribution to the apparent magniﬁcation of
+galaxies due to their peculiar motion, as well as weak gravi-
+tational lensing (Bonvin, 2008). The motion of the galaxies
+causes a shift in their apparent radial position (as seen in
+redshift space), while their angular size depends only on
+the actual (real space) angular diameter distance. As such,
+a galaxy that is moving away from us will maintain ﬁxed an-
+gular size while appearing to be further away than it really
+is (and thus ‘bigger’ than it should be for a galaxy at that ap-
+parent distance). This effect has been called Doppler mag-
+niﬁcation, and dominates the weak lensing convergence at
+low redshift (Bacon et al., 2014; Borzyszkowski et al., 2017;
+Bonvin et al., 2017; Andrianomena et al., 2018). It can be
+detected statistically through the dipolar pattern it intro-
+duces in the density-convergence cross-correlation, 〈κδg 〉.
+The galaxy density, δg , can be measured from the 3D galaxy
+positions, while the convergence, κ, can be estimated from
+the angular sizes of the galaxies.
+As discussed above, an SKA1 HI galaxy redshift survey
+will yield high number densities of galaxies with spectro-
+scopic redshifts at z ≲0.4, approximately covering the red-
+shift range where Doppler magniﬁcation dominates the
+weak lensing convergence. If the HI-emitting galaxies can
+be resolved, their sizes can also be measured (e.g. from their
+Figure 13. The signal-to-noise ratio of the Doppler magniﬁcation dipole
+for SKA1 as a function of separation d at z = 0.15 (the redshift bin in
+which the SNR is largest). A pixel size of 4h−1 Mpc has been assumed. The
+upper bound and lower bounds are for convergence errors (size noise) of
+σκ = 0.3 and σκ = 0.8 respectively.
+surface brightness proﬁle in continuum emission), making
+it possible to measure the Doppler magniﬁcation signal
+using a single survey. Galaxy size estimators often suffer
+from large scatter, and it remains an open question as to
+how well SKA1 will be able to measure sizes. This scatter
+has a signiﬁcant effect on the expected SNR of the Doppler
+magniﬁcation signal. There is a known relation between the
+size of an HI disk and the HI mass (Wang et al., 2016) that
+shows very little scatter over several orders of magnitude,
+however. For objects that are spatially resolved in HI, their
+expected sizes can be computed from their HI masses, and
+compared with their apparent sizes.
+Following the forecasting methodology of Bonvin et al.
+(2017), we expect SKA1 to achieve a signal-to-noise ratio
+of ≈8 on the Doppler magniﬁcation dipole for galaxies
+separated by ∼100 h−1Mpc (Fig. 13), assuming a size scat-
+ter of σ(κ) = 0.3 (comparable to what optical surveys can
+achieve). The cumulative SNR over 0.1 ≤z ≤0.5, for the full
+range of separations, is ≈40.
+4.2.3 Direct peculiar velocity measurements
+The Tully-Fisher relation (Tully & Fisher, 1977) can be used
+to infer the intrinsic luminosity of a galaxy from its 21cm
+line width, which is a proxy for rotational velocity. Com-
+bined with the redshift of the line and a measurement of
+the galaxy inclination, this makes it possible to measure
+the galaxy’s peculiar velocity in the line-of-sight direction.
+The statistics of the peculiar velocity ﬁeld, sampled by a
+large set of galaxies, can then be used to measure various
+combinations of cosmological quantities. Peculiar veloc-
+ity statistics are particularly sensitive to the growth rate of
+structure, and so can be used as powerful probes of modi-
+ﬁed gravitational physics (e.g. Hellwing et al., 2014; Koda
+et al., 2014; Ivarsen et al., 2016).
+Measuring the width of the 21cm line requires line detec-
+tions with signiﬁcantly better signal-to-noise than would
+
+--- PAGE BREAK ---
+
+10-1
+SHI/σSHI
+10-3
+10-2
+10-1
+σ(w)/w
+Figure 14. Expected fractional error on the width of the 21cm line, as
+a function of the signal-to-noise ratio on the integrated line ﬂux. The
+vertical dashes lines show three different detection thresholds: (red) 5σ
+threshold on the peak per channel SNR; (yellow) 8σ threshold on the peak
+per-channel SNR; and (blue) threshold corresponding to σ(vpec) < 0.2c.
+be needed to measure redshift alone. Fig. 14 shows the ex-
+pected fractional error on the 21cm linewidth of a galaxy
+as a function of the signal-to-noise ratio on the integrated
+ﬂux of the line, assuming a simpliﬁed Gaussian line proﬁle
+model. The 5σ and 8σ thresholds (on the peak per-channel
+SNR, not the integrated ﬂux) from Table 7 are shown as red
+and yellow dashed lines respectively. These are the thresh-
+olds we assumed for 21cm line detection for a redshift-only
+survey. To measure the peculiar velocity to better than 20%
+of the speed of light (as required by the analysis in Koda
+et al., 2014), a fractional measurement precision of ∼2.4%
+is required on the linewidth, which translates to a peak per-
+channel SNR of ∼110σ according to Fig. 14. As such, the
+number density of galaxies for which peculiar velocity mea-
+surements are available will be signiﬁcantly lower than for
+the redshift-only sample. Some way of measuring the incli-
+nation (e.g. from continuum or optical/NIR images) for all
+galaxies in the sample is also required. Nevertheless, direct
+measurements of the peculiar velocity ﬁeld are sensitive
+cosmological probes, so the constraining power of even rel-
+atively small peculiar velocity samples can be substantial.
+Forecasts for SKA precursor experiments were presented in
+Koda et al. (2014), and showed that a ∼3% measurement
+of f σ8 should be achievable at z ≃0.025 with a combined
+redshift + velocity survey, for example.
+4.2.4 Void statistics
+Future large-area galaxy surveys will offer an unprece-
+dented spectroscopic view of both large and small scales
+in the cosmic web of structure. Thanks to its high galaxy
+density and low bias, the SKA1 HI galaxy survey will allow
+unusually small voids and comoving scales to be probed
+compared to other spectroscopic surveys.
+Figure 15. Forecast marginalized parameter constraints for w0 and wa
+from the void counts of the HI galaxy Medium-Deep Band 2 Survey (grey),
+Planck (blue), and both combined (yellow). Apart from the cosmological
+parameters, we have also marginalized over uncertainty in void radius
+(Sahlén & Silk, 2016), and in the theoretical void distribution function
+(Pisani et al., 2015).
+Table 9 Forecast dark energy constraints for void counts.
+Survey
+σ(w0)
+σ(wa)
+SKA1 HI galaxy void counts
+0.22
+1.84
+Planck+lensing+BAO
+0.30
+0.85
+Joint SKA1 + Planck
+0.07
+0.34
+The number counts (Pisani et al., 2015; Sahlén et al.,
+2016), shapes (Massara et al., 2015), RSDs (Sutter et al.,
+2014), and lensing properties (Spolyar et al., 2013) of voids
+are examples of sensitive void-based probes of cosmology.
+Voids are particularly sensitive to the normalization and
+shape of the matter power spectrum, its growth rate, and
+the effects of screened theories of gravity which exhibit
+modiﬁcations to General Relativity in low-density environ-
+ments (Voivodic et al., 2017). This is because void distribu-
+tions contain objects ranging from the linear to the non-
+linear regime, across scale, density and redshift (Sahlén &
+Silk, 2016).
+We forecast cosmological parameter constraints from
+the HI galaxy Medium-Deep Band 2 Survey in our ﬁducial
+cosmology, using a Fisher matrix method. The void distri-
+bution is modeled following (Sahlén et al., 2016; Sahlén
+& Silk, 2016) using an approximate modeling scheme to
+incorporate the effects of massive neutrinos on the void
+distribution (Sahlén, 2018). We also take into account the
+galaxy density and bias for the survey. Below z ≈0.18, the
+survey is limited by the void-in-cloud limit. Voids smaller
+than this limit tend to disappear due to collapse of the over-
+density cloud within which they are situated.
+We expect to ﬁnd around 4 × 104 voids larger than
+
+--- PAGE BREAK ---
+
+10h−1Mpc. The marginalised constraints on w0 and wa
+inferred from void abundances are shown in Fig. 15 and
+Table 9. The SKA1 void counts and Planck+lensing+BAO pa-
+rameter constraints offer similar but complementary con-
+straining power, and their combination can strengthen the
+Figure of Merit by a factor of ∼6 −10. Also including the
+sum of neutrino masses as a free parameter only marginally
+weakens the void constraints (Sahlén, 2018). Recalling that
+additional cosmological information is also available in e.g.
+shapes/proﬁles, voids are therefore a promising application
+of an SKA1 HI galaxy survey.
+4.2.5 Particle dark matter searches in cross-correlation
+with γray maps
+Camera et al. (2013b) and subsequent studies (Fornengo
+& Regis, 2014; Camera et al., 2015c) proposed a new tech-
+nique for indirect particle dark matter detection, based on
+the cross-correlation of direct gravitational probes of dark
+matter, such as weak gravitational lensing or the cluster-
+ing of galaxies. A cross correlation between the unresolved
+γ-ray background seen by the Fermi Large Area Telescope
+(LAT; Atwood et al., 2009) and various cosmological ob-
+servables has already been detected (Fornengo et al., 2015;
+Xia et al., 2015; Cuoco et al., 2015; Branchini et al., 2017).
+Currently, the vast majority of the γ-ray sky is unresolved
+and only a few thousand γ-ray sources are known. On large
+scales, non-thermal emission mechanisms are expected to
+greatly exceed any other process in the low-frequency radio
+band and the γ-ray range. Thus, radio data is expected to
+correlate with the γ-ray sky and can be exploited to ﬁlter
+out the information concerning the composition of the γ-
+ray background contained in maps of the unresolved γ-ray
+emission.
+Here, we present forecasts for the cross-correlation of
+SKA1 HI galaxies and the γ-ray sky from Fermi. A major
+added value of SKA1 HI galaxies is that is their redshift
+distribution peaks at low redshift and has an extremely
+low shot noise (see Yahya et al., 2015, Fig. 4). This is the
+very regime where the non-gravitational dark matter sig-
+nal is strongest. Speciﬁcally, we adopt an SKA1 HI galaxy
+survey with speciﬁcs given in Yahya et al. (2015) for the
+baseline conﬁguration. We consider only galaxies in the
+redshift range 0 < z ≤0.5, which we further subdivide into
+10 narrow spectroscopic redshift bins. For the γ-ray angular
+power spectrum, we employ the ﬁtting formulæ found by
+Tröster et al. (2017) for Pass-8 Fermi-LAT events gathered
+until September 2016 (i.e. over eight years of data taking).
+This is a conservative choice, as by the time the SKA1 HI
+galaxy catalogue will be available, a much larger amount
+of Fermi-LAT data will be available. Fig. 16 shows the im-
+provement on bounds on particle dark matter cross-section
+as a function of dark matter mass when SKA1 HI galaxies
+are used, compared with the two main probes studied in
+Camera et al. (2015c), i.e. cosmic shear from DES (Year 1
+data only) and Euclid. The high density of spectroscopi-
+cally detected HI galaxies from the HI galaxy survey pro-
+vides constraints on particle dark matter properties that are
+10−60% tighter than with state-of-the-art and even future
+experiments.
+4.2.6 Cross-correlation with gravitational wave sources
+Gravitational wave (GW) experiments are expected to di-
+rectly detect tens to thousands of binary black holes (BBHs)
+and neutron star (NS) coalescence events per year over
+the coming decade (e.g. Ng et al., 2018), depending on the
+natural rate of mergers and how detector sensitivity im-
+proves with time. As the number of known events increases,
+and the accuracy of source localisation improves, large GW
+source catalogues numbering in the thousands to tens of
+thousands of events will be constructed. These can then
+be cross-correlated with galaxy surveys such as the SKA1
+Medium-Deep Band 2 Survey to constrain cosmological
+models and determine properties of the BBH and NS host
+galaxy/halo populations.
+GWs are lensed by intervening large-scale structure just
+as light is, and so by cross-correlating foreground galaxies
+(that act as lenses) with a background of GWs, one can per-
+form tests of general relativity and dark energy models in
+a way that is independent from current tests using galaxy
+surveys alone (Raccanelli, 2017). Forecasts are not currently
+available for an SKA1 HI galaxy survey, but O(10%) con-
+straints on w0, wa, µ0, and γ0 are expected to be achievable
+with an SKA2 HI galaxy survey (Raccanelli, 2017).
+The angular correlation of GW sources with different
+types of galaxies can also be used to understand if merging
+high-mass BBHs preferentially trace star-rich galaxies (as
+would be the case if they form from objects at the endpoint
+of stellar evolution), or the dark matter distribution (as
+would be the case if they are primordial black holes). The
+most star-rich galaxies are typically found in halos of mass
+∼1011−12M⊙, while almost all mergers of primordial BBHs
+would happen in halos of ≲106M⊙, as shown in Bird et al.
+(2016). Other models (e.g. where high-mass BBHs are the
+relics of Population III stars) also predict different host halo
+populations. The range of host halo masses determines
+the mean bias of the host population. This can be mea-
+sured through the cross-correlation of galaxy populations
+of known bias with the GW source catalogue, therefore de-
+termining the nature of BBH progenitors (Raccanelli et al.,
+2016; Scelfo et al., 2018). HI galaxies are present across a
+wide range of halo masses, but there is expected to be a cut-
+off below ∼108M⊙, where self-shielding of the HI from the
+ionising UV background fails (e.g. Bagla et al., 2010). The
+cross-correlation between HI galaxies and GW sources can
+therefore be expected to strongly constrain the primordial
+black hole scenario.
+4.2.7 HI model uncertainties
+Cosmological constraints from the HI galaxy survey are also
+subject to uncertainties in the abundance and spatial dis-
+tribution of neutral hydrogen. The combination of current
+astrophysical uncertainties on the neutral hydrogen den-
+
+--- PAGE BREAK ---
+
+b -b channel
+Fermi ⨯DES Y1 to Fermi ⨯SKA1
+Fermi ⨯Euclid WL to Fermi ⨯SKA1
+1000
+mDM [GeV]
+Ratio of 2σ bounds on 〈σav 〉
+Figure 16. Improvement factor in constraints on the dark matter annihi-
+lation cross-section as a function of particle dark matter mass, when an
+SKA1 HI galaxy survey is used for the cross-correlation with Fermi-LAT
+data, instead of DES year 1 (blue) or Euclid (orange).
+sity and bias parameters, ΩHI and bHI, can be shown to lead
+to about a 60−100% uncertainty in current models of the
+HI power spectrum (Padmanabhan et al., 2015).
+There have been numerous efforts to build accurate halo
+models of the HI distribution (e.g. Bagla et al., 2010; Davé
+et al., 2013; Villaescusa-Navarro et al., 2014; Padmanab-
+han & Refregier, 2017a; Padmanabhan et al., 2017, 2018;
+Villaescusa-Navarro et al., 2018a), with free parameters
+typically constrained using some subset of currently avail-
+able HI observables (galaxy number counts, intensity map-
+ping observations, and Damped Lyman-α systems) across
+redshifts 0−5 in the post-reionisation universe. HI galaxy
+redshift and HI intensity mapping surveys with SKA1 will
+greatly expand the amount of data available to constrain
+these models, leading to signiﬁcantly enhanced precision
+in our knowledge of the relevant parameter values (e.g. see
+Table 13 below), and allowing the models themselves to be
+distinguished from one another. Recent forecasts by Pad-
+manabhan et al. (2018) also suggest that, once priors on HI
+model parameters from existing observations are applied,
+the cosmological parameter constraints from an SKA1 HI
+intensity mapping survey will be generally insensitive to
+remaining uncertainties in the astrophysical model. The
+same conclusion is also expected to hold for the HI galaxy
+redshift survey, at least if we restrict our attention to linear
+scales, k ≲0.14Mpc−1.
+5 HI INTENSITY MAPPING
+Intensity mapping of the neutral Hydrogen line (HI IM)
+has been proposed as an innovative technique to probe
+the large scale structure of the Universe and deliver pre-
+cision constraints on cosmology (Bharadwaj et al., 2001;
+Battye et al., 2004; Peterson et al., 2006; Loeb & Wyithe,
+2008; Kovetz et al., 2017a). It relies on observations of the
+sky intensity from the integrated 21cm line emission over
+a wide sky area. For a reasonably large 3D pixel in solid
+angle and frequency interval, we expect to have several HI
+galaxies in each pixel so that their combined emission will
+provide a strong signal. Fluctuations in the observed inten-
+sity of this redshifted HI emission will follow ﬂuctuations
+in the underlying matter density as traced by the HI emit-
+ting galaxies, allowing the density ﬁeld to be reconstructed
+on sufﬁciently large scales from intensity maps. Although
+with low angular resolution, it is well matched to the scales
+required for cosmology. Moreover, as we are probing a spe-
+ciﬁc emission line (21cm) we have immediately a one to
+correspondence between observed frequency and redshift,
+which delivers very high redshift resolution. Such survey
+is much less time consuming than a spectroscopic galaxy
+survey, which requires a high signal to noise detection of
+each individual galaxy.
+On the other hand, there will be several foregrounds that
+will contaminate the HI intensity mapping signal at the ob-
+served frequencies. Cleaning such contaminants is there-
+fore a crucial process in using this technique for cosmology
+and its convolution with instrumental effects poses a seri-
+ous challenge (Alonso et al., 2015c; Wolz et al., 2014, 2015;
+Olivari et al., 2018). Note however that this line has little
+contamination from other spectral lines, which is an im-
+portant advantage over the use of other intensity mapping
+tracers (Fonseca et al., 2017).
+Several experiments have been proposed in order to mea-
+sure this signal, using single dish telescopes or interferome-
+ters (Battye et al., 2013; Bandura et al., 2014; Xu et al., 2015;
+Newburgh et al., 2016). A precursor survey to the SKA1 with
+MeerKAT has also been proposed (Santos et al., 2017). Mea-
+surements using the Green Bank Telescope (GBT) produced
+the ﬁrst tentative) detection of the cosmological HI inten-
+sity signal by cross-correlating with the WiggleZ redshift
+survey (Chang et al., 2010; Switzer et al., 2013; Masui et al.,
+2013a). More recently, a survey using the Parkes telescope
+made a detection in cross-correlation with the 2dF survey
+(Anderson et al., 2018).
+The large dish array of the SKA-MID can be exploited for
+HI intensity mapping measurements. However, SKA-MID
+in interferometric mode does not provide enough short
+baselines to map the scales of interest with sufﬁcient signal-
+to-noise (Bull et al., 2015b). The alternative is to use the
+array in single-dish mode instead. The large number of
+dishes available with SKA1-MID will guarantee a high sur-
+vey speed for probing the HI signal and have the potential to
+probe cosmology over a wide range of scales with high sig-
+nal to noise (Santos et al., 2015). Keeping the interferometer
+data will allow to create high resolution sky images which
+can be used for other science as well as calibration. In the
+following we consider the Wide Band 1 Survey (0.35 < z < 3)
+using the auto-correlation information from each dish, al-
+though the same technique can in principle be used for the
+Medium-Deep Band 2 Survey (0 < z < 0.4).
+We also present the prospects of cosmology with Deep
+SKA1-LOW Survey for HI intensity mapping at 3 < z < 6.
+One of the prime purposes of the LOW instrument is the
+
+--- PAGE BREAK ---
+
+detection of the HI gas distribution during the Epoch of
+Reionisation (EoR), which has been constrained to con-
+clude at z > 6. The 200−350 MHz range of LOW is not the
+focus of EoR observations, but the EoR pipeline can pro-
+vide intensity maps at these frequencies offering unique
+opportunities for high redshift cosmology. The combina-
+tion of the SKA1-MID and LOW surveys considered here
+will provide an unique picture of HI on cosmological scales
+over a wide redshift range (0 < z < 6).
+5.1 The HI signal and power spectrum
+5.1.1 Temperature and bias
+The total brightness temperature at a given redshift and in
+a unit direction n on the sky can be written as
+Tb(z,n) ≈T b(z)
+1+bHI(z)δm(z,n)−(1+ z)
+H(z) ni∂i
+(12)
+where bHI is the HI galaxy bias, δm is the matter density
+contrast, v is the peculiar velocity of emitters and the av-
+erage signal T b is determined by the comoving HI density
+fraction ΩHI. The last term in braces describes the effect of
+Redshift Space Distortions (RSD). The signal will be com-
+pletely speciﬁed once we have a prescription for the ΩHI
+and bHI. This can be obtained by making use of the halo
+mass function, dn/dM and halo bias, relying on a model
+for the amount of HI mass in a dark matter halo of mass M,
+i.e. MHI(M) (see Santos et al., 2015, for details). Simulations
+have found that almost all HI in the post-reionisation Uni-
+verse resides within dark matter halos (Villaescusa-Navarro
+et al., 2014; Villaescusa-Navarro et al., 2018b). This fact jus-
+tiﬁes the usage of halo models to study the spatial distribu-
+tion of cosmic neutral hydrogen (Padmanabhan & Refregier,
+2017b; Castorina & Villaescusa-Navarro, 2017; Wolz et al.,
+2018; Villaescusa-Navarro et al., 2018b).
+5.1.2 Power Spectrum
+The ﬁrst aim of the intensity mapping survey will be to
+measure the HI power spectrum (or its large sky equiva-
+lent, the angular power spectrum). In addition, we will take
+advantage of multi-wavelength coverage (e.g. BOSS, DES,
+Euclid, LSST see section 2.5) to detect the signal in cross-
+correlation. The HI power spectrum signal (with RSDs) can
+be written as
+PHI(z,k) = ¯Tb(z)2bHI(z)2[1+βHI(z)µ2]2P(z,k),
+(13)
+which allows to break the degeneracy between ΩHI and
+bHI(Masui et al., 2013b). The cross-correlation power spec-
+trum will also depend on the galaxy bias, bg and the cross-
+correlation coefﬁcient r of the two probes, and can be used,
+as mentioned, to mitigate systematic effects.
+The following forecasts make use of the Fisher matrix
+formulation. Details of the noise calculation for both MID
+(single dish and interferometer) and LOW can be found in
+Bull et al. (2015b) and Santos et al. (2015). Details on SKA1-
+LOW EoR surveys can be found in Koopmans et al. (2015).
+Particular care must be taken when combining MeerKAT
+and SKA1-MID dishes due to different primary beams and
+bands. Note that, when considering measurements with
+the interferometer, we assume a strict non-linear cutoff
+to deﬁne the maximum wavevector in the Fisher matrix,
+kmax = 0.2h/Mpc at all redshifts. This is a conservative
+choice, much smaller than the instrumental cutoff.
+The ﬁnite number of HI samples in the intensity maps
+also results into a shot noise contribution on the power
+spectrum measurements. In hydrodynamic simulations,
+Villaescusa-Navarro et al. (2018b) found that the ampli-
+tude of the HI shot-noise is negligible at z ≤5 (see also
+Castorina & Villaescusa-Navarro, 2017) and therefore BAO
+measurements through HI intensity mapping will barely
+be affected by this. They also found values of the linear
+HI bias equal to 0.84, 1.49, 2.03, 2.56, 2.82 and 3.18 at
+redshifts 0, 1, 2, 3, 4 and 5, respectively. While the HI bias
+is essentially scale-independent down to k ≃1 hMpc−1
+at z = 1, at redshifts z ≥3 the HI bias is scale-dependent
+already at k = 0.3 hMpc−1. In the following, we forecast the
+constraints on the linear bias bHI by the SKA1 IM surveys,
+however, they will also be the ﬁrst surveys to investigate
+the scale-dependence of the HI clustering signal for all
+redshifts 0 < z < 6.
+SKA1-MID
+The expected error on the measurement of the HI power
+spectrum from the Wide Band 1 Survey is shown in Fig. 17
+(top panel) for a redshift bin of width ∆z = 0.1 centered
+at z = 0.6. Keeping the cosmological parameters ﬁxed to
+the Planck 2015 cosmology (Ade et al., 2016a), the only
+unknown in PHI is (ΩHIbHI). Employing a Fisher matrix
+analysis, we calculate the expected constraints on ΩHIbHI
+(Pourtsidou et al., 2017), which are summarized in the ﬁrst
+column of Table 10. Using RSDs, the degeneracy between
+ΩHI and bHI can be broken and the resulting constraints
+are presented in the second column of Table 10.
+SKA1-LOW
+Here we present predictions on the Deep SKA1-LOW Survey.
+Other possibilities (in terms of sky coverage and observa-
+tion time) as well as an optimization study will be presented
+in an upcoming publication.
+In Fig. 17 (bottom panel) we show the predicted HI sig-
+nal power spectrum neglecting the effect of RSDs, together
+with the predicted measurement errors at z = 4 for the Deep
+SKA1-LOW Survey. Performing a Fisher matrix analysis fol-
+lowing the methodology in Pourtsidou et al. (2017) we can
+constrain ΩHI and bHI. Our derived constraints are quoted
+in Table 11. As we can see, intensity mapping with the Deep
+SKA1-LOW Survey probes the largely unexplored “redshift
+desert” era and can give us valuable information on the evo-
+lution of the HI abundance and bias across cosmic time.
+Finally, in Fig. 18 we show the derived constraints for
+
+--- PAGE BREAK ---
+
+10-2
+10-1
+k [Mpc−1 ]
+P HI(k) [mK2 Mpc3 ]
+z =0.6
+10-1
+k [Mpc−1 ]
+P HI(k) [mK2 Mpc3 ]
+z =4
+Figure 17. Upper panel: HI detection with the SKA1-MID Wide Band 1
+Survey, showing the expected signal power spectrum (black solid) and
+measurement errors (cyan) from the HI auto-correlation power spectrum.
+The assumed k binning is ∆k = 0.01Mpc−1. Lower panel: HI detection
+with the Deep SKA1-LOW Survey, signal power spectrum (solid black line)
+and measurement errors (cyan band) at z = 4. We have used a k-binning
+∆k = 0.01Mpc−1 and a redshift bin ∆z = 0.3.
+Table 10 Forecasted fractional uncertainties on ΩHIbHI, and ΩHI
+assuming the SKA1-MID Wide Band 1 Survey and following the
+methodology in Pourtsidou et al. (2017). For the ΩHI constraints
+we utilize the full HI power spectrum with RSDs. Note that the
+assumed redshift bin width is ∆z = 0.1, but we show the results
+for half of the bins for brevity. The cosmological constraints are
+reported in Fig. 10 and Fig. 11.
+σ(ΩHIbHI)/(ΩHIbHI)
+σ(ΩHI)/ΩHI
+0.002
+0.009
+0.003
+0.011
+0.004
+0.013
+0.005
+0.017
+0.006
+0.022
+0.008
+0.029
+0.010
+0.036
+0.013
+0.046
+0.016
+0.058
+0.020
+0.072
+0.025
+0.091
+0.030
+0.115
+0.038
+0.145
+0.046
+0.183
+both SKA intensity mapping surveys (i.e. Wide Band 1 Sur-
+vey and Deep SKA1-LOW Survey ) on ΩHI compared to
+current measurements.
+At this point we note that our forecasts have ignored
+residual foreground contamination and other systematic
+effects. Assessing these effects using simulations and ex-
+ploring the possibility of performing BAO measurements
+using this survey is the subject of ongoing work.
+103 ΩHI
+SKA-IM
+Zwaan
+Martin
+Rhee
+Noterdaeme
+Crighton
+Figure 18. Forecasts for the HI density, ΩHI, using the Wide Band 1 Sur-
+vey and Deep SKA1-LOW Survey (black points), and comparison with
+measurements (see Crighton et al. (2015) and references therein), follow-
+ing the methodology in Pourtsidou et al. (2017). Note that we have used a
+very conservative non-linear kmax cutoff for these results.
+
+--- PAGE BREAK ---
+
+Table 11 Forecast fractional uncertainties on HI parameters for
+intensity mapping with the Deep SKA1-LOW Survey, following the
+methodology in Pourtsidou et al. (2017).
+σ(ΩHIbHI)/(ΩHIbHI)
+σ(ΩHI)/ΩHI
+3.15
+0.010
+0.08
+3.45
+0.011
+0.09
+3.75
+0.012
+0.10
+4.05
+0.014
+0.12
+4.35
+0.015
+0.14
+4.65
+0.018
+0.17
+4.95
+0.021
+0.21
+5.25
+0.024
+0.26
+5.55
+0.029
+0.33
+5.85
+0.035
+0.42
+5.2 Cosmological probes using HI Intensity Mapping
+5.2.1 Baryon Acoustic Oscillations and Redshift Space
+Distortions
+As already mentioned in section 4.2.1, Baryon Acoustic Os-
+cillations (BAOs) can provide robust measurements on the
+angular diameter distance and Hubble rate as a function
+of redshift. Such measurements can in turn be used to con-
+strain dark energy models and the curvature of the Universe
+(Bull et al., 2015b,a; Witzemann et al., 2018). The same is
+true for RSDs, which can measure the growth rate, a cru-
+cial ingredient for instance in constraining modiﬁed gravity
+models. In this section we focus on what can be achieved
+with the Wide Band 1 Survey. Exploring the same for Deep
+SKA1-LOW Survey is the subject of ongoing work.
+The relatively poor angular resolution of SKA1-MID in
+single-dish mode at high redshifts/low frequencies will par-
+tially smear out the shape of the BAO peak along the angular
+direction. Nevertheless, SKA1-MID can still provide com-
+petitive constraints on BAO measurements and its derived
+quantities using the HI intensity mapping technique. Fol-
+lowing the Fisher matrix forecasting method described in
+Bull et al. (2015b); Bull (2016), Fig. 10 shows the expected
+constraints as a function of redshift on the angular diame-
+ter distance D A and Hubble rate H while Fig. 11 shows the
+same for the growth rate f σ8. We see that the constraints
+are still quite competitive when comparing to concurrent
+surveys (e.g. Euclid like). The high redshift resolution of the
+HI intensity mapping survey, makes it particularly ﬁt for
+line of sight measurements, such as H(z) and the growth
+rate.
+However, at frequencies ν É 800 MHz, the angular
+smoothing is so large that the BAO feature might be hard
+to extract from the angular direction. This depends on how
+well we can deconvolve the beam given the signal to noise.
+Even in this worst case scenario, the frequency resolution
+will be good enough to allow for a detection of the radial
+BAO. By means of numerical simulations incorporating the
+cosmological signal, instrumental effects and the presence
+of foregrounds, Villaescusa-Navarro et al. (2017) demon-
+strated that the position of the radial BAO peak can be mea-
+sured with percent precision accuracy through single-dish
+observations in the Band 1 of SKA1-MID.
+5.2.2 Ultra-large scale effects
+One of the "transformational" measurements expected
+from HI intensity mapping with the Wide Band 1 Survey are
+the constraints on the power spectrum on ultra-large scales
+(past the equality peak). This is an area where a single dish
+survey with SKA1-MID can excel given its low resolution,
+but large survey speed (Alonso et al., 2015c). Such measure-
+ments can provide hints on new physics that only materi-
+alise on this ultra-large scales.
+One example of such an effect is Primordial non-
+Gaussianity (PNG). In particular, PNG of the local type
+fNL introduces a scale-dependent correction to clustering
+bias (Dalal et al., 2008; Matarrese & Verde, 2008) such that
+bHI ∝fNL/k2. The 1/k2 term makes this effect particularly
+relevant on very large scales (small k) where statistical de-
+tectability is severely limited due to cosmic variance and
+large scale systematic effects. Using HI IM only we fore-
+cast σ(fNL) = 2.8, assuming Band 1 for SKA dishes and UHF
+band for the MeerKAT dishes. Note that our calculations
+take into account the telescope beams and marginalise
+over the biases. While it is not able to achieve σ(fNL) < 1,
+as opposed to more futuristic SKA upgrades (see Cam-
+era et al., 2013a), thus distinguishing between single-ﬁeld
+and multi-ﬁeld inﬂation, it will be an improvement on
+σPlanck(fNL) = 5.0.
+Another type of very large scale signatures are the so
+called General Relativistic (GR) effects. These GR effects
+introduce corrections to the tracers’ transfer function as
+leading to a set of terms which are usually gathered together
+as a single contribution. They are an important prediction
+of GR over the very largest distances that it is possible to
+probe observationally, and so constitute a valuable test of
+alternative gravitational theories (Hall et al., 2013; Lom-
+briser et al., 2013; Baker & Bull, 2015). Alonso et al. (2015d)
+has shown that these effects are not detectable in the sin-
+gle tracer case due to cosmic variance. However, it will be
+crucial to correctly model these relativistic corrections in
+future large-scale structure surveys, in order not to bias the
+estimation of other ultra-large scale effects such as primor-
+dial non-Gaussianity (Camera et al., 2015b).
+It is possible to overcome cosmic variance with the multi-
+tracer (MT) technique (Seljak, 2009), where one combines
+two differently biased dark matter tracers in such a way
+that the fundamental statistical uncertainty coming from
+cosmic variance can be bypassed. We updated the forecasts
+of Alonso & Ferreira (2015) and Fonseca et al. (2015) for fNL
+and GR effects using the multi-tracer technique with HI IM
+with SKA1 in combination with an overlapping 10,000deg2
+Euclid-like survey and 14,000deg2 LSST-like photometric
+surveys. In Table 12 we show the forecast marginal errors
+on fNL and GR effects for 3 different sets of cosmological
+
+--- PAGE BREAK ---
+
+Table 12 Marginal errors on fNL, lensing (εLens) and GR effects (εGR), which include the Doppler term (εDoppler), Time Delay (εTD),
+Sachs-Wolfe (εSW) and Integrated Sachs-Wolfe (εISW), using the MT technique with HI intensity mapping with the SKA1 Wide Band 1
+Survey in conjugation with the Euclid and LSST surveys for three prior assumptions.
+Synergy
+σ(fNL)
+σ(εLens)
+σ(εGR)
+σ(εDoppler)
+σ(εTD)
+σ(εSW)
+σ(εISW)
+SKA1 HI IM × Euclid
+0.033
+0.19
+0.033
+0.19
+SKA1 HI IM × LSST
+0.67
+0.68
+0.043
+0.12
+0.96
+0.043
+0.13
+parameters: Case 1 – marginal errors on fNL without in-
+cluding GR effects; Case 2 – marginal errors on fNL includ-
+ing Lensing and GR effects all together; Case 3 – marginal
+errors on fNL including Lensing and each GR effect indi-
+vidually. Note that all of the ϵ parameters have a ﬁducial
+value of ϵ = 1 (see Fonseca et al. 2018 for the deﬁnitions). In
+Fig. 19 we show the degeneracy between fNL and lensing
+(top) and GR effects (bottom) for the two synergy surveys
+considered assuming Case 2. It can be seen that using the
+multi-tracer technique, we will be able to break the barrier
+σ(fNL) < 1 and make a detection of some GR effects such
+as the Doppler term.
+5.2.3 HI detection via synergies with optical surveys
+Cross correlations between HI intensity mapping and op-
+tical galaxy surveys can also provide precise and robust
+cosmological measurements, as they have the advantage
+of mitigating major issues like systematics and foreground
+contaminants that are relevant for one type of survey but
+not for the other. For example, in Masui et al. (2013b) the
+intensity maps acquired at the Green Bank telescope were
+combined with the WiggleZ galaxy survey to constrain the
+quantity ΩHIbHIr at z ∼0.8 with a statistical fractional er-
+ror ∼16%. r is the cross-correlation efﬁcient of the two
+observables ranging 0 < r < 1.
+We start by looking at the intensity mapping cross-
+correlations with a spectroscopic optical galaxy survey, fol-
+lowing Pourtsidou et al. (2017). Fig. 20, top panel, shows
+the expected signal and errors for a Euclid-like spectro-
+scopic sample (Majerotto et al., 2012) for a redshift bin of
+width ∆z = 0.1 centered at z = 1. The assumed sky over-
+lap is 10,000 deg2 with corresponding 5,800 hr total observ-
+ing time for the IM survey which can be approximately
+achieved with the suggested SKA1 Wide Band 1 Survey. The
+resulting constraints on ΩHIbHIr (keeping the cosmological
+parameters ﬁxed to the Planck 2015 cosmology (Ade et al.,
+2016a)) are summarised in Table 13. This table also shows
+constraints on f σ8, D A and H from cross-correlations with
+Euclid, considering ¯Tb is known.
+Cross-correlations with photometric optical galaxy sur-
+veys can also be used to constrain HI properties, and per-
+form joint probes studies (Pourtsidou et al., 2016). Fig. 20,
+bottom panel, shows the expected signal and errors for
+0.80
+0.85
+0.90
+0.95
+1.00
+1.05
+1.10
+1.15
+εLens
+Euclid
+LSST
+1 −σ
+2 −σ
+Euclid
+LSST
+1 −σ
+2 −σ
+Figure 19. The 1σ (thin) and 2σ (thick) contours for the forecasted
+marginal errors on fNL and Lensing (top), and GR effects (bottom) us-
+ing the multi-tracer technique from HI intensity mapping with the SKA1
+Wide Band 1 Survey in combination with Euclid data (solid blue line) and
+LSST data (dashed red line). These forecasts assume Case 2 as presented
+in Table 12. Combination with LSST will allow to probe fNL ∼1 as well as
+detect large scale GR effects.
+Stage III DES-like photometric sample for a redshift bin
+of width ∆z = 0.1 centered at z = 0.5. The assumed sky
+overlap is 5,000 deg2. We can also combine probes such as
+HI clustering and optical lensing, or HI clustering and the
+CMB, to constrain gravity (Pourtsidou, 2016b) and inﬂation
+(Pourtsidou, 2016a).
+
+--- PAGE BREAK ---
+
+10-2
+k [Mpc−1 ]
+P HIg(k) [mK Mpc3 ]
+z =1
+10-2
+10-1
+k[Mpc−1]
+PHIg(k)[mKMpc3]
+z = 0. 5
+Figure 20. HI intensity mapping with SKA1 Wide Band 1 Survey in cross-
+correlation with optical surveys, showing the expected signal power spec-
+trum (black solid) and measurement errors (cyan). Top: Cross-correlation
+with a Euclid-like spectroscopic optical galaxy survey with 10,000 deg2
+overlapBottom: Cross-correlation with a DES-like photometric optical
+galaxy survey with 5,000 deg2 overlap. The assumed k binning is ∆k = 0.01.
+Table 13 Forecast fractional uncertainties on HI and cosmological
+parameters assuming HI intensity mapping with the SKA1 Wide
+Band 1 Survey and Euclid-like cross-correlation described in the
+main text, following the methodology in Pourtsidou et al. (2017).
+Note that the assumed redshift bin width is ∆z = 0.1, but we show
+the results for half of the bins for brevity.
+σ(ΩHIbHIr)
+(ΩHIbHIr)
+σ(f σ8)
+(f σ8)
+σ(D A)
+σ(H)
+0.014
+0.04
+0.02
+0.02
+0.018
+0.06
+0.03
+0.02
+0.024
+0.08
+0.05
+0.02
+0.030
+0.10
+0.06
+0.02
+0.038
+0.12
+0.08
+0.03
+0.047
+0.15
+0.09
+0.03
+Figure 21. This ﬁgure shows 1σ and 2σ constraints on the Mν −σ8 plane
+from Planck CMB 2015 alone (grey), SKA1-LOW (green), SKA1-LOW plus
+Planck CMB 2015 (blue) and SKA1-LOW plus SKA1-MID plus Planck CMB
+2015 plus a spectroscopic galaxy survey (magenta). The lower limit from
+neutrino oscillations, together with recent cosmological upper bounds
+are shown with dashed vertical lines.
+5.2.4 Neutrino masses
+The impact of massive neutrinos on the abundance and
+clustering of cosmic neutral hydrogen has been studied
+in Villaescusa-Navarro et al. (2015) through hydrodynamic
+simulations. It was found that neutrino masses do not affect
+much the halo HI mass function13, MHI(M,z). Therefore,
+neutrino effects on HI properties can easily be explained
+through simple HI halo models. Villaescusa-Navarro et al.
+(2015) used those ingredients to forecast the sensitivity of
+the phase 1 of SKA to neutrino masses, ﬁnding that ob-
+servations by SKA1-MID plus SKA1-LOW alone can place
+a constrain of σ(Mν) = 0.18eV (2σ), where Mν = P
+i mνi .
+By adding information from Planck CMB 2015 data alone
+that limit can shrink to σ(Mν) = 0.067eV (2σ), while a com-
+bination of data from SKA1-MID, SKA1-LOW, Planck and
+a spectroscopic galaxy survey like Euclid can yield a very
+competitive constraint of σ(Mν) = 0.057eV (2σ). Those con-
+straints have been derived with the Wide Band 1 Survey as-
+suming observations in Band 1 and 2, and 10,000 hours
+of interferometry observations by SKA1-LOW over 20 deg2
+at frequencies ν ∈[200,355] MHz. Fig. 21 show those con-
+straints projected in the Mν −σ8 plane.
+5.2.5 Probing inﬂationary features
+Possible anomalies observed in the CMB by WMAP (Peiris
+et al., 2003) and Planck (Ade et al., 2014, 2016b; Akrami et al.,
+2018) may be connected to features on ultra-large scales
+(10−3 < k Mpc/h < 10−2) in the primordial power spectrum,
+that are generated by a violation of slow-roll. Constraints
+on such primordial features from inﬂation are shown in
+Xu et al. (2016); Ballardini et al. (2018) to be signiﬁcantly
+13This function represents the average HI mass inside a dark matter halo
+of mass M at redshift z.
+
+--- PAGE BREAK ---
+
+Figure 22. The marginalized 1−σ error on the resonance amplitude as
+a function of frequency in the resonant inﬂationary model, using HI in-
+tensity mapping power spectrum measurements (blue dashed line) and
+bispectrum measurements (black solid line) from the SKA1-MID Wide
+Band 1 Survey (ﬁducial value is f res = 0).
+improved by using the ultra-large scale HI intensity map-
+ping and continuum surveys of SKA1-MID. The potential
+of such surveys for constraining the “resonant” (Chen et al.,
+2008), “kink” (Starobinskii, 1992), “step” (Adams et al., 2001;
+Adshead et al., 2012) and “warp” (Miranda et al., 2012) in-
+ﬂation models is illustrated in Figs. 22 and 23.
+Fig. 22 shows constraints on the amplitude of the reso-
+nant non-Gaussianity, f res, as a function of the resonance
+frequency Cω, using either the scale-dependent bias of the
+power spectrum or the bispectrum, with the Wide Band 1
+Survey of SKA1-MID (adding Band 2 intensity mapping ob-
+servations for z < 0.4), combining the single-dish observa-
+tion mode with the interferometric mode. The results show
+that even in the presence of foreground contamination,
+the upcoming HI intensity mapping observations of the
+large-scale structure with the SKA1-MID alone could put
+extremely tight constraints on the feature models, poten-
+tially achieving orders-of-magnitude improvements over
+the two-dimensional CMB measurements. For details on
+the parameterization and forecasts see Xu et al. (2016).
+Fig. 23 shows the Fisher forecast constraints on the ampli-
+tude of the feature versus the scale of the feature in Fourier
+space, using Wide Band 1 Survey in both intensity mapping
+and continuum on SKA1-MID. SKA1 can constrain parame-
+ters of the feature models at > 3σ (for details, see Ballardini
+et al. 2018).
+HI intensity mapping surveys could be also used in com-
+bination with CMB experiments to constrain the scalar
+spectral index (ns) and its runnings (αs,βs) and test the
+predictions of popular single-ﬁeld slow-roll inﬂation mod-
+log(kkink Mpc)
+0.000
+0.025
+0.050
+0.075
+0.100
+0.125
+0.150
+0.175
+0.200
+kink
+SKA1 (continuum) + CMB
+SKA1 (IM) + CMB
+3.20
+3.15
+3.10
+3.05
+3.00
+log(kstep Mpc)
+step
+3.25
+3.20
+3.15
+3.10
+3.05
+3.00
+log(kwarp Mpc)
+warp
+Figure 23. Marginalized 68% (shaded areas) and 95% (dashed lines) conﬁ-
+dence level contours for the feature wave-number in the kink (top), step
+(middle) and warp (bottom) inﬂationary models, using the Planck CMB
+2015 alone and combining intensity mapping and continuum data from
+the SKA1 Wide Band 1 Survey with the CMB.
+els. Current constraints from Planck are σ(ns) = 0.006 and
+σ(αs) = 0.007. A Stage IV CORE-like CMB survey (Finelli
+et al., 2018) combined with an HI intensity mapping survey
+with SKA1 Wide Band 1 Survey could reach σ(ns) = 0.0011
+and σ(αs) = 0.0019 (Pourtsidou, 2016a).
+
+--- PAGE BREAK ---
+
+Figure 24. Percentage difference for the HI intensity mapping power spec-
+trum when the HI distribution is modeled using two different methods:
+the halo based method (dotted lines) and the particle based method (solid
+lines). Results are shown at z = 3 (left), z = 4 (middle) and z = 5 (right).
+The error on the HI power spectrum of the model with CDM, normal-
+ized to the amplitude of the 21 cm (CDM) power spectrum is shown in
+a shaded region for three different observation times: t0 = 1,000 hours
+(grey), t0 = 3,000 hours (blue) and t0 = 5,000 hours (fuchsia). The ﬁeld-of-
+view for this example corresponds to an area of between 2.7 and 6 deg2, at
+z = 3−5. For clarity, we show the error from one HI-assignment method
+only because both are very similar and overlap at the scale of the plot.
+5.2.6 Unveiling the nature of dark matter
+Intensity mapping offers the opportunity to measure the
+matter power spectrum also at intermediate and small
+scales. At such scales there could be a signature of the so-
+called free streaming of dark matter particles (as in the case
+of Warm Dark Matter - WDM), which produces a suppres-
+sion of power (Smith & Markovic, 2011). It is thus natural to
+explore what could be the constraints achieved by looking
+at neutral hydrogen in emission as probed by intensity map-
+ping surveys. In (Carucci et al., 2015) the impact of WDM
+thermal relics is investigated on the 21 cm intensity map-
+ping signal focusing on the high redshift, where structure
+formation is closer to the linear regime (Viel et al., 2012); the
+authors ﬁnd that there is no suppression of power but there
+is an increase of power in a redshift and scale dependent
+way at mildly non-linear scales. In Fig. 24 we show the differ-
+ence for the HI intensity mapping power spectrum which
+is expected between the WDM model and a corresponding
+CDM model with the same cosmological parameters, as-
+suming a deep and narrow intensity mapping survey with
+SKA1-LOW with an area of ∼3−6 deg2 at z = 3−5 with a
+range of observation times as described in the caption. It
+will be quite important to obtain independent constraints
+on ΩHI since, as it is shown in Fig. 25, it is evident that that
+there exists a relatively strong degeneracy between the HI
+cosmic density and the WDM mass.
+The results indicate that we will be able to rule out a 4
+keV WDM model with 5,000 hours of observations at z > 3,
+with a statistical signiﬁcance larger than 3σ, while a smaller
+mass of 3 keV, comparable to present day constraints, can
+Figure 25. 1σ and 2σ contours (dark and light areas) of the values of
+ΩHI and mWDM determined using the HI power spectrum measured by
+SKA1-LOW with three different observation times: 1,000, 3,000 and 5,000
+hours (red, green and violet) and using a ﬁeld-of-view between 2.7-6 deg2.
+The Fisher matrix analysis is performed using information coming from
+redshift z = 3,4 and 5.
+be ruled out at more than 2σ conﬁdence level with 1,000
+hours of observations at z > 5.
+5.2.7 Photometric redshift calibration
+With next generation optical surveys such as Euclid and
+LSST promising to deliver unprecedented numbers of re-
+solved galaxies, immense strain will be placed on the
+amount of spectroscopic follow-up required. Through a
+clustering-based redshift estimation method which utili-
+ties HI intensity maps with excellent redshift resolution, a
+well-constrained prediction can be made on the redshift
+distribution for an arbitrarily large optical population.
+SKA1 HI intensity mapping would be capable of reducing
+uncertainties in photometric redshift measurements below
+the requirements of DES and LSST (Alonso et al., 2017)
+assuming adequate foreground cleaning could be achieved.
+Tests have been carried out whereby attempts were made
+to recover the redshift distribution for a simulated optical
+galaxy catalogue by cross-correlating its clustering with HI
+intensity maps (Cunnington et al., 2018).
+This method relies on an estimate of bg, bHI (the bias
+for the optical galaxies and HI intensity maps respectively)
+and a model for the measurement of the mean HI bright-
+ness temperature ¯THI. Assuming these are in hand, Fig. 26
+presents a proof of concept example using a small survey
+(25 deg2) with 1’ beam size, neglecting noise, where HI
+emission is estimated using a HI-halo mass relation. Cun-
+nington et al. (2018) shows that this result is comparable to
+that for the proposed intensity mapping experiment with
+the SKA1 Wide Band 1 Survey. We use the Ascaso et al. (2015)
+catalogue in which accurate LSST photometric redshifts are
+simulated, with 2 pixels per arcminute resolution and 30
+redshift bins over a range of 0 < z < 3. This gives the optical
+catalogue a low number density of 0.27 galaxies per voxel,
+
+--- PAGE BREAK ---
+
+Figure 26. Photometric redshift estimation using HI intensity maps as calibrator for an optical survey such as the LSST. The pink shaded regions show
+the range in photometric redshift which galaxies are selected from. The orange line shows the distribution of these chosen galaxies according to their
+LSST-like photometric redshift (Ascaso et al., 2015). The black-dashed line shows the true distribution, and the blue points show the HI clustering redshift
+estimate (Cunnington et al., 2018).
+but despite this, a clustering redshift recovery is still pos-
+sible. This is at the expense of the simulations’ halo mass
+resolution for the galaxies which must increase for larger
+skies due to computational cost. This means that the wide
+results are on the conservative side, since including lower
+mass galaxies would mean a more complete representation
+of the underlying mass density, potentially improving the
+cross-correlation.
+5.3 Systematics
+In this section, we discuss some of the main systematics
+that can affect the signal. These are usually a convolution
+of strong sky contaminants with imperfections in the tele-
+scope. In principle, with a high ﬁdelity model of the instru-
+ment it should be possible to model many of these out,
+however, many systematics can appear highly degenerate
+without knowledge of the origin of the contamination. The
+success of intensity mapping with the SKA1 will rely heav-
+ily on our ability to suppress residual uncertainties below
+the level of the thermal noise. In this section we present
+some recent results based on simulations, indicating where
+appropriate, where further work will be necessary. There
+is a long list of important systematics which still need to
+be considered including primary beam effects (sidelobes),
+polarization leakage, and standing waves. Combining sim-
+ulations with actual observations and data analysis will be
+crucial in deﬁning which of these will be the limiting factor.
+Upcoming experiments such as the recently built MeerKAT
+telescope, which will become part of SKA1-Mid, and the
+bespoke BINGO telescope (Battye et al., 2013) will play an
+important role in this process in the context of single-dish
+observations.
+5.3.1 Foregrounds
+Intensity mapping observations suffer from contamination
+from Galactic and extra-Galactic foregrounds. The main
+components of the Galactic foregrounds in intensity map-
+ping are synchrotron and free-free emission with ampli-
+tudes up to 4 to 5 orders of magnitudes higher than the red-
+shifted HI signal. Current all-sky observations of the fore-
+grounds are sparse in frequency (Reich & Reich, 1988) and
+suffer under high systematic contaminations (Remazeilles
+et al., 2015) which limit the possibility of template-ﬁtting.
+However, the spectral smoothness of the foregrounds - each
+component approximately following a power law in fre-
+quency - allows one to separate the spectrally varying HI sig-
+nal from the foregrounds. Results of Green Bank Telescope
+data analysis show that blind component separation tech-
+niques like Singular-Value Decomposition (SVD, Switzer
+et al. 2015) and independent component analysis (fastICA,
+Wolz et al. 2017) had some success in separating signal and
+
+--- PAGE BREAK ---
+
+foregrounds. Studies of the performance of these methods
+on large sky areas (see Wolz et al. 2014, 2015; Alonso et al.
+2015a) show that large angular scales ℓ< 30 suffer the most
+from foreground contamination. In addition, Alonso et al.
+(2015b) demonstrates how the leakage of polarised fore-
+grounds can affect the cosmological analysis. Alternative,
+promising separation techniques have been proposed by
+Chapman et al. (2013); Olivari et al. (2016); Zhang et al.
+(2016); Zuo et al. (2018), which provide a diverse collec-
+tion of techniques to tackle the foreground subtraction of
+the SKA data. Moreover, the overall effects of foreground
+residuals on the cosmological interpretation is dramatically
+reduced by combining intensity mapping data with optical
+galaxy surveys. Wolz et al. (2015) presents a comparison
+of foreground removal in the context of intensity mapping
+with the SKA.
+5.3.2 Red Noise
+Red noise, also termed 1/f noise, is a form of noise inherent
+to radio receivers which is correlated in time and manifests
+itself as gain ﬂuctuations (see Harper et al. 2018 for a de-
+tailed exposition of the subject in the context of intensity
+mapping).
+On time scales larger than 1/fk, where is fk is called
+the knee frequency, the noise no longer behaves as "white
+noise" and does not integrate down as square root of time.
+This behavior typically leads to scan synchronous "stripes"
+in maps. Techniques have been proposed to clean such ef-
+fects directly on the time ordered data (Janssen et al., 1996;
+Maino et al., 2002), which should provide unbiased results
+even for time scales longer that the knee frequency, but
+this is traded for an overall increase of the noise variance
+which could ultimately prevent single dish observations
+from being useful for cosmology.
+When scanning the sky with the telescope at a particular
+scan speed, the timescale 1/fk will translate into an angular
+scale, which should be larger than the scale of the feature
+(e.g. the BAO scale) one is trying to measure in the thermal
+noise dominated regime. Hence, scanning as fast possible
+can help some or all the effects of the red noise. This may
+not be sufﬁcient with the SKA for the BAO scale and a knee
+frequency is ∼1Hz since the maximum scan speed will be
+∼3degsec−1. However, one would expect that the red noise
+is strongly correlated along the frequency direction. If that
+is the case, it might be possible to remove its effects as part
+of the foreground cleaning process. In Harper et al. (2018),
+such frequency correlations were injected directly in the
+noise power spectrum density in a simulated spectroscopic
+receiver. For levels of correlation expected for a typically
+SKA receiver, it was found that the effects could be removed
+to a level where the noise is within a factor of two of the
+thermal noise.
+An alternative would be to try to calibrate such ﬂuctua-
+tions using a noise diode or the sky itself. To calibrate out
+1/f noise using a noise diode signal, the uncertainties on
+the calibration measurement will need to be signiﬁcantly
+better than the r.m.s. ﬂuctuations of the 1/f noise (σ(1/f )).
+This can not be done on short timescales over which σ(1/f )
+itself is very small (and therefore, not expected to be a prob-
+lem), but it might be possible to calibrate the SKA receiver
+on 100 seconds or longer timescales, for feasible diode
+brightnesses. On 100 second timescales, for a bandwidth
+of ∆ν = 50 MHz and diode brightness of 25K, the diode
+signal stability needs to be better than 1 part in 104. It might
+be possible to use the noise diode in conjunction with com-
+ponent separation techniques described above to relax this
+requirement.
+5.3.3 Bandpass Calibration
+Bandpass calibration errors are multiplicative with the total
+system temperature of the receiver. As the system tempera-
+ture is typically many orders-of-magnitude of greater than
+the HI intensity signal, even very small bandpass calibra-
+tion errors can have a big impact on signal recovery. For
+the SKA receivers, the system temperature is approximately
+Tsys = 22 K (at 1200 MHz), while the expected HI ﬂuctuation
+scale will be approximately σHI = 0.1 mK in a 10 MHz chan-
+nel bandwidth. Assuming that at a minimum, the r.m.s. of
+the HI signal and bandpass calibration errors (δ) should be
+equal, then
+δ = σHI
+Tsys
+≈5×10−6 ,
+(14)
+at the scale of interest for the HI signal (e.g. ℓ≈100 cor-
+responding to angular scales ∼2◦). This is the calibration
+error that should be aimed for in the ﬁnal SKA HI IM survey
+per voxel with 4deg2 ×10MHz.
+Assuming that calibration will be performed N times
+throughout a survey, and assuming that the bandpass cali-
+bration uncertainties are Gaussian then the bandpass un-
+certainty per calibration should not exceed
+∆= 5×10−6p
+NcNdishes,
+(15)
+where Nc is the number of bandpass calibrations per dish,
+and Ndishes is the number of dishes (N = NcNdishes). No par-
+ticular calibration procedure has been assumed here (e.g.
+calibration can be performed from a noise diode or astro-
+nomical source), and it assumed that there is no uncertainty
+in the calibration procedure being performed. This calcula-
+tion also neglects many of the complexities expected of real
+calibration errors, such as possible non-Gaussianity, and
+correlations in frequency. On the other hand, there could
+also be the possibility of dealing with these uncalibrated
+uncertainties at the power spectrum level, depending on
+the behavior of such ﬂuctuations.
+5.3.4 RFI from Navigation Satellites
+Residual contamination from satellites can also pose a
+problem for HI intensity mapping measurements. Although
+the proposed IM survey is in band 1 where such contam-
+ination is expected to be smaller than band 2. Here, we
+
+--- PAGE BREAK ---
+
+Figure 27. Expected r.m.s. of emission from global navigation satellite ser-
+vices within SKA1 Band 2 compared with the expected instantaneous
+receiver noise (black dashed line) for 1 MHz channel widths. The red
+dot-dashed line shows the sensitivity for an SKA HI IM survey in Band 2
+with 30,000deg2, 200 dishes and 30 days while the orange dot-dashed line
+shows the expected HI signal. Note however that the proposed wide HI
+intensity mapping survey is in Band 1.
+review the recent study of the effect for band 2 (Harper &
+Dickinson, 2018) which will indicate some aspects of the
+problem.
+Fig. 27 shows the expected r.m.s. ﬂuctuations of L-band
+emission from satellites when ﬁltering all satellite within
+5 degrees of the main beam. The ﬁgure shows that the satel-
+lite signal is comparable to the expected instantaneous
+sensitivity of the SKA receivers, and greatly exceeds the SKA
+survey sensitivity if we consider a large survey in band 2
+(20,000deg2, 200 dishes, 30 days, 1 MHz channel widths).
+In Harper & Dickinson (2018) it is shown that in general
+the satellite emission does not integrate down on the sky
+and the residual structure exceeds the expected HI signal
+ﬂuctuations at all frequencies within SKA Band 2. However,
+some regions of the sky are clearer than others such as a
+8,700deg2 patch around the South Celestial Pole (δ < −65◦)
+that might make for a good SKA HI IM survey location if
+done in band 2.
+6 DISCUSSION AND CONCLUSIONS
+In this paper we have brought together the present state
+of the science case for cosmology using SKA1. A brief sum-
+mary of the main conclusions are listed below.
+Continuum galaxy surveys:
+• A continuum survey with SKA1-MID Band 2 of
+5,000deg2 (the Medium-Deep Band 2 Survey) is ex-
+pected to yield a number density of resolved star-
+forming galaxies of 2.7arcmin−2 usable for a weak lens-
+ing shear analysis.
+• By separating these galaxies into tomographic bins
+and measuring their ellipticities to O(10−4) accuracy it
+will be possible to measure the dark energy equation
+of state to a DETF Figure of Merit of ∼1.5 alone, along
+with measurement of matter parameters to ∼5% and
+modiﬁed gravity parameters to ∼20%.
+• Cross-correlating the weak lensing shear maps made
+with SKA1 with optical weak lensing experiments will
+retain nearly all of the statistical power of each survey,
+while gaining signiﬁcant robustness to both additive
+and multiplicative systematics on the cosmological
+parameter measurements.
+• A continuum survey with SKA1-MID Band 1, covering
+20,000deg2 (the Wide Band 1 Survey) will provide a
+high quality data set for angular clustering analysis of
+large scale structure, and cross-correlation with the
+CMB.
+• Large-scale clustering data will provide measurements
+of primordial non-Gaussianity with statistical errors
+around half the best current constraints from the CMB,
+as well as measurements of the dark energy, modiﬁed
+gravity and homogeneous curvature that are indepen-
+dent from, but complementary to, other cosmological
+probes.
+• The large-area, high redshift radio continuum galaxy
+sample will allow measurements of the cosmic dipole,
+providing an accurate and independent test of the ori-
+gin of the dipole that is impossible with current in-
+frared and optical data.
+HI galaxy redshift survey:
+• A SKA1 HI galaxy sample from the 5,000 deg2 Medium-
+Deep Band 2 Survey will provide new independent
+measurements of the cosmic expansion rate, distance-
+redshift relation, and linear growth rate from 0 < z ≲
+0.4. This will cover a signiﬁcant additional fraction of
+the southern sky compared to existing optical surveys,
+improving constraints on dark energy and modiﬁed
+gravity theories in the important late-time (low red-
+shift) regime.
+• The angular sizes and linewidths of a subset of the
+detected HI galaxies can be used to infer line-of-sight
+peculiar velocities through the Doppler magniﬁcation
+and Tully-Fisher methods respectively. The statistics of
+the measured cosmic velocity ﬁeld can provide unique
+constraints on modiﬁed gravity theories.
+• The HI galaxy sample will reach extremely high num-
+ber densities at z ≲0.2, making it possible to reliably
+identify even small cosmic voids, and obtain high-SNR
+cross-correlations with γ-ray maps. The resulting void
+sample can be used as a complementary probe of mat-
+ter clustering that is particularly sensitive to modiﬁed
+gravity effects, while the γ-ray cross-correlations can
+be used to detect dark matter annihilation.
+HI intensity mapping:
+• The SKA1 Wide Band 1 Survey in combination with the
+Deep SKA1-LOW Survey will provide a legacy dataset
+of the large-scale matter distribution measuring the
+
+--- PAGE BREAK ---
+
+cosmic HI abundance through cosmic time (0 < z < 6)
+with unprecedented precision.
+• The excellent redshift precision of the intensity maps
+covering large areas allows one to constrain the ex-
+pansion history and growth of structure in the Uni-
+verse, providing constraints on dark energy with SKA1-
+MID comparable to concurrent surveys at other wave-
+lengths.
+• The HI intensity mapping surveys will also allow to
+measure neutrino masses, test Warm Dark Matter
+models, and inﬂationary physics.
+• Synergies of the intensity mapping surveys with op-
+tical surveys such as LSST and Euclid are crucial for
+multi-wavelength cosmology and systematics mitiga-
+tion (see more detailed discussion below). In partic-
+ular, they will provide ground breaking constraints
+on ultra-large scale effects such as primordial non-
+Gaussianity, potentially a factor of 10 better than cur-
+rent measurements.
+Synergies with other surveys:
+• We have noted the improved systematic control likely
+to be possible using the combination of radio data
+from the SKA1 with optical/NIR data from Euclid and
+LSST. Cross-correlations are in principle able to re-
+move all additive residual systematics.
+• Using the SKA with other telescopes can provide com-
+plementary physical constraints, e.g. from the com-
+bination of optical weak lensing with radio intensity
+mapping, and vital cross-checks of results by compar-
+ing dark energy constraints from optical surveys to
+those from the SKA. Cross-correlations of probes can
+measure signatures which would otherwise be buried
+in noise.
+• Different radio and optical populations of galaxies af-
+ford a multi-tracer approach to large-scale structure
+measurements, removing sample variance.
+• In addition, optical and radio surveys mutually sup-
+port one another through the provision of redshifts;
+intensity mapping can provide calibration of optical
+photometric redshifts, while optical surveys can pro-
+vide photometric redshift information for the SKA con-
+tinuum survey.
+The prospects for observational cosmology in the next
+decade are particularly promising, with the SKA playing
+an important part in concert with the Stage IV optical sur-
+veys.
+ACKNOWLEDGMENTS
+All authors of the paper contributed to the work presented
+and the writing of the paper. There was an editorial board
+who were responsible for the planning and bringing to-
+gether all the material. This comprised of the working group
+chairs, Richard Battye and Laura Wolz who are the corre-
+sponding authors for the paper, and members from each
+of the Focus Groups: David Bacon and Stefano Camera
+for Synergies, Phil Bull for HI galaxies, Ian Harrison for
+Weak Lensing, David Parkinson for Continuum Science,
+Alkistis Pourtsidou and Mário Santos for HI intensity map-
+ping (Mario Santos was previously working group chair and
+started the Red Book project), as well as Pedro Ferreira in
+editorial capacity. This Editorial Board is listed as the ﬁrst
+few authors alphabetically and then all other contributors
+as another alphabetical list.
+Some of the results in this work have been derived using
+the HEALPix (Górski et al., 2005) package. We have used
+the public Boltzmann code CLASS (Lesgourgues, 2011) to
+compute some theoretical observables.
+RB,CD and SH acknowledge support from an STFC Con-
+solidated Grant (ST/P000649/1). SC is supported by the Ital-
+ian Ministry of Education, University and Research (MIUR)
+through Rita Levi Montalcini project ‘P R O M E T H E U S –
+Probing and Relating Observables with Multi-wavelength
+Experiments To Help Enlightening the Universe’s Structure’,
+and by the ‘Departments of Excellence 2018-2022’ Grant
+awarded by MIUR (L. 232/2016). PGF acknowledges sup-
+port from ERC Grant No: 693024, the Beecroft Trust and
+STFC. RM and MGS acknowledge support from the South
+African Square Kilometre Array Project and National Re-
+search Foundation (Grant Nos. 75415 and 84156). LW is
+supported by an ARC Discovery Early Career Researcher
+Award (DE170100356). YA acknowledges support from the
+Netherlands Organization for Scientiﬁc Research (NWO)
+and the Dutch Ministry of Education, Culture and Science
+(OCW), and also from the D-ITP consortium, a program of
+the NWO that is funded by the OCW. YA is also supported by
+LabEx ENS-ICFP: ANR-10-LABX-0010/ANR-10-IDEX-0001-
+02 PSL*. HP’s research is supported by the Tomalla Founda-
+tion. AR has received funding from the People Programme
+(Marie Curie Actions) of the European Union H2020 Pro-
+gramme under REA grant agreement number 706896 (COS-
+MOFLAGS). TS and DJS gratefully acknowledge support
+from the Deutsche Forschungsgemeinschaft (DFG) within
+the Research Training Group 1620 ‘Models of Gravity‘.
+REFERENCES CITED
+Abdalla F. B., et al., 2015, Advancing Astrophysics with the
+Square Kilometre Array (AASKA14), p. 17
+Adams J., Cresswell B., Easther R., 2001, Phys. Rev. D, 64,
+123514
+Ade P. A. R., et al., 2014, A&A, 571, A22
+Ade P. A. R., et al., 2016a, A&A, 594, A13
+Ade P. A. R., et al., 2016b, A&A, 594, A20
+Adshead P., Dvorkin C., Hu W., Lim E. A., 2012, Phys. Rev. D,
+85, 023531
+Aghamousa A., et al., 2016, preprint (arXiv:1611.00036)
+Akrami Y., et al., 2018, preprint (arXiv:1807.06211)
+Alam S., et al., 2017, MNRAS, 470, 2617
+
+--- PAGE BREAK ---
+
+Albrecht A., et al., 2009, preprint (arXiv:0901.0721)
+Alonso D., Ferreira P. G., 2015, Phys. Rev. D, D92, 063525
+Alonso D., Bull P., Ferreira P. G., Santos M. G., 2015a, MNRAS,
+447, 400
+Alonso D., Bull P., Ferreira P. G., Santos M. G., 2015b, MNRAS,
+447, 400
+Alonso D., Bull P., Ferreira P. G., Maartens R., Santos M. G.,
+2015c, ApJ, 814, 145
+Alonso D., Bull P., Ferreira P. G., Maartens R., Santos M.,
+2015d, ApJ, 814, 145
+Alonso D., Ferreira P. G., Jarvis M. J., Moodley K., 2017,
+Phys. Rev. D, 96, 043515
+Alonso D., et al., 2018, preprint (arXiv:1809.01669)
+Amara A., Réfrégier A., 2008, MNRAS, 391, 228
+Amendola L., et al., 2013, Living Rev. Rel., 16, 6
+Amendola L., et al., 2018, Living Rev. Rel., 21, 2
+Anderson C. J., et al., 2018, MNRAS, 476, 3382
+Andrianomena S., Bonvin C., Bacon D., Bull P., Clarkson C.,
+Maartens R., Moloi T., 2018, preprint, p. arXiv:1810.12793
+(arXiv:1810.12793)
+Ascaso B., Mei S., Benítez N., 2015, MNRAS, 453, 2515
+Astier P., et al., 2006, A&A, 447, 31
+Atwood W. B., et al., 2009, ApJ, 697, 1071
+Bacon D. J., Andrianomena S., Clarkson C., Bolejko K.,
+Maartens R., 2014, MNRAS, 443, 1900
+Bagla J. S., Khandai N., Datta K. K., 2010, MNRAS, 407, 567
+Baker T., Bull P., 2015, ApJ, 811, 116
+Baker T., Ferreira P. G., Skordis C., 2014, Phys. Rev. D, D89,
+024026
+Ballardini M., Finelli F., Maartens R., Moscardini L., 2018,
+Journal of Cosmology and Astro-Particle Physics, 2018,
+Bandura K., et al., 2014, in Ground-based and Air-
+borne Telescopes V. p. 914522 (arXiv:1406.2288),
+doi:10.1117/12.2054950
+Bartelmann M., Schneider P., 2001, Phys. Rep., 340, 291
+Battye R. A., Davies R. D., Weller J., 2004, MNRAS, 355, 1339
+Battye R. A., Browne I. W. A., Dickinson C., Heron G., Maffei
+B., Pourtsidou A., 2013, MNRAS, 434, 1239
+Bengaly C. A. P., Siewert T. M., Schwarz D. J., Maartens R.,
+2018a, preprint (arXiv:1810.04960)
+Bengaly C. A. P., Maartens R., Santos M. G., 2018b, J. Cos-
+mology Astropart. Phys., 2018, 031
+Bharadwaj S., Nath B. B., Sethi S. K., 2001, J. Cosmology
+Astropart. Phys., 22, 21
+Bird S.,
+Cholis I.,
+Muñoz J. B.,
+Ali- Haïmoud Y.,
+Kamionkowski M., Kovetz E. D., Raccanelli A., Riess A. G.,
+2016, Phys. Rev. Lett., 116, 201301
+Blake C., Wall J., 2002, Nature, 416, 150
+Bonaldi A., Harrison I., Camera S., Brown M. L., 2016, MN-
+RAS, 463, 3686
+Bonaldi A., Bonato M., Galluzzi V., Harrison I., Massardi
+M., Kay S., De Zotti G., Brown M. L., 2018, preprint,
+(arXiv:1805.05222)
+Bonvin C., 2008, Phys. Rev. D, 78, 123530
+Bonvin C., Andrianomena S., Bacon D., Clarkson C.,
+Maartens R., Moloi T., Bull P., 2017, MNRAS, 472, 3936
+Borzyszkowski M., Bertacca D., Porciani C., 2017, MNRAS,
+471, 3899
+Branchini E., Camera S., Cuoco A., Fornengo N., Regis M.,
+Viel M., Xia J.-Q., 2017, ApJS, 228, 8
+Braun R., Bourke T., Green J. A., Keane E., Wagg J., 2015,
+Advancing Astrophysics with the Square Kilometre Array
+(AASKA14), p. 174
+Brown M. L., Battye R. A., 2010, MNRAS, 410
+Brown M. L., Battye R. A., 2011, ApJ, 735
+Bull P., 2016, ApJ, 817, 26
+Bull P., Camera S., Raccanelli A., Blake C., Ferreira P., Santos
+M., Schwarz D. J., 2015a, Advancing Astrophysics with
+the Square Kilometre Array (AASKA14), p. 24
+Bull P., Ferreira P. G., Patel P., Santos M. G., 2015b, ApJ, 803,
+Camera S., Santos M. G., Bacon D. J., Jarvis M. J., McAlpine
+K., Norris R. P., Raccanelli A., Rottgering H., 2012, MNRAS,
+427, 2079
+Camera S., Santos M. G., Ferreira P. G., Ferramacho L.,
+2013a, Phys. Rev. Lett., 111, 171302
+Camera S., Fornasa M., Fornengo N., Regis M., 2013b, ApJ,
+771, L5
+Camera S., Santos M. G., Maartens R., 2015a, MNRAS, 448,
+1035
+Camera S., Maartens R., Santos M. G., 2015b, MNRAS, 451,
+Camera S., Fornasa M., Fornengo N., Regis M., 2015c, J.
+Cosmology Astropart. Phys., 1506, 029
+Camera S., Harrison I., Bonaldi A., Brown M. L., 2017, MN-
+RAS, 464, 4747
+Carucci I. P., Villaescusa-Navarro F., Viel M., Lapi A., 2015, J.
+Cosmology Astropart. Phys., 7, 047
+Castorina E., Villaescusa-Navarro F., 2017, MNRAS, 471,
+1788
+Challinor A., Lewis A., 2011, Phys. Rev. D, 84, 043516
+Chang T.-C., Refregier A., Helfand D. J., 2004, ApJ, 617, 794
+Chang T.-C., Pen U.-L., Bandura K., Peterson J. B., 2010,
+Nature, 466, 463
+Chapman E., et al., 2013, MNRAS, 429, 165
+Chen X., Easther R., Lim E. A., 2008, J. Cosmology Astropart.
+Phys., 4, 010
+Chevallier M., Polarski D., 2001, International Journal of
+Modern Physics D, 10, 213
+Cole S., et al., 2005, MNRAS, 362, 505
+Colin J., Mohayaee R., Rameez M., Sarkar S., 2017, MNRAS,
+471, 1045
+Crighton N. H. M., et al., 2015, MNRAS, 452, 217
+Cunnington S., Harrison I., Pourtsidou A., Bacon D., 2018,
+preprint, (arXiv:1805.04498)
+Cuoco A., Xia J.-Q., Regis M., Branchini E., Fornengo N.,
+
+--- PAGE BREAK ---
+
+Viel M., 2015, ApJS, 221, 29
+DESI
+Collaboration
+al.,
+2016,
+preprint,
+(arXiv:1611.00036)
+Dalal N., Dore O., Huterer D., Shirokov A., 2008, Phys. Rev. D,
+D77, 123514
+Dark Energy Survey Collaboration et al., 2016, MNRAS, 460,
+1270
+Davé R., Katz N., Oppenheimer B. D., Kollmeier J. A., Wein-
+berg D. H., 2013, MNRAS, 434, 2645
+Demetroullas C., Brown M. L., 2016, MNRAS, 456, 3100
+Demetroullas C., Brown M. L., 2018, MNRAS, 473, 937
+Efstathiou G., Sutherland W. J., Maddox S. J., 1990, Nature,
+348, 705
+Ellis G. F. R., Baldwin J. E., 1984, MNRAS, 206, 377
+Ferramacho L. D., Santos M. G., Jarvis M. J., Camera S., 2014,
+MNRAS, 442, 2511
+Finelli F., et al., 2018, J. Cosmology Astropart. Phys., 1804,
+Fonseca J., Camera S., Santos M., Maartens R., 2015, ApJ,
+812, L22
+Fonseca J., Silva M. B., Santos M. G., Cooray A., 2017, MN-
+RAS, 464, 1948
+Fonseca J., Maartens R., Santos M. G., 2018, MNRAS, 479,
+3490
+Fornengo N., Regis M., 2014, Front. Physics, 2, 6
+Fornengo N., Perotto L., Regis M., Camera S., 2015, ApJ, 802,
+Górski K. M., Hivon E., Banday A. J., Wandelt B. D., Hansen
+F. K., Reinecke M., Bartelmann M., 2005, ApJ, 622, 759
+Hall A., Bonvin C., Challinor A., 2013, Phys. Rev. D, D87,
+064026
+Harper S., Dickinson C., 2018, submitted: MNRAS,
+Harper S. E., Dickinson C., Battye R. A., Roychowdhury S.,
+Browne I. W. A., Ma Y. Z., Olivari L. C., Chen T., 2018,
+MNRAS, 478, 2416
+Harrison
+Brown
+2015,
+preprint,
+(arXiv:1507.06639)
+Harrison I., Camera S., Zuntz J., Brown M. L., 2016, MNRAS,
+463, 3674
+Harrison I., Lochner M., Brown M. L., 2017, preprint, p.
+arXiv:1704.08278 (arXiv:1704.08278)
+Hellwing W. A., Barreira A., Frenk C. S., Li B., Cole S., 2014,
+Phys. Rev. Lett., 112, 221102
+Hillier T., Brown M. L., Harrison I., Whittaker L., 2018,
+preprint, (arXiv:1810.01220)
+Hinshaw G., et al., 2013, ApJS, 208, 19
+Högbom J. A., 1974, A&AS, 15, 417
+Ivarsen M. F., Bull P., Llinares C., Mota D. F., 2016, A&A, 595,
+Jain B., Zhang P., 2008, Phys. Rev. D, 78, 063503
+Janssen M. A., et al., 1996, preprint, pp astro–ph/9602009
+(arXiv:astro-ph/9602009)
+Kaiser N., 1987, MNRAS, 227, 1
+Kazin E. A., et al., 2014, MNRAS, 441, 3524
+Koda J., et al., 2014, MNRAS, 445, 4267
+Koopmans L., et al., 2015, Advancing Astrophysics with the
+Square Kilometre Array (AASKA14), p. 1
+Kovetz E. D., et al., 2017a, preprint, (arXiv:1709.09066)
+Kovetz E. D., Raccanelli A., Rahman M., 2017b, MNRAS, 468,
+3650
+LSST Dark Energy Science Collaboration 2012, preprint,
+(arXiv:1211.0310)
+LSST
+Science
+Collaboration
+2009,
+preprint,
+(arXiv:0912.0201)
+Lahav O., Kiakotou A., Abdalla F. B., Blake C., 2010, MNRAS,
+405, 168
+Laureijs R., et al., 2011a, preprint, (arXiv:1110.3193)
+Laureijs R., et al., 2011b, preprint (arXiv:1110.3193)
+Lesgourgues J., 2011, preprint (arXiv:1104.2932)
+Loeb A., Wyithe J. S. B., 2008, Phys. Rev. Lett., 100, 161301
+Lombriser L., Yoo J., Koyama K., 2013, Phys. Rev. D, D87,
+104019
+Maartens R., Abdalla F. B., Jarvis M., Santos M. G., 2015,
+Advancing Astrophysics with the Square Kilometre Array
+(AASKA14), p. 16
+Macaulay
+Wehus
+Eriksen
+2013,
+Phys. Rev. Lett., 111, 161301
+Maino D., Burigana C., Górski K. M., Mandolesi N.,
+Bersanelli M., 2002, A&A, 387, 356
+Majerotto E., et al., 2012, MNRAS, 424, 1392
+Markovic K., et al., 2017, MNRAS, 467, 3677
+Massara E., Villaescusa-Navarro F., Viel M., Sutter P. M.,
+2015, J. Cosmology Astropart. Phys., 1511, 018
+Masui K. W., et al., 2013a, ApJ, 763, L20
+Masui K. W., et al., 2013b, ApJ, 763, L20
+Matarrese S., Verde L., 2008, ApJ, 677, L77
+Miranda V., Hu W., Adshead P., 2012, Phys. Rev. D, 86, 063529
+Morales M. F., 2006, ApJ, 650, L21
+Newburgh L. B., et al., 2016, in Ground-based and Air-
+borne Telescopes VI. p. 99065X (arXiv:1607.02059),
+doi:10.1117/12.2234286
+Ng K. K. Y., Wong K. W. K., Broadhurst T., Li T. G. F., 2018,
+Phys. Rev. D, 97, 023012
+Obreschkow D., Rawlings S., 2009, ApJ, 703, 1890
+Olivari L. C., Remazeilles M., Dickinson C., 2016, MNRAS,
+456, 2749
+Olivari L. C., Dickinson C., Battye R. A., Ma Y.-Z., Costa A. A.,
+Remazeilles M., Harper S., 2018, MNRAS, 473, 4242
+Padmanabhan H., Refregier A., 2017a, MNRAS, 464, 4008
+Padmanabhan H., Refregier A., 2017b, MNRAS, 464, 4008
+Padmanabhan N., et al., 2007, MNRAS, 378, 852
+Padmanabhan H., Choudhury T. R., Refregier A., 2015, MN-
+RAS, 447, 3745
+Padmanabhan H., Refregier A., Amara A., 2017, MNRAS,
+469, 2323
+Padmanabhan H., Refregier A., Amara A., 2018, preprint,
+
+--- PAGE BREAK ---
+
+(arXiv:1804.10627)
+Patel P., Bacon D. J., Beswick R. J., Muxlow T. W. B., Hoyle B.,
+2010, MNRAS, 401, 2572
+Patel P., et al., 2015, Advancing Astrophysics with the Square
+Kilometre Array (AASKA14), p. 30
+Peiris H. V., et al., 2003, ApJS, 148, 213
+Percival W. J., Samushia L., Ross A. J., Shapiro C., Raccanelli
+A., 2011, Philosophical Transactions of the Royal Society,
+London, 369, 5058
+Peterson J. B., Bandura K., Pen U. L., 2006, preprint,
+(arXiv:astro-ph/0606104)
+Pisani A., Sutter P. M., Hamaus N., Alizadeh E., Biswas R.,
+Wandelt B. D., Hirata C. M., 2015, Phys. Rev. D, D92,
+083531
+Planck Collaboration et al., 2016a, A&A, 594, A13
+Planck Collaboration et al., 2016b, A&A, 594, A17
+Planck Collaboration et al., 2016c, A&A, 594, A24
+Planck
+Collaboration
+al.,
+2018,
+preprint,
+(arXiv:1807.06209)
+Pourtsidou A., 2016a, preprint (arXiv:1612.05138)
+Pourtsidou A., 2016b, MNRAS, 461, 1457
+Pourtsidou A., Bacon D., Crittenden R., Metcalf R. B., 2016,
+MNRAS, 459, 863
+Pourtsidou A., Bacon D., Crittenden R., 2017, MNRAS, 470,
+4251
+Raccanelli A., 2017, MNRAS, 469
+Raccanelli A., et al., 2011, MNRAS, 424, 19
+Raccanelli A., et al., 2015, J. Cosmology Astropart. Phys., 1,
+Raccanelli A., Kovetz E. D., Bird S., Cholis I., Muñoz J. B.,
+2016, Phys. Rev. D, 94, 023516
+Raccanelli A., Shiraishi M., Bartolo N., Bertacca D., Liguori
+M., Matarrese S., Norris R. P., Parkinson D., 2017, Physics
+of the Dark Universe, 15, 35
+Raveri M., Martinelli M., Zhao G., Wang Y., 2016a, preprint,
+(arXiv:1606.06268)
+Raveri M., Martinelli M., Zhao G., Wang Y., 2016b, preprint,
+(arXiv:1606.06273)
+Reich P., Reich W., 1988, A&AS, 74, 7
+Remazeilles M., Dickinson C., Banday A. J., Bigot- Sazy
+M. A., Ghosh T., 2015, MNRAS, 451, 4311
+Rivi M., Miller L., 2018, MNRAS, 476, 2053
+Rivi M., Lochner M., Balan S. T., Harrison I., Abdalla F. B.,
+2018, MNRAS,
+Rubart M., Schwarz D. J., 2013, A&A, 555, A117
+Sachs R. K., Wolfe A. M., 1967, ApJ, 147, 73
+Sahlén M., 2018, preprint, (arXiv:1807.02470)
+Sahlén M., Silk J., 2016, preprint (arXiv:1612.06595)
+Sahlén M., Zubeldia I., Silk J., 2016, ApJ, 820, L7
+Santos M., Bull P., Alonso D., et al. 2015, Advancing Astro-
+physics with the Square Kilometre Array (AASKA14), p. 19
+Santos M. G., et al., 2017, preprint, (arXiv:1709.06099)
+Scelfo G., Bellomo N., Raccanelli A., Verde L., Matarrese S.,
+2018, J. Cosmology Astropart. Phys., 09
+Schwarz D. J., et al., 2015, Advancing Astrophysics with the
+Square Kilometre Array (AASKA14), p. 32
+Scoccimarro R., 2004, Phys. Rev. D, 70, 083007
+Seljak U., 2009, Phys. Rev. Lett., 102, 021302
+Singal A. K., 2011, ApJ, 742, L23
+Smith R. E., Markovic K., 2011, Phys. Rev. D, D84, 063507
+Spolyar D., Sahlén M., Silk J., 2013, Phys. Rev. Lett., 111,
+241103
+Starobinskii A. A., 1992, ZhETF Pisma Redaktsiiu, 55, 477
+Sutter P. M., Pisani A., Wandelt B. D., Weinberg D. H., 2014,
+MNRAS, 443, 2983
+Switzer E. R., et al., 2013, MNRAS, 434, L46
+Switzer E. R., Chang T. C., Masui K. W., Pen U. L., Voytek
+T. C., 2015, ApJ, 815
+Thomas D. B., Whittaker L., Camera S., Brown M. L., 2017,
+MNRAS, 470, 3131
+Tiwari P., Nusser A., 2016, J. Cosmology Astropart. Phys., 3,
+Tröster T., et al., 2017, MNRAS, 467, 2706
+Tully R. B., Fisher J. R., 1977, A&A, 54, 661
+Tunbridge B., Harrison I., Brown M. L., 2016, MNRAS, 463,
+3339
+Viel M., Markoviˇc K., Baldi M., Weller J., 2012, MNRAS, 421,
+Villaescusa-Navarro F., Viel M., Datta K. K., Choudhury T. R.,
+2014, J. Cosmology Astropart. Phys., 1409, 050
+Villaescusa-Navarro F., Bull P., Viel M., 2015, ApJ, 814, 146
+Villaescusa-Navarro F., Alonso D., Viel M., 2017, MNRAS,
+466, 2736
+Villaescusa-Navarro
+al.,
+2018a,
+preprint,
+(arXiv:1804.09180)
+Villaescusa-Navarro F., et al., 2018b, ApJ, 866, 135
+Voivodic R., Lima M., Llinares C., Mota D. F., 2017,
+Phys. Rev. D, D95, 024018
+Wang J., Koribalski B. S., Serra P., van der Hulst T., Roychowd-
+hury S., Kamphuis P., Chengalur J. N., 2016, MNRAS, 460,
+2143
+Wilkinson P. N., 1991, in Cornwell T. J., Perley R. A., eds,
+Astronomical Society of the Paciﬁc Conference Series
+Vol. 19, IAU Colloq. 131: Radio Interferometry. Theory,
+Techniques, and Applications. pp 428–432
+Wilman R. J., et al., 2008, MNRAS, 388, 1335
+Witzemann A., Bull P., Clarkson C., Santos M. G., Spinelli
+M., Weltman A., 2018, MNRAS, 477, L122
+Wolz L., Abdalla F. B., Blake C., Shaw J. R., Chapman E.,
+Rawlings S., 2014, MNRAS, 441, 3271
+Wolz L., et al., 2015, in Advancing Astrophysics with the
+Square Kilometre Array (AASKA14). p. 35
+Wolz L., et al., 2017, MNRAS, 464, 4938
+Wolz L., Murray S. G., Blake C., Wyithe J. S., 2018, preprint,
+(arXiv:1803.02477)
+Xavier H. S., Abdalla F. B., Joachimi B., 2016, MNRAS, 459,
+
+--- PAGE BREAK ---
+
+3693
+Xia J.-Q., Cuoco A., Branchini E., Viel M., 2015, ApJS, 217, 15
+Xu Y., Wang X., Chen X., 2015, ApJ, 798, 40
+Xu Y., Hamann J., Chen X., 2016, Phys. Rev. D, 94, 123518
+Yahya S., Bull P., Santos M. G., Silva M., Maartens R., Ok-
+ouma P., Bassett B., 2015, MNRAS, 450, 2251
+Zhang L., Bunn E. F., Karakci A., Korotkov A., Sutter P. M.,
+Timbie P. T., Tucker G. S., Wandelt B. D., 2016, A&AS, 222
+Zuo S., Chen X., Ansari R., Lu Y., 2018, preprint,
+(arXiv:1801.04082)
+AFFILIATIONS
+1Institute of Cosmology & Gravitation, University of Portsmouth, Dennis
+Sciama Building, Portsmouth PO1 3FX, UK
+2Jodrell Bank Centre for Astrophysics, School of Physics and Astronomy,
+The University of Manchester, Manchester M13 9PL, U.K.
+3School of Physics & Astronomy, Queen Mary University of London, 327
+Mile End Road, London E1 4NS, U.K.
+4Dipartimento di Fisica, Universitá degli Studi di Torino, Via P. Giuria 1,
+10125 Torino, Italy
+5INFN – Istituto Nazionale di Fisica Nucleare, Sezione di Torino, Via P.
+Giuria 1, 10125 Torino, Italy
+6INAF – Osservatorio Astroﬁsico di Torino, Strada Osservatorio 20, 10025
+Pino Torinese, Italy
+7Department of Physics, University of Oxford, Denys Wilkinson Building,
+Keble Road, Oxford OX1 3RH, U.K.
+8Korea Astronomy and Space Science Institute, Yuseong-gu,
+Daedeokdae-ro 776, Daejeon 34055, Korea
+9Department of Physics & Astronomy, University of the Western Cape,
+Cape Town 7535, South Africa
+10SKA South Africa, The Park, Cape Town 7405, South Africa
+11Instituto de Astroﬁsica e Ciencias do Espaco, Universidade de Lisboa,
+OAL, Tapada da Ajuda, PT1349-018 Lisboa, Portugal
+12Astrophysics Group, School of Physics, The University of Melbourne,
+Parkville, VIC 3010, Australia
+13Department of Physics and Astronomy, University College London,
+Gower Street, London, WC1E 6BT, U.K.
+14Department of Physics and Electronics, Rhodes University, PO Box 94,
+Grahamstown, 6140, South Africa
+15Lorentz Institute for Theoretical Physics, Leiden University, P.O. Box
+9506, 2300 RA Leiden, The Netherlands
+16Département de Physique, École Normale Supérieure, PSL Research
+University, CNRS, 24 rue Lhomond, 75005 Paris, France
+17Department of Mathematics & Applied Mathematics, University of
+Cape Town, Cape Town 7701, South Africa
+18INAF - Istituto di Radioastronomia, via Gobetti 101, 40129 Bologna, Italy
+19Institut de Ciències del Cosmos (ICCUB), Universitat de Barcelona
+(IEEC-UB), Martí Franquès 1, E08028 Barcelona, Spain
+20Dept. de Física Quàntica i Astrofísica, Universitat de Barcelona, Martí i
+Franquès 1, E08028 Barcelona, Spain
+21Argelander-Institut für Astronomie, Auf dem Hügel 71, 53121 Bonn,
+Germany
+22SKA Organization, Lower Withington, Macclesﬁeld, Cheshire SK11 9DL,
+U.K.
+23Dèpartement de Physique Theorique and Center for Astroparticle
+Physics„ Universite de Genève, 24 quai Ernest-Ansermet, 1211 Genève 4,
+Switzerland
+24Astrophysics Group, Imperial College London, Blackett Laboratory,
+Prince Consort Road, London, SW7 2AZ, United Kingdom
+25National Astronomical Observatories, Chinese Academy of Sciences,
+Beijing 100101, China
+26Faculty of Engineering, Kanagawa University, 3-27-1, Rokkakubashi,
+Kanagawa-ku, Yokohama-shi, Kanagawa, 221-8686, Japan
+27School of Mathematics and Physics, The University of Queensland,
+QLD 4072 Australia
+28ASTRON, Netherlands Institute for Radio Astronomy, Postbus 2, 7990
+AA, Dwingeloo, The Netherlands
+29ETH Zurich, Wolfgang-Pauli-Strasse 27, CH 8093 Zurich, Switzerland
+30Department of Physics and Astronomy, Uppsala University, SE-751 20
+Uppsala, Sweden
+31Fakultät für Physik, Universität Bielefeld, Postfach 100131, 33501
+Bielefeld, Germany
+32SISSA, International School for Advanced Studies, Via Bonomea 265,
+34136 Trieste TS, Italy
+33Center for Computational Astrophysics, 162 5th Avenue, 10010 New
+York, NY, USA
+34Faculty of Engineering, Kanagawa University, Kanagawa, 221-8686,
+Japan
+35Institute for Astronomy, University of Edinburgh, Blackford Hill,
+Edinburgh EH9 3HJ, UK
+36Dipartimento di Fisica e Astronomia “G. Galilei”, Universitá degli Studi
+di Padova, Via Marzolo 8, 35131 Padova, Italy

@@ -1,0 +1,196 @@
+arXiv:1108.5402v1  [astro-ph.IM]  26 Aug 2011
+Performance of Polarimetric Beamformers for Phased Array Radio Telescopes
+Marianna V. Ivashina1, Stefan J. Wijnholds2, Rob Maaskant1, and Karl F. Warnick3
+1 Chalmers University of Technology, SE-412 96 Gothenburg, Sweden. Email: ivashina@chalmers.se
+2 ASTRON, Oude Hoogeveensedijk 4, NL-7991 PD, Dwingeloo, The Netherlands. Email:
+wijnholds@astron.nl
+3 Brigham Young University, 459 Clyde Building, Provo, UT 84602, USA. Email: warnick@ee.byu.edu
+Abstract
+The results of four recently introduced beamforming schemes for phased array systems are discussed, each
+of which is capable to provide high sensitivity and accurate polarimetric performance of array-based radio
+telescopes. Ideally, a radio polarimeter should recover the actual polarization state of the celestial source,
+and thus compensate for unwanted polarization degradation eﬀects which are intrinsic to the instrument. In
+this paper, we compare the proposed beamforming schemes through an example of a practical phased array
+system (APERTIF prototype) and demonstrate that the optimal beamformer, the max-SLNR beamformer,
+the eigenvector beamformer, and the bi-scalar beamformer are sensitivity equivalent but lead to diﬀerent
+polarization state solutions, some of which are sub-optimal.
+Introduction
+The radio astronomy community has recently decided upon the science cases that future radio telescopes
+must enable, which directly translate into stringent requirements on the instrument’s survey speed. These
+include beam sensitivity, size of the ﬁeld-of-view (FoV), number of simultaneous beams, and frequency
+bandwidth, as well as on the polarization purity of the instrument. Conventional single-beam antennas are
+not capable to conform to these multi-beaming performance speciﬁcations. Research has therefore been
+focused on phased-array antenna concepts, since then the individual antenna array output signals can be
+weighted to realize multiple desired beams. Furthermore, array signal processing techniques can be used
+to exploit the degrees of freedom in the beamformer weights for increased beam sidelobe level control,
+interference rejection, and gain and noise level control of the beams (SNR) [1, 2].
+To date, the polarimetric response of the antenna array has not received much of attention and only one
+polarization is usually considered at a time. Further, as the radio polarimeter is essentially summing up vector
+element patterns, the polarization characteristics of the realized beam is weight dependent too. In turn, this
+enables us to create two beams in one direction forming an orthogonal polarimetric beam pair. Moreover,
+signal processing techniques can be developed to collectively optimize for the SNR and orthogonality of a
+polarimetric beam pair. This paper assesses the results for four diﬀerent beamforming schemes that have
+recently been proposed: the optimal beamformer, the max-SLNR beamformer, the eigenvector beamformer,
+and the bi-scalar beamformer. The beam pair sensitivities are shown for the APERFIF prototype system [2],
+for all beamforming scenarios. The polarimetric quality of each pair of nominally orthogonally polarized
+beams is expressed in terms of a Jones matrix. This formulation is used in a numerical model to study the
+performance of several possible algorithms for polarimetric array beamformer weight design.
+Polarimetric Beamforming
+Figure 1 provides a system level view of a polarimetric antenna system. The polarimetric properties of the
+source are deﬁned by the 2×2 source covariance matrix Rs, which gives the covariance of the source signal in
+two polarizations deﬁned in a suitable coordinate system. The transfer function of our instrument, including
+antennas, receiver chains and a beamformer, can be described in the form of a 2 × 2 Jones matrix J, which
+describes how the input voltages in two polarizations are transformed into two polarimetric output signals. If
+we correlate these output signals, we get the beamformer output covariance matrix Ro. This is used as input
+
+--- PAGE BREAK ---
+
+instrument
+pol. correction
+Figure 1: A system level view of a radio polarimeter.
+for further processing, that ultimately produces a reconstructed source covariance matrix R′
+s that should
+ideally be proportional to Rs. An ideal system does not require polarimetric correction, since it has J = I,
+where I denotes the identity matrix, i.e., it leaves the covariance matrix of the input signal unchanged and
+does not introduce so-called instrumental polarization. By choosing appropriate beamformer weights, the
+instrumental polarization introduced by the antennas and other analog electronics can be compensated for
+in the beamformer. In this paper, we compare the polarimetric and sensitivity performance of four proposed
+beamformers:
+optimal beamformer In this beamforming scheme, we assume that we know the response of the system to
+two reference signals with mutually perfectly orthogonal polarization. We then maximize the sensitivity
+under the constraint that J = I by minimizing the receiver output noise power [3].
+max-SLNR beamformer The optimal beamformer imposes a hard constraint on the instrumental transfer
+function. By optimizing the signal-to-leakage-and-noise ratio, one can turn this into a soft constraint
+that does not suppress the leakage further than the noise level in the calibration measurement. This
+ensures that the noise in the calibration measurement is not over-interpreted.
+eigenvector beamformer This more practical beamformer is based on the fact that an unpolarized signal
+can be regarded as a superposition of two uncorrelated orthogonally polarized signals. We can thus
+produce two orthogonal output signals by measuring the signal covariance matrix of the antenna
+outputs, which is a rank-2 matrix, and associating each beamformer output with one of the dominant
+eigenvectors [4]. If the phased array feed consists of two sets of single polarization elements, we can
+make an approximate polarimetric correction by exploiting the intrinsic polarization of each set of
+elements.
+bi-scalar beamformer This beamformer assumes that the array consists of two sets of single polariza-
+tion elements and simply applies max-SNR beamforming to these sets separately to obtain the two
+beamformer outputs.
+Numerical Results
+The following results pertain to the APERTIF prototype system which includes a phased array feed
+consisting of 144 tapered slot antenna elements, 144 low noise ampliﬁers and an active (digital) beamforming
+network. The entire receiving system has been modeled by an enhanced version of the method of moments
+used as the electromagnetic simulation software, combined with a microwave circuit simulator (CAESAR),
+and the high frequency electromagnetic solver GRASP for modeling the reﬂector antenna [5, 6].
+Figure 2(a) illustrates the magnitude of the Jones matrix element |J11| for the optimal method. Element
+|J11| indicates the beam intensity that is referenced to output 1 of the Jones polarimeter. The results are
+shown for 37 beams and have been overlayed (not summed) to ease the comparison between the beams
+within the ﬁeld of view. Figure 2(b) shows |J11| along the φ = 0o direction (for the on-axis and 3x2 oﬀ-axis
+beams) for the four beamforming scenarios. The values of |J11| are the same for the optimal, eigenvalue
+and max-SLNR methods. The bi-scalar method measures a lower ﬁeld intensity since half of the antenna
+
+--- PAGE BREAK ---
+
+output signals are combined into an x beam, and the other half into a y beam, respectively. Figure 2(c) plots
+the Jones matrix element |J12| for 37 beams. The element |J12| measures the degree of cross-polarization
+leakage for the optimal beamformer. Clearly, the polarization purity is very high in the beam centers, but
+deteriorates towards the periphery of the beam and can become as high as -15dB for the beams at the edge
+of the FoV. Figure 2(d) shows the cut φ = 0o for |J12| for the four beamforming scenarios. It is remarkable
+to see that the eigenvector beamformer leads to a cross-polarization leakage which can be as high as -5dB,
+while the cross-polarization leakage for the beams obtained with the other beamforming schemes is as low
+as -20dB for the same beam directions. Figure 2(e) indicates that for the bi-scalar method, the polarization
+homogeneity across the beam can be signiﬁcantly poorer than that of the full-polarization beamformers, and
+the cross-polarization leakage can rapidly degrade to -12dB for out-of-center beams. Figure 2(f) illustrates
+the beam sensitivities at the two beamformer outputs for the optimal and bi-scalar method. In addition, the
+sensistivity bounds are shown for the optimal, bi-scalar, eigenvalue, and max-SLNR beamforming methods.
+These upper and lower bounds are the same for all methods, except for the bi-scalar method, for which
+these bounds are lower because this scheme does not beamform all antenna output signals and therefore
+compromises the sensitivity and beam polarization purity, in particular for out-of-center beams.
+Clearly, |J1,2| →0 at the beam centers for both the optimal and max-SLNR beamformers. Hence, the
+IEEE deﬁnitions for cross-polarization, i.e. the cross-polarization discrimination (XPD) and isolation (XPI)
+values, tend to inﬁnity at the beam centers. This surely meets the SKA speciﬁcation, which states that
+the raw cross-polarization level (before calibration) must be lower than -20dB at zenith [7]. However, the
+polarimetric homogeneity of the PAF beams is not constant over the FoV and rapidly degrades as a function
+of oﬀ-axis angle of observation, especially for the bi-scalar beamformer. This implies that further calibration
+must be done to correct for the direction dependent artefacts in interferometric images, in particularly when
+the dominant source moves away from the centre to the periphery of the beam [8].
+References
+[1] B. D. Jeﬀs and K. F. Warnick. Signal processing for phased array feeds in radio astronomical telescopes.
+2(5):635–646, October 2008.
+[2] M. V. Ivashina, O. Iupikov, R. Maaskant, W. van Cappellen, and T. Oosterloo. An Optimal Beam-
+forming Strategy for Wide-Field Surveys With Phased-Array-Fed Reﬂector Antennas. to appear in the
+Special Issue on Antennas for Next Generation Radio Telescopes of the IEEE Trans. on Antennas and
+Propagation, 49(3), 2011.
+[3] K.F. Warnick, B. Jeﬀs, M. Ivashina, R. Maaskant, and S.J. Wijnholds.
+Polarimetric Phased Ar-
+ray Beamforming and Calibration.
+In International Workshop on Phased Array Antenna Systems
+for Radio Astronomy, Brigham Young University, Provo (Utah), USA, 3-5 May 2010.
+Available:
+http://csas.ee.byu.edu/docs/Workshop/2010WorkshopPresentations.phtml.
+[4] B. Veidt. Polarimetry with Phased Array Feeds. In International Workshop on Phased Array Antenna
+Systems for Radio Astronomy, Brigham Young University, Provo (Utah), USA, 3-5 May 2010. Available:
+http://csas.ee.byu.edu/docs/Workshop/2010WorkshopPresentations.phtml.
+[5] M. Ivashina, O. Iupikov, and W. van Cappellen. Extending the capabilities of the grasp and caesar
+software to analyze and optimize active beamforming array feeds for reﬂector systems. In Proc. Int.
+Conf. on Electromagn. in Adv. Applicat. (ICEAA), pages 197–200, Syndey, September 2010.
+[6] R. Maaskant. Analysis of Large Antenna Systems. PhD thesis, The Eindhoven University of Technology,
+2010. Online Available: http://alexandria.tue.nl/extra2/201010409.pdf.
+[7] R. T. Schilizzi et al. Memo 100: Preliminary Speciﬁcations for the Square Kilometre Array. Technical
+report, 2007. Online Available: http://www.skatelescope.org/PDF/memos/100 Memo Schilizzi.pdf.
+[8] O. M. Smirnov. Revisiting the radio interferometer measurement equation. II. Calibration and direction-
+dependent eﬀects. Astron. & Astroph., (527):p. A107, March 2011.
+
+--- PAGE BREAK ---
+
+−1.5
+−0.5
+−2.5
+−1.5
+−0.5
+|J1,1|, [dB]
+θ, deg
+optimal
+eigenvalue
+bi−scalar
+max−SLNR
+(a) |J11| of 37 beams (optimal method)
+(b) |J11| at φ = 0o for several beamformers
+−1.5
+−0.5
+|J1,2|, [dB]
+θ, deg
+optimal
+eigenvalue
+bi−scalar
+max−SLNR
+(c) |J12| of 37 beams (optimal method)
+(d) |J12| at φ = 0o for several beamformers
+−1.5
+−0.5
+Sensitivity, [m2/K]
+θ, deg
+BF output 1 (optimal)
+BF output 2 (optimal)
+BF output 1 (biscalar)
+BF output 2 (biscalar)
+bound (optimal)
+bound (biscalar)
+bound (eigenvalue)
+bound (max−SLNR)
+(e) |J12| of 37 beams (biscalar method)
+(f) Beam sensitivities at φ = 0o for several beamformers
+Figure 2: Simulated Jones matrix elements for several PAF beams and polarimetric beamforming methods.
+Since the half-power-beamwidth is equal approximately to 0.5o, the beam separation distance is about one
+half-power beamwidth.
+
+--- PAGE BREAK ---
+
+−1.5
+−0.5
+−2.5
+−1.5
+−0.5
+|J2,2|, [dB]
+θ, deg
+optimal
+eigenvalue
+bi−scalar
+max−SLNR

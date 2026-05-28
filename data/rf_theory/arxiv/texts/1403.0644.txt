@@ -1,0 +1,1149 @@
+arXiv:1403.0644v1  [astro-ph.IM]  4 Mar 2014
+CORSIKA Simulation of the Telescope Array Surface
+Detector
+T. Abu-Zayyad26, R. Aida27, M. Allen26, R. Anderson26, R. Azuma20,
+E. Barcikowski26, J.W. Belz26, D.R. Bergman26, S.A. Blake26, R. Cady26,
+B.G. Cheon5, J. Chiba21, M. Chikawa10, E.J. Cho5, W.R. Cho29, H. Fujii8,
+T. Fujii14, T. Fukuda20, M. Fukushima24, 25, W. Hanlon26, K. Hayashi20,
+Y. Hayashi14, N. Hayashida24, K. Hibino9, K. Hiyama24, K. Honda27,
+T. Iguchi20, D. Ikeda24, K. Ikuta27, N. Inoue18, T. Ishii27, R. Ishimori20,
+D. Ivanov17, 26, S. Iwamoto27, C.C.H. Jui26, K. Kadota19, F. Kakimoto20,
+O. Kalashev7, T. Kanbe27, K. Kasahara28, H. Kawai1, S. Kawakami14,
+S. Kawana18, E. Kido24, H.B. Kim5, H.K. Kim29, J.H. Kim5, J.H. Kim2,
+K. Kitamoto10, S. Kitamura20, Y. Kitamura20, K. Kobayashi21, Y. Kobayashi20,
+Y. Kondo24, K. Kuramoto14, V. Kuzmin7, Y.J. Kwon29, J. Lan26, S.I. Lim4,
+S. Machida20, K. Martens25, T. Matsuda14, T. Matsuura20, T. Matsuyama14,
+J.N. Matthews26, M. Minamino14, K. Miyata21 Y. Murano20, I. Myers26,
+K. Nagasawa18, S. Nagataki12, T. Nakamura11, S.W. Nam4, T. Nonaka24,
+S. Ogio14, M. Ohnishi24, H. Ohoka24, K. Oki24, D. Oku27, T. Okuda16,
+A. Oshima14, S. Ozawa28, I.H. Park4, M.S. Pshirkov22, D.C. Rodriguez26,
+S.Y. Roh2, G. Rubtsov7, D. Ryu2, H. Sagawa24, N. Sakurai14, A.L. Sampson26,
+L.M. Scott17, P.D. Shah26, F. Shibata27, T. Shibata24, H. Shimodaira24,
+B.K. Shin5, J.I. Shin29, T. Shirahama18, J.D. Smith26, P. Sokolsky26,
+B.T. Stokes26, S.R. Stratton17, 26, T. Stroman26, S. Suzuki14, Y. Takahashi24,
+M. Takeda24, A. Taketa23, M. Takita24, Y. Tameda24, H. Tanaka14, K. Tanaka6,
+M. Tanaka14, S.B. Thomas26, G.B. Thomson26, P. Tinyakov7, 22, I. Tkachev7,
+H. Tokuno20, T. Tomida15, S. Troitsky7, Y. Tsunesada20, K. Tsutsumi20,
+Y. Tsuyuguchi27, Y. Uchihori13, S. Udo9, H. Ukai27, G. Vasiloﬀ26, Y. Wada18,
+T. Wong26, M. Wood26, Y. Yamakawa24, R. Yamane14, H. Yamaoka8,
+K. Yamazaki14, J. Yang4, Y. Yoneda14, S. Yoshida1, H. Yoshii3, X. Zhou10,
+R.R. Zollinger26, and Z. Zundel26
+1 Chiba University, Chiba, Chiba, Japan
+2 Chungnam National University, Yuseong-gu, Daejeon, South Korea
+3 Ehime University, Matsuyama, Ehime, Japan
+4 Ewha Womans University, Seodaaemun-gu, Seoul, South Korea
+5 Hanyang University, Seongdong-gu, Seoul, South Korea
+6 Hiroshima City University, Hiroshima, Hiroshima, Japan
+7 Institute for Nuclear Research of the Russian Academy of Sciences, Moscow, Russian
+Federation
+8 Institute of Particle and Nuclear Studies, KEK, Tsukuba, Ibaraki, Japan
+9 Kanagawa University, Yokohama, Kanagawa, Japan
+Preprint submitted to Astroparticle Physics
+November 16, 2021
+
+--- PAGE BREAK ---
+
+10 Kinki Unversity, Higashi Osaka, Osaka, Japan
+11 Kochi University, Kochi, Kochi, Japan
+12 Kyoto University, Sakyo, Kyoto, Japan
+13 National Institute of Radiological Science, Chiba, Chiba, Japan
+14 Osaka City University, Osaka, Osaka, Japan
+15 RIKEN, Advanced Science Institute, Wako, Saitama, Japan
+16 Ritsumeikan University, Kusatsu, Shiga, Japan
+17 Rutgers—The State University of New Jersey, Department of Physics and Astronomy,
+Piscataway, New Jersey, USA
+18 Saitama University, Saitama, Saitama, Japan
+19 Tokyo City University, Setagaya-ku, Tokyo, Japan
+20 Tokyo Institute of Technology, Meguro, Tokyo, Japan
+21 Tokyo University of Science, Noda, Chiba, Japan
+22 University Libre de Bruxelles, Brussels, Belgium
+23 University of Tokyo, Earthquake Research Institute, Bunkyo-ku, Tokyo, Japan
+24 University of Tokyo, Institute for Cosmic Ray Research, Kashiwa, Chiba, Japan
+25 University of Tokyo, Institute for the Physics and Mathematics of the Universe,
+Kashiwa, Chiba, Japan
+26 University of Utah, Department of Physics & Astronomy and High Energy
+Astrophysics Institute, Salt Lake City, Utah, USA
+27 University of Yamanashi, Interdisciplinary Graduate School of Medicine and
+Engineering, Kofu, Yamanashi, Japan
+28 Waseda University, Advanced Research Institute for Science and Engineering,
+Shinjuku-ku, Tokyo, Japan
+29 Yonsei University, Seodaemun-gu, Seoul, South Korea
+Abstract
+The Telescope Array is the largest experiment studying ultra-high energy
+cosmic rays in the northern hemisphere. The detection area of the experiment
+consists of an array of 507 surface detectors, and a ﬂuorescence detector
+divided into three sites at the periphery. The viewing directions of the 38
+ﬂuorescence telescopes point over the air space above the surface array. In
+this paper, we describe a technique that we have developed for simulating the
+response of the array of surface detectors of the Telescope Array experiment.
+
+--- PAGE BREAK ---
+
+The two primary components of this method are (a) the generation of a
+detailed CORSIKA Monte Carlo simulation with all known characteristics
+of the data, and (b) the validation of the simulation by a direct comparison
+with the Telescope Array surface detector data. This technique allows us
+to make a very accurate calculation of the acceptance of the array. We also
+describe a study of systematic uncertainties in this acceptance calculation.
+Keywords:
+cosmic ray, extensive air shower, simulation, surface detector
+1. Introduction
+The Telescope Array (TA) is the largest experiment studying ultrahigh
+energy cosmic rays in the northern hemisphere.
+It is located in Millard
+County, Utah, and consists of a surface detector (SD) of 507 scintillation
+counters, each of area 3m2, deployed in a grid of 1.2 km spacing, plus a set
+of 38 ﬂuorescence telescopes located at three sites around the SD looking
+inward over the array. Both detector systems of TA started collecting data
+in 2008.
+Measurements of the diﬀerential ﬂux of cosmic rays, as a function of
+energy, have historically played an important role in the study of ultra-high
+energy cosmic rays (UHECRs). Foremost among these is the high energy
+break in the spectrum at 5 × 1019 eV, called the GZK cutoﬀ[1][2][3][4],
+which provides convincing evidence for the extra-galactic origin of the highest
+energy cosmic rays.
+An important experimental technique used in the spectrum measurement
+is the calculation, using the Monte Carlo simulation method, of the eﬃciency
+with which the detector observes cosmic ray induced extensive air showers.
+
+--- PAGE BREAK ---
+
+Prior to the TA experiment, high-ﬁdelity Monte Carlo (MC) simulations have
+been available for ﬂuorescence detectors (FDs), which measure the ﬂuores-
+cence light emitted by nitrogen molecules excited by the passage of shower
+particles in their vicinity. Accurate simulations for the other major detec-
+tor type, surface scintillation arrays, have only recently become possible with
+the rapid growth of computational and storage capacity over the past decade,
+coupled with the maturity of sophisticated and realistic shower generation
+codes over the same time frame. In particular, the diﬃculty of generating
+accurate Monte Carlo simulations of air showers has limited the surface array
+technique to the energy regime where the detector is 100% eﬃcient [5]; i.e.,
+only at the high energy end of the detector’s sensitive range.
+In order to simulate accurately the ground-level particle densities mea-
+sured by surface detectors, along with their ﬂuctuations, a shower generator
+code needs in principle to track every particle created in the avalanche pro-
+cess down to below its critical energy. In practice, available CPU power and
+storage space limit one to generating only a small number of shower parti-
+cles, insuﬃcient for an accurate calculation of detector acceptance, or for a
+useful comparison of data and MC distributions. An approximation tech-
+nique called ”thinning” [6] typically is used in programs like CORSIKA [7]
+and AIRES [8] to reduce CPU time requirements. Under the thinning ap-
+proximation, nearly all particles with energies below a preselected threshold
+(orders of magnitude higher than the critical energy) are removed from the
+shower. Only a few representative particles are kept with weights to account
+for those, in the same region of phase space, that have been ”thinned” out.
+The thinning method usually gives an adequate description of particle dis-
+
+--- PAGE BREAK ---
+
+tributions in the core region of a shower where enormous numbers of particles
+are found (and where essentially all of the ﬂuorescence light is generated).
+For surface detectors, which sample the particle density at ground level,
+the enormous ﬂux saturates any counter in proximity to the shower core.
+Typically, useful sampling is based on detectors at the scale of the detector
+spacing or more. For experiments, like TA, that are optimized to measure the
+highest energy cosmic rays, this distance scale is of the order of a kilometer.
+While a thinned shower is able to reproduce the average particle densities
+reasonably well on the kilometer scale from the shower core, the weighted
+particles cannot model the shower-to-shower ﬂuctuations or even the ﬂuc-
+tuations at diﬀerent azimuthal angles around the shower core. The RMS
+deviations from the average densities in a thinned shower are typically oﬀ
+by an order of magnitude or more from that obtained from those seen in the
+few ”unthinned” showers one can aﬀord to generate. Thinning is therefore
+too crude of an approximation to give a faithful representation of even the
+simulated air shower itself, let alone real cosmic-ray induced showers. Some
+experiments have claimed to overcome this intrinsic diﬃculty by restricting
+their analysis to the highest energy range where the eﬃciency of the detector
+approaches unity. However, if quality cuts are used to select only a subset of
+the data, then the use of a simulation is still needed to calculate acceptance.
+In that case the use of thinning can and probably does introduce signiﬁcant
+systematic biases because the thinned Monte Carlo (MC) simulation cannot
+accurately reproduce the tails expected in the distribution of cut parameters.
+Quality cuts are invariably used to remove outliers in such tails.
+In the simulation of air showers for calculating the acceptance of the Tele-
+
+--- PAGE BREAK ---
+
+scope Array experiment, we have developed a ”de-thinning” procedure to
+compensate for the shortcomings of the thinning. Using the thinned COR-
+SIKA output, we replace each representative particle of weight w with an
+ensemble of w particles propagated in a cone about the weighted particle. A
+detailed prescription of our de-thinning process was published in an earlier
+article [9]. In that article, careful comparisons were made between de-thinned
+and non-thinned showers (the latter referring to showers generated without
+any thinning), and excellent agreement was found in the statistical properties
+of the two sets of simulations. Our de-thinned sample overcame all of the
+essential shortcomings of the thinning approximation.
+In this paper, we describe the actual application of the de-thinning process
+to the simulation of the Telescope Array experiment. Detailed comparisons
+are shown for key distributions (those that directly aﬀect the acceptance
+calculation) between TA data and the de-thinned MC shower sample. The
+excellent agreement in these comparisons serve to demonstrate the high de-
+gree of accuracy of the simulation in reproducing the properties both of the
+detector and of the data.
+This paper is the last in a series of three describing simulation techniques
+used for the surface detector of the Telescope Array experiment [9][10]. Sec-
+tions 2 and 3 give an overview of the TA surface detector and its data analysis.
+Section 4 describes the process of generating de-thinned CORSIKA showers
+for the TA SD, with events generated according to previous measurements
+of the UHECR spectrum and composition, and including a detailed simu-
+lation of each scintillation counter. Validating the Monte Carlo simulation
+is described in Section 5, and the experimental resolution is presented in
+
+--- PAGE BREAK ---
+
+East [km] 
+North [km] 
+BR-FD
+LR-FD
+MD-FD
+Figure 1: The physical layout of the Telescope Array. The surface detectors
+are represented by small open squares. Additionally the positions and ﬁelds
+of view are shown for all three air-ﬂuorescence stations.
+Section 6. Determining the energy scale using events seen by both the ﬂuo-
+rescence and surface detectors is given in Section 7, and a study of systematic
+uncertainties and biases is described in Section 8.
+2. TA Surface Detector Data
+The TA surface detector has been described previously [11][12][13]. In
+Figure 1, we see the physical layout of all components of TA. Each SD counter
+consists of two layers of plastic scintillator, 3 m2 in area, and read out inde-
+pendently by two photomultiplier tubes. Scintillation light is guided to the
+photomultiplier tubes by a system of wavelength-shifting ﬁbers set in grooves
+in the scintillator. These counters are calibrated every 10 minutes [14] us-
+ing a histogram of pulse heights recorded for events triggering both layers of
+
+--- PAGE BREAK ---
+
+scintillators in time coincidence. The resulting distributions typically consist
+of a peak at low integrated pulse area, accompanied by a tail toward higher
+pulse area. The peak itself corresponds to the signal from single muons pass-
+ing through both scintillators, and the centroid of the peak then deﬁnes the
+average signal for a minimum-ionizing particle (MIP) for that channel.
+The waveforms from the two scintillators are sampled by a 50 MHz FADC
+system [14]. A real time integration process is used to trigger each counter:
+waveforms of pulses with integrated areas corresponding to at least 1/3 MIPs
+are saved with a corresponding GPS time stamp. The detection of a pulse
+of 3 MIPs or larger is reported to a central data acquisition system via the
+radio communication system. A trigger for the TA SD occurs when three
+adjacent counters have energy deposits equivalent to at least three MIPs in
+each counter within an 8 µsec window. When the SD trigger conditions are
+met, all counters in the array are polled.
+Saved waveforms (of minimum
+1/3 MIPs) with time stamps within 64 microseconds of the event trigger are
+read out over the radio link. The pulse area contained in recorded waveforms,
+stored in raw FADC units, are converted to units of vertical-equivalent muons
+(VEM). A vertical minimum-ionizing muon deposits on average 2.05 MeV of
+ionization energy in each scintillator layer. The conversion process uses the
+calibration histograms collected every 10 minutes, but also incorporates the
+simulated detector response to single muons and other secondary particles
+produced in air showers induced by TeV cosmic rays.
+The application of the calibration and the signal analysis extract the
+following information from each counter participating in the event: (a) An
+integrated particle count in units of VEM, (b) the arrival time of the shower,
+
+--- PAGE BREAK ---
+
+Figure 2: A typical high energy event seen by the TA SD. Each circle rep-
+resents a counter that participated in the event. The area of each circle is
+proportional to the logarithm of the VEM signal size for that counter. The
+measured arrival time of the shower at each counter is denoted by the color
+of the circle. The arrow represents the projection of the shower axis onto
+the ground, ˆu, and the intersection between this arrow and its perpendicular
+bisector marks the location of the shower core.
+and (c) the spatial coordinates of the counter. These quantities are then used
+to reconstruct the shower trajectory and the energy of the primary cosmic
+ray. Figure 2 shows a footprint of a typical high energy event.
+3. Event Reconstruction and Selection Cuts
+The event reconstruction procedures used for TA SD data are based on
+parametrizations and procedures originally developed by the AGASA Collab-
+oration [15], modiﬁed to match the characteristics of the TA detectors [16].
+
+--- PAGE BREAK ---
+
+First, the shower axis is determined from the arrival times in the trig-
+gered counters.
+These are ﬁt to the AGASA-modiﬁed Linsley time delay
+function [17][18]. Figure 3a, shows this ﬁt for a typical TA SD event. For
+this work, the parameters of the original AGASA time delay function were
+adjusted to ﬁt the overall characteristics of the TA SD data set, by consider-
+ing the distributions of ﬁt residual in distance-to-core, VEM signal sizes, and
+in zenith angle. It should be emphasized that the adjustments were made
+based exclusively on actual TA SD data without any additional information
+from simulations, and are therefore model-independent.
+The primary energy estimation of TA SD events is established by ﬁrst
+measuring the charge density at 800m in lateral (perpendicular) distance from
+the shower axis (S800) [5]. The measured particle densities from the counters
+are ﬁt to the modiﬁed AGASA lateral distribution function (LDF) [19], as
+shown in Figure 3b. The value at 800m, denoted as S800, is interpolated
+from this ﬁt.
+In order to achieve reasonable detector resolutions in energy and pointing
+direction, but without losing an unreasonable fraction of events, we chose the
+following event selection cuts (both pre- and post- reconstruction). These
+same cuts are applied to both data and Monte-Carlo in the present TA SD
+analysis:
+1. NSD ≥5. At least 5 good counters per event.
+2. θ < 45◦. Zenith angle less than 45 degrees.
+3. DBorder ≥1200 m. Core position is within the array and at least 1200 m
+away from the edge of the array.
+4. χ2
+G/d.o.f. < 4 and χ2
+LDF/d.o.f. < 4. Reduced values of χ2 of geometry
+
+--- PAGE BREAK ---
+
+G/d.o.f.) and LDF (χ2
+LDF/d.o.f.) ﬁts are less than 4.
+θ + sin2θ σ2
+φ < 5◦.
+Pointing direction uncertainty is less than 5
+degrees. σθ and σφ are the uncertainties on zenith and azimuthal angles
+from the geometry ﬁt.
+6. σS800/S800 < 0.25. Fractional uncertainty of S800 determination (from
+the LDF ﬁt) is within 25%.
+Table 1 displays the eﬃciency (fraction of events retained) when the qual-
+ity cuts are applied, incrementally for 3 energy slices.
+Quality cut
+Eﬃciency,
+Eﬃciency,
+Eﬃciency,
+E > 1018 eV
+E > 1018.5 eV
+E > 1019 eV
+NSD ≥5
+0.674
+0.931
+0.973
+θ < 45◦
+0.741
+0.702
+0.677
+DBorder ≥1200 m
+0.865
+0.814
+0.748
+G/d.o.f. < 4, χ2
+LDF/d.o.f. < 4
+0.928
+0.938
+0.981
+θ + sin2θ σ2
+φ)1/2 < 5◦
+0.656
+0.925
+0.995
+σS800/S800 < 0.25
+0.534
+0.887
+0.995
+All cuts combined
+0.14
+0.41
+0.48
+Table 1: Eﬃciency of the quality cuts
+4. Surface Detector Monte Carlo Simulation
+In simulating an air shower, the TA surface detector Monte Carlo uses the
+CORSIKA 6.960 [7] simulation package. For the standard simulated event
+
+--- PAGE BREAK ---
+
+set, we selected the QGSJET-II-03 [20] and FLUKA2008.3c [21][22] hadronic
+models for high and low energies, respectively. For electromagnetic processes,
+the EGS4 [23] electromagnetic model was used.
+The ﬁrst step in generating a comprehensive simulation of the TA SD
+data set is to create a library of thinned CORSIKA showers. This library
+consists of 16,800 extensive air showers with primary energies distributed
+in ∆log10 E = 0.1 bins between 1016.75 eV and 1020.55 eV. The number of
+showers in each bin ranges from 1000 in the lowest energy bin to 250 in the
+highest energy bin. These showers are simulated with zenith angles from
+0◦to 60◦assuming an isotropic distribution. It is important to note that
+in our ﬁnal analysis we only include events with E > 1018.0 eV and θ <
+45◦. However, events must be simulated well beyond these limits in energy
+and inclination in order to give a complete understanding of our detector
+acceptance as well as our energy and angular resolutions.
+Each shower in the CORSIKA library is then subjected to dethinning [9].
+For each simulated event, all shower particles that strike the ground are
+divided spatially by their landing spots into 6×6m2 “tiles” on the desert ﬂoor
+and into 20ns wide bins by their arrival time. The total energy deposited by
+all particles that landed in a particular tile, and into a virtual TA SD counter
+located at its center, is calculated using the GEANT4 simulation package [24].
+Note this analysis assumes many more virtual SD counters (spaced every 6
+m instead of 1.2 km) than are actually present in the experiment.
+Back
+scattering of particles striking the ground within the tile is included in the
+simulation. The energy deposited as a function of time is stored in the shower
+library. Figure 4 shows the comparison of energy deposition in SD counters
+
+--- PAGE BREAK ---
+
+vs. distance-to-core from a simulated 1019 eV shower before and after de-
+thinning.
+The plot on the right, made using a de-thinned shower, shows
+excellent agreement to an identical unthinned shower in both the mean energy
+deposit and its RMS variation, plotted as functions of distance-to-core. In
+contrast, the same plot on the left comparing the same shower after thinning
+to the same unthinned shower shows a discrepancy in the RMS variation in
+energy deposition by up to an order of magnitude.
+In the concluding step of the shower library generation, each tiled shower
+is sampled 2000 times through a detailed simulation of the detector, includ-
+ing electronics. The shower core positions, the azimuth of the shower axis,
+and event times are varied in this process. The detector simulation utilizes
+real-time calibration information from the TA SD to eﬀect a highly detailed,
+time-speciﬁc simulation of the detector operating conditions. Additionally,
+random background particles are inserted into the electronics readout based
+on secondary ﬂux derived from additional CORSIKA simulations of the low-
+energy cosmic ray spectrum reported by the BESS Collaboration [25]. The
+net result of this step is to convert each dethinned CORSIKA shower into an
+event library of simulated detector events in a data format identical to that
+produced by the TA SD instrumentation.
+In order to achieve a highly accurate representation of the actual TA SD
+data set, we sample simulated events from our event library with a primary
+energy distribution and composition according to published HiRes energy
+spectrum [3] and composition [26], respectively. The resulting MC event set
+is then processed by the same analysis program as the TA SD data. This
+process chain is illustrated by the diagram in Figure 5.
+
+--- PAGE BREAK ---
+
+Finally, we validate the accuracy of the simulation by comparing distri-
+butions of key observables obtained from the MC events with those from real
+data. As will be seen in the next section, our de-thinned shower samples
+give excellent agreement in these data-MC comparisons, thereby verifying
+the reliability of detector resolutions and of the detector acceptance calcu-
+lation obtained from our simulation algorithm. The primary advantage of
+this process lies in that the trigger eﬃciency, reconstruction quality cuts, and
+the eﬀects of ﬁnite resolution [27][28] are all automatically included in the
+analysis.
+A functional relationship between S800, the primary zenith angle (θ), and
+the primary energy is constructed using the de-thinned Monte Carlo Event
+set. Each simulated event is subjected to the same geometrical reconstruction
+as described above, and the value of S800 obtained in the same way. A three-
+dimensional scatter plot is then made of the input (generated) primary energy
+of each shower plotted in the z-direction, vs. sec θ in the x-direction, and the
+logarithm of the S800 value in the y-direction. The points in this plot form
+a surface that represents the shower energy as a bi-variate function of sec θ
+and log10(S800). The function obtained for this work is shown in Figure 6,
+in which the value of energy is represented by color according to the key
+attached to the right of the plot. The information contained in Figure 6
+is used to determine the energy of both real and simulated events from the
+interpolated S800 values.
+
+--- PAGE BREAK ---
+
+5. Data - Monte Carlo Comparisons
+A crucial part of the TA SD simulation program is the comparison of
+data and MC distributions. The success of these comparisons validates the
+accuracy of the simulated event set in its representation of the real data
+set, and demonstrates the reliability of analysis procedures that depend on
+the Monte Carlo. These include the construction of energy vs. sec θ and
+S800 plot in Figure 6, the determination of detector resolutions, and the
+acceptance calculation.
+Figure 7 shows normalized residuals of the time ﬁt as a function of lateral
+distance from the shower core (i.e. the diﬀerence between the SD counter
+time and the ﬁt value, all divided by the uncertainty in counter time). In
+Figure 7b, we apply the same time delay function to simulated events. In Fig-
+ure 8, we compare the real and simulated distributions for several geometric
+observables. By considering the comparison of Figures 7 and 7b in conjunc-
+tion with the further comparisons shown in Figure 8, we establish that the
+simulated event set possesses a distribution of geometric characteristics that
+are very similar to those of the real data.
+Figure 9 shows the data-MC comparison of real and simulated lateral
+distribution quantities and the reconstructed energy. It should be noted that
+while the comparison Figures 9d and 9e show a small deﬁcit of events at large
+values of S800 and energy in the data, this diﬀerence is expected because
+we do not include the simulation of the GZK suppression [1][2] at this level
+of analysis, and it does not reﬂect a fundamental disagreement between the
+real and simulated event sets. The data-Monte Carlo comparison plots show
+excellent agreement.
+
+--- PAGE BREAK ---
+
+6. Detector Resolutions
+The detector resolutions are determined by comparing the reconstructed
+and generated values for those simulated showers that survived the event
+selection cuts described in the previous section.
+The two key resolutions
+of interest are those of the arrival direction (of particular importance in
+anisotropy studies) and primary energy (important for the energy spectrum
+and for anisotropy).
+The angular resolution is obtained from a cumulative histogram of the
+opening angle between the reconstructed event direction ˆnREC and the true
+(MC generated) direction ˆnGEN:
+δ = cos−1(ˆnREC · ˆnGEN)
+The unit vectors ˆnREC and ˆnGEN are calculated from the shower zenith and
+azimuthal angles (both reconstructed and generated). Figure 10 shows the
+cumulative distribution of δ from a spectral MC set (i.e., one generated ac-
+cording to the published HiRes energy spectrum and composition).
+results are displayed for three energy ranges. Choosing the 68% conﬁdence
+interval for stating the answers, the TA SD angular resolution values are:
+2.4o for 1018.0eV < E < 1018.5eV, 2.1o for 1018.5eV < E < 1019.0eV, and 1.4o
+for E > 1019.0eV. For the energy resolution we state the root-mean-square
+(RMS) deviation for the distribution of R = EREC/EGEN, the ratio of the
+reconstructed (EREC) to the generated (EGEN) event energies. However, for
+the display of the distribution of R, and for calculating the RMS resolution,
+it is advantageous to histogram the natural logarithm of the energy ratio, R,
+because ln R treats fractional under-reconstruction and over-reconstruction
+
+--- PAGE BREAK ---
+
+of event energies in a symmetric way. In contrast, a histogram of just the ra-
+tios, R, would not properly account for those events with under-reconstructed
+energies, because R is artiﬁcially bounded at zero on the low side, but un-
+bounded on the high side. This bias can lead to an understated RMS value
+and hence overstated resolution.
+The RMS deviation σlnR of the distribution of the (natural) logarithm of
+the R = EREC/EGEN can also be used to calculate σE, the fractional energy
+resolution, according to the ﬁrst order approximation:
+σE = exp(σlnE) −1
+Figure 11 shows the energy resolution of the TA SD for three MC generated
+energy ranges. The histograms were produced using the MC spectral sets
+with varying statistics (10 to 40 times that of the real data) to yield sim-
+ilar numbers of events in the histograms. Using the RMS deviation of the
+EREC/EGEN distributions and equation 2, the following results were obtained
+for the TA SD energy resolution (in percents of the true energy): 36% for
+1018.0eV < EGEN < 1018.5eV, 29% for 1018.5eV < EGEN < 1019.0eV, and 19%
+for EGEN > 1019.0eV.
+7. Normalizing the Energy Scale
+The energy of an air shower seen by a ﬂuorescence detector can be mea-
+sured accurately because the ﬂuorescence process is basically calorimetric.
+However for the tails of an air shower, which are observed by a surface detec-
+tor, one is subject to a much larger uncertainty in energy, which comes from
+the details of the hadronic generator program used (in our case QGSJET-
+II). The size of this uncertainty is unknown. Therefore a hybrid experiment,
+
+--- PAGE BREAK ---
+
+like the Telescope Array, has available to it an excellent way of normalizing
+its SD energy scale: for events seen by both detectors determine the energy
+from each detector and normalize the SD energy scale to that of the FD. We
+observe a 27% diﬀerence between the two energy scales, which is independent
+of energy (SD is higher than FD). We therefore lower the energies of our SD
+events by this ratio. Figure 12 shows a scatter plot of events’ energies from
+the FD and SD after this correction is made. This normalization is subject
+to the systematic uncertainty of the TA FD energy scale, which is 22% [29].
+8. Study of Systematic Errors
+While calculating the acceptance of the TA surface detector, as is de-
+scribed above, it is possible to estimate the uncertainty in the acceptance
+values from systematic sources. In this section we describe such estimates
+for four sources of systematic uncertainty: the attenuation correction used to
+determine events’ energies as a function of S800 and zenith angle, changing
+cuts used to remove poorly reconstructed events, unfolding the SD energy
+resolution, and the small mismatch between data and Monte Carlo distribu-
+tions of important quantities.
+8.1. Attenuation of S800
+The S800 attenuation correction arises because at diﬀerent zenith angles
+a shower traverses diﬀerent amounts of atmospheric material before it reaches
+the ground and is thus observed at a diﬀerent stage of shower development.
+We check the systematic uncertainties of S800 attenuation by comparing the
+dependence of the ratio of FD over SD energies plotted versus the event
+zenith angle, for events well reconstructed by the FD and SD (the same
+
+--- PAGE BREAK ---
+
+events used in producing plots in Figure 12). Figure 13 shows the result. To
+measure a possible bias in our attenuation correction, we ﬁt the ratios to a
+straight line. The slope of the line is 0.0011 ± 0.0017, showing that no bias
+can be seen with the current statistical power of the data.
+8.2. Acceptance
+An acceptance bias can occur if there are disagreements between the
+data and the Monte-Carlo in quantities that are used for making quality
+cuts. While most quantities agree on a ∼2% level (the answer is obtained
+by counting the diﬀerences in the numbers of events between the data and
+MC in each bin and dividing that by the total number of events), there are
+important exceptions, where the peaks of the data and MC histograms do
+not match exactly, i.e. data and MC histograms are slightly shifted with
+respect to each other and simply counting the event diﬀerences in bins does
+not work. One such quantity is the fractional uncertainty in S800, shown in
+Figure 14.
+This quantity is used for making the quality cuts: σS800/S800 < 0.25. To
+determine the systematic uncertainty (eﬀect on the ﬂux) due to this cut, we
+consider the data and Monte-Carlo ratio:
+Ri = (NDATA
+REC )i
+(NMC
+REC)i
+where (NDATA
+REC )iand (NMC
+REC)i are numbers of events reconstructing in the ith
+(log10E) energy bin for data and Monte-Carlo, respectively. The systematic
+uncertainty can be readily estimated by calculating Ri with the cut (RCUT
+and without the cut (RNO CUT
+) and evaluating the fractional diﬀerence:
+Bi = RWITH CUT
+/RNO CUT
+
+--- PAGE BREAK ---
+
+Figure 15 shows the bias, Bi, evaluated for the cut on σS800/S800. It
+shows the systematic change due to the σS800/S800 cut is ∼2% for E >
+1018.2 eV. If one chooses energies > 1018.2 eV for calculating the TA SD
+spectrum, one can avoid any bias as shown in Figure 15.
+8.3. Resolution Unfolding
+In calculating the energy spectrum, the resolution of the detector (es-
+pecially if it is non-Gaussian), coupled with a spectrum that rapidly falls
+with energy, can bias the result. Consequently, we must make a ﬁrst-order
+resolution correction in the spectrum calculation. The formula we use is:
+J(E) = T(E′)
+A(E)
+D(E)
+AΩ∆t,
+where J(E) is the ﬂux, D(E) is the number of events observed in an energy
+bin, A(E) is the number of accepted simulated events in the energy bin,
+and T(E′) is the number of thrown simulated events.
+The surface area,
+solid angle acceptance, and live time of the detector are repesented by A, Ω,
+and ∆t, respectively. Finally, E is the reconstructed energy, while E′ is the
+thrown energy.
+In the case of an ideal detector with perfect resolution and 100% eﬃciency,
+T(E′)/A(E) = 1 and J(E) = D(E)/(AΩ∆t). For a real detector with ﬁnite
+resolution and less than perfect eﬃciency, the ratio T(E′)/A(E) performs two
+important roles. First, T/A compensates for detector eﬃciency. Second, by
+binning A in E but T in E′, we perform a ﬁrst order (bin-by-bin) correction
+for energy resolution. The validity of this correction is contigent upon energy
+resolution that is the same size or smaller than the energy binning used in the
+calculation, accurate simulation of the energy resolution (as established by
+
+--- PAGE BREAK ---
+
+the excellent agreement between data and simulation for the χ2/dof of the
+lateral distribution ﬁts in Figure 9c), and the use of a reasonably accurate
+input spectral index for the simulation.
+If there is a sharp bend in the spectrum, for example the GZK cutoﬀ,
+the spectrum put into the Monte Carlo should also have the sharp bend, to
+achieve the best accuracy. While we did not include the eﬀect in the MC for
+the Data-MC comparison earlier, the GZK cut-of, as previously observed by
+HiRes, was included in the aperture calculation for the spectrum measure-
+ment. The result for the TA SD spectrum is a level of resolution-generated
+bias that is much smaller than the statistical power of the experiment.
+8.4. Uncertainty in Energy Scale and Flux
+The systematic uncertainty σSYS,E
+on the ﬂux J due to the systematic
+uncertainty of the energy scale σSYS
+can be estimated as follows:
+σSYS,E
+= σSYS,E
+dN/dE
+σSYS
+= (γ −1) σSYS
+where γ is the measured spectral index. The spectral index for the TA SD
+spectrum above the ankle is taken from the publication describing the mea-
+surement [13]: γ ≃2.67 and the systematic uncertainty of the energy scale
+is controlled by the TA FD: σSYS
+/E ≃22% [29]. Together, these results give
+σSYS,E
+/J ≃37%. The ﬂuorescence energy scale uncertainty dominates the
+systematic uncertainty in energy at ±22%. All other contributions explored
+here change the answer by < 1%. Thus the total systematic uncertainty in
+J is 37%.
+
+--- PAGE BREAK ---
+
+9. Conclusion
+We have demonstrated that the dethinned CORSIKA/QGSJET-II-03
+proton Monte Carlo simulation accurately models the response of the TA
+array of scintillation counters to cosmic rays in the E > 1018.2eV, θ < 45o
+domain. In reconstruction of events, ﬁts to counter times and pulse heights
+are almost identical for the Monte Carlo and the data. Basic histograms of
+geometrical quantities, and of quantities related to the lateral distribution
+of counter pulse heights, for the Monte Carlo agree very well with the same
+distributions for the data. We have measured a 27% correction to the energy
+scale of the CORSIKA + QGSJET-II simulation package based on air show-
+ers observed calorimetrically by the Telescope Array ﬂuorescence detector,
+and examined some sources of systematic errors in our aperture calculation.
+We conclude that this Monte Carlo simulation is an accurate tool for calcu-
+lating the surface detector aperture used to calculate the energy spectrum,
+as well as to estimate the exposure on the sky for cosmic ray anisotropy
+analyses.
+10. Acknowledgments
+The Telescope Array experiment is supported by the Japan Society for
+the Promotion of Science through Grants-in-Aid for Scientiﬁc Research on
+Specially Promoted Research (21000002) “Extreme Phenomena in the Uni-
+verse Explored by Highest Energy Cosmic Rays”, and the Inter-University
+Research Program of the Institute for Cosmic Ray Research; by the U.S.
+National Science Foundation awards PHY-0307098, PHY-0601915, PHY-
+0703893, PHY-0758342, and PHY-0848320 (Utah) and PHY-0649681 (Rut-
+
+--- PAGE BREAK ---
+
+gers); by the National Research Foundation of Korea (2006-0050031, 2007-
+0056005, 2007-0093860, 2010-0011378, 2010-0028071, R32-10130); by the
+Russian Academy of Sciences, RFBR grants 10-02-01406a and 11-02-01528a
+(INR), IISN project No. 4.4509.10 and Belgian Science Policy under IUAP
+VI/11 (ULB). The foundations of Dr. Ezekiel R. and Edna Wattis Dumke,
+Willard L. Eccles and the George S. and Dolores Dore Eccles all helped
+with generous donations. The State of Utah supported the project through
+its Economic Development Board, and the University of Utah through the
+Oﬃce of the Vice President for Research.
+The experimental site became
+available through the cooperation of the Utah School and Institutional Trust
+Lands Administration (SITLA), U.S. Bureau of Land Management and the
+U.S. Air Force. We also wish to thank the people and the oﬃcials of Millard
+County, Utah, for their steadfast and warm support. We gratefully acknowl-
+edge the contributions from the technical staﬀs of our home institutions and
+the University of Utah Center for High Performance Computing (CHPC).
+
+--- PAGE BREAK ---
+
+References
+[1] K. Greisen, End of the cosmic-ray spectrum?, Phys. Rev. Lett. 16 (1966)
+748.
+[2] G. T. Zatsepin, V. A. Kuzmin, Upper limit of the spectrum of cosmic
+rays, JETP Lett. 4 (1966) 78–80.
+[3] R. U. Abbasi, et al., Observation of the GZK cutoﬀby the HiRes exper-
+iment, Phys. Rev. Lett. 100 (2008) 101101. arXiv:astro-ph/0703099,
+doi:10.1103/PhysRevLett.100.101101.
+[4] J. Abraham, et al., Observation of the suppression of the ﬂux of
+cosmic rays above 4 × 1019eV, Phys. Rev. Lett. 101 (2008) 061101.
+arXiv:0806.4302, doi:10.1103/PhysRevLett.101.061101.
+[5] D. Newton,
+J. Knapp,
+A. A. Watson,
+The optimum
+distance
+which
+determine
+size
+giant
+shower,
+tropart.
+Phys.
+(2007)
+414–419.
+arXiv:astro-ph/0608118,
+doi:10.1016/j.astropartphys.2006.08.003.
+[6] A.
+Hillas,
+Shower
+simulation:
+Lessons
+from
+MOCCA,
+Nucl.Phys.Proc.Suppl.
+(1997)
+29–42.
+doi:10.1016/S0920-5632(96)00847-X.
+[7] D. Heck, G. Schatz, T. Thouw, J. Knapp, J. N. Capdevielle, CORSIKA:
+A Monte Carlo code to simulate extensive air showers, Tech. Rep. 6019,
+FZKA (1998).
+
+--- PAGE BREAK ---
+
+[8] S. J. Sciutto, AIRES: A system for air shower simulations, Tech. Rep.
+2.6.0, UNLP (2002).
+[9] B. T. Stokes, et al., Dethinning extensive air shower simulations, As-
+tropart. Phys. 35 (2012) 759. arXiv:1104.3182.
+[10] B. T. Stokes, et al., A simple parallelization scheme for extensive air
+shower simulations, submitted to Nuclear Instruments and Methods
+(2011). arXiv:1103.4643.
+[11] H. Kawai, et al., Telescope Array Experiment, Nucl. Phys. Proc. Suppl.
+175-176 (2008) 221–226. doi:10.1016/j.nuclphysbps.2007.11.002.
+[12] H.
+Tokuno,
+al.,
+Telescope
+Array
+Experiment:
+Sta-
+prospects,
+Phys.
+Conf.
+Ser.
+(2008)
+062027.
+doi:10.1088/1742-6596/120/6/062027.
+[13] T. Abu-Zayyad, et al., The cosmic ray energy spectrum observed with
+the surface detector of the Telescope Array experiment, Astrophys.J.
+768 (2013) L1. arXiv:1205.5067, doi:10.1088/2041-8205/768/1/L1.
+[14] T. Nonaka, et al., Performance of TA surface array, in: Proceedings of
+the 31st ICRC,  L´od´z, 2009.
+[15] M. Takeda, N. Sakaki, K. Honda, M. Chikawa, M. Fukushima, et al.,
+Energy determination in the Akeno Giant Air Shower Array experi-
+ment, Astropart.Phys. 19 (2003) 447–462. arXiv:astro-ph/0209422,
+doi:10.1016/S0927-6505(02)00243-8.
+
+--- PAGE BREAK ---
+
+[16] G. B. Thomson, Results from the Telescope Array Experiment, in: Pro-
+ceedings of Science (ICHEP 2010), 2010, p. 448. arXiv:1010.5528.
+[17] J. Linsley, The structure function of EAS measured at Volcano Ranch,
+Conf. Proc. C750815V8 (1975) 2746.
+[18] M. Teshima, et al., Properties of 109 GeV–1010GeV extensive air showers
+at core distances between 100 m and 3000 m, J. Phys. G12 (1986) 1097.
+doi:10.1088/0305-4616/12/10/017.
+[19] K. Shinozaki, M. Teshima, AGASA results, Nucl. Phys. Proc. Suppl.
+136 (2004) 18–27. doi:10.1016/j.nuclphysbps.2004.10.045.
+[20] S.
+Ostapchenko,
+QGSJET-II:
+Towards
+reliable
+descrip-
+tion
+very
+high
+energy
+hadronic
+interactions,
+Nucl.
+Phys.
+Proc.
+Suppl.
+(2006)
+143–146.
+arXiv:hep-ph/0412332,
+doi:10.1016/j.nuclphysbps.2005.07.026.
+[21] A. Ferrari, P. R. Sala, A. Fasso, J. Ranft, FLUKA: A multi-particle
+transport code (Program version 2005), Tech. Rep. 2005-010, CERN
+(2005).
+[22] G. Battistoni, et al., The FLUKA code: Description and benchmarking,
+AIP Conf. Proc. 896 (2007) 31–49. doi:10.1063/1.2720455.
+[23] W. R. Nelson, H. Hirayama, D. W. O. Rogers, The EGS4 code system,
+Tech. Rep. 0265, SLAC (1985).
+[24] J. Allison, et al., GEANT4 developments and applications, IEEE Trans.
+Nucl. Sci. 53 (2006) 270. doi:10.1109/TNS.2006.869826.
+
+--- PAGE BREAK ---
+
+[25] T. Sanuki, et al., Precise measurement of cosmic-ray proton and helium
+spectra with the BESS spectrometer, Astrophys. J. 545 (2000) 1135.
+arXiv:astro-ph/0002481, doi:10.1086/317873.
+[26] R. U. Abbasi, et al., Indications of proton-dominated cosmic ray
+composition above 1.6 EeV, Phys. Rev. Lett. 104 (2010) 161101.
+arXiv:0910.4184, doi:10.1103/PhysRevLett.104.161101.
+[27] G. Cowan, A survey of unfolding methods for particle physics, in: Pre-
+pared for Conference on Advanced Statistical Techniques in Particle
+Physics, Durham, England, 2002.
+[28] R. U. . Abbasi, et al., Monocular measurement of the spectrum
+of UHE cosmic rays by the FADC detector of the HiRes experi-
+ment, Astropart. Phys. 23 (2005) 157–174. arXiv:astro-ph/0208301,
+doi:10.1016/j.astropartphys.2004.12.006.
+[29] T. Abu-Zayyad, et al., TA Energy Scale: Methods and Photometry, in:
+Proceedings of the 32nd ICRC, Vol. 2, Beijing, 2011, p. 250.
+
+--- PAGE BREAK ---
+
+ - axis [m]
+Distance along the 
+-4000
+-2000
+2000
+Time [ 
+Lateral distance [m]
+VEM / m
+Figure 3: Time and lateral distribution ﬁts for a typical TA SD event. (a)
+Counter time versus distance from the shower core along the ˆu-direction.
+Points with error bars are the measured counter times. The solid curve gives
+the times predicted by the modiﬁed AGASA ﬁt for the counters lying on
+the ˆu-axis. The dashed and dotted lines are the ﬁt expectation times for
+the counters that are located 1.5 and 2.0 km oﬀthe ˆu-axis, respectively. (b)
+Measured lateral distribution ﬁt to the AGASA LDF function. The vertical
+axis is the signal density and the horizontal axis is the lateral/perpendicular
+distance to the shower core. Event S800 is determined from the ﬁt curve.
+
+--- PAGE BREAK ---
+
+10 2
+10 3
+Thinned
+Non-thinned
+Mean
+Distance from Shower Core (km)
+Energy Deposited per Counter (MeV)
+10 2
+10 3
+Dethinned
+Non-thinned
+Mean
+Distance from Shower Core (km)
+Energy Deposited per Counter (MeV)
+Figure 4: A comparison of energy deposition per counter versus perpendicular
+distance-to-core for a non-thinned and a thinned simulation before (left) and
+after (right) the dethinning procedure is applied. Both simulations are of a
+proton with a primary energy of 1019 eV and a primary zenith angle of 45◦.
+While the mean energy deposition agrees in all cases, the variation in the
+energy deposition (RMS) shows much better agreement after dethinning.
+CORSIKA
+Dethinning,
+GEANT
+TA SD
+Simulation
+Spectral
+Sampling
+CORSIKA
+Concatenated
+deposition
+energy  
+Simulated
+TA SD
+Thinned
+output
+Event
+Library
+Figure 5: Steps for simulating the TA SD data set. Each box represents one
+or more computational routines used to produce the input ﬁles required for
+the next step.
+
+--- PAGE BREAK ---
+
+ [ S800 / (VEM m
+18.5
+19.5
+20.5
+20.5
+17.8
+Figure 6: Energy as a function of reconstructed S800 and sec θ made from
+the dethinned MC event set. The true (input) values of the primary energy
+are represented (along the z-axis) by color according to the key shown to the
+right.
+
+--- PAGE BREAK ---
+
+R [m]
+1000
+2000
+3000
+4000
+(a) Data
+R [m]
+1000
+2000
+3000
+4000
+(b) MC
+Figure 7: Time ﬁt residual normalized by the uncertainty plotted versus the
+lateral distance from the shower core. Each entry is a counter that is a part
+of the event and the plot is made over all events in the data and MC sets.
+The superimposed points with error bars are the proﬁle showing the mean
+and the RMS of the normalized residual.
+
+--- PAGE BREAK ---
+
+ [Degree]
+(a) Zenith Angle
+ [Degree]
+(b) Azimuthal Angle
+X [m]
+10000
+20000
+30000
+(c) Core X
+Y [m]
+10000
+20000
+30000
+(d) Core Y
+10 12 14 16 18 20 22 24
+(e) Right Ascension
+ [Degree]
+(f) Declination
+Figure 8: Data and MC comparison of the geometrical quantities. Points with
+error bars are the data and superimposed solid lines are the MC histograms
+normalized to the same integral as the data.
+
+--- PAGE BREAK ---
+
+(Q/VEM)
+1000
+2000
+3000
+4000
+5000
+(a) Signal per counter
+/VEM)
+1000
+(b) Signal per event
+/dof
+(c) LDF χ2/dof
+ [ S800/(VEM m
+(d) S800
+(E/eV)
+18.5
+19.5
+20.5
+(e) Energy
+Figure 9: Data and MC comparison of the quantities related to the lateral
+distribution. Points with error bars are the data and superimposed solid lines
+are the MC histograms normalized to the same integral as the data.
+
+--- PAGE BREAK ---
+
+ [Degree]
+f [%]
+ [Degree]
+f [%]
+ [Degree]
+f [%]
+Figure 10: The TA SD angular resolution evaluated using a Monte-Carlo
+spectral set. Cumulative histograms of the opening angle between the recon-
+structed and the true (MC generated) event directions are shown using three
+energy slices: (a) 1018.0eV < E < 1018.5eV, (b) 1018.5eV < E < 1019.0eV,
+(c) E > 1019.0eV. The X axis represents the opening angle δ and the Y axis
+represents the fraction f of events (in percent), reconstructing within a given
+opening angle with respect to their true directions. Dashed lines represents
+the 68% conﬁdence limits, which are the values of δ containing 68% of all
+reconstructed events in each energy range.
+
+--- PAGE BREAK ---
+
+Entries 
+ 84216
+Mean  
+ 0.003649
+ 0.3058
+Underflow 
+Overflow  
+ln (E
+-2 -1.5
+-1 -0.5
+2000
+4000
+6000
+8000
+10000
+Entries 
+ 84216
+Mean  
+ 0.003649
+ 0.3058
+Underflow 
+Overflow  
+Entries 
+ 62564
+Mean  
+ -0.01182
+  0.255
+Underflow 
+Overflow  
+ln (E
+-2 -1.5
+-1 -0.5
+2000
+4000
+6000
+8000
+10000
+Entries 
+ 62564
+Mean  
+ -0.01182
+  0.255
+Underflow 
+Overflow  
+Entries 
+ 41223
+Mean  
+ -0.01383
+ 0.1765
+Underflow 
+Overflow  
+ln (E
+-2 -1.5
+-1 -0.5
+2000
+4000
+6000
+8000
+10000
+Entries 
+ 41223
+Mean  
+ -0.01383
+ 0.1765
+Underflow 
+Overflow  
+Figure 11: The TA SD energy resolution evaluated using the Monte-Carlo
+spectral sets. Energy resolution is shown for three ranges in MC generated
+energy: (a) 1018.0eV < EGEN < 1018.5eV, (b) 1018.5eV < EGEN < 1019.0eV,
+(c) EGEN > 1019.0eV. Natural logarithm of the ratio R = EREC/EGEN was
+used for producing the histograms.
+
+--- PAGE BREAK ---
+
+(E/eV)
+SD,   log
+17.5
+18.5
+19.5
+20.5
+(E/eV)
+FD,   log
+17.5
+18.5
+19.5
+20.5
+(a) SD energy vs. FD energy
+ln [ E(FD) / E(SD) ]
+-1.5
+-0.5
+(b) SD/FD energy ratio
+Figure 12: Energy normalization by FD. Part (a) shows a scatter plot of SD
+and FD energies for events seen by both detectors, after the 27% correction
+has been applied (see text); and part (b) shows the SD/FD energy ratio after
+correction.
+
+--- PAGE BREAK ---
+
+ / ndf 
+ 13.83 / 7
+Const.   
+ 0.05515
+ -0.00788 
+Slope    
+ 0.001715
+ 0.001149 
+ [Degree]
+ln (E
+-0.5
+-0.4
+-0.3
+-0.2
+-0.1
+ / ndf 
+ 13.83 / 7
+Const.   
+ 0.05515
+ -0.00788 
+Slope    
+ 0.001715
+ 0.001149 
+Figure 13: Mean (logarithm) of ratio of the FD and SD energies plotted ver-
+sus the event zenith angle for events well reconstructed by the two detectors
+(points with error bars). Solid line shows the linear ﬁt. The slope of the ﬁt
+is within its statistical uncertainty.
+
+--- PAGE BREAK ---
+
+/S800
+S800
+0.1 0.2
+0.5 0.6
+0.8 0.9
+1000
+2000
+/S800
+S800
+0.1 0.2
+0.5 0.6
+0.8 0.9
+1000
+1500
+2000
+Figure 14: Data and Monte-Carlo comparison of the fraction uncertainty on
+S800: (a): E > 1018.0 eV, (b): E > 1018.2 eV. Note the agreement between
+the data and Monte-Carlo becomes better for E > 1018.2 eV range.
+
+--- PAGE BREAK ---
+
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+19.4
+-0.4
+-0.3
+-0.2
+-0.1
+Figure 15: Fractional change in the ﬂux after eliminating the σS800/S800 <
+0.25 cut (estimated using Equation 4) plotted versus the (reconstructed)
+event energy. For E > 1018.2 eV, the variation is within ∼2%.

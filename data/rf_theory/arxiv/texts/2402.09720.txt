@@ -1,0 +1,679 @@
+SpaceMeta: Global-Scale Massive Multi-User
+Virtual Interaction over LEO Satellite Constellations
+Jiahe Huang, Yifei Zhu
+UM-SJTU Joint Institute, Shanghai Jiao Tong University
+Cooperative Medianet Innovation Center(CMIC), Shanghai Jiao Tong University
+Email: sevenkishuang@sjtu.edu.cn, yifei.zhu@sjtu.edu.cn
+Abstract—Low latency and high synchronization among users
+are critical for emerging multi-user virtual interaction applica-
+tions. However, the existing ground-based cloud solutions are
+naturally limited by the complex ground topology and fiber
+speeds, making it difficult to pace with the requirement of
+multi-user virtual interaction. The growth of low earth orbit
+(LEO) satellite constellations becomes a promising alternative
+to ground solutions. To fully exploit the potential of the LEO
+satellite, in this paper, we study the satellite server selection
+problem for global-scale multi-user interaction applications over
+LEO constellations. We propose an effective server selection
+framework, called SpaceMeta, that jointly selects the ingress
+satellite servers and relay servers on the communication path to
+minimize latency and latency discrepancy among users. Extensive
+experiments using real-world Starlink topology demonstrate that
+SpaceMeta reduces the latency by 6.72% and the interquartile
+range (IQR) of user latency by 39.50% compared with state-of-
+the-art methods.
+Index Terms—multi-user virtual interaction, LEO satellite
+constellation, server selection
+I. INTRODUCTION
+recent
+years,
+multi-user
+virtual
+interaction
+finds
+widespread applications in online games and social networking
+applications, where users constantly interact with thousands of
+other users via virtual avatars, video streaming, and audio.
+For example, platforms like Facebook Spaces and VRChat
+enable users to connect with friends, explore virtual envi-
+ronments, and partake in diverse activities using personalized
+avatars. It is reported that the 24-hour average player number
+on Steam-based VRChat already surpassed 20,000 in June
+2023 [17]. In general, over 15.49 million consumer VR
+headsets are sold in 2022 [18].
+The increasing popularity of multi-user virtual interaction
+demands a seamless user experience for a massive number of
+users. To provide an immersive experience to these users, low
+latency, high synchronization among users, as well as high
+scalability of the system are crucial. Low latency is critical to
+enabling real-time interactions; High synchronization ensures
+consistent and coordinated events, actions, and feedback for all
+users. Accommodating as many users as possible improves the
+social value of the applications and consequently the quality
+of experience for every user within the system for the better
+interaction feature.
+This work is supported by the National Natural Science Foundation of
+China (62302292) and the Fundamental Research Funds for the Central
+Universities. Corresponding author: Yifei Zhu
+Current architectures of multi-user interaction applications
+predominantly rely on ground cloud servers. However, in
+such an architecture, terrestrial communications tend to travel
+through optical fibers, which are approximately 30% slower
+than the speed of light. This essentially limits the data trans-
+mission speed of cloud-based interactions. Additionally, the
+complex topography of the Earth’s surface, such as across
+oceans, often leads to longer transmission paths, further in-
+creasing latency.
+With the advancement of space techniques and the maturity
+of low-cost communication satellites, LEO satellites emerge as
+a promising solution to support global-scale communication.
+LEO satellites offer enhanced communication capabilities,
+allowing information to travel through space close to the
+speed of light, with fewer spatial constraints. Thousands of
+LEO satellites further form a satellite network, also known
+as constellations, where satellites work together to provide
+extensive coverage. As of May 2023, Starlink comprises over
+4000 LEO satellites of different phases and groups.
+These satellites are further connected by inter-satellite links
+(ISLs). ISLs establish direct connections between satellites,
+eliminating the need for ground-based infrastructure and re-
+ducing reliance on traditional terrestrial communication net-
+works. By leveraging ISLs, satellite constellations like Starlink
+achieve faster and more efficient data transfer, bolster network
+resilience, and enhance global coverage. This revolutionizes
+satellite communications and unlocks new possibilities for
+global connectivity. With a substantial number of satellites in
+orbit and wide coverage, LEO satellites can serve as servers
+and control units in multi-user virtual interaction architectures.
+The LEO mega-constellation holds significant promise in
+meeting this need.
+However, moving multi-user virtual interaction applica-
+tions from the ground to space poses significant challenges.
+Firstly, the rapid movement of satellites introduces a dynamic
+topology, requiring adaptive strategies to maintain a stable
+connection. The continuous access and departure of users
+during the session add another layer of complexity. Second, the
+ingress satellite server and the communication path between
+communication pairs have to be carefully selected so that the
+latency can be minimized and the synchronization among all
+pairs can be maximized.
+In this paper, we study the satellite server selection prob-
+lem for global-scale multi-user interaction over LEO satellite
+arXiv:2402.09720v1  [cs.MM]  15 Feb 2024
+
+--- PAGE BREAK ---
+
+constellations. We first present an architecture that utilizes
+satellites as relay servers. We then propose SpaceMeta that
+intelligently selects ingress server and relay servers jointly
+minimize the latency and the latency discrepancy among users
+in a virtual interaction session. Extensive experiments on real-
+world application scales demonstrate the efficiency of our
+approach.
+In summary, our contributions are:
+• We present the first work to examine the possibility of
+supporting global-scale multi-user virtual interaction over
+the emerging LEO satellite constellations.
+• We formulate the satellite server selection problem as a
+latency and synchronization minimization problem.
+• We propose an effective greedy solution to identify the
+first hop ingress server in the LEO constellations as well
+as the transmission path between users.
+• Extensive experiments on the scale of the Starlink con-
+stellation demonstrate that our approach can reduce la-
+tency by up to 40.67% and interquartile range of latency
+by up to 80.28% when compared with the state-of-the-art
+solutions.
+The rest of the paper is organized as follows: Section II
+presents the related work. Section III introduces the system
+model of SpaceMeta and formulates the problem. Section IV
+showcases the relay selection and flow generation algorithms
+involved. Section V includes the test results of our approach,
+which are also compared with other existing methods. Finally,
+Section VI concludes the work.
+II. RELATED WORK
+A. Satellite Networks and Applications
+LEO satellites offer a promising network establishment
+approach to manage the growing number of edge devices and
+offer global communication coverage. In [2], StarPerf employs
+AGI STK [19] to simulate motion trajectories of Starlink
+(Phase 1) satellites and assess inter-satellite connectivity based
+on distance. In [1], a cloud-satellite combined architecture,
+incorporating both LEO satellites and ground base stations
+as potential servers, is proposed to reduce average attendee
+latency. UAVs (unmanned aerial vehicles) can also act as
+links between satellites and ground stations. Researchers in
+[5] explore UAVs as relay servers, efficiently gathering and
+transmitting IoT (Internet of Things) data from numerous IoT
+devices to LEO satellites. In hybrid satellite-terrestrial modes,
+Ma et al. in [6] investigate reliability issues in long-distance
+relaying transmissions, considering end-to-end latency and
+outage performance with geometrical probability theory.
+In addition to latency, numerous studies have also explored
+additional indicators such as bandwidth, power, and through-
+put in data transmission. For power allocation in relay satellites
+to maximize total data rate, Wang et al. in [7] utilize virtual-
+ization, the difference of convex (DC) programming, and an
+iterative algorithm to achieve optimal solutions. Addressing
+limited spectrum resources and the demands of numerous
+users, researchers in [8] establish cooperative transmission
+of non-orthogonal multiple access-assisted integrated satellite-
+terrestrial networks with multiple terrestrial relays and con-
+sider a partial relay selection scheme.
+Furthermore, researchers in [9] tackle the conflict between
+latency and throughput in relay selection, formulating antenna
+scheduling as a stochastic non-convex fractional programming
+and transforming it into a solvable weight-matching problem
+through mathematical methods.
+B. Multi-user interactive systems
+Numerous studies focus on low-latency multi-media sys-
+tems, addressing architecture, coding, and transport protocols.
+For instance, researchers in [10] introduce a novel approach
+that utilizes application flow destinations to calculate service
+delay. They implement forwarding, caching, and innovative
+coding services, reducing packet recovery costs by combining
+packets from multiple application streams and strategically
+sending a limited number of coded packets via more ex-
+pensive cloud paths. In the same vein, Salsify in [4] opti-
+mizes compressed frame length and transmission time based
+on network capacity estimation, enabling real-time Internet
+video to promptly respond to network changes, prevent packet
+drops, and avoid queuing delays. Moreover, VIA in [3] is an
+architecture that utilizes selected ground station-based relays
+to construct a managed overlay network, effectively reducing
+latency in Internet telephony. Notably, the three systems dis-
+cussed are all cloud-based only.
+Multi-user virtual interaction is an extensively researched
+domain. Chen et al. in [15] present fundamental metaverse
+concepts, including computing, logical, physical, and protocol
+architectures. The study emphasizes the significance of edge
+computing and edge server placement in optimizing resource
+utilization and access delay. Meanwhile, researchers in [12]
+address issues such as limited user vision in the metaverse by
+implementing a server partitioning system based on regions,
+enhancing the object discovery service, and ensuring mini-
+mum throughput for communicating objects. For a broader
+perspective, Solipsis in [16] tackles the world-scale Metaverse
+using a Raynet-based decentralized architecture protocol, con-
+sidering geometric distributions in the real world. Moreover,
+researchers in [14] optimize communication and computing in
+the digital twins-enabled metaverse, utilizing edge servers to
+reduce latency and enhance stability. Additionally, SLAMCast
+in [13] is an innovative MC-based transmission protocol,
+which effectively lowers bandwidth requirements in multi-user
+VR scenes, and achieves a stable client-server system with the
+aid of a novel thread-leveled GPU hash set.
+In multi-user and multi-party interactive live streaming,
+ensuring synchronization among all attendees holds significant
+importance. RobinHood in [11] addresses this concern by
+concentrating on reducing tail latency in CDN-based video
+streaming systems. The work proposes a novel approach
+involving the dynamic reallocation of cache resources, effec-
+tively repurposing existing caches to mitigate the impact of
+backend latency variability, resulting in low tail latency.
+
+--- PAGE BREAK ---
+
+LEO Constellation
+Users
+Regions
+Servers
+Flow
+Fig. 1: System overview.
+III. SYSTEM MODEL AND PROBLEM FORMULATION
+A. System Overview
+Figure 1 depicts the overall architecture of the multi-user in-
+teraction application supported by the LEO constellation. The
+architecture is divided into two primary segments: the space
+segment and the ground segment. In the space segment, LEO
+mega-constellations like Starlink are utilized, establishing
+inter-satellite links (ISLs), and the satellites serve as servers,
+including ingress servers and others. On the other hand, the
+ground segment encompasses all users, classified into different
+regions based on population distribution, with each region
+assigned a specific ingress server. The two segments are
+interconnected through user-to-satellite links (USLs), and the
+flow between users is governed by algorithms detailed in IV.
+B. Connection Model
+Denote S as the set of all satellites. The multi-user virtual
+interaction consists of various sessions, denoted as E. Within
+a specific session e, we use Ue to represent the set of all users.
+The system comprises two types of links: inter-satellite links
+(ISLs), represented as ISL(m, n), where m, n ∈S, and user-
+satellite links (USLs), denoted as USL(m, n), where m ∈
+U, n ∈S.
+The movement of LEO satellites at high speeds impacts
+the link between two satellites due to their visibility. To
+address this, we introduce a binary visibility variable denoted
+as V is(m, n), where V is(m, n) = V is(n, m) = 1 if and only
+if node m and n are visible to each other. Typically, visibility is
+directly related to the distance and is achievable only between
+adjacent satellites. For USLs, a link is established only when
+the satellite is visible to the ground node. Additionally, each
+satellite can accommodate up to λ transmission units to build
+ISLs due to the limited number of antennas.
+In our system, we assume that the upstream and downstream
+share the same bandwidth capacity for each link. The corre-
+sponding ingress relay server receives the upstream flow from
+a user u and subsequently sends the total of flows from other
+attendees back to u as the downstream flow. We represent
+the bandwidth capacity of the link (m, n) as Cap(m, n).
+Furthermore, we denote Bup
+and Bdown
+as the upstream and
+downstream bandwidth requirements of user u.
+C. User-perceived Communication Latency Model
+Denote xmn as a binary variable. xmn = 1 if and only if
+both node m and node n are selected as relays, establishing a
+link for data transmission between the two nodes. Also, denote
+as a binary variable. ymn
+= 1 if and only if data is
+transmitted from user i to user j through the link (m, n).
+We make the assumption that the latency from node m to
+node n, represented as Lmn, is equal in the opposite direction
+as well. Thus, for session e at slot t, the latency from user u
+to its ingress relay Re,u
+is: Σm,n∈S∪UeLmn·xmn·ymn
+u,Re,u
+. The
+end-to-end latency between two users i and j can be expressed
+as the sum of the latencies from the two users to their
+corresponding relays and between the relays, which can be
+written as: Σm,n∈S∪UeLmn·xmn·(ymn
+i,Re,i
+t +ymn
+Re,j
+,j+ymn
+Re,i
+,Re,j
+t ).
+Denote P e as the number of users in session e. Considering
+the end-to-end latency between every two users, the average
+one-way latency for each session is calculated as:
+tave =
+i,j∈Ue
+Σm,n∈{S∪Ue}Lmn · xmn · (ymn
+i,Re,i
++ ymn
+Re,j
+,j + ymn
+Re,i
+,Re,j
+ P e
+where Re,i
+t , Re,j
+are the corresponding ingress servers of users
+i, j.
+D. Problem Formulation
+The goal is to obtain a balance between synchronization and
+average latency should be reached with a weight parameter α:
+(tave + α
+|tave −ti|)
+s.t.
+xmn ≤λ, ∀m ∈S
+ij , ynm
+≤xmn ≤V is(m, n), ∀m, n, i, j ∈{S ∪Ue}
+u,Re
+u,Re
+γ = u
+γ = Re
+otherwise
+t ,u −
+t ,u =
+γ = Re
+γ = u
+otherwise
+u,Re
+(Bup
+u · ymn
+u,Re
+t + Bdown
+· ymn
+t ,u) ≤Cap(m, n)
+Constraint Eq. 3 demonstrates that the number of ISLs for
+each satellite must be less than the number of transmission
+units. Constraint Eq. 4 indicates that a link can be established
+only if the nodes are visible to each other, and data can be
+transmitted through this link only if it is activated. Constraints
+
+--- PAGE BREAK ---
+
+Eq. 5, 6 show that only one upstream flow and one downstream
+flow could exist between user u and the control unit Re
+t, where
+w, v, γ ∈{S ∪Ue}, Re
+t ∈S, u ∈Ue. Constraint Eq. 7
+guarantees that each link could satisfy its bandwidth capacity.
+IV. ALGORITHM DESIGN
+A. Algorithm Overview
+The key idea involves time division into dynamic slots
+and managing the selection of ingress servers along with
+data transmission paths between them. During runtime, the
+virtual interaction session follows these steps: First, the system
+employs the ingress relay selection algorithm (Algorithm 1) to
+determine the appropriate ingress server from the available
+satellites. Next, the selected ingress servers receive virtual
+interaction requests from users within their respective regions.
+Subsequently, the ingress servers transmit data to each other,
+utilizing the flow allocation algorithm (Algorithm 2) to choose
+optimal paths between them and allocate the flow.
+B. Ingress Relay Selection Algorithm
+Algorithm 1 outlines the ingress relay selection algorithm
+in detail. For each session e at time t, the ingress relay set
+is denoted as Re
+t. At every time slot, the visibility and the
+graph G is updated. All satellites and users are represented as
+nodes in G, and an edge exists between two nodes if and only
+if they are visible to each other. The users are then divided
+into different regions using the Region_Divider function,
+ensuring that each region contains at most Nmax users and the
+distance between any two users is at most dmax. Each region
+re corresponds to a specific ingress relay Re,re
+at time t.
+To identify the ideal ingress relay for each region, the
+algorithm selects k potential relays using the Top_k function,
+filtering k nodes among satellites that are closest to the
+center of all users’ locations in that region. Subsequently,
+the algorithm chooses the best potential ingress server for the
+current slot based on its low latency synchronization ability.
+The parameter L(cu, Ue,re) represents the weighted sum of
+average latency and variance for session e in the region re
+according to Eq. 2.
+In cases where the distance between two ideal ingress relay
+servers of the same region exceeds the threshold ∆, or when a
+new attendee joins the session, a handover process is triggered.
+The Flow(u, Re,re
+) function updates the flow situation in
+the graph, including variables like ymn
+u,Re,re
+. Additionally, the
+allocate function determines the best path between the
+user and the relay server, which will be further discussed in
+Algorithm 2. Similar procedures are followed to generate data
+transmission paths and flow between all ingress relays. The
+parameter Bre2
+re denotes the total bandwidth from ingress relay
+Re,re to ingress relay Re,re2.
+C. Flow Allocation Algorithm
+Algorithm 2 presents the flow allocation algorithm in de-
+tail. The primary objective is to identify a path that offers
+the highest synchronization while maintaining relatively low
+latency. It should be noted that the number of inter-satellite
+Algorithm 1 Ingress Relay Selection Algorithm
+1: Initialization: Node ←S, Re
+0 ←∅, ∀e ∈E, u ∈Ue
+2: for t=1,2,3,...,T do
+/* Establish the links. */
+Update(V is) in slot t
+for each new attendee u ∈Ue do
+Ue.addUser(u)
+end for
+G ←UpdateGraph(Node ∪U, V is)
+for each e ∈E do
+/* Devide users into different regions. */
+region set ←Region_Divider(Ue, G)
+for each re ∈region set do
+/* Obtain top-k nodes close to the geo-central. */
+cu set ←Top_k(Ue,re, G)
+Re,re
+←arg mincu∈cu set{L(cu, Ue,re)}
+/* Switch the control unit in the current slot. */
+if ∥Re,re
+−Re,re
+t−1∥≥∆or ∃new attendee then
+for each u ∈Ue,re do
+/* Allocate flows. */
+Flow(u, Re,re
+)←allocate(G, u,
+Re,re
+, Bup
+Flow(Re,re
+, u)←allocate(G, Re,re
+u, Bdown
+end for
+for each other Re,re2
+t do
+Flow(Re,re
+, Re,re2
+←allocate(G, Re,re
+, Re,re2
+, Bre2
+re )
+Flow(Re,re2
+, Re,re
+←allocate(G, Re,re2
+, Re,re
+, Bre
+re2)
+end for
+else
+Re,re
+←Re,re
+end if
+end for
+end for
+32: end for
+links (ISLs) cannot exceed the number of transmission units
+on the satellite, making paths with the maximum activated
+links a priority. In this algorithm, the latency is determined
+solely by the number of hops. Paths with more hops between
+two nodes result in higher latency. It is also assumed that there
+may be several potential paths with the same number of hops
+between two nodes.
+The algorithm initially employs Dijkstra’s Algorithm to
+search for alternative paths with the same minimum number
+of hops between node i and node j in graph G. If any of
+these paths fail to meet the bandwidth capacity or ISL number
+requirements specified in III-D, they are skipped and removed
+from consideration. Subsequently, the algorithm counts the
+number of activated links for each path and selects the path
+that covers the maximum number of activated links as the
+optimal path denoted by best.
+
+--- PAGE BREAK ---
+
+Algorithm 2 Flow Allocation Algorithm
+1: Function allocate(G, i, j, B)
+2: Flow(i, j)←∅, all path ←DijkShortest(G, i, j)
+3: for each path ∈all path do
+path.ActivatedNum ←0
+for each (m, n) ∈path do
+if Bremain
+≤B or P
+k∈S xmk ≥λ or P
+k∈S xnk ≥λ
+then
+break, remove path from all path
+end if
+if xmn = 1 then
+path.ActivatedNum++
+end if
+end for
+13: end for
+14: best ←arg maxp∈all path(p.ActivatedNum)
+15: for each (m, n) ∈best do
+xmn = 1, ymn
+= 1, Bremain
+= Bremain
+Flow(m, n).Update(ymn
+ij )
+G.Update(xmn, Bremain
+19: end for
+20: Return Flow(i, j)
+Finally, the algorithm activates all inactivated links in the
+chosen best path, updates the remaining bandwidth, and
+allocates the flows between nodes i and j. The result is an
+efficient allocation of flows that meet the desired criteria.
+V. EVALUATIONS
+A. Experiment Setup
+1) Setup for LEO satellite constellations: We use the sim-
+ulator [2] to run STK [19] and obtain the trajectories of the
+Starlink (Phase 1) constellation. This constellation comprises
+24 orbits and 1584 LEO satellites positioned at an altitude of
+approximately 550km.
+In accordance with the system model defined in Section III,
+we set λ = 4, k = 5, and ∆= 1000km for inter-satellite links
+(ISLs). The bandwidth capacities of ISLs and user-satellite
+links (USLs) are set to 10Gbps and 5Mbps, respectively. Each
+user’s upstream bandwidth in a session is randomly initialized
+within the range of 2Mbps to 4Mbps. As for the division of
+regions, we set Nmax to 50 and dmax to 1000km.
+2) User traffic generation: To better simulate real-world
+scenarios, we generate 5000 users on the Earth’s lands, taking
+into account the global population distribution [20]. These
+users are randomly assigned to either an ongoing session or a
+new session is created for them. The entry time of each user
+into the session is also randomly generated.
+B. Comparison Approaches
+As for comparison, we consider two other benchmarks,
+SpaceRTC and VIA.
+• SpaceRTC [1] is a cloud-satellite coorperated solution
+for low-latency problems. One control unit among satel-
+lites and cloud bases is selected for each session, and flow
+End-to end latency(ms)
+SpaceMeta
+SpaceRTC
+(a) CDF for latency of different schemes.
+SpaceMeta
+SpaceRTC
+End-to-end latency(ms)
+(b) Boxplot for latency of different schemes.
+Fig. 2: Performance comparison of SpaceMeta with other
+benchmarks.
+is generated through the path with the lowest latency and
+most activated links.
+• VIA [3] is a purely cloud-based scheme based on prior
+state-of-the-art cloud-relay selection study. It uses history
+performance to predict performance and gains the most
+promising top-k control unit options. It then selects the
+best one and stores the results back in the session history.
+C. Performance Comparison of Latency and Synchronization
+We set the weight parameter α in Eq. 2 to 5 and then
+examine the end-to-end latency between every two users,
+comparing the results with SpaceRTC and VIA.
+The CDF of latency is shown in Figure 2(a). On average,
+SpaceMeta reduces latency by 6.72% compared to SpaceRTC.
+The results are quite close because both methods consider
+paths on satellites. The slightly lower latency of SpaceMeta is
+attributed to its multi-server selection scheme, which short-
+ens flow paths between some distant users. Additionally,
+SpaceMeta reduces latency by 40.67% on average compared to
+VIA. This improvement can be mainly attributed to the larger
+number of LEO constellation sites and higher space utilization
+rate in SpaceMeta, making it more conducive to optimal route
+planning.
+
+--- PAGE BREAK ---
+
+Different alpha values
+End-to-end latency(ms)
+Fig. 3: Latency performance with different values of α.
+The boxplot of latency is depicted in Figure 2(b). SpaceMeta
+reduces the Interquartile Range of latency by 39.50% and
+80.28% compared with SpaceRTC and VIA, indicating that
+SpaceMeta achieves higher synchronization. The result vali-
+dates the effectiveness of SpaceMeta’s region-division method,
+as it highly synchronizes users in the same region.
+D. Impact of Synchronization-latency Weight Parameter
+To further assess the performance of SpaceMeta under dif-
+ferent conditions, we vary the weight parameter α to different
+values. Specifically, we compare the latency distributions for
+α = 1, 5, 10, 20. As illustrated in Figure 3, a larger value of
+α leads to higher synchronization but higher average latency.
+The reason behind this phenomenon is that Algorithm 1 tends
+to prefer ingress relays with similar path lengths rather than
+shorter ones. Thus, a trade-off is needed between achieving
+high synchronization and maintaining low latency. It is also
+evident that setting α = 5 strikes a good balance between high
+synchronization and low latency.
+VI. CONCLUSION
+The emergence of LEO satellite constellations presents a
+promising solution to support multi-user virtual interaction,
+enabling low latency and global coverage. In this paper, we
+study the server selection problem for global-scale multi-user
+virtual interaction applications over LEO satellite constella-
+tions. We present SpaceMeta to jointly optimize latency and
+synchronization, represented as latency discrepancy, among
+users. A greedy algorithm is designed to determine ingress
+servers and data transmission paths for each session. Experi-
+ments on real-world scale LEO constellations demonstrate that
+SpaceMeta can reduce the latency by up to 40.67% on average
+and reduce the interquartile range of latency by up to 80.28%
+when compared to benchmarks. Our study sheds light on the
+promising direction of supporting global-scale massive multi-
+user virtual interaction, also known as metaverse, via LEO
+satellite constellations.
+REFERENCES
+[1] Z. Lai, W. Liu, Q. Wu, H. Li, J. Xu and J. Wu, ”SpaceRTC: Unleashing
+the Low-latency Potential of Mega-constellations for Real-Time Com-
+munications,” in Proc. IEEE INFOCOM, London, United Kingdom, pp.
+1339-1348, 2022.
+[2] Z. Lai, H. Li and J. Li, ”StarPerf: Characterizing Network Performance
+for Emerging Mega-Constellations,” in Proc. IEEE ICNP, Madrid, Spain,
+pp. 1-11, 2020.
+[3] J. Jiang et al., “VIA: Improving Internet Telephony Call Quality Using
+Predictive Relay Selection,” in Proc. ACM SIGCOMM, Florianopolis,
+Brazil, vol. 16, pp. 286-299, 2016.
+[4] S. Fouladi, J. Emmons, E. Orbay, C. Wu, R. S. Wahby, and K. Winstein,
+“Salsify: Low-Latency Network Video through Tighter Integration be-
+tween a Video Codec and a Transport Protocol,” in Proc. USENIX NSDI,
+USA, pp. 267-282, 2018.
+[5] T. Ma et al., ”UAV-LEO Integrated Backbone: A Ubiquitous Data
+Collection Approach for B5G Internet of Remote Things Networks,” in
+IEEE Journal on Selected Areas in Communications, vol. 39, no. 11, pp.
+3491-3505, November 2021.
+[6] J. Ma, B. Shang, H. Song, Y. Huang and P. Fan, ”Reliability Versus
+Latency in IIoT Visual Applications: A Scalable Task Offloading Frame-
+work,” in IEEE Internet of Things Journal, vol. 9, no. 17, pp. 16726-
+16735, September 2022.
+[7] R. Wang, X. Tang, Q. Wang, G. Liu, R. Ma and G. Feng, ”Maximum
+Rate Based Relay Selection and Power Allocation Method for Relay
+Satellite Networks,” 2021 International Wireless Communications and
+Mobile Computing (IWCMC), Harbin City, China, pp. 248-253, 2021.
+[8] H. Shuai, K. Guo, K. An and S. Zhu, ”NOMA-Based Integrated Satellite
+Terrestrial Networks With Relay Selection and Imperfect SIC,” in IEEE
+Access, vol. 9, pp. 111346-111357, 2021.
+[9] Y. Zhu, M. Sheng, J. Li and D. Zhou, ”Delay-throughput tradeoff in
+satellite data relay networks with prioritized user satellites,” in China
+Communications, vol. 17, no. 11, pp. 219-230, November 2020.
+[10] O. Haq, C. Doucette, J. W. Byers, and F. R. Dogar, ”Judicious QoS
+using cloud overlays,” in Proc. ACM CoNEXT, New York, NY, USA, pp.
+371–385, 2020.
+[11] D. Berger, B. Berg, T. Zhu, M. Harchol-Balter, and S. Sen, “RobinHood:
+Tail Latency Aware Caching- Dynamic Reallocation from Cache-Rich
+to Cache-Poor RobinHood: Tail Latency-Aware Caching - Dynamically
+Reallocating from Cache-Rich to Cache-Poor,” in Proc. USENIX OSDI,
+USA, pp. 195-212, 2018.
+[12] E. Cheslack-Postava et al., “A Scalable Server for 3D Metaverses.” in
+Proc. USENIX ATC’12, USA, 2012.
+[13] P. Stotko, S. Krumpen, M. B. Hullin, M. Weinmann, and R. Klein,
+“SLAMCast: Large-Scale, Real-Time 3D Reconstruction and Streaming
+for Immersive Multi-Client Live Telepresence,” IEEE Transactions on
+Visualization and Computer Graphics, vol. 25, no. 5, pp. 2102–2112,
+2019.
+[14] D. Van Huynh, S. R. Khosravirad, A. Masaracchia, O. A. Dobre and
+T. Q. Duong, ”Edge Intelligence-Based Ultra-Reliable and Low-Latency
+Communications for Digital Twin-Enabled Metaverse,” in IEEE Wireless
+Communications Letters, vol. 11, no. 8, pp. 1733-1737, 2022.
+[15] T. Chen, H. Zhou, H. Yang and S. Liu, ”A Review of Research on
+Metaverse Defining Taxonomy and Adaptive Architecture,” 2022 5th In-
+ternational Conference on Pattern Recognition and Artificial Intelligence
+(PRAI), Chengdu, China, pp. 960-965, 2022.
+[16] D. Frey, J. Royan, R. Piegay, A. Kermarrec, E. Anceaume and F. Fessant,
+”Solipsis: A Decentralized Architecture for Virtual Environments,” 1st
+International Workshop on Massively Multiuser Virtual Environments,
+Reno, NV, United States, vol.1, 2008.
+[17] Steam,
+“VRChat
+Steam
+Charts,”
+Steamcharts.com,
+2019.
+https://steamcharts.com/app/438100.
+[18] Statista, “The statistics portal for market data, market research and
+market studies,” Statista.com, 2022. https://www.statista.com/
+[19] “Ansys STK — Digital Mission Engineering Software,” www.ansys.com.
+https://www.ansys.com/products/missions/ansys-stk.
+[20] “World Population Distribution by Latitude and Longitude,” Engag-
+ing Data, Mar. 19, 2019. https://engaging-data.com/population-latitude-
+longitude/.

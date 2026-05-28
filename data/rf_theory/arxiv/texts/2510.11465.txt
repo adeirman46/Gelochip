@@ -1,0 +1,687 @@
+© 2025 the authors. This work has been accepted to IFAC for
+publication under a Creative Commons Licence CC-BY-NC-ND.
+Control Requirements for Robust
+Beamforming in Multi-Satellite Systems ⋆
+Diego Tuzi ∗Thomas Delamotte ∗Andreas Knopp ∗
+∗Chair of Signal Processing, University of the Bundeswehr Munich,
+85579 Neubiberg Germany (e-mail: paper.sp@unibw.de,
+{name.surname}@unibw.de).
+Abstract: This work investigates the impact of position and attitude perturbations on the
+beamforming performance of multi-satellite systems. The system under analysis is a formation
+of small satellites equipped with direct radiating arrays that synthesise a large virtual antenna
+aperture. The results show that performance is highly sensitive to the considered perturbations.
+However, by incorporating position and attitude information into the beamforming process,
+nominal performance can be effectively restored. These findings support the development of
+control-aware beamforming strategies that tightly integrate the attitude and orbit control system
+with signal processing to enable robust beamforming and autonomous coordination.
+Keywords: multi-satellite systems, beamforming, attitude and orbit control, phase alignment
+1. INTRODUCTION
+The New Space era represents the most significant techno-
+logical advancement in the space sector in recent decades,
+enabled by cost reductions in the launch sector, satellite
+miniaturisation, and the increasing exploitation of Low
+Earth Orbit (LEO). This paradigm shift has broadened
+access to space, enabling industrial and academic entities
+to develop and validate novel technologies through in-orbit
+demonstrations (Kinzel et al. (2022)).
+Within this context, multi-satellite systems are gaining
+prominence for next-generation missions. When imple-
+mented using small satellites, they offer increased fault tol-
+erance, resilience, and system-level reliability due to their
+distributed architecture. The coordinated operation of
+multiple standardised and miniaturised satellites can im-
+prove the performance of traditional monolithic platforms,
+while also enabling opportunities for cost-effective pro-
+duction and incremental deployment. Furthermore, this
+architecture facilitates more efficient utilisation of launch
+vehicle volume, offering a promising alternative to large
+deployable antennas, which often involve complex mecha-
+nisms and strict volume constraints.
+However, these advantages come with increased system-
+level complexity. Effective operation of multi-satellite sys-
+tems requires coordinated control of satellite positions
+and attitudes, commonly referred to as formation flying.
+This coordination relies on networked control strategies,
+in which satellites exchange information via inter-satellite
+links to achieve autonomous, self-organising behaviour in
+orbit. The Guidance, Navigation, and Control (GNC) sub-
+system, and specifically the Attitude and Orbit Control
+System (AOCS), plays a central role in this process by
+providing attitude and orbit determination using onboard
+⋆This research paper was funded by dtec.bw - Digitalization and
+Technology Research Center of the Bundeswehr. dtec.bw is funded
+by the European Union - NextGenerationEU.
+sensors and executing control algorithms to maintain the
+desired formation layout (Schilling (2021)).
+This work focuses on a specific class of multi-satellite
+systems in which each satellite is equipped with a Direct
+Radiating Array (DRA), operating coherently to synthe-
+sise a virtual antenna aperture. In these configurations, the
+satellites operate jointly, enabling enhanced design flexibil-
+ity. For instance, the Half-Power Beamwidth (HPBW) of
+the composite beam can be reduced by increasing inter-
+satellite spacing, without modifying the onboard antenna
+characteristics. This improves spatial multiplexing in com-
+munication systems and enhances resolution in sensing
+applications.
+A critical requirement for coherent beamforming is syn-
+chronisation in time, frequency, and phase. Among these,
+phase synchronisation is particularly important to achieve
+constructive interference when multiple transceivers oper-
+ate simultaneously (Nanzer et al. (2021)). In this context,
+phase synchronisation includes not only classical RF phase
+coherence, but also geometric phase alignment, namely,
+compensation for the phase errors introduced by position
+and attitude perturbations in the satellite formation lay-
+out.
+The formation layout plays a pivotal role in beam synthesis
+performance, particularly in mitigating grating lobes when
+the inter-satellite spacing exceeds the conventional half-
+wavelength limit. Aperiodic layouts such as the Loga-
+rithmic Spiral Array (LSA) and Enhanced Logarithmic
+Spiral Array (ELSA) (Tuzi et al. (2023b,a)) have been
+shown to mitigate grating lobes effectively under nominal
+conditions. However, the performance of such configura-
+tions must be evaluated under the position and attitude
+perturbations typical of LEO.
+This paper investigates the beamforming performance of
+multi-satellite systems under position and attitude pertur-
+bations, focusing on the impact of geometric phase errors.
+arXiv:2510.11465v1  [eess.SP]  13 Oct 2025
+
+--- PAGE BREAK ---
+
+It is shown that geometric phase alignment, achieved by
+calibrating the precoding process using position and at-
+titude information from the onboard control sensors, can
+effectively restore the beam pattern. In applications such
+as passive remote sensing or Signals Intelligence (SIGINT),
+this information may suffice for offline compensation. In
+real-time applications such as satellite communications,
+this information must be used in a closed-loop fashion to
+update the beamforming process.
+Simulation results demonstrate that when geometric phase
+alignment is applied, the beamforming performance of the
+LSA formation layout is preserved, even in the presence
+of significant position and attitude perturbations. This
+implies that accurate position and attitude information
+can reduce the frequency of corrective manoeuvres, which,
+from a beamforming perspective, are only necessary when
+the alignment process fails to maintain predefined Key
+Performance Indicators (KPIs).
+Overall, this work contributes to a deeper understanding of
+how onboard control subsystems can enable coherent oper-
+ations and robust beamforming performance in advanced
+multi-satellite systems.
+2. SYSTEM MODEL
+This section introduces the system-level model used to
+evaluate the beamforming performance of a multi-satellite
+system under position and attitude perturbations. The
+analysis assumes an LSA formation layout of Ns identical
+satellites, each equipped with a planar DRA. For clarity,
+the analysis adopts the terminology of the transmit-side
+(e.g., departure direction, precoding). Due to reciprocity,
+all results and definitions apply equivalently to receive-side
+configurations.
+2.1 Nominal Layout and Perturbations
+The evaluation is performed at a fixed epoch t0, where the
+satellites are placed on circular micro-orbits with identical
+inclination but slightly different Right Ascension of the
+Ascending Nodes (RAANs). Each satellite n = 0, . . . , Ns−
+1 is associated with its own local nadir-pointing Local
+Vertical Local Horizontal (LVLH) frame Ln.
+The LVLH frame of satellite n = 0 is selected as the global
+reference frame and also serves as the phase reference
+for the distributed array. A vector expressed in Ln is
+mapped to the reference frame L0 using a translation
+vector tn→0 ∈R3 and a rotation matrix Rn→0 ∈SO(3)
+Figure 1 illustrates a simplified system model with two
+satellites. Satellite n = 0 defines the global LVLH frame,
+while satellite n = 1 is subject to a pitch rotation, with its
+perturbed element positions shown.
+Each satellite hosts an Nr ×Nc planar antenna array lying
+in its local xy-plane. Let dx and dy denote the inter-
+element spacings. The local offset of element e is defined
+de =
+(i −Nr−1
+(j −Nc−1
+with i = 0, . . . , Nr −1, j = 0, . . . , Nc −1, and e =
+0, . . . , Ne −1. The inter-element spacing is conventionally
+zLVLH0
+xLVLH0
+yLVLH0
+Fig. 1. Simplified representation of the system model
+with two satellites and the beam boresight direction.
+Satellite n = 0 defines the reference frame, while
+satellite n = 1 is subject to a pitch rotation.
+set to dx
+= dy
+= λ/2, with λ denoting the signal
+wavelength.
+Nominal satellite positions are generated according to the
+analytical spiral layout applied in Tuzi et al. (2023b),
+which is designed to suppress grating lobes in the com-
+posite radiation pattern.
+Deviations from the nominal geometry are modeled by
+independent, zero-mean truncated normal distributions
+(Johnson et al. (1994)) applied to both the translation
+and rotation of each satellite. The position perturbation is
+introduced through the random translation vector
+δtn ∼Ntrunc
+ 0, diag(σ2
+x, σ2
+y, σ2
+z), tmax
+, δtn ∈R3
+which perturbs the satellite center. The parameter tmax en-
+sures that position perturbations do not result in collisions
+between satellites. Attitude perturbations are modeled by
+the angle rotation vector
+δϵn =
+"δαn
+∼Ntrunc
+ 0, diag(σ2
+α, σ2
+β, σ2
+γ), ϵmax
+, δϵn ∈R3
+where δαn, δβn, and δγn represent roll, pitch, and yaw
+perturbations, respectively. The resulting rotation matrix
+is obtained via the classical z–y–x Euler angle sequence:
+δRn = Rz(δγn) Ry(δβn) Rx(δαn) ∈SO(3).
+The upper bound ϵmax is chosen to exclude full rotations
+and electromagnetic conditions (e.g. mutual coupling) that
+are not captured by the beamforming model used in this
+study.
+The perturbed positions of the radiating elements, ex-
+pressed in the reference frame L0, are given by
+pn,e = t′
+n→0 + R′
+n→0de ∈R3,
+with t′
+n→0 = tn→0 + δtn and R′
+n→0 = Rn→0δRn.
+Nominal positions are recovered by setting δtn = δϵn = 0
+for all n.
+The radiating element positions, expressed in a common
+reference frame, form the basis for the subsequent power
+pattern analysis, which is conducted under classical an-
+
+--- PAGE BREAK ---
+
+tenna theory assumptions, including narrowband opera-
+tion and far-field conditions.
+2.2 Beamforming and Power Pattern Model
+The composite power pattern is derived based on the
+classical pattern multiplication rule, involving the product
+of the array geometry, the precoding vector, and the in-
+trinsic radiation pattern of each antenna element (Balanis
+(2016)).
+The geometry of a single satellite contributes through a
+per-satellite steering vector. For a departure unit vector
+ˆk(θ, φ), define k = 2π
+λ ˆk, and let
+an(θ, φ) =
+ejk⊤pn,0 · · · ejk⊤pn,Ne−1
+∈CNe.
+The global multi-satellite steering vector is then given by
+the vertical concatenation
+aMS(θ, φ) =
+0 · · · a⊤
+Ns−1
+⊤∈CNsNe.
+The precoding vector is based on the Maximum Ratio
+Transmission (MRT) technique and is computed at the de-
+sired direction (θ0, φ0). When using nominal or perturbed
+element positions, the two corresponding MRT weights
+are:
+wnom = [anom
+MS (θ0, φ0)]∗
+∥anom
+MS (θ0, φ0)∥2
+wper = [aper
+MS(θ0, φ0)]∗
+∥aper
+MS(θ0, φ0)∥2
+where the subscript “nom” and “per” refer to nominal and
+perturbed element positions, respectively, as defined in (1).
+Regarding the intrinsic element pattern, the following
+polar-dependent gain is assumed:
+fel(θ) =
+G0 cosp θ,
+0 ≤θ ≤π/2,
+where G0 denotes the boresight gain and p is chosen to
+achieve the desired HPBW. In the presence of attitude
+rotation, the element pattern is rotated accordingly. The
+polar angle between the antenna boresight and the obser-
+vation direction is given by
+n = arccos
+n ˆk
+with ˆzn = R′
+n→0 [0 0 1]⊤.
+Figure 1 illustrates this effect for satellite n = 1, showing
+the resulting polar angle θ′
+Each element on satellite n shares the perturbed gain
+gn = fel
+In the absence of attitude rotation, θ′
+n reduces to the
+nominal angle θn.
+The resulting composite power pattern of the multi-
+satellite system is
+P(θ, φ | w) =
+wHaMS(θ, φ)
+2 · 1
+Ns−1
+which serves as the foundation for the performance evalu-
+ation presented in this study.
+2.3 Key Performance Indicators
+The KPIs used for performance evaluation are based on
+the composite power patterns defined in (6), computed in
+three different ways:
+(1) Nominal: The pattern is computed using the analyt-
+ical layout without perturbations;
+(2) Perturbed: The steering vector and single-element
+gain reflect the perturbed positions, but the precod-
+ing vector is computed using the nominal geometry,
+without access to perturbation information (see (3));
+(3) Calibrated: The steering vector and single-element
+gain reflect the perturbed positions, and the control
+system provides the necessary information, enabling
+the precoding vector to compensate for the geo-
+metric phase errors introduced by the perturbations
+(see (4)).
+All power patterns are evaluated over a uv coordinate grid,
+which enables visualization of distortions that cannot be
+captured in a single azimuth or elevation cut.
+The following KPIs are extracted by comparing the uv
+maps of the nominal configuration with those of the
+perturbed and calibrated configurations:
+• Pr(∆Gmain < 1 dB): Probability that the difference
+in main lobe gain, in decibels, between the nominal
+power pattern and the perturbed or calibrated pat-
+tern is less than 1 dB.
+• Pr(∆AHPBW < 2 %): Probability that the absolute
+change in the area enclosed by the −3 dB contour
+around the main lobe is less than 2 %.
+• Pr(∆GSLL < 1 dB): Probability that the increase in
+maximum sidelobe level, relative to the nominal pat-
+tern, is less than 1 dB in the perturbed or calibrated
+pattern.
+The performance requirements on position and attitude
+perturbations will be formulated to ensure that each of
+the above listed probabilities exceeds 90 %.
+3. SIMULATION RESULTS
+Simulations were conducted to evaluate the beamforming
+performance of various multi-satellite configurations, each
+comprising a total of 2304 radiating elements. The element
+pattern was defined as in (5), with a boresight gain of
+G0 = 5 dBi and the exponent p chosen to achieve a HPBW
+of 70◦. The system is designed to synthesize a beam with
+a 3 km radius on Earth, assuming a LEO orbit at 600 km
+altitude and a center frequency of 1 GHz.
+Several system architectures can achieve this target, de-
+pending on the number of satellites Ns, the number of
+radiating elements per satellite Ne, and the inter-satellite
+spacing. The adopted layout follows the LSA configura-
+tion, as applied in Tuzi et al. (2023b), which is known to
+suppress grating lobes. Table 1 presents one fundamen-
+tal trade-off among possible multi-satellite configurations.
+Configurations with a larger number of satellites Ns and
+fewer elements per satellite Ne improve beamforming iso-
+lation, quantified by the difference ∆GMain-SLL between
+the main lobe and the highest Sidelobe Level (SLL),
+which is particularly important in satellite communica-
+tion applications. However, the associated reduction in
+minimum inter-satellite distance dmin
+imposes stringent
+requirements on formation flying, increasing the need for
+corrective manoeuvres to avoid collisions. This, in turn,
+impacts fuel consumption and limits mission duration. To
+address this challenge, recent research has explored fuel-
+
+--- PAGE BREAK ---
+
+Table 1. Nominal system configurations
+Nc × Nr
+dmin
+sat (m)
+Avirtual (m2)
+∆GMain-Sll (dB)
+24 × 24
+10.91
+328.84
+1.43
+16 × 16
+7.31
+437.40
+3.91
+12 × 12
+6.14
+594.36
+4.92
+8 × 8
+4.11
+659.35
+8.85
+6 × 6
+3.02
+663.52
+9.84
+4 × 4
+2.04
+701.44
+12.44
+3 × 3
+1.54
+721.31
+14.71
+2 × 2
+1.03
+727.50
+17.44
+Table 2. Simulation parameters
+Parameter
+Value
+Orbit altitude
+600 km
+Carrier frequency
+1 GHz
+Wavelength λ
+0.3 m
+Element gain G0
+5 dBi
+Element HPBW
+Translation limit tmax
+2.3 m (Ns = 16)
+1.2 m (Ns = 64)
+Rotation limit ϵmax
+Total radiating elements
+2304
+Nominal beam radius (Earth)
+3 km
+Array layout
+free propulsion strategies, such as electromagnetic forces,
+that can enable large-scale formations of very small satel-
+lites (e.g., palm-sized) flying at close spacing (Shim et al.
+(2025)).
+Although the proposed methodology is general, the simula-
+tion requirements are derived from a Direct-to-Cell (D2C)
+use case. This scenario imposes stringent constraints due
+to the need for active transmission (where high side-
+lobes may cause harmful interference), tightly packed for-
+mations, and real-time processing (to ensure continuous
+service). These requirements are notably more demand-
+ing than those of applications such as passive sensing
+or satellite-based SIGINT, where larger separations and
+offline processing are acceptable. The common simulation
+parameters used for both the representative case and the
+Monte Carlo analysis are summarized in Table 2.
+3.1 Representative Case
+The representative simulation case considers a multi-
+satellite system with Ns = 64 satellites and a departure
+direction defined by (θ0, φ0) = (0◦, 0◦). Position and atti-
+tude perturbations are modeled as independent zero-mean
+random variables with standard deviations σx = σy =
+σz = λ/5 and σα = σβ = σγ = 5◦.
+The simulation results are summarized in Figure 2. The
+θ-cut at φ = 0 in Figure 2(a) shows the degradation of
+the main lobe and the increase in sidelobe levels for the
+perturbed configuration (“Per”) compared to the nominal
+case (“Nom”). When the perturbations are incorporated
+into the beamforming process, as in (4), the calibrated
+beamforming response (“Cal”) closely restores the nominal
+performance. Consistent observations can be made from
+the uv domain power patterns. Figure 2(b) shows the
+distorted pattern under perturbations, while Figure 2(c)
+displays the result after calibration.
+-0.1
+-0.1
+0.05
+0.05
+-0.1
+-0.1
+0.05
+0.05
+Fig. 2. Representative simulation with Ns = 64 satellites
+under translation and rotation perturbations. (a) θ-
+cut at φ = 0 comparing nominal, perturbed, and
+calibrated patterns. (b) uv power pattern for the
+perturbed configuration. (c) uv power pattern after
+phase-aware calibration.
+This case highlights the extreme sensitivity of beamform-
+ing to position and attitude perturbations. A rotation of
+only a few degrees, combined with a translation of λ/5
+(equivalent to 6 cm at 1 GHz), can completely degrade
+the beam pattern. However, when accurate perturbation
+information is available, recalculating the beamforming
+coefficients enables substantial recovery of the nominal
+performance.
+3.2 Monte Carlo Simulations
+To consolidate and expand the representative case, this
+section presents a Monte Carlo simulation campaign with
+100 realizations for each value. The evaluation considers
+two multi-satellite configurations (Ns = 16 and Ns = 64)
+and two beam steering directions: (θ0, φ0) = (0◦, 0◦)
+and (θ0, φ0) = (25◦, 25◦). The objective is to assess the
+sensitivity of beamforming performance to position and
+attitude perturbations, and to evaluate how knowledge
+of these perturbations can be exploited to restore perfor-
+mance across different steering directions and formation
+configurations.
+Nominal, perturbed, and calibrated uv patterns are com-
+pared under independent random perturbations in trans-
+lation and rotation. For the translation simulation, the
+standard deviations σx = σy = σz are swept from 0 m to
+λ/5 in 40 evenly spaced steps. The simulations evaluating
+the effect of rotational perturbations are conducted with
+σα = σβ = σγ ranging from 0° to 10°, sampled over 40
+evenly spaced points.
+Figure 3 summarizes the results. Each subplot shows eight
+curves, corresponding to the perturbed and calibrated
+
+--- PAGE BREAK ---
+
+0.02
+0.04
+0.06
+0.02
+0.04
+0.06
+0.02
+0.04
+0.06
+Fig. 3. Monte Carlo simulation results under attitude and position perturbations. The first row ((a)–(c)) shows
+performance degradation due to attitude perturbations. The second row ((d)–(f)) shows the impact of position
+perturbations.
+cases, two values of Ns, and two departure angles (θ0, φ0).
+The y-axis shows the probability that a specific KPI is
+met, while the x-axis shows the standard deviation of the
+random perturbation.
+The first row shows the results for attitude perturba-
+tions (rotations), while the second row focuses on po-
+sition perturbations (translations). The columns corre-
+spond to the different KPIs introduced in Section 2.3. The
+first column, Figures (a) and (d), reports the probability
+Pr(∆Gmain < 1 dB). The second column, Figures (b)
+and (e), shows Pr(∆AHPBW < 2 %). The third column,
+Figures (c) and (f), shows Pr(∆GSLL < 1 dB).
+The perturbed results demonstrate the extreme sensitiv-
+ity of beamforming performance to position and attitude
+perturbations. Achieving the specified KPIs with a 90 %
+probability requires individual position accuracy better
+than λ/20, approximately 1.5 cm at 1 GHz, and individ-
+ual attitude accuracy within a few degrees. In the sim-
+ulations, position and attitude perturbations are applied
+independently. However, in practical scenarios, they must
+be jointly satisfied, making the requirements even more
+stringent. By contrast, the calibrated results show that
+beamforming performance is fully restored when geometric
+phase alignment is achieved, i.e., when the phase errors
+introduced by the perturbations are compensated. Extend-
+ing the simulations to larger perturbation levels did not
+reveal significant degradation in the calibrated patterns.
+While the calibrated simulations assume perfect knowl-
+edge of the perturbation information, recent advance-
+ments in commercial off-the-shelf Software-Defined Radios
+(SDRs) have demonstrated ranging accuracies on the order
+of 1 cm (Gardill et al. (2023)), making the required po-
+sition precision increasingly feasible in practical systems.
+Furthermore, the required attitude accuracy is comparable
+to that typically achieved in optical inter-satellite links,
+where precise beam pointing is essential to maintain high-
+data-rate laser communication between satellites (Peter-
+mann et al. (2025)).
+Regarding the impact of the beam steering angle, no
+strong trends are observed across the KPIs. However, the
+system configuration with larger Ns appears more robust
+to attitude perturbations, as shown in the first row. This
+trend is not confirmed for position errors: the configuration
+with fewer satellites shows slightly better robustness in
+main lobe gain degradation and SLL increase (Figures (d)
+and (f)), while the opposite is observed for HPBW area
+variation (Figure (e)).
+3.3 Individual Position/Attitude Perturbation Impact
+Although all translation (x, y, z) and rotation (α, β, γ)
+components are applied simultaneously within each per-
+turbation group, the individual components contribute
+differently to the geometric phase error, and thus to the
+beamforming performance. Both types of perturbations
+alter the effective position of each radiating element in
+
+--- PAGE BREAK ---
+
+Table 3. Relative impact of individual pertur-
+bations on steering vector phase
+Perturbation
+Strength
+Condition for high impact
+Translation δz
+At all steering angles
+Translation δx, δy
+At large steering angles
+Rotation δα (pitch)
+Wide array in x
+Rotation δβ (roll)
+Tall array in y
+Rotation δγ (yaw)
+Mainly affects beam direction
+space. Under narrowband, far-field conditions, this directly
+impacts the phase contribution of each element as defined
+in the steering vector (2).
+In the case of translation, perturbations along the wave
+propagation direction (the z-axis in this setup) have the
+most direct and significant impact on phase. Even small
+displacements along z strongly affect phase coherence.
+Conversely, perturbations along x and y only produce
+appreciable effects when the beam is steered away from
+boresight.
+Rotations can also induce significant phase shifts, particu-
+larly when the array is physically large, the beam is steered
+off-boresight, and the rotation axis affects a broad spatial
+distribution of elements. Pitch rotations (about the y-axis)
+and roll rotations (about the x-axis) effectively displace
+elements along the z-axis, introducing phase shifts compa-
+rable to those caused by direct translations. Yaw rotations
+(about the z-axis), in contrast, primarily affect the beam
+direction and have limited impact on the projection of
+element positions onto the departure direction vector ˆk.
+The impact of the individual perturbation components is
+summarized in Table 3.
+4. CONCLUSION
+The simulation results confirm that the beamforming per-
+formance of multi-satellite systems is highly sensitive to
+position and attitude perturbations, particularly transla-
+tions along the z-axis and pitch and roll rotations. Inde-
+pendent simulations of position and attitude perturbations
+show that, to meet the most stringent KPIs defined in this
+study, position accuracy on the order of λ/20 and attitude
+accuracy within a few degrees are required. In the sim-
+ulations, position and attitude perturbations are applied
+independently, however, in practical scenarios, they must
+be jointly satisfied, making the requirements even more
+stringent.
+A key insight is that beamforming performance can be
+substantially recovered when precise position and attitude
+information is available from onboard sensors and incor-
+porated into the beamforming process. Extended simu-
+lations, beyond those presented in this paper, indicate
+that the calibrated pattern maintains its robustness even
+under larger perturbations. This suggests that accurate
+position and attitude information can reduce the frequency
+of corrective manoeuvres, which, from a beamforming per-
+spective, are only necessary when the alignment process
+fails to maintain the predefined KPIs.
+For real-time applications such as satellite communica-
+tions, where maintaining beam performance within target
+KPIs is critical for continuous service, the integration
+of control information into the beamforming process is
+essential. While the required position accuracy can already
+be achieved with commercial off-the-shelf SDRs at the
+operating frequency considered in this study, moving to
+higher frequency bands will impose considerably stricter
+requirements and demand further technological advances.
+In addition, extending the analysis from a single-epoch
+evaluation to time-varying scenarios will be necessary to
+capture the effects of orbital propagation, where beam-
+forming performance, especially the HPBW, is expected
+to fluctuate with the effective virtual antenna aperture of
+the multi-satellite system and degrade most severely at
+orbital crossing points.
+Taken together, these considerations outline promising
+directions for advancing control-aware beamforming, in
+which the AOCS is more tightly integrated with the signal
+processing chain to ensure robust performance and au-
+tonomous coordination in next-generation multi-satellite
+systems.
+REFERENCES
+Balanis, C.A. (2016). Antenna theory: analysis and design.
+Wiley, Hoboken, New Jersey, fourth edition.
+Gardill, M., Pearson, D., Scharnagl, J., and Schilling, K.
+(2023). Towards Wireless Ranging and Synchronization
+Using CubeSat Software-Defined Radio Subsystems. In
+2023 IEEE Space Hardware and Radio Conference.
+Johnson, N.L., Kotz, S., and Balakrishnan, N. (1994).
+Continuous Univariate Distributions, Volume 1. Wiley,
+New York, 2 edition.
+Kinzel, A., Bachmann, J., Jaiswal, R., Karnal, M., Novo,
+E., Porcelli, F., Schmidt, A., Schwarz, R., Hofmann,
+C., F¨orstner, R., and Knopp, A. (2022).
+Seamless
+Radio Access Network for Internet of Space (SeRANIS):
+New Space Mission for Research, Development, and In-
+Orbit Demonstration of Cutting-Edge Technologies. In
+International Astronautical Congress 2022.
+Nanzer,
+J.A.,
+Mghabghab,
+S.R.,
+Ellison,
+S.M.,
+Schlegel, A. (2021). Distributed Phased Arrays: Chal-
+lenges and Recent Advances.
+IEEE Transactions on
+Microwave Theory and Techniques, 69(11), 4893–4907.
+Petermann, T., J¨ager, E., Elsner, L., Pearson, D., Dietl,
+G., and Schilling, K. (2025). A Distributed Hardware-
+in-the-Loop Testbed for Attitude Control of Small Com-
+munication Satellites.
+In 2025 IEEE Space Hardware
+and Radio Conference (SHaRC).
+Schilling, K. (2021).
+Small Satellite Formations: Chal-
+lenges in Navigation and its Application Potential. In
+2021 28th Saint Petersburg International Conference on
+Integrated Navigation Systems (ICINS).
+Shim, S., Takahashi, Y., Usami, N., Kubota, M., and
+Sakai, S.i. (2025). Feasibility Study of Distributed Space
+Antennas Using Electromagnetic Formation Flight. In
+2025 IEEE Aerospace Conference.
+Tuzi, D., Aguilar, E.F., Delamotte, T., Karabulut-Kurt,
+G., and Knopp, A. (2023a).
+Distributed Approach
+to Satellite Direct-to-Cell Connectivity in 6G Non-
+Terrestrial Networks. IEEE Wireless Communications,
+30(6), 28–34.
+Tuzi, D., Delamotte, T., and Knopp, A. (2023b). Satellite
+Swarm-Based Antenna Arrays for 6G Direct-to-Cell
+Connectivity. IEEE Access, 11, 36907–36928.

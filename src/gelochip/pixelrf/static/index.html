@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixelatedRF Designer</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+  header { background: #1a1f2e; border-bottom: 1px solid #2d3748; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 1.2rem; font-weight: 600; color: #90cdf4; }
+  header span { font-size: 0.8rem; color: #718096; }
+  .badge { background: #2b6cb0; color: #bee3f8; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; }
+
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+
+  .panel { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 10px; padding: 18px; }
+  .panel h2 { font-size: 0.9rem; font-weight: 600; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
+
+  /* S11 editor */
+  #chart-wrap { position: relative; height: 300px; cursor: crosshair; user-select: none; }
+  #s11-canvas { position: absolute; inset: 0; border-radius: 6px; }
+
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  button { padding: 7px 14px; border: none; border-radius: 6px; font-size: 0.82rem; cursor: pointer; transition: opacity 0.15s; }
+  button:hover { opacity: 0.85; }
+  .btn-preset { background: #2d3748; color: #cbd5e0; }
+  .btn-clear  { background: #744210; color: #fefcbf; }
+  .btn-run    { background: #2b6cb0; color: #bee3f8; font-weight: 600; font-size: 0.9rem; padding: 9px 22px; }
+  .btn-dl     { background: #276749; color: #9ae6b4; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Results */
+  #layout-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: #2d3748; border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
+  .px { aspect-ratio: 1; background: #2d3748; transition: background 0.1s; }
+  .px.on  { background: #c0a060; }
+  .px.feed { background: #e08030 !important; }
+  .px.gnd  { background: #607090 !important; }
+
+  #chart-result-wrap { height: 220px; }
+
+  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .metric { background: #2d3748; border-radius: 6px; padding: 10px 12px; }
+  .metric .label { font-size: 0.72rem; color: #718096; text-transform: uppercase; }
+  .metric .value { font-size: 1.1rem; font-weight: 600; color: #e2e8f0; margin-top: 2px; }
+
+  .drc-box { border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 0.82rem; line-height: 1.7; }
+  .drc-clean { background: #1c4532; border: 1px solid #276749; color: #9ae6b4; }
+  .drc-fail  { background: #442233; border: 1px solid #97266d; color: #fbb6ce; }
+  .drc-row { display: flex; justify-content: space-between; }
+  .drc-pass { color: #68d391; font-weight: 600; }
+  .drc-viol { color: #fc8181; font-weight: 600; }
+  .drc-warn { color: #f6e05e; }
+
+  #status { text-align: center; color: #718096; font-size: 0.82rem; padding: 8px 0; }
+  #status.running { color: #63b3ed; }
+  #status.error   { color: #fc8181; }
+  #status.done    { color: #68d391; }
+
+  .pin-legend { display: flex; gap: 12px; font-size: 0.72rem; color: #a0aec0; margin-bottom: 8px; flex-wrap: wrap; }
+  .pin-dot { width: 12px; height: 12px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PixelatedRF Designer</h1>
+  <span class="badge">GF180MCU MetalTop</span>
+  <span>Draw an S₁₁ target → inverse design → GDS + DRC</span>
+</header>
+
+<main>
+  <!-- LEFT: S11 Editor -->
+  <div class="panel">
+    <h2>S₁₁ Target Editor</h2>
+    <p style="font-size:0.78rem;color:#718096;margin-bottom:10px">
+      Click &amp; drag on the chart to draw your target S₁₁ curve (1–10 GHz, 0 to −30 dB).
+      Release and click <strong>Run</strong>.
+    </p>
+    <div id="chart-wrap">
+      <canvas id="s11-canvas"></canvas>
+    </div>
+    <div class="btn-row">
+      <button class="btn-preset" onclick="setPreset('flat')">Flat 0 dB</button>
+      <button class="btn-preset" onclick="setPreset('notch24')">2.4 GHz notch</button>
+      <button class="btn-preset" onclick="setPreset('notch5')">5 GHz notch</button>
+      <button class="btn-preset" onclick="setPreset('notch7')">7.5 GHz notch</button>
+      <button class="btn-preset" onclick="setPreset('wideband')">Wideband (3–8 GHz)</button>
+      <button class="btn-clear"  onclick="clearCurve()">Clear</button>
+    </div>
+    <div class="btn-row" style="margin-top:16px">
+      <button class="btn-run" id="btn-run" onclick="runPredict()">▶ Run Inverse Design</button>
+    </div>
+    <div id="status">Draw a target S₁₁ curve above, then click Run.</div>
+  </div>
+
+  <!-- RIGHT: Results -->
+  <div class="panel">
+    <h2>Predicted Layout &amp; Results</h2>
+
+    <div class="pin-legend">
+      <span><span class="pin-dot" style="background:#c0a060"></span>MetalTop</span>
+      <span><span class="pin-dot" style="background:#e08030"></span>RF_IN (feed, center-bottom)</span>
+      <span><span class="pin-dot" style="background:#607090"></span>RF_GND (4 corners)</span>
+    </div>
+    <div id="layout-grid"></div>
+
+    <div id="chart-result-wrap">
+      <canvas id="result-canvas"></canvas>
+    </div>
+
+    <div class="metrics" id="metrics">
+      <div class="metric"><div class="label">RMSE</div><div class="value" id="m-rmse">—</div></div>
+      <div class="metric"><div class="label">Fill factor</div><div class="value" id="m-fill">—</div></div>
+      <div class="metric"><div class="label">Chip size</div><div class="value" id="m-size">—</div></div>
+      <div class="metric"><div class="label">Metal density</div><div class="value" id="m-dens">—</div></div>
+    </div>
+
+    <div id="drc-box" class="drc-box drc-clean" style="display:none"></div>
+
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn-dl" id="btn-dl" disabled onclick="downloadGDS()">⬇ Download GDS</button>
+    </div>
+  </div>
+</main>
+
+<script>
+// ── Constants ───────────────────────────────────────────────────────────────
+const N_FREQ  = 81;
+const F_MIN   = 1.0;   // GHz
+const F_MAX   = 10.0;
+const DB_MIN  = -30;
+const DB_MAX  = 0;
+const freqs   = Array.from({length: N_FREQ}, (_, i) => F_MIN + i*(F_MAX-F_MIN)/(N_FREQ-1));
+
+// ── State ────────────────────────────────────────────────────────────────────
+let s11Values = new Array(N_FREQ).fill(0);  // current target, dB
+let currentGdsId = null;
+let drawing = false;
+
+// ── S11 Editor Chart ─────────────────────────────────────────────────────────
+const editorCtx = document.getElementById('s11-canvas').getContext('2d');
+const editorChart = new Chart(editorCtx, {
+  type: 'line',
+  data: {
+    labels: freqs.map(f => f.toFixed(2)),
+    datasets: [
+      {
+        label: 'Target S₁₁ (dB)',
+        data: s11Values.slice(),
+        borderColor: '#63b3ed',
+        backgroundColor: 'rgba(99,179,237,0.15)',
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: true,
+        tension: 0.3,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    scales: {
+      x: {
+        title: { display: true, text: 'Frequency (GHz)', color: '#718096' },
+        ticks: { color: '#718096', maxTicksLimit: 10 },
+        grid: { color: '#2d3748' },
+      },
+      y: {
+        min: DB_MIN, max: DB_MAX,
+        title: { display: true, text: 'S₁₁ (dB)', color: '#718096' },
+        ticks: { color: '#718096' },
+        grid: { color: '#2d3748' },
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false },
+      annotation: {
+        annotations: {
+          threshold: {
+            type: 'line',
+            yMin: -10, yMax: -10,
+            borderColor: '#fc8181',
+            borderDash: [5, 3],
+            borderWidth: 1,
+          }
+        }
+      }
+    }
+  }
+});
+
+// ── Drawing logic ─────────────────────────────────────────────────────────────
+function chartDbFromEvent(e) {
+  const rect = e.target.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  const ca = editorChart.chartArea;
+  const relX = clientX - rect.left;
+  const relY = clientY - rect.top;
+  const freqIdx = Math.round((relX - ca.left) / (ca.right - ca.left) * (N_FREQ - 1));
+  const db = DB_MAX + (relY - ca.top) / (ca.bottom - ca.top) * (DB_MIN - DB_MAX);
+  return { idx: Math.max(0, Math.min(N_FREQ-1, freqIdx)), db: Math.max(DB_MIN, Math.min(DB_MAX, db)) };
+}
+
+function applyBrush(idx, db) {
+  const HALF_W = 2;
+  for (let i = Math.max(0, idx - HALF_W); i <= Math.min(N_FREQ-1, idx + HALF_W); i++) {
+    const w = 1 - Math.abs(i - idx) / (HALF_W + 1);
+    s11Values[i] = s11Values[i] * (1 - w) + db * w;
+  }
+  editorChart.data.datasets[0].data = s11Values.slice();
+  editorChart.update('none');
+}
+
+const wrap = document.getElementById('chart-wrap');
+wrap.addEventListener('mousedown',  e => { drawing = true; const p=chartDbFromEvent(e); applyBrush(p.idx, p.db); });
+wrap.addEventListener('mousemove',  e => { if (drawing) { const p=chartDbFromEvent(e); applyBrush(p.idx, p.db); } });
+wrap.addEventListener('mouseup',    () => drawing = false);
+wrap.addEventListener('mouseleave', () => drawing = false);
+wrap.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p=chartDbFromEvent(e); applyBrush(p.idx, p.db); }, {passive:false});
+wrap.addEventListener('touchmove',  e => { e.preventDefault(); if (drawing) { const p=chartDbFromEvent(e); applyBrush(p.idx, p.db); } }, {passive:false});
+wrap.addEventListener('touchend',   () => drawing = false);
+
+// ── Presets ───────────────────────────────────────────────────────────────────
+function setPreset(name) {
+  s11Values = freqs.map(f => {
+    switch(name) {
+      case 'flat': return 0;
+      case 'notch24': return -28 * Math.exp(-Math.pow((f-2.4)/0.3, 2));
+      case 'notch5':  return -28 * Math.exp(-Math.pow((f-5.0)/0.5, 2));
+      case 'notch7':  return -28 * Math.exp(-Math.pow((f-7.5)/0.5, 2));
+      case 'wideband': return (f>=3 && f<=8) ? -18 - 10*(1-Math.pow((f-5.5)/2.5,2)) : -2*Math.exp(-Math.pow((f<3?f-3:f-8)/0.5,2));
+      default: return 0;
+    }
+  }).map(v => Math.max(DB_MIN, Math.min(DB_MAX, v)));
+  editorChart.data.datasets[0].data = s11Values.slice();
+  editorChart.update('none');
+}
+
+function clearCurve() {
+  s11Values.fill(0);
+  editorChart.data.datasets[0].data = s11Values.slice();
+  editorChart.update('none');
+}
+
+// ── Layout grid ───────────────────────────────────────────────────────────────
+const layoutGrid = document.getElementById('layout-grid');
+const cells = [];
+for (let i = 0; i < 144; i++) {
+  const d = document.createElement('div');
+  d.className = 'px';
+  layoutGrid.appendChild(d);
+  cells.push(d);
+}
+
+function renderLayout(layout) {
+  // layout: 12×12 array
+  for (let r = 0; r < 12; r++) {
+    for (let c = 0; c < 12; c++) {
+      const d = cells[r * 12 + c];
+      d.className = 'px' + (layout[r][c] ? ' on' : '');
+    }
+  }
+  // Feed pad: center-bottom (row 11, col 5 or 6)
+  cells[11*12 + 5].classList.add('feed');
+  cells[11*12 + 6].classList.add('feed');
+  // GND corners (visual only)
+  cells[0].classList.add('gnd');
+  cells[11].classList.add('gnd');
+  cells[11*12].classList.add('gnd');
+  cells[11*12+11].classList.add('gnd');
+}
+
+// ── Result chart ──────────────────────────────────────────────────────────────
+const resCtx = document.getElementById('result-canvas').getContext('2d');
+const resChart = new Chart(resCtx, {
+  type: 'line',
+  data: {
+    labels: freqs.map(f => f.toFixed(2)),
+    datasets: [
+      { label: 'Target', data: [], borderColor: '#63b3ed', borderWidth: 2, pointRadius: 0, borderDash: [5,3] },
+      { label: 'Surrogate pred', data: [], borderColor: '#f6ad55', borderWidth: 2, pointRadius: 0 },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    scales: {
+      x: { title:{display:true,text:'Freq (GHz)',color:'#718096'}, ticks:{color:'#718096',maxTicksLimit:10}, grid:{color:'#2d3748'} },
+      y: { min:-30, max:2, title:{display:true,text:'S₁₁ (dB)',color:'#718096'}, ticks:{color:'#718096'}, grid:{color:'#2d3748'} }
+    },
+    plugins: { legend: { labels: { color: '#a0aec0', font: { size: 11 } } } }
+  }
+});
+
+// ── Run prediction ────────────────────────────────────────────────────────────
+async function runPredict() {
+  const btn = document.getElementById('btn-run');
+  const status = document.getElementById('status');
+  btn.disabled = true;
+  status.className = 'running';
+  status.textContent = 'Running inverse design…';
+
+  try {
+    const resp = await fetch('/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ s11_db: s11Values, k_samples: 8 }),
+    });
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.detail || resp.statusText);
+    }
+    const data = await resp.json();
+    currentGdsId = data.gds_id;
+    renderResults(data);
+    status.className = 'done';
+    status.textContent = `Done — RMSE ${data.rmse_db.toFixed(2)} dB`;
+    document.getElementById('btn-dl').disabled = false;
+  } catch(e) {
+    status.className = 'error';
+    status.textContent = `Error: ${e.message}`;
+  }
+  btn.disabled = false;
+}
+
+function renderResults(data) {
+  renderLayout(data.layout);
+
+  resChart.data.datasets[0].data = s11Values;
+  resChart.data.datasets[1].data = data.surrogate_s11;
+  resChart.update();
+
+  document.getElementById('m-rmse').textContent = data.rmse_db.toFixed(2) + ' dB';
+  document.getElementById('m-fill').textContent = data.fill_pct.toFixed(1) + ' %';
+  const d = data.drc;
+  document.getElementById('m-size').textContent = `${d.chip_w_um}×${d.chip_h_um} µm`;
+  document.getElementById('m-dens').textContent = d.density_pct + ' %' + (d.density_ok ? ' ✓' : ' ✗');
+
+  const drc = data.drc;
+  const edgeViol  = drc.min_space_violations - drc.corner_touch_violations;
+  const widthViol = Math.max(0, drc.min_width_violations - drc.corner_touch_violations);
+  const totalReal = widthViol + edgeViol + drc.min_area_violations;
+  const box = document.getElementById('drc-box');
+  box.style.display = 'block';
+  box.className = 'drc-box ' + (totalReal === 0 ? 'drc-clean' : 'drc-fail');
+  box.innerHTML = `
+    <strong>GF180 MetalTop DRC (Layer 46/0)</strong><br>
+    <div class="drc-row"><span>Density (5–80%)</span><span class="${drc.density_ok?'drc-pass':'drc-viol'}">${drc.density_pct}% ${drc.density_ok?'PASS':'FAIL'}</span></div>
+    <div class="drc-row"><span>Min-width (≥0.36 µm)</span><span class="${widthViol===0?'drc-pass':'drc-viol'}">${widthViol} viol — ${widthViol===0?'PASS':'FAIL'}</span></div>
+    <div class="drc-row"><span>Min-space (≥0.36 µm)</span><span class="${edgeViol===0?'drc-pass':'drc-viol'}">${edgeViol} real viol — ${edgeViol===0?'PASS':'FAIL'}</span></div>
+    <div class="drc-row"><span style="color:#718096;font-size:0.78em">↳ corner-touch (design-intent)</span><span class="drc-warn">${drc.corner_touch_violations}</span></div>
+    <div class="drc-row"><span>Min-area (≥0.5 µm²)</span><span class="${drc.min_area_violations===0?'drc-pass':'drc-viol'}">${drc.min_area_violations} viol — ${drc.min_area_violations===0?'PASS':'FAIL'}</span></div>
+    <div class="drc-row" style="margin-top:6px"><strong>Status</strong><strong>${drc.status}</strong></div>
+  `;
+}
+
+async function downloadGDS() {
+  if (!currentGdsId) return;
+  const a = document.createElement('a');
+  a.href = `/gds/${currentGdsId}`;
+  a.download = `pixelrf_${currentGdsId}.gds`;
+  a.click();
+}
+
+// Init grid
+renderLayout(Array.from({length:12}, () => new Array(12).fill(0)));
+</script>
+</body>
+</html>

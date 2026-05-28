@@ -1,0 +1,1647 @@
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+THE ASTROPARTICLE PHYSICS CONFERENCE
+Pierre Auger Observatory and Telescope Array: Joint
+Contributions to the 33rd International Cosmic Ray Conference
+(ICRC 2013)
+The Telescope Array Collaboration
+T. Abu-Zayyad201, M. Allen201, R. Anderson201, R. Azuma202, E. Barcikowski201, J. W Belz201,
+D. R. Bergman201, S. A. Blake201, R. Cady201, M. J. Chae203, B. G. Cheon204, J. Chiba205,
+M. Chikawa206, W. R. Cho207, T. Fujii208, M. Fukushima208,209, K. Goto210, W. Hanlon201,
+Y. Hayashi210, N. Hayashida211, K. Hibino211, K. Honda212, D. Ikeda208, N. Inoue213, T. Ishii212,
+R. Ishimori202, H. Ito214, D. Ivanov201, C. C. H. Jui201, K. Kadota216, F. Kakimoto202,
+O. Kalashev217, K. Kasahara218, H. Kawai219, S. Kawakami210, S. Kawana213, K. Kawata208,
+E. Kido208, H. B. Kim204, J. H. Kim201, J. H. Kim204, S. Kitamura202, Y. Kitamura202, V. Kuzmin217,
+Y. J. Kwon207, J. Lan201, J. P. Lundquist201, K. Machida212, K. Martens209, T. Matsuda220,
+T. Matsuyama210, J. N. Matthews201, M. Minamino210, K. Mukai212, I. Myers201, K. Nagasawa213,
+S. Nagataki214, T. Nakamura221, H. Nanpei210, T. Nonaka208, A. Nozato206, S. Ogio210, S. Oh203,
+M. Ohnishi208, H. Ohoka208, K. Oki208, T. Okuda222, M. Ono214, A. Oshima210, S. Ozawa218,
+I. H. Park223, M. S. Pshirkov224, D. C. Rodriguez201, G. Rubtsov217, D. Ryu225, H. Sagawa208,
+N. Sakurai210, A. L. Sampson201, L. M. Scott215, P. D. Shah201, F. Shibata212, T. Shibata208,
+H. Shimodaira208, B. K. Shin204, T. Shirahama213, J. D. Smith201, P. Sokolsky201, R. W. Springer201,
+B. T. Stokes201, S. R. Stratton201,215, T. A. Stroman201, M. Takamura205, M. Takeda208, A. Taketa226,
+M. Takita208, Y. Tameda211, H. Tanaka210, K. Tanaka227, M. Tanaka220, S. B. Thomas201,
+G. B. Thomson201, P. Tinyakov217,224, I. Tkachev217, H. Tokuno202, T. Tomida228, S. Troitsky217,
+Y. Tsunesada202, K. Tsutsumi202, Y. Uchihori229, S. Udo211, F. Urban224, G. Vasiloff201, Y. Wada213,
+T. Wong201, H. Yamaoka220, K. Yamazaki210, J. Yang203, K. Yashiro205, Y. Yoneda210, S. Yoshida219,
+H. Yoshii230, R. Zollinger201, Z. Zundel201
+The Pierre Auger Collaboration
+A. Aab40,
+P. Abreu62,
+M. Aglietta51,
+M. Ahlers92,
+E.J. Ahn80,
+I.F.M. Albuquerque16,
+I. Allekotte1,
+J. Allen84,
+P. Allison86,
+A. Almela11, 8,
+J. Alvarez Castillo55,
+J. Alvarez-
+Mu˜niz73, R. Alves Batista39, M. Ambrosio44, A. Aminaei56, L. Anchordoqui93, S. Andringa62,
+T. Antiˇci´c23, C. Aramo44, F. Arqueros70, H. Asorey1, P. Assis62, J. Aublin29, M. Ave73,
+M. Avenier30, G. Avila10, A.M. Badescu66, K.B. Barber12, R. Bardenet28, J. B¨auml34, C. Baus36,
+J.J. Beatty86, K.H. Becker33, A. Bell´etoile32, J.A. Bellido12, S. BenZvi92, C. Berat30, X. Bertou1,
+P.L. Biermann37, P. Billoir29, F. Blanco70, M. Blanco29, C. Bleve33, H. Bl¨umer36, 34, M. Boh´aˇcov´a25,
+D. Boncioli50, 45, C. Bonifazi21, R. Bonino51, N. Borodai60, J. Brack78, I. Brancus63, P. Brogueira62,
+W.C. Brown79, P. Buchholz40, A. Bueno72, R.E. Burton76, M. Buscemi44, K.S. Caballero-Mora73, 87,
+B. Caccianiga43, L. Caccianiga29, M. Candusso45, L. Caramete37, R. Caruso46, A. Castellina51,
+G. Cataldi48, L. Cazon62, R. Cester47, S.H. Cheng87, A. Chiavassa51, J.A. Chinellato17,
+J. Chudoba25, M. Cilmo44, R.W. Clay12, G. Cocciolo48, R. Colalillo44, L. Collica43, M.R. Coluccia48,
+R. Conceic¸˜ao62, F. Contreras9, H. Cook74, M.J. Cooper12, S. Coutu87, C.E. Covault76, A. Criss87,
+J. Cronin88, A. Curutiu37, R. Dallier32, 31, B. Daniel17, S. Dasso5, 3, K. Daumiller34, B.R. Dawson12,
+R.M. de Almeida22, M. De Domenico46, S.J. de Jong56, 58, G. De La Vega7, W.J.M. de Mello Junior17,
+J.R.T. de Mello Neto21, I. De Mitri48, V. de Souza15, K.D. de Vries57, L. del Peral71, O. Deligny27,
+H. Dembinski34, N. Dhital83, C. Di Giulio45, J.C. Diaz83, M.L. D´ıaz Castro13, P.N. Diep94,
+F. Diogo62, C. Dobrigkeit 17, W. Docters57, J.C. D’Olivo55, P.N. Dong94, 27, A. Dorofeev78, J.C. dos
+
+--- PAGE BREAK ---
+
+Anjos13, M.T. Dova4, J. Ebr25, R. Engel34, M. Erdmann38, C.O. Escobar80, 17, J. Espadanal62,
+A. Etchegoyen8, 11, P. Facal San Luis88, H. Falcke56, 59, 58, K. Fang88, G. Farrar84, A.C. Fauth17,
+N. Fazzini80, A.P. Ferguson76, B. Fick83, J.M. Figueira8, 34, A. Filevich8, A. Filipˇciˇc67, 68,
+N. Foerster40, B.D. Fox89, C.E. Fracchiolla78, E.D. Fraenkel57, O. Fratu66, U. Fr¨ohlich40, B. Fuchs36,
+R. Gaior29, R.F. Gamarra8, S. Gambetta41, B. Garc´ıa7, S.T. Garcia Roca73, D. Garc´ıa-G´amez28,
+D. Garcia-Pinto70, G. Garilli46, A. Gascon Bravo72, H. Gemmeke35, P.L. Ghia29, M. Giller61,
+J. Gitto7, C. Glaser38, H. Glass80, F. Gomez Albarracin4, M. G´omez Berisso1, P.F. G´omez
+Vitale10, P. Gonc¸alves62, J.G. Gonzalez36, B. Gookin78, A. Gorgi51, P. Gorham89, P. Gouffon16,
+S. Grebe56, 58, N. Grifﬁth86, A.F. Grillo50, T.D. Grubb12, Y. Guardincerri3, F. Guarino44,
+G.P. Guedes18, P. Hansen4, D. Harari1, T.A. Harrison12, J.L. Harton78, A. Haungs34, T. Hebbeker38,
+D. Heck34, A.E. Herve12, G.C. Hill12, C. Hojvat80, N. Hollon88, P. Homola40, 60, J.R. H¨orandel56, 58,
+P. Horvath26, M. Hrabovsk´y26, 25, D. Huber36, T. Huege34, A. Insolia46, P.G. Isar64, S. Jansen56, 58,
+C. Jarne4, M. Josebachuili8, 34, K. Kadija23, O. Kambeitz36, K.H. Kampert33, P. Karhan24,
+P. Kasper80, I. Katkov36, B. K´egl28, B. Keilhauer34, A. Keivani82, E. Kemp17, R.M. Kieckhafer83,
+H.O. Klages34, M. Kleifges35, J. Kleinfeller9, 34, J. Knapp74 d, R. Krause38, N. Krohm33,
+O. Kr¨omer35, D. Kruppke-Hansen33, D. Kuempel38, N. Kunka35, G. La Rosa49, D. LaHurd76,
+L. Latronico51, R. Lauer91, M. Lauscher38, P. Lautridou32, S. Le Coz30, M.S.A.B. Le˜ao14,
+D. Lebrun30, P. Lebrun80, M.A. Leigui de Oliveira20, A. Letessier-Selvon29, I. Lhenry-Yvon27,
+K. Link36, R. L´opez52, A. Lopez Ag¨uera73, K. Louedec30, J. Lozano Bahilo72, L. Lu33, 74, A. Lucero8,
+M. Ludwig36, H. Lyberis21, M.C. Maccarone49, C. Macolino29, M. Malacari12, S. Maldera51,
+J. Maller32, D. Mandat25, P. Mantsch80, A.G. Mariazzi4, V. Marin32, I.C. Maris¸29, H.R. Mar-
+quez Falcon54, G. Marsella48, D. Martello48, L. Martin32, 31, H. Martinez53, O. Mart´ınez Bravo52,
+D. Martraire27, J.J. Mas´ıas Meza3, H.J. Mathes34, J. Matthews82, J.A.J. Matthews91, G. Matthiae45,
+D. Maurel34, D. Maurizio13, E. Mayotte77, P.O. Mazur80, C. Medina77, G. Medina-Tanco55,
+M. Melissas36, D. Melo8, E. Menichetti47, A. Menshikov35, S. Messina57, R. Meyhandan89,
+S. Mi´canovi´c23, M.I. Micheletti6, L. Middendorf38, I.A. Minaya70, L. Miramonti43, B. Mitrica63,
+L. Molina-Bueno72, S. Mollerach1, M. Monasor88, D. Monnier Ragaigne28, F. Montanet30,
+B. Morales55, C. Morello51, J.C. Moreno4, M. Mostaf´a78, C.A. Moura20, M.A. Muller17,
+G. M¨uller38, M. M¨unchmeyer29, R. Mussa47, G. Navarra51 ‡, J.L. Navarro72, S. Navas72,
+P. Necesal25, L. Nellen55, A. Nelles56, 58, J. Neuser33, P.T. Nhung94, M. Niechciol40, L. Niemietz33,
+T. Niggemann38, D. Nitz83, D. Nosek24, L. Noˇzka25, J. Oehlschl¨ager34, A. Olinto88, M. Oliveira62,
+M. Ortiz70, N. Pacheco71, D. Pakk Selmi-Dei17, M. Palatka25, J. Pallotta2, N. Palmieri36,
+G. Parente73, A. Parra73, S. Pastor69, T. Paul93, 85, M. Pech25, J. Pe¸kala60, R. Pelayo52, I.M. Pepe19,
+L. Perrone48, R. Pesce41, E. Petermann90, S. Petrera42, A. Petrolini41, Y. Petrov78, R. Piegaia3,
+T. Pierog34, P. Pieroni3, M. Pimenta62, V. Pirronello46, M. Platino8, M. Plum38, M. Pontz40,
+A. Porcelli34, T. Preda64, P. Privitera88, M. Prouza25, E.J. Quel2, S. Querchfeld33, S. Quinn76,
+J. Rautenberg33, O. Ravel32, D. Ravignani8, B. Revenu32, J. Ridky25, S. Riggi49, 73, M. Risse40,
+P. Ristori2, H. Rivera43, V. Rizi42, J. Roberts84, W. Rodrigues de Carvalho73, I. Rodriguez Cabo73,
+G. Rodriguez Fernandez45, 73, J. Rodriguez Martino9, J. Rodriguez Rojo9, M.D. Rodr´ıguez-Fr´ıas71,
+G. Ros71, J. Rosado70, T. Rossler26, M. Roth34, B. Rouill´e-d’Orfeuil88, E. Roulet1, A.C. Rovero5,
+C. R¨uhle35, S.J. Safﬁ12, A. Saftoiu63, F. Salamida27, H. Salazar52, F. Salesa Greus78, G. Salina45,
+F. S´anchez8, P. Sanchez-Lucas72, C.E. Santo62, E. Santos62, E.M. Santos21, F. Sarazin77, B. Sarkar33,
+R. Sato9, N. Scharf38, V. Scherini43, H. Schieler34, P. Schiffer39, A. Schmidt35, O. Scholten57,
+H. Schoorlemmer89, 56, 58, P. Schov´anek25, F.G. Schr¨oder34, 8, A. Schulz34, J. Schulz56, S.J. Sciutto4,
+M. Scuderi46, A. Segreto49, M. Settimo40, 48, A. Shadkam82, R.C. Shellard13, I. Sidelnik1,
+G. Sigl39, O. Sima65, A. ´Smiałkowski61, R. ˇSm´ıda34, G.R. Snow90, P. Sommers87, J. Sorokin12,
+H. Spinka75, 80, R. Squartini9, Y.N. Srivastava85, S. Staniˇc68, J. Stapleton86, J. Stasielak60,
+M. Stephan38, M. Straub38, A. Stutz30, F. Suarez8, T. Suomij¨arvi27, A.D. Supanitsky5, T. ˇSuˇsa23,
+M.S. Sutherland82, J. Swain85, Z. Szadkowski61, M. Szuba34, A. Tapia8, M. Tartare30, O. Tas¸c˘au33,
+R. Tcaciuc40, N.T. Thao94, J. Tiffenberg3, C. Timmermans58, 56, W. Tkaczyk61 ‡, C.J. Todero
+Peixoto15, G. Toma63, L. Tomankova34, B. Tom´e62, A. Tonachini47, G. Torralba Elipe73, D. Torres
+Machado32, P. Travnicek25, D.B. Tridapalli16, E. Trovato46, M. Tueros73, R. Ulrich34, M. Unger34,
+J.F. Vald´es Galicia55, I. Vali˜no73, L. Valore44, G. van Aar56, A.M. van den Berg57, S. van Velzen56,
+
+--- PAGE BREAK ---
+
+A. van Vliet39, E. Varela52, B. Vargas C´ardenas55, G. Varner89, J.R. V´azquez70, R.A. V´azquez73,
+D. Veberiˇc68, 67, V. Verzi45, J. Vicha25, M. Videla7, L. Villase˜nor54, H. Wahlberg4, P. Wahrlich12,
+O. Wainberg8, 11, D. Walz38, A.A. Watson74, M. Weber35, K. Weidenhaupt38, A. Weindl34,
+F. Werner34, S. Westerhoff92, B.J. Whelan87, A. Widom85, G. Wieczorek61, L. Wiencke77,
+B. Wilczy´nska60 ‡, H. Wilczy´nski60, M. Will34, C. Williams88, T. Winchen38, B. Wundheiler8,
+S. Wykes56, T. Yamamoto88 a, T. Yapici83, P. Younk81, G. Yuan82, A. Yushkov73, B. Zamorano72,
+E. Zas73, D. Zavrtanik68, 67, M. Zavrtanik67, 68, I. Zaw84 c, A. Zepeda53 b, J. Zhou88, Y. Zhu35,
+M. Zimbres Silva17, M. Ziolkowski40
+1 Centro At´omico Bariloche and Instituto Balseiro (CNEA-UNCuyo-CONICET), San Carlos de Bariloche, Argentina
+2 Centro de Investigaciones en L´aseres y Aplicaciones, CITEDEF and CONICET, Argentina
+3 Departamento de F´ısica, FCEyN, Universidad de Buenos Aires y CONICET, Argentina
+4 IFLP, Universidad Nacional de La Plata and CONICET, La Plata, Argentina
+5 Instituto de Astronom´ıa y F´ısica del Espacio (CONICET-UBA), Buenos Aires, Argentina
+6 Instituto de F´ısica de Rosario (IFIR) - CONICET/U.N.R. and Facultad de Ciencias Bioqu´ımicas y Farmac´euticas U.N.R.,
+Rosario, Argentina
+7 Instituto de Tecnolog´ıas en Detecci´on y Astropart´ıculas (CNEA, CONICET, UNSAM), and National Technological
+University, Faculty Mendoza (CONICET/CNEA), Mendoza, Argentina
+8 Instituto de Tecnolog´ıas en Detecci´on y Astropart´ıculas (CNEA, CONICET, UNSAM), Buenos Aires, Argentina
+9 Observatorio Pierre Auger, Malarg¨ue, Argentina
+10 Observatorio Pierre Auger and Comisi´on Nacional de Energ´ıa At´omica, Malarg¨ue, Argentina
+11 Universidad Tecnol´ogica Nacional - Facultad Regional Buenos Aires, Buenos Aires, Argentina
+12 University of Adelaide, Adelaide, S.A., Australia
+13 Centro Brasileiro de Pesquisas Fisicas, Rio de Janeiro, RJ, Brazil
+14 Faculdade Independente do Nordeste, Vit´oria da Conquista, Brazil
+15 Universidade de S˜ao Paulo, Instituto de F´ısica, S˜ao Carlos, SP, Brazil
+16 Universidade de S˜ao Paulo, Instituto de F´ısica, S˜ao Paulo, SP, Brazil
+17 Universidade Estadual de Campinas, IFGW, Campinas, SP, Brazil
+18 Universidade Estadual de Feira de Santana, Brazil
+19 Universidade Federal da Bahia, Salvador, BA, Brazil
+20 Universidade Federal do ABC, Santo Andr´e, SP, Brazil
+21 Universidade Federal do Rio de Janeiro, Instituto de F´ısica, Rio de Janeiro, RJ, Brazil
+22 Universidade Federal Fluminense, EEIMVR, Volta Redonda, RJ, Brazil
+23 Rudjer Boˇskovi´c Institute, 10000 Zagreb, Croatia
+24 Charles University, Faculty of Mathematics and Physics, Institute of Particle and Nuclear Physics, Prague, Czech
+Republic
+25 Institute of Physics of the Academy of Sciences of the Czech Republic, Prague, Czech Republic
+26 Palacky University, RCPTM, Olomouc, Czech Republic
+27 Institut de Physique Nucl´eaire d’Orsay (IPNO), Universit´e Paris 11, CNRS-IN2P3, Orsay, France
+28 Laboratoire de l’Acc´el´erateur Lin´eaire (LAL), Universit´e Paris 11, CNRS-IN2P3, France
+29 Laboratoire de Physique Nucl´eaire et de Hautes Energies (LPNHE), Universit´es Paris 6 et Paris 7, CNRS-IN2P3, Paris,
+France
+30 Laboratoire de Physique Subatomique et de Cosmologie (LPSC), Universit´e Joseph Fourier Grenoble, CNRS-IN2P3,
+Grenoble INP, France
+31 Station de Radioastronomie de Nanc¸ay, Observatoire de Paris, CNRS/INSU, France
+32 SUBATECH, ´Ecole des Mines de Nantes, CNRS-IN2P3, Universit´e de Nantes, France
+33 Bergische Universit¨at Wuppertal, Wuppertal, Germany
+34 Karlsruhe Institute of Technology - Campus North - Institut f¨ur Kernphysik, Karlsruhe, Germany
+35 Karlsruhe Institute of Technology - Campus North - Institut f¨ur Prozessdatenverarbeitung und Elektronik, Karlsruhe,
+Germany
+36 Karlsruhe Institute of Technology - Campus South - Institut f¨ur Experimentelle Kernphysik (IEKP), Karlsruhe,
+Germany
+37 Max-Planck-Institut f¨ur Radioastronomie, Bonn, Germany
+38 RWTH Aachen University, III. Physikalisches Institut A, Aachen, Germany
+
+--- PAGE BREAK ---
+
+39 Universit¨at Hamburg, Hamburg, Germany
+40 Universit¨at Siegen, Siegen, Germany
+41 Dipartimento di Fisica dell’Universit`a and INFN, Genova, Italy
+42 Universit`a dell’Aquila and INFN, L’Aquila, Italy
+43 Universit`a di Milano and Sezione INFN, Milan, Italy
+44 Universit`a di Napoli ”Federico II” and Sezione INFN, Napoli, Italy
+45 Universit`a di Roma II ”Tor Vergata” and Sezione INFN, Roma, Italy
+46 Universit`a di Catania and Sezione INFN, Catania, Italy
+47 Universit`a di Torino and Sezione INFN, Torino, Italy
+48 Dipartimento di Matematica e Fisica ”E. De Giorgi” dell’Universit`a del Salento and Sezione INFN, Lecce, Italy
+49 Istituto di Astroﬁsica Spaziale e Fisica Cosmica di Palermo (INAF), Palermo, Italy
+50 INFN, Laboratori Nazionali del Gran Sasso, Assergi (L’Aquila), Italy
+51 Osservatorio Astroﬁsico di Torino (INAF), Universit`a di Torino and Sezione INFN, Torino, Italy
+52 Benem´erita Universidad Aut´onoma de Puebla, Puebla, Mexico
+53 Centro de Investigaci´on y de Estudios Avanzados del IPN (CINVESTAV), M´exico, Mexico
+54 Universidad Michoacana de San Nicolas de Hidalgo, Morelia, Michoacan, Mexico
+55 Universidad Nacional Autonoma de Mexico, Mexico, D.F., Mexico
+56 IMAPP, Radboud University Nijmegen, Netherlands
+57 Kernfysisch Versneller Instituut, University of Groningen, Groningen, Netherlands
+58 Nikhef, Science Park, Amsterdam, Netherlands
+59 ASTRON, Dwingeloo, Netherlands
+60 Institute of Nuclear Physics PAN, Krakow, Poland
+61 University of Ł´od´z, Ł´od´z, Poland
+62 LIP and Instituto Superior T´ecnico, Technical University of Lisbon, Portugal
+63 ’Horia Hulubei’ National Institute for Physics and Nuclear Engineering, Bucharest- Magurele, Romania
+64 Institute of Space Sciences, Bucharest, Romania
+65 University of Bucharest, Physics Department, Romania
+66 University Politehnica of Bucharest, Romania
+67 J. Stefan Institute, Ljubljana, Slovenia
+68 Laboratory for Astroparticle Physics, University of Nova Gorica, Slovenia
+69 Institut de F´ısica Corpuscular, CSIC-Universitat de Val`encia, Valencia, Spain
+70 Universidad Complutense de Madrid, Madrid, Spain
+71 Universidad de Alcal´a, Alcal´a de Henares (Madrid), Spain
+72 Universidad de Granada and C.A.F.P.E., Granada, Spain
+73 Universidad de Santiago de Compostela, Spain
+74 School of Physics and Astronomy, University of Leeds, United Kingdom
+75 Argonne National Laboratory, Argonne, IL, USA
+76 Case Western Reserve University, Cleveland, OH, USA
+77 Colorado School of Mines, Golden, CO, USA
+78 Colorado State University, Fort Collins, CO, USA
+79 Colorado State University, Pueblo, CO, USA
+80 Fermilab, Batavia, IL, USA
+81 Los Alamos National Laboratory, Los Alamos, NM, USA
+82 Louisiana State University, Baton Rouge, LA, USA
+83 Michigan Technological University, Houghton, MI, USA
+84 New York University, New York, NY, USA
+85 Northeastern University, Boston, MA, USA
+86 Ohio State University, Columbus, OH, USA
+87 Pennsylvania State University, University Park, PA, USA
+88 University of Chicago, Enrico Fermi Institute, Chicago, IL, USA
+89 University of Hawaii, Honolulu, HI, USA
+90 University of Nebraska, Lincoln, NE, USA
+91 University of New Mexico, Albuquerque, NM, USA
+92 University of Wisconsin, Madison, WI, USA
+
+--- PAGE BREAK ---
+
+93 University of Wisconsin, Milwaukee, WI, USA
+94 Institute for Nuclear Science and Technology (INST), Hanoi, Vietnam
+201 High Energy Astrophysics Institute and Department of Physics and Astronomy, University of Utah, Salt Lake City,
+Utah, USA
+202 Graduate School of Science and Engineering, Tokyo Institute of Technology, Meguro, Tokyo, Japan
+203 Department of Physics and Institute for the Early Universe, Ewha Womans University, Seodaaemun-gu, Seoul, Korea
+204 Department of Physics and The Research Institute of Natural Science, Hanyang University, Seongdong-gu, Seoul,
+Korea
+205 Department of Physics, Tokyo University of Science, Noda, Chiba, Japan
+206 Department of Physics, Kinki University, Higashi Osaka, Osaka, Japan
+207 Department of Physics, Yonsei University, Seodaemun-gu, Seoul, Korea
+208 Institute for Cosmic Ray Research, University of Tokyo, Kashiwa, Chiba, Japan
+209 Kavli Institute for the Physics and Mathematics of the Universe (WPI), Todai Institutes for Advanced Study, the Uni-
+versity of Tokyo, Kashiwa, Chiba, Japan
+210 Graduate School of Science, Osaka City University, Osaka, Osaka, Japan
+211 Faculty of Engineering, Kanagawa University, Yokohama, Kanagawa, Japan
+212 University of Yamanashi, Interdisciplinary Graduate School of Medicine and Engineering, Kofu, Yamanashi, Japan
+213 The Graduate School of Science and Engineering, Saitama University, Saitama, Saitama, Japan
+214 Astrophysical Big Bang Laboratory, RIKEN, Wako, Saitama, Japan
+215 Department of Physics and Astronomy, Rutgers University - The State University of New Jersey, Piscataway, New
+Jersey, USA
+216 Department of Physics, Tokyo City University, Setagaya-ku, Tokyo, Japan
+217 Institute for Nuclear Research of the Russian Academy of Sciences, Moscow, Russia
+218 Advanced Research Institute for Science and Engineering, Waseda University, Shinjuku-ku, Tokyo, Japan
+219 Department of Physics, Chiba University, Chiba, Chiba, Japan
+220 Institute of Particle and Nuclear Studies, KEK, Tsukuba, Ibaraki, Japan
+221 Faculty of Science, Kochi University, Kochi, Kochi, Japan
+222 Department of Physical Sciences, Ritsumeikan University, Kusatsu, Shiga, Japan
+223 Department of Physics, Sungkyunkwan University, Jang-an-gu, Suwon, Korea
+224 Service de Physique Th´eorique, Universit´e Libre de Bruxelles, Brussels, Belgium
+225 Department of Astronomy and Space Science, Chungnam National University, Yuseong-gu, Daejeon, Korea
+226 Earthquake Research Institute, University of Tokyo, Bunkyo-ku, Tokyo, Japan
+227 Department of Physics, Hiroshima City University, Hiroshima, Hiroshima, Japan
+228 Advanced Science Institute, RIKEN, Wako, Saitama, Japan
+229 National Institute of Radiological Science, Chiba, Chiba, Japan
+230 Department of Physics, Ehime University, Matsuyama, Ehime, Japan
+‡ Deceased
+a Now at Konan University
+b Also at the Universidad Autonoma de Chiapas on leave of absence from Cinvestav
+c Now at NYU Abu Dhabi
+d now at DESY Zeuthen
+
+--- PAGE BREAK ---
+
+1 Joint Proceedings of the ICRC 2013
+1.1 John N. Matthews, Progress Towards a Cross-Calibration of the Auger and Telescope Array
+Fluorescence Telescopes via an Air-borne Light Source
+. . . . . . . . . . . . . . . . . . .
+1.2 Olivier Deligny, Measuring Large-Scale Anisotropy in the Arrival Directions of Cosmic
+Rays Detected at the Telescope Array and the Pierre Auger Observatory above 1019 eV . .
+1.3 William F. Hanlon, Progress towards understanding the analyses of mass composition made
+by the Auger and Telescope Array Collaborations . . . . . . . . . . . . . . . . . . . . . .
+Acknowledgements
+
+--- PAGE BREAK ---
+
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+THE ASTROPARTICLE PHYSICS CONFERENCE
+Progress Towards a Cross-Calibration of the Auger and Telescope Array Fluo-
+rescence Telescopes via an Air-borne Light Source
+J.N. MATTHEWS 1 FOR THE PIERRE AUGER 2, AND TELESCOPE ARRAY 3, COLLABORATIONS
+1 University of Utah, Department of Physics and Astronomy and High Energy Astrophysics Institute, Salt Lake City, UT USA
+2Full Author List may be found at www.auger.org/archive/authors 2013 05.html
+3Full Author List may be found at www.telescopearray.org/index.php/research/publications/conference-proceedings
+jnm@physics.utah.edu
+Abstract: The optical calibration of the ﬂuorescence telescopes is a signiﬁcant contribution to the overall
+uncertainty of energy measurements made by the Pierre Auger Observatory and Telescope Array Project. Some
+sources of uncertainty, such as the ﬂuorescence yield in air, affect both experiments similarly. However, the optical
+calibration of the ﬂuorescence telescopes is a source of independent uncertainty. The Pierre Auger and Telescope
+Array collaborations have taken initial steps to establish a relative end-to-end optical calibration of the ﬂuorescence
+telescopes. An Octocopter carrying a portable light source has been ﬂown in front of ﬂuorescence telescopes at
+both Pierre Auger and Telescope Array sites. Laboratory calibration measurements of the light source before and
+after the ﬂights provide a common baseline for the relative end-to-end calibration. We expect this system will lead
+to a common photonic calibration for both experiments. After giving a brief description of the UV light source and
+the Octocopter used for the measurements, the parameters and the calibration procedures for the light source will
+be discussed. First results on telescope images of the light source will be presented.
+Keywords: Telescope Array Project, Pierre Auger Observatory, ﬂuorescence telescopes, calibration, light source,
+Octocopter, Ultra High Energy Cosmic Rays, UHECR, cosmic rays
+Introduction
+The Pierre Auger Observatory and Telescope Array Project
+experiments study cosmic rays at the highest energies. [1, 2]
+These experiments combine air ﬂuorescence telescopes with
+a large array of surface detectors. The energy scale of both
+experiments is derived from the air ﬂuorescence measure-
+ment which uses the Earth’s atmosphere as a calorimeter.
+At present, Auger and Telescope Array appear to have an
+energy scale discrepancy of about 20%. [3] Some system-
+atic uncertainties are known to affect the energy determi-
+nation similarly for both experiments. However, one area
+where systematic uncertainties are expected to be largely
+independent is the photonic scale. It may be possible to re-
+duce the apparent discrepancy between the experiments by
+comparing the response of the air ﬂuorescence telescopes to
+a well understood and calibrated, portable light source. [4]
+Such a source, a ﬂying isotropic UV light source has been
+developed at Karlsruhe Institute of Technology (KIT). [5, 6]
+It has been in use at the Auger site in Argentina since
+2010. [7] This portable light source is presently undergoing
+careful evaluation of isotropy, pulse rate and temperature
+dependence, and temporal stability.
+The source is carried by a remote controlled ﬂying plat-
+form called an Octocopter (Mikrokopter). [9, 10] The Oc-
+tocopter is piloted via remote control and it includes GPS
+navigation and a magnetic compass, enabling it to ﬂy to
+a pre-programmed position and maintain a stable position
+(∼0.5m) and orientation (∼5◦) under favorable conditions.
+Additionally, pressure sensors are used to improve altitude
+accuracy and stabilization. Using this system we can ac-
+curately position a well understood light source within the
+ﬁeld of view of both Auger and Telescope Array air ﬂuores-
+cence telescopes to compare their relative response.
+The Octocopter
+The Octocopter has its eight motors mounted in a circle with
+a diameter of 80cm. It has a maximum payload capacity of
+about 1kg. However, the weight of the payload signiﬁcantly
+affects the available ﬂight time. Since the calibration ﬂights
+must be made in the dark of night when the ﬂuorescence
+telescopes operate, LEDs were mounted on bottom of the
+arms supporting the motors. Green LEDs were installed on
+the arms in the forward direction and yellow LEDs were
+used on the remaining arms. See Figure 1. The navigation
+lights enable simple visual veriﬁcation of position and
+orientation and can be switched on and off via remote
+control.
+The Octocopter is typically ﬂown to a distance of 1000m
+from a telescope where it maintains a stable position and
+orientation. When directed the light source emits a series of
+UV ﬂashes at a rate of 1Hz. An on-board computer sends
+GPS information, temperature, optical pulse settings, and
+other data back to a base station via a wireless link where it
+is recorded for later analysis.
+We have conducted three campaigns of ﬂights. During
+the ﬂights the on-board GPS recorded a typical positional
+stability of less than 1m under good ﬂying conditions
+(0.06◦at 1000m). The manufacturer data sheet indicates
+a systematic uncertainty in the absolute position of 2.5m.
+(0.14◦). We plan to independently evaluate the absolute
+positioning accuracy during future campaigns.
+The Light Source
+The ﬂight time of the Octocopter depends strongly on the
+weight of the payload. Therefore, it is important that, in
+addition to being isotropic and stable, the source should be
+light-weight. Based on simulations and experiments, the
+
+--- PAGE BREAK ---
+
+Cross-Calibration of the Auger and Telescope Array Telescopes
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+Figure 1: The Octocopter with the light source suspended
+below it. Green LEDs indicate the forward direction.
+light source was built using a twelve sided ABS plastic
+dodecahedron. The body was coated with Tyvek and a
+UV LED [11] was mounted at the center of each of the
+hexagonal faces. To further improve isotropy, the source
+is surrounded by a diffuser made of a thin spherical shell
+(r=50mm) of polystyrene etched with acetone. The total
+mass of the completed light source was less than 150g. The
+full system, including light source and batteries, allows for
+a maximum ﬂight time of 15-20 min.
+The UV LEDs provide 55mW of radiant ﬂux at 350mA
+with a spectrum that peaks at 375nm with FWHM of about
+10nm and a tail extending to 410nm. The LEDs emit light
+out to (∼±90◦). However, they have a stronger emission
+peak in the forward direction (±10-15◦) and a weaker
+broader peak (∼80% of the strong peak out to ∼±60◦).
+Simulations of a similar source conﬁguration which takes
+into account the mean light distribution pattern of the UV
+LEDs and their placement on the dodecahedron indicates
+deviations from isotropy should be of order 4% over the
+sphere. [6]
+The current to each LED is individually controlled to
+compensate for variations in the LED intensities. There
+are six pre-programmed settings of pulse amplitude and
+variable width (2-64µsec) which can be used to illuminate
+the telescopes. The six standard settings span a factor of
+10 in total intensity. The light pulse is triggered by the PPS
+signal of the GPS.
+Source Calibration
+A number of measurements have been performed to study ef-
+fects that could inﬂuence the light intensity observed by the
+ﬂuorescence telescopes. The main light source test bench
+is located at Karlsruhe. At KIT the spherical light source
+and a photodiode are mounted on an optical bench with
+a maximum separation of 2.5m. To block reﬂected light,
+one bafﬂe (66mm diameter) and a black curtain are cen-
+tered between them. The light from the sphere is measured
+with a NIST calibrated silicon photodiode, model UV100.
+NIST calibrates these detectors using a DC light source. [8]
+For the peak wavelength of the light source (375nm), NIST
+states a spectral power responsivity of 0.1293A/W with a
+relative combined uncertainty of 0.45% (for DC operation).
+The photodiode is equipped with a round bafﬂe to reduce
+the active area to the homogeneous central region (0.5cm2).
+The pulsed signal from the photodiode is then measured
+with a Keithley model 6514 electrometer that is readout via
+a USB connection.
+The effect of temperature on the LED’s output has been
+measured in the lab at KIT. The results, shown in Figure
+2, show that the rate of change is dependent upon the
+driving amplitude for the LED. At present, this amplitude
+dependence is not well understood and studies are ongoing.
+At the highest setting, A5, the change is about -4% per
+10◦C. To allow one to make corrections for temperature
+dependence, the temperature inside the sphere and near the
+electronics are recorded.
+Temperature T2 [°C]
+Signal [normalized]
+A=5 (DAC=997)
+A=4 (DAC=851)
+A=3 (DAC=705)
+A=2 (DAC=552)
+A=1 (DAC=354)
+A=0 (DAC=223)
+Figure 2: Relative signal strength from the Octocopter light
+source as a function of the temperature. Measurements were
+made at the DAC settings of the six standard amplitudes,
+A0 being the lowest and A5 the greatest. The amplitudes at
+each DAC setting are normalized to 100% at 0◦C.
+As the photodiode used for calibration of the source
+in the laboratory is considerably less sensitive than the
+air ﬂuorescence telescopes, we must measure in the lab
+using a signiﬁcantly higher pulse repetition rate of 1.1 kHz
+(900µsec period) vs. 1.00 Hz in the ﬁeld. Initial studies
+of the dependence of the light output on the pulse rate
+suggest a correction of about -3.5% is required for ﬁeld
+measurements. See Figure 3. The electrometer is conﬁgured
+to measure in 100msec intervals, each measurement triggers
+a pulse generator that in turn produces a burst of 100 triggers
+(90msec total) for the light source electronics. The 100
+pulses are integrated to produce a measurement of total
+charge.
+Flash Rate [Hz]
+96.0
+96.5
+97.0
+97.5
+98.0
+98.5
+99.0
+99.5
+100.0
+100.5
+Relative Signal [%]
+Figure 3: Relative signal strength from the Octocopter light
+source as a function of the ﬂash rate. (Source amplitude
+setting 5)
+Some tests of isotropy (in the forward direction) have
+been performed by rotating ﬁrst in azimuth and then sepa-
+
+--- PAGE BREAK ---
+
+Cross-Calibration of the Auger and Telescope Array Telescopes
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+Azimuth [°]
+99.6
+99.8
+100.0
+100.2
+100.4
+Relative Amplitude [%]
+Figure 4: Relative signal strength from the Octocopter light
+source as a function of the azimuthal rotation angle from
+the forward direction. (Source amplitude settings A3(blue),
+A4(green), and A5(red))
+Elevation [°]
+95.5
+96.0
+96.5
+97.0
+97.5
+98.0
+98.5
+99.0
+99.5
+100.0
+Relative Amplitude [%]
+Figure 5: Relative signal strength from the Octocopter light
+source as a function of the elevation rotation angle from
+the forward direction. (Source amplitude settings A3(blue),
+A4(green), and A5(red))
+rately in elevation. For rotations less than ±10◦from for-
+ward in azimuth, the relative amplitude changed by about
+0.2% (Figure 4). For elevation rotations, the relative am-
+plitude changes by about 0.2% for a rotation of 10◦and
+<3.5% for a rotation of 35◦(Figure 5). This is consistent
+with the expectation from simulations noted earlier, how-
+ever, more extensive evaluations are underway.
+To verify that any remaining reﬂections from the walls
+can be neglected, we checked the 1/r2 behavior of the setup
+for distances between 105cm and 245cm. The data was
+ﬁtted with a 1/r2 function with constant background and a
+small, constant offset in r. The results showed that there is
+no signiﬁcant contribution from the background light.
+To monitor the stability of the light source, independent
+measurements of the light source were performed at the
+University of Utah before and after each of the two cam-
+paigns at the Telescope Array site in Delta, Utah. These
+lab measurements took place on 2012-10-11, 2012-10-18,
+2013-03-12, and 2013-03-21. After correcting for tempera-
+ture, the four Utah measurements, under stable laboratory
+conditions, agreed to <1% relative to the mean.
+For the Utah measurements, the source was mounted
+inside a dark box at a ﬁxed distance (∼2.3m) from an
+NIST calibrated photodiode. It is important to note that
+this is a different photodiode from the one used for the
+measurements at Karlsruhe. Internal surfaces of the dark
+box were covered with low reﬂectance (black) cloth or ﬂat
+black paint. In addition, a tube of black corrugated (egg
+carton) foam lined the optical path between the source
+and the photodiode to eliminate reﬂections. The NIST
+calibrated photodiode #G696 includes a precision calibrated
+aperture (50.12±0.05mm2). The photodiode responsivity
+was measured at NIST in 5nm steps between 200nm and
+1100nm. In the wavelength region near the peak of the
+source (375nm), the relative expanded uncertainty (k=2) of
+NIST photodiode #G696 responsivity is <1%. [8]
+The signal from the photodiode was measured using a
+Keithley model 6485 picoampmeter. The picoampmeter
+recorded the mean current produced by series of ﬂashes (pe-
+riod = 900µsec). As with the measurements at Karlsruhe,
+the system at Utah was conﬁgured to use a 100ms measure-
+ment interval. However, due to limitations of the hardware,
+instead of generating bursts of 100 triggers, an effectively
+continuous burst of 3000 triggers was generated. As a re-
+sult, a single measurement cycle may contain either 111
+or 112 ﬂashes. This variation in the number of measured
+ﬂashes contributes ∼0.1% to the measurement uncertainty.
+The temperatures inside the sphere and near the electronics
+were recorded to enable corrections for temperature depen-
+dence.
+As a simple check of the charge measurement using the
+picoampmeter, a simple current source was constructed
+using a Lecroy 9210 Pulse Generator in combination with
+a 1.00GΩ, 1% resistor. This enabled the generation of
+8µsec duration current pulses with total charge in the lower
+range of that obtained from the light source and photodiode.
+Current pulses were generated and measured using the same
+software and identical settings to those used during the
+measurement of the light source. The measured charge per
+pulse for the simple current source agreed with the expected
+value to ∼1%.
+Finally, after correcting for the temperature dependence
+of the source, measurements performed in the laboratories
+at Utah and Karlsruhe appear to agree to better than 2%.
+However, it is important to recognize that a number of po-
+tential sources of systematic uncertainty affecting measure-
+ments in the ﬁeld remain under investigation.
+Flights at the Auger Site
+Octocopters have been ﬂown at the Auger site in Argentina
+with various light sources for a series of tests since 2008.
+The Octocopter was ﬂown at the Auger site with the current
+light source, as a part of this series of tests during a
+campaign in November 2012. The measurements took place
+shortly after the October series of ﬂights at the Telescope
+Array site in Utah. This period of time was selected because
+weather conditions and temperatures could be expected to
+be similar for the northern (Telescope Array) and southern
+(Auger) hemisphere sites.
+During the tests, the Octocopter ﬂew inside the ﬁeld
+of view of the 4th telescope located in the Los Leones
+building. This particular telescope has been extensively
+studied during previous Octocopter campaigns and its
+optical properties are believed to be well understood. The
+measurements took place during two nights 2012-11-5 and
+2012-11-10 and included participants from the Telescope
+Array group.
+Pixels in the center (column 10 and row 10), on the
+side (col. 17, row 10) and in the corner (col. 17, row 4) of
+
+--- PAGE BREAK ---
+
+Cross-Calibration of the Auger and Telescope Array Telescopes
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+1000
+10 000
+Mean Det. Light [Photons / 100 ns]
+Time Bin [100 ns]
+2000
+4000
+6000
+8000
+10000
+12000
+14000
+Detected Light [Photons / 100 ns]
+Figure 6: Event Display for an Octocopter light shot at
+the Auger Los Leones telescope site. The light level in
+the PMTs is shown at left, while the signal trace (pho-
+tons/100ns) is shown at right.
+the camera were illuminated from a distance of 1000 m
+with over 1100 ﬂashes each. An event display from these
+ﬂights is shown in Figure 6. Summing the signals over many
+ﬂashes enables measurement of the point spread function
+down to a factor of 10−4 of the peak intensity. [7] The
+light source was also measured at KIT before and after this
+campaign. The observed change in intensity was <2%.
+Flights at the Telescope Array Site
+In October 2012 and March 2013 a team from the Auger
+collaboration including KIT Octocopter experts visited
+the Telescope Array site in Utah to conduct campaigns of
+Octocopter light source ﬂights. The team worked along
+with a researchers from the Telescope Array. The ﬁrst
+test ﬂights were conducted on 2012-10-14 at distances of
+350m and 1000m from telescope 7 at the Black Rock Mesa
+site. The external temperature was about 0◦C. Data was
+recorded using ﬁve of the six standard source settings. The
+Octocopter was positioned near the center of pixels 33, 73,
+77, and B3 in telescope 7. Pixel 77 is located near the center
+of the camera and pixel 33 is half way to the corner. Pixel
+33 would be expected to be more affected by spherical
+aberration. Pixels 73, 77, and B3 are equipped with a YAP
+to monitor the PMT response. [12, 13, 14] We note that
+pixel 77 in each camera is the telescope standard CRAYs
+calibrated PMT. [15] Additional ﬂights were ﬂown in the
+FOV of nine pixels the following two nights along with
+ﬂights in pixel 77 at telescope 5. During these ﬂights the
+highest light setting (A5) was used.
+The Auger/KIT team returned to Utah for a second
+campaign in March, 2013. During this visit, there were only
+two nights of ﬂights due to weather and conﬂicts with other
+tests. On 2013-03-16, the Octocopter ﬂew in the Field Of
+View (FOV) of telescope 7 at the Black Rock Mesa site at a
+distance of 1000m. It hovered in the FOV of pixels 77, B7,
+33, and B3. It also two ﬂights with sweeps across the FOV
+of several PMTs. On 2013-03-19, it ﬂew at a distance of
+1000m in front of telescope 5 in the FOV of pixels 77 and
+Summary
+Researchers at KIT have developed a sophisticated ﬂying
+light source that can be used for in-situ optical calibrations
+of ﬂuorescence telescopes. Measurement campaigns have
+been performed using this same equipment at the Telescope
+Array site (2012-10 and 2013-03) and at the Auger site
+(2012-11). Work is underway to understand and control sys-
+tematics of the measurement to a level enabling productive
+comparisons between the Auger and Telescope Array pho-
+tonic scales. Measurements of absolute light intensity, tem-
+perature dependence, rate dependence, and isotropy give us
+conﬁdence these measurements will enable us to reduce the
+difference between Auger and Telescope Array photonic
+scales. The analysis of these datasets collected at the Auger
+and Telescope Array [16] is in progress and the results will
+be compared.
+References
+[1] The Pierre Auger Collaboration, Nucl.Instrum.Meth.
+A620 (2010) 227-251, DOI:
+10.1016/j.nima.2010.04.023
+[2] H. Tokuno, et al. for the Telescope Array
+Collaboration, NIM, A676 (2012) 54-65, DOI:
+10.1016/j.nima.2012.02.044
+[3] Bruce R. Dawson, et al., EPJ Web of Conferences 53
+01005 (2013) DOI:
+http://dx.doi.org/10.1051/epjconf/20135301005
+[4] AIP Conf. Proc. 1367, pp. 50-53;
+doi:http://dx.doi.org/10.1063/1.3628714
+[5] Felix Werner, Design and Test of a Flying Light
+Source for the Calibration of the Auger Fluorescence
+Telescopes, Thesis, Karlsruhe Institute of Technology,
+2010.
+[6] Julia Parrisius, Test of the Calibration of the Auger
+Fluorescence Telescopes with an Isotropic UV Light
+Source, Thesis, Karlsruhe Institute of Technology, 2009.
+[7] J. B¨auml, for the Pierre Auger Collaboration, ICRC
+2013, id 806.
+www.nist.gov/calibrations/spectroradiometric.cfm#39071C
+[9] www.mikrokopter.de
+[10] www.mikrocontroller.com (product id=396)
+[11] H2A1-H375 LEDs from Roithner Laser
+[12] H. Tokuno, et al. for the Telescope Array
+Collaboration, NIM, A601 (2009) 364-371, DOI:
+10.1016/j.nima.2008.12.10
+[13] The YAP is a small light source consisting of
+YAlO3:Ce sintillator with a 50Bq α ray source, 241Am.
+See M. Kobayashi et al. NIM, A337 (1994) 355-361,
+DOI: 10.1016/0168-9002(94)91103-7
+[14] C. Rozsa, et al., IEEE, Nuclear Science Symposium
+(1999) 686-690, Vol. 2 DOI:
+10.1109/NSSMIC.1999.45761
+[15] S. Kawana, et al. for the Telescope Array
+Collaboration, NIM, A681 (2012) 68-77, DOI:
+10.1016/j.nima.2012.03.011
+[16] K. Machida, ICRC 2013, id 504
+
+--- PAGE BREAK ---
+
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+THE ASTROPARTICLE PHYSICS CONFERENCE
+Measuring Large-Scale Anisotropy in the Arrival Directions of Cosmic Rays De-
+tected at the Telescope Array and the Pierre Auger Observatory above 1019 eV
+OLIVIER DELIGNY1 FOR THE TELESCOPE ARRAY2 AND PIERRE AUGER3 COLLABORATIONS.
+1 IPN Orsay - CNRS/IN2P3 & Universit´e Paris Sud
+2 Full author list may be found at http://www.telescopearray.org/index.php/research/publications/conference-proceedings
+3 Full author list may be found at http://www.auger.org/archive/authors 2013 05.html
+ta-icrc@cosmic.utah.edu,auger spokespersons@fnal.gov
+Abstract: Spherical harmonic moments are well-suited for characterizing anisotropy in the ﬂux of cosmic rays.
+So far, above 1019 eV, no study has revealed a signiﬁcant departure from isotropy. The dipole vector and the
+quadrupole tensor are of special interest, and access to the full set of multipoles could provide essential informa-
+tion for understanding the origin of ultra-high energy cosmic rays. Full-sky coverage allows the measurement of
+the spherical harmonic coefﬁcients in an unambiguous way. This can be achieved by combining data from ob-
+servatories located in both the northern and southern hemispheres. In this work, we present the prospects for a
+combined analysis using data recorded at the Telescope Array and the Pierre Auger Observatory. The main chal-
+lenges are to account adequately for the relative exposures of both experiments and possibly different absolute
+energy normalizations. Using Monte-Carlo simulations, we show how these challenges will be addressed in an
+empirical way and illustrate the expected sensitivity of the methodology for the present observatory exposures.
+Keywords: Telescope Array, Pierre Auger Observatory, Ultra-High Energy Cosmic Rays, Large-Scale
+Anisotropies, Full-Sky Coverage.
+The large-scale distribution of arrival directions of cos-
+mic rays is an important observable in attempts to un-
+derstand their origin. This is because this observable is
+closely connected to both their source distribution and their
+propagation. Due to the scattering in magnetic ﬁelds, the
+anisotropy imprinted in the arrival directions is mainly ex-
+pected at large scales up to the highest energies. Large-
+scale patterns with anisotropy contrast at the level of
+10−4−10−3 have been reported by several experiments for
+energies below ≃1015 eV where the high intensity of cos-
+mic rays allows the collection of a large number of events.
+For energies above ≃1015 eV, the decrease of the inten-
+sity with energy makes it more challenging to collect the
+statistics required to reveal amplitudes at the percent level
+which might be expected, in particular above ≃1018 eV.
+The anisotropy of any angular distribution on the sphere
+is encoded in the corresponding set of spherical harmonic
+moments aℓm. The dipole vector and the quadrupole tensor
+are of special interest, but an access to the full set of mul-
+tipoles is relevant to characterise departures from isotropy
+at all scales. However, since cosmic ray observatories at
+ground level have only a partial-sky coverage, the recov-
+ering of these multipoles turns out to be nearly impossi-
+ble without explicit assumptions on the shape of the angu-
+lar distribution. In most cases, only the dipole (combina-
+tion of a1m coefﬁcients) and the quadrupole (combination
+of a2m coefﬁcients) moments can be estimated with a sen-
+sible resolution under the assumption that the ﬂux of cos-
+mic rays is purely dipolar or purely dipolar and quadrupo-
+lar, respectively. Evading such hypotheses and thus mea-
+suring the multipoles to any order in an unambiguous way
+requires full-sky coverage. Full-sky coverage can only be
+achieved through the meta-analysis of data recorded by ob-
+servatories located in both hemispheres of the Earth.
+The Telescope Array, located in the Northern hemi-
+sphere (mean latitude +39.3◦), and the Pierre Auger Obser-
+vatory, located in the Southern hemisphere (mean latitude
+−35.2◦), are the two largest experiments ever built dedi-
+cated to the study of ultra-high energy cosmic rays. Given
+the respective latitudes of both observatories, and given
+that the data sets from the Telescope Array and the Pierre
+Auger Observatory to be potentially combined consist of
+events with zenith angle up to 55◦and 60◦respectively,
+full-sky coverage can be indeed achieved. The present re-
+port is aimed at designing and studying in detail an effec-
+tive way to combine data sets from both experiments while
+keeping under control the directional exposure. In the con-
+cern to facilitate this ﬁrst joint analysis, the foreseen energy
+threshold, 1019 eV, is chosen to guarantee that both sur-
+face detector arrays operate with full detection efﬁciency
+for any of the local angles selected in each data set [1, 2].
+This guarantees that each exposure function should follow
+purely geometric expectations to a high level. The main
+challenge in combining both data sets is to account ad-
+equately for the relative exposures of both experiments.
+In addition, since there are numerous sources of detector-
+dependent systematic uncertainties in the determination of
+the energy of a cosmic ray primary, there is presumably a
+difference in the energy scale between both experiments.
+Such a potential shift in energy leads to different count-
+ing rates above some ﬁxed energy threshold, which in-
+duces fake anisotropies. Formally, these fake anisotropies
+are similar to the ones resulting from a shift in the relative
+exposures of the experiments, except in the case of energy-
+dependent anisotropies in the underlying ﬂux of cosmic
+rays.
+The observed angular distribution of cosmic rays,
+dN/dΩ, can be naturally modeled as the sum of Dirac
+functions on the surface of the unit sphere whose argu-
+ments are the arrival directions {n1,...,nN} of the events.
+Throughout the paper, arrival directions are expressed in
+the equatorial coordinate system (declination δ and right
+
+--- PAGE BREAK ---
+
+Measuring Large-Scale Anisotropy of Cosmic Rays above 1019 eV
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+.yr]
+) [km
+2000
+4000
+6000
+8000
+Figure 1: Total directional exposure above 1019 eV as obtained
+by summing the nominal individual ones of the Telescope Array
+and the Pierre Auger Observatory, as a function of the declina-
+tion.
+ascension α) since this is the most natural one tied to the
+Earth to describe the directional exposure of any experi-
+ment. The random sample {n1,...,nN} results from a Pois-
+son process whose average is the ﬂux of cosmic rays Φ(n)
+coupled to the directional exposure ω(n) of the considered
+experiment :
+dN(n)
+= ω(n)Φ(n).
+As any angular distribution on the unit sphere, the ﬂux
+of cosmic rays Φ(n) can be decomposed in terms of a
+multipolar expansion onto the spherical harmonicsYℓm(n) :
+Φ(n) = ∑
+m=−ℓ
+aℓmYℓm(n).
+Any anisotropy ﬁngerprint is encoded in the aℓm multi-
+poles. Non-zero amplitudes in the ℓmodes arise from vari-
+ations of the ﬂux on an angular scale ≃1/ℓradians.
+The directional exposure of each observatory provides
+the effective time-integrated collecting area for a ﬂux from
+each direction of the sky. In principle, the combined direc-
+tional exposure of the two experiments should be simply
+the sum of the individual ones. However, individual expo-
+sures have here to be re-weighted by some empirical factor
+b due to the unavoidable uncertainty in the relative expo-
+sures of the experiments. The parameter b can be viewed
+as a fudge factor which absorbs any kind of systematic un-
+certainties in the relative exposures, whatever the sources
+of these uncertainties. This empirical factor is arbitrarily
+chosen to re-weight the directional exposure of the Pierre
+Auger Observatory relative to the one of the Telescope Ar-
+ray :
+ω(n;b) = ωTA(n)+bωAuger(n).
+Dead times of detectors modulate the directional expo-
+sure of each experiment in sidereal time and therefore in
+right ascension. However, once averaged over several years
+of data taking, the relative modulations of both ωTA and
+ωAuger in right ascension turn out to be not larger than few
+thousandths, yielding to non-uniformities in the observed
+angular distribution at the corresponding level. Given that
+the limited statistics currently available above 1019 eV can-
+not allow an estimation of each aℓm coefﬁcient with a preci-
+sion better than a few percent, the non-uniformities of ωTA
+and ωAuger in right ascension can be neglected so that both
+functions are considered to depend only on the declination
+hereafter. On the other hand, since the high energy thresh-
+old guarantees that both experiments are fully efﬁcient in
+their respective zenithal range [0 −θmax], the dependence
+on declination is purely geometric [3] :
+ωi(n) = Ai
+cosλi cosδ sinαm +αm sinλi sinδ
+where λi is the latitude of the considered experiment, the
+parameter αm is given by
+αm =
+0 if ξ > 1,
+if ξ < −1,
+arccosξ
+otherwise,
+with ξ ≡(cosθmax −sinλi sinδ)/cosλi cosδ, and the nor-
+malisation factors Ai are tuned such that the integration
+of each ωi function over 4π matches the (total) exposure
+of the corresponding experiment. For b = 1, the resulting
+ω(δ) function is shown in ﬁgure 1.
+In practice, only an estimation b of the factor b can be
+obtained, so that only an estimation of the directional expo-
+sure ω(n) ≡ω(n;b) can be achieved through equation 3.
+The procedure used for obtaining b from the joint data set
+will be described below. The resulting uncertainties propa-
+gate into uncertainties in the measured aℓm anisotropy pa-
+rameters, in addition to the ones caused by the Poisson na-
+ture of the sampling process when the function ω is known
+exactly.
+With full-sky but non-uniform coverage, the custom-
+ary recipe for decoupling directional exposure effects from
+anisotropy ones consists in weighting the observed angular
+distribution by the inverse of the relative directional expo-
+sure function :
+d ˜N(n)
+ωr(n)
+dN(n)
+The relative directional exposure is the dimensionless func-
+tion normalized to unity at its maximum. When the func-
+tion ω (or ωr) is known from a single experiment, the av-
+eraged angular distribution
+d ˜N/dΩ
+is, from equation 1,
+identiﬁed with the ﬂux of cosmic rays Φ(n) times the total
+exposure of the experiment. Due to the ﬁnite resolution to
+estimate b, the relationship between
+d ˜N/dΩ
+and Φ(n) is
+here not any longer so straightforward :
+d ˜N(n)
+ωr(n)
+ω(n)Φ(n).
+However, for an unbiased estimator of b with a resolution
+better than ≃10% (the actual resolution on b will be shown
+hereafter to be of the order of ≃3.5%), the relative differ-
+ences between ⟨1/ωr(n)⟩and 1/ωr(n) are actually smaller
+than 10−3 in such a way that
+d ˜N/dΩ
+can still be identi-
+ﬁed to Φ(n) times the total exposure to a high level. Con-
+sequently, the recovered aℓm coefﬁcients deﬁned as
+aℓm =
+4π dΩd ˜N(n)
+dΩYℓm(n) =
+Yℓm(ni)
+ωr(ni)
+provide unbiased estimators of the underlying aℓm multi-
+poles since the relationship ⟨aℓm⟩= aℓm can be established
+by propagating equation 7 into ⟨aℓm⟩.
+
+--- PAGE BREAK ---
+
+Measuring Large-Scale Anisotropy of Cosmic Rays above 1019 eV
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+Multipole l
+(b)/b=3%
+(b)/b=3.5%
+(b)/b=4%
+Figure 2: Illustration of the dependence of the resolution on the
+recovered aℓ0 coefﬁcients upon the uncertainty on b, for different
+values of the resolution on b. On the y−axis, the term σ0
+ℓ0 is
+obtained by dropping the second term inside the square root in
+the expression of σℓ0 (see equation 9).
+Using the estimators deﬁned in equation 8, the expected
+resolution σℓm on each aℓm multipole can be inferred by
+propagating the second moment of d ˜N/dΩinto the covari-
+ance matrix of the estimated aℓm coefﬁcients accordingly
+to the Poisson statistics. In the case of relatively small
+{aℓm}ℓ≥1 coefﬁcients compared to a00, this leads to :
+σℓm ≃a00
+4π dΩ
+r(n)
+ω(n)Y 2
+ℓm(n)+
+4π dΩdΩ′
+ωr(n)ωr(n′)
+ω(n)ω(n′)−1
+Yℓm(n)Yℓm(n′)
+#1/2
+If b were known with perfect accuracy, the second term in
+equation 9 would vanish, and the resolution of the aℓm’s
+would be similar to that for a single experiment. The sec-
+ond term adds the effect of the uncertainty in the relative
+exposures of the two experiments. For a directional expo-
+sure independent of the right ascension, it is non-zero for
+m = 0 only, as expected. Its inﬂuence is illustrated in ﬁg-
+ure 2, where the ratio between the total expression of σℓ0
+and the partial one ignoring this second term inside the
+square root is plotted as a function of the multipole ℓfor
+different resolution values on b. While this ratio amounts
+to ≃1.5 for ℓ= 1 and σ(b)/b = 3.5%, it falls to ≃1.1
+for ℓ= 2 and then tends to 1 for higher multipole values.
+Consequently, in accordance with naive expectations, the
+uncertainty on the b factor mainly impacts the resolution
+on the dipole coefﬁcient a10 while it has a small inﬂuence
+on the quadrupole coefﬁcient a20 and a marginal one on
+higher order moments {aℓ0}ℓ≥3.
+The hybrid nature of both observatories enables the
+assignation of the energy of each event to be derived in a
+calorimetric way through the calibration of the shower size
+measured with the SD arrays by the energy measured with
+the ﬂuorescence telescopes on a subset of high quality hy-
+brid events [4, 5]. Nevertheless, though the techniques are
+nearly the same, there are differences as to how the primary
+energies are derived at the Telescope Array and the Pierre
+Auger Observatory. Currently, systematic uncertainties in
+the energy scale of both experiments amount to about 20%
+and 14% respectively [6, 7]. Uncovering and understand-
+ing the sources of systematic uncertainties in the respec-
+tive energy scales is out of the scope of this report and will
+be addressed elsewhere (see for instance [8]). Rather, the
+aim pursued here is only to guarantee that the relative expo-
+sures between both observatories is kept under control in
+an accurate way, whatever the unknown differences in en-
+ergy scale. To this end, a purely empirical cross-calibration
+procedure exploiting the overlapping part of the sky ex-
+posed to both experiments is designed for estimating in ﬁne
+reliable anisotropy parameters.
+A band of declinations around the equatorial plane is ex-
+posed to the ﬁelds of view of both experiments, namely for
+declinations between −15◦and 25◦. This overlapping re-
+gion can be used for cross-calibrating empirically the en-
+ergy scales and for delivering an overall unbiased estima-
+tion of the aℓm multipoles in the case of isotropy. Though
+the cross-calibration of the energy scale is not a manda-
+tory input for the procedure, it constitutes however a rea-
+sonable starting point for studying anisotropies in the ar-
+rival directions of all events detected in excess of roughly
+the same energy threshold by both experiments. The pro-
+cedure is based on an iterative algorithm which is now de-
+tailed. Considering as a ﬁrst approximation the ﬂux Φ(n)
+as isotropic, and given NTA events observed in total above
+1019 eV, the number of events NAuger corresponding to that
+particular energy threshold can be inferred accordingly to
+a simple proportionality :
+NAuger =
+4π dΩωAuger(n)
+4π dΩωTA(n)
+NTA.
+(10)
+The energy threshold guaranteeing equal intensities for
+both experiments is then provided by selecting the NAuger
+highest energy events to be combined with the NTA events.
+The resulting joint data set consists then of all events with
+energies in excess of 1019 eV in terms of the energy scale
+used at the Telescope Array. Using the joint data set built
+in this way, a ﬁrst estimation of b can be made by counting
+the ∆NTA and ∆NAuger observed in the overlapping region
+(0) = ∆NAuger
+∆NTA
+∆ΩdΩωTA(n)
+∆ΩdΩωAuger(n)
+(11)
+Inserting b
+(0) into ω, ’zero-order’ a(0)
+ℓm coefﬁcients can be
+obtained. This set of coefﬁcients is only a rough estimation,
+due to the limiting assumption on the ﬂux (isotropy).
+On the other hand, the expected number of events in the
+common band for each observatory, ∆nexp
+TA and ∆nexp
+Auger, can
+be expressed from the underlying ﬂux Φ(n) and the true
+value of b as :
+∆nexp
+∆ΩdΩΦ(n)ωTA(n)
+∆nexp
+Auger
+∆ΩdΩΦ(n)ωAuger(n).
+(12)
+From equations 12, and from the set of a(0)
+ℓm coefﬁcients, an
+iterative procedure estimating at the same time b and the
+set of aℓm coefﬁcients can be considered in the following
+way :
+(k+1) = ∆NAuger
+∆NTA
+∆ΩdΩΦ(k)(n)ωTA(n)
+∆ΩdΩΦ(k)(n)ωAuger(n)
+(13)
+
+--- PAGE BREAK ---
+
+Measuring Large-Scale Anisotropy of Cosmic Rays above 1019 eV
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+-0.3
+-0.2
+-0.1
+p.d.f.
+0.002
+>=-0.003
+=7.2%
+-0.2 -0.15 -0.1 -0.05
+0.05
+0.1 0.15 0.2
+p.d.f.
+0.001
+>=-0.001
+=4.4%
+-0.3 -0.2 -0.1
+p.d.f.
+0.003
+>=0.093
+=7.6%
+-0.1
+p.d.f.
+0.002
+>=0.105
+=4.5%
+Figure 3: Reconstruction of a10 (left) and a20 (right) through the iterative procedure, in the case of an underlying isotropic ﬂux (top) or
+of an anisotropic input ﬂux Φ(n) ∝1+0.1Y10(n)+0.1Y20(n) (bottom). Expectations are shown as the Gaussian curves with resolution
+parameters as in equation 9.
+where ∆NAuger and ∆NTA as derived in the ﬁrst step are
+used to estimate ∆nexp
+TA and ∆nexp
+Auger respectively, and Φ(k)
+is the ﬂux estimated with the set of a(k)
+ℓm coefﬁcients.
+Whether this iterative procedure delivers in ﬁne unbi-
+ased estimations of the set of aℓm coefﬁcients with a resolu-
+tion given by equation 9 can be tested by Monte-Carlo sim-
+ulations. For 1,000 mock samples with a number of events
+similar to the one of the actual joint data set and with in-
+gredients corresponding to the actual ﬁgures in terms of
+total and directional exposures, the distributions of recon-
+structed low orders a10 and a20 multipoles are shown in
+ﬁgure 3 (top panels) after k = 10 iterations in the case of
+an underlying isotropic ﬂux of cosmic rays. A systematic
+shift of 20% in energy scale is simulated in each sample;
+while the directional exposures used in equation 10 corre-
+spond to the ones used for generating the events. The av-
+erages of the reconstructed histograms are found in agree-
+ment with expectations; while, taking as input the observed
+RMS of the distribution of b (≃3.5%) and assuming Gaus-
+sian functions, the RMS of the aℓm distributions are found
+in agreement with equation 9. In practice, these results are
+found to be stable as soon as k = 4.
+With the exactly same ingredients, the simulations
+can be used to test the procedure with an underlying
+anisotropic ﬂux of cosmic rays, chosen here such that
+Φ(n) ∝1 + 0.1Y10(n) + 0.1Y20(n). Results of the Monte-
+Carlo simulations are shown in ﬁgure 3 (bottom panels)
+for the speciﬁc a10 and a20 coefﬁcients. In the case of an
+underlying anisotropic ﬂux of cosmic rays, it is impor-
+tant to note that deciding upon a ﬁxed number of events
+NAuger through an equation valid in the case of isotropy
+only (equation 10) is expected to imprint some fake pat-
+tern that cannot be fully absorbed. The resulting biases on
+the a10 and a20 are however small, as evidenced in ﬁgure 3
+(bottom panels).
+The cross-calibration procedure designed in this study
+makes it possible to use the powerful multipolar analysis
+method for characterising the sky map of ultra-high energy
+cosmic rays. It pertains to any full-sky coverage achieved
+by combining data sets from different observatories, and
+opens a rich ﬁeld of anisotropy studies. This technique will
+be applied to data sets from the Telescope Array and the
+Pierre Auger Observatory and will be reported in a near
+future.
+References
+[1] T. Abu-Zayyad et al., Nuclear Instruments and
+Methods A 689 (2012) 87
+[2] The Pierre Auger Collaboration, Nuclear Instruments
+and Methods A 613 (2010) 29
+[3] P. Sommers, Astroparticle Physics 14 (2001) 271
+[4] The Pierre Auger Collaboration, Physical Review
+Letters 101 (2008) 061101
+[5] T. Abu-Zayyad et al., The Astrophysical Journal 768
+(2013) L1
+[6] D. Ikeda et al., for the Telescope Array Collaboration,
+Proc. 32nd ICRC, Beijing, China, 2 (2011) 238
+[7] V. Verzi for the Pierre Auger Collaboration, paper
+928, these proceedings
+[8] J.N. Mattews et al., for the Telescope Array and Pierre
+Auger Collaborations, paper 1218, these proceedings
+
+--- PAGE BREAK ---
+
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+THE ASTROPARTICLE PHYSICS CONFERENCE
+Progress towards understanding the analyses of mass composition made by the
+Auger and Telescope Array Collaborations
+WILLIAM F. HANLON1 FOR THE TELESCOPE ARRAY2 AND PIERRE AUGER COLLABORATIONS3.
+1 University of Utah, Department of Physics and Astronomy and High Energy Astrophysics Institute, Salt Lake City, UT, USA
+2 http://www.telescopearray.org/index.php/research/publications/conference-proceedings
+3 Full author list: http://www.auger.org/archive/authors 2013 05.html
+whanlon@cosmic.utah.edu
+Abstract: The composition of cosmic rays at the highest energies is one of the most important problems in
+UHE cosmic ray physics. Recent results using ﬂuorescence and hybrid ﬂuorescence/surface array detectors
+(HiRes/Telescope Array/Auger) appear to lead to inconsistent conclusions. Comparison is not straightforward
+because of different acceptance and resolution of the various experiments. Here we take a 4-component mixture
+of protons, helium, nitrogen, and iron that varies with energy in such a way that it reproduces the Auger Xmax
+data (Auger Xmax data as obtained with hybrid measurements). We use this mix to simulate air showers in the TA
+aperture. These events are then passed through the TA detector simulation and reconstructed using TA hybrid
+methods and cuts. In this paper we describe the method and present the results of the simulations. The results show
+that the ⟨Xmax⟩for the Auger mix composition would be observed by TA hybrid (after full event reconstruction)
+with a bias of 5.2±0.4 g/cm2, and the pure proton coposition will be observe with a bias of 11.5±0.9 g/cm2.
+The difference in the expected ⟨Xmax⟩(reconstructed by TA-hybrid) between the pure proton and the Auger mix
+compositions is 20 g/cm2 at 1019 eV, and the present study shows that, given the number of events generated, the
+Telescope Array would be able to distinguish between these two compositions with a conﬁdence level better than
+4 sigmas.
+Keywords: Telescope Array, Pierre Auger, UHECR, composition, xmax
+Introduction
+One of the most important goals in particle astrophysics is
+understanding the chemical composition of ultra high en-
+ergy cosmic rays (UHECRs). Knowledge of the relative pro-
+portions of UHECR species arriving at the earth will con-
+strain models of cosmic ray origin and propagation, which
+are currently controversial (see [2] for example). Measure-
+ment of the UHECR composition in a event-by-event basis
+at the highest energies is difﬁcult (due to the extremely low
+ﬂux). Therefore the composition must be inferred indirectly
+by measuring the depth of shower maximum (Xmax) via ﬂu-
+orescence detection.
+For a given shower, the depth of shower maximum
+depends upon the depth of ﬁrst interaction (X0), which
+decreases with log(E0), and the depth over which the
+shower cascade takes to develop until the mean energy per
+secondary particle falls below the critical energy at which
+collision losses exceed radiative losses. Though all of the
+details needed to model ultra high energy air showers are
+not completely understood (cross sections, multiplicities,
+etc.), [1] describes a simple branching model of air shower
+development, introduced by Heitler, which reveals two
+important characteristics of the air showers: the ⟨Xmax⟩
+is proportional ln(E0) (where E0 is the primary particle
+energy) and the elongation rate is constant for a given
+primary particle composition. The elongation rate is deﬁned
+as d⟨Xmax⟩/dlogE, which is the change of the mean Xmax
+per decade of primary particle energy.
+The Heitler model can be extended to showers initiated
+by nuclei of any given atomic number A by invoking
+the superposition principle. In this case we can treat the
+shower as A primary showers each with initial energy E0/A.
+Showers initiated by heavier nuclei develop faster (i.e., Xmax
+will be smaller). The Xmax shower-to-shower ﬂuctuations
+are not described by the simplistic superposition model,
+because it does not take into account effects from nuclear
+fragmentation, impact parameter ﬂuctuations, etc. However,
+the Xmax ﬂuctuations are expected to reduced for larger A
+due to averaging effects. We therefore expect the width
+of the distribution of Xmax to be sensitive to the primary
+particle as well.
+The distribution of Xmax observed in a given energy bin
+is dependent upon the statistical ﬂuctuations of shower de-
+velopment (depth of ﬁrst interaction and cascade develop-
+ment) in the atmosphere as well as upon the resolution of
+the detector. Using the Heitler model we expect a spectrum
+composed of light particles (e.g. protons) to have larger
+mean Xmax and a distribution width larger than that of a
+heavier species (e.g. iron). Additionally if the composition
+is unchanging over different energy ranges the elongation
+rate will remain constant.
+Telescope Array (succeeding the HiRes experiment) with
+750 km2 of collecting area, described in [3] and [4], and
+the Pierre Auger Observatory with 3000 km2 of collecting
+area, described in [5], are the 2 largest cosmic ray observa-
+tories. Both deploy large surface arrays to detect charged
+particles (and protons in the case of Auger) which reach the
+Earth’s surface, as well as multiple ﬂuorescence telescopes
+placed around the array, to observe UV light caused by the
+electromagnetic cascade of the air shower. While Xmax is
+determined by using the shower proﬁle as observed by the
+ﬂuorescence detectors, folding in the geometry and timing
+information of the surface detectors for those showers that
+trigger them can improve the proﬁle ﬁt and further constrain
+
+--- PAGE BREAK ---
+
+Progress towards understanding the analyses of mass composition
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+Xmax. In [6], HiRes reported measuring a lighter composi-
+tion composed primarily of protons above 1018.2 eV. The
+Pierre Auger collaboration reported in [7] measurements of
+the ﬁrst two moments of the Xmax distribution, the mean and
+the RMS, above 1018 eV with narrowing Xmax widths above
+3×1018.5 eV, indicating a composition possibly changing
+from lighter to heavier species.
+At the UHECR 2012 conference in Geneva, Switzerland
+in March 2012 the Auger and Telescope Array (TA) col-
+laborations formed a Mass Composition Working Group
+(MCWG) to discuss how the two groups could work to-
+gether to resolve outstanding differences in the interpreta-
+tion of conﬂicting Xmax data [8]. It was decided that Auger
+would provide simulated data which resembles the Auger
+Xmax distributions. This simulated data would be recon-
+structed through the TA analysis software to examine the
+effects of reconstruction of Auger Xmax input with TA de-
+tector effects folded in and then compare those results with
+observed Xmax as seen in TA data. In particular, the question
+of whether TA detector resolution and number of events
+would prevent TA from seeing a changing composition or
+a composition that is heavier than protons at the highest
+energies, could be addressed.
+Data Analysis
+Auger created an ad hoc model of UHECR composition
+by examining their data published in [9], and ﬁtting it
+with a 4-component mixture. The model is called ad hoc
+because it is not claimed to be a physical model of what the
+actual cosmic ray beam contains. Using a reasonable choice
+of 4 input species, proton, helium, nitrogen, and iron the
+best proportions were found by ﬁtting the expected Xmax
+distributions to the Auger Xmax data distribution. The four
+species fractions were found for each energy bin. Figure 1
+shows the χ2 ﬁts Auger performed on their Xmax data using
+a 4-component model. The 4-component fractions found
+using that ﬁt was used to generate the Monte Carlo studied
+in this paper. The left ﬁgure compares the ﬁt (red points)
+to the data (black points) ⟨Xmax⟩and the right compares
+the ﬁt and Xmax widths. There is a ∼8 g/cm2 bias between
+the means from the ﬁt and the data which is caused by low
+statistics in the tails of the Xmax distributions. A maximum
+likelihood ﬁt was later performed reducing the bias in the
+means and is shown in ﬁgure 2. However we used the
+fractions of the 4-component mixture found from the χ2
+ﬁts in the present analysis.
+TA generated a Monte Carlo set of ∼4 million events
+using the 4 input species in the same relative proportions
+as described by the Auger mixture weighted to the HiRes1
+and HiRes2 combined mono spectra shown in [10] in 0.1
+decadal bins. Events that triggered the surface detector
+array and at least 1 of the 2 ﬂuorescence detectors (“hybrid”
+events) were accepted for analysis. A TA surface array
+trigger consists of 3 SDs counters, above 3 MIP each, within
+an 8 microsecond window (as described in [3]). A TA
+FD trigger consists of at least 5 adjoining PMTs above
+night sky background within a coincidence window of 25.6
+microseconds (as described in [11]).
+Auger claims to reconstruct shower Xmax with very little
+bias due to ﬁducial volume cuts based on each shower’s
+geometry. We expect then that Auger data should closely
+resemble the ⟨Xmax⟩from the input (thrown) Monte Carlo.
+Figure 3 compares the ⟨Xmax⟩of the Auger data described
+in [9] with the thrown ⟨Xmax⟩of the composition mixture
+E [eV]
+ [g/cm
+E [eV]
+ RMS [g/cm
+Figure 1: Comparing the Auger values for ⟨Xmax⟩(left) and
+RMS(Xmax) (right) [9] with the ones obtained from the 4-
+component model studied in this paper (red points). The 4-
+component model was obtained with a χ2 ﬁt to the Auger
+Xmax distributions. There is 8 g/cm2 difference between the
+ﬁt and data in the ⟨Xmax⟩caused by low statistics in the tails
+of the Xmax distributions.
+E [eV]
+ [g/cm
+E [eV]
+ RMS [g/cm
+Figure 2: Same as Figure 1, but this time the 4-component
+model was obtained with a maximum likelihood ﬁt to the
+Auger Xmax distributions.
+after the Telescope Array SD trigger bias and the agreement
+is very good, indicating little bias in the ⟨Xmax⟩between the
+thrown Monte Carlo tested by Telescope Array and the real
+Auger data.
+Figure 4 compares the widths of the Auger data and the
+composition mixture used after the Telescope Array SD
+trigger bias. Again, the agreement is excellent over most
+energies. The bump in widths of the thrown composition
+mixture around 1018.3 - 1018.5 eV is driven by a deep tail
+of protons in the CORSIKA sample used to generate the
+Telescope Array shower library.
+The Monte Carlo events were processed using Telescope
+Array hybrid reconstruction analysis software. Events are
+simulated and processed by the following procedure:
+1. Showers are generated by CORSIKA and the SD
+trigger response is simulated.
+2. The CORSIKA longitudinal shower proﬁle for each
+shower is ﬁtted to a Gaisser-Hillas function to deter-
+mine the shower parameters.
+3. A shower proﬁle based upon the ﬁtted shower param-
+eters is generated and the TA ﬂuorescence detector
+response including atmospheric, electronics, and geo-
+metrical acceptance is also simulated.
+4. The shower geometry is ﬁtted via the ﬂuorescence
+proﬁle and the shower-detector plane is measured.
+
+--- PAGE BREAK ---
+
+Progress towards understanding the analyses of mass composition
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+19.4
+19.6
+> (g/cm
+Composition Mixture
+Auger data (ICRC11)
+Figure 3: ⟨Xmax⟩for the Auger composition mixture after
+Telescope Array SD trigger bias (black circles) compared
+to Auger data described in [9]. Dashed lines show QGSJetII
+proton and iron rails also from [9]. The blue band indicates
+Auger systematic uncertainties.
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+19.4
+19.6
+) (g/cm
+RMS(X
+Composition Mixture
+Auger data (ICRC11)
+Figure 4: Thrown Xmax RMS for the Auger composition
+mixture (black squares) including Telescope Array SD
+trigger bias compared to Auger data described in [9]. The
+blue band indicates Auger systematic uncertainties.
+5. A ﬁt to hybrid shower geometry is performed which
+combines the timing and geometric center of charge
+of the SD array, with the timing and geometry of the
+ﬂuorescence detector that observed the event. This
+step is what makes the event a “hybrid event”. If
+either the SD or FDs fail to trigger in an event, it can
+not be processed.
+6. The shower proﬁle is ﬁtted via a reverse Monte
+Carlo method where the atmosphere, electronics,
+and geometrical acceptance of the shower are fully
+simulated.
+The mean Xmax, after reconstruction of the composi-
+tion mixture, is shown in ﬁgure 5. As has already been
+shown, the input distribution after SD trigger bias also
+agrees well with the Auger data. Comparison of the recon-
+structed widths (RMS) is shown in ﬁgure 6. Good agree-
+ment with the input distribution and with Auger data is also
+seen here. We have thus successfully reconstructed the ex-
+pected features of an input spectrum composed of the given
+mixture: ⟨Xmax⟩intermediate between protons and iron at
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+> (g/cm
+MC thrown
+MC reconstructed
+Auger Data (ICRC11)
+Figure 5: Reconstructed composition mixture ⟨Xmax⟩com-
+pared with thrown ⟨Xmax⟩after Telescope Array SD trigger
+bias and the most recent Auger composition data presented
+in [9].
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+) (g/cm
+RMS(X
+4373
+4306
+3554
+2474
+1643
+MC thrown (all species)
+MC reconstructed (all species)
+Auger DATA (ICRC11)
+Reconstructed and Thrown X
+Figure 6: Reconstructed composition mixture Xmax widths.
+The number or reconstructed events is also shown for each
+bin. Good agreement with the thrown distribution and the
+Auger data presented in [9] is seen here as well.
+the highest energies and widths that narrow as energy in-
+creases.
+To see if TA hybrid reconstruction techniques can dis-
+tinguish a spectrum composed purely of protons with one
+composed according to the Auger mix, a similar analysis
+was done using the spectrum composed purely of protons.
+The same spectral shape used for the mixed composition
+was also applied to the proton spectra and reconstructed us-
+ing the same techniques. In the top panel of ﬁgure 7 ⟨Xmax⟩
+for the reconstructed composition mixture is compared to
+⟨Xmax⟩for protons (iron reconstruction is included as ref-
+erence). Over this energy range the mixture can be distin-
+guished from protons and iron. A similar situation is shown
+in the bottom panel of ﬁgure 7 where the widths of the
+Xmax distributions are compared. Above 1018.6 eV where
+the widths of the mixture Xmax begin to narrow, no issues
+with Telescope Array reconstruction biases or acceptance
+preclude distinguishing a pure proton or pure iron spectrum
+from one that looks like the composition mixture.
+Figure 8 shows the overall TA hybrid bias in ⟨Xmax⟩
+for pure proton and for the Auger mix. The bias in both
+cases is nearly energy independent and it is found to be
+11.5±0.9 g/cm2 for pure protons and 5.2±0.4 g/cm2 for
+
+--- PAGE BREAK ---
+
+Progress towards understanding the analyses of mass composition
+33RD INTERNATIONAL COSMIC RAY CONFERENCE, RIO DE JANEIRO 2013
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+ (g/cm
+Reconstructed mixture
+Reconstructed proton
+Reconstructed iron
+(E/ev)
+18.2
+18.4
+18.6
+18.8
+19.2
+) (g/cm
+RMS(X
+Reconstructed mixture
+Reconstructed proton
+Reconstructed iron
+Figure 7: Comparison of ⟨Xmax⟩and widths of the recon-
+structed composition mixture and ⟨Xmax⟩and widths of
+pure proton and pure iron compositions. The three sets are
+clearly separated in each ﬁgure. The mixed composition
+can be distinguished from protons and iron using TA hybrid
+reconstruction. The ﬁts to the reconstructed iron and proton
+⟨Xmax⟩are also shown.
+the Auger mix. For this Figure, the total bias calculated for
+the Auger mix has the Telescope Array surface detector
+bias removed from it.
+Conclusions
+To begin to understand the apparent differences between
+Telescope Array/HiRes and Auger composition results,
+Auger has provided TA with an ad hoc model which
+ﬁts Auger composition measurements. It consists of a 4-
+component mixture of protons, helium, nitrogen, and iron
+(the Auger mix) that varies with energy. Telescope Array
+generated a large Monte Carlo set based on the Auger mix,
+passed it through the full hybrid reconstruction analysis to
+obtain the expected ⟨Xmax⟩and Xmax widths for the Auger
+mix. In the same way the expectations for pure proton and
+pure iron were estimated. Figure 7 shows that the difference
+in the expected ⟨Xmax⟩between the Auger mix and the pure
+proton composition ranges from about 15 g/cm2 at 1018.65
+eV to about 30 g/cm2 at 1018.85 eV.
+The expected ⟨Xmax⟩and Xmax widths for the Auger
+mix and for the pure proton composition can be compared
+directly with the real Telescope Array hybrid results. Given
+the MC statistics generated in this simulation (e.g. 124
+events in the energy bin of 1019), and the Telescope Array
+(E/eV)
+18.2
+18.4
+18.6
+18.8
+19.2
+> - Recon <X
+Thrown <X
+pure proton
+Auger Mix
+Figure 8: The difference between thrown ⟨Xmax⟩and recon-
+structed ⟨Xmax⟩for pure protons and the Auger mix. The
+total bias in ⟨Xmax⟩for the Auger mix is 5.2 ± 0.4 g/cm2
+(with TA SD trigger bias removed) and the total bias for
+pure protons is 11.5±0.9 g/cm2.
+hybrid reconstruction biases and acceptances over 1018.1 -
+1019.3 eV, Telescope Array can distinguish between the pure
+proton composition and the mixed composition provided by
+Auger (with at least 4 sigmas conﬁdence level at 1019 eV).
+With adequate statistics in the data, Telescope Array will be
+able to distinguish between pure proton composition and
+the Auger mix composition.
+This Monte Carlo simulation assumes a given atmo-
+spheric model that could be slightly different from the one
+in real data. In this work we have not estimated the system-
+atics due to uncertainties in the atmospheric model used in
+the Monte Carlo.
+References
+[1] J. Matthews, Astroparticle Physics 22 (2005) 387-397
+doi:10.1016/j.astropartphys.2004.09.003
+[2] R. Aloisio, et al., Astroparticle Physics 39 (2012)
+129-143 doi:10.1016/j.astropartphys.2012.09.007
+[3] T. Abu-Zayyad, et al., Nuclear Instruments and
+Methods in Physics Research Section A 689 (2012)
+87-97 doi:10.1016/j.nima.2012.05.079
+[4] J. N. Matthews, et al., Proceedings of the 31st ICRC
+(Ł´od´z) (2009) 1386
+[5] J. Abraham, et al., Nuclear Instruments and Methods in
+Physics Research A 523 (2004) 50-95
+doi:10.1016/j.nima.2003.12.012
+[6] R. U. Abbasi, et al., Physical Review Letters 104
+(2010) 161101 doi:10.1103/PhysRevLett.104.161101
+[7] J. Abraham, et al., Physical Review Letters 104 (2010)
+091101 doi:10.1103/PhysRevLett.104.091101
+[8] J. A. Bellido, et al,. EPJ Web of Conference 53, 01006
+(2013).
+[9] P. Facal San Luis, International Cosmic Ray
+Conference, Vol. 2 of 32nd ICRC Beijing (2011) 105
+[10] R. U. Abbasi, et al., Physical Review Letters 100
+(2008) 101101 doi:10.1103/PhysRevLett.100.101101
+[11] Y. Tameda, et al., Nuclear Instruments and Methods
+in Physics Research A 609 (2009) 227-234
+doi:10.1016/j.nima.2009.07.093
+
+--- PAGE BREAK ---
+
+Acknowledgements
+The successful installation, commissioning, and operation of the Pierre Auger Observatory
+would not have been possible without the strong commitment and effort from the technical and
+administrative staff in Malarg¨ue. The Pierre Auger Collaboration is very grateful to the follow-
+ing agencies and organizations for ﬁnancial support: Comisi´on Nacional de Energ´ıa At´omica,
+Fundaci´on Antorchas, Gobierno De La Provincia de Mendoza, Municipalidad de Malarg¨ue,
+NDM Holdings and Valle Las Le˜nas, in gratitude for their continuing cooperation over land
+access, Argentina; the Australian Research Council; Conselho Nacional de Desenvolvimento
+Cient´ıﬁco e Tecnol´ogico (CNPq), Financiadora de Estudos e Projetos (FINEP), Fundac¸˜ao de Am-
+paro `a Pesquisa do Estado de Rio de Janeiro (FAPERJ), S˜ao Paulo Research Foundation (FAPESP)
+Grants #2010/07359-6, #1999/05404-3, Minist´erio de Ciˆencia e Tecnologia (MCT), Brazil; AVCR,
+MSMT-CR LG13007, 7AMB12AR013, MSM0021620859, and TACR TA01010517 , Czech Republic;
+Centre de Calcul IN2P3/CNRS, Centre National de la Recherche Scientiﬁque (CNRS), Conseil
+R´egional Ile-de-France, D´epartement Physique Nucl´eaire et Corpusculaire (PNC-IN2P3/CNRS),
+D´epartement Sciences de l’Univers (SDU-INSU/CNRS), France; Bundesministerium f¨ur Bildung
+und Forschung (BMBF), Deutsche Forschungsgemeinschaft (DFG), Finanzministerium Baden-
+W¨urttemberg, Helmholtz-Gemeinschaft Deutscher Forschungszentren (HGF), Ministerium f¨ur
+Wissenschaft und Forschung, Nordrhein-Westfalen, Ministerium f¨ur Wissenschaft, Forschung
+und Kunst, Baden-W¨urttemberg, Germany; Istituto Nazionale di Fisica Nucleare (INFN), Minis-
+tero dell’Istruzione, dell’Universit`a e della Ricerca (MIUR), Gran Sasso Center for Astroparticle
+Physics (CFA), CETEMPS Center of Excellence, Italy; Consejo Nacional de Ciencia y Tecnolog´ıa
+(CONACYT), Mexico; Ministerie van Onderwijs, Cultuur en Wetenschap, Nederlandse Organ-
+isatie voor Wetenschappelijk Onderzoek (NWO), Stichting voor Fundamenteel Onderzoek der
+Materie (FOM), Netherlands; Ministry of Science and Higher Education, Grant Nos. N N202
+200239 and N N202 207238, The National Centre for Research and Development Grant No ERA-
+NET-ASPERA/02/11, Poland; Portuguese national funds and FEDER funds within COMPETE
+- Programa Operacional Factores de Competitividade through Fundac¸˜ao para a Ciˆencia e a Tec-
+nologia, Portugal; Romanian Authority for Scientiﬁc Research ANCS, CNDI-UEFISCDI partner-
+ship projects nr.20/2012 and nr.194/2012, project nr.1/ASPERA2/2012 ERA-NET, PN-II-RU-PD-
+2011-3-0145-17, and PN-II-RU-PD-2011-3-0062, Romania; Ministry for Higher Education, Science,
+and Technology, Slovenian Research Agency, Slovenia; Comunidad de Madrid, FEDER funds,
+Ministerio de Ciencia e Innovaci´on and Consolider-Ingenio 2010 (CPAN), Xunta de Galicia,
+Spain; The Leverhulme Foundation, Science and Technology Facilities Council, United Kingdom;
+Department of Energy, Contract Nos.
+DE-AC02-07CH11359, DE-FR02-04ER41300, DE-FG02-
+99ER41107, National Science Foundation, Grant No. 0450696, The Grainger Foundation USA;
+NAFOSTED, Vietnam; Marie Curie-IRSES/EPLANET, European Particle Physics Latin Ameri-
+can Network, European Union 7th Framework Program, Grant No. PIRSES-2009-GA-246806;
+and UNESCO.
+The Telescope Array experiment is supported by the Japan Society for the Promotion of Science
+through Grants-in-Aids for Scientiﬁc Research on Specially Promoted Research (21000002) “Ex-
+treme Phenomena in the Universe Explored by Highest Energy Cosmic Rays” and for Scientiﬁc
+Research (19104006), and the Inter-University Research Program of the Institute for Cosmic Ray
+Research; by the U.S. National Science Foundation awards PHY-0307098, PHY-0601915, PHY-
+0649681, PHY-0703893, PHY-0758342, PHY-0848320, PHY-1069280, and PHY-1069286; by the Na-
+tional Research Foundation of Korea (2007-0093860, R32-10130, 2012R1A1A2008381, 2013004883);
+by the Russian Academy of Sciences, RFBR grants 11-02-01528a and 13-02-01311a (INR), IISN
+project No. 4.4509.10 and Belgian Science Policy under IUAP VII/37 (ULB). The foundations of
+Dr. Ezekiel R. and Edna Wattis Dumke, Willard L. Eccles and the George S. and Dolores Dore
+Eccles all helped with generous donations. The State of Utah supported the project through its
+Economic Development Board, and the University of Utah through the Ofﬁce of the Vice Presi-
+dent for Research. The experimental site became available through the cooperation of the Utah
+School and Institutional Trust Lands Administration (SITLA), U.S. Bureau of Land Management,
+
+--- PAGE BREAK ---
+
+and the U.S. Air Force. The Telescope Array Collaboration also wishes to thank the people and
+the ofﬁcials of Millard County, Utah for their steadfast and warm support. The Telescope Array
+Collaboration gratefully acknowledges the contributions from the technical staffs of its home in-
+stitutions. An allocation of computer time from the Center for High Performance Computing at
+the University of Utah is gratefully acknowledged.

@@ -1,0 +1,796 @@
+Entanglement distribution over 155 km metropolitan fiber using a CMOS-compatible
+silicon chip
+Jinyi Du1,*, Xingjian Zhang1,**, George F.R. Chen2, Hongwei Gao2, Dawn T. H. Tan2,3,***, and
+Alexander Ling1,4,****,†
+1Centre for Quantum Technologies, National University of Singapore, 3 Science Drive 2,
+Singapore 117543, Singapore
+2Photonics Devices and System Group, Singapore University of Technology and Design, 8
+Somapah Road, Singapore 487372, Singapore
+3Institute of Microelectronics, Agency for Science, Technology and Research (A*STAR), 2
+Fusionopolis Way, #08-02 Innovis Tower, Singapore 138634, Singapore
+4Department of Physics, National University of Singapore, 2 Science Drive 3, Singapore
+117551, Singapore
+*jinyidu@u.nus.edu
+**xingjianzhang@u.nus.edu
+***dawn tan@sutd.edu.sg
+****alexander.ling@nus.edu.sg
+†Lead contact
+SUMMARY
+Transmitting entangled states over long distances is crucial for developing quantum networks.
+Previous demonstrations using satellites or fibers relied on photon pairs generated from bulk
+crystal arrangements. Polarization entanglement distribution based on CMOS-compatible sil-
+icon chips has long been restricted to lab-scale demonstrations spanning only a few meters,
+due to the difficulty of achieving sufficient off-chip brightness. We report a silicon chip plat-
+form that provides an off-chip entangled photon pair brightness ranging from 8,000 to 460,000
+pairs per second, exceeding previous reports by three orders of magnitude. The entanglement
+fidelity reaches 99.85(6)% and 97.90(3)%, respectively. After addressing key challenges in long-
+distance entanglement distribution over deployed fiber, including phase drift and chromatic dis-
+persion, entangled photons were successfully distributed over 155 km (66 dB loss).
+These
+results demonstrate that CMOS-compatible silicon chips can perform competitively with bulk
+crystal sources and represent an important step toward scalable, chip-based quantum networks.
+KEYWORDS
+Entanglement distribution, CMOS-compatible silicon chip, Quantum network
+INTRODUCTION
+Entanglement distribution will be important for building quantum networks that provide secure
+communications or novel services such as blind quantum computing. Impressive distances have
+been achieved using satellite-based entanglement technology1–4, or with terrestrial free-space
+links using telescopes5,6. For dense urban environments, however, optical fibers provide an
+alternative channel that is not limited by atmospheric conditions.
+A common strategy for fiber-based transmission is to use time-bin entanglement7–11, which is
+robust against polarization drift in aerial fibers12. However, time-bin entanglement typically relies
+arXiv:2409.17558v2  [quant-ph]  16 Mar 2026
+
+--- PAGE BREAK ---
+
+on unbalanced interferometers which demands precise phase stabilization, and structurally leads
+to a 3 dB measurement loss.
+In the stable underground fiber networks, polarization entanglement offers a more direct and
+flexible platform for state preparation and analysis. It is also inherently compatible with satellite-
+to-ground free-space links and supports hybrid architectures that span fiber and free-space
+channels6,13–15. The primary challenge for polarization-entangled photons is polarization mode
+dispersion (PMD) in fiber, but effective mitigation strategies have recently been proposed16,17.
+Bulk nonlinear crystal-based sources such as PPLN18–20 and PPKTP21 have successfully
+generated bright polarization-entangled photons, which have been distributed over distances up
+to 248 km using deployed fiber18–20 and 404 km using fiber spools22. In contrast, polarization-
+entangled photons from CMOS-compatible silicon nanophotonic chips have long been limited to
+lab-scale demonstrations over just a few meters23,24. To overcome the link loss over long fiber
+stretches, the photon pair sources need to be very bright and to-date silicon photonic chips have
+not provided high off-chip brightness due to coupling losses25–29, whereas bulk optical systems
+are several orders of magnitude brighter than their chip-based counterparts.
+In this work, we present a system-level optimization approach that addresses several chal-
+lenges. This enables silicon photonic chips to operate in a regime previously dominated by
+bulk-crystal systems. We report a bright polarization entangled photon pair source based on a
+silicon nanophotonic chip that can distribute entanglement through approximately 66 dB of loss,
+corresponds to 155 km of deployed optical fiber in a metropolitan network. By using a novel
+edge coupler, the silicon chip is placed in a Sagnac configuration and enables direct observa-
+tion of entangled photon pairs at a rate of between 8,000 to 460,000 pairs per second. This
+off-chip brightness is three orders of magnitude higher prior silicon-based reports23,24,26–28,30–32.
+The entanglement fidelity is 99.85(6)% and 97.90(3)% respectively.
+Measuring one photon locally, and transmitting the other over 93 km of deployed fiber (link
+loss of 40 dB), achieves a count rate of 132 pairs per second with an entanglement fidelity of
+93.3(3)%. To mitigate chromatic dispersion over long fiber distances, we implement nonlocal dis-
+persion compensation20,33,34, improving coincidence-to-accidental ratio (CAR) and fidelity upper
+limit by 32%. The source can be pumped harder to enable transmission of entangled photons
+over 155 km of deployed fiber (link loss of 66 dB) at a rate of 0.7 pairs per second, with an
+entanglement fidelity of 87.6(5)%. This result demonstrates that the CMOS chip sources, can
+compete with crystal-based systems for long-range quantum networking.
+RESULTS
+On-chip entangled photon generation
+The experimental setup for generating polarization entangled photons is illustrated in Fig. 1.(a,
+b). The test utilizes a nanophotonic chip that is an 8 mm long silicon waveguide, equipped with
+edge couplers at both ends, each exhibiting a loss of 0.64 dB. The silicon chip is integrated into a
+Sagnac fiber loop consisting of a PBS and two fiber polarization controllers (FPC) on each arm.
+A continuous-wave (CW) laser with a wavelength of 1550.12 nm first passes through a standard
+dense wavelength division multiplexer (DWDM) filter and is then evenly split by the PBS. The
+vertically polarized (V) beam is converted to horizontal polarization (H) with FPC before entering
+the chip. A short section of 2.4 µm small-core fiber (UHNA7), less than 1 cm in length, is spliced
+to the tip of coupling fiber to assist mode conversion with a splicing loss of 0.03 dB.
+
+--- PAGE BREAK ---
+
+Figure 1: Entanglement distribution over 155 km deployed fiber. (a) A continuous-wave laser
+at 1550.12 nm is amplified by an erbium-doped fiber amplifier (EDFA), with a circulator used to
+isolate the back-propagating beam from the Sagnac interferometer. The polarization control unit
+allows fine-tuning of the pump splitting ratio within the Sagnac loop. (b) The amplified laser
+generates polarization-entangled photon pairs via spontaneous four-wave mixing (SFWM), en-
+abled by the Sagnac configuration. The nondegenerate photon pairs are wavelength-separated
+using a dense wavelength-division multiplexer (DWDM). (c) One fiber runs from the National Uni-
+versity of Singapore (NUS) to the Singapore University of Technology and Design (SUTD) and
+back to NUS via a second fiber follows a circuitous path, resulting in a total length that exceeds
+the straight-line distance between these locations. Another fiber runs from NUS to Nanyang
+Technological University (NTU) and back to NUS via a second fiber. Satellite imagery: Google
+Maps (map data ©2025). (d) The signal photon (1539.37 nm) travels through the SUTD route
+while the idler photon (1561.01 nm) travels through the NTU route. The deployed fibers can be
+replaced with patchcord fiber when measuring the source entanglement fidelity. (e) The pho-
+tons are eventually detected by a superconducting nanowire single-photon detector (SNSPD)
+at NUS. To correct for fiber birefringence, fiber polarization controllers (FPC) and quarter-wave
+plates (QWP) are utilized. Half-wave plates (HWP) facilitate the switching between horizontal
+(H), vertical (V), diagonal (D), and anti-diagonal (A) polarizations. Polarization beam splitters
+(PBS) in the setup are used to project the state onto the desired polarization for analysis. A
+dispersion compensation module (DCM) is placed on the idler photon arm before the SNSPD to
+provide nonlocal dispersion compensation.
+A pump beam injected into the chip causes spontaneous four wave mixing (SFWM) to occur.
+A pair of pump photons at frequency ωpump are annihilated, generating a new photon pair, fol-
+lowing the energy conservation equation 2ωpump = ωsignal + ωidler 35. To create entangled photon
+pairs, the pump is injected from both ends of the waveguide simultaenously, leading to the gen-
+eration of photon pairs propagating in both directions. These pairs can be collected from either
+side of the waveguide using the same fiber as pump laser. One pair is horizontally (H) polarized
+and the other pair is converted to vertically (V) polarized by FPC. As the H and V state photons
+travel through the same fiber, no phase shift occurs between the two arms. By superposing the
+H and V polarized photon pairs from both paths at the PBS, the maximally entangled Bell state
+
+--- PAGE BREAK ---
+
+is constructed at the output port of the PBS:
+|Φ⟩= 1
+2(|HH⟩+ |V V ⟩),
+The entangled photons are reflected by a DWDM module centered at 1550.12 nm to the reflec-
+tion arm. A narrow band portion (0.8 nm) of photon pairs are then separated using 100 Ghz
+DWDM modules centered at 1561.01 nm (idler) and 1539.37 nm (signal). The broadband nature
+of the entangled photons generated from the SFWM process in the straight Si waveguide allows
+for the cascading of additional filters to multiplex more channels of entangled photons28,36.
+Figure 2: Two fold coincidence curves. (a) Coincidence measurement of entangled source.
+The signal photon’s HWP angle θs is fixed at H, V, D, and A basis, while the idler photon’s HWP
+angle θi rotates for 180◦. (b) Entanglement characterization with signal photons travel through
+93 km of deployed fiber. Accidental counts 1.6 cps are not subtracted.
+Entangled source characterization
+Once the signal and idler photons are filtered, they first pass through two quarter-wave plates
+(QWP) to compensate for polarization distortion caused by the connecting fibers. Each arm
+of the entangled photons are then projected into different polarization bases, using half-wave
+plates (HWP) and polarizing beam splitters. During source characterization, a short length of
+fiber replaces the deployed fibers, directly connecting the source to the measurement setup.
+The HWP in the signal arm is fixed at θs, while the HWP in the idler arm rotates for 180◦.
+Photons are detected by SNSPDs, with the coincidence count recorded during the rotation. The
+single photons are detected with SNSPDs, with the efficiency for idler channel at 45% while ef-
+ficiency for signal channel is at 49%. Fig. 2.(a) displays the observed raw coincidence rate as
+a function of θi, with the error bars estimated from Poisson statistics. The maximum observed
+coincidence at the peak of the coincidence curves is 230 kcps, corresponding to an overall bright-
+ness of 460,000 entangled photon pairs a second. The fidelity to the bell state is 97.90(3)%. This
+source is over 3 orders of magnitude brighter than sources in other literature reports. This com-
+parison is provided in Fig. 3. When the source is operating at low brightness conditions, fidelity
+can be enhanced to 99.85(6)%, and the experimental data detailed in Table 1.
+To further verify the presence of entanglement, a Bell test was performed by measuring the
+violation of the Clauser-Horne-Shimony-Holt (CHSH) inequality. Polarization correlations in four
+measurement bases were recorded, and the CHSH S parameter was calculated for the source
+
+--- PAGE BREAK ---
+
+at various brightness levels. The highest observed S value is 2.82(2) at 8 kcps brightness, and
+S remains well above the classical bound of 2 even at the highest measured pair rates.
+Figure 3: Performance comparison of entangled sources.
+The detected raw brightness
+and fidelity at different pump power are measured and compared the with reported data from
+other CMOS chip-based studies. Fidelity values are obtained from polarization visibility37 with
+F = (1 + V )/2. The reduction in fidelity at higher brightness is primarily attributed to an increased
+probability of multi-photon emission at high pump power.
+Table 1: Comparison with CMOS polarization entangled sources
+Source type
+Detector (eff.)
+Brightness (cps)
+Fidelity
+CHSH S
+Si waveguide
+APD (10%)
+94.8(41)%
+Si waveguide
+APD (20%)
+97.7(8)%
+2.7(1)
+Si waveguide
+SNSPD (85%)
+97.3(16)%
+Si ring
+SPD (10%)
+96.3(15)%
+Si ring
+SNSPD (81%)
+94(2)%
+SiN ring
+SNSPD (60%)
+90.0(-)%
+Si waveguide
+SNSPD (45%, 49%)
+8,000
+99.85(6)%
+2.82(2)
+This
+work
+SNSPD (45%, 49%)
+30,000
+99.80(4)%
+2.815(8)
+SNSPD (45%, 49%)
+280,000
+98.82(3)%
+2.777(3)
+SNSPD (45%, 49%)
+460,000
+97.90(3)%
+2.729(2)
+SNSPD (56%)
+2,800,000*
+93.9(7)%
+2.44(3)
+*This is measured with a 15 dB attenuator inserted in both the signal and idler arms before the SNSPDs to avoid
+detector saturation. The decreasing fidelity with increasing brightness is due to the number of multiple photon pairs
+present within the coincidence time window of this system. This effect can be further minimized if the system timing
+jitter and coincidence window is reduced.
+Asymmetric entanglement distribution over 93 km distance
+The signal photons are first connected to the NUS-SUTD-NUS deployed fiber which is 93 km,
+exhibiting a 35.4 dB loss as measured by an optical time domain reflectometer (OTDR). The
+
+--- PAGE BREAK ---
+
+idler photons are detected at the source. The propagation loss is calculated to be 0.38 dB/km,
+which is higher than the typical 0.16 dB/km observed in fiber spools or 0.25 dB/km in submarine
+fibers18,19. This increased loss is primarily due to the connection junctions in practical metropoli-
+tan fibers. When the dispersion compensation module (DCM) is added, 4.3 dB extra loss is also
+included to the fiber system.
+To evaluate the entanglement quality after transmission through the NUS-SUTD-NUS fiber
+loop, we perform two-fold coincidence measurements equivalent to local testing. The idler arm’s
+polarization analysis setup is set to H, V, D, and A bases. The signal arm’s HWP is rotated
+through 180◦to measure the visibility. As shown in Fig. 2.(b), observed raw count rate of entan-
+gled photons is 132 cps, while the fidelity is 93.3(3)% in the 10 second measurement duration.
+The high fidelity attributed to effective background count filtering and nonlocal dispersion com-
+pensation.
+Near-symmetric entanglement distribution over 155 km deployed
+fiber
+When only the signal photons are deployed, the timing delay between the signal and idler arms
+are observed to experience a cyclic drift. This cyclic drift is attributed to diurnal temperature fluc-
+tuations that cause the length of the fibers to expand and contract. This effect is reduced when
+both signal and idler photons are deployed over similar lengths of fiber. This “near-symmetric”
+experiment was performed by connecting the idler photons to a fiber loop that connected NUS
+and NTU. In this setup, the overall length traversed by the photon pair exceeds 155 km, and the
+overall system loss reached 66 dB (56 dB from fiber, 10 dB from 160 km version DCM). Although
+the final coincidence detection is performed locally at NUS, both the signal and idler photons
+are independently transmitted over two separate long-distance fiber link before measurement.
+This effectively simulates a distributed entanglement scenario, as the entangled photons travel
+through metropolitan deployed fibers and experience actual losses, dispersion, and changes
+from the environment. By increasing the pump power, the entangled photon pair rate after trans-
+mission was 0.7 cps with a fidelity of 87.6(5)%. Accounting for fiber loss, the off-chip photon pair
+rate was 2.8 Mcps and the estimated fidelity was 93.9(7)% as shown in Fig. 3. The degradation
+is primarily due to the effects of polarization mode dispersion (PMD)20,38–41. A comparison of
+the results from this work with similar work in the literature regarding fiber-based entanglement
+distribution is provided in Table 2.
+Discussion
+In this report we have demonstrated a bright entangled photon pair source based on a silicon
+nanophotonic chip. Through system-level optimization, the source enabled polarization entan-
+glement distribution over 155 km of deployed fiber (66 dB loss). The observed brightness and
+fidelity of the nanophotonic chip source is competitive when compared against work based on
+bulk crystal sources18–20. This work marks a milestone in the capability of silicon nanophotonic
+chips for enabling long range quantum networks.
+One important challenge in distributing polarization-entangled photons over long fibers is
+PMD, which can degrade entanglement quality. In addition to recently proposed compensation
+techniques16,17, microring resonators (MRRs) offer an alternative approach by generating nar-
+rowband photon pairs that are inherently less susceptible to PMD.
+
+--- PAGE BREAK ---
+
+Table 2: Comparison with other long fiber works
+Source type
+Fiber type
+Fiber loss
+Rate (cps)
+Fidelity
+Sagnac
+PPLN
+Submarine
+(96 km)
+22 dB
+pol.
+95.3(3)%
+Sagnac
+PPLN
+Submarine
+(192 km)
+48 dB
+pol.
+95(1)%
+Sagnac
+PPLN
+Metropolitan
+(248 km)
+71.5 dB
+pol.
+93(-)%
+Sagnac
+PPLN
+Ultra low loss spool
+(404 km)
+87 dB
+pol.
+0.03
+91.3(-)%
+Sagnac
+Si chip
+Metropolitan
+(93 km)
+39.7 dB
+pol.
+93.3(3)%
+This
+work
+Metropolitan
+(155 km)
+66 dB
+87.6(5)%
+The system level optimization concepts proposed by this paper can be applied to other inte-
+grated photonics platforms like AlGaAs36,42–44, TFLN45,46, SiC47,48, USRN49, AlN50. This source
+is also useful for satellite to ground experiments because it exceeds the loss of the Micius double-
+downlink where the link loss was 62 dB2,51.
+There are a number of avenues for further integration and improvement. For example, many
+of the filters are based on fiber components and further integration52–54 is possible in this as-
+pect enhancing the stability and scalability of the setup. The nonlocal dispersion compensation
+is performed using a dispersion compensated module that has a significant transmission loss,
+which should be reduced with further engineering55,56. Additionally, there is a huge potential
+for utilising dense-wavelength division multiplexing with the silicon nanophotonic chip. This will
+expand the number of channels accessible22,30,57. Finally, other degrees of freedom, such as the
+time-bins58–62 could be added to the setup to enable high-dimensional entanglement distribu-
+tion24,63,64. Taken together, these strategies can significantly enhance the quantum information
+capacity of integrated photonic platforms and accelerate the development of scalable, long-range
+quantum networks.
+We note that a preprint of a related study65 was posted in March 2025, six months after
+posting the current work on arXiv.
+METHODS
+Photon pair wavelength selection
+In the SFWM process, two pump photons are absorbed simultaneously, elevating the system to
+a virtual energy level, followed by the emission of a signal and idler photon to conserve both
+energy and momentum. The efficiency of this nonlinear interaction is highly dependent on the
+phase matching conditions. The coincidence-to-accidentals ratio (CAR) quantifies the ratio of
+true photon coincidences (from genuine photon pairs) to accidental coincidences, such as those
+arising from multi-photon emissions or system noise. A high CAR is essential for ensuring high
+entanglement fidelity, as it directly correlates with the purity of the detected entangled state by
+reducing the likelihood of accidental events degrading the measurement. Therefore, maximizing
+CAR requires lower multi-photon events and system noise, such as residual pump photons and
+Raman noise.
+
+--- PAGE BREAK ---
+
+To select the optimal wavelengths for the highest CAR and entangled photon quality, a
+1550.12 nm CW laser is employed to unidirectional pumping for the same chip used in the en-
+tanglement generation experiment. The generated photon pairs, signal and idler, were spectrally
+broad due to the nature of phase matching in silicon. Two 0.8 nm bandwidth filters with central
+wavelength symmetrical about the pump are installed to scan the pair generation rate across
+different wavelength channels.
+Figure 4: Observed photon pair rate, CAR, and filter transmission as functions of wave-
+length. (a) Raw coincidence rate as a function of signal and idler wavelengths relative to the
+pump, showing that photon pair generation is most efficient near the pump wavelength due to
+optimal phase matching. (b) Coincidence-to-accidental ratio (CAR) as a function of wavelength.
+The CAR peaks approximately 10 nm away from the pump, where pump photon rejection is op-
+timal. (c) Transmission profiles of the filters used for signal, idler, and pump photons, with an
+extinction ratio of approximately 80-100 dB, indicating the optimal filter performance at a 5-10
+nm separation from the center wavelength. The shaded regions in panels (a-c) correspond to
+the selected passbands of the three filters employed in the final entanglement distribution exper-
+iment.
+As illustrated in Fig. 4.(a), the raw photon coincidence rate was highest when the signal and
+idler wavelengths were closest to the pump wavelength, indicating that phase matching was
+most efficient at shorter detunings from the pump. However, this increased photon pair genera-
+tion does not directly translate into a higher CAR, as shown in Fig. 4.(b), where the CAR peaks
+approximately 10 nm away from the pump wavelength. This discrepancy can be explained by
+
+--- PAGE BREAK ---
+
+the balance between photon pair generation and system noise. The error bars in Fig. 4(a,b)
+represent uncertainties estimated from Poisson statistics and DWDM connector insertion loss
+variations. While photon pairs are generated more efficiently near the pump wavelength, the
+proximity of the signal and idler to the pump results in less effective rejection of residual pump
+photons as shown in Fig. 4.(c). These residual pump photons contribute to accidental coinci-
+dences, lowering the CAR. On the other hand, when the signal and idler photons are too far from
+the pump, the SFWM process itself becomes less efficient, reducing the photon pair genera-
+tion rate and thereby lowering the CAR due to the lower coincidence rate. The observed peak in
+CAR at a 10 nm separation from the pump wavelength results from the optimal trade-off between
+reducing system noise and maintaining sufficient photon pair generation.
+Chip design and coupling strategy
+Figure 5: Chip coupling strategy. (a) Fiber splicing junction showing the tapered region that
+adiabatically converts the UHNA7 fiber mode to SMF-28. (b) Top view of the two-stage inverse
+taper edge coupler with a BOX layer; upper cladding not shown. (c) Cross-sectional view of a
+silicon chip with a silicon waveguide above a 2 µm BOX layer, covered by 2 µm SiO2 cladding.
+The chip involved in the experiment is a 8 mm long silicon waveguide with cross sectional
+dimension 650 nm in width and 250 nm in height. The whole chip is covered by 2 µm thick SiO2
+cladding layer. On the chip edges, two-stage inverse tapers are fabricated to expand the chip
+mode to reduce the mode mismatch with that of the UHNA7 fiber as shown in Fig. 5. The L0
+section acts as buffer region to protect the edge coupler during dicing process, while the length
+of L1 and L2 tapers are 50 µm and 100 µm respectively. Short section of UHNA7 fiber (less than
+1 cm) is spliced to SMF-28 fiber to assist light collection. The loss is optimized to 0.03 dB per
+splicing junction by performing an in-situ monitoring of the loss during splicing process25,66. The
+measured coupling loss is 0.64 dB per facet and has nice long term stability of ±0.02 dB for more
+than ten days without using any adhesive.
+Low coupling loss is critical for practical entangled photon-pair sources, not only because it
+enhances the overall brightness, but also because it significantly impacts the CAR67, as shown
+in Fig. 6.(a). The relationship between the CAR, the on-chip raw coincidence Nc, and the system
+efficiencies α can be expressed as:
+CAR =
+Nc · α2
+(Nc + Nnoise)α + Ndark
+2 + 1,
+In SFWM, the pair generation rate scales quadratically with pump power, Nc ∝P 2 while the
+background noise (Raman scattering and unfiltered pump) scales linearly Nnoise ∝P. For a
+fixed detected coincidence rate Ncα2 = const, it follows that Nc ∝1/α2, P ∝1/α, and hence
+Nnoise ∝1/α. The denominator of Eq. 2 thus scales as
+(Nc + Nnoise)α + Ndark
+2 ∼
+ 1/α + const
+
+--- PAGE BREAK ---
+
+indicating that CAR increases monotonically with coupling efficiency α.
+Figure 6: Methods for improving entanglement fidelity in deployed fibers. (a) The degrada-
+tion of CAR due to coupling loss is more pronounced at higher observed brightness. The 0.64 dB
+loss case achieves a CAR more than two times higher than that of the 5 dB coupling loss case.
+(b) The peaks are in the center of the cross-correlation function between the time tag files ob-
+tained from the two SNSPD channels. The time delay 457 µs between the two channels is already
+compensated digitally. The blue line is the original histogram shape after the long fiber transmis-
+sion. The green line is the histogram with dark count noise filtering. After nonlocal dispersion
+compensation, the FWHM of the histogram peak is greatly reduced and plotted in red line. (c)
+Measured delay drift without compensation (blue), with 60-minute feedback (orange), and with
+5-minute feedback (yellow). The 5-minute compensation confines the delay within ±20 ps for
+99.6% of the time.
+Nonlocal dispersion compensation
+In this experiment the deployed fiber is not dark and contains broadband noise within the optical
+channel of interest. This noise lowers the CAR value affecting the fidelity of the observed quan-
+tum state. The maximum achievable fidelity is limited by the CAR and is given by F =
+CAR+1. A
+0.8 nm filter is installed before the SNSPDs, and the dark count noises are effectively removed
+from around 4 Mcps to less than 200 cps. As shown in Fig. 6.(b), the CAR is increased from 2
+to 15, which corresponds to a fidelity upper bound improvement from 67% to 94%.
+Additionally, chromatic dispersion presents a significant challenge to achieve high entangle-
+ment fidelity. The dispersion value at 1539 nm is around D1539 ≤18.0 ps/(nm·km) in the fiber.
+Since the bandwidth of signal photons is 0.8 nm while the fiber distance is 93 km, the dispersion
+caused by the deployed fiber is 1339 ps. In comparison, the overall timing jitter of the SNSPDs
+including the time tagger, is approximately 80 ps. As a result, measuring the photon pair rate
+after signal photons transmitted through the long fiber requires a larger coincidence window
+
+--- PAGE BREAK ---
+
+around 1 ns. This larger coincidence window increases accidental counts, greatly reducing the
+CAR value. To solve this, a dispersion compensation module (DCM) is inserted in the idler arm.
+The total dispersion compensation provided by the DCM at 1561 nm is around -1360 ps/nm, as
+data provided by the manufacturer. As shown in Fig. 6.(b), effective dispersion compensation
+raises the CAR from 15 to 91, corresponding to an increase in theoretical fidelity from 94% to
+99%. However, the measured fidelity in practice is lower than this theoretical value, primarily
+due to the effects of PMD. It is important to note that the DCM introduces 4.3 dB insertion loss,
+which does impact the coincidence rate. This DCM-related loss may be mitigated in future work
+where the waveguide platform could be designed to generate photons with narrower wavelength
+bandwidth26,30,31,68,69.
+Phase stabilization in deployed fibers
+In the 93 km asymmetric configuration, phase fluctuations are more pronounced because only
+one photon passes through the long fiber while the other is detected locally. In this case, envi-
+ronmental changes such as temperature-induced fiber expansion or contraction directly translate
+into phase drift between the two optical paths. In contrast, the near-symmetric entanglement dis-
+tribution experiment utilizes both the 93 km and 62 km deployed fiber segments, with each pho-
+ton of the entangled pair traversing one segment. This configuration benefits from partial passive
+phase noise cancellation: since both fibers are deployed underground in similar metropolitan
+conditions, environmental fluctuations tend to affect both arms similarly, leading to correlated
+phase changes and reduced differential phase drift. The phase stability experiments were per-
+formed on the 62 km fiber segment, and the results are shown in Fig. 6.(c). The observed delay
+drift in this configuration is representative of the deployed metropolitan fiber environment. Every
+5 minutes, the Sagnac pump splitting ratio is switched from 1:1 to 1:0 by rotating the HWP in the
+pump polarization control unit in Fig. 1.(a), and the waveplates in the state analyzer in Fig. 1.(e)
+are adjusted to measure the HH coincidence histogram. This temporary configuration doubles
+the pump power and hereby increases the coincidence count by a factor of four, enhancing the
+precision of delay estimation. The delay is extracted by fitting the coincidence histogram with
+a Gaussian envelope and summing five bins around the peak (when using 50 ps coincidence
+window), with the central bin identified as the reference delay. During the subsequent 5-minute
+measurement period, the pump splitting ratio is reverted to 1:1, and the previously extracted
+delay value is applied. This calibration cycle is repeated at 5-minute intervals.
+As shown in Fig. 6.(c), the uncompensated phase drift can exceed ±200 ps over time. A
+60-minute feedback interval provides moderate suppression, whereas a 5-minute compensation
+cycle confines the delay variation within ±20 ps for more than 70 hours, achieving a stabilization
+accuracy of 99.6%. These results highlight the importance of employing high-brightness entan-
+gled photon-pair sources. Without sufficient brightness, longer integration times are required to
+obtain statistically significant data, during which uncorrected phase drift can significantly degrade
+the CAR and reduce the fidelity of the reconstructed quantum state.
+System calibration
+The polarization shift caused by birefringence is compensated by the QWP and HWP in the
+measurement setup. To calibrate the system once the NUS-NTU-NUS quantum channel is es-
+tablished, we disconnect the H polarization arm of Sagnac loop and inject a 13 dBm laser beam
+at 1561.01 nm into the setup. This wavelength matches that of the idler photons, allowing the
+laser to go through the same route as idler photons do. After transmission through the PBS
+in the measurement setup, the laser is detected by a free space powermeter. The QWP and
+
+--- PAGE BREAK ---
+
+HWP are then adjusted to minimize the detected power, with the final HWP angle designated
+as the V state for the idler arm. The output power difference between HWP’s H and V position
+is 37 dB which is limited by the extinction ratio of the polarization components. A similar proce-
+dure is employed for the signal arm, using a laser at 1539.37 nm. Once the waveplates’ angles
+are calibrated, it is crucial that the QWPs remain stationary during the two-photon interference
+measurement to ensure accuracy. In the local measurement case, once the photon pairs are
+collected with the UHNA7 fiber, the insertion loss from Sagnac loop to the fiber connector before
+SNSPD is 2.74 dB for signal arm and 2.72 dB for idler arm. This includes all the fiber based and
+free space optical components in the experiment.
+Single photon detection and coincidence counting
+The entangled photons are detected by SNSPDs. The detection efficiency of the SNSPDs is
+tunable via the device bias current: higher bias increases both detection efficiency and dark
+count rate, but can reduce the maximum detectable count rate by making the detector more
+susceptible to latching.
+For source characterization measurements, the SNSPD efficiency was intentionally set to
+a low value (45% and 49%) to increase the pump power substantially without saturating the
+detectors.
+In the 93 km entanglement distribution experiment, the single photons were detected with
+SNSPDs set to higher efficiency: 78% for the signal channel and 45% for the idler channel.
+The single-photon count rates were 4.8 kcps for the signal arm and 5.6 Mcps for the idler arm.
+The delay caused by the deployed fiber is 457,369,970 ps, matching the distance measured
+by OTDR. The coincidence window τcw used in local measurements is 200 ps, while τcw with
+deployed fiber is 60 ps for accidental suppression and higher CAR. The narrow τcw results in a
+lower photon-pair rate. Reducing the background noise (detector dark counts, Raman noise in
+the source, and stray light coupling into the fiber network) should further improve the CAR and
+fidelity.
+When the deployed fiber distance was extended to 155 km, the singles count rates on the
+signal and idler arms were around 15 kcps and 40 kcps, respectively. Although this low single-
+photon count rate does not saturate the detector, the SNSPDs were set to 56% efficiency by
+lowering the bias current to reduce the dark count rate to 10 cps. The optical delay caused by
+the 62 km fiber is 302,113,173 ps, consistent with the length characterization by OTDR.
+
+--- PAGE BREAK ---
+
+Figure 7:
+Long-term polarization stability of deployed fiber links.
+Polarized light at
+1539.37 nm and 1561.01 nm is transmitted through (a) the 93 km NUS-SUTD-NUS link and (b)
+the 62 km NUS-NTU-NUS link. The output polarization states are continuously monitored over
+8 hours and plotted on the Poincar´e sphere, where the three axes S1, S2, and S3 correspond to
+the normalized Stokes parameters. Each orange cluster represents the temporal evolution of the
+output polarization state, indicating minor polarization drift observed over time in both deployed
+fibers.
+Fiber link information
+A measurement of polarization stability of deployed fibers over a continuous period of 8 hours is
+conducted and the polarization state rotates 10.75◦(93 km link) and 12.63◦(62 km link) on the
+Poincar´e sphere. The results in Fig. 7. (a, b) indicate a relatively stable polarization behavior.
+Additionally, signal crosstalk from other channels in metropolitan fiber networks can introduce
+background noise, which also affects the quantum state fidelity. The NUS-SUTD-NUS (or NUS-
+NTU-NUS) fiber loop experiences approximately 4 Mcps (2 kcps) of background noise without
+spectral filtering. This noise is broadband and can be effectively mitigated using a 0.8 nm band-
+width DWDM filter. After inserting the filter, the background noise in both channels is reduced to
+less than 200 cps.
+
+--- PAGE BREAK ---
+
+RESOURCE AVAILABILITY
+Lead contact
+Requests for further information and resources should be directed to and will be fulfilled by the
+lead contact Alexander Ling (alexander.ling@nus.edu.sg).
+Materials Availability
+This study did not generate new unique materials.
+Data and code availability
+• The data reported in this study are available from the lead author upon reasonable request.
+• This paper does not report any original code.
+• Any additional information required to reanalyze the data reported in this paper is available
+from the lead contact upon request.
+ACKNOWLEDGMENTS
+This research is supported by the National Research Foundation, Singapore, and A*STAR under
+its CQT Bridging Grant and Quantum Engineering Programme (Award No. NRF2021-QEP2-01-
+P02), QEP2 grant: NRF2021-QEP2-01-P01, and US Air Force grant (FA2386-21-1-0076). D. Tan
+acknowledges funding from the National Research Foundation, Singapore, and A*STAR under
+its QEP 2.0 Programme (Award No. NRF2022-QEP2-01-P08), the National Research Foun-
+dation Investigatorship (NRF-NRFI08-2022-0003) and the Ministry of Education Tier 2 Grant
+(Award No.
+MOE2019-T2-2-178).
+We acknowledge funding support from the National Re-
+search Foundation, Singapore and A*STAR under its Quantum Engineering Programme (Na-
+tional Quantum-Safe Network, NRF2021-QEP2-04-P01) and Netlink Trust for the provisioning
+of the fiber network. The authors acknowledge the assistance of setup alignment and litera-
+ture review from Arya Chowdhury, and En Teng Lim, and consultation from Dr. Tanvirul Islam,
+Dr. Haoran Zhang, and Dr. Shihao Ru.
+AUTHOR CONTRIBUTIONS
+J.D., X.Z., D.T.H.T., and A.L. conceived the experiment; G.F.R.C. and H.G. contributed to materi-
+als processing and fabrication; J.D. performed chip characterization; J.D. and X.Z. conducted en-
+tanglement measurements and analyzed the data; J.D., D.T.H.T., and A.L. wrote the manuscript;
+A.L. and D.T.H.T. supervised the project and acquired funding.
+DECLARATION OF INTERESTS
+Information related to the edge coupler design used in this work is covered by a pending inter-
+national patent application (Application No. PCT/SG2024/050518, titled “Coupling Platform for
+Photonic Chips”) filed by Jinyi Du, Dawn T. H. Tan, and Alexander Ling.
+
+--- PAGE BREAK ---
+
+References
+1. Liao, S.K., Cai, W.Q., Liu, W.Y., Zhang, L., Li, Y., Ren, J.G., Yin, J., Shen, Q., Cao, Y., Li,
+Z.P. et al. (2017). Satellite-to-ground quantum key distribution. Nature 549, 43–47.
+2. Yin, J., Cao, Y., Li, Y.H., Ren, J.G., Liao, S.K., Zhang, L., Cai, W.Q., Liu, W.Y., Li, B., Dai,
+H. et al. (2017). Satellite-to-ground entanglement-based quantum key distribution. Physical
+review letters 119, 200501.
+3. Villar, A., Lohrmann, A., Bai, X., Vergoossen, T., Bedington, R., Perumangatt, C., Lim, H.Y.,
+Islam, T., Reezwana, A., Tang, Z. et al. (2020). Entanglement demonstration on board a
+nano-satellite. Optica 7, 734–737.
+4. Yin, J., Li, Y.H., Liao, S.K., Yang, M., Cao, Y., Zhang, L., Ren, J.G., Cai, W.Q., Liu, W.Y., Li,
+S.L. et al. (2020). Entanglement-based secure quantum cryptography over 1,120 kilome-
+tres. Nature 582, 501–505.
+5. Ursin, R., Tiefenbacher, F., Schmitt-Manderbach, T., Weier, H., Scheidl, T., Lindenthal, M.,
+Blauensteiner, B., Jennewein, T., Perdigues, J., Trojek, P. et al. (2007). Entanglement-based
+quantum communication over 144 km. Nature physics 3, 481–486.
+6. Yin, J., Ren, J.G., Lu, H., Cao, Y., Yong, H.L., Wu, Y.P., Liu, C., Liao, S.K., Zhou, F., Jiang,
+Y. et al. (2012). Quantum teleportation and entanglement distribution over 100-kilometre
+free-space channels. Nature 488, 185–188.
+7. Marcikic, I., De Riedmatten, H., Tittel, W., Zbinden, H., Legr´e, M., and Gisin, N. (2004).
+Distribution of time-bin entangled qubits over 50 km of optical fiber. Physical review letters
+93, 180502.
+8. Takesue, H., and Inoue, K. (2005). Generation of 1.5-µ m band time-bin entanglement using
+spontaneous fiber four-wave mixing and planar light-wave circuit interferometers. Physical
+Review A—Atomic, Molecular, and Optical Physics 72, 041804.
+9. Honjo, T., Takesue, H., Kamada, H., Nishida, Y., Tadanaga, O., Asobe, M., and Inoue, K.
+(2007). Long-distance distribution of time-bin entangled photon pairs over 100 km using
+frequency up-conversion detectors. Optics express 15, 13957–13964.
+10. Dynes, J.F., Takesue, H., Yuan, Z.L., Sharpe, A.W., Harada, K., Honjo, T., Kamada, H.,
+Tadanaga, O., Nishida, Y., Asobe, M. et al. (2009). Efficient entanglement distribution over
+200 kilometers. Optics express 17, 11440–11449.
+11. Inagaki, T., Matsuda, N., Tadanaga, O., Asobe, M., and Takesue, H. (2013). Entanglement
+distribution over 300 km of fiber. Optics express 21, 23241–23249.
+12. Shi, Y., Gerrits, T., and Slattery, O. (2023). Towards continuous fiber birefringence compen-
+sation with single-photon-level light. In CLEO: Science and Innovations. Optica Publishing
+Group pp. JTh2A–24.
+13. Jin, X.M., Ren, J.G., Yang, B., Yi, Z.H., Zhou, F., Xu, X.F., Wang, S.K., Yang, D., Hu, Y.F.,
+Jiang, S. et al. (2010). Experimental free-space quantum teleportation. Nature photonics 4,
+376–381.
+14. Ursin, R., Tiefenbacher, F., Schmitt-Manderbach, T., Weier, H., Scheidl, T., Lindenthal, M.,
+Blauensteiner, B., Jennewein, T., Perdigues, J., Trojek, P. et al. (2006). Free-space distribu-
+tion of entanglement and single photons over 144 km. arXiv preprint quant-ph/0607182.
+
+--- PAGE BREAK ---
+
+15. Ma, X.S., Herbst, T., Scheidl, T., Wang, D., Kropatschek, S., Naylor, W., Wittmann, B., Mech,
+A., Kofler, J., Anisimova, E. et al. (2012). Quantum teleportation over 143 kilometres using
+active feed-forward. Nature 489, 269–273.
+16. Xingjian, Z., Haoran, Z., Chua, R.M., Eng, J., Meunier, M., Grieve, J.A., Weibo, G., and Ling,
+A. (2025). Polarization-encoded quantum key distribution with a room-temperature telecom
+single-photon emitter. National Science Review pp. nwaf147.
+17. Rodimin, V., Kravtsov, K., Chua, R.M., De Santis, G., Ponasenko, A., Kurochkin, Y., Ling,
+A., and Grieve, J.A. (2024). Impact of polarization mode dispersion on entangled photon
+distribution. arXiv preprint arXiv:2408.01754.
+18. Wengerowsky, S., Joshi, S.K., Steinlechner, F., Zichi, J.R., Dobrovolskiy, S.M., Van der
+Molen, R., Los, J.W., Zwiller, V., Versteegh, M.A., Mura, A. et al. (2019). Entanglement dis-
+tribution over a 96-km-long submarine optical fiber. Proceedings of the National Academy
+of Sciences 116, 6684–6688.
+19. Wengerowsky, S., Joshi, S.K., Steinlechner, F., Zichi, J.R., Liu, B., Scheidl, T., Dobrovolskiy,
+S.M., Molen, R.v.d., Los, J.W., Zwiller, V. et al. (2020). Passively stable distribution of po-
+larisation entanglement over 192 km of deployed optical fibre. npj Quantum Information 6,
+20. Neumann, S.P., Buchner, A., Bulla, L., Bohmann, M., and Ursin, R. (2022). Continuous
+entanglement distribution over a transnational 248 km fiber link. Nature Communications
+13, 6134.
+21. Rahmouni, A., Kuo, P., Li-Baboud, Y.S., Burenkov, I., Shi, Y., Jabir, M., Lal, N., Reddy,
+D., Merzouki, M., Ma, L. et al. (2024). Metropolitan-scale entanglement distribution with co
+existing quantum and classical signals in a single fiber. arXiv preprint arXiv:2402.00617.
+22. Zhuang, S.C., Li, B., Zheng, M.Y., Zeng, Y.X., Wu, H.N., Li, G.B., Yao, Q., Xie, X.P., Li,
+Y.H., Qin, H. et al. (2024). Ultrabright-entanglement-based quantum key distribution over a
+404-km-long optical. arXiv preprint arXiv:2408.04361.
+23. Llewellyn, D., Ding, Y., Faruque, I.I., Paesani, S., Bacco, D., Santagati, R., Qian, Y.J., Li,
+Y., Xiao, Y.F., Huber, M. et al. (2020). Chip-to-chip quantum teleportation and multi-photon
+entanglement in silicon. Nature Physics 16, 148–153.
+24. Zheng, Y., Zhai, C., Liu, D., Mao, J., Chen, X., Dai, T., Huang, J., Bao, J., Fu, Z., Tong, Y.
+et al. (2023). Multichip multidimensional quantum networks with entanglement retrievability.
+Science 381, 221–226.
+25. Du, J., Chen, G.F., Gao, H., Grieve, J.A., Tan, D.T., and Ling, A. (2024). Demonstration of a
+low loss, highly stable and re-useable edge coupler for high heralding efficiency and low g
+(2)(0) soi correlated photon pair sources. Optics Express 32, 11406–11418.
+26. Suo, J., Dong, S., Zhang, W., Huang, Y., and Peng, J. (2015). Generation of hyper-
+entanglement on polarization and energy-time based on a silicon micro-ring cavity. Optics
+express 23, 3985–3995.
+27. Takesue, H., Fukuda, H., Tsuchizawa, T., Watanabe, T., Yamada, K., Tokura, Y., and
+Itabashi, S.i. (2008). Generation of polarization entangled photon pairs using silicon wire
+waveguide. Optics express 16, 5721–5727.
+
+--- PAGE BREAK ---
+
+28. Li, Y.H., Zhou, Z.Y., Feng, L.T., Fang, W.T., Liu, S.l., Liu, S.K., Wang, K., Ren, X.F., Ding,
+D.S., Xu, L.X. et al. (2017). On-chip multiplexed multiple entanglement sources in a single
+silicon nanowire. Physical Review Applied 7, 064005.
+29. Sharma, S., Venkataraman, V., and Ghosh, J. (2022). Silicon photonic wires for broadband
+polarization entanglement at telecommunication wavelengths. Physical Review Applied 18,
+044043.
+30. Miloshevsky, A., Cohen, L.M., Myilswamy, K.V., Alshowkan, M., Fatema, S., Lu, H.H.,
+Weiner, A.M., and Lukens, J.M. (2024). Cmos photonic integrated source of broadband
+polarization-entangled photons. Optica Quantum 2, 254–259.
+31. Wen, W., Yan, W., Lu, C., Lu, L., Wu, X., Lu, Y., Zhu, S., and Ma, X.S. (2023). Polarization-
+entangled quantum frequency comb from a silicon nitride microring resonator. Physical
+Review Applied 20, 064032.
+32. Zhang, M., Feng, L.T., Zhou, Z.Y., Chen, Y., Wu, H., Li, M., Gao, S.M., Guo, G.P., Guo, G.C.,
+Dai, D.X. et al. (2019). Generation of multiphoton quantum states on silicon. Light: Science
+& Applications 8, 41.
+33. Chua, R., Grieve, J.A., and Ling, A. (2022). Fine-grained all-fiber nonlocal dispersion com-
+pensation in the telecommunications o-band. Optics Express 30, 15607–15615.
+34. Neumann, S.P., Ribezzo, D., Bohmann, M., and Ursin, R. (2021). Experimentally optimiz-
+ing qkd rates via nonlocal dispersion compensation. Quantum Science and Technology 6,
+025017.
+35. Boyd, R.W., Gaeta, A.L., and Giese, E. (2008). Nonlinear optics. In Springer Handbook of
+Atomic, Molecular, and Optical Physics pp. 1097–1110.. Springer pp. 1097–1110.
+36. Appas, F., Baboux, F., Amanti, M.I., Lema´ıtre, A., Boitier, F., Diamanti, E., and Ducci, S.
+(2021). Flexible entanglement-distribution network with an algaas chip for secure commu-
+nications. npj Quantum Information 7, 118.
+37. Meyer-Scott, E., Prasannan, N., Eigner, C., Quiring, V., Donohue, J.M., Barkhofen, S., and
+Silberhorn, C. (2018). High-performance source of spectrally pure, polarization entangled
+photon pairs based on hybrid integrated-bulk optics. Optics express 26, 32475–32490.
+38. Gisin, N., Ribordy, G., Tittel, W., and Zbinden, H. (2002). Quantum cryptography. Reviews
+of modern physics 74, 145.
+39. Shi, Y., Moe Thar, S., Poh, H.S., Grieve, J.A., Kurtsiefer, C., and Ling, A. (2020). Stable
+polarization entanglement based quantum key distribution over a deployed metropolitan
+fiber. Applied Physics Letters 117.
+40. Zhang, X., Zhang, H., Chua, R.M., Eng, J., Meunier, M., Grieve, J.A., Gao, W., and Ling,
+A. (2024). Polarization-encoded quantum key distribution with a room-temperature telecom
+single-photon emitter. . URL: https://arxiv.org/abs/2409.17060. arXiv:2409.17060.
+41. Antonelli, C., Shtaif, M., and Brodsky, M. (2011). Sudden death of entanglement induced by
+polarization mode dispersion. Physical review letters 106, 080404.
+42. Steiner, T.J., Shen, M., Castro, J.E., Bowers, J.E., and Moody, G. (2023). Continuous entan-
+glement distribution from an algaas-on-insulator microcomb for quantum communications.
+Optica Quantum 1, 55–62.
+
+--- PAGE BREAK ---
+
+43. Autebert, C., Bruno, N., Martin, A., Lemaitre, A., Carbonell, C.G., Favero, I., Leo, G.,
+Zbinden, H., and Ducci, S. (2016). Integrated algaas source of highly indistinguishable and
+energy-time entangled photons. Optica 3, 143–146.
+44. Steiner, T.J., Castro, J.E., Chang, L., Dang, Q., Xie, W., Norman, J., Bowers, J.E.,
+and Moody, G. (2021). Ultrabright entangled-photon-pair generation from an al ga as-on-
+insulator microring resonator. Prx Quantum 2, 010337.
+45. Shi, X., Mohanraj, S.S., Dhyani, V., Baiju, A.A., Wang, S., Sun, J., Zhou, L., Paterova, A.,
+Leong, V., and Zhu, D. (2024). Efficient photon-pair generation in layer-poled lithium niobate
+nanophotonic waveguides. Light: Science & Applications 13, 282.
+46. Zhao, J., Ma, C., R¨using, M., and Mookherjea, S. (2020). High quality entangled photon pair
+generation in periodically poled thin-film lithium niobate waveguides. Physical review letters
+124, 163603.
+47. Lohrmann, A., Johnson, B., McCallum, J., and Castelletto, S. (2017). A review on single
+photon sources in silicon carbide. Reports on Progress in Physics 80, 034502.
+48. Rahmouni, A., Wang, R., Li, J., Tang, X., Gerrits, T., Slattery, O., Li, Q., and Ma, L. (2024).
+Entangled photon pair generation in an integrated sic platform. Light: Science & Applica-
+tions 13, 110.
+49. Choi, J.W., Sohn, B.U., Chen, G.F., Ng, D.K., and Tan, D.T. (2020). Correlated photon pair
+generation in ultra-silicon-rich nitride waveguide. Optics Communications 463, 125351.
+50. Guo, X., Zou, C.l., Schuck, C., Jung, H., Cheng, R., and Tang, H.X. (2017). Parametric
+down-conversion photon-pair source on a nanophotonic chip. Light: Science & Applications
+6, e16249–e16249.
+51. Lu, C.Y., Cao, Y., Peng, C.Z., and Pan, J.W. (2022). Micius quantum experiments in space.
+Reviews of Modern Physics 94, 035001.
+52. Ong, J.R., Kumar, R., and Mookherjea, S. (2013). Ultra-high-contrast and tunable-
+bandwidth filter using cascaded high-order silicon microring filters. IEEE Photonics Tech-
+nology Letters 25, 1543–1546.
+53. Luo, L.W., Ophir, N., Chen, C.P., Gabrielli, L.H., Poitras, C.B., Bergmen, K., and Lipson, M.
+(2014). Wdm-compatible mode-division multiplexing on a silicon chip. Nature communica-
+tions 5, 1–7.
+54. Kumar, R.R., Wu, X., and Tsang, H.K. (2020). Compact high-extinction tunable crow filters
+for integrated quantum photonic circuits. Optics Letters 45, 1289–1292.
+55. Cui, L., Wang, J., Li, J., Ma, M., Ou, Z., and Li, X. (2022). Programmable photon pair source.
+APL Photonics 7.
+56. Ong, K.Y.K., Chen, G.F., Xing, P., Gao, H., and Tan, D.T. (2022). Dispersion compensation
+of high-speed data using an integrated silicon nitride ring resonator. Optics Express 30,
+13959–13967.
+57. Joshi, C., Farsi, A., Clemmen, S., Ramelow, S., and Gaeta, A.L. (2018). Frequency multi-
+plexing for quasi-deterministic heralded single-photon sources. Nature communications 9,
+847.
+
+--- PAGE BREAK ---
+
+58. Xiong, C., Zhang, X., Mahendra, A., He, J., Choi, D.Y., Chae, C., Marpaung, D., Leinse,
+A., Heideman, R., Hoekman, M. et al. (2015). Compact and reconfigurable silicon nitride
+time-bin entanglement circuit. Optica 2, 724–727.
+59. Liu, X., Yao, X., Wang, H., Li, H., Wang, Z., You, L., Huang, Y., and Zhang, W. (2019).
+Energy-time entanglement-based dispersive optics quantum key distribution over optical
+fibers of 20 km. Applied Physics Letters 114.
+60. Liu, J., Lin, Z., Liu, D., Feng, X., Liu, F., Cui, K., Huang, Y., and Zhang, W. (2023). High-
+dimensional quantum key distribution using energy-time entanglement over 242 km partially
+deployed fiber. Quantum Science and Technology 9, 015003.
+61. Wen, W., Chen, Z., Lu, L., Yan, W., Xue, W., Zhang, P., Lu, Y., Zhu, S., and Ma, X.s. (2022).
+Realizing an entanglement-based multiuser quantum network with integrated photonics.
+Physical Review Applied 18, 024059.
+62. Lu, L., Xia, L., Chen, Z., Chen, L., Yu, T., Tao, T., Ma, W., Pan, Y., Cai, X., Lu, Y. et al.
+(2020). Three-dimensional entanglement on a silicon chip. npj Quantum Information 6, 30.
+63. Xie, Z., Zhong, T., Shrestha, S., Xu, X., Liang, J., Gong, Y.X., Bienfang, J.C., Restelli, A.,
+Shapiro, J.H., Wong, F.N. et al. (2015). Harnessing high-dimensional hyperentanglement
+through a biphoton frequency comb. Nature Photonics 9, 536–542.
+64. Chapman, J.C., Graham, T.M., Zeitler, C.K., Bernstein, H.J., and Kwiat, P.G. (2020). Time-
+bin and polarization superdense teleportation for space applications. Physical Review Ap-
+plied 14, 014044.
+65. Jiang, Z., Yan, W., Lu, C., Chen, Y., Wen, W., An, Y.Y., Chen, L., Lu, Y., Zhu, S., and
+Ma, X.S. (2025). Entanglement distribution over metropolitan fiber using on-chip broadband
+polarization entangled photon source. arXiv preprint arXiv:2503.07198.
+66. Yin, P., Serafini, J.R., Su, Z., Shiue, R.J., Timurdogan, E., Fanto, M.L., and Preble, S.
+(2019). Low connector-to-connector loss through silicon photonic chips using ultra-low loss
+splicing of smf-28 to high numerical aperture fibers. Optics express 27, 24188–24193.
+67. Harada, K.i., Takesue, H., Fukuda, H., Tsuchizawa, T., Watanabe, T., Yamada, K., Tokura,
+Y., and Itabashi, S.i. (2009). Frequency and polarization characteristics of correlated
+photon-pair generation using a silicon wire waveguide. IEEE Journal of Selected Topics
+in Quantum Electronics 16, 325–331.
+68. Ma, C., Sacher, W.D., Tang, Z., Mikkelsen, J.C., Yang, Y., Xu, F., Thiessen, T., Lo, H.K.,
+and Poon, J.K. (2016). Silicon photonic transmitter for polarization-encoded quantum key
+distribution. Optica 3, 1274–1278.
+69. Zhang, Q., Wu, K., and Poon, A.W. (2024). Polarization entanglement generation in silicon
+nitride waveguide-coupled dual microring resonators. Optics Express 32, 22804–22816.

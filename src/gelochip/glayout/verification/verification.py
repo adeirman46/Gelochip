@@ -13,21 +13,33 @@ from gdsfactory.typings import Component
 def parse_drc_report(report_content: str) -> dict:
     """
     Parses a Magic DRC report into a machine-readable format.
+
+    Magic DRC report format:
+        cellname count: N
+        ----------------------------------------
+        Rule description (e.g. "N-well overlap < 0.43um (DF.7)")
+        ----------------------------------------
+         -0.890um  62.295um  -0.810um  62.680um   ← coordinate box (may be negative)
+         0.810um   51.165um   0.890um  51.550um
+        ...
     """
     errors = []
     current_rule = ""
+    # coordinate line: optional leading whitespace, then optional minus, then digits
+    _coord_re = re.compile(r"^-?\d+\.\d+")
+
     for line in report_content.strip().splitlines():
-        stripped_line = line.strip()
-        if stripped_line == "----------------------------------------":
+        stripped = line.strip()
+        if not stripped or stripped == "----------------------------------------":
             continue
-        if re.match(r"^[a-zA-Z]", stripped_line):
-            current_rule = stripped_line
-        elif re.match(r"^[0-9]", stripped_line):
-            errors.append({"rule": current_rule, "details": stripped_line})
-    
+        # Rule header lines start with a letter (but NOT the "cellname count:" line)
+        if re.match(r"^[a-zA-Z]", stripped) and "count:" not in stripped:
+            current_rule = stripped
+        # Coordinate box line — can start with '-' for negative coords
+        elif _coord_re.match(stripped):
+            errors.append({"rule": current_rule, "details": stripped})
+
     is_pass = len(errors) == 0
-    if not is_pass and re.search(r"count:\s*0\s*$", report_content, re.IGNORECASE):
-        is_pass = True
 
     return {
         "is_pass": is_pass,
@@ -138,16 +150,29 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
       - DRC: {output_dir}/drc/{design_name}/{design_name}.rpt
       - LVS: {output_dir}/lvs/{design_name}/{design_name}_lvs.rpt
     """
-    # Sanitize component name: remove gdsfactory $N suffix and special chars
+    # Sanitize component name: strip gdsfactory $N suffix and special chars
     safe_name = re.sub(r'[\$\s].*$', '', component_name).upper()
     if not safe_name:
         safe_name = component_name.upper()
-    if safe_name != component_name:
-        top_level.name = safe_name
-        new_gds = os.path.abspath(f"./{safe_name}.gds")
-        top_level.write_gds(new_gds)
-        layout_path = new_gds
-        component_name = safe_name
+
+    # Always write a fresh GDS and rename the top cell via gdstk so the name
+    # inside the file matches what Magic will be asked to load.
+    # gdsfactory appends $N for uniqueness; setting .name alone doesn't rename
+    # the underlying gdstk cell, causing Magic to find an empty cell and report
+    # "No errors" — a false CLEAN.
+    new_gds = os.path.abspath(f"./{safe_name}.gds")
+    top_level.write_gds(new_gds)
+    try:
+        import gdstk as _gdstk
+        _lib = _gdstk.read_gds(new_gds)
+        _tops = _lib.top_level()
+        if _tops and _tops[0].name != safe_name:
+            _tops[0].name = safe_name
+            _lib.write_gds(new_gds)
+    except Exception:
+        pass
+    layout_path = new_gds
+    component_name = safe_name
 
     verification_results = {
         "drc": {"status": "not run", "is_pass": False, "report_path": None, "summary": {}},
@@ -163,7 +188,11 @@ def run_verification(layout_path: str, component_name: str, top_level: Component
         # Clean up existing directory if present
         if os.path.exists(drc_output_dir):
             shutil.rmtree(drc_output_dir)
-        _gf180_pdk.drc_magic(layout_path, component_name, output_file=drc_output_dir)
+        # Pass pdk_root explicitly so drc_magic doesn't overwrite PDK_ROOT with
+        # str(None) when self.pdk_root is unset (corrupts env for later calls).
+        _pdk_root = os.environ.get("PDK_ROOT") or None
+        _gf180_pdk.drc_magic(layout_path, component_name, output_file=drc_output_dir,
+                             pdk_root=_pdk_root)
         report_content = ""
         if os.path.exists(drc_actual_report):
             with open(drc_actual_report, 'r') as f:

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gelochip Studio · RF/mmWave RAG Agent</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">◳</span>
+      <div>
+        <h1>Gelochip <span class="accent">Studio</span></h1>
+        <p class="tagline">Kaizen RAG · gf180 RF/mmWave · plan · retrieve · generate · DRC · self-correct</p>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="prompt">Prompt → GDSII</button>
+      <button class="tab" data-tab="studio">Chip Studio</button>
+      <span id="health" class="health-dot" title="checking…">●</span>
+    </nav>
+    <div id="collections" class="collections">
+      <div class="coll" data-name="glayout_knowledge"><span class="n">–</span><label>glayout knowledge</label></div>
+      <div class="coll" data-name="rf_theory"><span class="n">–</span><label>rf theory</label></div>
+      <div class="coll" data-name="error_feedback"><span class="n">–</span><label>error feedback</label></div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- ══ Left sidebar: chat/build history (ChatGPT/Claude-style) ══ -->
+    <aside class="sidebar">
+      <button id="new-chat" class="new-chat">＋ New design</button>
+      <div class="side-title">History <em class="muted">(click to restore)</em>
+        <button id="history-refresh" class="ghost xs" title="refresh">↻</button>
+      </div>
+      <div id="history" class="history"><span class="placeholder">No runs yet.</span></div>
+    </aside>
+
+    <div class="content">
+
+  <!-- ══ TAB 1: Prompt → GDSII ══ -->
+  <main class="grid view" id="view-prompt">
+    <section class="panel">
+      <form id="prompt-form" class="prompt-box">
+        <textarea id="prompt" rows="3"
+          placeholder="e.g. Design a gf180 NMOS current mirror with ratio 2 and substrate ties, DRC-clean"></textarea>
+        <div class="prompt-actions">
+          <div class="examples">
+            <button type="button" class="chip">gf180 NMOS current mirror, ratio 2</button>
+            <button type="button" class="chip">5-transistor OTA in gf180</button>
+            <button type="button" class="chip">CMOS transmission gate, DRC-clean</button>
+          </div>
+          <button type="submit" id="run-btn" class="run">Generate ▸</button>
+          <button type="button" id="stop-btn" class="ghost stop" hidden>⏹ Stop</button>
+        </div>
+      </form>
+
+      <h2 class="section-title">Pipeline</h2>
+      <ol id="pipeline" class="pipeline">
+        <li data-node="plan"><span class="dot"></span>Planner</li>
+        <li data-node="research"><span class="dot"></span>Researcher <em>(arxiv/web/github → temp RAG)</em></li>
+        <li data-node="retrieve"><span class="dot"></span>Retriever <em>(3 collections + research)</em></li>
+        <li data-node="generate"><span class="dot"></span>Generator <em>(glayout code)</em></li>
+        <li data-node="test"><span class="dot"></span>Test <em>(build + DRC + testbench)</em></li>
+        <li data-node="kaizen_memory"><span class="dot"></span>Kaizen memory <em>(on fail)</em></li>
+        <li data-node="persist"><span class="dot"></span>Persist <em>(on pass → ChromaDB)</em></li>
+        <li data-node="summarize"><span class="dot"></span>Summarize</li>
+      </ol>
+
+      <h2 class="section-title">💭 Agent thinking <em class="muted">(live reasoning)</em></h2>
+      <div id="thinking" class="thinking"><span class="placeholder">the agent's reasoning streams here…</span></div>
+
+      <h2 class="section-title">Event log</h2>
+      <div id="log" class="log"></div>
+    </section>
+
+    <section class="panel results">
+      <div class="result-card">
+        <h2 class="section-title">Knowledge &amp; research <em class="muted">(what the agent found — verify before it generates)</em></h2>
+        <div id="knowledge" class="knowledge"><span class="placeholder">research + retrieved knowledge will appear here</span></div>
+      </div>
+      <div class="result-card">
+        <h2 class="section-title">Layout (GDS preview)</h2>
+        <div id="preview" class="preview"><span class="placeholder">No layout yet</span></div>
+        <div id="gds-links" class="links"></div>
+      </div>
+      <div class="result-card">
+        <h2 class="section-title">DRC verdict</h2>
+        <div id="verdict" class="verdict idle">awaiting run…</div>
+      </div>
+      <div class="result-card">
+        <h2 class="section-title">Testbench <em class="muted">(SPICE · AC · transient — no LVS)</em></h2>
+        <div id="tb-plots" class="tb-plots"><span class="placeholder">no simulation yet</span></div>
+        <div id="spice-link" class="links"></div>
+      </div>
+      <div class="result-card">
+        <h2 class="section-title">Generated glayout code</h2>
+        <pre id="code" class="code"><code>// generated code appears here</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══ TAB 2: Chip Studio (IP library + padframe canvas + pins) ══ -->
+  <main class="studio view hidden" id="view-studio">
+    <aside class="panel ip-rail">
+      <h2 class="section-title">IP Library <em class="muted">(DRC-clean only)</em></h2>
+      <p class="hint">Drag a block onto the chip →</p>
+      <div id="ip-list" class="ip-list"></div>
+    </aside>
+
+    <section class="panel canvas-wrap">
+      <div class="canvas-toolbar">
+        <h2 class="section-title">Chip floorplan <em class="muted" id="pf-source"></em></h2>
+        <div class="toolbar-actions">
+          <button id="ai-connect" class="run small">⚡ AI connect pins</button>
+          <button id="clear-canvas" class="ghost small">Clear</button>
+        </div>
+      </div>
+      <svg id="canvas" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet"></svg>
+    </section>
+
+    <aside class="panel net-rail">
+      <h2 class="section-title">Pinout / Netlist</h2>
+      <div id="netlist" class="netlist"><span class="placeholder">Place blocks, then “AI connect pins”.</span></div>
+    </aside>
+  </main>
+
+    </div><!-- /.content -->
+  </div><!-- /.app-body -->
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

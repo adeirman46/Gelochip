@@ -58,6 +58,15 @@ faiss-cpu>=1.7.0
 sentence-transformers>=3.0.0
 arxiv>=2.1.0
 crawl4ai>=0.4.0
+# ── Kaizen RAG agent (notebooks/kaizen_architecture + src/gelochip/kaizen) ────
+# Local-first RAG: ChromaDB vector store + local HF embeddings + Ollama LLM.
+# Agent model served by Ollama:  ollama pull qwen3.5:9b
+chromadb>=0.5.0
+langchain-chroma>=0.1.4
+langchain-huggingface>=0.1.0
+langchain-text-splitters>=0.3.0
+pypdf>=4.0.0
+grandalf>=0.8          # ascii rendering of the LangGraph agent graph
 
 # ── Web interface (custom FastAPI + SSE) ──────────────────────────────────────
 fastapi>=0.111.0
@@ -70,9 +79,39 @@ mcp>=1.0.0
 # PDF figure extraction for researcher vision
 pymupdf>=1.24.0
 
+# ── ML / PixelatedRF ─────────────────────────────────────────────────────────
+# PyTorch: install with CUDA 12.8 support:
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+torch>=2.3.0
+torchvision>=0.18.0
+torchaudio>=2.3.0
+transformers>=4.50.0
+datasets>=3.0.0
+accelerate>=0.30.0
+scikit-learn>=1.5.0
+tqdm>=4.66.0
+google-generativeai>=0.7.0
+# PixelatedRF — RF/EM analysis (notebooks/pixelatedRF)
+# openEMS FDTD engine is NOT on PyPI — install via: sudo apt install openems python3-openems
+# NOTE: apt python3-openems is compiled for Python 3.10; FDTD section is skipped on Python 3.13
+scikit-rf>=0.29.0
+
+# ── SFT Fine-tuning (notebooks/sft_finetuning/finetune_qwen.ipynb) ───────────
+# QLoRA fine-tuning of Qwen3.5-VL-9B-Instruct on GDS layout datasets
+unsloth>=2024.12.0
+trl>=0.15.0
+peft>=0.14.0
+bitsandbytes>=0.43.0
+qwen-vl-utils>=0.0.14
+# Flash Attention 2 (speeds up attention, requires nvcc + CUDA toolkit):
+#   pip install flash-attn --no-build-isolation
+flash-attn>=2.6.0
+
 # ── Notebooks ────────────────────────────────────────────────────────────────
 nbconvert>=7.0.0
 jupyter>=1.0.0
+ipykernel>=6.29.0
+jupyterlab>=4.2.0
 
 # ── Utilities ─────────────────────────────────────────────────────────────────
 python-dotenv>=1.0.0
@@ -80,3 +119,4 @@ pydantic>=2.7.0
 pydantic-settings>=2.3.0
 rich>=13.7.0
 typer>=0.12.0
+ddgs>=6.0    # robust web/github search for the researcher agent

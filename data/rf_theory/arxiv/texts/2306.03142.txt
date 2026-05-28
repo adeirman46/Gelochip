@@ -1,0 +1,1353 @@
+Critical Matter
+Leo Radzihovsky
+Department of Physics, University of Colorado, Boulder, CO 80309, USA
+(Dated: June 7, 2023)
+I review a class of novel ordered states of“critical matter”, that exhibit strongly fluctuating univer-
+sal power-law orders, controlled by an infra-red attractive, non-Gaussian fixed point. I will illustrate
+how RG methods pioneered by Wilson and Fisher can be used to deduce critical phenomenology
+of such critical phases, resembling that of a critical point of second order phase transitions, but
+requiring no fine tuning.
+INTRODUCTION
+Michael Fisher is a towering figure in theoretical physics, most notably recognized for his seminal development
+(in collaboration with Ken Wilson and building on the works of Kadanoff, Migdal, Widom, Larkin, Pokrovsky,
+and others) of the renormalization group (RG)[1–3] and its numerous early applications to critical phenomena of
+continuous phase transitions[4]. In these works Michael transformed Wilson’s deep ideas[2, 3] into a practical and
+powerful theoretical tool for controlled calculations[1] (complementing more formal developments in quantum field
+theory[5]) and demonstrated its power through numerous seminal applications to critical phenomena. With this, he
+elevated RG into a central calculation tool in modern theoretical physics.
+FIG. 1: Illustration of unimportance of fluctuations inside phases of conventional systems, where qualitative effects of thermal
+fluctuations are confined to a vicinity of a critical point.
+Beginning with the earliest seminal analysis of the ϕ4 field theory to describe criticality of the Ising paramagnet-
+ferromagnet transition, most applications of RG are used to treat enhanced fluctuations near a critical point of a
+continuous phase transition, where direct perturbation theory breaks down. In such applications a critical behavior
+emerges after tuning a set of parameters - e.g., temperature, pressure, magnetic field, etc, to a (multi-) critical point
+in a phase diagram, as illustrated in Fig.1. It is only then that fluctuations and nonlinearities (interactions) become
+important (below the upper-critical dimension) and universal asymptotic critical behavior emerges, e.g., power-law,
+scale-free correlation functions and thermodynamic responses with universal exponents[6].
+In contrast to critical points, as illustrated in Fig.1 phases of matter, by their very definition are stable to weak
+generic perturbations that do not explicitly break their symmetry. They are thus characterized by infrared attractive
+fixed points, and thereby require no fine-tuning, in contrast to a critical point that separates them. Fluctuations in
+ordered Landau phases of matter[8] (that is our focus here) are characterized by their Goldstone modes associated
+with the spontaneous breaking of a continuous symmetry – Landau phases that break discrete symmetries have no
+interesting fluctuations. Despite being gapless, generically within ordered phases Goldstone-mode fluctuations are
+small, with finite root-mean-squared fluctuations, latter typically taken as the defining property of the ordered phase.
+In the RG parlance, this corresponds to typical phases that are controlled by a Gaussian attractive fixed point, as
+illustrated in Fig.1. Thus, conventional Landau phases’ description is effectively trivial, with fluctuations (above
+the lower-critical dimension, where the ordered phase is stable) only leading to small corrections to their mean-field
+description.
+arXiv:2306.03142v1  [cond-mat.stat-mech]  5 Jun 2023
+
+--- PAGE BREAK ---
+
+In this chapter I instead focus on an exotic class of ordered phases of matter – “critical phases”, e.g., smectics,
+cholesterics, columnar phases, membranes, elastomers,. . . , illustrated in Fig.2 – where in stark contrast to conventional
+phases, Goldstone-mode fluctuations are divergingly strong, interacting, and thus are controlled by a non-Gaussian
+infrared attractive fixed point, as illustrated in Fig.3. As such the resulting ordered critical phase, while breaking a
+FIG. 2: Illustration of critical phases: (a) smectics realized as conventional liquid crystals[4, 10–14], 2d colloids[15], quantum-
+Hall systems[16–22] and as striped “pair-density wave” FFLO[23, 24] superconducting phases in degenerate atomic gases[25–
+27], p-wave resonant[28], spin-orbit coupled[29] and frustrated superfluids[30],(b) cholesteric liquid crystals[4, 10, 31, 32] and
+helical state of frustrated magnets[32–35], (c) columnar liquid crystals and spontaneous vortex lattices[36–41], (d) nematic
+elastomers[42, 43], and (e) polymerized membranes[44–49].
+continuous symmetry is highly nontrivial and strongly interacting, with little resemblance of its mean-field cartoon.
+It is characterized by universal critical exponents, but in striking constrast to a critical point requires no fine-tuning,
+protected by underlying spontaneously broken symmetries, with importance of strong fluctuations and nonlinearities
+extending throughout the ordered phase. A generic ingredient of such critical phases (often associated with sponta-
+neous breaking of continuous spatial symmetries) is that underlying symmetry enforces an exact vanishing of a subset
+of elastic moduli, resulting in particularly “soft” harmonic elasticity of the associated Goldstone modes, described by
+m-Lifshitz models[9, 50].
+In subsequent sections of this chapter, I will illustrate above phenomenology through a set of examples of critical
+phases, some illustrated in Fig.2. I will begin with a detailed discussion of a quintessential critical phases – uniaxially
+periodically modulated states that spontaneously break translational and rotational symmetry, and are realized in
+numerous physical contexts, including smectic liquid crystals[4, 10, 11], cholesterics[32], helical magnets and bosons
+on frustrated lattices[30, 32–34], nonzero momentum superfluids such as Fulde-Ferrell-Larkin-Ovchinnikov (FFLO)
+superconductors[25, 26], p-wave resonantly paired bosons[28], spin-orbit coupled bosons[29], and quantum-Hall striped
+states[16–21]. In Sec. 3, I will describe a columnar states, that appear in discotic liquid crystals[4, 10, 39] and in its
+line-crystal analogs, such as putative spontaneous vortex lattice in magnetic superconductors[40, 41]. I will analyze
+another rich example of a critical phase – a thermally fluctuating tensionless polymerized membrane in Sec. 4.[44–48]
+In Sec. 5, I will discuss a nematic elastomer – a liquid crystal rubber, that, mathematically is a three-dimensional
+amalgam of a smectic and columnar phases, displaying critical phenomenology throughout its phase[42, 43].
+
+--- PAGE BREAK ---
+
+FIG. 3: Illustration of the importance of fluctuations inside ordered phases of “critical matter”, in which even deep in the
+ordered phase the quartic potential is missing the stabilizing quadratic contribution, resulting in divergent fluctuations akin
+to a critical point. The bottom of the figure is a schematic of a renormalization group flow, e.g., for a smectic state in d < 3
+dimensions, illustrating that at low T it is a “critical phase” displaying universal power-law phenomenology, controlled by a
+nontrivial infrared-stable fixed point.
+UNIAXIALLY PERIODIC CRITICAL STATES
+There is a number of states of matter that spontaneously develop a periodic modulation along an arbitrarily chosen
+single axis. Strictly speaking this can only take place in a system with underlying rotational invariance, though can
+be exhibited over an extended intermediate regime when explicitly broken rotational symmetry couples only weakly,
+as e.g., in low density electronic systems.[16, 17]
+Beyond conventional liquid crystals, some of the novel systems include helical states of frustrated and spin-orbit
+coupled magnets and bosons[29, 30, 33–35], and strongly correlated electronic and bosonic systems (quite surprising
+for isotropic and point constituents), such as FFLO[25] “striped” (“pair density wave”) superconductors[20, 27], finite
+momentum superfluids[28–30], and a two-dimensional electron gas in the quantum Hall regime of half-filled Landau
+level [16–22]. The underlying unifying feature of these diverse set of critical systems is the spontaneously broken
+rotational (in contrast to e.g., density waves in crystalline solids) and translational symmetries.
+Based on these
+symmetries that they break, we collectively refer to this class of states as smectics akin to their conventional soft
+matter liquid crystal realizations, that we turn to next.
+Smectic liquid crystals
+Illustrated in Fig.4, the most ubiquitous liquid crystal phases are the uniaxial nematic, that spontaneously breaks
+rotational symmetry of the parent isotropic fluid and the smectic state, a uniaxial one-dimensional density wave that
+further breaks translational symmetry along a single axis. The uniaxial nematic is characterized by a quadrupolar
+order parameter Qij = S(ˆniˆnj −1
+3δij), with S the strength of the orientational order along the principle uniaxial axis
+ˆn. A three-dimensional smectic-A is a periodic array of two-dimensional fluids, characterized by a uniaxial periodic
+density modulation with Fourier components that are integer multiples of the smectic ordering wavevector q0 = ˆn2π/a
+(with a the layer spacing) parallel to the nematic director ˆn; other type of smectics, e.g., smectic-C, where ˆn makes
+a nonzero angle with q0 are common.[4, 10] The dominant lowest Fourier component ψ(x) ≡ρq0 can be taken as the
+local (complex scalar) order parameter which distinguishes the smectic-A from the nematic phase[10]. It is related to
+the molecular density ρ(x) by
+ρ(x) = Re[ρ0 + ψ(x)eiq0·x] ,
+where ρ0 is the mean density of the smectic, ψ = ρq0 is the Fourier amplitude of the density at wavevector q0 and Re
+is a real part.
+As first introduced by de Gennes[10], the effective Hamiltonian functional HdG[ψ, ˆn], that describes the nematic-
+to-smectic-A (NA) transition at long length scales, is given by,
+HdG[ψ, ˆn] =
+c|(∇−iq0δˆn)ψ|2 + t0|ψ|2 + 1
+2g0|ψ|4
++ HF [n] ,
+
+--- PAGE BREAK ---
+
+FIG. 4: Illustration of the most ubiquitous nematic (orientationally ordered uniaxial fluid), smectic-A and smectic-C (one-
+dimensional density wave with, respectively isotropic and polar in-plane fluid orders) liquid crystal phases and their associated
+textures in cross-polarized microscopy (N.A. Clark laboratory).
+where t0 ∝T −TNA is the reduced temperature for transition at TNA,
+δˆn(x) ≡ˆn(x) −ˆn0 = δˆn⊥+ ˆn0(
+1 −δˆn2
+⊥−1)
+is the fluctuation of the local nematic director ˆn(x) away from its average value ˆn0, which I take to be ˆz, and HF [n]
+is the Frank effective Hamiltonian that describes the elasticity of the nematic director:
+HF [ˆn] =
+ddx 1
+Ks(∇· ˆn)2 + Kt(ˆn · ∇× ˆn)2 + Kb(ˆn × ∇× ˆn)2
+where Ks, Kt, and Kb are the bare elastic moduli for splay, twist and bend of the nematic director field, respectively.[4,
+The“minimal”gauge-like coupling between n and ψ is enforced by the requirement of global rotational invariance[10].
+It is important to emphasize, however, that although de Gennes Hamiltonian HdG closely resembles the Ginzburg-
+Landau model of a superconductor and the Abelian-Higgs model, there are essential differences, that are discussed in
+the chapter by Tom Lubensky. The physical reality of the nematic director ˆn and the smectic order parameter ψ (in
+contrast to the gauge ambiguity in the definition of the vector potential and the superconducting order parameter),
+selects the liquid crystal gauge δˆn⊥· ˆn0 = 0 as the physical gauge in which ˆn and ψ are measured. The strict gauge
+invariance is also explicitly broken in HdG by the splay term Ks(∇·ˆn)2 of the Frank Hamiltonian (contrasting with the
+Maxwell action that involves purely gauge invariant derivatives, e.g., (∇×A)2), that, as we will see below determines
+the smectic Goldstone-mode elasticity.
+Smectic elasticity
+Smectic from a nematic liquid crystal fluid
+Within the ordered smectic phase, the fluctuations are conveniently described in terms of the magnitude and phase
+of the smectic order parameter ψ. It is easy to show that the fluctuations of the magnitude of ψ around the average
+value |ψ0| =
+t0/g0 = const. are “massive”, and can therefore be safely integrated out of the partition function,
+leading to only finite, unimportant shifts in the effective elastic moduli. In contrast, the phase of ψ is a U(1) massless
+Goldstone mode, corresponding to spontaneously broken translational symmetry along q0. It is the low-energy phonon
+degree of freedom of the smectic state, describing local displacement of the smectic layers from its perfect periodic
+order. In accord with this discussion, deep within the smectic phase, we can represent the smectic order parameter as
+ψ(x) = |ψ0|e−iq0u(x) ,
+safely neglecting fluctuations in the magnitude |ψ0| at temperature below the TNA.
+
+--- PAGE BREAK ---
+
+Using this low-temperature smectic description (5) inside the de Gennes Hamiltonian (2) and dropping constants,
+one finds
+H[u, δˆn⊥] =
+2 (∇⊥u + δˆn⊥)2 + B
+2 (∂zu −1
+2δˆn2
+2 (∇· δˆn)2 + Kt
+2 (ˆz · ∇× δˆn)2 + Kb
+2 (ˆz × ∇× δˆn)2
+where B = 2c|ψ0|2q2
+0 is the smectic compression modulus.
+I observe that the fluctuation mode ∇⊥u + δˆn⊥is
+“massive” and leads to an emergent Anderson-Higgs-like mechanism, a hallmark of gauge theories. As a consequence,
+after a simple Gaussian integration over δˆn⊥, one finds that at long length scales, δˆn⊥fluctuations are constrained to
+follow ∇⊥u, corresponding to locking of the director ˆn to the smectic layer normal. The low-energy elastic smectic
+Hamiltonian is then obtained by the replacement
+δˆn⊥→−∇⊥u ,
+everywhere in Eq.(6) and Frank energy Eq.(4). Valid in the long wavelength limit and provided dislocations are
+confined, one thus obtain a nonlinear elastic Goldstone-mode Hamiltonian of the smectic phase,
+Hsm[u] =
+2 (∇2
+⊥u)2 + B
+2 (∂zu −1
+2(∇u)2)2
+where K = Ks is the splay modulus.[4, 11]
+I observe that the harmonic elasticity of the smectic – m = d−1-Lifshitz model[9] – is highly anisotropic (at harmonic
+level with scaling z ∼x2
+⊥), displaying compression modulus B along q0 and higher-order curvature (Laplacian)
+modulus transverse to q0 , with the “tension” (transverse gradient) modulus vanishing exactly. This is ensured by
+the underlying rotational symmetry, as discussed in the Introduction to critical phases. As I will show in forthcoming
+sections, as a consequence, smectic fluctuations are highly enhanced (relative to e.g., its XY model counterpart),
+resulting in importance of nonlinear Goldstone-modes’ elasticity for d ≤3, that I therefore retained in (8). I also note
+that the compressional modulus B multiplies a square of the nonlinear strain tensor, whose precise form is determined
+by the underlying invariance under arbitrary large rotation of smectic layers,
+u0(r) = z(1 −cos θ) + x sin θ,
+and maintained under coarse-graining RG. I conclude this subsection by also noting that the aforementioned connection
+to the Anderson-Higgs mechanism elucidates why a smectic state is characterized by only a single Goldstone mode u,
+rather than three, despite partially breaking two rotational and one translational symmetries. In contrast, a charged
+superconductor is well-known to have all its Goldstone modes “eaten” – fully gapped out by the Anderson-Higgs
+mechanism.
+Smectic from an isotropic fluid
+I now derive the nonlinear smectic elasticity in a more basic, complementary way, starting instead with an isotropic
+fluid state.[11] I begin with a generic energy functional that captures system’s tendency to develop a unidirectional
+wave at wavevector q0, with an arbitrary direction, and magnitude fixed at q0,
+Hsm = 1
+(∇2ρ)2 −2q2
+0(∇ρ)2
+2tρ2 −wρ3 + vρ4 + . . . ,
+(10)
+where J, q0, t, w, v are parameters of the isotropic fluid phase. Clearly, the first term is engineered so that dominant
+fluctuations and condensation are on a spherical surface at a nonzero wavevector with a magnitude q0. Thus I focus
+on the density at a wavevector q, that for now is unrelated to q0
+ρ(x) = Re
+ρq(x)eiq·x
+(11)
+where ρq(x) is a complex scalar. Without loss of generality, based on the discussion of the previous subsection, the
+order parameter ρq(x) = |ρq|e−iqu is taken to have a (constant) magnitude |ρq| and a phase qu(x). Clearly u(x) is
+just a phonon displacement along q. Substituting this expression for ρ(x) and its gradients into Hsm one finds
+Hsm = Jρ2
+4q2(∇2u)2 +
+qq · ∇u −1
+2q2(∇u)2
++ 4(q2 −q2
+qq · ∇u −1
+2q2(∇u)2
++ . . . ,
+(12)
+
+--- PAGE BREAK ---
+
+where constant parts as well as fast oscillating pieces were dropped as they average away after spatial integration of
+the above energy density. Firstly, I observe that (as discussed on general grounds above) in a harmonic part linear
+gradient elasticity in u only appears for gradients along q, namely q · ∇, with elasticity transverse to q starting
+with a Laplacian form. Secondly, the elastic energy density is an expansion in a rotationally-invariant strain tensor
+combination
+uqq = ˆq · ∇u −1
+2(∇u)2,
+(13)
+whose nonlinearities in u ensure that it is fully rotationally invariant even for large rotations. To see this (picking
+ˆq = ˆz) note that a rigid (distortion-free) rotation of q (q0ˆz →q = q0(cos θˆz+sin θˆx), can be interpreted as a spatially
+linear “distortion” u0(x) = z(1 −cos θ) + x sin θ, for which nonlinear strain uqq vanishes identically, thus, as required,
+corresponds to a vanishing energy. Thirdly, the last term in (12) vanishes for |q| picked to equal q0, corresponding to
+energetically preferred choice of modulation wavevector.
+Looking ahead, as one includes effects of fluctuations, the “bare” condition q = q0 will need to be adjusted so
+as to eliminate the fluctuation-generated linear term in uqq order by order, which amounts to an expansion in the
+nonlinear strain uqq around the correct (fluctuation-corrected) ground state. Finally, I note that the relation between
+the curvature modulus K of Laplacian (first) term and the bulk modulus B gradient (second) term is not generic and
+can be relaxed to have distinct elastic constants, as can be seen if higher order gradient terms are included in the
+original energy density, Eq. (10).
+Choosing the coordinate system such that ˆz is aligned along q, one finds that for q = q0, the Goldstone-mode
+Hamiltonian (12) reduces to the standard smectic elastic energy density, (8) derived from the de Gennes model above.
+[4, 10].
+Smectic as cholesteric and helical fluids
+Another beautiful example of a system that realizes a uniaxial periodic critical state is a cholesteric phase of chiral
+liquid crystals, illustrated in Fig.2(b). It is in fact the first liquid crystal phase discovered in cholesterol benzoate
+by Reinitzer in 1886.[4, 10] Such orientational (as opposed to mass) density wave state is ubiquitous in nature and
+is equivalent to the helical co-planar spin-spiral state that is found in non-centrosymmetric magnets like MnSi, FeSi
+and many others[33] (neglecting crystal-field pinning that is always present due to spin-orbit interactions and explicit
+breaking of rotational symmetry.).
+Following analysis of Radzihovsky and Lubensky[32], below I discuss the low-energy nonlinear elasticity of a
+cholesteric, on length scales longer than its period, a = 2π/q0. As first proposed by de Gennes, the latter is ex-
+pected, based on symmetry and an explicit harmonic derivation by Lubensky[10, 31], to be identical to that of a
+smectic, i.e., that of a one-dimensional crystalline order, that spontaneously breaks underlying translational and
+rotational symmetry, with constant-orientation “layers” transverse to the ordering wavevector, q0. Although the un-
+derlying chirality has only subtle surface effects within the cholesteric state, its effects become important in the nature
+of the phase transition in and out of the cholesteric critical state.
+The simplest model of a chiral nematic liquid crystal (a cholesteric), is captured by the chiral Frank elastic free
+energy density,
+F = 1
+2Ks(∇· ˆn)2 + 1
+2Kb(ˆn × ∇× ˆn)2 + 1
+2Kt(ˆn · ∇× ˆn + q0)2.
+(14)
+The broken chiral symmetry allows a chiral q0 term, that leads to a twist of the nematic structure into a helix with a
+pitch 2π/q0 along a spontaneously chosen axis.
+In a simplified isotropic limit of Ks = Kb = Kt, the chiral Frank energy density is then given by
+F = 1
+(∂iˆnj)2 + 2q0ˆn · ∇× ˆn + q2
+(15)
+2K (∂iˆnj + q0ϵijkˆnk)2 −1
+2Kq2
+(16)
+where after integration by parts I utilized the identity
+(∂iˆnj)2 = (∇· ˆn)2 + (∇× ˆn)2 + ∇·
+(ˆn · ∇)ˆn −ˆn∇· ˆn
+(17)
+In the absence of topological defects, neglecting the boundary term, H∗
+F is a sum of squares and is therefore
+minimized by a twist-only cholesteric state
+ˆn(r) = ˆe10 cos(q · r) + ˆe20 sin(q · r),
+(18)
+
+--- PAGE BREAK ---
+
+where ˆe10, ˆe20, ˆe30 ≡ˆe10 × ˆe20 form an orthonormal triad, with a constant twist
+ˆn · ∇× ˆn = −q0.
+(19)
+I now derive the low-energy Goldstone-mode elasticity about the cholesteric helical ground state, that can be
+parameterized according to
+ˆn(r) = ˆe1(r) cos(q · r + χ(r)) + ˆe2(r) sin(q · r + χ(r)),
+(20)
+where fluctuations are captured by the spatially dependent orthonormal triad ˆe1(r), ˆe2(r), ˆe3(r) and the helical phase
+χ(r) = −q0u(r),
+(21)
+that corresponds to the phonon field u(r) of the constant-orientation layers.
+The helical state breaks a group of three dimensional translations and rotations G = Tx,y,z × O(3) of the isotropic
+fluid down to H = Tx × Ty × U(1) (latter U(1) = diagonal[Tz, Oz(2)]). Thus, since dim[G/H = O(3)] = 3, one
+may expect three independent Goldstone modes χ(r) and ˆe3(r), corresponding to three degrees of freedom of the
+orthonormal triad; the azimuthal angle ϕ(r) defining the orientation of the ˆe1,2 around ˆe3 is not independent of χ(r)
+as it can be absorbed into it. The low-energy coset space is isomorphic to S1 × S2, a ball (radius π) of the group
+manifold of SO(3). However, despite of this standard counting, as I will show below and is expected on general
+grounds anticipated by de Gennes, the cholesteric state is characterized by a single smectic-like Goldstone mode u(r).
+To this end, substituting the form for ˆn(r) from Eq. (20) into the Frank energy of the chiral nematic (14), and
+defining effective connection gauge fields, a and c1,2
+∂iˆe1j = aiˆe2j + c1iˆe3j,
+(22a)
+∂iˆe2j = −aiˆe2j + c2iˆe3j,
+(22b)
+ai = ˆe2 · ∂iˆe1,
+c1i = −ˆe1 · ∂iˆe3,
+c2i = −ˆe2 · ∂iˆe3,
+(22c)
+one finds,
+F = K
+2 (∇χ + a + q −q0ˆe3)2 + K
+4 (c1 + q0ˆe2)2 + K
+4 (c2 −q0ˆe1)2.
+(23)
+In above, I again neglected spatially oscillating and constant terms.
+Taking q = q0ˆz, with ˆz defining the helical axis (distinct from the normal to the helical plane, ˆe3) and noting the
+compatibility condition on effective flux or its equivalent vanishing of the Pontryagin density
+∇× a = ϵijˆe3 · ∂iˆe3 × ∂jˆe3 = 0,
+(24)
+required by well-defined cholesteric layers, i.e., in the absence of dislocations and disclinations in the layer structure,
+allows one to take
+a = ∇ϕ.
+(25)
+Under this condition ϕ can be eliminated in favor of χ, i.e., χ+ϕ →χ and in the laboratory coordinate system ˆx, ˆy,ˆz,
+the fluctuations are characterized by the local helical frame described by χ and ˆe3, with
+ˆe3 = ˆe3⊥+ ˆz
+1 −ˆe2
+3⊥≈ˆe3⊥+ ˆz(1 −1
+2ˆe2
+3⊥).
+(26)
+I thus obtain
+F = 1
+2(∇⊥χ −q0ˆe3⊥)2 + 1
+2(∂zχ + 1
+2q0ˆe2
+3⊥)2 + 1
+4(c2
+1 + c2
+2) + q0
+2 (c1 · ˆe2 −c2 · ˆe1).
+(27)
+From the minimization of the first term (or equivalently integrating out the independent ˆe3⊥degree of freedom), I
+obtain an effective constraint
+∇⊥χ = q0ˆe3⊥,
+(28)
+that is an example of an emergent Higgs mechanism (akin to smectic liquid crystals discussed above) locking the
+cholesteric layers with the molecular frame orientation.
+With this constraint (valid at low energies) the effective
+cholesteric Hamiltonian reduces to
+F = 1
+∂zχ + 1
+(∇⊥χ)22 +
+(ˆeαγ · ∂⊥
+β ∂⊥
+γ χ)2 + q0
+2 (ˆe1αˆe2β∂β∂αχ −ˆe2αˆe1β∂β∂αχ),
+(29a)
+∂zu −1
+2(∇u)22 + K
+2 (∇2u)2
+(29b)
+
+--- PAGE BREAK ---
+
+where compressional modulus B = Kq2
+0, ˆeα,iˆeα,j = δij and ˆe1,iˆe2,j −ˆe2,iˆei,j = ˆe3,kϵijk were used, and to eliminate
+the last term in the first line above I used the condition of the single-valuedness of the phase field χ, i.e., well defined
+cholesteric layers with no dislocations. However, this last condition is violated and thus distinguishes the cholesteric
+from a smectic near a phase transition out of the cholesteric state.
+Thus, as advertised and expected on symmetry grounds one indeed finds[32], that cholesteric Goldstone-mode
+elasticity, even at the nonlinear level is identical to that of a conventional smectic – at harmonic level controlled by
+the m = d −1-Lifshitz model[9]. Thus smectic critical state universal phenomenology, to be worked out below, will
+equally apply to the cholesteric state.
+Smectic as a helical bosonic superfluid
+I next discuss a quantum realization of a smectic state, namely via interacting superfluid bosons on a frustrated
+honeycomb lattice.[30] Other bosonic realizations also appear in p-wave Feshbach-resonant[28] and Rashba spin-
+orbital coupled [29] bosons, engineered in a controlled way in cold atom experiments[29, 51] to condense at a nonzero
+momentum, k0.
+I refer the reader to the original literature for these latter systems and here focus on bosons on a frustrated
+honeycomb latice, modeled by a tight-binding dispersion with nearest t1 and next-nearest (antiferromagnetic) −t2
+neighbor hopping amplitudes, with
+H = −t1
+⟨ij⟩
+i,1aj,2 + t2
+⟨⟨ij⟩⟩
+i,1aj,1 + a†
+i,2aj,2) + h.c. + U
+s=1,2
+ni,s(ni,s −1).
+(30)
+For sufficiently frustrated hopping, with t2/t1 > 1/6 (that has been engineered in an optical lattice through Floquet
+techniques [51]), above system displays a dispersion minimum at a nonzero momentum closed contour, illustrated in
+Fig.5.
+FIG. 5: (a) A black circular curve is a nonzero momentum k0 minimum in the noninteracting microscopic dispersion ϵ−
+k (around
+the Γ point in the Brillouin zone, dashed blue curve) of bosons on a frustrated honeycomb lattice, (30). (b) The dispersion of
+the interacting helical superfluid, Eq around q = k −k0 = 0, with green (see inset) indicating quadratic q2
+⊥form along q⊥and
+blue (see inset) |q∥| along the condensate momentum, k0, consistent with symmetry-expected smectic form, given by (35). The
+black-dashed contour indicates the degenerate minimum of the noninteracting band ϵ−
+Such nonzero dispersion, with a closed minimum contour is approximately circular for t2/t1 ≈1/6 + ϵ and can be
+faithfully modeled by a continuum field theory, encoded in a noninteracting Hamiltonian H0 =
+r ˆΨ†
+rˆεr ˆΨr with,
+ˆεr = J(−∇2 −k2
+0)2 + ε0,
+(31)
+with a quartic dispersion
+εk = J(k2 −k2
+0)2 + ε0,
+(32)
+and minima lying on contour k2 = k2
+0. The corresponding Euclidean (imaginary-time τ) Lagrangian is given by,
+L = Ψ∗∂τΨ + J|∇2Ψ|2 −2Jk2
+0|∇Ψ|2 + (˜ε0 −µ)|Ψ|2 + U
+2 |Ψ|4.
+(33)
+
+--- PAGE BREAK ---
+
+For µ > ϵ0 bosons condense into a nonzero-momentum superfluid state, a simplest version of which is a helical
+condensate at a single point k0 on the dispersion contour minimum – encoded in εk, (32). In the density-phase
+representation, the state is characterized by
+Ψ(r) = √neik0·r+iϕ = √n0 + πeik0·r+iϕ
+(34)
+with a nonzero condensate density (at mean-field level) n0 = (µ −ε0)/U and momentum k0, for µ > ε0 (vanishing
+otherwise), and density and phase fluctuations, π and ϕ, respectively. To quadratic order, the helical superfluid is
+then described by a Goldstone-mode Lagrangian density, which, after integrating out density field π gives a zero-
+temperature quantum “columnar” Lagrangian – m = d −2-Lifshitz model in d space-time dimensions[9] – (to also
+appear in subsequent sections)
+Lϕ ≈Bτ(∂τϕ)2 + B(∂∥ϕ)2 + K(∂2
+⊥ϕ)2.
+(35)
+At nonzero T, (35) reduces to the classical smectic (m = d −1-Lifshitz model[9]) Hamiltonian for ϕ discussed in
+previous subsections.
+Smectic as a Fulde-Ferrell-Larkin-Ovchinnikov superconductor
+A singlet superconductor, frustrated by a depairing Zeeman field has been predicted by Fulde and Ferrell[23] and by
+Larkin and Ovchinnikov[24] (FFLO) to pair at a nonzero momentum, thereby exhibiting a periodic modulation of the
+Cooper-pair amplitude – a pair-density wave (PDW)[25, 27]. Such FFLO state, in the absence of deleterious orbital
+field and pinning lattice effects was proposed[26, 52, 53] to be realizable in spin imbalanced (polarized) Feshbach-
+resonant paired atomic superfluids. It is now believed to have been observed in an array of decoupled one-dimensional
+traps, with recent progress toward a higher dimensional realization of the FFLO superfluid.[54]
+While microscopic analysis is a bit involved[25, 52, 53], its upshot is a derivation of an effective Landau theory
+of the form (33) for the pairing amplitude, with a harmonic disperson εk, for intermediate Zeeman field (chemical
+potential for spin imbalance) hc1 < h < hc2, displaying a minimum on nonzero momentum closed contour, akin to
+that of the helical superfluid (33), above. Fulde-Ferrell and Larkin-Ovchinnikov are two simplest states that minimize
+this Lagrangian. The FF state is characterized by a pairing amplitude, [23]
+ΨF F (r) = Ψq0eiq0·r+iϕ,
+(36)
+that is a plane-wave with the momentum q0 and a single Goldstone mode ϕ, a local superconducting phase. The
+state carries a nonzero, uniform spontaneously-directed supercurrent
+jF F = 1
+m|Ψq0|2(q0 + ∇ϕ),
+(37)
+and thereby breaks time-reversal and rotational symmetries, chosen spontaneously along q0, as well as the global
+gauge symmetry, corresponding to the total atom conservation. The low-energy Lagrangian for ϕ(r, τ) takes the
+smectic (columnar at T = 0) form, (35).
+The LO state[24] is a time-reversal symmetric counterpart, that is a superposition of ±q0 paired condensates, given
+ΨLO(r) = Ψ+(r)eiq·r + Ψ−(r)e−iq·r,
+(38a)
+= 2|Ψq0|ei 1
+2 (ϕ++ϕ−) cos
+q0 · r + 1
+2(ϕ+ −ϕ−)
+(38b)
+= 2|Ψq0|eiϕ cos
+q0 · r + θ
+(38c)
+It is characterized by the superfluid phase ϕ and the phonon u = θ/q0 Goldstone modes, with a combination of the
+XY and smectic sectors in a classical Hamiltonian,
+HLO = 1
+2K(∇2u)2 + 1
+ ∂∥u −1
+2(∇u)22 + 1
+s(∂∥ϕ)2 + 1
+s (∇⊥ϕ)2,
+(39)
+whose zero-temperature quantum counterpart is a combination of XY and “columnar” – m = d −2-Lifshitz model
+in d space-time dimensions[9] forms. At nonzero temperature one thus expects FF and LO states to display critical
+smectic phenomenology that I discuss in the next section.
+
+--- PAGE BREAK ---
+
+Smectic as quantum Hall stripes
+One other prominent example of a quantum smectic has been argued theoretically[18–21] to be realized in half-filled
+large N Landau level regime and observed experimentally[16, 17] at such filling ν = N + 1/2 through appearance
+of a highly anisotropic transport below 100 milli-Kelvin.
+At mean-field level the state is described as a periodic
+array of alternative integer filling N and N + 1 quantum Hall stripes, predicted to be the exact ground state in the
+N ≫1 limit. Beyond Hartree-Fock theory[18, 19], fluctuations of such a striped state are well described by chiral edge
+Luttinger liquids, corresponding to inter- (positions) and intra- (shape) stripe phonons of this quantum Hall smectic.
+Much of the analysis discussed below, importantly beyond its harmonic fluctuations, will also apply to this state at
+nonzero temperature leading to a critical smectic state. At zero temperature, it is described by “cholesteric”-like, i.e.,
+m = d −2-Lifshitz model in d space-time dimensions[9].
+Nonzero T Gaussian fluctuation in a harmonic smectic
+To assess the extent of thermal fluctuations of the smectic Goldstone mode u(r) I first analyze them within a
+harmonic approximation, neglecting elastic nonlinearities in Hsm.
+[4, 55] In terms of the Fourier modes uk, the
+Hamiltonian decouples, reducing to
+Hsm = 1
+(2π)d
+ Kk4
+⊥+ Bk2
+|uk|2,
+(40)
+thus allowing a straightforward computation of phonon correlation functions via standard Gaussian integrals or equiv-
+alently via equipartition. This gives mean-squared fluctuations
+⟨u2⟩T
+Z Λ⊥
+(2π)d
+Bk2z + Kk4
+BK Cd−1L3−d
+, d < 3,
+BK ln q0L⊥,
+d = 3,
+(41)
+where I defined a constant Cd = Sd/(2π)d = 2πd/2/[(2π)dΓ(d/2)], with Sd a surface area of a d-dimensional sphere,
+and introduced an infrared cutoff by considering a system of finite extent L⊥× Lz, with Lz the length of the system
+along the ordering (z) axis and L⊥transverse to z. Unless it has a huge aspect ratio, such that Lz ∼L2
+⊥/λ >> L⊥,
+any large system (L⊥, Lz >> λ) will have λLz ≪L2
+The key observation here is that the smectic phonons exhibit fluctuations that diverge, growing logarithmically
+in 3d and linearly in 2d with system size L⊥; for d > 3 fluctuations are bounded. Thus, as a consequence of their
+“soft” elasticity (a vanishing (∇⊥u)2 modulus) 3d smectics are akin to 2d XY systems, such as superfluid films and
+two-dimensional crystals, [8, 56–59], exhibit a power-law order in three dimensions.
+The expression for the mean-squared phonon fluctuations in (41) leads the emergence of important crossover length
+scales ξ⊥, ξz, related by
+ξ⊥= (ξz
+K/B)1/2 ≡
+ξzλ,
+(42)
+that characterize the finite-temperature smectic state. These are defined as scales L⊥, Lz at which phonon fluctuations
+are large, comparable to the smectic period a = 2π/q0. Namely, setting
+⟨u2⟩T
+0 ≈a2
+(43)
+in Eq. (41) one finds
+T q0 ,
+d = 2,
+ae4πa2√
+BK/T ∼ae
+T q0 , d = 3,
+(44)
+where in the second form of the above expressions I took the simplest approximation for the smectic anisotropy length
+K/B to be λ = a ∼1/q0, and introduced O(1) Lindemann constant c,[60] that depends on the somewhat
+arbitrary definition of “large” phonon root-mean-squared fluctuations.
+The smectic connected correlation function
+Cu(x⊥, z) = ⟨[u(x⊥, z) −u(0, 0)]2⟩0 .
+(45)
+
+--- PAGE BREAK ---
+
+is also straightforwardly worked out, in 3d giving the logarithmic Caill´e form[55]
+u (x⊥, z) = 2T
+Z d2k⊥dkz
+(2π)3
+1 −eik·x
+⊥+ Bk2z
+ zλ
+, x⊥
+(46a)
+ −x2
+4λ|z|
+(46b)
+  x⊥
+λ|z| ,
+  4λz
+, x⊥≪
+λ|z| ,
+(46c)
+where Ei(x) is the exponential-integral function. As indicated in the last form, in the asymptotic limits of x⊥≫
+and x⊥≪
+λz above 3d correlation function reduces to a logarithmic growth with x⊥and z, respectively.
+In 2d one instead finds[61]
+u (x, z) = 2T
+Z dkxdkz
+(2π)2
+1 −eik·x
+Kk4x + Bk2z
+x2 , x
+(47a)
+= 2T
+  |z|
+1/2
+e−x2/(4λ|z|) + |x|
+4λerf
+ |x|
+4λ|z|
+(47b)
+1/2
+, x ≪
+λ|z| ,
+λ|z| ,
+(47c)
+where erf(x) is the Error function.
+As a consequence of above divergent phonon fluctuations, the smectic density wave order parameter (11) vanishes
+in thermodynamic limit
+⟨ρ(x)⟩0 = 2|ρq|⟨cos
+q0 · x −qu(x)
+(48a)
+= 2|ρq|e−1
+2 q2
+0⟨u2⟩0 cos
+ q0 · x),
+(48b)
+= 2˜ρq(L⊥) cos
+ q0 · x),
+(48c)
+with the thermally suppressed order parameter amplitude given by
+˜ρq(L⊥) = |ρq|
+( e−L⊥/ξ⊥,
+d = 2,
+η/2
+, d = 3,
+(49a)
+for L⊥→∞,
+(49b)
+where I used results for the phonon and phase fluctuations, (41), and defined the Caill´e exponent
+(50)
+Thus, in qualitative contrast to its mean-field cartoon, at long scales (longer than ξ⊥,z) the smectic state is actually
+characterized by a uniform mass density.
+Since the average density is actually uniform, a better characterization of the smectic state is through the structure
+function, S(q), a Fourier transform of the density correlation function, that in 3d is given by
+S(q) =
+d3x⟨δρ(x)δρ(0)⟩e−iq·x,
+(51a)
+|ρqn|2
+⟨e−iqn(u(x)−u(0))⟩0e−i(q−qnˆz)·x,
+(51b)
+|ρqn|2
+|qz −nq0|2−n2η ,
+for d = 3,
+(51c)
+where I approximated phase and phonon fluctuations by Gaussian statistics (in 3d valid up to weak logarithmic
+corrections[11]). Thus as anticipated one finds that the logarithmically divergent 3d phonon fluctuations lead to a
+
+--- PAGE BREAK ---
+
+structure function, with highly anisotropic (qz ∼q2
+⊥/λ) quasi-Bragg peaks replacing the true (δ-function) Bragg peaks
+characteristic of a true long-range periodic order.[4, 10, 62]
+In two dimensions, smectic order is even more strongly suppressed by thermal fluctuations. The linear growth
+of the 2d phonon fluctuations leads to exponentially short-ranged correlations of the density, expected to result in
+dislocation unbinding at any nonzero temperature, thereby completely destroying smectic state in 2d.[61]
+Nonlinear elasticity: beyond Gaussian fluctuations
+Perturbation theory
+As is clear from the analysis of the previous subsection, the restoration of the translational symmetry (a vanishing
+⟨ρq(x)⟩, etc.) by thermal fluctuations is a robust prediction of the quadratic theory, that cannot be overturned by the
+left-out nonlinearities. However, as discussed in the Introduction and illustrated instability of the smectic Gaussian
+fixed point (in d < 3) in Fig.3, the asymptotic long-scale form of the correlation functions computed within the
+harmonic approximation only extends out to the nonlinear length scales ξNL
+⊥,z. On longer scales, the divergently large
+smectic phonon fluctuations invalidate the neglect of phonon nonlinearities,
+Hnonlinear = −1
+2B(∂zu)(∇u)2 + 1
+8B(∇u)4.
+(52)
+These will necessarily qualitatively modify predictions (46c), (47c), and (51) on scales longer than the crossover scales
+⊥,z, that I compute next.
+FIG. 6: Feynman graph that renormalizes the elastic moduli K, B of the smectic state.
+To see this, one uses a perturbative expansion in the nonlinear operators (52) to assess the size of their contribution
+to e.g., the free energy. Following the standard field-theoretic RG analysis, pioneered by Wilson and Fisher[1] (but
+here applied to the critical smectic phase, rather than to a critical point) these can be accounted for as corrections to
+the compressional B and bend K elastic moduli, with the leading softening (negative) contribution to δB, summarized
+graphically in Fig.6, and given by
+δB = −1
+2TB2
+⊥Gu(q)2 ,
+(53a)
+2TB2
+dd−1q⊥
+(2π)d−1
+(Kq4
+⊥+ Bq2z)2 ,
+Cd−1T
+3 −d
+1/2
+L3−d
+(53b)
+In above, I used the smectic correlator, Gu(q), focused on d ≤3 (which allowed the dropping of the uv-cutoff (Λ)
+dependent part that vanishes for Λ →∞), and cutoff the divergent contribution of the long wavelength modes via the
+infra-red cutoff q⊥> 1/L⊥by considering a system of a finite extent L⊥. Similar analysis gives a positive fluctuation
+correction to the bend modulus K, stiffening the undulation mode.[25]
+Clearly the anharmonicity becomes important when the fluctuation corrections to the elastic constants (e.g., δB
+above) become comparable to its bare microscopic value. As the analysis below demonstrates, the divergence of this
+correction as L⊥→∞signals the breakdown of the conventional harmonic elastic theory on length scales longer than
+a crossover scale
+1/2
+, d = 2,
+1/2
+, d = 3,
+(54)
+
+--- PAGE BREAK ---
+
+which I define here as the value of L⊥at which |δB(ξNL
+⊥)| = B. Within the approximation of the smectic screening
+length λ = a, these nonlinear crossover lengths reduce to the phonon disordering lengths (42), (44), defined by the
+Lindemann-like criterion.[60] Clearly, on scales longer than ξNL
+⊥,z (also a crossover scale from Gaussian to smectic fixed
+point in Fig.1) the perturbative contributions of nonlinearities dominate and therefore cannot be neglected. Their
+contribution are thus expected to qualitatively modify the harmonic predictions of the previous subsection.
+Renormalization group analysis in d = 3 −ϵ dimensions
+To describe the physics beyond the crossover scales, ξNL
+⊥,z – i.e., to make sense of the infra-red divergent perturbation
+theory found in Eq.53b – requires a renormalization group analysis.[1–3] This was first performed in the context of
+conventional 3d smectic liquid crystals and Lifshitz points in a seminal work by Grinstein and Pelcovits (GP)[11].
+Below, I complement GP’s treatment with Wilson’s momentum-shell renormalization group (RG) analysis, extending
+it to an arbitrary dimension d, so as to connect to the behavior in 2d, that has an exact solution[63].
+To this end I integrate (perturbatively in Hnonlinear) short-scale Goldstone modes in an infinitesimal cylindrical
+shell of wavevectors, Λe−δℓ< q⊥< Λ and −∞< qz < ∞(δℓ≪1 is infinitesimal).
+The leading perturbative
+momentum-shell coarse-graining contributions come from terms found in direct perturbation theory above, but with
+the system size divergences controlled by the infinitesimal momentum shell. The thermodynamic averages can then
+be equivalently carried out with an effective coarse-grained Hamiltonian of the form (8), with momentum-dependent
+couplings obtained from integrating up their infinitesimal corrections, obtained via momentum-shell RG. For smectic
+moduli B and K this gives,
+δB ≈−1
+8gBδℓ,
+δK ≈1
+16gKδℓ,
+(55)
+where the dimensionless coupling is given by
+g = Cd−1Λd−3
+1/2
+1/2
+(56)
+and in the second form I approximated g by its value in 3d. Eqs.(55) show that B is softened and K is stiffened by
+the nonlinearities in the presence of thermal fluctuations, making the system effectively more isotropic, as one may
+expect on general physical grounds.
+For convenience I then anisotropically rescale the lengths and the remaining long wavelength part of the fields u<(r)
+according to r⊥= r′
+⊥eδℓ, z = z′eωδℓand u<(r) = eϕδℓu′(r′), so as to restore the ultraviolet cutoff Λ⊥e−δℓback up to
+Λ⊥. The underlying rotational invariance ensures that the nonlinear fluctuation corrections preserve the rotationally
+invariant strain operator
+ ∂zu −1
+2(∇⊥u)2
+, renormalizing it as a whole. It is therefore convenient (but not necessary)
+to choose the dimensional rescaling that also preserves this form. It is easy to see that this choice leads to
+ϕ = 2 −ω .
+(57)
+The leading (one-loop) corrections to the effective coarse-grained and rescaled free energy functional can then be
+summarized by differential RG flows
+dB(ℓ)
+= (d + 3 −3ω −1
+8g(ℓ))B(ℓ) ,
+(58a)
+dK(ℓ)
+= (d −1 −ω + 1
+16g(ℓ))K(ℓ) .
+(58b)
+From these one readily obtains the flow of the dimensionless coupling g(ℓ)
+dg(ℓ)
+= (3 −d)g −5
+32g2 ,
+(59)
+whose flow for d < 3 away from the g = 0 Gaussian fixed point encodes the long-scale divergences found in the
+direct perturbation theory above. This resembles the Wilson-Fisher flow at the critical point just below d = 4[1],
+but, as discussed in the Introduction requires no fine tuning. As summarized in Fig.3 for d < 3 the flow terminates
+at a nonzero fixed-point coupling g∗= 32
+5 ϵ (with ϵ ≡3 −d), that determines the nontrivial long-scale behavior of
+the smectic critical phase (see below). As with treatments of critical points[1, 4], but here extending over the whole
+
+--- PAGE BREAK ---
+
+smectic phase, the RG procedure is quantitatively justified by the proximity to d = 3, i.e., controlled by the smallness
+of ϵ.
+One can now use a standard matching calculation to determine the long-scale asymptotic form of the correlation
+functions on scales beyond ξNL
+⊥,z. Namely, applying above coarse-graining RG analysis to a computation of correlation
+functions allows one to relate its form at long length scales of interest (that, because of infrared divergences is impossible
+to compute via a direct perturbation theory in nonlinearities) to its counterpart at short scales, evaluated with coarse-
+grained couplings, B(ℓ), K(ℓ),. . . . In contrast to the former, the latter is readily computed via a perturbation theory,
+that, because of shortness of the length scale is convergent. The result of this matching calculation to lowest order
+gives correlation functions from an effective Gaussian theory,
+Gu(k) ≈
+B(k)k2z + K(k)k4
+(60)
+with moduli B(k) and K(k) that are singularly wavevector-dependent, determined by the solutions B(ℓ) and K(ℓ) of
+the RG flow equations (58a) and (58b), with initial conditions given by the microscopic values B and K.
+2d analysis: In d = 2, at long scales g(ℓ) flows to a nontrivial infrared stable fixed point g∗= 32/5, and the matching
+analysis predicts correlation functions characterized by anisotropic wavevector-dependent moduli
+K(k) = K
+ k⊥ξNL
+−ηK fK(kzξNL
+/(k⊥ξNL
+⊥)ζ) ,
+(61a)
+∼k−ηK
+B(k) = B
+ k⊥ξNL
+ηB fB(kzξNL
+/(k⊥ξNL
+⊥)ζ) ,
+(61b)
+∼kηB
+Thus, on scales longer than ξNL
+⊥,z these qualitatively modify the real-space correlation function asymptotics of the
+harmonic analysis in the previous subsection. In Eqs.(61) the universal anomalous exponents are given by
+ηB = 1
+8g∗= 4
+5 ϵ ,
+for d = 2 ,
+(62a)
+ηK =
+16g∗= 2
+5 ϵ ,
+for d = 2 ,
+(62b)
+determining the z −x⊥anisotropy exponent via (60) to be
+ζ ≡2 −(ηB + ηK)/2 ,
+(63a)
+5, for d = 2 ,
+(63b)
+as expected reduced by thermal fluctuations down from its harmonic value of 2. The k⊥−kz dependence of B(k), K(k)
+is determined by universal scaling functions, fB(x), fK(x) that I will not compute here. The underlying rotational
+invariance gives an exact relation between the two anomalous ηB,K exponents
+3 −d = ηB
+2 + 3
+2ηK ,
+(64a)
+1 = ηB
+2 + 3
+2ηK ,
+for d = 2,
+(64b)
+which is obviously satisfied by the anomalous exponents, Eqs.(62b),(62a), computed here to first order in ϵ = 3 −d.
+Thus, as advertised, I find that at nonzero temperature, a 2d smectic state is highly nontrivial and qualitatively
+distinct from its mean-field perfectly periodic form. In addition to a vanishing density modulation and associated
+fluctuation-restored translational symmetry, it is characterized by universal nonlocal length-scale dependent moduli,
+Eq. (61). Consequently its Goldstone mode theory and the associated correlations are not describable by a local
+harmonic field theory, that is an analytic expansion in local field operators. Instead, in 2d, on length scales beyond
+⊥,z (but shorter than the expected dislocation unbinding length ξdisl) thermal fluctuations and correlations of this
+smectic critical phase are controlled by a nontrivial fixed point, illustrated in Fig.
+3, characterized by universal
+anomalous exponents ηK,B and scaling functions fB,K(x), defined above.
+
+--- PAGE BREAK ---
+
+Above I obtained this nontrivial structure from an RG analysis and estimated these exponents within a controlled
+but approximate ϵ-expansion. Remarkably, in 2d an exact solution of this problem was discovered by Golubovic and
+Wang[63]. It predicts critical phenomenology in a qualitatively agreement with the RG predictions above, and gives
+exact exponents
+= 1/2,
+K = 1/2,
+ζ2d = 3/2,
+(65)
+derived by maping onto the 1+1d KPZ equation.[64]
+3d analysis: In d = 3, the nonlinear coupling g(ℓ) is marginally irrelevant, flowing to 0 at long scales. Despite
+this, as discovered by Larkin and Khmel’nitskii and by Michael Fisher, et al., in the context of the Ising model[2,
+65, 66], the marginal flow to the Gaussian fixed point is sufficiently slow (logarithmic in lengths) that (as usual at a
+marginal dimension[4]) its power-law in ℓdependence leads to a universal, asymptotically exact logarithmic wavevector
+dependence found in a smectic by Grinstein and Pelcovits[11],
+K(k⊥, kz = 0) ∼K|1 + 5g
+64π ln(1/k⊥a)|2/5 ,
+(66a)
+B(k⊥= 0, kz) ∼B|1 +
+128π ln(λ/kza2)|−4/5.
+(66b)
+This translates into the smectic order parameter correlations given by
+q(x)ρq(0)⟩∼e−c1(ln z)6/5 cos(q0z),
+(67)
+with 2/5, 4/5, and 6/5 exact universal exponents and c1 a nonuniversal constant[11]. Although these 3d anomalous
+effects are less dramatic and likely to be difficult to observe in practice, theoretically they are quite significant as they
+represent a qualitative breakdown of the mean-field and harmonic descriptions, that respectively ignore interactions
+and thermal fluctuations.
+I conclude this section by noting that all of the above analysis is predicated the validity of the purely elastic model,
+Eq. (8), that neglects topological defects, such as dislocations. If these unbind (as they undoubtedly do in 2d at any
+nonzero temperature[61]), then above prediction only hold on scales shorter than the separation ξdisl between these
+defects.
+III.
+BIAXIALLY PERIODIC CRITICAL STATES: SPONTANEOUS LINE-CRYSTALS
+Another class of critical states are those partially crystalized along two of the three axes. They can be dubbed as
+“spontaneous line-crystals” as they are a periodic 2d crystalline array of 1d liquids, oriented along a spontaneously
+chosen axis, illustrated in Fig.2(c), and in this sense dual to a uniaxially periodic critical state – a 1d periodic array
+of 2d liquids – the m = d −1-Lifshitz model[9], discussed in Sec.II. As I discuss below, its key feature is rotational
+symmetry-enforced vanishing of the tilt modulus – the m = 1-Lifshitz model[9], that leads to its enhanced critical
+fluctuations.
+Columnar liquid crystal
+One example of a spontaneous line-crystal is a ubiquitous “columnar” liquid crystal. It emerges from a nematic
+fluid composed of a high aspect ratio disk-shaped constituents, illustrated in Fig. 2(c).[10] In this phase disk-shaped
+molecules stack into one-dimensional fluid columns along a spontaneous nematic axis, that freeze into a 2d crystal
+(typically triangular lattice), retaining fluid order along the columns. Such discotic liquid crystal, forming a 2d crystal
+of 1d fluid columns compliments the smectic state of 1d periodic array of 2d fluids, discussed in earlier sections.
+Simple analysis similar to that of a smectic, shows that for d < 5/2 the columnar liquid crystal (m = 1-Lifshitz
+model[9]) is a critical phase, though given this dimensional constraint not a very practical one for experimental
+realization. However, although I do not pursue the subject here, I note that far stronger distortion effects of quenched
+disorder (e.g., columnar state in aerogel[12–14]) lead to a critical columnar glass for d < 7/2, characterized by an
+infrared attractive fixed point controlled by disorder.[39]
+The columnar state is characterized by a two-component phonon field u = (ux, uy), that are two Goldstone modes
+associated with translational symmetry breaking in the plane transverse to the columns. Analogously to a smectic,
+the Goldstone modes associated with the rotational symmetry are gapped out by the emergent Higgs mechanism.[32]
+Although one can derive the Goldstone mode elasticity for the columnar state by following the approach analogous
+to that of a smectic, here I will simply write it down based on symmetry and experience with the smectic. To this
+
+--- PAGE BREAK ---
+
+end I note that the columnar state exhibits two types of rigidities, the in-plane (transverse to the columnar axis ˆz)
+crystalline elasticity and bending elasticity of the columns. The former is characterized by shear and bulk elasticity
+of a 2d crystal. The latter is captured by the higher-derivative curvature (rather than tension) filament elasticity.
+Together these give the energy density
+Hcol = 1
+2κ(∂2
+zu)2 + λ
+2 u2
+αα + µ u2
+(68)
+where κ is the curvature modulus, µ and λ are Lam´e elastic moduli of 2d triangular lattice[4], and (with the summation
+convention over repeated indices) the strain tensor is given by
+uαβ = 1
+∂αuβ + ∂βuα −∂γuα∂γuβ
+∂αuβ + ∂βuα −∂zuα∂zuβ
+(69)
+The two phonons, u(x, y, z) = (ux, uy) are fields in a three-dimensional space, and in the second approximate form
+above I only kept the most important strain nonlinearities.
+As in the discussion of the smectic elasticity, the columnar nonlinear elasticity (68) is strictly constrained by
+symmetry. The linear z derivative in the harmonic terms is forbidden by the rotational invariance about the x axes
+(broken spontaneously), at infinitesimal level corresponding to u →u + θzˆy. This “softness” with respect to ∂zu
+modes then requires one to keep corresponding nonlinearities in the in-plane strain tensor, uαβ above, the form of
+which is dictated by the in-plane rotational invariance.
+As in a smectic, here too the analysis of quadratic phonon fluctuations leads to power-law divergence for d < 5/2,
+requiring inclusion of elastic nonlinearities in (68) via (69). Account of these via an RG analysis very similar to that
+of the smectic in the previous section, leads to a nontrivial infrared stable fixed point controlled by ϵ = 5/2 −d, that
+characterizes the universal properties of the resulting columnar critical phase (as in Fig.3). For technical details, I
+refer the reader to the original literature.[39]
+Spontaneous vortex lattice in magnetic superconductors
+Another putative realization of a biaxially periodic (line-crystal) critical state is a “spontaneous vortex lattice”’ in a
+ferromagnetic supercondutor (FS). Rare-earth borocarbide materials are believed to be examples of the latter, exhibit-
+ing a rich phase diagram that includes superconductivity, antiferromagnetism, ferromagnetism and spiral magnetic
+order.[36–38] In particular, there is now ample experimental evidence that, at low temperatures, superconductivity
+and ferromagnetism competitively coexist in ErNi2B2C compounds, and perhaps in more recently discovered high
+temperature superconductor Sr2Y Ru1−xCuxO6.
+For sufficiently strong ferromagnetism, such FS’s have been predicted[38] to exhibit a spontaneous vortex (SV)
+state driven by the spontaneous magnetization, rather than by an external magnetic field H. It is clear based purely
+on symmetry arguments that for H = 0 and in the absence of atomic crystal anisotropy, the elastic properties of
+the resulting SV solid differ dramatically and qualitatively from those of a conventional Abrikosov lattice. The key
+underlying difference is the aforementioned vanishing of the tilt modulus (68), which is guaranteed by the underlying
+rotational invariance. Although this invariance is broken by the magnetization, M, the tilt modulus remains zero
+because this breaking is spontaneous (neglecting the ever-present crystal field anisotropy). This contrasts strongly
+with a conventional vortex solid, where the rotational symmetry is explicitly broken by the applied field H and lattice
+anisotropy.
+Consequently, the elasticity of the SV crystal is identical to that of the columnar phase, described by(68) together
+with (69), neglecting crystalline anisotropy.
+In the presence of purely thermal fluctuations, elastic nonlinearities
+remain irrelevant for such 3d SV state, since d = 3 > 5/2. However, as discovered and explored in Refs. 40, 41, in
+the presence of ever-present quenched disorder, SV is a disorder- (rather than temperature-) controlled critical glass
+state, treatable via RG perturbative in ϵ = 7/2 −d, with many interesting properties, e.g., the unusually singular
+B(H) relation.
+POLYMERIZED MEMBRANE
+A fluctuating, tensionless and therefore curvature-(as opposed to tension-) controlled membrane is a strongly fluctu-
+ating system. Focus on such membranes was originally stimulated in part by ubiquitous biophysical realizations (e.g.,
+liposomes, cellular membranes, cytoskeleton of a red blood cell, etc)[44], but more recently found an ideal realization
+in fluctuating graphene sheets.[67] The latter, polymerized (solid) membrane, characterized by a nonzero in-plane
+shear rigidity, is particularly fascinating case of a critical phase for its internal dimension D < 4.
+
+--- PAGE BREAK ---
+
+FIG. 7: Illustration of a phase diagram of a polymerized membrane, controlled by temperature and in-plane anisotropy encoded
+in reduced temperatures τx and τy. An isotropic membrane is described by τx = τy ≡τ, exhibiting temperature τ−driven
+transition along path P2 from a crumpled phase (with vanishing tangent ⃗tx,y = 0 order parameters) to a “flat” phase a phase
+with ⃗tx,y ̸= 0. Flat phase spontaneously breaks the rotational O(3) symmetry of the embedding space and is a critical phase
+that exhibits rich universal power-law phenomenology, controlled by a nontrivial infrared stable fixed point. A polymerized
+membrane with in-plane anisotropy is predicted to undergo a two-stage transition along P1 from the crumpled-to-tubule phase
+(latter characterized by only one of the two tangent order parameters nonzero), followed by tubule-to-flat phase transition[68, 69],
+later observed in simulations.[70]
+As was first argued by Nelson and Peliti[45], in addition to the rotationally invariant “crumpled” phase of linear
+polymers and liquid membranes, polymerized membranes exhibit a finite temperature “flat” phase. As I will discuss
+below, this too is a critical phase characterized by universal power-law correlations (e.g., membrane roughness) and
+anomalous elasticity, with the state’s very existence in two-dimensional membranes being a beautiful illustration of
+a phenomena of order-from-disorder. I note in passing that, as illustrated in Fig.7, a non-self-avoiding – “phantom”
+FIG. 8: Illustration of (a) a graphene sheet as a modern ideal realization of a thermally fluctuating polymerized membrane,
+predicted to exhibit rich anomalous elasticity as a critical phase, (b) flat phase of a polymerized membrane defining its normals,
+Monge gauge embedding and the definition of the roughness exponent, ζ.
+anisotropic polymerized membrane was predicted[68, 69] and observed in simulations[70] to exhibit an intermediate
+tubule phase, crumpled along one dimension and extended along the other, that, despite its one-dimensionality, is
+stable to thermal fluctuations.
+A detailed derivation of the flat-phase Goldstone-modes elasticity is available[44, 45] starting from the Landau
+theory of the crumpled phase in terms of the tangent vectors ∇⃗r(x), where ⃗r(x) is the embedding of the D-dimensional
+membrane (parameterized by x) in the d-dimensional space, ⃗r (with D = 2 and d = 3 the physical case). The flat
+phase parameterized by
+⃗r(x) = (t0x + u(x),⃗h(x)),
+(70)
+in the Monge gauge, spontaneously breaks the O(d) symmetry of the crumpled phase down to O(D), where t0 scale
+factor is the effective order parameter of the flat phase, u(x) is the D-component in-plane phonon, and ⃗h(x) is
+
+--- PAGE BREAK ---
+
+the “height function” describing the membrane’s transverse undulation into the embedding space; we have implicitly
+generalized to arbitrary co-dimension dc = d −D.
+The resulting energy functional is a sum of the bending and the in-plane elastic contributions:
+Hflat[⃗h, u] =
+2 (∇2⃗h)2 + µu2
+αβ + λ
+2 u2
+(71)
+where the nonlinear strain tensor is
+uαβ = 1
+2(∂α⃗r · ∂β⃗r −δαβ) ≈1
+2(∂αuβ + ∂βuα + ∂α⃗h · ∂β⃗h),
+(72)
+defined as the deviation of the embedding-induced metric gαβ from the flat metric, and in the second form I neglected
+elastic nonlinearities that are subdominant at long scales. A crucial feature of Hflat[⃗h, u] (71) (as with other critical
+phases) is the higher-order curvature elasticity of ⃗h, with the surface tension modulus for (∇⃗h)2 vanishing exactly,
+enforced by the underlying rotational invariance (of the embedding space) and tension-free membrane.
+One can also integrate out the noncritical in-plane phonon field u, that appears only harmonically, to obtain a
+convenient equivalent form, purely in terms of ⃗h [45, 46, 49, 71]
+Hflat[⃗h] =
+dDx[κ
+2 (∇2⃗h)2 +
+(∂α⃗h · ∂β⃗h)Rαβ,γδ(∂γ⃗h · ∂δ⃗h)]
+(73)
+where for convenience, I rescaled Lam´e coefficients so that the quartic coupling is of order 1/dc. The four-point
+coupling fourth-rank tensor is given by
+Rαβ,γδ = K −2µ
+2(D −1)P T
+αβP T
+γδ + µ
+ P T
+αγP T
+βδ + P T
+αδP T
+(74)
+where P T
+αβ = δαβ −qαqβ/q2 is a transverse (to q) projection operator. The convenience of this decomposition is that
+K = 2µ(2µ + Dλ)/(2µ + λ) and µ moduli renormalize independently and multiplicatively.[48, 71]
+I note that this last h-only elastic form indeed reflects the general discussion of critical phases in the Introduction,
+namely that they are described by an energy functional (of ϕ4 form with ⃗ϕα ≡∂α⃗h) enforced to be critical (i.e.,
+missing the ϕ2 term) by the underlying rotational symmetry, as illustrated in Fig.3.
+Applying Wilson-Fisher momentum-shell RG analysis to membrane’s elastic nonlinearities[45–48, 71] one sees that
+for D < 4 (and arbitrary embedding dimension d) the membrane exhibits height undulations that diverge with its
+extent L. As for smectics and other critical phases discussed earlier, one can make sense of the associated divergent
+perturbation theory in elastic nonlinearities by performing an RG analysis controlled by ϵ = 4 −D[46] or equivalently
+1/dc (large embedding dimension, that is the analog of 1/N large N expansion of the O(N) model’s Wilson-Fisher
+critical point)[47]. The RG approach for arbitrary d gives flows of the dimensionless nonlinear coupling constants,
+ˆµ(ℓ) = µ/κ2, ˆλ(ℓ) = λ/κ2, after integrating out modes in a momentum shell Λe−δℓ< q < Λ (as for a smectic in
+previous section), and rescaling for convenience.
+The dimensionless couplings flow to a tuning-free infrared attractive Aronovitz-Lubensky (AL) fixed point,[45–48],
+with two other (in addition to the Gaussian) fixed points that describe a marginally mechanically unstable membrane
+(of physical relevance to nematic elastomers of the next section). The resulting globally infrared stable AL fixed point
+controls the properties of the highly nontrivial “flat” phase, that is critical and power-law rough. A complementary
+approach of Le Doussal and Radzihovsky[48] is via a solution of self-consistent integral equations (SCSA) that build on
+the large embedding 1/dc expansion, with virtue of being exact in three limits: (i) D →4 (ϵ expansion) for arbitrary
+dc, (ii) dc →∞(1/dc expansion) and (iii) dc = 0 for arbitrary D, thereby providing best quantitative predictions, as
+judged by numerics and experiments.
+The“flat”critical phase is characterized by universal anomalous elasticity with length scale-dependent elastic moduli
+κ(q) ∼q−η,
+µ(q) ∼λ(q) ∼qηu,
+(75)
+where for physical membranes η ≈0.82 and the underlying embedding-space rotational invariance imposes exact
+relations [45–48],
+ηu = 4 −D −2ηκ,
+ζ = (4 −D −η)/2.
+(76)
+These indicate that at long scales, q →0, thermal fluctuations stiffen the effective bending modulus κ(q) and soften
+membrane’s in-plane moduli, µ(q), λ(q).
+
+--- PAGE BREAK ---
+
+Based on these, the SCSA[48] predicts a universal and negative Poisson ratio,
+q→0 σ ≡
+λ(q)
+2µ(q) + (D −1)λ(q) = −1
+3 , for D = 2,
+(77)
+that measures the ratio of in-plane compression of a membrane along an axis transverse to its strained direction.
+Its negative value indicates that such membrane actually expands transversely as it is being stretched. This ap-
+proximate value of −1/3 compares extremely well with largest simulations[72] and higher order computations. This
+amazing fluctuation-driven anomalous elasticity phenomenology, uncovered using systematic Wilson-Fisher RG, can
+be understood qualitatively by playing around with a roughened piece of paper.
+Finally I conclude by emphasizing that the universal anomalous elasticity is at the heart of stability of the 2D
+“flat” phase. To see this, observe that in contrast to the unstable Gaussian fixed point (describing fluctuations of a
+microscopic membrane), the “flat” critical phase at the AL fixed point, with a renormalized, momentum-dependent
+κ(q), is characterized by root-mean-squared height undulations
+hrms =
+⟨h2(x)⟩=
+(2π)d
+κ(q)q4
+1/2
+∼Lζ,
+(78)
+with the roughness exponent ζ < 1. Its best estimate for D = 2, d = 3 [48] is
+ζ = 0.59,
+and has also been computed within ϵ and 1/dc expansions[46–48, 73]. I note that despite unbounded power-law height
+undulations (78), the rotational O(d) symmetry of the embedding space remains broken since Lζ ≪L →∞, despite
+two-dimensionality (D = 2) of the polymerized membrane field theory. It thus circumvents a naive application of
+the Hohenberg-Mermin-Wagner-Coleman theorem[57–59]. The rigorous form of the latter does not a priori apply to
+the higher-derivative polymerized membrane field theory, and thus does not forbid above findings, e.g., stability of
+the 2D flat phase. More physically, as can be seen from (78), theorem’s common heuristic application fails precisely
+because the state is controlled by a non-Gaussian fixed point with anomalous, momentum-dependent elastic moduli,
+specifically with η > 0. As a result hrms(L)/L ∼L−η/2 →0 indicates that the “flat” phase is stabilized (for nonzero
+positive η > 0 generated by thermal fluctuations) by the very fluctuations that attempt to destabilize it, a phenomenon
+known as order-from-disorder.
+Finally, I note that random heterogeneity also ubiquitously appears in most membrane realizations (see e.g., work
+on graphene[74]) and leads to a disorder-driven critical membrane phase, studied extensively starting with the work
+of Nelson and Radzihovsky[75, 76], with many that followed[71, 77, 78].
+NEMATIC ELASTOMER
+A final example of a critical phase that I will briefly discuss is a nematic elastomer, namely rubber – a randomly
+crosslinked polymer network composed of mesogenic groups, illustrated in Fig.9. It exhibits a spontaneous transition
+to a nematic phase, thereby driving an accompanying spontaneous uniaxial distortion of the elastic matrix, illustrated
+in Fig.9.[42]
+Even in the absence of fluctuations, bulk nematic elastomers were predicted[79] and later observed to display
+an array of fascinating phenomena[42, 80], the most striking of which is the vanishing of stress for a range of strain,
+applied transversely to the spontaneous nematic axis. This striking softness is generic, stemming from the spontaneous
+orientational symmetry breaking by the nematic state, accompanied by the nemato-elastic Goldstone mode, that leads
+to the observed soft distortion and strain-induced director reorientation[79, 81], illustrated in Fig.10. This unique
+elastic phenomenon is captured even at the harmonic approximation of the fully nonlinear uniaxial Hamiltonian in
+Eq.(79),
+Helast = 1
+2Bz w2
+zz + λz⊥wzz wαα + 1
+2 λ w2
+αα + µ w2
+αβ + K
+2 (∇2
+⊥uz)2,
+(79)
+where akin to earlier examples the components of the (rescaled) effective nonlinear strain tensor w are given by
+wzz = ∂zuz + 1
+2 (∇⊥uz)2,
+(80)
+wαβ = 1
+2 (∂αuβ + ∂βuα −∂αuz∂βuz) .
+(81)
+
+--- PAGE BREAK ---
+
+FIG. 9: Spontaneous uniaxial distortion of nematic elastomer driven through the isotropic-nematic transition.
+The underlying rotational symmetry of the parent isotropic phase guarantees a vanishing of one of the five elastic
+constants[79, 81], µ⊥z (i.e., the w2
+zα is missing from (79)), that usually characterizes harmonic deformations of a
+three-dimensional uniaxial solid[8], here with the uniaxial axis ˆz chosen spontaneously. Interestingly, examining (81),
+wzz and wαβ have structure of, respectively, a uniaxially (e.g., smectic) and biaxially (e.g., columnar) periodic critical
+state. Thus, nematic elastomer is a three dimensional amorphous solid that is an amalgam of a smectic and columnar
+liquid crystals.
+FIG. 10: (a) Simultaneous reorientation of the nematic director and of the uniaxial distortion is a low-energy nemato-elastic
+Goldstone mode of an ideal elastomer, that is responsible for its softness and (b) its resulting idealized flat (vanishing stress)
+stress-strain curve for a range of strains 0 < ε < εc. [81]
+Given this softness of the harmonic elasticity associated with symmetry-imposed vanishing of the µz⊥modulus,
+thermal and heterogeneity-driven fluctuations are divergent in 3d.[43, 82] Concomitantly, the elastic terms (∇⊥uz)2
+and (∂zu⊥)2 associated with transverse distortions are missing from the quadratic part of the elastic energy. Thus, as
+in other critical matter discussed in earlier sections, one expects qualitative importance of above elastic nonlinearities
+(81) in the presence of thermal fluctuations and network heterogeneity.[43, 82]
+Similar to their effects in smectic, columnar liquid crystals, polymerized membranes, and other critical matter
+discussed earlier, in bulk elastomers thermal fluctuations (and network heterogeneity) leads to anomalous elasticity
+controlled by a tuning-free infrared attractive fixed point, with universal length-scale dependent elastic moduli, [43, 82]
+Keff ∼Lη,
+µeff ∼L−ηu.
+(82)
+The resulting critical state can be shown[43] to be characterized by a universal non-Hookean stress-strain relation
+σzz ∼(εzz)δ
+(83)
+
+--- PAGE BREAK ---
+
+and a negative Poisson ratio for extension εxx > 0 transverse to the nematic axis
+εyy = 5
+7εxx,
+εzz = −12
+7 εxx.
+(84)
+While considerable progress has been made in understanding these fascinating materials, many questions, particularly
+associated with network heterogeneity remain open.
+SUMMARY AND CONCLUSIONS
+In this chapter, I discussed a novel class of ordered states of matter that I dub“critical matter”. The common crucial
+feature of these exotic states is that, as a result of the underlying symmetry broken in the ordered state, a subset
+of elastic moduli of the associated Goldstone modes vanish identically. As a result, for sufficiently low dimensions,
+such system exhibit harmonic fluctuations that are divergent in the thermodynamic limit, and require treatment of
+Goldstone modes’ nonlinearities throughout the ordered phase (not just near a critical point). Treating these within
+renormalization group analysis, leads to an infrared stable fixed point that controls the resulting highly nontrivial,
+strongly interacting, and universal ordered state. The latter exhibits properties akin to that of a critical point, but
+extending over the entire phase, which I therefore naturally refer to as a “critical phase”.
+As prominent examples of such systems, I have discussed smectics (with many soft and hard matter realizations, from
+paired superfluids (FFLO), spin-orbit coupled and frustrated bosons to quantum Hall stripes), cholesterics, helical
+magnets, columnar phases, putative spontaneous vortex lattices, polymerized membranes and nematic elastomers.
+While significant progress has been made in characterizing these systems, discovery of new systems (e.g., as quantum
+examples in physically accessible dimensions), understanding of effects of random heterogeneity and dynamics remain
+challenging open problems.
+I finish by noting that there are also critical phases (many appearing as counter-parts of the ones discussed in
+this chapter), that I have not discussed here, where fluctuations are driven by quenched disorder, rather than by
+temperature or quantum fluctuations. These exhibit critical states of glassy Goldstone modes and generically appear
+in dimensions higher than their thermal counterparts[12–14, 39–41, 43, 71, 75–78, 83], and are thus of even stronger
+experimental relevance.
+VII.
+ACKNOWLEDGMENTS
+The material presented in these lectures is based on research done with a number of wonderful colleagues and friends,
+most notably David Nelson, John Toner, Pierre Le Doussal, Tom Lubensky, and Xiangjun Xing. I am indebted to
+them for much of my insight into the material presented here. This work was supported by the National Science
+Foundation through grants DMR-1001240 and DMR-0969083 as well by the Simons Investigator award from the
+Simons Foundation.
+On a personal note, I have met and discussed physics with Michael Fisher at conferences, most often at the wonderful
+Rutgers Stat Mech meetings. I recall fondly Michael always sitting in a front row, sometimes flanked by Daniel and
+Matthew, strikingly paying close attention and asking probing questions even in the 3 mins student talks, and as
+attentively as in invited talks by distinguished senior faculty. I recall him always being kind and supportive in my
+own career. Although I have never had the pleasure of working with Michael, I have greatly benefited from his insight
+through his many seminal papers that influenced my own RG work (some described in this chapter). But perhaps
+more importantly, I indirectly learned physics from Michael through David Nelson, Daniel and Matthew, all of whom
+have strongly shaped my style, taste and approach to physics. And for that I am eternally grateful.
+[1] K. G. Wilson and M. E. Fisher, Critical exponents in 3.99 dimensions, Phys. Rev. Lett. 28 (4), 240-243 (1972).
+[2] M. E. Fisher, The renormalization group in the theory of critical behavior. Reviews of Modern Physics, 46(4), 597 (1974).
+[3] K. G. Wilson and J. Kogut, The renormalization group and the ϵ expansion, Physics Reports 12, 78 - 199 (1974).
+[4] P. Chaikin and T.C. Lubensky, Principles of Condensed Matter Physics, Cambridge University Press, Cambridge 1995.
+[5] Jean Zinn-Justin,Quantum Field Theory and Critical Phenomena (International Series of Monographs on Physics) 5th
+Edition.
+[6] In quantum phase transitions, temperature T introduces a finite size cutoff ℏ/kBT into the imaginary time. As a result
+critical behavior can be probed even in a fan of δg(T)) away from a quantum critical point.[7]
+[7] S. Sachdev, Quantum Phase Transitions, Cambridge University Press, 1999.
+
+--- PAGE BREAK ---
+
+[8] L. D. Landau, in Collected papers of L. D. Landau, edited by D. ter Haar (Gordon and Breach, New York, 1965), p. 209;
+L. D. Landau and E. M. Lifshitz, Statistical Physics (Pergamon, London, 1969).
+[9] A generalized m-Lifshitz model, has elasticity with m “soft” (Laplacian) axes and d −m complementary “hard” (gradient)
+axes. In this nomenclature, the conventional classical 3d smectic is the m = 2-Lifshitz model, and 2+1d quantum smectic
+and 3d classical columnar liquid crystal are described by the m = 1-Lifshitz model. Other generalizations include a nonscalar
+Goldstone-mode field as in e.g., tethered membranes[44, 68, 69, 71] and nematic elastomers[43]
+[10] P. de Gennes and J. Prost, The Physics of Liquid Crystals (Clarendon Press, Oxford, 1993).
+[11] G. Grinstein and R. A. Pelcovits, Phys. Rev. Lett. 47, 856 (1981).
+[12] L. Radzihovsky, J. Toner, Nematic–to–smectic-A transition in aerogel, Phys. Rev. Lett.79, 4214 (1997).
+[13] L. Radzihovsky, J. Toner, Smectic liquid crystals in random environments, Phys. Rev. B 60, 206 (1999).
+[14] T. Bellini, L. Radzihovsky, J. Toner, N. A. Clark, Universality and scaling in the disordering of a smectic liquid crystal,
+Science 204, 5544 (2001).
+[15] Matthew A. Glaser, Gregory M. Grason, Randall D. Kamien, A. Kosmrlj, Christian D. Santangelo, P. Ziherl, Soft spheres
+nake more mesophases, Europhys. Lett. 78, 46004 (2007).
+[16] M. P. Lilly, K. B. Cooper, J. P. Eisenstein, L. N. Pfeiffer, and K. W. West, Evidence for an anisotropic state of two-
+dimensional electrons in high Landau levels, Phys. Rev. Lett. 82, 394 (1999).
+[17] R. R. Du, D.C. Tsui, H.L. Stormer, L.N. Pfeiffer, K.W. Baldwin, K.W. West, Strongly anisotropic transport in higher
+two-dimensional Landau levels, Solid State Comm. 109, 389 (1999).
+[18] A. A. Koulakov, M. M. Fogler, and B. I. Shklovskii, Charge density wave in two-dimensional electron liquid in weak
+magnetic field, Phys. Rev. Lett. 76, 499 (1996).
+[19] R. Moessner and J. T. Chalker, Exact results for interacting electrons in high Landau levels, Phys. Rev. B 54, 5006 (1996).
+[20] E. Fradkin and S.A. Kivelson, Liquid-crystal phases of quantum Hall systems, Phys. Rev. B 59, 8065 (1999).
+[21] A. H. MacDonald and M. P. A. Fisher, Quantum theory of quantum Hall smectics, Phys. Rev. B 61, 5724 (2000).
+[22] L. Radzihovsky, A. T. Dorsey, Theory of Quantum Hall Nematics, Phys. Rev. Lett. 88, 216802 (2002).
+[23] P. Fulde and R.A. Ferrell, Superconductivity in a Strong Spin-Exchange Field, Phys. Rev. 135, A550 (1964).
+[24] A.I. Larkin and Yu. N. Ovchinnikov, Nonuniform state of superconductors, Sov. Phys. JETP 20, 762 (1965).
+[25] L. Radzihovsky and A. Vishwanath, Quantum liquid crystals in an imbalanced Fermi gas: fluctuations and fractional vor-
+tices in Larkin-Ovchinnikov states, Phys. Rev. Lett. 103, 010404 (2009); L. Radzihovsky, Fluctuations and phase transitions
+in Larkin-Ovchinnikov liquid-crystal states of a population-imbalanced resonant Fermi gas, Phys. Rev. A 84, 023611 (2011);
+L. Radzihovsky, Quantum liquid-crystal order in resonant atomic gases (invited review) Physica C 481, 189-206 (2012).
+[26] Leo Radzihovsky, Daniel E. Sheehy, Imbalanced Feshbach-resonant Fermi gases, Rep. Prog. Phys. 73, 076501 (2010).
+[27] D. F. Agterberg, J. S. Davis, S. D. Edkins, E. Fradkin, D. J. Van Harlingen, S. A. Kivelson, P. A. Lee, L. Radzihovsky, J.
+M. Tranquada, and Y. Wang, The physics of pair-density waves: cuprate superconductors and beyond, Annu. Rev. Condens.
+Matter Phys. 11, 231 (2020).
+[28] L. Radzihovsky and S. Choi, P-wave resonant Bose gas: a finite-momentum spinor superfluid, Phys. Rev. Lett. 103, 095302
+(2009); Phys. Rev. A 84, 043612 (2011).
+[29] Hui Zhai, Degenerate quantum gases with spin-orbit coupling: a review, Rep. Prog. Phys. 78, 026001 (2015).
+[30] Tzu-Chi Hsieh, Han Ma, Leo Radzihovsky, Helical superfluid in a frustrated honeycomb Bose-Hubbard model, Phys. Rev.
+A 106, 023321 (2022).
+[31] T. C. Lubensky, Low-Temperature Phase of Infinite Cholesterics, Phys. Rev. Lett. 29, 206 (1972).
+[32] L. Radzihovsky, T. C. Lubensky, Nonlinear smectic elasticity of helical state in cholesteric liquid crystals and helimagnets,
+Phys. Rev. E 83, 051701 (2011).
+[33] S. Muhlbauer, B. Binz, F. Jonietz, C. Peiderer, A. Rosch, A. Neubauer, R. Georgii, and P. Boni, “Skyrmion lattice in a
+chiral magnet”, Science 323, 915 (2009).
+[34] Doron Bergman, Jason Alicea, Emanuel Gull, Simon Trebst, Leon Balents, Order by disorder and spiral spin liquid in
+frustrated diamond lattice antiferromagnets, Nature Physics 3, 487 (2007).
+[35] A. Mulder, R. Ganesh, L. Capriotti, and A. Paramekanti, Spiral order by disorder and lattice nematic order in a frustrated
+Heisenberg antiferromagnet on the honeycomb lattice, Phys. Rev. B 81, 214419 (2010).
+[36] P. Canfield, P. Gammel, D. Bishop, New magnetic superconductors: a toy box for solid-state physicists, Physics Today,
+October (1998).
+[37] U. Yaron, P.L. Gammel, A.P. Ramirez, D.A. Huse, D.J. Bishop, A.I. Goldman, C. Stassis, P.C. Canfield, K. Mortensen
+and M.R. Eskildsen, Microscopic coexistence of magnetism and superconductivity in ErNi2B2C, Nature, 386, 236 (1996).
+[38] H. S. Greenside, E. I. Blount and C.M. Varma, Possible coexisting superconducting and magnetic states, Phys. Rev. Lett.
+46, 49 (1981); E. I. Blount and C.M. Varma, ibid 42, 1079 (1979); T.K. Ng and C.M. Varma, ibid. 78, 330, ibid., 3745
+(1997).
+[39] K. Saunders, L. Radzihovsky, and J. Toner, A discotic disguised as a smectic: a hybrid columnar bragg glass, Phys. Rev.
+Lett.85, 4309 (2000).
+[40] A. M. Ettouhami, Karl Saunders, L. Radzihovsky, John Toner, ’Soft’ anharmonic vortex glass in ferromagnetic supercon-
+ductors, Phys. Rev. Lett. 87, (2001) 27001.
+[41] A. M. Ettouhami, Karl Saunders, L. Radzihovsky, John Toner, Elasticity, fluctuations and vortex pinning in ferromagnetic
+superconductors: A columnar elastic glass, Phys. Rev. B 71, 224506 (2005).
+[42] M. Warner, E.M. Terentjev, Liquid Crystal Elastomers, Oxford University Press, 2003.
+[43] X. Xing and L. Radzihovsky, Thermal fluctuations and anomalous elasticity of homogeneous nematic elastomers, Europhys.
+Lett. 61, 769 (2003); Nonlinear elasticity, fluctuations and heterogeneity of nematic elastomers, Annals of Physics 323 105-
+
+--- PAGE BREAK ---
+
+203 (2008). Universal elasticity and fluctuations of nematic gels, Phys. Rev. Lett. 90, 168301 (2003).
+[44] For a review, and extensive references, see the articles in Statistical Mechanics of Membranes and Interfaces, 2nd edition,
+Jerusalem Winter School, edited by D. R. Nelson, T. Piran, and S. Weinberg (World Scientific, Singapore, 1989).
+[45] D. R. Nelson and L. Peliti, Fluctuations in membranes with crystalline and hexatic order, J. Phys. (Paris) 48, 1085 (1987).
+[46] J. A. Aronovitz and T. C. Lubensky, Fluctuations of solid membranes, Phys. Rev. Lett. 60, 2634 (1988); J. A. Aronovitz,
+L. Golubovic, and T. C. Lubensky, Fluctuations and lower critical dimensions of crystalline membranes, J. Phys.(Paris)
+50, 609 (1989).
+[47] F. David and E. Guitter, Crumpling transition in elastic membranes: renormalization group treatment, Europhys. Lett. 5,
+709 (1988).
+[48] P. Le Doussal and L. Radzihovsky, Self-consistent theory of polymerized membranes, Phys. Rev. Lett. 69, 1209 (1992).
+[49] L. Radzihovsky, Statistical mechanics and geometry of random manifolds, Ph. D. Thesis, Harvard University, (1993).
+[50] Another, distinct class of “self-organized” critical phases have been proposed in Per Bak, Chao Tang, and Kurt Wiesenfeld,
+Self-organized criticality: An explanation of the 1/f noise, Phys. Rev. Lett. 59 381, (1987). We will not discuss such
+nonequilibrium dynamical systems.
+[51] James McIver, Monika Aidelsburger, Martin Claassen, Floquet engineering of quantum materials, Nature Commun. Phys.,
+Focus, 17 March 2022.
+[52] Daniel E. Sheehy, Leo Radzihovsky, BEC-BCS crossover in ”magnetized” Feshbach-resonantly paired superfluids, Phys.
+Rev. Lett. 96, 060401 (2006).
+[53] Daniel E. Sheehy, Leo Radzihovsky, BEC-BCS crossover, phase transitions and phase separation in polarized resonantly-
+paired superfluids, Annals of Physics 322, 1790 (2007).
+[54] M. C. Revelle, J. A. Fry, B. A. Olsen B A, R. G. Hulet, 1D to 3D Crossover of a Spin-Imbalanced Fermi Gas, Phys. Rev.
+Lett. 117 235301 (2016).
+[55] A. Caill´e, Remarks on the scattering of x-rays by A-type smectics, C. R. Acad. Sci. Ser. B 274, 891 (1972).
+[56] R. E. Peierls, Helv. Phys. Acta Suppl. 7, 81 (1934).
+[57] P.C. Hohenberg, Existence of long-range order in one and two dimensions, Phys. Rev. 158, 383 (1967).
+[58] N.D. Mermin, H. Wagner, Absence of ferromagnetism or antiferromagnetism in one- or two-dimensional isotropic heisenberg
+models, Phys. Rev. Lett. 17, 1133 (1966).
+[59] S. Coleman, There are no Goldstone bosons in two dimensions, Commun. Math. Phys. 31, 259 (1973).
+[60] F. Lindemann, About the calculation of molecular own frequencies, Z.Phys, 11, 609 (1910).
+[61] J. Toner and D. R. Nelson, Smectic, cholesteric, and Rayleigh-Benard order in two dimensions, Phys. Rev. B 23, 316
+(1981).
+[62] J. Als-Nielsen, J. D. Litster, R. J. Brigeneau, M. Kaplan, C. R. Safinya, A. Lindegaard-Andersen, and S. Mathiesen,
+Observation of algebraic decay of positional order in a smectic liquid crystal, Phys. Rev. B 22, 312 (1980).
+[63] L. Golubovic, Z. Wang, Anharmonic elasticity of smectics A and the Kardar-Parisi-Zhang model, Phys. Rev. Lett. 69 2535
+(1992).
+[64] Mehran Kardar, Giorgio Parisi, and Yi-Cheng Zhang, Dynamic scaling of growing interfaces , Phys. Rev. Lett. 56, 889
+(1986).
+[65] A.I. Larkin, D.E. Khmel’nitskii, Phase transition in uniaxial ferroelectrics, Zh. Eksp. Teor. Fiz 56, 2087 (1969),
+[66] M. E. Fisher, S. K. Ma, B. G. Nickel, Critical exponents for long-range interactions, Phys. Rev. Lett. 29, 917 (1972).
+[67] Geim A. K. , Novoselov K. S., The rise of graphene, Nat. Mater. 6, 183-191 (2007).
+[68] Leo Radzihovsky and John Toner, A new phase of tethered membranes: Tubules Phys. Rev. Lett. 75, 4752 (1995).
+[69] Leo Radzihovsky, John Toner, Elasticity, shape fluctuations and phase transitions in the new tubule phase of anisotropic
+tethered membranes, Phys.Rev.E 57:1832-1863 (1998).
+[70] Mark Bowick, Marco Falcioni, and Gudmar Thorleifsson, Numerical observation of a tubular phase in anisotropic mem-
+branes, Phys. Rev. Lett. 79, 885 (1997).
+[71] Pierre Le Doussal, Leo Radzihovsky, Anomalous elasticity, fluctuations and disorder in elastic membranes, Annals of
+Physics 392, 340-410 (2018).
+[72] M. Falcioni, M. Bowick, E. Guitter, and G. Thorleifsson, The Poisson ratio of crystalline surfaces, Europhys. Lett. 38, 67
+(1997).
+[73] O. Coquand, D. Mouhanna, S. Teber, Flat phase of polymerized membranes at two-loop order, Phys.Rev. E 101, 062104
+(2020).
+[74] P. Y. Huang, et al., Grains and grain boundaries in single-layer graphene atomic patchwork quilts, Nature 469, 389 (2011).
+[75] D. R. Nelson and L. Radzihovsky, Polymerized membranes with quenched random internal disorder, Europhys. Lett., 16,
+79 (1991).
+[76] L. Radzihovsky and D. R. Nelson, Statistical mechanics of randomly polymerized membranes, Phys. Rev. A, 44, 3525 (1991).
+[77] D. C. Morse and T. C. Lubensky, Curvature disorder in tethered membranes: A new flat phase at T=0., Phys. Rev. A 46,
+1751 (1992).. D. C. Morse, T. C. Lubensky, and G. S. Grest, Quenched disorder in tethered membranes, Phys. Rev. A 45,
+R2151 (1992).
+[78] Le Doussal and L. Radzihovsky, Flat glassy phases and wrinkling of polymerized membranes with long range disorder, Phys.
+Rev. B, R48, 3548 (1993).
+[79] L. Golubovic and T. C. Lubensky, Nonlinear elasticity of amorphous solids, Phys. Rev. Lett. 63, 1082 (1989).
+[80] M. Warner and E. M. Terentjev, Nematic elastomers—a new state of matter?, Prog. Polym. Sci. 21, 853(1996), and
+references therein; E. M. Terentjev, Liquid-crystalline elastomers, J. Phys. Cond. Mat. 11, R239(1999).
+[81] T. C. Lubensky, R. Mukhopadhyay, L. Radzihovsky, X. Xing, Symmetries and elasticity of nematic gels, Phys. Rev. E 66,
+
+--- PAGE BREAK ---
+
+011702 (2002).
+[82] O. Stenull and T.C. Lubensky, Phase transitions and soft elasticity of smectic elastomers, Europhys. Lett. 61, 779 (2003).
+[83] Pierre Le Doussal, Leo Radzihovsky, Thermal buckling transition of crystalline membranes in a field, Phys. Rev. Lett. 127,
+015702 (2021).

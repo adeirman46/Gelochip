@@ -1,0 +1,23 @@
+{
+  "component_name": "OPAMP2",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": 43.53,
+      "bw_3db_hz": 10000000.0
+    },
+    "theory": "Two-stage Miller op-amp (5T OTA + PMOS common-source output): gain = stage1\u00b7stage2, higher than single stage. Pass if in-band |gain| > 6 dB.",
+    "theory_pass": true
+  },
+  "area_um2": 7429.5
+}

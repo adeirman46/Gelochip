@@ -1,0 +1,1177 @@
+AICircuit: A Multi-Level Dataset and Benchmark for
+AI-Driven Analog Integrated Circuit Design
+Asal Mehradfar1
+Xuzhe Zhao2
+Yue Niu1
+Sara Babakniya1
+Mahdi Alesheikh2
+Hamidreza Aghasi2
+Salman Avestimehr1
+1 University of Southern California
+2 University of California, Irvine
+Abstract
+Analog and radio-frequency circuit design requires extensive exploration of both
+circuit topology and parameters to meet specific design criteria like power consump-
+tion and bandwidth. Designers must review state-of-the-art topology configurations
+in the literature and sweep various circuit parameters within each configuration.
+This design process is highly specialized and time-intensive, particularly as the
+number of circuit parameters increases and the circuit becomes more complex.
+Prior research has explored the potential of machine learning to enhance circuit
+design procedures. However, these studies primarily focus on simple circuits,
+overlooking the more practical and complex analog and radio-frequency systems.
+A major obstacle for bearing the power of machine learning in circuit design is
+the availability of a generic and diverse dataset, along with robust metrics, which
+are essential for thoroughly evaluating and improving machine learning algorithms
+in the analog and radio-frequency circuit domain. We present AICircuit, a com-
+prehensive multi-level dataset and benchmark for developing and evaluating ML
+algorithms in analog and radio-frequency circuit design. AICircuit comprises
+seven commonly used basic circuits and two complex wireless transceiver systems
+composed of multiple circuit blocks, encompassing a wide array of design scenar-
+ios encountered in real-world applications. We extensively evaluate various ML
+algorithms on the dataset, revealing the potential of ML algorithms in learning the
+mapping from the design specifications to the desired circuit parameters. The data
+and codebase are open-sourced to advance the development of machine learning
+in the analog and radio-frequency circuit design domain in the following link:
+https://github.com/AvestimehrResearchGroup/AICircuit.
+Introduction
+By reaching the limits of Moore’s Law [21] in early 2020 (Figure 1a), the exponential scaling of
+transistors, the core elements in circuit design, has become increasingly difficult, thereby slowing
+down the pace of advancements in semiconductor technologies. Unlike digital circuits, where scaling
+can often lead to straightforward performance improvements, analog and radio-frequency circuits
+should be custom-designed for emerging applications, e.g., mm-wave cellular communications, radar
+systems, and antenna systems, making their design both time-consuming and resource-intensive
+[17, 4, 9, 16, 1]. Moreover, the volume of the market for analog integrated circuits is surpassing all
+other sectors and readily it is the major driving force for the development of semiconductors. By
+transitioning into the analog domain, two major types of circuits are envisioned: i) homogeneous
+circuits with constituent sub-circuits with similar functions; and ii) heterogeneous circuits where the
+constituent elements behave differently and have non-identical performance metrics. Most mm-wave
+systems of interest are heterogeneous, and their constituent circuit blocks of various functionalities
+should be combined to achieve system level performance metrics that meet the thresholds. It is
+challenging to obtain the optimal design points due to two fundamental reasons: 1) the performance
+Preprint. Under review.
+arXiv:2407.18272v1  [cs.AR]  22 Jul 2024
+
+--- PAGE BREAK ---
+
+of a circuit block, when operated individually, is different from when it is inside a system due to
+interaction among the circuit blocks; 2) various system-level metrics rely on the metrics of individual
+circuits in different ways, causing trade-off among the metrics.
+1970
+1980
+1990
+2000
+2010
+2020
+10 nm
+100 nm
+1 mm
+10 mm
+nanotechnology
+130 nm
+90 nm
+65 nm
+mosfet limit
+gate length
+technology node
+calendar year
+feature size
+(a) Transistor limits
+X1 →Y1
+· · ·
+Xi →Y1
+similar design parame-
+ters Xi and metrics Y1
+X1 →Y1
+· · ·
+Xi →Yi
+different design parame-
+ters Xi and metrics Yi
+(b) Homogeneous vs heterogeneous circuits
+Figure 1: The advances in analog and mm-wave circuit design. (a) The limits of transistor scaling predicted by
+Moore’s law; (b) Comparison between homogeneous and heterogeneous circuits.
+Conventional analog circuit design typically requires considerable effort and human involvement
+when searching the design space, including circuit topology and each circuit’s parameters. Given
+a set of design specifications (e.g., power consumption, bandwidth, etc.), designers usually need
+first to decide the circuit topology and then conduct circuit sizing (i.e., parameter sweeping on each
+individual component), as shown in Figure 2. The process is extremely time-consuming when the
+circuit comprises a large number of components. Among all the phases within the design of analog
+circuits, the complete schematic-level design is the most time-consuming part which is currently
+handled by human experts in industry and academia in a temporally inefficient manner.
+A few prior works investigate machine learning algorithms to automate analog circuit design
+[22, 11, 5, 15, 25, 6, 7]. In general, these methods train an ML model to learn the mapping between
+design specifications and actual circuit parameters. [11] shows that a standard neural network
+trained with carefully filtered design parameters can effectively predict the circuit parameters given
+design specifications. Methods such as AutoCkt [22] and L2DC [26] further adopt reinforcement
+learning framework to train neural networks for effective circuit sizing given design specifications.
+Furthermore, GNN-based methods [25, 27] propose to use a graph neural network to better capture
+the circuit topology and improve the accuracy of circuit sizing. Methods such as AnGeL [5] try to
+use neural networks on a homogeneous combination of circuits with identical functions by breaking
+them down into stages of sub-circuits, thereby shrinking the design space and reducing the training
+complexity.
+Despite progress in the prior works, the current ML-driven design is still in its early stages. In
+particular, current methods mainly show a proof of concept on homogeneous circuits and systems
+such as two-stage voltage amplifiers. It still remains unclear how to scale current NN-based solutions
+on real-world analog systems with different components. In particular, a real-world system usually
+consists of heterogeneous components that perform different functions, such as a transmitter with an
+oscillator followed by a power amplifier. Such systems introduce more complex mapping from inputs
+to outputs and exhibit high non-linearity. Furthermore, a high-quality dataset, that includes various
+complex circuits, is indispensable as a pivotal element in the ML-assisted circuit design. However,
+such a dataset is still not developed and accessible in the current ML-assisted circuit design field.
+Additionally, given the nascent state of ML-assisted circuit design, effective and universal metrics are
+highly anticipated to assess different ML-assisted solutions.
+In this work, we first introduce AICircuit, a multi-level circuit dataset and benchmark for training
+ML algorithms to assist various types of analog circuit design. In particular, the dataset consists
+of seven pivotal analog and radio-frequency circuits: common-source voltage amplifier, two-stage
+voltage amplifier, cascode voltage amplifier, low-noise amplifier, power amplifier, voltage-controlled
+oscillator, and mixer. In addition, the dataset also consists of complex heterogeneous systems with
+multiple cascaded circuit components, which has not been investigated in prior works. AICircuit is a
+comprehensive collection of circuit parameters and simulated performance metrics from an accurate
+commercial simulator, including advanced metrics not seen in any prior works. Hence, it can serve
+as a foundation for developing robust ML models for analog and radio-frequency circuit design. In
+addition to the dataset, we also conduct comprehensive evaluations on the benchmark dataset using
+
+--- PAGE BREAK ---
+
+verification
+specifications
+- bandwidth
+- voltage gain, · · ·
+param sweeping
+schematic design
+circuit components
+- transistors, · · ·
+Figure 2: Conventional procedure of analog circuit design, which involves tremendous efforts to sweep in
+the parameter space to find the optimal design given design specifications. The design space contains possible
+parameters such as transistors, resistors, etc. Design specifications contain power consumption, bandwidth, etc.
+various models. The models evaluated range from conventional machine learning algorithms, such as
+random forest, to modern neural networks. The evaluations show that on the benchmark dataset, ML
+algorithms have the potential to learn circuit design with relatively small errors compared to design
+specifications.
+Problem Statement
+In this work, we investigate the capabilities of machine learning algorithms in automating analog
+and radio-frequency circuit design. In particular, we evaluate machine learning algorithms on
+homogeneous and heterogeneous circuits. We define homogeneous circuits that compromise multiple
+circuits with identical functions. For instance, a two-stage voltage amplifier can be seen as a
+homogeneous circuit with two cascaded single-stage voltage amplifiers (Fig 15). On the other hand,
+we define heterogeneous circuits that compromise multiple circuit blocks with different functions,
+such as a transmitter with a voltage-controlled oscillator and a power amplifier (Fig 4a).
+Machine Learning-Assisted Design. ML-assisted design usually adopts a reversed design flow
+compared to conventional circuit design. In particular, ML-assisted design takes a performance metric
+vector, y, as inputs and uses a machine learning model M to predict a set of circuit parameters x as
+x = M(y),
+The performance vector, y, may contain DC power consumption, bandwidth, voltage gain, etc, which
+varies with circuit types. On the other hand, the circuit parameter vector, x, describes the quantitative
+values of every component within the circuit, including resistances, capacitances, transistor widths,
+etc. Compared to conventional circuit design, ML-assisted methods directly learn the mapping from
+design specifications to circuit parameters, eliminating the need for parameter sweeping on x to find
+the solutions that meet the design specification in y. Therefore, the whole design process can be
+significantly simplified.
+Various ML models such as multilayer perceptrons (MLPs), transformers, and conventional methods
+such as decision trees can be used to model the mapping from inputs to outputs. Simple circuits,
+such as a common-source voltage amplifier, can be modeled with small models. However, large
+circuit systems with high non-linearity require more complex models. As a key contribution in this
+work, we investigate the performance of different models on diverse circuits, ranging from a basic
+common-source amplifier to complex systems such as a transmitter with multiple heterogeneous
+circuit blocks.
+Dataset
+In this section, we present our dataset collection procedure. AICircuit consists of two types of circuits:
+homogeneous circuits and heterogeneous circuits. A homogeneous circuit only consists of one type
+of circuit, such as a common-source voltage amplifier. Heterongenous circuits may consist of two or
+more types of circuit blocks with different functions, such as a transmitter with a voltage-controlled
+oscillator (VCO) and a power amplifier (PA).
+For all circuits, we adopt the procedure as in Figure 3 to generate data. For a circuit, we first design a
+schematic using Cadence tools [14]. We defer details of circuit schematics in Appendix A. We then
+identify all key circuit parameters in the schematic that can affect the circuit performance. For each
+parameter, we set a value range, [beg, end], and sweep the value with a small step size. For each
+
+--- PAGE BREAK ---
+
+parameter set, we run a Cadence simulator to obtain the simulation results and calculate performance
+metrics. Each parameter set and the corresponding performance will be saved as one row in the
+dataset. After sweeping all parameters, we obtain a dataset with all possible design points. As last,
+we split the dataset into train and test sets for ML model training and testing.
+Create circuit schematics
+- CSVA, TSVA, CVA
+- LNA, PA
+- VCO, Mixer
+Select parameters
+- transistor width
+- capacitance, · · ·
+sweep
+one param set
+- transistor width: ■
+- capacitance: ■
+simulation
+Calc performance
+- power consumption
+- voltage gain, · · ·
+parameters
+performance
+train
+test
+Figure 3: Procedure for creating datasets for commonly used analog circuits, including homogeneous
+and heterogeneous circuits.
+Datasets for Homogeneous Circuit Blocks
+We collect seven commonly used analog and radio-frequency circuits: common-source voltage
+amplifier (CSVA), cascode voltage amplifier (CVA), two-stage voltage amplifier (TSVA), low-noise
+amplifier (LNA), mixer, voltage-controlled oscillator (VCO), and power amplifier (PA). Schematics
+of these circuits are provided in Appendix A. These homogeneous circuits are the building units that
+are seen in real-world complex heterogeneous systems.
+Among these circuits, the analog voltage amplifiers, including the common-source voltage amplifier
+(CSVA), cascode voltage amplifier (CVA), and two-stage voltage amplifier (TSVA), are essential for
+voltage amplification, a critical function in most analog circuits and feedback systems [20]. CSVA
+is a versatile and widely used component in analog and radio-frequency circuit design. It receives
+input at the gate terminal and generates amplified output at the drain terminal (See Figure 13). By
+combining the common-source (CS) and common-gate (CG) stages, CVA can provide enhanced gain
+and improved bandwidth over CSVA, which is suitable for high-frequency applications (Figure 14).
+TSVA further improves the output swings in the cascode configuration and obtains high gains (Figure
+15).
+In addition to voltage amplifiers, the dataset also covers other types of circuits in radio-frequency
+applications, including the low-noise amplifier (LNA), mixer, voltage-controlled oscillator (VCO),
+and power amplifier (PA). In particular, the cascode LNA in a radio-frequency receiver front-end
+provides substantial power gain while maintaining low noise across a wide bandwidth range (Figure
+16). An active mixer is used for frequency modulation with conversion gain in radio-frequency
+transmitters and receivers. VCO generates a periodic signal with frequency tuned across a wide
+range controlled by a voltage signal. Owing to the low phase noise and power consumption, the
+cross-coupled VCO has become a prevalent configuration to provide sustainable oscillation (Figure
+18). The two-stage differential PA, the most power-intensive building block in the radio-frequency
+transmitter, plays a crucial role in delivering significant power to the transmitting antenna without
+compromising efficiency (Figure 19).
+For each circuit, we select several circuit parameters that can greatly affect the design performance,
+as listed in Table 2. Based on the complexity of each circuit, a different number of parameters are
+considered in the simulation. The channel length of each transistor is fixed at 45 nm to simplify the
+design space and mitigate short-channel effects. These parameters are also the targets that an ML
+algorithm needs to predict given design specifications.
+Datasets for Complex Heterogeneous Systems
+In addition to basic homogeneous circuits, the work further investigates complex real-world
+millimeter-wave (mm-wave) circuit systems that contain multiple circuit blocks with different func-
+
+--- PAGE BREAK ---
+
+Voltage-Controlled
+Oscillator
+Buffer
+28 GHz Signal Generator - Amplifier
+Power Amplifier
+RF Signal
+(a) Transmitter system
+RF Signal
+Low-Noise
+Amplifier
+Mixer
+28 GHz Frequency Conversion Chain
+(27.9 GHz)
+Low-Pass
+Filter
+Cascode
+Amplifier
+IF Signal
+(b) Receiver system
+Figure 4: 28 GHz wireless transceiver circuits. (a) Transmitter architecture involving VCO and PA.
+Buffer used here to sustain system stability; (b) Receiver architecture comprising LNA, Mixer, and
+CVA. Low-Pass Filter deployed here to filter out the undesired high frequency components.
+tions, as illustrated in Figure 4 [8]. In particular, we investigate a transmitter and a receiver operating
+at 28 GHz, which are commonly used in high-speed communication systems for sending and receiving
+mm-wave signals [13].
+For a transmitter, we combine the voltage-controlled oscillator (VCO) and power amplifier (PA) as a
+typical signal generator – amplifier system (Figure 4a) [19]. The system first generates a periodic
+signal via a VCO with tunable frequency, and then amplifies the signal by the PA with substantial
+power gain. For a receiver, we establish a classical frequency conversion chain by integrating the
+low-noise amplifier (LNA) with a mixer and cascode voltage amplifier (CVA) (Figure 4b) [12]. With
+a signal received from an antenna, an LNA is first applied to amplify the weak input signal without
+introducing undesired noise. Then, a mixer is involved in converting the signal from radio frequency
+to intermediate frequency (IF) [18]. The output IF signal is then amplified by a CVA that serves as
+an IF amplifier for further processing. There are two additional blocks, buffer and low-pass filter,
+shown in the transmitter and receiver. As their topology and parameters are usually fixed, we do not
+optimize them in the pipeline. Table 1 lists design parameters to be optimized and the performance
+metrics to be examined.
+Compared to basic homogeneous circuits, these heterogeneous circuits comprise a large parameter
+space to be optimized. Moreover, these systems exhibit increased non-linearity and intricate trade-offs
+between each block, leading to further challenges in learning the mapping from performance metrics
+to design parameters.
+Evaluations
+With the dataset collected from diverse circuits and complex radio-frequency systems, in this section,
+we train and evaluate multiple ML algorithms on the dataset and investigate their strengths and
+weaknesses.
+Models. We test five different models: multi-layer perceptrons (MLPs), Transformers, support vector
+regression (SVRs), random forest (RF), and K-nearest neighbors (KNNs). For all models, we feed
+the model with performance metrics and let the model predict the design parameters. In particular,
+MLPs/Transformers/SVRs act as a mapping function from input metrics to output design parameters,
+while KNNs locate the design parameters with performance close to input metrics. In addition, RF
+regressors [2] combine the predictions from multiple decision trees and output the mean of their
+predictions to create a more accurate and stable prediction. The transformer model [23] with the
+implementation based on [3], consists of one embedding layer, several encoder layers, and one fully
+connected layer for predicting a vector of circuit parameters. The multi-layer perception (MLP)
+model consists of seven fully connected layers, each intermediate layer having a rectified linear
+unit (ReLU) activation function. For support vector regressor (SVR), considering that SVR is a
+single-output regressor, we create multiple SVRs to predict all the circuit parameters. In particular,
+we fit one SVR per target parameter. To enhance non-linearity, we adopt the rbf kernel [24] for each
+SVR model. Details of each model are provided in Appendix B.
+Metrics. In model training, we use ℓ1 loss as the objective function that measures the distance
+between the predicted parameters and the desired parameters. In model evaluation, we further run a
+
+--- PAGE BREAK ---
+
+Cadence simulator given the predicted parameters and obtain the performance, ˆy. We calculate the
+relative error compared to the desired performance specified in the dataset, y. We report an individual
+error on each metric as
+ith metric : erri = ∥yi −ˆyi∥/yi
+End-to-End Training and Evaluation. Our codebase provides an end-to-end model training and
+evaluation pipeline, as shown in Figure 5. It enables a smooth interaction between the ML workflow
+and the analog circuit workflow. During the training stage, we simply follow the standard ML
+workflow to load data and train the model. During the evaluation phase, we first obtain the predicted
+parameters via the ML workflow and then call Cadence simulator to compute the actual performance
+and the relative error compared to the desired value. Importantly, by including a Cadence simulator in
+the evaluation pipeline, we can accurately obtain metrics with inherent randomness based on advanced
+analyses, such as the noise figure in a low-noise amplifier and the phase noise in a voltage-controlled
+oscillator, which were not seen in prior works. More details are provided in Table 2 and 1.
+Train ( model ,
+t r a i n s e t ) :
+f o r _ in
+range ( maxIter ) :
+y = loadData ( t r a i n s e t )
+xPred = model ( y )
+loss = calcLoss ( x ,
+xPred )
+# update model
+model . f i t ( x ,
+train
+def Eval ( model ,
+evalset ,
+simulator ) :
+f o r _ in
+range ( maxIter ) :
+y = loadData ( evalset )
+xPred = model ( y )
+c i r c u i t
+workflow
+# simulator :
+simulator
+class
+with
+a l l
+c i r c u i t
+information
+yPred = simulator . run ( xPred )
+error = calcError ( y ,
+yPred )
+evaluation
+class
+Simulator ( ) :
+. . .
+. . .
+def run ( self ,
+xPred ) :
+alterCircParam ( xPred )
+c a l l
+Cadence simulator
+c a l l (cadenceCommand)
+yPred = parseResults ( )
+simulation
+Figure 5: An end-to-end model training and evaluation pipeline.
+As the performance metrics and parameters targeted by the models have different ranges, we first
+apply the preprocessing and normalize the data to [−1, 1]. For training data splitting, we randomly
+sample 90 percent of the data points as the training dataset, and 10 percent as the test dataset. We
+train the neural networks (transformer and MLP) for 100 epochs using the Adam optimizer [10] with
+a learning rate of 0.001. Each training is conducted several times to ensure that our methods are
+robust to random seeds.
+Homogeneous Circuit Blocks
+We first evaluate ML algorithms on homogeneous circuits. In particular, we show the results of
+MLP, Transformer, SVR, and RF on a two-stage voltage amplifier (TSVA), Mixer, voltage-controlled
+oscillator (VCO), and a power amplifier (PA) in the main paper, and defer other results of other
+circuits in Appendix D.
+To better present the results, we plot the distribution of relative errors (See Eq(2)) of all metrics. We
+can directly evaluate different ML algorithms by comparing their error distributions in the same plot.
+We’ll begin by presenting the results of each individual circuit, followed by a discussion of some
+common observations across all circuits.
+Two-Stage Voltage Amplifier (TSVA). We can observe that all four algorithms can give a design with
+small errors on the DC power consumption. The reason is that the mapping from circuit parameters
+to power consumption is easy to predict. However for other metrics, some models fail. For instance,
+SVR models always generate circuits with large errors on the bandwidth. For the voltage gain, circuits
+predicted by all four models have large relative errors compared to the desired specifications.
+Mixer. First we observe similar performance on the DC power consumption. All models generate
+circuits with very small errors on power consumption. However, advanced models such as MLPs
+and Transformers perform better on complex metrics. In particular, for the conversion gain, circuits
+predicted by MLPs and transformers result in ≤10% error, which is significantly lower than SVR
+and RF.
+Voltage-Controlled Oscillator (VCO). We observe that all four models generate circuits with small
+errors on all metrics except phase noise. Even MLPs, that perform well on other circuits, result in a
+long error tail on the phase noise. The reason is that the mapping from circuit parameters to phase
+noise is highly non-linear, which makes it difficult for all models to learn the relationship.
+
+--- PAGE BREAK ---
+
+relative error (%)
+prob density
+Voltage Gain
+Trans
+relative error (%)
+Bandwidth
+Trans
+relative error (%)
+Power Consumption
+Trans
+Figure 6: Two-Stage Voltage Amplifier
+relative error (%)
+prob density
+Power Consumption
+Trans
+relative error (%)
+IF Voltage Swing
+Trans
+relative error (%)
+Conversion Gain
+Trans
+relative error (%)
+Noise Figure
+Trans
+Figure 7: Mixer
+relative error (%)
+prob density
+Oscillation Frequency
+Trans
+relative error (%)
+Output Power
+Trans
+relative error (%)
+Phase Noise
+Trans
+relative error (%)
+Tuning Range
+Trans
+Figure 8: Voltage-Controlled Oscillator
+Power Amplifier (PA). A power amplifier is one of the most complex circuits, a complexity that is
+reflected in the obtained results. Exception for the DC power consumption, all other metrics observe
+long error tails for all four models. In particular, the circuits predicted by SVR diverge significantly
+on the metrics of S11 and S22. Therefore, we did not include them in the figure.
+relative error (%)
+prob density
+Trans
+relative error (%)
+Trans
+relative error (%)
+Large Signal Gain
+Trans
+relative error (%)
+Trans
+10 20 30 40 50
+relative error (%)
+Drain Efficiency
+Trans
+relative error (%)
+Power Consumption
+Trans
+Figure 9: Power Amplifier
+Summary. Across all circuits examined in this section, we observe that ML models perform well
+in learning the relationship between circuit parameters and simple performance metrics such as the
+DC power consumption. Importantly, the observation holds regardless of the complexity of the
+circuits. The reason is that the simple performance metrics usually exhibit a linear relation with
+circuit parameters, which makes it easy to predict. However, as the relationship becomes more
+non-linear, learning the relationships tends to be more challenging, even for MLPs and Transformers.
+For instance, voltage gain in a two-stage voltage amplifier, conversion gain in a mixer, phase noise
+in VCO, and performance metrics in PA are highly non-linear in relation to the circuit parameters.
+As a result, circuits predicted by ML models do not result in performance very close to the desired
+specifications.
+Heterogeneous Radio-Frequency Systems
+Moving from homogenous circuits to heterogenous ones, the number of performance metrics and
+circuit parameters increases. Furthermore, as heterogeneous circuits comprise multiple circuits,
+
+--- PAGE BREAK ---
+
+the relationship between circuit parameters and performance is further complicated. Therefore,
+evaluations on heterogeneous circuits provide more insights into how ML algorithms learn to predict
+complex circuits.
+Transmitter. In a transmitter system comprising VCO and PA, we can observe that as the circuit
+becomes more complex, circuit parameters are harder to predict to meet the desired specification.
+Models such as SVR and RF lack sufficient capacity to predict complex systems, resulting in large
+errors. MLPs and transformers, on the other hand, predict circuits with much smaller errors. However,
+they still struggle to give a design that meets certain complex specifications, such as output power.
+For the metrics of individual components, circuits predicted by MLPs and transformers still result in
+smaller errors compared to SVRs and RF. One interesting observation is that, as more performance
+metrics are involved in learning a heterogeneous circuit, the trained models can generate circuits with
+small errors on individual metrics (e.g., the tuning range of VCO compared to Fig 8).
+relative error (%)
+prob density
+Power Consumption
+Trans
+relative error (%)
+Bandwidth
+Trans
+relative error (%)
+Output Power
+Trans
+relative error (%)
+Voltage Swing
+Trans
+relative error (%)
+prob density
+VCO: Tuning Range
+Trans
+relative error (%)
+VCO: Phase Noise
+Trans
+relative error (%)
+PA: Power Gain
+Trans
+relative error (%)
+PA: Drain Efficiency
+Trans
+Figure 10: Transmitter (VCO and PA). Top row: system-level metrics; bottom row: metrics for
+individual components.
+Receiver. We further evaluate ML models on a receiver system comprising an LNA, a mixer,
+and a cascode voltage amplifier. Compared to the transmitter system, circuits in the receiver are
+less complex. Therefore, models such as MLPs and transmitters can predict circuits with smaller
+errors compared to the desired specifications. Besides, since the training dataset of the receiver
+includes more circuit parameters than the transmitter, the trained models exhibit better generalization
+performance with more training data points.
+relative error (%)
+prob density
+Power Consumption
+Trans
+relative error (%)
+Voltage Gain
+Trans
+relative error (%)
+Noise Figure
+NF: SVR
+Trans
+Figure 11: Receiver (LNA, Mixer, and Cascode)
+Summary. Throughout the evaluations on a transmitter and a receiver system, we can observe
+how the performance of ML algorithms is affected by the complexity of circuits. From a receiver
+to a transmitter, the relationship between circuit parameters and the performance becomes more
+non-linear. As a result, it is more challenging to predict a circuit that meets design specifications.
+Learning from Homogeneous to Heterogeneous Circuits
+Some prior works argue that models trained on small circuits can be extended to large complex
+circuits [5]. However, we want to point out that it does not apply to heterogeneous circuits. As we
+revealed in Figure 12, training an ML model on an individual circuit that is a part of a complex system
+
+--- PAGE BREAK ---
+
+results in a much worse learning result. In particular, by training an MLP model with PA-related
+metrics, we simulate the transmitter system and only calculate the error distribution on PA’s metrics.
+We observe that the predicted circuits behave differently as specified in the datasets, resulting in large
+errors compared to the desired values. The rationale behind this is that a PA within a transmitter
+system operates at a different point than when it operates independently, due to the load effects caused
+by other circuits in the system. Therefore, a model that simply learns a circuit alone cannot generalize
+well on a large system.
+relative error (%)
+prob density
+Large Signal Power Gain
+relative error (%)
+Drain Efficiency
+relative error (%)
+Figure 12: Performance of MLP on PA in a transmitter using only PA-related metrics. The accuracy
+is significantly affected by the limited number of metrics and the effects of circuits in the transmitter.
+Conclusion
+In this work, we propose a multi-level benchmark dataset for analog and radio-frequency circuit
+design. The proposed dataset, AICircuit, covers homogeneous and heterogeneous circuits. Homo-
+geneous circuits comprise one or multiple circuits with identical functions, while heterogeneous
+circuits comprise circuits with different functions. We evaluate various machine learning algorithms
+on the benchmark datasets, including multi-layer perceptrons (MLPs), transformers, and support
+vector regression (SVRs). The evaluations provide a comprehensive overview of the strengths and
+weaknesses of each method. In a word, MLPs and Transformers usually give better designs compared
+to other methods, especially for complex circuits. We also reveal that for complex circuits, further
+optimization of model design and training are still needed to improve the design.
+Heterogeneous circuits investigated in the paper only cover typical radio-frequency transmitter and
+receiver systems. However, we will consider extending our research to other complex systems.
+References
+[1] Phillip E Allen and Douglas R Holberg. CMOS analog circuit design. Elsevier, 2011.
+[2] Leo Breiman. Random forests. Machine learning, 45:5–32, 2001.
+[3] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: Pre-training of
+deep bidirectional transformers for language understanding, 2019.
+[4] Sayed Hossein Dokhanchi, Bhavani Shankar Mysore, Kumar Vijay Mishra, and Björn Ottersten.
+A mmwave automotive joint radar-communications system. IEEE Transactions on Aerospace
+and Electronic Systems, 55(3):1241–1260, 2019.
+[5] Morteza Fayazi, Morteza Tavakoli Taba, Ehsan Afshari, and Ronald Dreslinski. Angel: Fully-
+automated analog circuit generator using a neural network assisted semi-supervised learning
+approach. IEEE Transactions on Circuits and Systems I: Regular Papers, 2023.
+[6] Kourosh Hakhamaneshi, Nick Werblun, Pieter Abbeel, and Vladimir Stojanovi´c. Analog circuit
+generator based on deep neural network enhanced combinatorial optimization. In Proceedings
+of the 56th Annual Design Automation Conference 2019, pages 1–2, 2019.
+[7] Kourosh Hakhamaneshi, Nick Werblun, Pieter Abbeel, and Vladimir Stojanovi´c. Bagnet:
+Berkeley analog generator with layout optimizer boosted with deep neural networks. In 2019
+IEEE/ACM International Conference on Computer-Aided Design (ICCAD), pages 1–8. IEEE,
+2019.
+[8] Wei Hong, Zhi Hao Jiang, Chao Yu, Debin Hou, Haiming Wang, Chong Guo, Yun Hu, Le Kuai,
+Yingrui Yu, Zhengbo Jiang, Zhe Chen, Jixin Chen, Zhiqiang Yu, Jianfeng Zhai, Nianzu Zhang,
+
+--- PAGE BREAK ---
+
+Ling Tian, Fan Wu, Guangqi Yang, Zhang-Cheng Hao, and Jian Yi Zhou. The role of millimeter-
+wave technologies in 5g/6g wireless communications. IEEE Journal of Microwaves, 1(1):101–
+122, 2021.
+[9] Wonbin Hong, Kwang-Hyun Baek, Youngju Lee, Yoongeon Kim, and Seung-Tae Ko. Study
+and prototyping of practically large-scale mmwave antenna systems for 5g cellular devices.
+IEEE Communications Magazine, 52(9):63–69, 2014.
+[10] Diederik P. Kingma and Jimmy Ba. Adam: A method for stochastic optimization, 2017.
+[11] Dmitrii Krylov, Pooya Khajeh, Junhan Ouyang, Thomas Reeves, Tongkai Liu, Hiba Ajmal,
+Hamidreza Aghasi, and Roy Fox. Learning to design analog circuits to meet threshold specifi-
+cations. In Proceedings of the 40th International Conference on Machine Learning, ICML’23.
+JMLR.org, 2023.
+[12] Xiaopeng Li and Mohammed Ismail. Multi-Standard CMOS Wireless Receivers: Analysis and
+Design. Springer US, 2002.
+[13] Xuyang Liu, Md Hedayatullah Maktoomi, Mahdi Alesheikh, Payam Heydari, and Hamidreza
+Aghasi. A 49-63 ghz phase-locked fmcw radar transceiver for high resolution applications.
+In ESSCIRC 2023- IEEE 49th European Solid State Circuits Conference (ESSCIRC), pages
+509–512, 2023.
+[14] Antonio J Lopez Martin. Cadence design environment. New Mexico State University, Tutorial
+paper, 35, 2002.
+[15] Rayan Mina, Chadi Jabbour, and George E. Sakr. A review of machine learning techniques in
+analog integrated circuit design automation. Electronics, 11(3), 2022.
+[16] Ateeq Ur Rehman Nazih Khaddaj Mallat, Madeeha Ishtiaq and Amjad Iqbal. Millimeter-wave
+in the face of 5g communication potential applications. IETE Journal of Research, 68(4):2522–
+2530, 2022.
+[17] Sundeep Rangan, Theodore S. Rappaport, and Elza Erkip. Millimeter-wave cellular wireless
+networks: Potentials and challenges. Proceedings of the IEEE, 102(3):366–385, 2014.
+[18] Behzad Razavi. Architectures and circuits for rf cmos receivers. In Proceedings of the IEEE
+1998 Custom Integrated Circuits Conference (Cat. No.98CH36143), pages 393–400, 1998.
+[19] Behzad Razavi. RF Microelectronics. Prentice Hall Press, USA, 2nd edition, 2011.
+[20] Behzad Razavi. Design of analog CMOS integrated circuits. McGraw-Hill Education, New
+York, NY, second edition edition, 2017.
+[21] Robert R Schaller. Moore’s law: past, present and future. IEEE spectrum, 34(6):52–59, 1997.
+[22] Keertana Settaluri, Ameer Haj-Ali, Qijing Huang, Kourosh Hakhamaneshi, and Borivoje Nikolic.
+Autockt: deep reinforcement learning of analog circuit designs. In Proceedings of the 23rd
+Conference on Design, Automation and Test in Europe, DATE ’20, page 490–495, San Jose,
+CA, USA, 2020. EDA Consortium.
+[23] Ashish Vaswani, Noam Shazeer, and et al. Attention is all you need. Advances in neural
+information processing systems, 30, 2017.
+[24] Jean-Philippe Vert, Koji Tsuda, and Bernhard Schölkopf. 2 a primer on kernel methods. Kernel
+Methods in Computational Biology, page 35, 2004.
+[25] Hanrui Wang, Kuan Wang, Jiacheng Yang, Linxiao Shen, Nan Sun, Hae-Seung Lee, and Song
+Han. Gcn-rl circuit designer: Transferable transistor sizing with graph neural networks and
+reinforcement learning. In 2020 57th ACM/IEEE Design Automation Conference (DAC), pages
+1–6. IEEE, 2020.
+[26] Hanrui Wang, Jiacheng Yang, Hae-Seung Lee, and Song Han. Learning to design circuits, 2018.
+[27] Guo Zhang, Hao He, and Dina Katabi. Circuit-gnn: Graph neural networks for distributed
+circuit design. In International conference on machine learning, pages 7364–7373. PMLR,
+2019.
+
+--- PAGE BREAK ---
+
+Circuits
+In this section, we provide details on the examined homogeneous and heterogeneous circuits in Section
+3 and 4. As mentioned in the body of the paper, time-consuming parametric sweeps are necessary for
+designing analog and radio frequency circuits. Often, a small subset of design parameters can satisfy
+the thresholds for design metrics. From a circuit design perspective, the limited number of parameter
+combinations that satisfy the metrics happens due to: 1) complexity of transistor models and the
+sensitivity of their operation to surrounding circuit elements, circuit configuration, bias conditions,
+size of the transistor, etc. 2) inherent trade-offs among various design metrics in each circuit. In
+what follows, for each circuit, in addition to the schematics and set of design parameters and metrics,
+multiple important design trade-offs are listed within colored boxes adjacent to the schematics. The
+same color is reserved for a trade-off if it is present in more than one circuit.
+Vgate
+Vout
+Homogeneous
+Gain-bandwidth tradeoff
+Gain-swing tradeoff
+Gain-power tradeoff
+Figure 13: Common-Source Voltage Amplifier.
+Vin+
+Vin-
+Vout+
+Vout-
+Homogeneous
+Gain-bandwidth tradeoff
+Gain-swing tradeoff
+Gain-power tradeoff
+Figure 14: Cascode Voltage Amplifier.
+
+--- PAGE BREAK ---
+
+Vin+
+Vin-
+Vout+
+Vout-
+Homogeneous
+Noise-bandwidth tradeoff
+Gain-bandwidth tradeoff
+Gain-power tradeoff
+Figure 15: Two-Stage Voltage Amplifier.
+Vout
+Homogeneous
+Noise-bandwidth tradeoff
+Gain-bandwidth tradeoff
+Gain-power tradeoff
+Figure 16: Low-Noise Amplifier.
+VRF+
+VRF-
+VLO+
+VIF+
+VLO-
+WN2 WN2
+VLO+
+VIF-
+Homogeneous
+Noise-bandwidth tradeoff
+Gain-bandwidth tradeoff
+Gain-power tradeoff
+Figure 17: Mixer.
+
+--- PAGE BREAK ---
+
+Vout+
+Vout-
+Wvar
+Wvar
+Vcontrol
+Homogeneous
+Autonomous
+Noise-bandwidth tradeoff
+Noise-power tradeoff
+Figure 18: Voltage-Controlled Oscillator.
+Vin+
+Vin-
+Vout+
+Vout-
+Homogeneous
+Gain-bandwidth tradeoff
+Gain-power tradeoff
+Gain-efficiency tradeoff
+Figure 19: Power Amplifier.
+Wvar
+Wvar
+Vcontrol
+Buffer
+Buffer
+Vout+
+Vout-
+Heterogeneous
+Gain-bandwidth tradeoff
+Gain-efficiency tradeoff
+Noise-bandwidth tradeoff
+Noise-power tradeoff
+Figure 20: Heterogeneous system on the transmitter side.
+
+--- PAGE BREAK ---
+
+VLO+
+VLO-
+VLO+
+Vout
+Heterogeneous
+Gain-bandwidth tradeoff
+Gain-power tradeoff
+Noise-bandwidth tradeoff
+Noise-power tradeoff
+Figure 21: Heterogeneous system on the receiver side.
+Heterogeneous Circuits
+Individual Block
+Parameter
+Sweeping Range
+Transmitter System
+specs:
+dc power | bandwidth | output power
+| voltage swing
+Voltage-Controlled Oscillator (VCO)
+specs:
+phase noise | tuning range
+50:50:150 (fF)
+60:60:180 (pH)
+300:100:500 (Ω)
+7.5:2.5:12.5 (µm)
+187.5:12.5:212.5 (µm)
+Wvar
+70:10:90 (µm)
+Power Amplifier (PA)
+specs:
+power gain | drain efficiency | PAE
+175:175:350 (pH)
+60:60:120 (pH)
+360:353:713 (pH)
+45:45:90 (pH)
+22:5:32 (µm)
+16:5:26 (µm)
+Receiver System
+specs:
+dc power | gain | noise figure
+Low-Noise Amplifier (LNA)
+specs:
+power gain | S11 | noise figure
+130:50:180 (fF)
+170:50:220 (fF)
+180:50:230 (pH)
+850:100:950 (pH)
+80:10:90 (pH)
+20:3:26 (µm)
+37.5:2.5:42.5 (µm)
+Mixer
+specs:
+voltage swing | conversion gain
+1:0.1:1.1 (pF)
+400:100:500 (Ω)
+14:2:18 (µm)
+6:2:10 (µm)
+Cascode Voltage Amplifier (CVA)
+specs:
+gain
+300:100:400 (Ω)
+26:2:30 (µm)
+14:2:18 (µm)
+Table 1: Heterogeneous circuits and the chosen parameters for each block. The sweeping range of
+selected design parameters is written in the form of [beg, increment, end]. Detailed circuit
+topology is provided in Appendix A. Specs of each circuit are explained in Appendix C.
+
+--- PAGE BREAK ---
+
+Homogeneous Circuit
+Parameter
+Description
+Sweeping Range
+Common-Source Voltage Amplifier (CSVA)
+specs:
+dc power | bandwidth | gain
+supply voltage
+1.2:0.1:1.8 (V)
+Vgate
+gate voltage
+0.6:0.05:0.9 (V)
+load resistor
+0.5:0.1:3 (kΩ)
+width of nmos
+3:1:10 (µm)
+Cascode Voltage Amplifier (CVA)
+specs:
+dc power | bandwidth | gain
+load resistor
+0.5:0.1:2 (kΩ)
+width of nmos
+6:1:17 (µm)
+width of nmos
+5:1:12 (µm)
+width of nmos
+4.5:0.5:9 (µm)
+Two-Stage Voltage Amplifier (TSVA)
+specs:
+dc power | bandwidth | gain
+miller capacitor
+150:50:250 (fF)
+width of pmos
+10:1:18 (µm)
+width of pmos
+7.5:5:22.5 (µm)
+width of nmos
+10:1:18 (µm)
+width of nmos
+7.5:5:22.5 (µm)
+width of nmos
+16:2:24 (µm)
+Low-Noise Amplifier (LNA)
+specs:
+dc power | bandwidth | power gain
+| S11 | noise figure
+output capacitor
+300:100:600 (fF)
+input capacitor
+200:100:500 (fF)
+drain inductor
+3:1:5 (nH)
+gate inductor
+8.4:1:11.4 (nH)
+source inductor
+0.6:0.1:0.8 (nH)
+width of nmos
+25:1.25:30 (µm)
+width of nmos
+25:1.25:30 (µm)
+Mixer
+specs:
+dc power | voltage swing
+| conversion gain | noise figure
+coupling capacitor
+0.5:0.1:1.5 (pF)
+load resistor
+200:25:500 (Ω)
+width of nmos
+15:1:25 (µm)
+width of nmos
+5:1:15 (µm)
+Voltage-Controlled Oscillator (VCO)
+specs:
+dc power | frequency | phase noise
+| tuning range
+capacitor in resonant tank
+100:25:200 (fF)
+inductor in resonant tank
+2:1:6 (nH)
+parallel resistor
+1:1:4 (kΩ)
+width of nmos
+24:8:56 (µm)
+width of nmos
+11:1:12 (µm)
+width of nmos
+96:32:160 (µm)
+Wvar
+width of nmos capacitor
+75:12.5:125 (µm)
+Power Amplifier (PA)
+specs:
+dc power | S11 | S22 | power gain
+| PAE | drain efficiency | Psat
+input primary inductor
+175:175:525 (pH)
+input secondary inductor
+40:40:120 (pH)
+inter-stage matching inductor
+87.5:87.5:263 (pH)
+output primary inductor
+238:238:714 (pH)
+output secondary inductor
+30:30:90 (pH)
+width of nmos
+16:3:28 (µm)
+width of nmos
+24:4:40 (µm)
+Table 2: Homogeneous circuits and the chosen parameters for each circuit. The sweeping range of
+selected design parameters is written in the form of [beg, increment, end]. Detailed circuit
+topology is provided in Appendix A. Specifications of each circuit are explained in Appendix C.
+
+--- PAGE BREAK ---
+
+Model Details
+Model
+Parameter
+Description
+Value
+Transformer
+dim_model
+first fully connected layer dim
+num_heads
+heads in the multi-head attention models
+dim_hidden
+load resistor
+dropout_p
+the dropout probability
+num_encoder_layers
+number of layers in transformer encoder
+activation
+activation function of transformer encoder
+relu
+Multi Layer Perception (MLP)
+num_layers
+number of fully connected layers
+dim_layers
+dimension of layers
+[200, 300, 500, 500, 300, 200]
+Support Vector Regressor (SVR)
+kernel
+kernel type of the algorithm
+multi_target_regression_type
+type of combining multiple SVRs
+MultiOutputRegression
+K Nearest Neighbors Regressor (KNN)
+n_neighbors
+number of neighbors
+weights
+weight function used in prediction
+uniform
+Random Forest Regressor (RF)
+n_estimators
+number of trees in the forest
+criterion
+function to measure the quality of a split
+squared_error (l2 Loss)
+Table 3: Models and the chosen parameters for each model.
+Circuit
+CSVA
+TSVA
+Mixer
+Transmitter
+Receiver
+Dataset Size
+7.8k
+15.1k
+19.3k
+17.1k
+13.5k
+5.6k
+95.3k
+155.4k
+Table 4: Number of data points for each circuit.
+Specifications of Each Circuit
+In this section, we review the definitions of various performance metrics that are simulated for the
+homogeneous and heterogeneous circuits in this work.
+Voltage gain of an amplifier, denoted commonly as Av, is the ratio of the output amplified voltage
+Vout to the input voltage Vin in an amplifier circuit.
+Av = Vout
+Bandwidth is the range of frequencies over which an amplifier can operate effectively, defined by
+the difference between the upper and lower cutoff frequencies.
+BW = fhigh −flow
+For amplifiers with low-pass profile, the bandwidth is defined as the frequency at which the dB
+amount of voltage gain drops from the low-frequency gain by 3 dB.
+The total power that the circuit draws from the power supply is known as power consumption, and it
+is calculated as the product of supply voltage and supply current.
+P = Vsupply × Isupply
+Conversion gain is the measure of the signal amplification in a mixer, expressed in decibels,
+comparing the output signal to the input signal.
+CG = 20 log
+Vout
+Noise figure is the ratio of the input signal-to-noise ratio to the output signal-to-noise ratio, expressed
+in decibels, indicating the noise performance of a low-noise amplifier, mixer, or receiver chain.
+NF = 10 log
+ SNRin
+SNRout
+Intermediate frequency (IF) voltage swing refers to the peak-to-peak voltage of the mixer’s interme-
+diate frequency signal.
+
+--- PAGE BREAK ---
+
+The oscillation frequency is the frequency at which the oscillator produces its periodic signal, which
+is normally controlled by the circuit’s inductance and capacitance in an LC-based oscillator.
+fosc =
+The power that the oscillator provides to a given load is known as output power, and it is computed
+by dividing the root-mean-square (RMS) output voltage squared by the load resistance.
+Pout = V 2
+out,RMS
+Rload
+Phase noise is a measure of the oscillator’s frequency stability, representing the noise power in a
+1 Hz bandwidth at a specific offset frequency from the carrier, relative to the carrier power, where
+Sϕ(f) is the phase noise power spectral density.
+L(f) = 10 log
+ Sϕ(f)
+2Pcarrier
+dBc/Hz
+(10)
+The oscillator’s tuning range is the range of frequencies that it can be adjusted over, measured from
+maximum to minimum.
+TR = fmax −fmin
+(11)
+S11 represents the ratio of the reflected voltage wave to the incident voltage wave at the power
+amplifier’s input, which shows how much of the input signal is reflected.
+S11 = Vreflected,1
+Vincident,1
+(12)
+S22 represents the ratio of the reflected voltage wave to the incident voltage wave at the power
+amplifier’s output, which shows how much of the output signal is reflected.
+S22 = Vreflected,2
+Vincident,2
+(13)
+Large signal gain is the ratio of the output power to the input power of the amplifier under large
+signal conditions.
+GLS = 20 log
+Pout
+(14)
+Power added efficiency is the amplifier’s efficiency in converting DC power into radio frequency
+output power while taking input power into account.
+PAE = Pout −Pin
+× 100%
+(15)
+Drain efficiency is defined as the ratio of radio frequency output power to total DC power consumed
+by the amplifier.
+DE = Pout
+× 100%
+(16)
+Saturated power or Psat denotes the highest possible output power level that a power amplifier can
+produce upon reaching saturation. Up until this point, increasing the input power further does not
+significantly increase the output power.
+Psat(dBm) = 10 log10
+Psat(mW)
+(17)
+Power gain is a measure of how much a circuit increases the power of a signal from its input to its
+output.
+GP = Pout
+(18)
+Voltage-controlled oscillator’s (VCO) output power is the amount of electrical power delivered at
+
+--- PAGE BREAK ---
+
+its output terminal. The output power Pout is proportional to the square of the RMS voltage Vrms and
+the load resistance Rload.
+Pout = 1
+2 · V 2
+rms · Rload
+(19)
+Transmitter output power is the amount of electrical power delivered by the transmitter to the
+antenna for transmission as electromagnetic waves.
+Pout = Pin · Gt
+(20)
+where, Pout is the transmitter output power. Pin is the input power to the transmitter, and Gt is the
+gain of the transmitter.
+Transducer Gain ( Gt ) of Low Noise Amplifier (LNA) refers to the ratio of the output signal power
+to the available input signal power which includes the matching effect as well.
+GT = Pout
+(21)
+Results on More Circuits
+Results on Common-Source Voltage Amplifier (CSVA).
+relative error (%)
+prob density
+Voltage Gain
+Trans
+relative error (%)
+Bandwidth
+Trans
+relative error (%)
+Power Consumption
+Trans
+Figure 22: Common-Source Voltage Amplifier
+Results on Cascode Voltage Amplifier (Cascode).
+relative error (%)
+prob density
+Voltage Gain
+Trans
+relative error (%)
+Bandwidth
+Trans
+relative error (%)
+Power Consumption
+Trans
+Figure 23: Cascode Voltage Amplifier
+Results on Low-Noise Amplifier (LNA).
+10 20 30 40 50
+relative error (%)
+prob density
+Trans
+relative error (%)
+GTMax
+Trans
+relative error (%)
+NFMin
+Trans
+relative error (%)
+Bandwidth
+Trans
+relative error (%)
+Power Consumption
+Trans
+Figure 24: Low-Noise Amplifier
+
+--- PAGE BREAK ---
+
+Results on KNN
+relative error (%)
+prob density
+CSVA
+Power Consumption
+Bandwidth
+Volatage Gain
+relative error (%)
+Cascode
+Power Consumption
+Bandwidth
+Voltage Gain
+relative error (%)
+TSVA
+Power Consumption
+Bandwidth
+Voltage Gain
+relative error (%)
+Phase Noise
+Osc Frequency
+Output Power
+Tuning Range
+relative error (%)
+Mixer
+Conversion Gain
+Noise Figure
+Power Consumption
+relative error (%)
+GTMax
+Bandwidth
+Power Consumption
+Noise Figure
+10 20 30 40
+relative error (%)
+Noise Figure
+Drain Efficiency
+Power Gain
+Figure 25: KNN performance on homogeneous circuits.

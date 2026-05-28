@@ -1,0 +1,640 @@
+Phasor-Pursuit Directional Modulation
+David Couto Member, IEEE, Arash Samani Senior Member, IEEE, Alec Yonika
+BAE Systems Inc., FAST Labs
+Merrimack, NH 03054
+Abstract—Emitting phased array RF systems have to contend
+with an ever-increasing number of eavesdroppers as technolog-
+ical advancements provide lower cost and/or more capable ra-
+dios. Often, eavesdroppers can accumulate sufficient information
+transmitted in sidelobes by integrating over long enough periods.
+Directional modulation (DM) disrupts this capability by inducing
+a randomized walk through IQ-space to reach a pertinent
+location which corresponds to a symbol of particular amplitude
+and phase. This results in higher secrecy capacity. The path taken
+by the cumulative element contributions are determined by the
+complex weights of individual transmitters. Because large phased
+arrays support a large number of available paths, repetitions
+of applied weights are not concerning. The same cannot be
+said for arrays that consist of only a few elements, e.g. WiFi
+routers. We introduce a computationally efficient and flexible
+framework for DM that utilizes real-valued phase rotations of
+element weights. It supports a wide family of modulation schemes
+in phase and/or amplitude. By employing the state-of-the-practice
+orthogonal noise injection framework, we demonstrate a richness
+of unique paths which resolves concerns about repeated weights.
+In our proposed scheme, there is a small reduction in received
+power compared to traditional beamforming, as little as 1 dB,
+which is an advantage over conventional directional modulation
+which typically sacrifices 6 dB of power. Also, there is a
+significantly larger set of possible element weights than that of the
+conventional scheme. This feature protects against the possibility
+of eavesdroppers breaking the distortion-based obfuscation of
+symbols over repeated observations. From these two key benefits,
+Phasor Pursuit Directional Modulation provides more secrecy
+capacity than conventional directional modulation via increased
+power delivery and increased receiver SNR and does so with
+resilience to advanced eavesdropping threats.
+Index Terms—Directional modulation (DM), physical-layer
+security, secure wireless communication, keyless encryption.
+I. INTRODUCTION
+IELDED transmitting RF array systems require the means
+to protect their transmissions from potential eavesdrop-
+pers. One tactic is to protect the communication at the symbol
+level, one example of a technology in this family of solutions
+is directional modulation (DM). To provide security, DM
+relies upon obfuscation of the symbols in power radiated
+off-target, i.e. side lobes, if we consider the context of a
+traditional uniform linear array. This is done by augmenting
+transmitted signals at the element level such that the a-priori
+secure communication direction is the only direction where the
+waves combine with the intended phase and amplitude, which
+makes eavesdropping infeasible [1]. Contrasting with standard
+cryptographic approaches to protect transmitted content [2],
+DM can be implemented at the physical layer [3], [4] for
+information theoretic security [5]. DM has been described as
+either a direct manipulation of the antenna radiating structures,
+or a perturbation of the complex array element excitation
+weights [6].
+In many DM systems, the orthogonal vector approach
+introduced in [1], [7] is employed. When we use this paradigm,
+a DM implementation is a modification of array excitation
+weights corresponding to a ±π/2 rotation; this is similar to
+the artificial noise approach utilized by the information theory
+community [8], [9]. These induced rotations are balanced,
+such that the cumulative transmission arrives on-phase. This
+results in a necessary trade of power placed on target by the
+transmitting platform, e.g. half of the elements experiencing
+a rotation leads to a roughly 6 dB loss, in exchange for the
+increased security off-target. However, this presents a problem
+that becomes apparent in the limit of few-element arrays. This
+comes about from the limited set of unique combinations of
+conventionally-transmitting and randomly-rotated nodes. For
+a capable enough eavesdropper, the distorted symbols may be
+recoverable as was demonstrated in [10].
+A simple extension of the DM concept is presented in [11]
+in which the random phase rotations induced by the array
+excitation weights are chosen to be real-valued and small.
+This technique induces the desired security aspects contained
+in DM, while creating a larger set of unique combinations;
+however, this approach induced some variability in the re-
+ceived power at the target location. Other approaches utilize
+genetic algorithms [4] or particle-swarming [12] methods to
+perform the optimization task of selecting the array weights.
+The use of these optimization approaches can be prohibitively
+expensive in terms of computational cost, especially when the
+transmitting system is expected to perturb array weights on a
+per-symbol basis. In-between these two families of approaches
+is where our work is placed; providing a computationally-
+efficient means to randomly perturb the individual array
+weights such that security off-target is increased yet providing
+enough constraint so that the energy delivered on-target is
+constant, or for amplitude modulation schemes, matching the
+desired amplitude.
+This paper is organized as follows. In Section II, we provide
+the preliminary mathematical groundwork necessary for the
+continued discussion and present the operational scenario that
+guides the rest of our discussion. We then demonstrate the
+functionality of a conventional DM framework. Section III
+discusses the real-valued phase approach to DM, wherein we
+also discuss modifications to further extend this capability
+and provide broad operational relevance. Results that provide
+direct comparison between conventional and real-valued phase
+DM is discussed in Section IV with final statements following
+979-8-3503-9214-2/24/$31.00 © 2024 IEEE
+arXiv:2503.10459v1  [eess.SP]  13 Mar 2025
+
+--- PAGE BREAK ---
+
+in V.
+II. BACKGROUND
+Herein we present the salient mathematical features of DM
+to aid in denoting the differing, noteworthy, behaviors between
+conventional and real-valued phase approaches to DM. This
+discussion is concluded with the operational scenario that is
+used as the exemplar, and corresponding conventional DM
+performance, which will be used as the operational scenario
+for future discussions on the performance benefits and differ-
+ences between conventional and real-valued phase DM unless
+specified otherwise.
+A. Mathematical Description
+We assume isotropically-radiating antenna elements with
+uniform array spacing of one half wavelength. The far-field
+pattern, E(θ), is determined as a sum of the individual element
+contributions with the respective element excitations αn,
+E(θ) =
+(αneiπ(n−N+1
+)cos(θ)).
+Implementing DM is achieved through replacing the individual
+element excitations with the product of the modulated data
+stream (at symbol level) and complex gain; the gain of which
+possesses unity magnitude and non-zero phase in the IQ-space,
+i.e. αn ≡dmG∗
+n and Gn = ejϕn.
+Moving from a single epoch to multiple epoch processing of
+DM sequences introduces the requirement of constraining or-
+thogonality across the gain differences over the array. Consider
+two epochs, wherein the gain coefficients can be represented
+via vectors ⃗Gu and ⃗Gv respectively. The gain difference is
+simply, ∆⃗G = ⃗Gu −⃗Gv. Then, discretizing over the spatial
+direction in Eq. 1, we denote the discrete channel matrix as
+
+ei(1−N+1
+)πcos(θ1)
+. . .
+ei(N−N+1
+)πcos(θ1)
+ei(1−N+1
+)πcos(θ2)
+. . .
+ei(N−N+1
+)πcos(θ2)
+ei(1−N+1
+)πcos(θK)
+. . .
+ei(N−N+1
+)πcos(θK)
+
+We then can denote the orthogonality constraint, as presented
+in [7], as
+H(θk = θtarget)∗∆⃗G = 0 .
+We can now note the primary difference between conven-
+tional and real-valued phase DM. Conventional DM systems,
+such as those defined in [4], [6] constrain the phase of the
+complex gain coefficient to three values ϕn = [−π/2, 0, π/2].
+Whereas in the real-valued phase DM framework, we denote
+ϕn as a random variable drawn from a beta distribution in the
+interval ϕn ∈[−π/2, π/2], that is ϕn ∼π
+2 [Be(α = β) −.5].
+We present the coefficient determination algorithm in Algo-
+rithm 1.
+The implications of our modifications to the DM framework
+are more readily assessed in the framework of vector synthesis
+presented in [1], [7]. Wherein we examine the received symbol
+as a superposition of vector contributions from the individual
+emitters in IQ space; see Fig. 1 where we present a simple
+case of conventional DM with an eight element ULA.
+Fig. 1.
+Illustrative example of a vector path obtained through an array
+excitation approach consistent with conventional DM
+Fig. 2. Vector path in IQ-space obtained through the real-valued phase DM
+approach.
+Here we observe that two of the eight emitters performed a
+±π/2 rotation resulting in an approximate 2.5 dB loss. It is
+an easy exercise to note the difficulty in finding unique paths
+through IQ space which are induced by the cumulation of
+orthogonal array contributions when the array has relatively
+few elements. Within this problem space, we can easily
+denote the benefit of the real-valued phase framework for
+DM. In Fig. 2 we demonstrate the effect that the real-valued
+phase rotations has on the vector path in IQ-space. It is
+important to note the behavior of two vector contributions,
+where an optimized close-out procedure is performed to reach
+the appropriate symbol phase and amplitude. This result is
+achieved through assessing the geometry of the vector path
+and constructing and appropriate equilateral triangle with the
+final element contributions, before a final scrambling operation
+distributes the phases across the array.
+B. Permutation
+As we have alluded to, the motivation for including real-
+valued phase rotations in the coefficient determination for
+DM beamforming was to increase the configuration diversity.
+This decreases the periodicity of repetition in DM transmis-
+sions which decreases the likelihood of collecting enough
+information by eavesdroppers to intercept the transmission
+and effectively decode the DM. In the limit of large, dense,
+phased arrays it may become too cumbersome to repeatedly
+compute the individual phase rotations at the symbol rate. In
+this situation it is important to note that permutations and
+reflections about the symbol axis in IQ-space can be performed
+for low-cost determination of additional sequences of gain
+coefficients across the array. As an example, consider the case
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086
+
+--- PAGE BREAK ---
+
+Fig. 3.
+Vector path of permuted gain sequences in the real-valued phase
+approach to DM.
+presented in Fig. 3 which shows a permuted case of vector
+paths for DM utilizing the real-valued phase framework in
+our exemplar presented herein.
+C. Exemplar
+For ease of analysis we consider a linear phased uniform
+line array (ULA) with operational frequency of 1 GHz. The
+phased array consists of N = 16 elements separated by
+the conventional λ/2 spacing. Each element is capable of
+transmitting with maximum, unity, gain and is steering the
+main lobe response at 0◦from the array normal. We de-
+fine eavesdroppers as receiving platforms located at angular
+positions outside of the main lobe response. The scenario
+embodies a dynamic scene with stationary transmitter and
+receiver platform(s), i.e. symbol rate differences are implied
+in the transmit scheme. Within each epoch the DM framework
+must match a symbol corresponding to 0◦phase and amplitude
+75% of total array power, that is an approximate 2.5 dB loss
+in intended recipient direction when compared to conventional
+beamforming techniques.
+D. Conventional DM
+We apply conventional DM to the exemplar presented above
+and examine the performance of the transmitting platform
+over a time-varying scenario. This allows us to examine the
+variability that the DM paradigm is capable of introducing in
+the radiation placed off-target. This is most readily observed in
+the variance and average of the radiation pattern over several
+epochs, each epoch presenting with the generation of a new
+set of phase rotations.
+We present the results for conventional DM in Fig. 4 over an
+operational period comprising 200 independent transmission
+epochs. The results demonstrate the ability of the conventional
+DM framework to disrupt eavesdropper interception capability
+by causing the received energy to be unreliable over time. This
+effect is limited to directions that do not correspond to the
+intended direction. As we would expect, the variance vanishes
+as we approach the intended transmission direction which is a
+consequence of the orthogonality constraint and implying no,
+or limited, impact for the intentional link.
+The results contained in Fig. 4 are bolstered by the ability
+of conventional DM to provide epoch-to-epoch scrambling of
+phase for the symbol location in the constellation. We provide
+this for conventional DM in Fig. 5 where we observe a full π
+of symbol phase variability at solid angles of approximately
+11◦.
+III. PERFORMANCE OF REAL-VALUED DM
+With the results of the conventional DM approach in mind,
+we now turn our attention to the results generated with the
+real-valued phase DM framework. We restrict our analysis
+to the same exemplar that we used for our discussion of
+conventional DM. The beta distribution used for the real-
+valued DM application was parameterized as α = β = 3. We
+see directly in Fig. 6 that the real-valued phase DM framework
+is capable of providing the same phenomena of variable energy
+delivered in the side lobes. This comes at the cost of degree
+of variability for the delivered energy when compared to the
+result for conventional DM.
+A. Convergence
+As described in algorithm 1, we could rely upon repeated
+pulls from the random number generator to arrive at an N −c
+sized set of phases whose element weights’ sum comes within
+Fig. 4. Time average (left) and variance (right) of radiation pattern for a 16 element ULA performing conventional DM over 200 epochs.
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086
+
+--- PAGE BREAK ---
+
+Fig. 5. Phase deviation in vertical transect through target location showing the mean and min/max deviation from the average.
+Fig. 6. Time average (left) and variance (right) of radiation pattern for a 16 element ULA performing real-valued DM over 200 epochs.
+c of the desired amplitude at zero phase. To guarantee that
+the algorithm converges to the desired sum without repeated
+pulls from the random number generator, we can inspect the
+cumulative sum of the weights. When the euclidean distance
+between the cumulative sum and symbol location drops below
+the number of remaining elements to inspect, i.e. less than
+c. When this occurs the remaining weights are replaced by
+unit vectors pointing in IQ-space directly from the cumulative
+sum to the destination. This can be thought of as allowing the
+random walk vector to do as it will until it is sufficiently far off
+the path to the destination that randomness is set temporarily
+aside to herd the vector path towards our goal. When the
+cumulative sum of the vector path is within c of the desired
+amplitude at zero phase with just c weights remaining, the
+final c weights are calculated instead of randomly chosen. The
+c complex vectors form an equilateral triangle with the vector
+from the tip of the vector path towards the target amplitude
+serving as the base. We term the calculation of these c weights
+as close out in the algorithm description, as seen in Fig. 7
+Algorithm 1 Complex Gain Determination with Unit Ampli-
+tude
+ASSIGN PHASES: ϕn
+ϕn ∼π
+2 [Be(α = β > 1) −.5]
+ASSIGN VALUES FOR CLOSEOUT
+⃗Hco = PN−c
+⃗Aoffset = ⃗A −⃗Hco
+ϕoffset = −tan−1( Im( ⃗
+Hco)
+Re( ⃗
+Hco) )
+IF:|| ⃗Aoffset||2 < 2
+⃗GN = 1
+2 ⃗Aoffset + ˆAoffseteiπ/2
+1 −( 1
+2| ⃗Aoffset|)2
+⃗GN−1 = ⃗Aoffset −⃗GN
+ELSE IF:|| ⃗Aoffset||2 = 2
+⃗GN = ⃗GN−1 = eiϕoffset
+ELSE:
+REDRAW
+return {⃗Gn : n = 1, .., N}
+Ultimately, the choice of PDF permits more than a scaled
+and shifted symmetric Beta distribution; trades can be made
+to lower the computational complexity of the random number
+generator with other PDFs. The algorithm is generally agnostic
+to this choice, so it can be taken as a design consideration. Of
+course, there are limits in the ability to guarantee convergence
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086
+
+--- PAGE BREAK ---
+
+Fig. 7. Illustrative example of a vector path with a random weight replaced
+with one calculated to head directly toward the target (green) and with the
+final two weights forming an equilateral triangle (blue)
+with the selection of the goal amplitude. A 16 element array
+can only provide maximal directive field strength gain of
+16x. Since DM requires some backoff from maximum gain
+to provide space to dither the weights, the algorithm requires
+some backoff as well. In the case of 16 elements, the target
+amplitude probably shouldn’t be 15.99; although it is often
+easily greater than approximately half, as is seen in many
+traditional DM implementations.
+B. Random Phase Distribution Functions
+In the default configuration, Algorithm 1 draws from a
+scaled and shifted version of a symmetric Beta distribution.
+We prefer the symmetric Beta distributions to generate the
+random phases for several reasons. Of course, as is built into its
+name, is the symmetry about a peak such that the expectation
+of the sum of the phases can be posed to reliably provide
+zero after a simple shift of the distribution. The impact of
+scaling makes it such that its range of support is confined to
+the finite interval bordered by ±π/2. This is in comparison to
+a uniform distribution which is similarly shifted and scaled,
+wherein the bulk of its density is focused on values closer
+to zero but exists on an open interval. When considering the
+aforementioned guarantee of converging on one pull of a set
+of phases, the emphasis on small phases makes it less likely
+that the cumulative sum needs to be modified to herd the phase
+toward the target amplitude with zero phase.
+C. Amplitude Modulation with Constant Envelope Drivers
+Regardless of the means, DM provides a capability to meet
+quantized amplitude values through spatial incoherence in
+directions not representing intended transmit locations. This
+feature is necessary for arrays driven by amplifiers that require
+unity peak to average power ratios. This can be used to meet
+standard QAM schemes for arbitrary symbol constellations.
+This capability is shown in Fig. 8 with a 4-ary amplitude
+modulation scheme used as the example. For each amplitude
+level, the target amplitude is adjusted so that the summation
+of weights in the intended direction receives the appropriate
+amplitude. This is not a unique feature of real-valued phase
+DM as the number of ±π/2 weights in traditional DM could
+also be varied to adjust the aggregate amplitude.
+Fig. 8. Demonstration of achieving variable amplitude modulation schemes
+through the use of vector paths induced by real valued phased DM.
+D. Relaxing Unity Gain Constraint
+Maintaining the constraint of constant, unity, magnitude
+for the gain coefficients of the individual emitters allows
+us to be flexible to a wider variety of platforms. However,
+this constraint can be argued to be unnecessary for a large
+range of scenarios; characterized by the capability of each
+element, or individual transmitter, to emit with variable gain
+magnitude within the interval 0 < Gn ≤1. This framework
+has equivalent metrics in terms of unique paths through IQ-
+space, represented in Fig. 9. The algorithm for determining
+the complex gain coefficients is described in Algorithm 2.
+Fig. 9. Vector path in IQ-space obtained through the real-valued phase DM
+approach with each emitter capable of transmitting with variable amplitude
+gain.
+Algorithm 2 Complex Gain Determination with Variable
+Amplitude
+ASSIGN PHASES: ϕn
+ϕn ∼π
+2 [Be(α = β > 1) −.5]
+ASSIGN VALUES FOR CLOSEOUT
+⃗Hco = PN−c
+⃗Aoffset = ⃗A −⃗Hco
+ϕoffset = −tan−1( Im( ⃗
+Hco)
+Re( ⃗
+Hco) )
+⃗GN = || ⃗Aoffset||2
+cos(ϕoffset) + isin(ϕoffset)
+return {⃗Gn : n = 1, .., N}
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086
+
+--- PAGE BREAK ---
+
+IV. RESULTS
+When we discuss the benefit of real-valued phase DM the
+argument is centralized around two concepts, the uniqueness
+of the sequence of complex gain coefficients and the benefit
+of rich permutation sets of possible gain coefficients towards
+increased secrecy capacity. Having discussed the algorithmic
+differences in the two approaches we can then examine how
+our proposed changes impact our performance by these quan-
+tifiable measures.
+A. Uniqueness of Gain Coefficients
+Fig. 10. Uniqueness over time of orthogonal noise vector for the various DM
+frameworks considered herein. Result shows the repetitions in conventional
+DM weights from the initial epoch considered as reference through numerous
+counts of unit value.
+The modification of DM to include real-valued phase ro-
+tations was done to increase the availability of unique vector
+paths through IQ-space. Utilizing the orthogonal noise injec-
+tion framework introduced by [1] we denote the possibility of
+a false positive for orthogonality checks when the sequence
+of gain coefficients is repeated from a prior epoch. This issue
+is amplified with the use of arrays which consist of only
+a few elements. This is due to the finite length of the set
+of unique permutations for the gain coefficients of an array
+with N elements and utilizing k/2 rotations of π/2 and
+−π/2 each. The size of this set scales via permutations with
+coupled choices, i.e. as
+(N−k)!(k/2)!(k/2)!. By considering the
+possibility of real-valued phase rotations for the complex gain
+coefficients the length of our set of unique gain coefficients
+is reinforced by the set of quantizable phase rotations that are
+permissible by the bit-value of the appropriate precision. To
+analyze this, we consider a scenario of an 8-element phased
+array. Of the 8 elements in the original array, we permit
+phase rotations in half; these phase rotations are equally split
+among ±π/2 to guarantee no symbol distortion in the intended
+direction. The set of permutations for this configuration is
+then
+4!2!2! = 420 which corresponds to the periodicity of a
+particular DM configuration, or more succinctly how many
+unique DM transmissions can occur with the given array. We
+can observe this behavior by looking at the Manhattan distance
+for real-valued phases, of a sequence of gain coefficients with
+following permutations over the processing period. This is
+shown for a simulated period of 10000 epochs. This allows
+for adequate coverage of the period for conventional DM;
+we present this result for conventional DM, real-valued phase
+DM, and real-valued phase DM with variable amplitude in
+Fig. 10. We see in this result that, over the period consid-
+ered, conventional DM has two repetitions of the full initial
+sequence of gain coefficients which can be seen in Fig. 10.
+To be thorough and lend rigor to our analysis we also present
+the case of permuted, conventional DM; wherein the complex
+gain coefficients are methodically selected from the full set of
+permutations as we discussed previously.
+B. Secrecy Capacity
+Metrics that are useful for assessing the performance of
+DM systems are discussed in [13], among them is the notion
+of secrecy capacity [14]–[17] which is widely used in the
+information theory community as a measure of the maximum
+amount of information that a receiver can reliably recover from
+a transmission that remain unrecoverable by an eavesdropper.
+This is denoted as the difference in link capacity between the
+legitimate listener and eavesdropper, Cs = (Cr −Ce)+. As
+the eavesdroppers capacity decreases, unintended listeners lose
+the ability to decode transmissions intended for the legitimate
+user. Herein we use the term secrecy capacity for what is
+truly secrecy spectral efficiency, the ratio of secrecy capacity
+to bandwidth, with units of bits/second/Hz. Starting from the
+formulation of the radiation pattern described in Eqn. 1 we can
+denote the received signal at angular location θ for a discrete
+time index m as,
+y(θ, m) = hm(θ)x(m) + η = E(θ, m) + η .
+Where η is the complex, zero-mean Gaussian noise present
+in the channel and we have introduced the complex fading
+coefficients hm(θ) and modulated data stream x(m). The
+instantaneous received SNR at an angular location θK for a
+receiver operating with noise power N(θ) is then,
+γm(θK) = ||E(θK, m)||2
+N(θ)
+Averaging the SNR over a processing window allows us to
+introduce manipulations on the time-wise variance of the radi-
+ation pattern. Denoting the expectation and variance operators
+as E
+and V
+respectively and the time-averaged noise
+power as ¯N(θ), we obtain simply
+γm(θ)
+||E(θK, m)||2
+¯N(θ)
+Noting the definition of the variance of a distribution,
+V[x] ≡E[x2] −E[x]2.
+Which allows us to rephrase the time-averaged SNR in
+terms of the qualitative results demonstrated in Figs. 4 and 6
+γm(θ)
+E(θ)
+E(θ)
+/ ¯N(θ) .
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086
+
+--- PAGE BREAK ---
+
+Fig. 11.
+Secrecy spectral efficiency for conventional (left), real-valued phase with unit amplitude (middle), and real-valued phase with variable amplitude
+(right) DM for an 8-element ULA with 4 randomized phase rotations in the absence of noise and over 500 epochs.
+Then, as is discussed in [16] and [10], we can denote
+the spatial distribution of the achievable secrecy rate through
+utilizing the time-averaged SNR,
+R(θ) = log2
+1 + E
+γm(θ)
+With the total secrecy capacity of the transmission denoted as
+the diferrence in secrecy rate between the intended direction
+θr and the arbitrary location of a eavesdropper θe, i.e.
+Cs = R(θr) −R(θe)
+= log2
+ ¯N(θe)
+¯N(θr)
+ ¯N(θr) + V
+E(θr)
+E(θr)
+¯N(θe) + V
+E(θe)
+E(θe)
+(10)
+The comparison of the secrecy capacity of the two DM
+frameworks discussed herein are presented in Fig. 11 in a
+scenario with 0 dB SNR over a 500 epoch processing window.
+We can see that the real-valued phase approach to DM with
+variable gain drastically improves the secrecy capacity of the
+transmission. This secrecy capacity estimate in Fig. 11 is only
+based by changes in SNR as a matter of beamforming; note
+the similarity with Fig. 4. Secrecy capacity is further improved
+when
+¯N(θr) increases due to the noise-like distortion of
+directional modulation.
+V. CONCLUSION
+We have presented the underlying framework for performing
+directional modulation (DM) on phased arrays by considering
+the process as that of selecting the complex weight coefficients
+leading to a constrained, randomized, walk of vector path ac-
+cumulations through IQ-space. We showed that in conventional
+DM frameworks, where the modifying weight coefficients are
+limited to ±π/2, selecting unique permutations of the se-
+quence of gain coefficients becomes difficult when the number
+of elements in the phased array shrinks. This is remedied
+through our approach by expanding the array excitations to
+include coefficients which correspond to real-valued phase
+rotations. Wherein our uniqueness is bolstered by our fidelity
+in quantizing the appropriate real number presenting the phase.
+This approach was shown to possess the relevant properties,
+in terms of uniqueness, while also providing the same benefits
+that are expected with DM. Namely, variability in the intensity
+of the radiation pattern through scrambling of the side lobes
+while preserving energy and symbol characteristics in the
+direction of the intended receiver. Networks of eavesdroppers
+with adequate spatial diversity who might attempt to decode
+transmitted messages are mitigated by distorting every symbol
+in a unique manner. Through this mechanism, a small amount
+of open communications security capacity is traded for vastly
+increased secrecy capacity against advanced threats.
+REFERENCES
+[1] Y. Ding and V. F. Fusco, ”A Vector Approach for the Analysis and
+Synthesis of Directional Modulation Transmitters,” in IEEE Transactions
+on Antennas and Propagation, vol. 62, no. 1, pp. 361-370, Jan. 2014,
+doi: 10.1109/TAP.2013.2287001.
+[2] W. Stallings, ”Cryptography and Network Security.” 4th ed. Pearson
+Education, India 2006.
+[3] M. P. Daly and J. T. Bernhard, “Beamsteering in pattern reconfigurable
+arrays using directional modulation,” IEEE Trans. Antennas Propag., vol.
+58, no. 7, pp. 2259- 2265, Jul., 2010.
+[4] M. P. Daly, E. L. Daly, and J. T. Bernhard, “Demonstration of directional
+modulation using a phased array,” IEEE Trans. Antennas Propag., vol.
+58, no. 5, pp. 1545-1550, May, 2010.
+[5] M. Bloch and J. Barros, ”Physical-Layer Security: From Information
+Theory to Security Engineering,” Cambridge University Press, 2011.
+[6] Y. Ding and V. F. Fusco, ”A review of directional modulation technology”.
+International Journal of Microwave and Wireless Technologies, 8(7), 981-
+993, 2016. doi:10.1017/S1759078715001099
+[7] Y. Ding and V. F. Fusco, ”Orthogonal Vector Approach for Synthesis
+of Multi-Beam Directional Modulation Transmitters,” in IEEE Antennas
+and Wireless Propagation Letters, vol. 14, pp. 1330-1333, 2015, doi:
+10.1109/LAWP.2015.2404818.
+[8] R. Negi and S. Goel, ”Secret Communication Using Artificial Noise,” in
+Proc. IEEE Veh. Technol. Conf., Sept. 25-28 2005, vol. 62, no. 3, pp.
+1906-1910.
+[9] S. Goel and R. Negi, ”Guaranteeing Secrecy Using Artifical Noise,” IEEE
+Trans. Wireless Commun., vol. 7, no. 6, pp. 2180-2189, Jun., 2008.
+[10] M. Hafez, T. Khattab, T. Elfouly and H. Arslan, ”Secure multiple-
+users transmission using multi-path directional modulation,” 2016 IEEE
+International Conference on Communications (ICC), Kuala Lumpur,
+Malaysia, 2016, pp. 1-5, doi: 10.1109/ICC.2016.7511289.
+[11] X. Fan, Z. Zhang, W. Trappe, Y. Zhang, R. Howard and Z. Han, ”Secret-
+Focus: A Practical Physical Layer Secret Communication System by Per-
+turbing Focused Phases in Distributed Beamforming,” IEEE INFOCOM
+2018 - IEEE Conference on Computer Communications, Honolulu, HI,
+USA, 2018, pp. 1781-1789, doi: 10.1109/INFOCOM.2018.8486339.
+[12] Y. Ding and V. F. Fusco, ”Directional modulation transmitter synthesis
+using particle swarm optimization,” 2013 Loughborough Antennas &
+Propagation Conference (LAPC), Loughborough, UK, 2013, pp. 500-503,
+doi: 10.1109/LAPC.2013.6711950.
+[13] Y. Ding and V. F. Fusco, ”Establishing Metrics for Assessing the Perfor-
+mance of Directional Modulation Transmitters,” 2014 IEEE Transactions
+on Antennas and Propagation, vol. 62, pp. 2745-2755
+[14] C.E. Shannon, “Communication theory of secrecy systems,” The Bell
+Labs Technical Journal, vol. 28, pp 656-715, 1949 doi:10.1002/j.1538-
+7305.1949.tb00928.x.
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086
+
+--- PAGE BREAK ---
+
+[15] A.D. Wyner, “The wire-tap channel,” in The Bell Labs Technical
+Journal, vol. 54, no. 8, pp. 1355-1387, 1975 doi: 10.1002/j.1538-
+7305.1975.tb02040
+[16] J. Barros and M. R. D. Rodrigues, ”Secrecy Capacity of Wireless
+Channels,” 2006 IEEE International Symposium on Information Theory,
+Seattle, WA, 2006, pp. 356-360 doi: 10.1109/ISIT.2006.261613.
+[17] I. Csiszar and J. Korner, ”Broadcast Channels with Confidential Mes-
+sages,” 1978 IEEE Transactions on Information Theory, vol. 24, pp. 339-
+348.
+Approved for Public Release; Distribution Unlimited
+Not Export Controlled per: ES-FL-051324-0086

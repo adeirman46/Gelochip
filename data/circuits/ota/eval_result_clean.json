@@ -1,0 +1,23 @@
+{
+  "component_name": "OTA",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": 39.36,
+      "bw_3db_hz": 5843414.13
+    },
+    "theory": "5T OTA (NMOS pair, PMOS mirror load): high DC gain \u2248 gm1\u00b7(ro2\u2016ro4). Pass if in-band |gain| > 6 dB.",
+    "theory_pass": true
+  },
+  "area_um2": 4278.4
+}

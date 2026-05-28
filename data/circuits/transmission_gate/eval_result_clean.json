@@ -1,0 +1,23 @@
+{
+  "component_name": "TGATE",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": -0.04,
+      "bw_3db_hz": 215443469.0
+    },
+    "theory": "ON transmission gate \u2248 closed switch: |Vout/Vin| \u2248 1 (0 dB) in band; transient OUT tracks IN. Pass if low-freq gain > -3 dB.",
+    "theory_pass": true
+  },
+  "area_um2": 159.5
+}

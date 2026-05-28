@@ -1,0 +1,1048 @@
+Chapter 2 
+Core concepts of microwave and RF measurements  
+2.1 Introduction 
+In this chapter we review the core concepts of microwave and radio frequency (RF) 
+propagation in both guided-wave and on-wafer environments. Because most of these 
+concepts are well-known, we will introduce only the terms and definitions that are 
+necessary for the development and description of the material used throughout this 
+book. For many, this chapter will serve as a whirlwind tour of familiar concepts. 
+Readers interested in further details will find them in the referenced literature.  
+Guided waves are often discussed exclusively in terms of transmission line theory.  
+Here, our approach will begin with Maxwell’s equations, from which we will then 
+transition to the transmission line approach. Readers who do not require a review of 
+the fundamental physics of guided electromagnetic waves may wish to skip directly to 
+Section 2.3, which provides an overview of transmission line theory. Building upon 
+transmission line theory, we define the impedance, admittance and scattering 
+parameter matrices. Then, after a brief discussion of signal flow graphs, we discuss 
+calibration and de-embedding. From there, the calibration approach is extended to 
+multimode propagation. Finally, we introduce one-port calibration of scanning 
+microwave microscopes. 
+2.2 Maxwell’s equations 
+2.2.1 Macroscopic equations 
+Without derivation, we define Maxwell’s equations as follows: 
+ 𝛁 × 𝐄 = −
+(2.1) 
+𝛁 × 𝑯= 𝑱+
+(2.2) 
+𝛁∙ 𝑫=  
+(2.3) 
+𝛁 ∙𝑩= 0 
+(2.4) 
+where E and H are the electric and magnetic field vectors, respectively. B and D are 
+the magnetic induction and electric displacement vectors, respectively. J is a vector 
+that represents the induced and enforced current densities and  is the charge density. 
+E, H, B, D, J and  are functions of position r = (x,y,z) and time t [1]. 
+
+--- PAGE BREAK ---
+
+Maxwell’s equations are complemented by the general electromagnetic materials 
+equations:   
+𝑩= [] ∙𝑯  
+(2.5) 
+𝑫= [] ∙𝑯  
+(2.6) 
+𝑱= [] ∙(𝑬+ 𝑬𝒆𝒏𝒇)  
+(2.7) 
+where [] , [], []  are the permeability, permittivity and conductivity tensors, 
+respectively. For isotropic media, these tensors are reduced to scalar quantities. Here, 
+we will discuss propagation of electromagnetic waves only in media that are linear, 
+isotropic and passive, unless otherwise specified. In addition to Maxwell’s equations, 
+one must enforce the continuity equation 
+𝜕𝑡+ ∇∙𝑱= 0  
+(2.8) 
+Finally, the particular solution of a given electromagnetic problem will depend on the 
+boundary conditions at the interface between two different materials, denoted below 
+by subscripts 1 and 2. For tangential components of electric and magnetic fields [1]  
+𝐸𝑡1 = 𝐸𝑡2 
+(2.9a) 
+𝐻𝑡1 = 𝐻𝑡2 + 𝐾𝑠  
+(2.9b) 
+where 𝐾𝑠 is the surface current density in A/m. For the normal components of the 
+displacement and magnetic induction  
+𝐵𝑛1 = 𝐵𝑛2 
+(2.10a) 
+𝐷𝑛1 = 𝐷𝑛2 −𝜌𝑠 
+(2.10b) 
+where 𝜌𝑠 is surface charge density in C/m2. 
+2.2.2 Vector and scalar potentials 
+To gain physical insight into the meaning of Maxwell’s equation within a material, it 
+is necessary to introduce the polarization vector P and magnetization vector M as [2] 
+𝑫= ε0𝑬+ 𝑷   
+(2.11) 
+ 𝑩= 𝜇0(𝑯+ 𝑴) 
+(2.12) 
+Then the Equations (2.2) and (2.3) can be rewritten in the form:  
+
+--- PAGE BREAK ---
+
+𝛁 × 𝑩= 𝜇 0𝑱+
+𝜕𝑡+ 𝜇0𝛁× 𝑴+ 𝜇0
+(2.13) 
+𝛁∙ 𝑬=
+𝜀0 (+ ∇∙𝑷)  
+(2.14) 
+where c is speed of light in vacuum, ε0 is the permittivity of free space, and μ0 is the 
+permeability of free space. Equations (2.1) and (2.4) retain their form. The material-
+related terms in Equation (2.13) represent the effective currents due to presence of the 
+material and in Equation (2.14) the bound charge due to presence of the material. We 
+will discuss polarization and magnetization vectors and their relation to microscopic 
+material parameters in Chapter 9.  
+From Equation (2.4), it follows that the magnetic field can be written in the form  
+𝑩=  𝛁× 𝑨 
+(2.15) 
+The vector field A is known as the vector potential. Combining this definition with 
+Equation (2.1), we can define a scalar quantity 𝜙 called the scalar potential such that 
+the electric field can be expressed as 
+𝑬= −
+𝜕𝑡− ∇𝜙 
+(2.16) 
+Note that A and 𝜙 are both functions of r and t. This form of Maxwell’s equations is 
+indispensable for describing nanoscale electromagnetic interactions with matter. The 
+introduction of potentials in (2.15) and (2.16) does not uniquely determine A and 𝜙. By 
+introducing the so called Lorentz gauge condition  
+∇∙𝑨+
+𝜕𝑡= 0 
+(2.17) 
+A and 𝜙 can be uniquely determined from 
+(∇2 − 
+𝜕𝑡2)𝑨= −𝜇0𝑱 
+(2.18) 
+(∇2 − 
+𝜕𝑡2)𝜙= −
+𝜀0 𝜌  
+(2.19) 
+The general solutions for the scalar and vector potentials in the Lorentz gauge have 
+the following respective forms [3]-[5]: 
+𝜑(𝒓, 𝑡) = [
+4𝜋𝜀0 ∫
+𝜌(𝒓′,𝑡−|𝒓−𝒓′|
+|𝒓−𝒓′|
+𝑑3𝒓′
+(2.20) 
+
+--- PAGE BREAK ---
+
+𝑨(𝒓, 𝑡) = [
+𝑱(𝒓′,𝑡−|𝒓−𝒓′|
+|𝒓−𝒓′|
+𝑑3𝒓′
+(2.21) 
+These potentials are sometimes referred to as retarded potentials. Note the presence 
+of the expression for the so-called retarded time, t - |r – r’|/c. Also note that the current 
+densities and charge densities in these equations are assumed to contain all 
+contributions including sources. We will return to this approach and its consequences 
+when we discuss near-field interactions. 
+2.2.3 Hertz vector potentials 
+In order to solve Maxwell’s equations in guided waves systems, it is useful to introduce 
+the Hertz potential 𝝅 that is related to the vector and scalar potentials through [6] 
+𝑨(𝒓, 𝑡) = 𝜀𝜇
+𝜕𝝅(𝒓,𝑡)
+(2.22) 
+Using the Lorentz gauge condition (2.17) 
+𝜑(𝒓, 𝑡) = −∇∙𝝅 
+(2.23) 
+Note that if one can find an arbitrary solution for 𝝅, the electric and magnetic fields 
+obtained from the Hertz vector fulfill all of Maxwell’s equations and therefore describe 
+the solution of the problem.    
+Inspection of Maxwell’s equations for guided waves propagating in the z direction 
+reveals two special solutions: one when Ez = 0 and the other when Hz = 0, where Ez and 
+Hz are the components of the electric and magnetic fields along the direction of 
+propagation. The first of these solutions has the electric field perpendicular to the 
+direction of propagation and is called the transverse electric (TE) mode. The latter of 
+these solutions has the magnetic field perpendicular to the direction of propagation 
+and is called the transverse magnetic (TM) mode. The solution for these two cases 
+simplifies if we introduce special forms of Hertz vector potentials: the electric Hertz 
+vector potential e and magnetic Hertz vector potential m. Below, we introduce 
+formulas that correspond to propagation of guided waves in the positive z direction. 
+For the propagation in the negative z direction they have to be modified appropriately 
+[7]. The electric Hertz vector is defined such that: 
+𝑬 =  𝛁 × 𝛁× 𝝅𝒆  
+(2.24a) 
+𝑯 = 𝜖
+𝜕𝑡(𝛁 × 𝝅𝒆) 
+(2.24b)  
+The magnetic Hertz vector is defined as: 
+𝑯 =  𝛁 × 𝛁× 𝝅𝒎 
+(2.25a) 
+
+--- PAGE BREAK ---
+
+𝑬 = −
+𝜕𝑡(𝛁 × 𝝅𝒎) . 
+(2.25b)  
+Both vectors satisfy the wave equation 
+∇2𝝅𝒆,𝒎  − 
+𝜕𝑡2 (𝝅𝒆,𝒎) = 0 . 
+(2.26)  
+When the time dependence of the electric and magnetic fields is harmonic, i.e. in the 
+form exp(jt), one can replace 
+𝝏𝒕  by 𝑗𝜔, where  is the radial frequency of the harmonic 
+signal and 𝑗= √−1. 
+The solution of (2.26), as mentioned above, defines all components of guided-wave 
+electromagnetic fields through (2.24) and (2.25). The utility of the Hertz vector is 
+demonstrated by the fact that one can easily obtain the transverse component of the 
+magnetic field, the so-called TM field, from the component of the electric Hertz vector 
+in the direction of propagation. In a similar way, one can easily obtain the transverse 
+component of the electric field, the so-called TE field, from the magnetic Hertz vector. 
+If the propagating electromagnetic field has both electric and magnetic field 
+components in the plane perpendicular to the direction of propagation and these fields 
+are a function of only one coordinate variable and time, then this field configuration is 
+called a transverse electromagnetic or TEM wave. TEM waves play an important role 
+in microwave engineering because the form of propagating TEM wave equations is 
+similar to that transmission line equations, as will be shown below. 
+2.2.4 Transition from fields to transmission lines 
+Following the approach presented in [7], we transition from the electromagnetic field 
+representation to the quasi-equivalent transmission line approach.  The transmission 
+line model is widely used as it represents complex electromagnetic fields through 
+conceptually simpler voltages and currents. Here, the case of TE waves is described in 
+detail, but the approach is also valid for TM and TEM waves. 
+Assuming the propagation direction is in the z direction for TE waves, the 𝝅𝒎 vector 
+can be expressed as: 
+𝝅𝒎= 𝑇𝑒(𝑥, 𝑦)𝐿(𝑧)𝒖𝑧,  
+(2.27) 
+where 𝒖𝑧 a unit vector in the z direction and the functions Te and L represent the 
+transverse and longitudinal field components, respectively. Inserting (2.27) into (2.26) 
+and separating the variables, we get two differential equations  
+∇2𝑇𝑒(𝑥, 𝑦) + 𝐾2𝑇𝑒(𝑥, 𝑦) = 0 
+(2.28a) 
+𝑑2𝐿(𝑧)
+𝑑𝑧2 + 𝛾2𝐿(𝑧) = 0 
+(2.28b) 
+
+--- PAGE BREAK ---
+
+where 𝛾2 =  𝜀𝜇− 𝐾2 and K is the separation constant. The solution of (2.28b) is in the 
+form 
+𝐿(𝑧) = 𝐴𝑒−𝛾𝑧+ 𝐵𝑒𝛾𝑧,   
+(2.29) 
+which represents the wave propagation as a superposition of waves propagating in the 
+positive and negative z directions. The propagation constant is a complex number,𝛾=
+ 𝛼+ 𝑗𝛽, where 𝛼 is the damping parameter and 𝛽 is a phase constant. One subsequently 
+can introduce 𝜆𝑔 = 
+𝛽 , the wavelength of the guided-wave mode. Both Equations 
+(2.28a) and (2.28b) have to be solved as eigenvalue problems with corresponding 
+boundary conditions. We are not going to address the mathematical solution of such 
+eigenvalue problems here. In general, the solution of the boundary value problem for 
+TE and TM modes leads to an infinite number of solutions for each of the modes. The 
+existence of this set of solutions and the guided wave mode structure it represents are 
+critical concepts for the understanding of guided waves.  
+Now we define the circuit variables for voltage v and current i in terms of the guided-
+wave electromagnetic fields. The transverse magnetic and electric components of are 
+defined as  
+𝑯𝒕= 𝑖𝒉𝟎  
+(2.30a) 
+𝑬𝒕= 𝑣𝒆𝟎  
+(2.30b) 
+For the TE mode: 
+𝒉𝟎= 𝐶𝟐𝛁𝑇𝒆 
+(2.31a) 
+ 𝒆𝟎= 𝐶𝟏(𝒖𝒛 × 𝛁𝑇𝒆) 
+(2.31b) 
+and for the TM mode: 
+𝒉𝟎=  𝑗𝜔𝜀𝐶𝟐(𝛁𝑇𝒎× 𝒖𝒛) 
+(2.32a) 
+𝒆𝟎= 𝐶𝟏𝛁𝑇𝒎 
+(2.32b) 
+C1 and C2 are constants. Combining Equation (2.32) with Equations (2.26) through 
+(2.29) and assuming harmonic time dependence one gets  
+𝑗𝜔𝜇𝐿(𝑧)
+(2.33a) 
+𝑑𝐿(𝑧)
+(2.33b) 
+Note that v and i represent the voltages and currents of the particular propagating 
+mode under specified boundary conditions. It is assumed that the product (𝑣∙𝑖∗) is 
+
+--- PAGE BREAK ---
+
+proportional to power flow of the mode and the ratio 
+𝑖  = 𝑍 is the impedance of the 
+mode. We can define the power in the usual way for electric circuits as 𝑃=
+2 𝑅𝑒(𝑣∙𝑖∗) . 
+This definition of the power imposes the condition that only one of the constants C1 
+and C2 is arbitrary. The arbitrary constant is obtained from additional requirements 
+representing normalization conditions, which are usually chosen such that the fields 
+do not contradict basic physics. In the case of lines such as coaxial cables that have a 
+principal mode, the transverse electric field obeys the Laplace equation. Therefore, one 
+can integrate along the path between the electrodes to obtain the voltage between 
+them. This defines uniquely the outstanding, arbitrary constant. The interested reader 
+can find further details in References [2], [5], and [7] – [11].   
+With i and v defined, we can now define the characteristic impedance of the mode. 
+Begin with the following relation between the transverse field components  
+𝒖𝑧× 𝑯𝑡= 𝒖𝒛 × 𝑖𝐶𝟐𝜵𝑇𝒆= 
+𝑣𝐶1 𝑬𝑡= 
+𝐶𝟏𝑍𝑬𝑡 . 
+(2.34) 
+For a TE mode propagating in air, it can be shown that  
+𝐶2 𝑍= 𝑍0𝑇𝐸= (
+𝜖0)1/2 𝜆𝑔
+(2.35) 
+where Z0TE is the characteristic impedance of the TE mode, and 𝜆0 is the free space 
+wavelength. The characteristic impedance of the TM mode can be found in a similar 
+way [12] 
+𝑍0𝑇𝑀= (
+𝜖0)1/2 𝜆0
+(2.36) 
+Note that this definition of the characteristic impedance is not unique. It is not possible 
+to uniquely define the characteristic impedance of the guided wave in general, but this 
+definition is a reasonable one. 
+Finally, for completeness, it necessary to describe power flow in a guided-wave 
+configuration. For electromagnetic fields the power flow is represented by Poynting’s 
+vector 
+𝑺= 𝑬 × 𝑯 
+(2.37) 
+In a guided-wave structure, the power flow is obtained by integrating the normal 
+component of the Poynting vector over the waveguide cross section. Up to now, we used 
+a general approach that depends on the solution of a boundary value problem of 
+arbitrary configuration. It has allowed us to introduce the concepts of currents and 
+voltages in a general sense for the transverse components of an arbitrary guided-wave 
+field configuration, paving the way for the introduction of transmission line theory. 
+
+--- PAGE BREAK ---
+
+2.3 Transmission line theory 
+Although the theory of guided electromagnetic waves can be fully developed from 
+Maxwell’s equations, the concepts of electrical circuits, including both lumped-element 
+and distributed circuits, are widely used in microwave engineering.  If the 
+electromagnetic problem can be reduced to the propagation of a TEM wave, the circuit 
+representation provides utility and fundamental insight. TEM-like waves are the 
+principal modes of widely-used waveguides such as coaxial cables, microstrip lines, and 
+coplanar waveguides. Here we will use the framework of circuit theory to introduce 
+transmission line theory along with many key terms and concepts used throughout this 
+book. 
+We will follow an approach introduced in the early stages of the development of 
+microwave electronics [12]. Transmission line theory was originally developed by 
+Heaviside [13] and the interested reader can find further details in a number of texts 
+[14] – [17].  Having introduced current i and voltage v, propagation of a TEM mode in 
+one direction is reduced to the propagation of a voltage or current wave on a 
+transmission line of a finite length l. Note that in the context of microwave metrology, 
+the transmission line concept is advantageous over pure circuit theory as it allows for 
+easier definition of measurement reference planes. 
+Figure 2.1. Transmission line model. A schematic of a segment of a transmission 
+line. The line of infinitesimal length dz is characterized by per-unit-length electrical 
+circuit elements: resistance R0, inductance L0, capacitance C0 and conductance G0. 
+A transmission line is characterized by per-unit-length electrical circuit elements: 
+resistance R0, inductance L0, capacitance C0 and conductance G0 as shown in Fig. 2.1. 
+These parameters depend on transmission line dimensions and the materials used to 
+construct the line. Applying Kirchoff’s laws for this infinitesimally long element yields 
+the Telegrapher’s equations: 
+𝑑𝑉(𝑧)
+= −(𝑅0 + 𝑗𝜔𝐿0)𝐼(𝑧) 
+(2.38a) 
+𝑑𝐼(𝑧)
+𝑑𝑧= −(𝑅0 + 𝑗𝜔𝐿0)𝑉(𝑧) 
+(2.38b) 
+We use the capital italicized letters I and V to represent the current i and voltage v 
+with assumed harmonic time dependence. Taking the expression for I(z) from (2.38b) 
+and inserting into (2.38a) gives the wave equation for voltage. The wave equation for 
+current can be obtained in a similar way. The solution of this wave equation is in the 
+form (2.29), but with L(z) replaced by voltage V(z):  
+𝑉(𝑧) = 𝑉+ 𝑒−𝛾𝑧+ 𝑉−𝑒𝛾𝑧 
+(2.39) 
+As in (2.29), the solution is a superposition of forward-propagating wave (from the 
+source) and backward-propagating wave (from the load). Unique values of V+ and V_ 
+
+--- PAGE BREAK ---
+
+are obtained from the voltage and current and the load impedance at the end of the 
+transmission line. If the transmission line of length l is terminated by a load impedance 
+ZL and we move the origin of the coordinate system there, then the expression 𝑉+𝑒−𝛾𝑙 
+represents the voltage wave incident on the load and  𝑉−𝑒𝛾𝑙 represents the voltage wave 
+propagating away from this load. 
+The propagation constant and characteristic impedance of the transmission line are 
+functions of the per-unit-length circuit elements: 
+ 𝛾= [(𝑅0 + 𝑗𝜔𝐿0) ∙(𝐺0 + 𝑗𝜔𝐶0)]1/2   
+(2.40) 
+𝑍0 = √
+(𝑅0+𝑗𝜔𝐿0)
+(𝐺0+𝑗𝜔𝐶0)  
+(2.41) 
+respectively. From (2.38a) and (2.39), the current is  
+𝐼(𝑧) =
+(𝑅0+𝑗𝜔𝐿0) (𝑉+𝑒−𝛾𝑧− 𝑉−𝑒𝛾𝑧) =
+𝑍0 (𝑉+𝑒−𝛾𝑧− 𝑉−𝑒𝛾𝑧) 
+(2.42) 
+We assume that the voltage (V2) and current (I2) at the load are known and define them 
+ 𝑉2 = 𝑍𝐿𝐼2 
+(2.43) 
+where ZL is the load impedance. The boundary conditions for obtaining the amplitudes 
+of the forward and backward waves become 
+𝑉(𝑙) = 𝑉2  = 𝑉+ 𝑒−𝛾𝑙+ 𝑉−𝑒𝛾𝑙  
+(2.44) 
+𝐼(𝑙) = 𝐼2 =
+𝑍0 (𝑉+𝑒−𝛾𝑙− 𝑉−𝑒𝛾𝑙) 
+(2.45) 
+The solution of these two equations for V+ and V- gives  
+𝑉+ =
+2 (𝑉2 + 𝑍0𝐼2)𝑒𝛾𝑙= 𝑉+𝑒𝛾𝑙  
+(2.46a)  
+2 (𝑉2 −𝑍0𝐼2)𝑒−𝛾𝑙= 𝑉−𝑒−𝛾𝑙 
+(2.46b) 
+Inserting (2.46) into (2.39) and (2.42) and rearranging terms yields 
+𝑉(𝑧) =
+𝑉2+𝑍0𝐼2
+𝑒𝛾(𝑙−𝑧) +
+𝑉2−𝑍0𝐼2
+𝑒−𝛾(𝑙−𝑧) = 𝑉𝐹𝑊(𝑧) + 𝑉𝐵𝑊(𝑧) = 𝑉2 cosh 𝛾(𝑙−𝑧) +
+𝑍0𝐼2sinh 𝛾(𝑙−𝑧) 
+(2.47) 
+
+--- PAGE BREAK ---
+
+𝐼(𝑧) =
+𝑉2+𝑍0𝐼2
+𝑒𝛾(𝑙−𝑧) − 
+𝑉2−𝑍0𝐼2
+𝑒−𝛾(𝑙−𝑧) = 𝐼𝐹𝑊(𝑧) − 𝐼𝐵𝑊(𝑧) = 𝐼2 cosh(𝑙−𝑧) −
+𝑍0 sinh 𝛾(𝑙−𝑧)
+(2.48) 
+Equations (2.47) and (2.48) give the forward and backward propagating voltage and 
+current waves – VFW, VBW, IFW, and IBW – as functions of V2 and I2.  
+In practice, it is useful to know the ratio of the backward propagating wave to the 
+forward propagating wave. This ratio reveals what fraction of the wave is reflected 
+backward as a function of the load impedance or other inhomogeneity in the 
+transmission line. This ratio is called reflection coefficient Γ and it can be expressed at 
+any position z along the transmission line as  
+Γ(𝑧) =
+𝑉𝐹𝑊=
+𝑉2−𝑍0𝐼2
+𝑉2+𝑍0𝐼2 𝑒−2𝛾(𝑙−𝑧) =
+𝑍𝐿−𝑍0
+𝑍𝐿+𝑍0 𝑒−𝛾(𝑙−𝑧) 
+(2.49) 
+The impedance Z at any position along the transmission line is given by 
+𝑍(𝑧) =
+𝑉(𝑧)
+𝐼(𝑧) = 𝑍0
+(𝑍𝐿+𝑍0)𝑒𝛾(𝑙−𝑧)+(𝑍𝐿−𝑍0)𝑒−𝛾(𝑙−𝑧)
+(𝑍𝐿+𝑍0)𝑒𝛾(𝑙−𝑧)−(𝑍𝐿−𝑍0)𝑒−𝛾(𝑙−𝑧)=𝑍0
+1+Γ(𝑧)
+1−Γ(𝑧)  
+(2.50) 
+ Evaluating Equation (2.49) at the position z  = l yields:  
+𝑍𝐿−𝑍0
+𝑍𝐿+𝑍0  
+(2.51) 
+This equation can be graphically represented by use of a Smith chart (or Smith 
+diagram). The Smith chart visualizes the magnitude and phase of the reflection 
+coefficient as a function of the load impedance. More generally, the Smith chart may 
+be used to plot the reflection coefficient as a function of position along a transmission 
+line or as a function of frequency. Several simple examples of impedance values are 
+graphed on a Smith chart in Fig. 2.2. The radius of the chart is equal to one, 
+representing full reflection of an incident signal. Thus, the position corresponding to 
+an open circuit lies on the real axis with a value equal to positive one. The reflection 
+coefficient of a short circuit is 180 degrees out of phase from the open-circuit reflection 
+and therefore its position on the Smith chart is also on the real axis, but with a value 
+equal to negative one. For an impedance-matched load, the reflection coefficient is 
+equal to zero and therefore the position of the matched impedance in the Smith chart 
+is at the center. Usually the reflection coefficient is frequency- and position-dependent. 
+Therefore, the impedance change along the transmission line at a given fixed frequency 
+may be represented by a parametric curve with distance from the beginning or end of 
+the transmission line as a parameter. Likewise, for a fixed position on a transmission 
+line, the frequency dependence of the impedance may be represented by a similar 
+curve. 
+
+--- PAGE BREAK ---
+
+Figure 2.2. The Smith chart. The positions of several possible loads are shown: an 
+open circuit, a short circuit and a matched load Z0. Examples of a constant resistance 
+curve and a constant reactance curve are shown in gray. 
+Finally, an understanding of the power transmitted through a transmission line is of 
+fundamental importance because it allows a unique definition of the relationship 
+between the currents and voltages on the transmission line. Under the assumption of 
+harmonic time dependence, the power transmitted through the cross section of a 
+transmission line at position z = z1 along the transmission line is 
+2 𝑅𝑒(𝑉(𝑧1)𝐼∗(𝑧1)) 
+(2.52) 
+where the asterisk denotes the complex conjugate. Using the previously introduced 
+forward and backward waves this can be rewritten as 
+2 𝑅𝑒{𝑉𝐹𝑊(𝑧1)𝐼𝐹𝑊
+∗(𝑧1) −𝑉𝐵𝑊(𝑧1)𝐼𝐵𝑊
+(𝑧1) + (𝑉𝐵𝑊(𝑧1)𝐼𝐹𝑊
+∗(𝑧1) −𝑉𝐹𝑊(𝑧1)𝐼𝐵𝑊
+(𝑧1))} . 
+(2.53) 
+It follows that the power transmitted through a transmission line is not simply the 
+difference of the power transmitted by the forward and backward waves, but also 
+includes the interaction of these waves on the transmission line. This result is not 
+surprising since the superposition principle applies only to voltages and currents (in 
+linear circuits), but not to power. 
+2.4 Impedance, admittance and scattering matrixes 
+From basic circuit theory one can write equations that describe the relationships 
+between the voltages and currents at each port of a multiport device. In order to 
+calibrate and analyze the microwave measurements it is useful to describe these 
+relationships in terms of impedance, admittance, and scattering parameters. Here, we 
+will develop this approach for a two port configuration, but the approach can be 
+generalized to any number of ports. Following convention, we introduce the currents 
+at port 1 (I1) and port 2 (I2) and the corresponding voltages (V1 and V2) as shown in Fig. 
+2.3.  If the network is linear, then the voltages will be linear functions of currents:  
+𝑉1 = 𝑍11𝐼1 + 𝑍12𝐼2 
+(2.54a)  
+𝑉2 = 𝑍21𝐼1 + 𝑍22𝐼2 
+(2.54b) 
+where the variables Zij have the units of impedance and collectively form an impedance 
+matrix. From the reciprocity principle for passive linear circuits, it follows that 𝑍12 =
+𝑍21. Alternative representations may be developed by choosing variables other than V1 
+and V2 to be the dependent independent variables. For example, equations could be 
+written for I1 and I2 as functions of V1 and V2 with the matrix of corresponding 
+coefficients representing admittances. As yet another alternative, the so-called “h-
+
+--- PAGE BREAK ---
+
+matrix representation,” equations could be written with the input voltage and the 
+output current as the dependent variables. 
+Figure 2.3. A two-port device. A schematic of a two-port device defines the currents 
+(I1 and I2), voltages (V1 and V2), and power waves (a1, a2, b1, b2).  
+At microwave frequencies, it is extremely difficult to directly measure voltages and 
+currents. Therefore, a different approach had to be introduced that is more suitable for 
+metrology at these frequencies. Assume that a two-port device is inserted (embedded) 
+into a transmission line. We will call this device the device under test or DUT. Recall 
+from Equations (2.46) that the voltages and currents at a port can be expressed as a 
+superposition of waves propagating toward and away from the port. Here, the 
+amplitudes of the of waves propagating towards and away from a given port n are 𝑉𝑛+ 
+and 𝑉𝑛−. We can express the amplitudes of the waves propagating away from the port 
+as functions of the amplitudes of the waves propagating towards the port n. 
+Specifically, for a linear, two-port DUT: 
+𝑉1−= 𝑆11𝑉1+ + 𝑆12𝑉2+  
+(2.55a)  
+𝑉2−= 𝑆21𝑉1+ + 𝑆22𝑉2+  
+(2.55b) 
+The coefficients Sij are called scattering parameters and collectively form a scattering 
+matrix. The scattering matrix relates the waves reflected or scattered from the network 
+to those incident upon the network. The scattering matrix parameters are sometimes 
+referred to as “S parameters.” In a two-port device, the physical meaning of S11 is the 
+input reflection coefficient when the output is matched (𝑉2+ = 0), S21 is the forward 
+transmission from port 1 to port 2, S12 is the reverse transmission from port 2 to port 
+1, and S22 is the reflection coefficient at port 2. An n × n matrix for an n-port device is 
+considered reciprocal when Sij  =  Sji and symmetric if  it is reciprocal and Sii  =  Sjj for 
+all values of i and j. 
+In commercial test equipment such as vector network analyzers, the scattering matrix 
+parameters are usually normalized following the procedure introduced in Reference 
+[18], in which the waves are defined in terms of the complex amplitudes of the incident 
+and reflected power waves. This was done to make their definition consistent with the 
+conservation of energy. Voltage amplitudes, on the other hand, have to be normalized 
+to an arbitrary reference impedance. Usually, the characteristic impedance of the line 
+is used as the normalization constant. Note that the characteristic impedance for each 
+port, Z0n, can differ from port to port. By convention, the reference impedance is 50 Ω 
+for most commercial test equipment. The power waves have amplitudes an and bn, 
+which are related to the voltage amplitudes introduced in (2.46) as follows: 
+𝑉𝑛+𝑍0𝑛𝐼𝑛
+2√|𝑅𝑒(𝑍𝑜𝑛)| =
+√|𝑅𝑒(𝑍𝑜𝑛)| ;   
+(2.56a) 
+
+--- PAGE BREAK ---
+
+𝑉𝑛−𝑍0𝑛𝐼𝑛
+2√|𝑅𝑒(𝑍𝑜𝑛)| = 
+√|𝑅𝑒(𝑍𝑜𝑛)| 
+(2.56b) 
+Note that the amplitudes have the dimension of square root of power. From these 
+definitions, the relation between the port voltages and currents for port n and the 
+power waves is: 
+𝑉𝑛= √|𝑅𝑒(𝑍𝑜𝑛)|(𝑎𝑛+ 𝑏𝑛) 
+(2.57a) 
+√|𝑅𝑒(𝑍𝑜𝑛)| (𝑎𝑛− 𝑏𝑛) 
+(2.57b) 
+A set of equations analogous to (2.55) expressed in terms of the two-port power waves 
+a and b can be obtained: 
+𝑏1 = 𝑆11𝑎1 + 𝑆12𝑎2 
+(2.58a)  
+𝑏2 = 𝑆21𝑎1 + 𝑆22𝑎2 
+(2.58b) 
+In terms of the power waves, the incident power into port n is 
+2 (𝑎𝑛𝑎𝑛∗−𝑏𝑛𝑏𝑛∗)  
+(2.59) 
+It is important to remember that the scattering matrix is well-defined only if all ports 
+are matched, though Z0n and thus the matching condition may generally vary from port 
+to port. In practice, the scattering matrix formulation is convenient for measurements 
+as well as simulations. Therefore, microwave network analyzers are designed to 
+measure scattering parameters. 
+In order to perform meaningful, quantitative measurements, it is necessary to define 
+reference planes. When a two-port DUT is embedded into a transmission line, one may 
+define specific reference planes at the ports of the device. Sometimes it is not possible 
+to measure the response of the DUT at these reference planes. In that case, one has to 
+do measurements at different, accessible planes and then translate them to the ports 
+of the DUT. Fortunately, the scattering matrix formulation is amenable to the 
+translation of the reference planes within a DUT. If the distance between the new 
+reference plane to port 1 of the device is l1 and the distance to port 2 is l2 then the 
+relation between the scattering matrix measured at the reference plane S and the 
+translated scattering matrix S’ at the reference plane of the DUT are expressed as: 
+[𝑆′] = [𝑒−𝛾1𝑙1
+𝑒−𝛾2𝑙2] [𝑆] [𝑒−𝛾1𝑙1
+𝑒−𝛾2𝑙2] 
+(2.60) 
+Despite these advantages, there are applications where the S parameter 
+representation is not optimal. For example, the scattering matrix representation is 
+inconvenient for cascading multiple devices. Cascading of matrices is more easily 
+
+--- PAGE BREAK ---
+
+accomplished by converting the scattering matrix parameters to transfer matrix 
+parameters Tij: 
+𝑎1] = [𝑇11
+𝑇22] ∙[𝑎2
+𝑏2] = [
+𝑆12 −
+𝑆22𝑆11
+] ∙[𝑎2
+.  (2.61) 
+The transfer matrix parameters are sometimes referred to as “T parameters.”  The 
+Interested reader can find other useful matrix transformation in Reference [8].  
+2.5 Signal flow graphs 
+Sometimes, it is useful to represent a system of linear equations in a graphical form. 
+In the context of RF and microwave calibration procedures, this approach is 
+particularly useful for the development of error models and error corrections, as we 
+will see below. Here, we briefly review the basic principles. The system of linear 
+equations to be represented by this graphical approach has the general form [19], [20] 
+𝒚= [𝑴]𝒙+ [𝑴′]𝒚 
+(2.62) 
+where [M] and [M’’] are square matrices with n columns and rows, the vector x 
+represents the n independent variables and the vector y the n dependent variables. 
+This system of equations is quite general and can be applied to many systems, 
+including circuits with closed signal loops. If there are no direct signal loops, Equation 
+(2.62) simplifies to the standard scattering matrix Equations (2.55). A signal flow 
+graph consists of a set of nodes that are connected by branches. Each pair of nodes 
+represents the amplitudes of an incident and an exciting wave: an “a” and a “b”, as 
+defined in (2.56). The branches represent the complex S parameters that relate the 
+wave amplitudes. In other words, they represent the gains or losses along the path 
+between two nodes. Note that the branches have a specified direction, denoted by an 
+arrow, and that signals propagate only in the direction of arrows. For example, if a port 
+is terminated by a load, then the corresponding pair of nodes is connected via an 
+additional branch, with the load branch corresponding to the reflection coefficient of 
+the load. 
+The transfer function of a signal flow graph may generally be determined by 
+application of the so-called “Mason’s rules.” It is often helpful to simplify the graph by 
+use of four simple rules that govern the algebra of signal flow graphs: 
+1) Series rule: Two sections in series can be reduced to one with the resulting gain 
+given by multiplication of the two S parameters. (see Fig. 2.4(a))  
+2) Parallel rule: Two branches in parallel pointing into the same node can be 
+replaced by one with the gain equal to the sum of the two S parameters, or, 
+more generally, the S parameters of all branches entering a node may be 
+summed.  (see Fig. 2.4(b)) 
+
+--- PAGE BREAK ---
+
+3) Loop/self-loop rule: Branches that begin and end at the same node are “self-
+loops.” A self-loop can be eliminated by multiplying all branches feeding the 
+self-loop node by 1 (1 −𝑆𝑠𝑙)
+ where Ssl is the gain of the self-loop. (Fig. 2.4(c)) 
+4) Splitting rule: If a node has exactly one incident branch and one or more exiting 
+branches, the incoming branch can be “split” and directly combined with each 
+of the exiting branches. This rule can be used to treat the loops (arrows in 
+parallel branches point to different directions). (Fig. 2.4(d)) 
+With experience, one can learn when it is most advantageous to use the signal flow 
+graph approach and when it is more advantageous to use a matrix formulation. 
+Figure 2.4. Rules for simplifying signal flow graphs. (a) Series rule (b) Parallel 
+rule (c) Loop / self-loop rule (d) Splitting rule. 
+2.6 Device de-embedding and calibration 
+2.6.1 De-embedding 
+A central topic of this book is the measurement of nanoscale devices at radio 
+frequencies.  Many nanoscale device measurements are implemented as one- or two-
+port scattering parameter measurements with a vector network analyzer (VNA). As a 
+result, we will focus on de-embedding of devices, calibration techniques and simple 
+error models for such measurements. Nanoscale devices are generally integrated with 
+a larger test structure that includes host structures, probes, connectors, and contacts. 
+We will refer to such blocks of elements external to the nanoscale DUT as test fixtures. 
+VNA measurements are usually done at reference planes that includes both the fixture 
+and the DUT, which we will refer to as the “coaxial reference plane,” as this reference 
+plane often coincides with a coaxial connector. To be able to accurately characterize the 
+DUT, one needs to remove the test fixture characteristics from the measurements. 
+Broadly speaking, there are many different approaches for removing the effects of the 
+fixtures. Fundamentally, each of these approaches may be classified either as a “direct 
+measurement” or as a “de-embedding”. In the first case there are two stages. First a 
+series of measurements of are made with physical reference standards inserted into 
+the fixture in place of the DUT. Subsequently direct measurement of the DUT is 
+performed. The reference planes are positioned at the boundary of the fixture and DUT. 
+This approach requires development of specialized physical reference standards. As a 
+result, the precision of direct measurement results depends on the quality of these 
+physical standards. 
+ By contrast, a de-embedding procedure uses models of test fixtures. These models are 
+either mathematical or obtained experimentally, especially in the case on-wafer 
+measurements, which are discussed below. Using these models, we can analytically 
+remove the fixtures from the measurement. The precision of this approach depends 
+
+--- PAGE BREAK ---
+
+once again on the accuracy of the model used. We will use both the direct measurement 
+and de-embedding approaches throughout this book. 
+The concept of scattering parameters together with the flow graph approach is 
+especially useful for the development of the theory of de-embedding fixtures from the 
+measurements. Fig. 2.5 shows the signal flow graph for a two-port fixtured 
+measurement with both the fixtures and the DUT represented by S parameters. The 
+outer and inner pairs of dashed lines represent the coaxial and DUT reference planes, 
+respectively. The properties of the two test fixtures are describe by the scattering 
+parameter matrix elements SFAij and SFBij. 
+Figure 2.5. A fixtured, two-port measurement. The properties of the DUT are 
+represented by S parameter matrix elements Sij. The properties of the two fixtures are 
+represented by S parameter matrix elements SFAij and SFBij. The four grey, dashed lines 
+represent reference planes. The outer pair represent the coaxial reference planes while 
+the inner pair represent DUT reference planes. 
+Matrix algebra provides the simplest approach to de-embed the scattering parameters 
+of the DUT from the measurements. First, one needs to convert the S parameter 
+matrices of the measurement, both test fixtures and the DUT to T-parameter matrices 
+using (2.46). Then  
+𝑻𝒎= 𝑻𝑭𝑨 𝑻𝑫𝑼𝑻 𝑻𝑭𝑩 
+(2.63) 
+where Tm is the T matrix from the VNA measurements, and TFA, TFB, and TDUT are the 
+T matrices for fixture A, fixture B, and the DUT, respectively. Multiplying by the 
+inverse T matrices of fixtures yields 
+𝑻𝑫𝑼𝑻= [𝑻𝑭𝑨]−1𝑻𝒎[𝑻𝑭𝑩]−1 
+(2.64) 
+The S parameters of the device are then obtained by converting TDUT back to an S 
+parameter matrix.   
+2.6.2 Multiline TRL and other calibration techniques 
+ In general, there is no “ideal” measurement test equipment. Therefore, the 
+measurement strategy is to evaluate deviations from ideal behavior and to remove 
+these systematic deviations from the measurements through calibration, thus 
+significantly improving the accuracy of network analyzer measurements. This in turn 
+provides the most accurate picture of device performance. 
+Many approaches have been developed for calibrated scattering parameter 
+measurements. Detailed descriptions of coaxial-plane calibration techniques can be 
+found in manufacturers’ applications notes [21] – [23] as well as published papers [24] 
+– [26]. Many of these approaches were initially developed for a coaxial environment, 
+but have since been adapted to the on-wafer environment. In this book, considerable 
+
+--- PAGE BREAK ---
+
+use is made of the multiline thru-reflect-line (TRL) calibration procedure and therefore 
+we will often focus on that approach. Multiline TRL offers a high degree of precision 
+and utilizes an easily-implemented set of calibration standards, however many 
+alternative calibration techniques exist. For example, the short-open-line-thru (SOLT) 
+calibration, for example, utilizes symmetric open lines, symmetric shorted lines, a line 
+of known length and a thru line that is short enough that one can assume that the 
+transmission is unity. Another possibility is the line-reflect-match (LRM) calibration, 
+which supplements the SOLT calibration with a symmetric 50 ohm load. There is one 
+important limitation all these standard calibration procedures have in common: they 
+are valid only under the assumption that the waves represent a single propagating 
+mode within the calibration standard and the DUT. If this condition is not satisfied, a 
+multimode calibration procedure must be introduced.  
+Returning to the TRL calibration procedure, it is useful to describe the general 
+principles and implementation of the multiline TRL calibration before discussing the 
+specific case of on-wafer multiline TRL. The TRL calibration procedure was originally 
+introduced in [24] for calibration of dual six-port network analyzers, but is commonly 
+used in conventional VNA calibrations. For calibration of two port VNA measurements, 
+it is convenient to introduce the concept of error boxes that describe deviations of the 
+VNA from ideal behavior. In this model, incident (outgoing) waves going in to (out of) 
+the ideal VNA are entering (exiting) the error boxes at some fictitious reference planes. 
+This approach is justified because the four port reflectometers of the network analyzer 
+can be reduced to a cascade of two port equations [25]. For a two-port measurement, 
+the error boxes take the form a two by two matrix. In turn, the calibration problem 
+takes a form similar to Equations (2.48) and (2.64), where the fixture matrices are 
+replaced by error boxes. In contrast to the fixture matrices, the error boxes do not in 
+general satisfy the reciprocity requirement. The error boxes may be determined by 
+solving a set of equations for set calibration standards, each of which is in the form of 
+(2.55).  
+As originally conceived, three calibration standards were used in the TRL calibration. 
+First, a “thru” standard was established by directly connecting ports 1 and 2 at the 
+coaxial reference planes (the outer pair of reference planes in Fig. 2.5). Second, each 
+port is terminated at the coaxial reference planes by a short circuit, open circuit or any 
+impedance that has a load out of center of the Smith chart and is the same for both 
+ports. The third standard is established by connecting a line of a known length between 
+the coaxial reference planes. Note that this line has a different length than the thru 
+line. 
+Early implementations of TRL faced a number of difficulties that were ultimately 
+overcome by extending the technique by use of multiple, redundant lines. For instance, 
+early implementations of TRL were band limited due to fact that the line length had 
+to differ from /2, where  is the wavelength of the source signal. For broadband 
+
+--- PAGE BREAK ---
+
+measurements, additional lines had to be introduced, but this approach introduced 
+continuity problems at the boundaries of the frequency bands. Further, the approach 
+did not take advantage of the fact that multiple lines provided redundant 
+measurements that could potentially reduce measurement errors. These problems 
+were ultimately solved by Bianco et al. [27] and Marks [26], who utilized multiple 
+redundant line standards in the TRL calibration procedure, culminating in the 
+technique we now know as multiline TRL. In multiline TRL, the calibration standards 
+consist of set of transmission lines that differ only in length, the shortest of which 
+serves as the thru standard, as well as reflection standards, which are assumed to be 
+the same for both port connections. The procedure is based on estimation of the 
+propagation constant of the transmission line standards at each measured frequency. 
+Then the S-parameter correction coefficients are calculated using the accurate 
+estimate of the propagation constant. The multiline TRL approach may be represented 
+by an error box formulation as shown in Fig. 2.6. 
+Figure 2.6. Two-port, eight-term error model. The S parameters of the DUT are Sij 
+and the eight error terms are eij. 
+Importantly, the so called “switch terms” must be measured in addition to the 
+calibration standards. The switch terms are specific to a given network analyzer, and 
+account for differences between the forward and reverse match conditions. The switch 
+terms can be measured only if all four wave parameters are accessible via the 
+measurement instrument. Typically, the switch terms are measured simultaneously 
+with the thru standard. The forward (Γ𝐹𝑊) and reverse (Γ𝑅) switch terms are defined as 
+Γ𝐹𝑊= 
+𝑏2𝑚|
+𝑆𝑜𝑢𝑟𝑐𝑒=𝑃𝑜𝑟𝑡1
+; Γ𝑅= 
+𝑏1𝑚|
+𝑆𝑜𝑢𝑟𝑐𝑒=𝑃𝑜𝑟𝑡2
+(2.65) 
+Multiline TRL is in general done in two steps. In the first step, the propagation 
+constant and line corrections are obtained. In the second step, the corrected lines are 
+used to get the error box parameters. This is accomplished by analytically solving the 
+eigenvalue problem following from the cascaded ports in Fig. 2.6. Several software 
+packages are available for this calibration, including the NISTcal and STATISTIcal 
+among other programs.  
+Note that while the S-parameters are defined relative to the characteristic impedance 
+of the transmission line standards, Z0, multiline TRL obtains the propagation constant 
+and the correction parameters without knowledge of the characteristic impedance. 
+Once Z0 is ultimately known, the correction coefficients can be transformed to any 
+reference impedance. In addition, it is useful to know the length of the calibration lines 
+or at minimum their relative length differences. This enables the selection of line pairs 
+at each frequency that in turn avoids singularities in the calculation and improves the 
+
+--- PAGE BREAK ---
+
+accuracy of the propagation constant and error box parameters by averaging the 
+results from the line pairs.   
+2.6.3 On-wafer calibration 
+Now we turn to on-wafer calibration procedures. Many nanoscale devices are 
+incorporated into “on-chip” or “on-wafer” devices. Thus, we will introduce the basic 
+concepts of on-wafer calibration and discuss some of the simpler error correction 
+schemes. Our discussion in this chapter will be limited to the extension of multiline 
+TRL to an on-wafer environment. In Chapter 4, on-wafer measurement 
+instrumentation and other practical considerations are discussed and in Chapter 6, an 
+example of a calibrated, on-wafer measurement of a nanowire device is given.  
+On-wafer waveguide structures are usually in the form of a microstripline or coplanar 
+waveguide. These structures are contacted with a set of specially designed probes. 
+During calibration, the probes are treated as part of the test fixture. The tips of the 
+probe now define the position of the reference plane that we have up until now referred 
+to as the “coaxial” reference plane. For the on-wafer multiline TRL calibration, the 
+standards must have the same contact layout and geometry as the “fixture lines” of the 
+DUTs. As in the multiline calibration approach described above, we once again obtain 
+the propagation constant, the error boxes and the corrected lines and we use the error 
+boxes to correct the S-parameters of the DUT. The error boxes include the properties 
+of both the probes and the test platform, including the vector network analyzer. As long 
+as the connecting transmission lines within the DUT have the same configuration as 
+the calibration standards, one can translate the reference planes as described in 
+Equation (2.60). Reference plane translation is often utilized in RF nanoelectronic 
+devices to move the reference plane position as close as possible to the nanoscale 
+building block(s) within the device.  
+2.7 Multimode calibration 
+A significant limiting factor of standard calibration procedures is that they require 
+single-mode propagation at the reference planes. This may not be always the case: 
+multimode propagation can easily occur when coupled or multiline waveguides are 
+investigated and may occur in some nanoelectronic devices. Therefore, it is important 
+to address the more complicated case of calibration when there are multiple modes 
+propagating at the reference plans. The philosophy of multimode calibration follows 
+basic multiport calibration techniques. Multimode calibration assumes that each mode 
+propagates from its own effective port. Under this assumption the problem of 
+multimode calibration is recast as a multiport calibration procedure where the number 
+of physical ports is multiplied by the number of propagating modes. Instead of solving 
+for propagation constants and error boxes at each port, one solves for unique 
+propagation constants and error boxes corresponding to each propagating mode. The 
+multimode TRL calibration technique was first introduced in Reference [29], but we 
+
+--- PAGE BREAK ---
+
+will follow the approach introduced in Reference [30]. The multimode TRL calibration 
+can be divided in three main steps. As in the multiline TRL calibration, the first step 
+focuses on determination of the propagation constants of all of the propagating modes 
+based on measurements of the thru and line standards. In the second step the error 
+box matrices TA, TB are partially determined. In the third step, a reflect measurement 
+is used to reduce the number of unknowns in these matrices.  
+Here, we will describe the two-port device case, which can be extended to an arbitrary 
+number of ports. We introduce the generalized reverse cascade matrix approach, which 
+may simplify some problems in which symmetry is present. Such cases are not that 
+common generally, but are present in some de-embedding cases that are discussed in 
+following chapters. In a generalized scattering matrix of a multimode two-port device, 
+all incident waves at port 1, incorporating power waves for N modes, are represented 
+by an incident wave vector A1. Similarly, all reflected waves at port 1 are represented 
+by the vector B1. The vectors A2 and B2 represent the incident and reflected waves at 
+port 2 of the generalized two-port device. The vectors are defined:  
+𝑨𝟏= [
+; 𝑨𝟐= [
+𝑎𝑁+1
+(2.66a) 
+𝑩𝟏= [
+; 𝑩𝟐= [
+𝑏𝑁+1
+(2.66b)   
+This definition enables a scattering matrix definition that includes transmission 
+between N modes at port 1 and N modes at port 2. Thus, this definition also includes 
+the mixing of the modes from different ports. Further, it can also incorporate 
+evanescent modes.  
+The generalized scattering matrices are related to the generalized incident and 
+reflected wave vectors by 
+𝑩𝟐] = [𝑺𝟏𝟏
+𝑺𝟐𝟐] [𝑨𝟏
+(2.67) 
+where Sij are N × N submatrices. In a similar way one can introduce the generalized 
+left to right cascade (transmission) matrix  
+𝑨𝟐] = [𝑻𝟏𝟏
+𝑻𝟐𝟐] [𝑨𝟐
+(2.68) 
+The conversion between from the generalized scattering matrix to the generalized 
+cascade matrix is similar to (2.61) with scalar S parameters replaced by S submatrices. 
+This conversion is possible only if S21 is nonsingular. One can also introduce the left-to 
+
+--- PAGE BREAK ---
+
+right reverse cascade matrix (or connected right to left). Simple arithmetic 
+manipulation shows that 
+𝑨𝟐] = [𝑻̅] [𝑨𝟏
+(2.69) 
+with the reverse cascade matrix 
+𝑻̅ = 𝑷𝑻−𝟏𝑷; 𝑷= [𝟎
+(2.70) 
+This matrix represents the mirrored (connected right-to-left) version of the original 
+left-to right matrix.  P is a 2N x 2N permutation matrix with I a N × N unity matrix. 
+In this notation the calibrated two port network analyzer measures the scattering 
+parameter matrix M:   
+𝑴= 𝑻𝑨𝑻𝑫𝑼𝑻𝑻𝑩
+̅̅̅̅ 
+(2.71) 
+where TDUT is the cascade matrix of the DUT and the matrices TA and TB represent 
+the error boxes. With these definitions in place, the multimode calibration procedure 
+is analogous to the single-mode case. Specifically, similar calibration standards are 
+measured. It is assumed though that these standards can support multiple quasi-TEM 
+propagating modes corresponding to the modes supported by the DUT. The complex 
+propagation constants of the multiple modes, as well as the matrices TA and TB are 
+determined in steps similar to those in the single-mode case. Additional details of the 
+procedure can be found in References [29] and [30].  
+2.8 Calibration of a scanning microwave microscope and other one-port 
+systems 
+We conclude this chapter with a specific calibration approach that is important for 
+local, near-field probes such as near-field scanning microwave microscopes (NSMMs). 
+The calibration of the near-field probing measurements is particularly challenging 
+because the condition of single-mode propagation is not satisfied for near fields. 
+Fortunately, this problem can be avoided for most NSMM measurements if they are 
+done in a single-port configuration, i.e. if the microwave signal path in the NSMM can 
+be represented as a one-port network. This is true for the vast majority of existing 
+NSMMs that are based on atomic force and scanning tunneling microscope systems. 
+For single-port NSMMs the measurand is the complex reflection coefficient S11m. The 
+near-field interaction is localized at the tip and thus will be included in the de-
+embedded properties of the measured DUT. The effects of near-field interaction cannot 
+be removed by calibration. Quantifying and understanding this interaction must be 
+done by analyzing and interpreting the calibrated measurement results.  
+
+--- PAGE BREAK ---
+
+In the single-port case the signal flow graph shown in Fig. 2.6 is simplified to the graph 
+shown in Fig. 2.7. The terms in Fig. 2.7 are defined as follows: e00 is directivity, the 
+product e10e01 is tracking and e11 is the port match [31]. Using the signal flow graph 
+rules the relation between the measured and actual reflection coefficients is 
+𝑆11𝑚= 𝑒00 + 
+𝑒01𝑒10Γ𝐿
+1−𝑒11Γ𝐿  
+(2.72) 
+where ΓL is the de-embedded reflection coefficient of the DUT, as shown in Fig. 2.7. 
+From this equation, it follows that to calibrate any one port measurement, including 
+one obtained with an NSMM, it is necessary to solve a system of equations for three 
+complex values, which requires no fewer than three measurements of calibration 
+standards. Specific approaches to NSMM calibration will be discussed in Chapter 7. 
+Figure 2.7. Error model for an NSMM and other one port measurements. This 
+model includes three error terms: e00 is directivity, the product e10e01 is tracking and e11 
+is the port match. 
+
+--- PAGE BREAK ---
+
+References 
+[1] P. A. Rizzi, Microwave Engineering Passive Circuits (Prentice Hall, 1988) 
+[2] R. F. Harrington, Time-harmonic electromagnetic fields (Wiley, 2001). 
+[3] O. Keller, Quantum theory of near field electrodynamics (Springer, 2011). 
+[4] J. D.Jackson, Classical Electrodynamics (John Wiley 1975).  
+[5] J. A. Stratton, Electromagnetic Theory (McGraw Hill, 1941). 
+[6] H. Hertz, “Die Kräfte electrischer Schwingungen, behandelt nach Maxwellschen 
+Theorie, Ann. Physik, 36 (1888) pp.1-22 
+[7] D. M. Kerns, “Plane-wave scattering matrix theory of antennas and antenna-antenna 
+interactions,” National Bureau of Standards Monograph 162 (1981). 
+[8] D. M. Pozar, Microwave engineering (Wiley, 2004). 
+[9] K.C. Gupta, R. Garg, I. Bahl, P. Bhartia, Microstrip lines and slotlines (Artech House, 
+1996). 
+[10] R.E.Collin Foundations of Microwave Engineering (McGrow Hill, 1992). 
+[11] L. D. Landau and E.M. Lifshitz, Classical Theory of Fields (Pergamon Press, 1962).  
+[12] J. C. Slater, “Microwave Electronics,” Reviews of Modern Physics 18 (1946) pp. 441-512. 
+[13] O. Heaviside, Electromagnetic Theory:complete and unabridged edition v.1 no. 2 and 
+v.3, (Dover , 1950).  
+[14] A. Sommerfeld, Electrodynamics, (Academic Press,1952). R. J. Collier, Transmission 
+lines: equivalent circuits, electromagnetic theory, and photons (Cambridge, 2013),  
+[15] F. Olyslager, Electromagnetic waveguides and transmission lines (Oxford, 1999). 
+[16] R. A. Chipman, Theory and Problems of Transmission Lines (McGraw-Hill, 1968). 
+[17] G. Mathaei, L. Young and E.M.T. Jones,  Microwave Filters, Impedance-Matching 
+Networks, and Coupling Structures (Artech House, 1980). 
+[18] K. Kurokawa, "Power Waves and the Scattering Matrix", IEEE Transactions on 
+Microwave Theory & Techniques, 13 (1965)  pp. 194-202. 
+[19] S. J. Mason, “Feedback theory - some properties of signal flow graphs,” Proceedings of 
+the IRE 41 (1963) pp. 1144-1156. F. Caspers, “RF Engineering basic concepts: S-
+parameters,” arXiv:1201.2346 [physics.acc-ph]. 
+
+--- PAGE BREAK ---
+
+[20] S. J. Mason, “Feedback theory - further properties of signal flow graphs,” Proceedings 
+of the IRE 44 (1956) pp. 920-926. 
+[21] “S-Parameter Design,” Agilent Application Note 154 (Agilent Technologies, 2006). 
+[22] “Vector network analyzer primer” Anritsu Application note 11410-00387 (Anritsu 
+Company, 2009). 
+[23] “Measuring balanced components with Vector Network Analyzer ZVB” Rhode & 
+Schwartz Application note 1EZ53_0E (Rhode & Schwartz, 2004). 
+[24] G. F. Engen and C. A. Hoer, “Thru-Reflect –Line: an improved technique for calibrating 
+a dual six-port automatic network analyzer,” IEEE Transactions on Microwave Theory and 
+Techniques 27 (1979) pp. 987-993. 
+[25] H.-J. Eul and B. Schiek, “A general theory and new calibration procedures for network 
+analyzer self-calibration,” IEEE Transactions on Microwave Theory and Techniques 39 
+(1991) p. 724-731. 
+[26] R. Marks, “A multiline method of network analyzer calibration,” IEEE Transactions on 
+Microwave Theory and Techniques 39 (1991) p. 1205-1215. 
+[27] B. Bianco, M. Parodi, S. Ridella, and F. Selvaggi, “Launcher and microstrip 
+characterization,” IEEE Transactions on Instrumentation and Measurement 25 (1976) pp. 
+320-323. 
+[28] C. Sequinot, P. Kennis, J-F. Legier, F. Huret, E. Paleczny, and L. Hayden, “Multimode 
+TRL-New concept in microwave measurements: Theory and experimental verification,” 
+IEEE Transactions on Microwave Theory and Techniques 46 (1998) pp. 536. 
+[29] M. Wojnowski, V. Issakov, G. Sommer, R. Weige,”Multimode TRL calibration technique 
+for characterization of differential devices,” IEEE Transactions on Microwave Theory and 
+Techniques 60, (2012) pp.2220. 
+[30] “De-embedding and embedding S-parameter networks using a vector network 
+analyzer,” Agilent Application Note 1364-1 (Agilent/Keysight Technologies, 2004) 
+
+--- PAGE BREAK ---
+
+R  dz
+L  dz
+C  dz
+G  dz
+I(z)
+I(z + dz)
+V(z)
+V(z + dz)
+FIGURE 2-1.
+
+--- PAGE BREAK ---
+
+Z  j
+-Z  j
+Im(Z) = Z  j / 3
+Re(Z) = Z  / 3
+open
+short
+FIGURE 2-2.
+
+--- PAGE BREAK ---
+
+Device
+Under
+Test
+Port 1
+Port 2
+FIGURE 2-3.
+
+--- PAGE BREAK ---
+
+S  S
+a   b
+Sa+Sb
+S  S  / (1 - S  )
+a   b
+FIGURE 2-4.
+
+--- PAGE BREAK ---
+
+PORT1
+PORT2
+e11 S11
+FIGURE 2-6.
+
+--- PAGE BREAK ---
+
+PORT1
+FIGURE 2-7.

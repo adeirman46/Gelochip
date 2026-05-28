@@ -1,0 +1,1706 @@
+RF-Informed Graph Neural Networks for Accurate
+and Data-Efficient Circuit Performance Prediction
+Anahita Asadi
+Electrical and Computer Engineering
+University of Illinois Chicago
+Chicago, Illinois
+aasadi5@uic.edu
+Leonid Popryho
+Electrical and Computer Engineering
+University of Illinois Chicago
+Chicago, Illinois
+lpopry2@uic.edu
+Inna Partin-Vaisband
+Electrical and Computer Engineering
+University of Illinois Chicago
+Chicago, Illinois
+vaisband@uic.edu
+Abstract—Accurately predicting the performance of active
+radio frequency (RF) circuits is essential for modern wire-
+less systems but remains challenging due to highly nonlinear,
+layout-sensitive behavior and the high computational cost of
+traditional simulation tools. Existing machine learning (ML)
+surrogates often require large datasets to generalize across
+various topologies or are not accurate on unseen circuits. This
+work presents a lightweight, data-efficient, and topology-aware
+graph neural network (GNN) framework for predicting key
+performance metrics of active RF circuit classes, such as low-
+noise amplifiers (LNAs), mixers, voltage-controlled oscillators
+(VCOs), and power amplifiers (PAs). The proposed framework
+employs RFIC domain-informed feature indexing to enable cross-
+topology adaptability by cheap encoding of functional device
+semantics (e.g., differential pair and varactor transistors) and
+efficient knowledge transfer. The surrogate model represents
+circuits using device-terminal graph abstractions to preserve fine-
+grained connectivity and transistor-level symmetry. The final
+model is generalized to a wide variety of classes by being trained
+in parallel. Experimental results demonstrate accurate modeling
+of multimodal and heavy-tailed RF performance distributions,
+achieving an average mean relative error (MRE) of 3.45%, an
+improvement of 9.2× compared to state-of-the-art. Furthermore,
+the method improves class-level generalization performance by
+∼161× compared to prior art, demonstrating its effectiveness for
+scalable and deployment-ready RF design automation.
+Index Terms—Graph neural network (GNN), RF circuit model-
+ing, electronic design automation (EDA), topology-aware machine
+learning.
+I. INTRODUCTION
+With the growing importance of modern wireless systems
+(e.g., the Internet of Things [1], 5G [2] RADAR [3], and Li-
+DAR [4]) accurate modeling and optimization of RF integrated
+circuits (RFICs) is more critical than ever. The performance
+of key building blocks of such systems, ranging from power
+amplifiers (PA) to transmitters, directly affects the fidelity,
+efficiency, and robustness of modern systems. However, their
+operation in highly nonlinear and layout-sensitive regimes
+makes accurate modeling particularly challenging.
+While highly accurate, traditional simulators (e.g., SPICE,
+ANSYS) are computationally expensive, especially when
+This work was supported in part by the CogniSense: Center on Cognitive
+Multi-spectral Sensors, one of seven centers in Joint University Micro-
+electronics Program (JUMP) 2.0, a Semiconductor Research Corporation
+(SRC) program sponsored by the Defense Advance Research Project Agency
+(DARPA).
+performing extensive design-space exploration. Existing cir-
+cuit simulators rely on computationally intensive numerical
+methods, such as trapezoidal, Gear integration, and Newton-
+Raphson methods [5] while electromagnetic (EM) simulations
+typically use finite element method (FEM) analysis. Both
+approaches scale poorly with advancing technologies, par-
+ticularly when accounting for heterogeneous integration and
+packaging effects [6]. Substantial expert effort is therefore
+required to design advanced analog and RF circuits, including
+topology selection and device sizing, highlighting the need for
+accurate and fast automation methods.
+A broad spectrum of heuristic methods has been explored in
+the area of RFIC optimization. Simple local-search heuristics,
+such as direct binary search (DBS), have been used in [7]
+for a dual-band filter. However, such greedy approaches are
+not scalable and are prone to getting trapped in FoM local
+optima. To escape this issue, meta-heuristic optimizers such as
+evolutionary algorithms (EAs) [8], [9] and Bayesian optimiza-
+tion (BO) [10] have been proposed. In higher dimensional RF
+problems, however, EAs become sample-inefficient and exhibit
+poor reproducibility. BO also struggles to scale, as Bayesian
+acquisition function maximization leads to long run-times and
+premature convergence.
+An alternative strategy is to learn a surrogate model for fast
+prediction of circuit FoMs and integrate it into the optimization
+process. Classical deterministic surrogates, such as partial
+least-squares (PLS) regression [11], offer weighted combina-
+tion of all inputs that perform well when the response surface
+is nearly linear but do not capture the strong nonlinearities
+and complex FoM distributions inherent in RFICs. On the
+other hand, machine learning (ML) methods can leverage
+intrinsically nonlinear models and GPU acceleration, making
+them well-suited for a broader range of modeling tasks.
+Traditional ML regressors, such as k-nearest neighbors
+(kNNs), random forests, and support vector regressors (SVRs),
+have been used for inferring circuit parameters that produce
+a desired output or performance (i.e., inverse design). Some
+of these methods achieve mean relative errors (MRE) as
+low as 0.23% for receiver components consisting of voltage
+amplifiers (VA), LNAs, and mixers, at a single frequency
+[12]. However, errors rise to ∼50% in nonlinear circuits
+such as power amplifiers (PAs). In contrast, neural surrogates
+arXiv:2508.16403v2  [cs.LG]  10 Mar 2026
+
+--- PAGE BREAK ---
+
+equipped with techniques such as Monte Carlo dropout or deep
+ensembles can capture complex nonlinear interactions better,
+making them more suitable for generalizable modeling and
+downstream optimization.
+As a result, a growing body of work has applied neural
+networks (NNs) in RF domains to model various FoMs from
+sizing parameters or perform inverse design by predicting
+parameter sets that meet specified performance targets [13].
+One of the simplest NN architectures, feed-forward neural
+networks have been widely used for modeling passive RF
+circuits [14], [15]. Alternatively, for more complex circuits
+with nonlinear active components, such as PAs, both local
+and global interactions play an important role in circuit behav-
+ior, making convolution neural networks (CNNs) an intuitive
+choice.
+As an example, in [16], the S-parameters of a post-layout
+PA matching circuit are modeled and the circuit layout is
+generated using a genetic algorithm (GA) as the generator
+and a CNN as the verifier of the insertion loss S-parameter.
+This approach achieves approximately 4,500× speedup in the
+inverse design process. However, this models generalize only
+to circuits within the same distribution the CNN was trained
+on. New circuits exhibiting significantly different physics,
+such as ones with active components, often require exhaustive
+retraining, potentially offsetting the benefits of automation.
+Moreover, this work still requires a large dataset (over 300,000
+simulations) and substantial computational and memory re-
+sources.
+Enforcing physics laws within learning-based models is
+another primary concern. While existing NN-based approaches
+achieve high accuracy in modeling S-parameters, they often
+fail to satisfy fundamental physical laws, such as causality
+and passivity. To address this, [17] applies physical constraints
+directly into the surrogate model and introduces two custom
+NN layers. One layer enforces consistency with the Kramers-
+Kronig relations (fundamental causal constraints that link the
+real and imaginary parts of a system’s frequency) via Hilbert
+transform. The other layer enforces passivity using a differen-
+tiable minimum-phase filter constructed during training. This
+is exemplified in [18] where a causality-aware UNet CNN
+surrogate trained on only ∼4,000 Ansys HFSS simulations
+is combined with BO to design an impedance-transforming
+network. The surrogate replaces EM simulations, while the
+Bayesian optimizer efficiently explores a 28-parameter mul-
+tilayer design space. However, how to incorporate RFIC
+domain-informed device functionality into ML models to en-
+able generalization across different circuit topologies remains
+an open question.
+Recent work explores reinforcement learning (RL) as an-
+other approach to RF circuit design. RL is used in [19] to
+guide architecture selection and sizing of PAs. However, RL
+methods typically require extensive simulations, making them
+less suitable for large-scale systems. Generation of a 35,000
+dataset in [19] required ∼3.3 days on a 192-core cluster.
+Furthermore, these approaches require substantial retraining
+or adaptation while generalizing across circuit classes with
+different reward or FoM distribution. Thus, despite their early
+promise, RL-based methods, like other ML approaches, re-
+quire data-intensive retraining, transfer learning, or redesigned
+physics-informed reward functions [20].
+A way to circumvent topology-awareness is to characterize
+circuits, such as in [21], where modular analysis of passive
+electrical networks is purposed with fully-connected NNs,
+achieving an average R2 of 95% on LNAs and VAs with
+an ∼11× reduction in training data. However, the approach
+struggles to generalize to highly nonlinear circuits like mixers
+and PAs, the behavior of which cannot be captured by S-
+parameters at the fundamental frequency. Moreover, changing
+the number of electrical networks and their ports requires
+retraining of the network, highlighting the importance of
+considering topology.
+To address the issue of generalization, graph neural net-
+works (GNNs) have emerged as a promising modeling ap-
+proach that naturally captures circuit topology—an important
+step toward reducing or eliminating the need for retraining
+when adapting to new circuit designs. Existing GNN-based
+approaches have shown promising results in modeling small-
+signal analog blocks and passive RF circuits [22]–[26]. Zero-
+or few-shot methods, which require no retraining or mini-
+mal fine-tuning or transfer learning, have further improved
+generalization across technologies and FoMs, highlighting
+the potential of GNNs to generalize beyond a single circuit
+topology [25]–[28] in voltage amplifiers (VAs).
+Existing GNN frameworks, however, are tailored to analog
+circuits and fail to generalize across a broad range of RFIC
+classes and performance metrics. To date, the only GNN-based
+study focused on RF circuits, reported in [29], presents a
+unified GNN for modeling LNAs, mixers, VCOs, and PAs,
+achieving R2 > 80% across evaluated FoMs. However, the
+unified model in [29] requires substantial training time due to
+heavy encoder usage (∼4 days), relies on an excessively large
+dataset to distinguish among circuit types (a dataset of about
+36,000 circuits1), and demonstrates limited accuracy on unseen
+topologies compared to class-specific models. In typical RFIC
+design workflows, the circuit classes (e.g., VCO, LNA) are
+selected a priori, after which topologies and sizing variations
+are explored within the individual classes. As a result, unified
+cross-class models provide limited practical advantage relative
+to their substantial training overhead. Furthermore, various
+circuits show FoM distribution conflict; therefore, unified
+models struggle with optimization instability.
+While the aforementioned approaches offer valuable design
+automation capabilities, each exhibits specific limitations that
+constrain their broader applicability to RFIC design. These
+include high data and compute requirements, inefficient mod-
+els, limited generalization to new topologies, poor scalabil-
+1Per-circuit dataset sizes are not reported in [29]. To enable a fair sample-
+efficiency comparison, the dataset size is estimated and experimentally ver-
+ified by inspection of the released data-splitting script, which employs a
+70%/15%/15% train/validation/test partition on a unified model. Based on
+the reported training set size of 1 million samples, an implied dataset size of
+approximately 36,000 samples per topology is obtained. This estimate is used
+consistently throughout the paper.
+
+--- PAGE BREAK ---
+
+ity to large or irregular circuits, and the need for manual
+adaptation such as retraining, reward redesign, or topology-
+specific augmentation. Consequently, the problem remains
+open, motivating continued exploration of computationally-
+feasible, generalizable, and topology-aware solutions. Unlike
+unified surrogate frameworks that aim to reuse a single model
+across a broad range of RFIC classes, this work establishes
+class-specific, scalable surrogate modeling, aligned with prac-
+tical RFIC design paradigm. This is the first GNN framework
+that generalizes the topology-awareness to a variety of classes
+accurately and efficiently. The main contributions are:
+• Conceptual approach for class-specific RF surrogate
+modeling. Class-specific modeling framework is intro-
+duced that aligns surrogate modeling with practical RFIC
+design workflows. Prioritizing intra-class generalization
+reduces training overhead and enables accurate and rapid
+adaptation to new topologies relative to unified cross-
+class models compared to unified surrogate models.
+• RF-informed GNN architecture. Device functionality is
+embedded directly into the graph representation through
+an RF-aligned feature indexing. Unlike prior approaches
+that rely on auxiliary encoder networks, teacher models,
+or large datasets to infer device roles implicitly, the pro-
+posed representation enables the GNN to learn transfer-
+able electrical interactions directly. This improves sample
+efficiency and enables accurate knowledge transfer to
+unseen circuit topologies within a class via lightweight
+fine-tuning.
+• Data-efficient training methodology for RF surrogate
+models. The proposed approach achieves an average
+MRE of 3.45% across five RFIC classes and multiple
+topologies while reducing required SPICE compared to
+prior state-of-the-art methods, demonstrating improved
+sample efficiency.
+The remainder of this paper is organized as follows. Recent
+advances in GNN-assisted RF circuit modeling are reviewed
+in Section II, with an emphasis on task focus and abstraction
+level. The proposed GNN-based framework, including graph
+representations and model architecture, is detailed in Sec-
+tion III. The experimental setup is described in Section IV, and
+results with comparative analyses are presented in Section V.
+Conclusions and directions for future work are provided in
+Section VI.
+II. RELATED WORK ON GNNS
+GNNs are a class of deep learning models specifically
+designed to operate on graph-structured data by learning
+node, edge, or graph-level representations via message passing
+mechanisms. In their earliest form, recurrent GNNs propagate
+information iteratively across the graph until convergence, but
+incur high memory and computational cost. Algorithms such
+as gated GNNs were developed to address scalability issues by
+using GRUs to limit message propagation to a fixed number of
+steps [35]. Multi-layer perceptron (MLP) with LeakyReLU
+is used to model S-parameters of circuits with up to six
+resonators with a significant accuracy degradation in unseen
+circuits [22].
+Spatial GCNs, such as graph isomorphism networks, are
+used in [26], [36] to capture transistor-level topology features
+of four operational-amplifier variants and transfer them in
+zero- and few-shot settings for performance prediction. While
+spatial GCNs, such as graph attention network (GAT), offer
+lower computational cost and better accuracy for digital cir-
+cuits (e.g., in evaluating transistor degradation and threshold
+voltage shifts in digital circuits [37]), they are found to be
+less competitive than spectral GCNs for analog and RF circuit
+modeling. For example, [23] applies GCNs in combination
+with RL for transistor sizing optimization. However, as the
+network depth increases, these GCNs tend to suffer from
+vanishing gradients, over-smoothing, and overfitting, leading
+to degraded performance.
+To stabilize the learning process of deep GCNs, pre-
+activation of residual connections and message normalization
+allow models such as generalized graph convolution (GEN-
+Conv) layers [24] to unify message aggregation operations and
+enable task-specific tuning. In [25], GENConv are combined
+with TL to transfer knowledge from DC voltage prediction
+to AC output voltage and gain prediction via node-level
+regression, thereby reducing the required dataset size. TL
+has demonstrated up to 10× data reduction in tasks such as
+GNN generalization across different technologies [23], [27],
+process, voltage, and temperature (PVT) variations [28], and
+circuit topologies [26], albeit with some trade-off in accuracy.
+However, these approaches either do not generalize to a broad
+range of unseen circuits with different graph structures or
+require a separate computationally expensive encoder.
+Alternatively, a topology-aware representation in [30] is
+proposed to reduce dataset size. With that approach, a GNN
+is combined with text embeddings of circuit components
+and a subcircuit-wise multi-head self-attention layer. The
+normalized Euclidean distance between every pair of de-
+vices in custom-designed FinFET analog layouts is computed
+in self-supervised manner. As a result, the learned latent-
+space distances mimic real spatial distances, with a wire-
+length prediction accuracy of R2 ∼57% and net parasitic-
+capacitance prediction with sMAPE of 11.8%. Ultimately, the
+dataset size is reduced from 1, 000 −10, 000 to about 450
+simulated layout samples. Furthermore, lumped capacitance of
+voltage regulators, amplifiers, and serial link interconnects are
+modeled in [38], achieving an R2 score of 77.2%. Coupling
+capacitance and parasitic resistance are incorporated in [39],
+improving the R2 score by up to 87%. Chip-scale interconnect
+capacitance has been extracted in [40] with absolute average
+relative errors of less than 10%.
+Applying existing GNNs developed for analog circuits to RF
+systems presents several challenges, including strong nonlinear
+behavior and tight component dependencies (e.g., matched
+pairs, feedback loops) which give rise to high-tailed, skewed
+and multimodal distributions of FoMs that are difficult to
+model with simple NNs. To address the heavy-tailed distri-
+bution of parasitic capacitance values, a logarithmic normal-
+
+--- PAGE BREAK ---
+
+ization to stabilize variance and improve learning is applied
+in [41]. Even with this preprocessing, the GNN model trained
+to predict net-level parasitic capacitances of a VCO exhibits
+a relative error of 20%, underscoring the need for more accu-
+rate modeling techniques. The most representative ML-based
+techniques, along with their strengths and limitations, are
+summarized in Table I. Based on the qualitative comparison,
+[29] is the most promising approach for fast and accurate
+performance prediction in RFICs. An impressive R2 > 80%
+in predicting key performance metrics across a variety of RF
+circuits, including LNAs, VCOs, mixers, and PAs is achieved
+in [29] However, this performance comes at the cost of training
+on ∼36,000 samples of simulated circuits—a prohibitively
+high computational cost. It is worth noting that the large
+dataset size in [29] stems from its circuit-to-graph embedding
+scheme—a significant limitation addressed in this paper by the
+embedding scheme, as described in Sec. III.
+III. PROPOSED FRAMEWORK
+The proposed end-to-end framework for predicting RF cir-
+cuit performance metrics directly from netlist-derived graph
+representations is described in this section. First, the trans-
+lation of RF circuits into annotated graphs is formalized to
+capture both inter-component relationships and global struc-
+ture. Then, the GNN architecture designed to process these
+graphs is presented, enabling scalable, multi-hop aggregation
+of circuit context.
+A. Graph Representation of RF Circuits
+Each RF circuit is represented as an undirected graph where
+graph nodes correspond to component terminals, and graph
+edges encode electrical connectivity. Terminals of the same
+component (e.g., transistor source, drain, gate, and body bias
+terminals) are fully connected, forming a subgraph, easily
+distinguishable for future divide-and-conquer simulation at-
+tempts, as explained in Sec. II.
+Each graph node (i.e., component terminal) is annotated
+with a feature vector, encoding physical parameters such as
+transistor width×fingers and length, power supply levels, as
+well as resistor, capacitor, and inductor impedances. Each
+circuit component is assigned a unique index in the feature
+vector space, while functionally similar components are in-
+tentionally mapped onto the same indices to preserve design
+equivalence and reduce redundancy. This indexing scheme
+embeds RFIC domain knowledge (i.e., the functional roles
+and design semantics of circuit components) into the model
+representation, introducing RF-informed inductive biases that
+improve learning efficiency and intra-class generalization. For
+example, differential pair transistors (see M1 and M2 in Fig. 1)
+serve a different purpose than NMOS varactors (M3 and M4
+in Fig. 1). This difference is captured by positioning the
+individual devices’ features in different feature vector indices.
+Similarly, tank circuit inductors (L1 and L2 in CCVCO and L3
+and L4 in IFVCO) have the same index position and different
+index than choking inductors (L1 and L2 in CCVCO). This
+tailored feature engineering imparts circuit design intuition to
+the model and facilitates cross-topology generalization. One-
+TABLE I
+COMPARISON OF STATE-OF-THE-ART ML FRAMEWORKS.
+Work
+Key Architectural
+Features
+Target
+Circuits
+Average
+Training Size
+Circuit
+Limitations
+Other
+Limitations
+This work
+LNA, Mixer,
+VCO, PA, VA
+∼15k per
+circuit
+[29]
+LNA, Mixer,
+VCO, PA, VA
+∼36k per
+circuit
+Prohibitive data size; Struggles with
+cross-topology generalization; Overhead
+of an Extra Encoder before GNN
+[25]
+GNN + TL
+Resistor ladders,
+20k + 126k
+simple
+analog
+Mediocre accuracy in heterogeneous
+RF circuit training; Struggles with cross
+-topology generalization;
+[30]
+GNN + Text
+Embedding + Attn
+1,177
+simple
+analog
+Mediocre accuracy; Inaccurate for
+complex RF metrics; Overhead
+of Extra Encoders
+[31]
+CNN + LSTM
+two-port RF filters
+8k per circuit
+passive
+Prohibitive data size; Struggles with
+cross-topology generalization
+[32]
+Convolutional AE +
+Regressor
+Band-pass filter
+5,929 + 916
+passive
+Struggles with cross-topology
+generalization
+[16]
+CNN + GA
+PA matching
+networks
+500k + 170k
+passive
+Prohibitive data size; Struggles with
+cross-topology generalization
+[33]
+DeepGRU +
+Dropout
+VA, VCDL, DLL
+∼9 waveforms
+per circuit
+analog
+Inaccurate for complex RF metrics;
+Struggles with cross-topology
+generalization
+[34]
+DeepRNN
+High-speed
+interconnects
+45 waveforms
+passive
+Struggles with cross-topology
+generalization
+[17]
+Topology-aware
+S-TCNN
+High-speed digital
+interconnects
+∼550-750 per
+circuit
+passive
+Struggles with cross-topology
+generalization
+
+--- PAGE BREAK ---
+
+Fig. 1. Proposed Circuit-to-Graph Conversion and Feature Extraction Method with Functionality-aware Feature Indexing.
+Fig. 2. Model Architecture: GENConv layers mimic KVL and KCL, while GraphNorm enables graph structure-awareness and numerical stability.
+
+--- PAGE BREAK ---
+
+hot encoding is employed to represent terminal position within
+a transistor (first four positions, e.g., ’10000000’ for gate,
+’01000000’ for source), passive element (second two positions,
+e.g., ’00001000’ and ’00000100’ for each terminal), and
+current or voltage source (third two positions, e.g., ’00000010’
+for the positive and ’00000001’ negative pole), allowing the
+model to distinguish current flow direction and identify the
+functional roles of terminals, such as source, gate, drain, and
+body.
+B. GNN Architecture
+The architecture of the proposed model is shown in Fig. 2.
+The netlist-derived graph G = (V, E) is used as input to the
+GNN, which consists of four GENConv layers followed by
+linear prediction heads for each circuit performance. Nodes
+carry an initial feature vector hv ∈Rd. For multi-metric pre-
+diction, an independent GENConv stack and head is instantiate
+per-output metric:
+• First layer (1-hop neighborhood): A terminal aggre-
+gates signals from other terminals of the same component
+and from directly connected nets. This supports transistor-
+level property inference (e.g., drive strength, capacitive
+loading).
+• Second layer (2-hop neighborhood): Through an ad-
+ditional message-passing step, the terminal receives in-
+formation from adjacent components, enabling the mod-
+eling of inter-component interactions such as matching
+networks and load-pull behavior.
+• Third layer (3-hop neighborhood): At this stage, infor-
+mation propagates across short multi-stage paths, local
+feedback loops, or cascaded gain blocks. This captures
+subcircuit-level effects such as inter-stage loading, peak-
+ing networks, and first-order crosstalk.
+• Forth layer (4-hop neighborhood): The receptive field
+expands to encompass components and nets involved in
+longer functional chains or distributed networks, provid-
+ing context for block-level behavior such as biasing or
+matching networks, power-supply routing, and far-end
+impedance in RF microstrip lines. At this range, the
+model captures system-level couplings that affect timing
+closure, supply-induced noise, and stability margins.
+Let h(ℓ,i)
+denote the hidden representation of node v at layer
+ℓfor output i. To model multiple circuit performance metrics
+simultaneously, the proposed framework employs a multi-head
+architecture in which each output metric i is associated with an
+independent GENConv stack and prediction head. This design
+allows each performance metric to learn metric-specific feature
+interactions and sensitivity patterns while operating on the
+same input graph. The message passed from node u to node
+v at layer ℓand output i, a given circuit metric, is
+m(ℓ,i)
+= ϕ(ℓ,i)
+ h(ℓ,i)
+where ϕmsg is a learnable transformation in an L-layer GNN
+(ℓ= 0, . . . , L −1). The message denotes an incremental
+stimulus propagated from terminal represented by u ∈V
+to its adjacent terminal v ∈V . Neighbor contributions are
+modulated by attention-like coefficients computed via softmax,
+α(ℓ,i)
+a(ℓ,i) h(ℓ,i)
+, h(ℓ,i)
+k∈N (v)
+a(ℓ,i) h(ℓ,i)
+, h(ℓ,i)
+where N(v) is the set of neighboring nodes of v, and a(·, ·)
+is a learned scoring function. Intuitively, the attention weight
+α(ℓ,i)
+plays the role of a normalized admittance guv/ P guv,
+whereby neighbors with higher effective conductance (and
+thus, higher current) exert greater influence on the aggregation.
+The aggregated message at node v is, therefore,
+M (ℓ,i)
+u∈N (v)
+α(ℓ,i)
+m(ℓ,i)
+uv .
+This perspective mirrors circuit principles such as superpo-
+sition and locality: interactions are accumulated from adjacent
+elements and then transformed by learnable update operators.
+This is similar to simulating circuit behavior during Newton-
+Raphson iterations. In these solvers, Kirchhoff’s current law
+(KCL) is enforced by iteratively adjusting node voltages to
+minimize the total current mismatch at each node. The net mis-
+match refers to the residual current that remains after evaluat-
+ing all branch currents based on the current voltage estimate—
+an indicator of how far the solution is from satisfying KCL. In
+the context of message passing in GNNs, a coefficient (α(·, ·))
+regulates how strongly one node information (m) influences
+another M is the mismatch in aggregated messages at a node
+before being resolved by the model’s update function, and M
+resembles the net current mismatch before a Newton update.
+Thus, just as the Newton update uses the mismatch to refine
+voltage values, the learnable functions in the GNN refine
+node embeddings to better encode local electrical behavior
+and global circuit context.
+Formally, the node-wise pre-activation produced by GEN-
+Conv at layer ℓfor output i is defined as
+z(ℓ,i)
+= GENConv(ℓ,i) h(ℓ,i), E
+GraphNorm is then applied independently as in
+˜z(ℓ,i)
+= GN
+ z(ℓ,i)
+to normalize node features after each message passing. Graph-
+Norm follows a formulation similar to standard feature scal-
+ing, but the normalization statistics (mean and variance) are
+computed independently for each graph. GraphNorm is ben-
+eficial for enabling cross-topology generalization: it stabilizes
+internal representations (i.e., message magnitudes) while pre-
+serving circuit-level independence. From a physical perspec-
+tive, GraphNorm can be interpreted as removing a graph-
+level common-mode component from the learned signals and
+rescaling their effective gain, similar to bias referencing and
+automatic gain control in circuit analysis.
+The GraphNorm normalization is followed by a nonlinear
+activation,
+h(ℓ+1,i)
+= LeakyReLU
+ ˜z(ℓ,i)
+
+--- PAGE BREAK ---
+
+The LeakyReLU activation is similar to piecewise-linear I-V
+characteristic: the positive-slope region resembles the forward-
+conducting path of a device, while the small negative-slope
+“leak” term prevents node isolation, functionally similar to a
+large shunt resistance that stabilizes otherwise floating nodes.
+Stacking L such layers is analogous to cascading L suc-
+cessive linearization-and-update steps, similar to the iterative
+procedures used in nonlinear AC small-signal solvers. The
+node-level embeddings produced by the final layer are then
+aggregated to form a single graph-level embedding,
+h(i)
+G = MeanPool
+h(L,i)
+: v ∈V
+|V |
+h(L,i)
+where MeanPool takes the average of all terminal-level em-
+beddings, effectively representing the entire circuit’s metric
+with a single vector h(i)
+G . Prediction vectors are then normal-
+ized through LayerNorm to form LN(h(i)
+G ), which forms the
+final output scalar y(i),
+ˆy(i) = w(i)⊤LN
+h(i)
+G ) + b(i)
+IV. EXPERIMENTAL SETUP
+All experiments are performed on a single NVIDIA GeForce
+RTX 4090 GPU using floating-point 32 precision. The frame-
+work employs GENConv and GraphNorm from PyTorch
+Geometric [42]. Reproducibility is ensured by fixing ran-
+dom seeds across all relevant libraries and disabling residual
+nondeterminism in CUDA Deep Neural Network kernels. Fur-
+ther details, including the training strategy, loss formulations,
+data preprocessing and augmentation, and computational set-
+tings are presented in this section. The framework components
+are designed to enable robust training, effective regularization,
+and reproducible results.
+A. Dataset Description
+A publicly available dataset first introduced in [29] is used.
+Approximately 4.5% of the dataset, consisting of duplicate
+and contradictory entries (identical sizing values associated
+with different output metrics), is removed. All reported sample
+counts refer to the cleaned dataset. The dataset comprises
+over one million Cadence-simulated analog and RF circuits
+of various classes and topologies such as single- and double-
+balanced active (SBAMixer, DBAMixer) and passive (SBP-
+Mixer, DBPMixer) mixers; cross-coupled (CCVCO), Colpitts
+(ColVCO), inductive-feedback (IFVCO), and ring (RVCO)
+VCOs; common-source (CSLNA), common-gate (CGLNA),
+and differential (DLNA) LNAs; as well as class-B (ClassBPA),
+class-E (ClassEPA), differential (DPA), and Doherty (DohPA)
+PAs. The average train/validation/test ratio between all circuits
+is 30%/35%/35%, leading to an average training dataset of
+14,948 per a circuit topology. All circuit classes are trained
+independently but concurrently using GPU-parallel workloads,
+allowing multiple specialized surrogates to be optimized si-
+multaneously rather than sequentially within a unified model.
+Each data point includes netlists, parameter sweeps, and
+simulation results spanning key performance metrics such
+as power gain (PGain), conversion gain (CGain), bandwidth
+(BW), noise figure (NF), DC power consumption (Pdc), drain
+efficiency (DE), saturation power (PSAT), oscillation frequency
+(f osc), tuning range (TR), output power (Pout), phase noise
+(PN), voltage swing (Vswg), power-added efficiency (PAE), and
+S-parameters at the fundamental frequency.
+B. Initialization
+Node features are min-max-scaled while the prediction tar-
+gets are z-standardized. Statistics are computed on the training
+subset only and reused for validation and test, eliminating
+leakage of unseen data.
+C. Hyperparameters
+Each individual GNN comprises four layers with 128 hidden
+features. LeakyReLU activations have a slope of 0.1. Graphs
+are fed to train and test pipelines in batches of 128. The data is
+augmented with Gaussian noise drawn from N(0, 0.01) to dis-
+courage overfitting. The weighted Adam (AdamW) optimizer is
+used. The learning rate is reduced by a factor of two with the
+ReduceLROnPlateau scheduler if the median validation
+loss does not improve for five consecutive epochs. Early stop-
+ping is applied individually to each output (i.e., per FoM) head:
+a given prediction head is frozen if it shows no improvement
+for ten consecutive epochs, while training continues for the
+remaining heads. This strategy accommodates varying conver-
+gence rates across different performance metrics, preserving
+model capacity for more challenging targets while avoiding
+overfitting on simpler ones.
+D. Loss Function
+The GNN outputs are trained to minimize SmoothL1Loss
+after applying min-max normalization and z-score standardiza-
+tion.
+E. Computational Cost
+For a batch of graphs with a total of Nb nodes and Eb edges,
+the computational complexity of the GNN-based framework
+scales as O
+EbLH + Nb
+ FH + (L −1)H2
+, where
+D is the number of predicted FoMs (outputs), L is the number
+of message-passing layers, F is the input feature dimension,
+and H is the hidden dimensionality. Among the 20 topologies,
+the average per-topology number of nodes, edges, degree, and
+feature dimensions are 33, 100, 3, and 23, respectively.
+F. Evaluation Metrics
+The framework accuracy is evaluated using standard relative
+benchmarks such as (i) average MRE and MRE reported
+within 2% and 5% error thresholds and for 75th and 90th
+percentiles (P75 and P90) and (ii) symmetric mean absolute
+percentage error (sMAPE). The accuracy benchmarks are
+determined based on the non-scaled (i.e., inverse-transformed
+as needed), actual target values.
+The reported weighted MRE is computed as the sample-
+count-weighted average of per-metric mean relative error
+across circuit classes. Specifically, for each metric and class,
+
+--- PAGE BREAK ---
+
+MRE is first computed as the mean absolute relative error over
+all valid test samples:
+MREc,k =
+Nc,k
+i∈Vc,k
+ˆyc,i,k −yc,i,k
+yc,i,k
+where Vc,k denotes the set of valid samples and Nc,k its size.
+The final reported weighted MRE is then computed as
+MREave
+c=1 Nc,k · MREc,k
+c=1 Nc,k
+(10)
+ensuring that each test sample contributes proportionally to the
+final error. Samples with non-finite targets or |yc,i,k| ≤10−6
+are excluded to ensure numerical stability. Alternatively, the
+sMAPE is computed as
+sMAPEc,k =
+Nc,k
+i∈Vc,k
+2 |ˆyc,i,k −yc,i,k|
+|yc,i,k| + |ˆyc,i,k| .
+(11)
+Unlike MRE, which scales the error only by the true
+value and may disproportionately penalize over-estimation,
+sMAPE normalizes by both true and predicted magnitudes,
+providing a symmetric error measure and treating over- and
+under-estimation equally. The reported weighted sMAPE is
+computed analogously to (10) by replacing MRE with sMAPE.
+Note that RFIC performance metrics are often multimodal
+and are therefore rarely well characterized by a single mean
+value. Therefore, mean-based evaluation benchmarks such as
+R2 and NRMSE can be misleading and are not reported.
+V. EXPERIMENTAL RESULTS
+The experimental evaluation examines four complemen-
+tary aspects of the proposed framework: (i) predictive accu-
+racy under topology-specific training, (ii) robustness and RF-
+informed inductive bias under intra-class joint training and
+architectural ablations, (iii) cross-topology knowledge transfer
+through lightweight fine-tuning within a circuit class, and (iv)
+predictive inference latency relative to conventional circuit
+simulations. Collectively, these experiments assess the model-
+ing fidelity, representation stability, generalization capability,
+and practical deployment efficiency of the proposed surrogate.
+A. Topology-Specific Results
+The proposed framework is trained on one topology and
+tested on different sizing values of the same topology. The
+empirical distributions of ground-truth FoMs obtained from
+Spectre simulations and those predicted by the surrogate are
+presented in Tabes II–IV as kernel density estimate (KDE)
+plots2. Across all circuit topologies, the predicted densities
+closely follow the ground-truth distributions, demonstrating
+the model’s ability to capture heavy-tailed, skewed, and mul-
+timodal FoM characteristics typical in nonlinear RF circuits.
+Quantitatively, the proposed framework achieves a weighted
+MRE of 1.79% under topology-specific training, confirming
+2A KDE is a non-parametric estimate of a probability density function
+obtained by centering smooth kernel functions (e.g., Gaussian) on every
+sample and summing their contributions.
+that terminal-level graph representations enable faithful model-
+ing of both device-level (e.g., NF) and block-level (e.g., phase
+noise, tuning range) circuit behaviors.
+B. Intra-Class Ablation Study
+To evaluate the effectiveness of the proposed RF-informed
+inductive bias , the accuracy of the proposed framework is
+compared with that of modified variants employing alternative
+circuit embedding and normalization schemes (Table VII).
+The evaluated variants include: (i) the proposed functionality-
+aware terminal-level representation with GraphNorm, (ii)
+functionality-agnostic
+random
+feature
+indexing
+that
+TABLE II
+AVERAGE PERFORMANCE AND KDE ON UNSEEN POWER AMPLIFIER
+SIZES. AVERAGE TRAINING SIZE: 21,087 SAMPLES PER TOPOLOGY.
+Benchmark
+PGain
+PSAT
+Avg. MRE
+0.11%
+1.35%
+1.07%
+1.10%
+1.04%
+2.93%
+2.97%
+sMAPE
+0.11%
+1.36%
+1.07%
+1.04%
+1.04%
+2.49%
+2.22%
+MRE P75
+0.15%
+1.80%
+1.39%
+1.00%
+1.26%
+2.18%
+1.74%
+MRE P90
+0.23%
+2.98%
+2.21%
+2.24%
+2.49%
+5.24%
+3.76%
+MRE <2% 100.00% 78.57% 87.41% 88.23% 86.00% 72.99% 78.36%
+MRE <5% 100.00% 97.28% 98.74% 97.10% 97.55% 89.40% 93.11%
+MRE >20%
+0.00%
+0.08%
+0.01%
+0.31%
+0.02%
+1.67%
+1.30%
+RMSE
+0.00
+0.27
+0.21
+0.07
+0.11
+0.08
+0.06
+0.00
+0.08
+0.08
+0.05
+0.07
+0.05
+0.04
+
+--- PAGE BREAK ---
+
+TABLE III
+AVERAGE PERFORMANCE AND KDE ON UNSEEN VOLTAGE-CONTROLLED
+OSCILLATOR SIZES. AVERAGE TRAINING SIZE: 17,482 SAMPLES PER
+TOPOLOGY.
+Benchmark
+fosc
+Pout
+Avg. MRE
+0.11%
+0.45%
+4.98%
+4.10%
+1.09%
+sMAPE
+0.11%
+0.45%
+3.92%
+1.81%
+1.07%
+MRE P75
+0.15%
+0.39%
+1.14%
+0.44%
+0.79%
+MRE P90
+0.25%
+0.97%
+7.61%
+2.77%
+2.44%
+MRE<2%
+100.00%
+96.23%
+81.87%
+87.54%
+88.10%
+MRE<5%
+100.00%
+99.32%
+87.68%
+93.54%
+94.95%
+MRE>20%
+0.00%
+0.10%
+5.40%
+1.66%
+0.32%
+RMSE
+0.00
+0.52
+0.28
+0.83
+2.35
+0.00
+0.13
+0.07
+0.14
+0.95
+TABLE IV
+AVERAGE PERFORMANCE AND KDE ON UNSEEN VOLTAGE AMPLIFIER
+SIZES. AVERAGE TRAINING SIZE: 21,087 SAMPLES PER TOPOLOGY.
+Benchmark
+VGain
+Avg. MRE
+1.59%
+2.03%
+4.56%
+sMAPE
+1.60%
+2.14%
+2.99%
+MRE P75
+1.63%
+1.13%
+1.68%
+MRE P90
+4.14%
+2.80%
+5.28%
+MRE<2%
+78.93%
+86.02%
+78.23%
+MRE <5%
+92.05%
+93.83%
+89.55%
+MRE >20%
+0.35%
+1.97%
+2.23%
+RMSE
+0.01
+0.00
+0.18
+0.04%
+0.00
+0.10
+TABLE V
+AVERAGE PERFORMANCE AND KDE ON UNSEEN LOW NOISE
+AMPLIFIER SIZES. AVERAGE TRAINING SIZE: 14,828 SAMPLES PER
+TOPOLOGY.
+Benchmark
+PGain
+Avg. MRE
+0.68%
+0.24%
+2.67%
+0.37%
+3.17%
+sMAPE
+0.69%
+0.24%
+2.65%
+0.37%
+2.39%
+MRE P75
+0.83%
+0.18%
+2.53%
+0.39%
+1.20%
+MRE P90
+1.48%
+0.38%
+6.02%
+0.71%
+4.55%
+MRE <2%
+93.95
+97.60%
+68.08%
+98.00%
+81.68%
+MRE <5%
+99.31%
+99.56%
+87.94%
+99.35%
+90.90%
+MRE >20%
+0.00%
+0.00%
+2.01%
+0.01%
+1.84%
+RMSE
+0.10
+0.00
+0.94
+0.04
+0.09
+0.06
+0.00
+0.31
+0.01
+0.05
+TABLE VI
+AVERAGE PERFORMANCE AND KDE ON UNSEEN MIXER SIZES.
+AVERAGE TRAINING SIZE: 13,481 SAMPLES PER TOPOLOGY.
+Benchmark
+CGain
+Vswg
+Avg. MRE
+0.19%
+3.90%
+0.08%
+0.59%
+sMAPE
+0.19%
+1.37%
+0.08%
+0.59%
+MRE P75
+0.27%
+0.89%
+0.10%
+0.74%
+MRE P90
+0.38%
+1.92%
+0.16%
+1.56%
+MRE <2%
+100.00%
+90.51%
+100.00%
+93.59%
+MRE <5%
+100.00%
+96.59%
+100.00%
+99.58%
+MRE >20%
+0.00%
+0.78%
+0.00%
+0.00%
+RMSE
+0.00
+0.93
+0.01
+0.00
+0.00
+0.13
+0.01
+0.00
+
+--- PAGE BREAK ---
+
+ignores the functional roles of individual circuit components,
+(iii) component-level abstraction, (iv) LayerNorm, and (v)
+BatchNorm. Note that in component-level abstraction, the
+circuit components (e.g., transistors, passive devices, power
+sources) are embedded as the individual graph nodes. Edges
+are constructed between component nodes whenever the corre-
+sponding components share an electrical connection through
+a common net. Component-level node features preserve de-
+vice parameters such as transistor width, length, and passive
+element values, while omitting explicit terminal identity (e.g.,
+source or drain in transistors, negative or positive pole of a
+voltage source).
+All models in this section are trained on all circuit topolo-
+gies within a given RFIC class and evaluated on the same
+class using unseen sizing values. The performance of the
+proposed framework is compared against a retrained state-
+of-the-art model, FALCON [29]. Since FALCON does not
+report per-class performance, the original model is retrained
+separately for each RFIC class using the same dataset sizes to
+ensure a fair comparison. Additional details on the per-class
+FALCON results are provided in the following subsection.
+Functionality-awareness: Across all circuit classes, remov-
+ing functionality-aware feature indexing leads to substantial
+degradation in prediction accuracy. This confirms that consis-
+tent and physics-aware encoding of device roles is critical for
+learning transferable circuit representations.
+Graph Abstraction: Changing the graph abstraction from
+terminal-level to component-level degrades accuracy, with the
+extent of degradation depending on the underlying physical
+sensitivity of each FoM. Metrics governed by local current
+flow, impedance transformation, and device-level matching
+(e.g., PGain and BW) exhibit larger degradation, as these
+behaviors rely on fine-grained terminal interactions (e.g., bias
+asymmetry and parasitic loading) that are not explicitly pre-
+served in component-level abstraction.
+Compared
+net-level
+abstraction
+such
+FALCON
+[29], both terminal-level and component-level representations
+achieve higher accuracy for FoMs dominated by device-level
+signal transformations (e.g., S11, PAE, and NF). However,
+both underperform net-level abstraction for CGain, a voltage-
+transfer metric defined between electrical nodes. In terminal-
+level representations, voltage nets are modeled implicitly as
+collections of terminals rather than explicit nodes, requiring
+the GNN to infer voltage relationships indirectly. These results
+indicate that prediction accuracy is primarily governed by how
+well the graph abstraction aligns with the dominant physical
+quantity of the target FoM.
+Normalization: Normalization ablations demonstrate com-
+parable performance between GraphNorm, LayerNorm, and
+BatchNorm.
+LayerNorm
+achieves
+slightly
+lower
+errorin
+smaller or more structurally uniform circuits such as VAs, as
+it preserves relative differences among devices by normalizing
+features independently at each node. GraphNorm, in contrast,
+normalizes features at the graph level, improving robustness
+when training across circuits with varying graph sizes and
+connectivity patterns, such as LNAs and PAs. Overall, the
+TABLE VII
+AVERAGE TEST MRE ACROSS VARIOUS RF CIRCUIT CLASSES.
+Average Test MRE (%) Across the PA Class.
+Average Training Size: 21,087 Samples per Topology.
+PGain
+PSAT
+Avg.
+This work
+Random features
+64.7
+55.9
+40.9
+37.0
+99.8
+93.8
+57.4
+Component-based
+LayerNorm
+BatchNorm
+FALCON
+22.8
+22.6
+14.0
+28.2
+64.7
+31.9
+26.6
+Average Test MRE (%) Across the Mixer Class.
+Average Training Size: 13,481 Samples per Topology.
+CGain
+Vswg
+Avg.
+This work
+14.9
+Random features
+64.6
+49.7
+31.0
+Component-based
+18.6
+LayerNorm
+15.2
+BatchNorm
+17.2
+FALCON
+11.1
+Average Test MRE (%) Across the VCO Class.
+Average Training Size: 17,482 Samples per Topology.
+fosc
+Pout
+Avg.
+This work
+Random features
+23.5
+83.8
+25.4
+Component-based
+LayerNorm
+BatchNorm
+FALCON
+Average Test MRE (%) Across the LNA Class.
+Average Training Size: 14,728 Samples per Topology.
+PGain
+Avg.
+This work
+15.1
+Random features
+19.6
+42.2
+14.5
+215.7
+59.2
+Component-based
+134.3
+31.6
+LayerNorm
+16.6
+BatchNorm
+18.4
+FALCON
+27.8
+40.8
+62.2
+18.3
+343.3
+98.5
+Average Test MRE (%) Across the VA Class.
+Average Training Size: 10,669 Samples per Topology.
+VGain
+Avg.
+This work
+11.5
+Random features
+35.7
+29.0
+88.2
+51.0
+Component-based
+19.5
+LayerNorm
+BatchNorm
+54.1
+21.3
+FALCON
+36.1
+14.9
+25.7
+25.6
+differences are modest, indicating that the primary accuracy
+improvement arises from the functionality-aware feature engi-
+neering.
+Parity Plots: Calibration, bias, and error distribution are
+illustrated through representative high- and lower-accuracy
+parity plots in Fig. 3. For well-predicted metrics (e.g., mixer
+PDC), predictions closely follow the y = x line across the full
+dynamic range, confirming accurate scaling and the absence
+of systematic bias. In contrast, mixer CGain and VA VGain
+
+--- PAGE BREAK ---
+
+TABLE VIII
+PER-METRIC SMAPE OF THE PROPOSED FRAMEWORK AND FALCON [29], TRAINED WITH THE SAME TRAINING DATASET SIZE OF 300K.
+Work
+Dataset
+Performance Metrics
+Weighted
+VGain PGain CGain
+fosc
+Pout
+PSAT
+Vswg
+Avg.
+This work
+Per-class 0.7% 8.0% 5.2% 6.1% 3.9% 1.5% 1.2% 3.0% 0.7% 4.1% 2.1% 2.0% 1.6%
+4.9% 1.2% 2.0%
+2.58%
+FALCON [29] Reduced 10.2% 5.8% 8.6% 6.6% 11.5% 4.5% 5.1% 11.1% 0.9% 7.6% 5.6% 7.2% 11.0% 17.7% 1.6% 3.2%
+8.19%
+Fig. 3. Parity plots, MRE, and sMAPE for a well-performing FoM, mixer PDC
+(blue shade), and two worse-performing FoMs, mixer CGain (orange shade)
+and VA VGain (green shade).
+TABLE IX
+AVERAGE TEST MRE COMPARISON FOR KNOWLEDGE TRANSFER.
+MRE (%) with Knowledge Transfer from ClassBPA, DPA, and DohPA to ClassEPA
+PGain
+PSAT
+Avg.
+This work
+FALCON
+29.7
+45.5
+14.3
+30.5
+38.9
+16.3
+26.1
+MRE (%) with Knowledge Transfer from SBPMixer, SBAMixer, and DBPMixer to DBAMixer
+CGain
+Vswg
+Avg.
+This work
+FALCON
+32.2
+32.5
+18.7
+MRE (%) with Knowledge Transfer from IFVCO, CCVCO, and ColVCO to RVCO
+fosc
+Pout
+Avg.
+This work
+FALCON
+MRE (%) with Knowledge Transfer from CGLNA, CLNA, and DLNA to CSLNA
+PGain
+Avg.(%)
+This work
+FALCON
+198.7
+4099.6
+24.7
+43.1
+136.9
+903.28
+MRE (%) with Knowledge Transfer from CSVA, CGVA, and SFVA to CVA
+VGain
+Avg.
+This work
+16.2
+FALCON
+252.8
+411.2
+289.5
+317.9
+exhibit increased scatter (notably in DBAMixer) and localized
+deviations (notably in SFVA), consistent with the outlier
+distributions observed in the KDE plots in Tables VI and IV.
+Despite the increased variance, predictions remain centered
+around the y = x line, indicating that the model captures the
+overall physical trend but exhibits reduced precision in regimes
+with topology-dependent gain distributions.
+The relatively lower accuracy for gain-related metrics is
+partly attributable to the definition of MRE, which penalizes
+overprediction more severely when true values are small
+(see (9)). Thus, although CGain predictions are generally well
+aligned with the y = x line, a small number of overpredicted
+outliers (see circled samples) disproportionately increases the
+MRE. While MRE is used for fair comparison with prior work,
+it has known limitations. To provide additional perspective,
+a symmetric metric (sMAPE) is also reported in Table VIII.
+Compared to FALCON, the proposed framework achieves
+lower sMAPE for CGain (6.1% vs 6.6%) and slightly higher
+sMAPE for VGain (8.0% vs 5.8%). These results confirm that
+the framework maintains balanced predictive accuracy without
+directional bias, demonstrating improved overall symmetric
+performance.
+Conclusion: Overall, the proposed configuration achieves
+the lowest or near-lowest MRE across all classes and FoMs,
+with a weighted per number of sample MRE of 3.45%.
+The limited sensitivity to node abstraction and normalization
+selection indicates that performance improvements primarily
+stem from the proposed functionality-aware representation
+rather than fragile architectural tuning.
+C. Comparison with the State-of-the-Art
+The performance of the proposed framework is compared
+to the most comparable work in the state-of-the-art, FALCON
+[29]. FALCON is retrained separately on individual RFIC
+classes (per-class) for a fair comparison, as well as retrained
+on all circuits jointly (uniform) with different dataset sizes.
+The results for the proposed framework, original FALCON
+model trained on 70% of all circuits except for the held-out
+RVCO (36k per-circuit or a total 19×36k circuits), FALCON
+model trained on 30% of all circuits (15k per-circuit or a total
+20×36k circuits), and trained per-class FALCON models (15k
+per-circuit or a total 4×15k circuits per-class) are listed in
+Table X.
+As a general rule of thumb, GNN performance benefits
+from representations that align with the dominant physical
+interactions governing each metric. Accordingly, solutions that
+map voltage nets to graph nodes, such as [29], perform better
+for metrics driven primarily by net-level aggregation and loop-
+level signal propagation (e.g., CGain and VGain). In contrast,
+this work maps device terminals to graph nodes and therefore
+better captures terminal-level current flow, device operating
+regions, impedance transformation, and local parasitic cou-
+pling. This representation is particularly beneficial for power,
+matching, and efficiency-related metrics (e.g., PDC, S11, NF,
+and PAE). As summarized in Table X, a majority of RF FoMs
+are influenced by terminal-level device interactions, leading
+to improved overall electrical accuracy and a lower weighted
+MRE for the proposed framework.
+
+--- PAGE BREAK ---
+
+TABLE X
+PER-METRIC MRE AND TRAINING EFFICIENCY OF THE PROPOSED FRAMEWORK, FALCON [29], AND FALCON-DERIVED MODELS.
+Work
+Training
+Performance Metrics
+Weighted
+Dataseta
+Models Samples Hours
+VGain
+PGain
+CGain
+fosc
+Pout
+PSAT
+Vswg
+Avg.
+This work
+Per-class
+60k×5
+0.7% 11.5%
+8.1%
+14.9% 3.9%
+1.5% 1.2% 3.0% 0.7% 5.4% 4.4% 2.7%
+1.5%
+5.7% 1.2% 2.0%
+3.45%
+FALCON
+Complete
+684k×1
+∼100
+11.2% 2.6%
+19.0%
+6.1% 11.4% 1.9% 4.5% 6.5% 0.6% 6.5% 4.6% 4.4%
+4.6% 11.0% 1.3% 1.4%
+9.09%
+FALCON
+Reduced
+60k×5
+∼100
+25.6% 9.8%
+25.2% 10.2% 14.3% 4.4% 5.4% 10.6% 0.9% 7.6% 5.6% 11.2% 10.6% 27.3% 1.6% 3.3%
+13.72%
+FALCON
+Per-class
+60k×5
+15.6% 25.7% 163.8% 11.1% 25.1% 22.6% 9.7% 30.8% 1.1% 6.9% 5.1% 31.9% 28.2% 64.7% 1.6% 4.0%
+31.74%
+aThe training set consists of 684k samples (70%) from five RF circuit classes in the publicly available dataset [29]: (i) Complete uses the full training set, (ii) Reduced uses a
+random 60k subset, and (iii) Per-class uses individual 60k subsets for each circuit class.
+In conclusion, while unified frameworks such as [29] offer
+deployment simplicity, the proposed class-specialized frame-
+work achieves superior accuracy and efficiency. The per-class
+FALCON model attains a weighted MRE of 31.74% with
+approximately 50 hours of training, whereas the proposed
+framework achieves a substantially lower weighted MRE of
+3.45% (9.2× improvement) with only 2 hours of training
+(25× faster). Even in its intended unified setting, FALCON
+achieves 9.09% weighted MRE with over 100 hours of
+training, still under-performing the proposed method in both
+total accuracy and computational cost. These results indicate
+that functionality-aware feature indexing and class-specialized
+training improve the model’s ability to learn circuit behavior in
+general while reducing data and computational requirements.
+D. Cross-Topology Knowledge Transfer
+To evaluate cross-topology generalization, selected cir-
+cuit topologies (RVCO, ClassEPA, DBAMixer, CSLNA, and
+CVA) are excluded during class training and treated as un-
+seen targets. The model is first trained using 30%/35%/35%
+train/validation/test splits on the remaining RFICs within the
+individual classes and subsequently fine-tuned on the held-out
+topology by updating only the first GNN convolution layer,
+in charge of learning unseen device functionality and sizing.
+The knowledge transfer performance is shown in Table IX,
+exhibiting strong transferability with an average test MRE
+of 1.2%, compared to 216.7% as reported by FALCON with
+equivalent evaluation setup, an improvement of ∼161×. The
+substantial performance gap indicates that functionality-aware
+feature indexing concentrates topology-specific information
+in the early layers, enabling efficient adaptation through
+lightweight fine-tuning without requiring auxiliary encoders
+of [29].
+E. Timing Results
+Test latency is shown in Fig. 4 and is measured as aver-
+age per-sample inference time under batched evaluation. The
+reported latency includes CPU-GPU transfer of precomputed
+graph data and model inference latency but excludes offline
+preprocessing steps such as netlist parsing and graph construc-
+tion. Compared to an average Spectre simulation runtime of
+9.384 s per circuit, the proposed surrogate reduces evaluation
+time to 1.687 ms on CPU and 0.225 ms on GPU, correspond-
+ing to speedups of approximately 5.6 × 103 and 4.2 × 104,
+respectively.
+Fig. 4. Comparison of per-circuit average inference latency for different RF
+circuits (LNA, Mixer, PA, VA, and VCO) with the model on CPU (0.57-4.37
+milliseconds) and GPU (0.17-0.34 milliseconds) versus per-circuit average
+Spectre simulations runtime (6.73-11.69 seconds) and FALCON inference
+latency on GPU (0.63-2.22 milliseconds).
+VI. CONCLUSION AND FUTURE WORK
+A topology-aware transistor-level GNN framework is pre-
+sented for accurate and data-efficient prediction of RFIC
+performance metrics across LNAs, mixers, VCOs, PAs, and
+VAs. By representing circuit netlists at the terminal level
+and incorporating functionality-aware feature indexing, the
+proposed approach preserves functional device distinctions and
+enables scalable learning of nonlinear RF behavior. As a result,
+the framework accurately models multimodal, skewed, and
+heavy-tailed FoM distributions, achieving an average test MRE
+of 3.45%.
+Rather than pursuing a single universal surrogate, this work
+demonstrates that class-specialized GNN models provide a
+favorable balance between predictive accuracy, sample ef-
+ficiency, inference latency, and cross-topology adaptability.
+Compared to prior state-of-the-art approaches, in intra-class
+prediction, the proposed framework improves accuracy by
+9.2× and generalization by ∼161× through lightweight trans-
+fer learning. The architecture further enables parallel GPU
+training of specialized surrogates, aligning naturally with prac-
+tical RF design workflows that focus on exploring alternative
+topologies within a target circuit class.
+As a future work, this work can be combined with subcircuit
+identification approaches such as [43] and [44] to enable
+parallelized modeling and through circuit partitioning. The
+
+--- PAGE BREAK ---
+
+terminal-to-node graph model aligns well with such works,
+enabling scaling to real-world designs.
+REFERENCES
+[1] O. Khan, A. Niknejad, and K. Pister, “Ultra low-power transceiver SoC
+designs for IoT, NB-IoT applications,” in Proceedings of the IEEE
+Custom Integrated Circuits Conference (CICC), 2018, pp. 1–77.
+[2] W. Hong, Z. H. Jiang, C. Yu, D. Hou, H. Wang, C. Guo, Y. Hu, L. Kuai,
+Y. Yu, Z. Jiang, Z. Chen, J. Chen, Z. Yu, J. Zhai, N. Zhang, L. Tian,
+F. Wu, G. Yang, Z.-C. Hao, and J. Y. Zhou, “The role of millimeter-
+wave technologies in 5G/6G wireless communications,” IEEE Journal
+of Microwaves, vol. 1, no. 1, pp. 101–122, 2021.
+[3] S. H. Dokhanchi, B. S. Mysore, K. V. Mishra, and B. Ottersten,
+“A mmWave automotive joint radar-communications system,” IEEE
+Transactions on Aerospace and Electronic Systems, vol. 55, no. 3, pp.
+1241–1260, 2019.
+[4] H. Zheng, R. Ma, M. Liu, and Z. Zhu, “A linear-array receiver analog
+front-end circuit for rotating scanner lidar application,” IEEE Sensors
+Journal, vol. 19, no. 13, pp. 5053–5061, 2019.
+[5] M. M. Gourary, S. G. Rusakov, S. L. Ulyanov, M. M. Zharov, and B. J.
+Mulvaney, “Circuit distortion analysis based on the simplified newton‘s
+method,” Journal of Electrical and Computer Engineering, vol. 2011,
+no. 1, p. 540305, 2011.
+[6] X. Yang, Y.-S. Huang, L. Zhou, Z. Zhao, D.-X. Ni, C.-R. Zhang, J.-F.
+Mao, J.-A. Han, X. Cheng, and X.-J. Deng, “Low-loss heterogeneous
+integrations with high output power radar applications at W-band,” IEEE
+Journal of Solid-State Circuits (JSSC), vol. 57, no. 6, pp. 1563–1577,
+2022.
+[7] J. Lee, W. Jia, B. S. Rodriguez, and J. S. Walling, “Pixelated RF: Ran-
+dom metasurface based electromagnetic filters,” in IEEE Interregional
+NEWCAS Conference (NEWCAS), 2023, pp. 1–5.
+[8] P. Vancorenland, C. De Ranter, M. Steyaert, and G. Gielen, “Optimal
+RF design using smart evolutionary algorithms,” in Proceedings of the
+IEEE/ACM Design Automation Conference (DAC), 2000, p. 7–10.
+[9] T. Pessoa, N. Lourenc¸o, R. Martins, R. P´ovoa, and N. Horta, “Enhanced
+analog and RF IC sizing methodology using PCA and NSGA-II opti-
+mization kernel,” in Proceedings of the Design, Automation & Test in
+Europe Conference & Exhibition (DATE), 2018, pp. 660–665.
+[10] Y. Hong, J. Huang, and J. Cai, “Design of broadband RF PAs using
+an improved bayesian optimization algorithm,” IEEE Transactions on
+Microwave Theory and Techniques, pp. 1–13, 2025.
+[11] M. Larbi, R. Trinchero, F. G. Canavero, P. Besnier, and M. Swaminathan,
+“Analysis of parameter variability in an integrated wireless power
+transfer system via partial least-squares regression,” IEEE Transactions
+on Components, Packaging and Manufacturing Technology, vol. 10,
+no. 11, pp. 1795–1802, 2020.
+[12] A. Mehradfar, X. Zhao, Y. Niu, S. Babakniya, M. Alesheikh, H. Aghasi,
+and S. Avestimehr, “Supervised learning for analog and RF circuit
+design: Benchmarks and comparative insights,” 2025.
+[13] H. Chae, S. H. Chai, T. Chi, S. Li, and D. Z. Pan, “ML-assisted RF IC
+design enablement: the new frontier of AI for EDA,” in Proceedings of
+the Asia and South Pacific Design Automation Conference (ASP-DAC),
+2025, p. 683–689.
+[14] K. Scharff, C. M. Schierholz, C. Yang, and C. Schuster, “ANN per-
+formance for the prediction of high-speed digital interconnects over
+multiple PCBs,” in IEEE Conference on Electrical Performance of
+Electronic Packaging and Systems (EPEPS), 2020, pp. 1–3.
+[15] A. S´anchez-Mas´ıs, R. Rimolo-Donadio, K. Roy, M. Sulaiman, and
+C. Schuster, “FNNs models for regression of S-parameters in multilayer
+interconnects with different electrical lengths,” in 2023 IEEE MTT-S
+Latin America Microwave Conference (LAMC), 2023, pp. 82–85.
+[16] E. A. Karahan, Z. Liu, and K. Sengupta, “Deep-learning-based inverse-
+designed millimeter-wave passives and power amplifiers,” IEEE Journal
+of Solid-State Circuits (JSSC), vol. 58, no. 11, pp. 3074–3088, 2023.
+[17] H. M. Torun, A. C. Durgun, K. Ayg¨un, and M. Swaminathan, “Causal
+and passive parameterization of S-parameters using neural networks,”
+IEEE Transactions on Microwave Theory and Techniques, vol. 68,
+no. 10, pp. 4290–4304, 2020.
+[18] H. Chae, H. Yu, S. Li, and D. Z. Pan, “PulseRF: Physics augmented ml
+modeling and synthesis for high-frequency RFIC design,” in Proceedings
+of the IEEE/ACM International Conference on Computer-Aided Design,
+ser. ICCAD ’24, 2025.
+[19] J. Zhou, E. A. Karahan, S. Ghozzy, Z. Liu, H. Jalili, and K. Sengupta,
+“25.3 AI-enabled design space discovery and end-to-end synthesis for
+RFICs with reinforcement learning and inverse methods demonstrating
+mm-Wave/sub-THz PAs between 30 and 120GHz,” in IEEE Interna-
+tional Solid-State Circuits Conference (ISSCC), vol. 68, 2025, pp. 1–3.
+[20] A. Asadi and I. Partin-Vaisband, “Topology-aware AI for transistor-
+level modeling of RF circuits: Opportunities and challenges,” in 2025
+IEEE 68th International Midwest Symposium on Circuits and Systems
+(MWSCAS), 2025, pp. 533–537.
+[21] M. Fayazi, M. T. Taba, A. Tabatabavakili, E. Afshari, and R. Dreslinski,
+“FuNToM: Functional modeling of RF circuits using a neural network
+assisted two-port analysis method,” in Proceedings of the IEEE/ACM
+International Conference on Computer Aided Design (ICCAD), 2023,
+pp. 1–8.
+[22] G. Zhang, H. He, and D. Katabi, “Circuit-GNN: Graph neural networks
+for distributed circuit design,” in Proceedings of the International
+Conference on Machine Learning (ICML), ser. Proceedings of Machine
+Learning Research, K. Chaudhuri and R. Salakhutdinov, Eds., vol. 97,
+2019, pp. 7364–7373.
+[23] H. Wang, K. Wang, J. Yang, L. Shen, N. Sun, H.-S. Lee, and S. Han,
+“GCN-RL circuit designer: Transferable transistor sizing with graph
+neural networks and reinforcement learning,” in ACM/IEEE Design
+Automation Conference (DAC), 2020, pp. 1–6.
+[24] G. Li, C. Xiong, A. Thabet, and B. Ghanem, “DeeperGCN: All you
+need to train deeper GCNs,” 2020.
+[25] K. Hakhamaneshi, M. Nassar, M. Phielipp, P. Abbeel, and V. Stojanovic,
+“Pretraining graph neural networks for few-shot analog circuit modeling
+and design,” IEEE Transactions on Computer-Aided Design of Integrated
+Circuits and Systems (TCAD), vol. 42, no. 7, pp. 2163–2173, 2023.
+[26] Z. Wu and I. Savidis, “Transfer of performance models across analog
+circuit topologies with graph neural networks,” in Proceedings of the
+ACM/IEEE Workshop on Machine Learning for CAD (MLCAD), ser.
+MLCAD ’22, 2022, p. 159–165.
+[27] Z. Wu and I. Savidis, “Transfer learning for reuse of analog circuit
+sizing models across technology nodes,” in 2022 IEEE International
+Symposium on Circuits and Systems (ISCAS), 2022, pp. 1033–1037.
+[28] H. Zhou, Y. Li, X. Xiong, and P. Zhou, “A transferable GNN-based
+multi-corner performance variability modeling for analog ICs,” in Asia
+and South Pacific Design Automation Conference (ASP-DAC), 2024, pp.
+411–416.
+[29] A. Mehradfar, X. Zhao, Y. Huang, E. Ceyani, Y. Yang, S. Han,
+H. Aghasi, and S. Avestimehr, “FALCON: An ML framework for fully
+automated layout-constrained analog circuit design,” in Advances in
+Neural Information Processing Systems (NeurIPS), 2025.
+[30] K. Zhu, H. Chen, W. J. Turner, G. F. Kokai, P.-H. Wei, D. Z. Pan, and
+H. Ren, “TAG: Learning circuit spatial embedding from layouts,” in
+Proceedings of the IEEE/ACM International Conference on Computer-
+Aided Design (ICCAD), 2022.
+[31] S. Qi and C. D. Sarris, “Deep neural networks for rapid simulation of
+planar microwave circuits based on their layouts,” IEEE Transactions
+on Microwave Theory and Techniques, vol. 70, no. 11, pp. 4805–4815,
+2022.
+[32] R. Shibata, M. Ohira, and Z. Ma, “A novel convolutional-autoencoder
+based surrogate model for fast s-parameter calculation of planar bpfs,”
+in IEEE/MTT-S International Microwave Symposium (IMS), 2022, pp.
+498–501.
+[33] A. Faraji, S. A. Sadrossadat, W. Na, F. Feng, and Q.-J. Zhang, “A new
+macromodeling method based on deep gated recurrent unit regularized
+with gaussian dropout for nonlinear circuits,” IEEE Transactions on
+Circuits and Systems I (TCAS I), vol. 70, no. 7, pp. 2904–2915, 2023.
+[34] S. Zebhi, S. A. Sadrossadat, W. Na, and Q.-J. Zhang, “Macromodeling
+of nonlinear high-speed circuits using novel hybrid bidirectional high-
+order deep recurrent neural network,” IEEE Transactions on Circuits
+and Systems I (TCAS I), vol. 71, no. 8, pp. 3740–3753, 2024.
+[35] Z. Wu, S. Pan, F. Chen, G. Long, C. Zhang, and P. S. Yu, “A
+comprehensive survey on graph neural networks,” IEEE Transactions
+on Neural Networks and Learning Systems (NeurIPS), vol. 32, no. 1,
+pp. 4–24, 2021.
+[36] D. Utyamishev and I. Partin-Vaisband, “Netwise detection of hardware
+trojans using scalable convolution of graph embedding clouds,” IEEE
+Transactions on Computer-Aided Design of Integrated Circuits and
+Systems (TCAD), vol. 43, no. 10, pp. 3116–3128, 2024.
+[37] T. Mohamed, V. M. van Santen, L. Alrahis, O. Sinanoglu, and H. Am-
+rouch, “Graph attention networks to identify the impact of transistor
+
+--- PAGE BREAK ---
+
+degradation on circuit reliability,” IEEE Transactions on Circuits and
+Systems I (TCAS I), vol. 71, no. 7, pp. 3269–3281, 2024.
+[38] H. Ren, G. F. Kokai, W. J. Turner, and T.-S. Ku, “ParaGraph: Layout
+parasitics and device parameter prediction using graph neural networks,”
+in Proceedings of the IEEE/ACM Design Automation Conference (DAC),
+2020, pp. 1–6.
+[39] M. Liu, W. J. Turner, G. F. Kokai, B. Khailany, D. Z. Pan, and H. Ren,
+“Parasitic-aware analog circuit sizing with graph neural networks and
+Bayesian optimization,” in Proceedings of the Design, Automation &
+Test in Europe Conference & Exhibition (DATE), 2021, pp. 1372–1377.
+[40] L. Liu, F. Yang, L. Shang, and X. Zeng, “GNN-Cap: Chip-scale
+interconnect capacitance extraction using graph neural network,” IEEE
+Transactions on Computer-Aided Design of Integrated Circuits and
+Systems (TCAD), vol. 43, no. 4, pp. 1206–1217, 2024.
+[41] C. Li, D. Hu, and X. Zhang, “Pre-layout parasitic-aware design optimiz-
+ing for RF circuits using graph neural network,” Electronics, vol. 12,
+no. 2, 2023.
+[42] M. Fey and J. E. Lenssen, “Fast graph representation learning with
+PyTorch Geometric,” in ICLR Workshop on Representation Learning
+on Graphs and Manifolds, 2019.
+[43] K. Kunal, T. Dhar, M. Madhusudan, J. Poojary, A. Sharma, W. Xu,
+S. M. Burns, J. Hu, R. Harjani, and S. S. Sapatnekar, “GANA: Graph
+convolutional network based automated netlist annotation for analog
+circuits,” in Design, Automation & Test in Europe Conference &
+Exhibition (DATE), 2020, pp. 55–60.
+[44] M. Fayazi, M. T. Taba, E. Afshari, and R. Dreslinski, “AnGeL: Fully-
+automated analog circuit generator using a neural network assisted
+semi-supervised learning approach,” IEEE Transactions on Circuits and
+Systems I (TCAS I), vol. 70, no. 11, pp. 4516–4529, 2023.

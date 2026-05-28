@@ -1,0 +1,348 @@
+arXiv:cond-mat/0106135v2  [cond-mat.str-el]  28 Nov 2003
+Superstructures at low spin - high spin transitions
+D. I. Khomskii
+II.Physikalisches Institut, Universit¨at zu K¨oln,
+Z¨ulpicher Str.77, 50937 K¨oln, Germany,
+and Laboratory of Solid State Physics,
+Groningen University, 9747 AG Groningen, The Netherlands
+U. L¨ow
+Theoretische Physik, Universit¨at zu K¨oln,
+Z¨ulpicher Str.77, 50937 K¨oln, Germany
+Abstract
+In many transition metal compounds, in particular those containing Fe2+ and Co3+, there oc-
+cur spin-state transitions between low-spin and high-spin (or intermediate-spin) states. We show
+that typical interactions between similar spin-state ions are short-range repulsion, and long-range
+interaction which can have diﬀerent sign depending on the elastic anisotropy of the lattice and
+on the direction between respective ions. Due to such character of eﬀective interactions at the
+spin-state transitions there may occur diﬀerent superstructures — ordered arrangement of diﬀer-
+ent spin-states, which in particular may have the form of stripes. The properties of the system
+TlSr2CoO5 for which such a superstructure was recently observed experimentally, are discussed
+from this point of view.
+PACS numbers: 71.70.Ch, 61.72.Yx, 64.60.Cn
+
+--- PAGE BREAK ---
+
+There exist many transition metal compounds in which, due to a competition between
+crystal ﬁeld splitting and intra-atomic Hund’s rule exchange, diﬀerent spin states lie close
+in energy. Such is often the situation for Fe2+ and Co3+. For these ions the low-spin (LS)
+state (occupation of d-levels t6
+2ge0
+g, S=0), intermediate-spin (IS) state (t5
+2ge1
+g, S=1) and high-
+spin (HS) state (t4
+2ge2
+g, S=2) can be stabilised at diﬀerent conditions. In some cases there
+occur spin-state transitions caused e.g. by change of pressure, temperature or composition.
+There are many examples of such transitions among Fe2+-compounds [1, 2], in particular
+with organic ligands. Among systems with Co3+, the best known (and still controversial) is
+the case of LaCoO3. For a long time it was assumed that there occurs in it the LS – HS
+transition with increasing temperature [3], but more recent calculations [4] and experiments
+[5] point rather to the LS – IS transition.
+Usually spin-state transitions occur between homogeneous states having predominantly
+one particular spin state; often they are of ﬁrst order. However as we shall show below,
+a quite diﬀerent and interesting situation may occur: the interaction between ions with
+diﬀerent spin state may be such that at the spin-state transitions an intermediate state
+may be stabilised, in which there appears a spin-state superstructure - an ordered arrange-
+ment of diﬀerent spin states of the same ionic species, e.g. an alternation of HS and LS
+states. Recently the ﬁrst example of such superstructure was observed in a layered cobaltite
+TlSr2CoO5 [6] and its presence was suggested for NdBaCo2O5.5 [7].
+In the present paper we consider the form of interactions determining the character of
+spin-state transitions, suggest a general mechanism which can lead to spin-state superstruc-
+tures, and qualitatively explain the superstructure observed in TlSr2CoO5.
+Conventional description of spin-state transitions [8, 9] relies on interactions induced by
+lattice distortions. Ions with diﬀerent spin states have diﬀerent ionic radii, e.g. Co3+ in the
+LS state in VI-fold coordination has the ionic radius 0.545 ˚A, and in the HS state — 0.61 ˚A.
+Consequently, if we change the spin state of an ion, e.g. by transforming one of the LS Co’s
+into a HS state, it amounts to introducing an“impurity” with larger size into a matrix (the
+so called “sphere in the hole” model [8]). This introduces strain in a crystal, and coupling to
+this strain provides the mechanism of interaction between impurities. In a model of isotropic
+elastic continuum generally used in treating LS – HS transitions [8, 9], the only interaction
+remaining is that through the “image forces” due to a stress-free surface of the sample [10],
+which is attractive. With such an attractive interaction one indeed obtains homogeneous
+
+--- PAGE BREAK ---
+
+structures, transitions between which may be of ﬁrst order.
+In real crystals, however, the elastic interactions are more complicated. Thus e.g. in
+weakly anisotropic cubic crystals there appears an interaction between impurities which
+decays rather slowly, as
+R3, and, most important, which has a diﬀerent sign in diﬀerent
+directions [10, 11]:
+V (⃗r,⃗r ′) = −Cd Q1Q2
+Γ(⃗n)
+|⃗r −⃗r ′|3
+where C is a constant of the order of unity, ⃗r −⃗r ′ = |⃗r −⃗r ′| · ⃗n,
+Q1 and Q2 are the
+“strengths” of impurities (Qi ∼(vi −v0) where vi is the volume of the impurity and v0 is
+the corresponding volume of the matrix), and the angular dependence of the interaction (1)
+is determined by a function of the direction cosines of the vector ⃗R = ⃗r1 −⃗r2:
+Γ(⃗n) = n4
+x + n4
+y + n4
+z −3
+Here the elastic anisotropy is characterised by the parameter d = c11 −c12 −2c44, where
+cij are the corresponding elastic moduli. We see that e.g. for d < 0 the interaction (1) is
+positive (repulsive) along the [100], [010] and [001] directions and attractive along face and
+body diagonals [110] and [111], and vice versa for d > 0. Thus we see that, in contrast
+to usual assumptions, the interaction between similar states (e.g. between HS ions in a LS
+matrix) may be repulsive, at least in certain directions.
+One can also show that the nearest neighbour (nn) interaction via short-wavelengths or
+optical phonons is typically also repulsive. Thus e.g. in a perovskite lattice, when one puts
+a large HS ion at a certain site, it pushes apart the surrounding oxygens, so that it is more
+favourable to have small LS ions at the nn sites. Consequently, the eﬀective interaction
+between similar ions at the nn sites is repulsive (or equivalently, it is attractive between LS
+and HS states). As is clear from these arguments, one can expect in this case that not only
+homogeneous states (LS or HS), but also certain states with ordered LS and HS ions can
+appear at certain conditions.
+A convenient way to describe spin-state transitions and eventual superstructures is to
+map this situation to an eﬀective lattice gas, or Ising model. Let us consider the situation
+in which each ion can be in two states, e.g. LS and HS (it may be also LS and IS [4, 5] or,
+in the case of TlSr2CoO5, IS and HS states [6]; for simplicity we speak below about LS and
+HS). We introduce pseudospin operators σi = ±1, so that σi = −1 corresponds to a LS state,
+and σi = 1 to a HS state at site i. According to our general discussion we can model the
+
+--- PAGE BREAK ---
+
+situation by the eﬀective Ising-type interaction P Jijσiσj, containing in general short-range
+repulsion, and a long-range part which decays as
+R3 and which may have diﬀerent signs
+in diﬀerent directions; this longer-range interactions depend on the details of the crystal
+structure, elastic anisotropy etc., see Eq.(1). The relative energies of diﬀerent spin-states,
+e.g. HS vs LS, will be described in this language by the eﬀective ”magnetic ﬁeld” — the
+term hσi.
+It is known that the Ising model with long-range interactions can give rise to a variety
+of diﬀerent ordered structures (see the well-known ANNNI model [12] or the treatment of
+the 2d Ising model with the “Coulomb” interaction in [13]). In this paper we consider a
+simpliﬁed model, which nevertheless contains the essential physics, keeping only a small
+number of pair interactions. In contrast to the treatment of [11, 13], where one has studied
+systems with ﬁxed concentration of particles (in our mapping — ﬁxed “magnetisation”), in
+our present problem the relative number of diﬀerent spins (LS and HS ions) is not ﬁxed.
+Consequently we should consider our system not for ﬁxed density (“magnetisation”), but for
+ﬁxed chemical potential (“magnetic ﬁeld”); the role of the temperature can be also mapped
+onto a magnetic ﬁeld [8].
+We consider a 2d square lattice, modelling the situation in TlSr2CoO5, which is the layered
+compound with perovskite-like CoO2-plane similar to CuO2-plane in high-Tc cuprates. The
+Hamiltonian of our model is
+H = J1
+⟨ij⟩=nn
+σiσj + J2
+⟨ij⟩=nnn
+σiσj −h
+Here the ﬁrst term describes the nearest neighbour interaction, which, as we argued
+above, is repulsive, J1 > 0; the second term is the next nearest neighbour interaction along
+x and y-directions ([100] and [010]) which we also take to be repulsive. The last term in
+Eq.(3) describes the diﬀerence of the on-site energies of LS and HS states, which can be
+changed e.g. by pressure etc. (For Co3+ the eﬀective ﬁeld h will be equal to h = 6JH −2∆,
+where JH is the Hund’s rule exchange and ∆is the crystal-ﬁeld splitting between t2g and
+eg-levels).
+It is straightforward to see that for only nn repulsion (J1 > 0, J2 = 0) three states can
+be realized at T = 0 for diﬀerent values of h: the state with all σi = −1 (LS-states) and
+with the energy (per site) ELS = J1z
+2 + h where z is the number of nearest neighbours (in
+
+--- PAGE BREAK ---
+
+our case z = 4); the state with alternating spins +1,−1,+1, . . . , forming a two-sublattice
+“antiferromagnetic” structure in a bipartite lattice (we consider below only such a case),
+ELS/HS = −J1z
+2 , and the homogeneous HS state with all σi = 1 and EHS = J1z
+2 −h. Conse-
+quently, we would have jump-like phase transitions between these states with increasing h,
+from the LS state at h < −J1z to an ordered array LS/HS/LS/HS . . . for −J1z < h < J1z,
+and to a HS state for h > J1z. Thus we see that this model quite naturally leads to the
+formation of a state with a superstructure of LS and HS states, similar to the one observed
+in [6].
+One important diﬀerence of this simple case and the experimental situation observed in
+[6] is that the ratio of LS to HS states (IS to HS in the real case of TlSr2CoO5) is not 1:1 as
+above, but 1:2, IS states forming diagonal stripes in the 2d square lattice. But just such a
+state appears when one takes into account the second term in the Hamiltonian Eq.(3).
+In order to determine the ground state phase diagram of the model (3) we employed a
+Metropolis Monte Carlo algorithm combined with a single spin ﬂip dynamics to cool the
+states to zero temperature [13]. We further compared the energies of all possible periodic
+states with unit cells up to size 5 × 5. In this way we found four regions with diﬀerent
+ordered ground states: a ferromagnetic and an antiferromagnetic phase, a 2×2 checkerboard
+structure which is degenerate with (2, 2)-stripes, and a (2, 1) stripe phase. The resulting
+phase diagram for h > 0 is shown in Fig.1 (as is clear from the form of the Hamiltonian (3),
+the phase diagram for h < 0 can be obtained by changing σ to −σ, i.e. by reﬂecting the
+phase diagram in Fig.1 relative to the x-axis and changing + ↔−).
+Since all the ground states are simple diagonal stripes (except for the checkerboard phase
+which is however degenerate with the (2, 2) stripe phase) we mapped the model onto a one-
+dimensional eﬀective model, which is simpler to analyse and which served us for a detailed
+analysis (see appendix). This study conﬁrms the conclusions presented above and reproduces
+the phase diagram of Fig.1.
+To summarize, away from the boundaries all systematic checks revealed no phases but
+the ones shown in Fig.1. Note however, that on the boundary lines interesting degeneracies
+occur. Thus e.g. on the line h = 4J1 + 4J2 separating the ferromagnetic and the (2,1)
+phase all diagonal stripes (n,1) consisting of n spins σ = + and one spin σ = −1 are
+degenerate. We stress however that these degeneracies are of no phenomenological relevance
+for the superstructures studied here, since they are strictly conﬁned to the ”one-dimensional”
+
+--- PAGE BREAK ---
+
+phase boundaries.
+The phase diagram obtained above resembles that of the well-known ANNNI model, cf.
+Fig.1 in Ref.[14], with the diﬀerence that because of the ferromagnetic coupling between nn
+spins in one direction in the ANNNI model, (2, 1) stripes in the latter are vertical and not
+diagonal, as in our case (see the appendix for details). Also, our result agrees with Ref.[15]
+where the model Eq.(3) is discussed for h = 0.
+From the results presented above we see that in a large part of the phase diagram we
+obtain the phase with (2,1) diagonal stripes; this phase exactly corresponds to the spin-state
+superstructure observed experimentally in TlSr2CoO5 [6].
+We also considered the generalized model, including the interaction between the sites
+along diagonals in the plaquette, which according to Eqs.(1,2) should be attractive (ferro-
+magnetic): the corresponding model in the spin language is
+H = J1
+<ij>=nn
+σiσj + J2
+<ij>=nnn
+σiσj + Jd
+<ij>=diag
+σiσj −h
+where J1, J2 > 0, Jd < 0.
+We found no new ground state phases emerging for this case, but the eﬀect of the diag-
+onal coupling Jd is merely to shift the phase boundaries in Fig.1 by Jd/2 to the right (see
+appendix).
+For a longer range interaction, e.g. the one of the type (1), certain other states may
+appear, depending on the ratio of the constants of the Hamiltonian. The description of
+these states is a formidable problem even in 1d-case, especially at ﬁnite temperatures [12]
+(see also the results of numerical calculations in [13]). We will not discuss all the details
+of this problem here; our main aim is just to demonstrate the possibility of the appearance
+of states with spin-state superstructures at corresponding transitions. We see that such
+superstructures indeed occur quite naturally if we take into account realistic interactions of
+HS and LS states via lattice deformation, including elastic anisotropy and interaction with
+optical phonons. In particular, the superstructure observed experimentally in TlSr2CoO5 is
+stable for a certain range of parameters if we include nn and nnn interaction along [100] and
+[010]-directions.
+Concerning the details of the properties of TlSr2CoO5 and of the theoretical description
+thereof, a few extra points should be mentioned. We discussed above only the origin and
+type of ordering in the ground state, assuming localised electrons. In reality TlSr2CoO5
+
+--- PAGE BREAK ---
+
+undergoes the ﬁrst order insulator – metal transition with increasing temperature at about
+300 K. We do not discuss this transition in this paper, but one can argue that the energy
+gap in the low-temperature phase may be connected with the occurrence of the spin state
+superstructure. From this point of view one probably may consider this state as a result of
+the formation of the spin-state density wave (SSDW), starting from the high-temperature
+metallic phase. (The treatment presented above would correspond to a strong-coupling limit
+of this picture.)
+Another point worth mentioning is the suggestion [16] that an orbital degeneracy may
+play a role in the properties of TlSr2CoO5. In general, indeed, there may exist eg-degeneracy
+in the IS state and t2g-degeneracy in both the IS and HS states of Co3+. However from the
+experimental data [6] it follows that this orbital degeneracy is predominantly lifted due to
+a rather strong tetragonal elongation of the CoO6-octahedra which exists already in the
+high-temperature phase and which most probably is connected with the layered structure
+of this compound. Indeed, the IS state for this distortion is nondegenerate, and only in
+the HS state there remains a double degeneracy in the t2g-sublevels. But the latter in Co
+compounds is usually lifted by the spin-orbit coupling, which presumably would be the case
+here as well (Jahn-Teller eﬀect by itself would stabilize for the HS state not an elongation,
+but a compression of CoO6-octahedra). This question, however, deserves further study.
+In conclusion, we considered in this paper the properties of systems undergoing spin-state
+transitions, like the ones often observed in materials containing Fe2+ and Co3+. We argued
+that the eﬀective interaction governing the behavior of such systems – the interaction via
+lattice distortions – is more complicated than the usually assumed attraction between simi-
+lar spin-state ions: typically the nearest neighbour interaction is repulsive, and more distant
+interactions may be of either sign, depending on the elastic anisotropy of the crystal and on
+the direction between respective ions. As a result of such form of interaction, diﬀerent su-
+perstructures, consisting of ordered distributions of diﬀerent spin-states, can naturally occur
+in this case. We discussed from this point of view the spin-state superstructure observed in
+the low-temperature phase of TlSr2CoO5 [6], and have shown that this superstructure can
+be explained by our model for a certain range of parameters. It would be interesting to look
+for similar superstructures in other systems with comparable energies of diﬀerent spin-states
+and with spin-state transitions.
+
+--- PAGE BREAK ---
+
+APPENDIX
+To gain further insight and to corroborate the picture obtained by Monte Carlo calcula-
+tions and by explicitly comparing the energies of diﬀerent states, we took advantage of the
+in principal one-dimensional structure of the relevant conﬁgurations (i.e. diagonal stripes,
+see Fig.1) and mapped the original Hamiltonian (4) onto a one-dimensional Ising model in
+a magnetic ﬁeld with the Hamiltonian:
+H1dim =
+{2J1sisi+1 + (2J2 + Jd)sisi+2 −hsi + Jd}.
+Here si = ±1 represents the normalized sums of the spins on the diagonals and the one-
+dimensional interaction is orthogonal to the stripes. Note that this Hamiltonian contains
+all possible diagonal stripe conﬁgurations. Using this one-dimensional model we checked
+systematically for possible diagonal stripe conﬁgurations up to unit cell of 18.
+From Eq.5 one sees that — once diagonal stripes are conﬁrmed as ground states — the
+role of Jd is a mere modiﬁcation of the next nearest neighbour coupling (plus an irrelevant
+constant) and hence a shift of the phase boundaries by Jd/2.
+Eq.5 is also useful to display the similarities to the two-dimensional ANNNI-model
+HANNNI = −
+( ˜J1Sx,ySx+1,y + ˜J2Sx,ySx+2,y + ˜J0Sx,ySx,y+1 + HSx,y)
+with ˜J1, ˜J2 < 0 and ˜J0 > 0 as discussed in Ref.[14]. Due to the ferromagnetic interaction ˜J0
+in y-direction, the stripes are vertically oriented in the case of Eq.6 and the corresponding
+one-dimensional Hamiltonian is
+˜H1dim = −
+{ ˜J1sisi+1 + ˜J2sisi+2 + Hsi + ˜J0}.
+˜H1dim Eq.(7) diﬀers from H1dim Eq. (5) for Jd = 0 by a factor 2 in the couplings and by
+a constant. The phase diagrams of the models can thus be mapped onto one another by a
+simple rescaling of the axis.
+
+--- PAGE BREAK ---
+
+Acknowledgments
+We are grateful to J. P. Doumerc, D. F¨orster and R. Hayn for useful discussions. This
+work was supported by the Sonderforschungsbereich 608 of the Deutsche Forschungsgemein-
+schaft, by the Netherlands Foundation for Fundamental Study of Matter (FOM) and by the
+Netherlands Science Organisation (NWO).
+
+--- PAGE BREAK ---
+
+[1] C. P. Slichter and H. G. Drickamer, J. Chem. Phys. 56, 21242 (1972).
+[2] E. K¨onig, Struct. Bonding 76, 51 (1991).
+[3] P. M. Racah and J. B. Goodenough, Phys. Rev. 155, 932 (1967).
+[4] M. A. Korotin at al., Phys. Rev. B 54, 5309 (1996).
+[5] S. Yamaguchi, Y. Okimoto and Y. Tokura, Phys. Rev. B 55, R8666 (1997); K. Asai et al.,
+J. Phys. Soc. Jap. 67, 290 (1998); G. Maris, Y. Ren, V. Volotchaev, C. Zobel, T. Lorenz,
+T.T.M. Palstra, Phys. Rev. B, 67, 224423 (2003); C. Zobel, M. Kriener, D. Bruns, J. Baier,
+M. Grueninger and T. Lorenz, Phys. Rev. B, 66, 020402(R) (2002).
+[6] M. Coutanseau et al., Sol. State Comm. 96, 569 (1995); J.-P. Doumerc et al., J. Solid State
+Chem. 147, 211 (1999); J.-P. Doumerc et al., J. Mater. Chem. 11 78 (2001).
+[7] F. Fauth et al., Phys. Rev. B 66, 184421 (2002).
+[8] S. Onishi and S. Sugano, J. Phys. C: Solid State Phys. 14, 39 (1981).
+[9] N. Willenbacher and H. Spiering, J. Phys. C: Solid State Phys. 21, 1423 (1988); H. Spiering
+and N. Willenbacher, J. Phys.: Condens. Matter 1, 10089 (1989).
+[10] J. D. Eshelby, The continuum theory of lattice defects, in Solid State Physics, eds. F. Seitz
+and D. Turnbull, 3, 79 (Academic Press, New York, 1956).
+[11] D. I. Khomskii and K. I. Kugel, Europhys. Lett. 55,208 (2001); Phys. Rev. B 67,134401
+(2003).
+[12] W. Selke, Phys.Reports 170, 213 (1988).
+[13] U. L¨ow, V.J. Emery, K. Fabricius, and S.A. Kivelson, Phys. Rev. Lett. 72, 1918 (1994).
+[14] P. Rujan, W. Selke and G. V. Uimin, Z. Phys. B 53, 221 (1983).
+[15] D.P. Landau and K. Binder, Phys. Rev. B 31,5946 (1985).
+[16] D. Foerster, R. Hayn, T. Pruschke, M. Z¨olﬂand H. Rosner Phys. Rev. B 64, 075104 (2001).
+
+--- PAGE BREAK ---
+
+−2.0
+−1.0
+ferromagnetic phase
+antiferromagnetic
+phase
+(2,1)
+stripe
+phase
+++−+
++−++
+−++−
+++−+
+checker
+board/
+(2,2) 
+++−−
+stripe
+phase
+++−−
+++−−
+−−++
+−−++
++−−+
+−−++
+−++−
+FIG. 1: Phase diagram of the model (3).
+The type of pseudospin ordering is shown for each
+possible phase. (The sign + corresponds e.g.to a high-spin state, and the sign −to a low-spin or
+intermediate-spin state.) Note, that we ﬁxed the energy scale by putting J1 = 1.

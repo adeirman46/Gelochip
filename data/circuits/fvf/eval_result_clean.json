@@ -1,0 +1,23 @@
+{
+  "component_name": "FVF",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": -0.0,
+      "bw_3db_hz": 1000000000.0
+    },
+    "theory": "Source-follower FVF: small-signal gain \u2248 gm\u00b7Rout/(1+gm\u00b7Rout) \u2272 1 (\u22480 dB), low output resistance. Pass if in-band gain between -6 dB and +0.5 dB.",
+    "theory_pass": true
+  },
+  "area_um2": 991.4
+}

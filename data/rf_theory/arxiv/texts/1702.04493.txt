@@ -1,0 +1,1871 @@
+Coverage Analysis for Millimeter Wave Networks:
+The Impact of Directional Antenna Arrays
+Xianghao Yu, Student Member, IEEE, Jun Zhang, Senior Member, IEEE, Martin Haenggi, Fellow, IEEE,
+and Khaled B. Letaief, Fellow, IEEE
+Abstract—Millimeter wave (mm-wave) communications is con-
+sidered a promising technology for 5G networks. Exploiting
+beamforming gains with large-scale antenna arrays to combat
+the increased path loss at mm-wave bands is one of its deﬁning
+features. However, previous works on mm-wave network analysis
+usually adopted oversimpliﬁed antenna patterns for tractability,
+which can lead to signiﬁcant deviation from the performance with
+actual antenna patterns. In this paper, using tools from stochastic
+geometry, we carry out a comprehensive investigation on the
+impact of directional antenna arrays in mm-wave networks. We
+ﬁrst present a general and tractable framework for coverage
+analysis with arbitrary distributions for interference power and
+arbitrary antenna patterns. It is then applied to mm-wave ad
+hoc and cellular networks, where two sophisticated antenna
+patterns with desirable accuracy and analytical tractability are
+proposed to approximate the actual antenna pattern. Compared
+with previous works, the proposed approximate antenna patterns
+help to obtain more insights on the role of directional antenna
+arrays in mm-wave networks. In particular, it is shown that the
+coverage probabilities of both types of networks increase as a
+non-decreasing concave function with the antenna array size.
+The analytical results are veriﬁed to be effective and reliable
+through simulations, and numerical results also show that large-
+scale antenna arrays are required for satisfactory coverage in
+mm-wave networks.
+Index Terms—Antenna pattern, coverage probability, direc-
+tional antenna array, millimeter wave, stochastic geometry.
+I. INTRODUCTION
+O meet the ever-increasing demands for high-data-rate
+multimedia access, the capacity of next-generation wire-
+less networks has to increase exponentially. One promising
+way to boost the capacity is to exploit new spectrum bands.
+Recently, millimeter wave (mm-wave) bands from 28 GHz to
+300 GHz have been proposed as a promising candidate for
+new spectrum in 5G networks, which previously were only
+Manuscript received October 28, 2016; revised February 21, 2017; accepted
+March 5, 2017. Date of publication XXXXX XX, 2017; date of current version
+XXXXX XX, 2017. This work was supported by the Hong Kong Research
+Grants Council under Grant No. 16210216 and the U.S. NSF (grant CCF
+1525904). This work was presented in part at IEEE Wireless Communications
+and Networking Conference, Doha, Qatar, Apr. 2016 [1].
+X. Yu and J. Zhang with the Department of Electronic and Computer
+Engineering, the Hong Kong University of Science and Technology (HKUST),
+Kowloon, Hong Kong (e-mail: {xyuam, eejzhang}@ust.hk).
+M. Haenggi is with the Department of Electrical Engineering, University
+of Notre Dame, Notre Dame, IN 46556 USA (e-mail: mhaenggi@nd.edu).
+K. B. Letaief is with the Department of Electronic and Computer Engi-
+neering, the Hong Kong University of Science and Technology (HKUST),
+Kowloon, Hong Kong, and also with Hamad bin Khalifa University, Doha,
+Qatar (e-mail: eekhaled@ust.hk; kletaief@hbku.edu.qa).
+Color versions of one or more of the ﬁgures in this paper are available
+online at http://ieeexplore.ieee.org.
+Digital Object Identiﬁer 10.1109/JSAC.2017.XXXXXXX
+considered for indoor and ﬁxed outdoor scenarios [2]. This
+proposal is supported by recent experiments in the United
+States and Korea [3], [4], showing that mm-wave signals can
+cover up to 200 meters.
+Lately, channel measurements have conﬁrmed some unique
+propagation characteristics of mm-wave signals [5]. It turns
+out that mm-wave signals are sensitive to blockages, which
+causes totally different path loss laws for line-of-sight (LOS)
+and non-line-of-sight (NLOS) mm-wave signals. Furthermore,
+diffraction and scattering effects are shown to be limited for
+mm-wave signals. This makes the conventional channel model
+for sub-6 GHz systems no longer suitable, and thus more
+sophisticated channel models are needed for the performance
+analysis of mm-wave networks.
+Another distinguishing characteristic of mm-wave signals is
+the directional transmission. Thanks to the small wavelength
+of mm-wave signals, large-scale directional antenna arrays can
+be leveraged to provide substantial array gains and synthesize
+highly directional beams, which help to compensate for the
+additional free space path loss caused by the ten-fold increase
+of the carrier frequency [3]. More importantly, different from
+the rich diffraction and scattering environment in sub-6 GHz
+systems, directional antennas will dramatically change the
+signal power, as well as the interference power. In mm-
+wave networks, the signal or interference power is highly
+directional and closely related to the angles of departure/arrival
+(AoDs/AoAs). In particular, the directional antenna array
+will provide variable power gains corresponding to different
+AoDs/AoAs. Even a slight shift of AoD/AoA may lead to a
+large array gain variation. Therefore, it is necessary and critical
+to incorporate the directional antenna arrays when analyzing
+mm-wave networks.
+A. Related Works and Motivation
+There exist several studies of the coverage performance of
+mm-wave networks [6]–[17]. Analytical results for coverage
+and rate coverage probabilities in noise-limited mm-wave net-
+works were presented in [6]. Although directional transmission
+does, to some extent, suppress co-channel interference, a dense
+deployment is usually required to overcome the blockage in
+mm-wave networks, which makes mm-wave networks prone
+to be interference-limited. Hence, only including noise into
+the coverage analysis is not enough. Analytical results on
+signal-to-interference-plus-noise ratio (SINR) and rate cover-
+age based on a simpliﬁed directional antenna pattern were
+obtained for device-to-device (D2D) [7], ad hoc [8], and
+arXiv:1702.04493v2  [cs.IT]  20 Apr 2017
+
+--- PAGE BREAK ---
+
+cellular [9], [10] networks, respectively. To maintain analytical
+tractability, the antenna pattern was simpliﬁed as a ﬂat-top
+pattern, which is a widely used simpliﬁcation. Since the di-
+rectional antenna array is a differentiating feature in mm-wave
+systems, it is crucial and intriguing to accurately incorporate
+it into the mm-wave network performance analysis.
+Basically, the ﬂat-top antenna pattern quantizes the con-
+tinuously varying antenna array gains in a binary manner.
+Although it signiﬁcantly simpliﬁes the analytical derivation,
+the oversimpliﬁed ﬂat-top pattern will lead to pessimistic
+coverage results, as will be revealed in this paper. Moreover, it
+is difﬁcult to analyze the impact of directional antenna arrays
+with the ﬂat-top antenna pattern, as only a few parameters
+are extracted to abstractly depict the actual antenna pattern.
+In practice, some critical parameters of the antenna beam
+pattern such as beamwidth, the n-th minor lobe maxima,
+nulls, and front-back ratio are all determined by the array
+size. Nevertheless, with the ﬂat-top antenna pattern, these
+parameters can only be determined qualitatively and inac-
+curately according to the array size. As a side effect, the
+quantized antenna array gain also hinders further investigations
+of directional antenna arrays. For example, it is difﬁcult to
+analyze beam misalignment, which is a critical problem in
+mm-wave networks [2].
+Recently, there have been some works considering the actual
+antenna pattern. Two works considered random beamforming
+in mm-wave networks and used the actual antenna pattern, but
+only focused on the single link analysis without interference
+[11], [12], and adopted some asymptotic approximation in the
+analysis. The actual antenna pattern was adopted in [13] for
+evaluating the capacity of an interfered communication link.
+However, all the interferers were assumed to use the same
+array gain, which weakens the practicality of the analytical
+result. An SINR coverage analysis incorporating the actual
+antenna pattern was carried out in [14]. While the coverage
+probability is analytically given, the multiple integrals (4
+nested integrals in the expression) prevent practical evaluation.
+Also, a Rayleigh fading channel model is not realistic for mm-
+wave networks due to their poor scattering property. All these
+works demonstrated that the actual antenna pattern suffers
+from poor analytical tractability. In addition, there are some
+works proposing different approximate antenna patterns. In
+[15], a Gaussian antenna pattern was numerically shown to
+be a good candidate to approximate the actual antenna pattern
+but does not lend itself to further analysis. Moreover, though
+the aforementioned works presented some analytical results
+with the actual antenna pattern, none of them unraveled how
+the array size will inﬂuence mm-wave networks, which is a
+critical and unique problem in mm-wave systems, and has
+only been reported through some simulation works [16], [17].
+To this end, an antenna pattern that not only approximates the
+actual antenna pattern accurately and realistically, but also with
+acceptable analytical tractability, is required to reveal more
+insights on directional antenna arrays in mm-wave networks.
+In summary, there is so far no comprehensive investigation
+on the impact of directional antenna arrays in mm-wave
+networks. In this work, we will ﬁll this gap with new analytical
+results of coverage probabilities that adopt more accurate
+approximations for the actual antenna pattern.
+B. Contributions
+We investigate the coverage1 probabilities in mm-wave
+networks with a random spatial network model, where trans-
+mitters are modeled as a homogeneous Poisson point process
+(PPP) [18], and the blockage effect is reﬂected by a LOS ball
+blockage model [9]. All the transmitters are assumed to utilize
+analog beamforming to serve the corresponding users. The
+main contributions of this work are summarized as follows.
+• We ﬁrst present a general framework for the coverage
+analysis in mm-wave networks, with arbitrary interfer-
+ence power distributions and antenna patterns, under the
+assumption that the information signal power is gamma
+distributed. Compared to previous results, the new expres-
+sion of the coverage probability is more compact and can
+be evaluated more efﬁciently.
+• Based on the general framework, analytical expressions
+of the coverage probabilities for both mm-wave ad hoc
+and cellular networks are provided. For these two types of
+networks, two approximate antenna patterns are proposed
+to achieve a good balance between accuracy and analyti-
+cal tractability. While the proposed approximate antenna
+patterns are more complicated than the ﬂat-top pattern,
+our analytical results are more tractable for practical
+evaluation, thanks to a new approach to deal with gamma
+distributed signal powers and interferers located in a ﬁnite
+region.
+• With the highly tractable coverage probabilities at hand,
+the impact of directional antenna arrays in both mm-wave
+ad hoc and cellular networks is investigated. We show that
+the coverage probabilities are monotone increasing func-
+tions of the array size. Moreover, the increasing functions
+are similar in both kinds of networks, which is the product
+of an exponential and a polynomial function of the inverse
+of array size. Asymptotic outage probabilities are also
+derived when the number of antennas goes to inﬁnity,
+which shows that the asymptotic outage probability is
+inversely proportional to the array size. This is the ﬁrst
+analytical result on the impact of antenna arrays that has
+been derived in mm-wave networks.
+• All the analytical results are shown to be computationally
+efﬁcient through numerical evaluations. Numerical results
+also show that NLOS signals and NLOS interference
+have negligible impact on the coverage probability in
+mm-wave networks. Moreover, the interference power in
+mm-wave networks is shown to be dominated by the
+directional antenna array gains, and large-scale direc-
+tional antenna arrays are needed in mm-wave networks
+to maintain an acceptable coverage probability. With the
+increasing network density, the coverage probability has
+a peak value in mm-wave cellular networks, while it
+monotonically decreases in ad hoc networks.
+1The terminology “coverage” is used for both cellular and ad hoc networks.
+
+--- PAGE BREAK ---
+
+C. Organization
+The remainder of this paper is organized as follows. We
+shall present the system model in Section II, and a general
+coverage analysis framework for mm-wave networks is intro-
+duced in Section III. Then the coverage probabilities, as well
+as the impact of directional antenna arrays, for mm-wave ad
+hoc and cellular networks are derived in Sections IV and V,
+respectively. Numerical results will be presented in Section
+VI, and conclusions will be drawn in Section VII.
+II. SYSTEM MODEL
+A. Network and Channel Models
+We consider downlink transmission in both mm-wave ad
+hoc and cellular networks. We will ﬁrst present the common
+features for both types of networks, and the difference will be
+speciﬁed later. The transmitters are assumed to be distributed
+according to a homogeneous PPP [18], which has been shown
+to be a network model with both reasonable accuracy and
+analytical tractability [19]. As depicted in Fig. 1, we consider
+the receiver at the origin, which, under an expectation over the
+point process, becomes the typical receiver. We assume that
+each receiver has a single receive antenna and is receiving
+signals from the corresponding transmitter equipped with
+a directional antenna array composed of Nt elements. All
+transmitters operate at a constant power Pt.
+We use the LOS ball [9], [20] to model the blockage effect
+as shown in Fig. 1(a). Speciﬁcally, we deﬁne a LOS radius
+R, which represents the distance between a receiver and its
+nearby blockages, and the LOS probability of a certain link
+is one within R and zero outside the radius. Compared with
+other blockage models adopted in the performance analysis
+for mm-wave networks, e.g., the 3GPP-like urban micro-
+cellular model, the LOS ball model has a better ﬁt with
+real-world blockage scenarios [21]. The incorporation of the
+blockages induces different path loss laws for LOS and NLOS
+links. It has been pointed out in [8], [9] that NLOS signals
+and NLOS interference are negligible in mm-wave networks.
+Hence, we will focus on the analysis where the typical receiver
+is associated with a LOS transmitter and the interference stems
+from LOS interferers. The relevant transmitters thus form a
+PPP, denoted as Φ, with density λb in a disk of radius R
+centered at the origin. In Section VI, we will justify the LOS
+assumption through simulations.
+Directional antenna arrays are leveraged to provide signif-
+icant beamforming gains to overcome the path loss and to
+synthesize highly directional beams. Universal frequency reuse
+is assumed, and thus the received signal for the typical receiver
+is given by
+hx0wx0
+Ptsx0
+x∈Φ′
+β∥x∥−α
+2 hxwx
+Ptsx + n0,
+where r0 = ∥x0∥is the distance between the typical receiver
+and its corresponding transmitter, while ∥x∥is the distance
+between the transmitter at location x and the typical receiver.
+The locations of the interfering transmitters are denoted as Φ′,
+and the channel vector between the interferer and the typical
+Blockages
+NLOS interferers
+LOS interferers
+Corresponding transmitter 
+of the typical receiver
+Typical receiver
+Fig. 1. (a): A sample mm-wave network where transmitters are modeled as a
+PPP. The LOS ball is used to model the blockage effect in the network. (b):
+Illustration of the spatial AoDs ϑx and ϕx.
+receiver is denoted as hx. The path loss exponent and intercept
+are symbolized by α and β [5]. In addition, the beamforming
+vector of the transmitter at location x is denoted as wx, and
+n0 stands for the additive white Gaussian noise (AWGN) with
+power being σ2.
+One main difference between the models for mm-wave ad
+hoc and cellular networks is the distance r0 between the typical
+receiver and its corresponding transmitter. In ad hoc networks,
+each transmitter is assumed to have a corresponding receiver
+at a ﬁxed distance r0 that is called the dipole distance. On
+the other hand, in cellular networks, the distance r0 between
+the typical user and its serving base station (BS) is random,
+due to the random locations of BS and users. We assume that
+the typical user is associated with its nearest BS, which is
+commonly adopted in cellular network analysis. The difference
+in r0 also gives rise to another difference between these two
+kinds of networks, i.e., the set of interferers Φ′. In ad hoc
+networks, a dipolar pair is added with the receiver at the origin,
+and this pair becomes the typical pair. Therefore, Φ′ = Φ.
+On the other hand, because each user in cellular networks is
+associated with the nearest BS, which is part of the PPP Φ, the
+set of interfering BSs Φ′ = Φ\{x0} forms a PPP conditional
+on x0 within a ring with inner diameter r0 and outer diameter
+Next we will present the channel model. Due to high free-
+space path loss, the mm-wave propagation environment is well
+characterized by a clustered channel model, i.e., the Saleh-
+
+--- PAGE BREAK ---
+
+Valenzuela model [5],
+hx =
+ρxlaH
+t (ϑxl),
+where (·)H symbolizes the conjugate transpose and L is the
+number of clusters. The complex small-scale fading gain of
+the l-th cluster is denoted as ρxl. Due to the poor scattering
+environment, especially for LOS signals and interference, the
+Rayleigh fading assumption commonly used in sub-6 GHz
+systems no longer holds, which has also been noted in recent
+works [21]. In this paper, we assume, as in [9], that |ρxl|
+follows independent Nakagami-M fading for each link.
+For mm-wave channels containing LOS components, the
+effect of NLOS signals is negligible since the channel gains
+of NLOS paths are typically 20 dB weaker than those of
+LOS signals [5]. Hence, for the remainder of this paper,
+we will focus on LOS paths, i.e., L = 1, and adopt a
+uniformly random single path (UR-SP) channel model that
+is commonly used in mm-wave network analysis [11], [12],
+[22], [23]. In addition, at(ϑx) represents the transmit array
+response vector corresponding to the spatial AoD ϑx, and it
+has been shown in [1, Fig. 3] that uniform distribution is an
+excellent approximation for the distribution of spatial AoDs.
+We consider the uniform linear array (ULA) with Nt antenna
+elements. Therefore, the array response vectors are written as
+at(ϑx) =
+1, · · · , ej2πkϑx, · · · , ej2π(Nt−1)ϑxiT
+where ϑx = d
+λ cos φx is assumed uniformly distributed over
+λ, d
+, and 0 ≤k < Nt is the antenna index. Furthermore,
+d, λ, and φx are the antenna spacing, wavelength, and physical
+AoD. In order to enhance the directionality of the beam, the
+antenna spacing d should be no larger than half-wavelength to
+avoid grating lobes [24].
+B. Analog Beamforming and Antenna Pattern
+While various space-time processing techniques can be
+applied at each multi-antenna mm-wave transmitter, we fo-
+cus on analog beamforming, where the beam direction is
+controlled via phase shifters. Due to the low cost and low
+power consumption, analog beamforming has already been
+adopted in commercial mm-wave systems such as WiGig
+(IEEE 802.11ad) [3]. Assuming the spatial AoD of the channel
+between the transmitter at location x and its serving user is
+ϕx, the optimal analog beamforming vector is well known and
+given by
+wx = at(ϕx),
+which means the transmitter should align the beam direction
+exactly with the AoD of the channel to obtain the maximum
+power gain.
+As shown in Fig. 1(b), based on the optimal analog beam-
+forming vector (4), for the typical receiver, the product of
+small-scale fading gain and beamforming gain of the trans-
+mitter at location x is given by
+|hxwx|2 = Nt |ρx|2 aH
+t (ϑx)at(ϕx)
+where |ρx|2 is the power gain of small-scale fading. By
+deﬁning the array gain function Gact(x) as
+Gact(x) ≜sin2 (πNtx)
+t sin2 (πx),
+the normalized array gain of the transmitter at location x can
+be expressed as
+t (ϑx)at(ϕx)
+Nt−1
+ej2πi(ϑx−ϕx)
+= sin2 [πNt(ϑx −ϕx)]
+t sin2 [π(ϑx −ϕx)] = Gact(ϑx −ϕx),
+where ϑx and ϕx are independent uniformly distributed ran-
+dom variables over
+λ, d
+. The array gain function in (7) is
+a normalized Fej´er kernel with factor
+Nt and is referred as the
+actual antenna pattern. In fact, the distribution of ϑx −ϕx in
+(7) is uniform, which is stated in the following lemma. Note
+that this substitution will not change the overall distribution
+of the array gain.
+Lemma 1. The array gain Gact(ϑx −ϕx) is equal in dis-
+tribution to Gact
+, where θx is a uniformly distributed
+random variable over [−1, 1].
+Proof: The proof is based on the uniform distribution of
+ϑx and ϕx, and the periodic property of the function ej2πx in
+(7). The proof has been established in [11, Appendix A].
+Although the Fej´er kernel has a relatively simple analytical
+form, it does not lend itself to further analysis due to the
+sine functions in both the numerator and denominator, which
+calls for an approximate antenna pattern with both accuracy
+and tractability in performance analysis of mm-wave networks.
+Next we will introduce two new approximate antenna patterns,
+as well as the ﬂat-top antenna pattern, which has been widely
+used in existing works. Fig. 2 visualizes these antenna patterns
+and evaluates the coverage probabilities with different antenna
+patterns through simulation.
+1) Flat-top antenna pattern: Most of the existing works [7]–
+[10] adopt this simpliﬁed antenna pattern in the coverage anal-
+ysis, where the array gains within the half-power beamwidth
+(HPBW) [24] are assumed to be the maximum power gain,
+and the array gains corresponding to the remaining AoDs are
+approximated to be the ﬁrst minor maximum gain of the actual
+antenna pattern. While this simple approximation is highly
+tractable, it introduces huge discrepancies when we evaluate
+the network coverage probability, as shown in Fig. 2(b)2.
+2) Sinc antenna pattern: Instead of the actual antenna pat-
+tern, a tight lower bound is widely adopted for the numerical
+analysis in antenna theory. Since the antenna spacing d is
+usually no larger than half-wavelength to avoid grating lobes,
+and sin x ≃x for small x, the array gain function can be
+approximately expressed as [24, Equation (6-10d)]
+Gsinc(x) ≜sin2 (πNtx)
+(πNtx)2
+2The gap can be narrowed by heuristically choosing different parameters
+for the ﬂat-top pattern, e.g., beamwidth and front-back ratio, but the overall
+shape of the coverage probability remains different.
+
+--- PAGE BREAK ---
+
+0.005
+0.01
+0.015
+0.02
+0.025
+0.03
+0.035
+0.04
+0.045
+0.05
+Angle x in Rad.
+Normalized Array Gain
+Actual antenna pattern (6)
+Flat-top antenna pattern
+Sinc antenna pattern (8)
+Cosine antenna pattern (9)
+(a) Visualization of four different antenna patterns when Nt =
+SINR Threshold (dB)
+Coverage Probability
+Actual antenna pattern (7)
+Flat-top antenna pattern
+Sinc antenna pattern (8)
+Cosine antenna pattern (9)
+(b) Coverage probability evaluations using four different an-
+tenna patterns in mm-wave cellular networks when R = 200
+m, Nt = 64, λb = 1 × 10−3 m−2, M = 3, and α = 2.1.
+Fig. 2. The comparisons between different approximate antenna patterns.
+which is a squared sinc function. The accuracy of this tight
+lower bound is shown in [24, Appendix I,II]. In Fig. 2(a), it
+turns out that the sinc antenna pattern is almost the same as the
+actual antenna pattern, and there is almost no error when using
+this approximate antenna pattern to investigate the coverage
+probability, as illustrated in Fig. 2(b). Moreover, note that the
+sinc function is more tractable due to the absence of the sine
+function in the denominator, compared to the actual antenna
+pattern.
+3) Cosine antenna pattern: Another antenna pattern approx-
+imation is based on the cosine function as follows
+Gcos(x) =
+cos2   πNt
+|x| ≤
+Nt ,
+otherwise,
+where the nonzero part is an elementary function with better
+analytical tractability. In Fig. 2(a), we observe that the cosine
+antenna pattern provides a good approximation for the main
+lobe gains while sacriﬁcing the accuracy for the side lobe ones.
+When incorporated into the coverage probability, the cosine
+antenna pattern has negligible gap between the actual antenna
+pattern, which can be viewed as a desirable trade-off between
+accuracy and tractability in performance analysis for mm-wave
+networks.
+Fig. 2 shows that the sinc and cosine antenna patterns are
+more accurate. In particular, they are superior to the ﬂat-top
+pattern since they accurately capture the impact of directional
+antenna arrays in mm-wave networks. In particular, given
+the operating frequency and the antenna spacing, the antenna
+pattern is critically determined by the array size. In the ﬂat-
+top pattern, however, it is very difﬁcult to quantitatively and
+accurately depict the variation of the HPBW and the ﬁrst minor
+maximum for different array sizes and AoDs. Moreover, the
+binary quantization of the array gains cannot reﬂect the roll-
+off characteristic of the actual antenna pattern and therefore
+is unable to provide different array gains for various AoDs.
+In other words, the ﬂat-top antenna pattern obliterates the
+possibility of analyzing the impact of directional antenna
+arrays, which is a critical and unique issue in mm-wave
+systems. On the contrary, the sinc and cosine antenna patterns
+are explicit functions of the array size, which makes it possible
+to investigate the relation between the coverage probability and
+the directional antenna arrays. The sinc and cosine antenna
+patterns will be adopted in the coverage analysis for mm-
+wave ad hoc and cellular networks in Sections IV and V,
+respectively.
+III. A GENERAL FRAMEWORK FOR COVERAGE ANALYSIS
+OF MM-WAVE NETWORKS
+In this section, we will develop a general framework for the
+coverage analysis of mm-wave networks. The main result is a
+tractable expression for the coverage probability, for arbitrary
+antenna patterns and interference distributions. It will then be
+applied in the following two sections to evaluate mm-wave ad
+hoc networks and mm-wave cellular networks.
+A. Signal-to-interference-plus-noise Ratio (SINR) Analysis
+We assume that each transmitter has full information about
+the AoD of the channel between itself and its serving user,
+which can be obtained through sophisticated beam training
+protocols [3]. The transmitters can align the beam to the
+AoD direction, according to (4), using analog beamforming
+to obtain the maximum antenna array gain. The SINR at the
+typical receiver is then given by
+SINR =
+PtNt|ρx0|2βr−α
+σ2 + P
+x∈Φ′ Ptgxβ∥x∥−α =
+|ρx0|2r−α
+σ2n + P
+x∈Φ′ gx∥x∥−α ,
+(10)
+where σ2
+βPtNt is the normalized noise power and gx is
+the channel gain from the interfering transmitter at location x,
+including both the small-scale fading gain and the directional
+antenna array gain3. In this section, we assume (gx)x∈Φ′ is
+a family of non-negative random variables with independent
+3Since gx is an arbitrary channel gain, when normalizing the noise power
+by Nt, we abbreviate the normalized channel gain
+Nt as gx with a slight
+abuse of notation.
+
+--- PAGE BREAK ---
+
+and identically distributions, which will be speciﬁed in the
+following two sections.
+Besides the complicated directional antenna array gains,
+there is another difﬁculty when calculating the SINR dis-
+tribution. Note that the channel gain for the signal |ρx0|2
+follows a gamma distribution Gamma
+ M, 1
+, where M is
+the Nakagami parameter. Compared with the exponential dis-
+tributed power gain induced by Rayleigh fading, this gamma
+distribution brings additional challenges into the derivation.
+Note that the gamma distribution for the signal power widely
+appears when evaluating various multi-antenna systems. Many
+previous works illustrated that the signal power is gamma
+distributed considering more general transmission techniques,
+e.g., maximal ratio transmission [25], or other network settings
+such as heterogeneous networks [26].
+B. Coverage Analysis Framework
+The coverage probability, deﬁned as the probability that the
+received SINR is greater than a certain threshold τ, is written
+pc(τ) = P
+|ρx0|2r−α
+σ2n + P
+x∈Φ′ gx∥x∥−α > τ
+|ρx0|2 > τrα
+n + I
+(11)
+where I = P
+x∈Φ′ gx∥x∥−α. As mentioned before, one main
+difﬁculty of the analysis comes from the gamma distributed
+random variable |ρx0|2. In previous works that investigated
+the coverage analysis for mm-wave networks [1], [7]–[9], an
+upper bound for the cumulative probability function (cdf) of a
+normalized gamma random variable was adopted. In contrast,
+in this paper, we will derive an exact expression for this
+probability. The coverage probability (11) is ﬁrstly rewritten
+pc(τ)
+= Er0
+(M−1
+(Mτrα
+0 )n
+n + I)ne−Mτrα
+0 (σ2
+n+I)i)
+= Er0
+"M−1
+(−s)n
+L(n)(s)
+(12)
+where s = Mτrα
+0 , L(s) = e−sσ2
+e−sI
+is the Laplace
+transform of noise and interference. The variable r0 is random
+in cellular networks but deterministic in ad hoc ones. The
+notation L(n)(s) = (−1)nEI
+n + I)ne−s(σ2
+n+I)i
+stands for
+the n-th derivative of L(s), and step (a) is from the cdf of a
+gamma random variable.
+Next, we will derive the coverage probability based on
+the expression (12). In particular, we will show that, for
+arbitrary distributions of the channel gain, the n-th derivative
+of the Laplace transform can be expressed in a recursive
+form. Afterwards, the coverage probability can be expressed
+by the induced ℓ1-norm of a lower triangular Toeplitz matrix.
+This approach yields a more compact analytical result for the
+coverage probability than previous works, thanks to the more
+delicate handling of the gamma distributed fading gain. More
+importantly, this framework enables us to perform further
+analyses of mm-wave networks, e.g., to investigate the impact
+of directional antenna arrays in later sections, which cannot
+be unraveled from existing works.
+The ﬁrst step is to derive the Laplace transform L(s), given
+in the following lemma. As mentioned in Section II-A, we
+focus on the LOS interference within the LOS radius R in the
+following derivation.
+Lemma 2. Assuming a lower bound κ on the distance between
+the typical receiver and the nearest interferer, the Laplace
+transform of noise and interference is
+L(s) = exp
+−sσ2
+n −πλb
+R2 −κ2 + δκ2Eg
+E1+δ(sκ−αg)
+−δR2Eg
+E1+δ(sR−αg)
+ o
+≜exp {η(s)} ,
+(13)
+where δ =
+α, Ep(z) is the generalized exponential integral
+[27, Page xxxv], and g is the channel gain that is distributed
+as all the gx in (10).
+Proof: The Laplace transform of the interference I,
+denoted as LI(s), is well known and is written as [28]
+LI(s) = EI
+e−sI
+= exp
+−2πλb
+ 1 −Eg[exp(−sgx−α)]
+(14)
+Note that the expectation over g is another integral, so (14)
+involves a double integral. Since the integration function is
+integrable, according to Fubini’s theorem, we can swap the
+order of the expectation and integration, and part of the
+exponent of LI(s) can be recast as
+ 1 −Eg[exp(−sgx−α)]
+= 2Eg
+"Z R
+1 −exp(−sgx−α)
+(15)
+= R2 −κ2 + Eg
+(sg)δ
+Z sgκ−α
+sgR−α e−tdt−δ
+= R2 −κ2 + δκ2Eg
+E1+δ(sκ−αg)
+−δR2Eg
+E1+δ(sR−αg)
+(16)
+By substituting (16) into (14), the Laplace transform L(s) in
+Lemma 2 can be obtained.
+Calculating the Laplace transform in PPP usually involves
+two expectation operations over the interferers’ locations and
+channel gains, respectively. Note that in the derivation of
+Lemma 2, we ﬁrst take the expectation over the interfer-
+ers’ locations and then average over the channel gains as
+shown in (15), which is in the reverse order compared to
+the conventional derivation [28] and existing works in mm-
+wave networks [1], [7]–[9]. The reason why we perform these
+two expectations in this order is that, in mm-wave networks,
+the distribution of the channel gains involving the directional
+antenna array gains are much more complicated than that in
+sub-6 GHz networks, and therefore we take it as the latter step
+
+--- PAGE BREAK ---
+
+to maintain the analytical tractability. In later sections we will
+see the beneﬁts of this swapping.
+Based on the Laplace transform derived in Lemma 2, the
+coverage probability is given in the following theorem.
+Theorem 1. The coverage probability (11) is given by
+pc(τ) =
+∥exp (CM)∥1
+ad hoc,
+fr0(r) ∥exp {CM(r)}∥1 dr
+cellular,
+(17)
+where fr0(r) is the probability density function (pdf) of
+the distance between the typical receiver and its associated
+transmitter, and CM is an M × M lower triangular Toeplitz
+matrix
+CM =
+
+c1 c0
+cM−1 · · · c2 c1 c0
+
+(18)
+whose nonzero entries are determined by
+ck = (−s)k
+η(k)(s),
+(19)
+and ck > 0 for k ≥1.
+Proof: See Appendix A.
+As stated in Section III-A, the main assumption in Theorem
+1 is the gamma distributed signal power, and this theorem
+holds for arbitrary interference distributions and antenna pat-
+terns. Furthermore, note that we adopt a general exponent
+η(s) of the Laplace transform L(s), and thus Theorem 1
+can be viewed as a generalization of the results in [25],
+[26]. When the exponent η(s) is speciﬁed as [25, Equation
+(35)] and [26, Equation (36)] according to different network
+settings and fading assumptions, Theorem 1 specializes to the
+expressions therein. In mm-wave networks, the channel gain
+g not only includes the small-scale fading gain, but also the
+directional antenna array gain. With Theorem 1 at hand, in
+order to obtain the speciﬁc coverage probability expression
+for a certain kind of channel gain g, the only parameters
+required to be determined are the entries {ck}M−1
+in the
+matrix CM. While we focus on analog beamforming, the
+framework proposed in this section is also applicable for mm-
+wave networks adopting other transmission techniques, e.g.,
+hybrid precoding [29], [30]. In the following two sections, we
+shall derive the coverage probabilities for different network
+settings and antenna patterns.
+IV. COVERAGE ANALYSIS FOR MM-WAVE AD HOC
+NETWORKS
+Millimeter wave communications has been proposed as a
+promising technique for next-generation ad hoc networks with
+short-range transmission, e.g., military battleﬁeld networks
+[31], high-ﬁdelity video transmission [3], and D2D networks
+[32]. In this section, we will ﬁrst derive an analytical expres-
+sion of the coverage probability for mm-wave ad hoc networks,
+based on which we will then investigate the critical role of
+directional antenna arrays in such networks.
+A. Coverage Analysis
+In mm-wave ad hoc networks, a dipole model is adopted,
+where the communication distance between the typical re-
+ceiver and its associated transmitter is assumed to be ﬁxed
+as the dipole distance [18]. As mentioned in Section II-A, we
+assume that the typical dipole pair is in the LOS condition,
+i.e., r0 ≤R. In fact, if the typical receiver is associated
+with a NLOS transmitter out of the LOS radius, due to the
+huge path loss and high noise power at mm-wave bands, the
+coverage probability will be fairly low (close to zero) for a
+practical SINR threshold, and therefore with little analytical
+signiﬁcance. Furthermore, in ad hoc networks, the nearest
+interferer can be arbitrarily close to the typical receiver, i.e.,
+κ = 0. According to (10), the received SINR is given by
+SINR =
+|ρx0|2r−α
+σ2n + P
+x∈Φ |ρx|2Gact
+∥x∥−α .
+(20)
+As mentioned in Section II-B, the sinc antenna pattern is an
+excellent approximation of the actual antenna pattern with
+better analytical tractability, so we propose to adopt it in the
+analysis of mm-wave ad hoc networks.
+Note that in Section III-B, we have pointed out that the main
+task to derive the coverage probability pc(τ) is to determine
+the entries in the matrix CM. The channel gain g is the product
+of the gamma distributed small-scale fading gain |ρx|2 and
+the directional antenna array gain Gsinc
+. First, a unique
+property of the directional array gain with the sinc antenna
+pattern is presented to help derive the coverage probability.
+Lemma 3. For p ∈Z+,
+sin x
+dx =
+2(2p −1)!
+2p −1
+p −1
+(21)
+where
+Eulerian
+numbers,
+i.e.,
+Pk+1
+j=0(−1)j n+1
+(k −j + 1)n.
+Proof: The proof can be found in [1, Lemma 2].
+Based on Lemma 3, a lower bound of the coverage proba-
+bility with the sinc antenna pattern is derived in the following
+proposition.
+Proposition 1. The coverage probability of mm-wave ad
+hoc networks with the sinc antenna pattern is tightly lower
+bounded by
+psinc
+(τ) ≥
+(22)
+The coefﬁcients in CM are given by
+ck =
+πR2λbλ
+p=max{1,k}
+(−τrα
+0 )p
+2p−1
+Γ(M + p)
+Rαp(2p −1)!(p −k)! (p −δ) Γ(M)
+−δλbλ
+(δ)k Γ (−δ) Γ (M + δ)
+Γ(M)
+τ δr2
++1(k ≤1)τMrα
+0 σ2
+× (−1)k+1
+(23)
+
+--- PAGE BREAK ---
+
+where Γ(·) denotes the gamma function, (x)n represents the
+falling factorial, 1(·) is the indicator function, and
+sin x
+(24)
+Proof: See Appendix B.
+Remark 1: According to recent mm-wave channel measure-
+ments [5], the path loss exponent α is less than 3, which
+ensures the convergence of ξ.
+Remark 2: Although the expressions in Proposition 1 in-
+volve a summation of inﬁnitely many terms, it turns out that,
+in practical evaluation, the series converges quickly, and the
+high-order terms contribute little to the sum. Hence, using a
+ﬁnite number of terms is sufﬁcient for numerical computation.
+In addition, ξ only depends on the path loss exponent α and
+can easily be evaluated numerically and ofﬂine. Overall, the
+expression in Proposition 1 is much easier to evaluate than
+existing results [7], [8] that contain multiple nested integrals.
+Remark 3: Note that the derivation in Appendix B is based
+on the Laplace transform provided in Lemma 2, where we
+swap the order of two expectations as mentioned in Section
+III-B. With the help of this swapping operation, we are able to
+derive a more tractable expression for the Laplace transform,
+which veriﬁes the beneﬁts and superiority of the proposed
+analytical framework.
+Remark 4: For a given coverage probability, the maximum
+transmitter density can be numerically determined by Propo-
+sition 1.
+B. Impact of Directional Antenna Arrays
+Next we investigate how directional antenna arrays affect
+the coverage probability in mm-wave networks. Increasing
+the array size enhances the signal quality, but may also
+increase interference power. The overall effect is revealed in
+the following corollary.
+Corollary 1. The tight lower bound of the coverage probabil-
+ity (22) is a non-decreasing concave function with the array
+size, and it can be rewritten as
+psinc
+(t) ≥ec0t
+βntn
+(25)
+where t =
+Nt , and
+βn = ∥(CM −c0IM)n∥1
+n ≥1.
+(26)
+When t →0, i.e., Nt →∞, the asymptotic outage probability
+is given by
+˜psinc
+(t) ∼µ
+(27)
+where µ = −PM−1
+n=0 cn > 0.
+Proof: See Appendix C.
+It can be seen in Corollary 1 that psinc
+(t) →1 as t →0
+for all network parameters. Hence, for any desired coverage
+requirement 1 −ϵ, there exists a minimum antenna array
+size Nt that can satisfy it regardless of the other network
+parameters, which can be numerically determined by Corollary
+1. The lower bound in Corollary 1 indicates how antenna
+arrays affect the coverage probability. From Corollary 1, we
+discover that increasing the directional antenna array size will
+deﬁnitely beneﬁt the coverage probability in ad hoc networks.
+Later in Section VI we show that the result is tight through
+simulations. Moreover, we see that the lower bound is a
+product of an exponential function and a polynomial function
+of order M −1 of the inverse of the array size t. For the
+special case that M = 1, i.e., Rayleigh fading channel, the
+lower bound reduces to an exponential one. The asymptotic
+coverage probability (27) shows that the asymptotic outage
+probability is inversely proportional to the array size. To the
+best of the authors’ knowledge, this is the ﬁrst analytical result
+on the impact of antenna arrays in mm-wave network analysis.
+Remark 5: Note that the manipulation in Corollary 1 is
+based on the proposed analytical framework in Section III.
+Especially, it beneﬁts greatly from the delicate tackling of the
+gamma distributed signal power, via a lower triangular Toeplitz
+matrix representation. If the upper bound in [1], [7]–[9] was
+used instead, we would not be able explicitly reveal the impact
+of antenna arrays, which, from another perspective, conﬁrms
+the advantages of the proposed analytical framework.
+V. COVERAGE ANALYSIS FOR MM-WAVE CELLULAR
+NETWORKS
+In this section, we will analyze the coverage probability for
+mm-wave cellular networks. While the sinc antenna pattern
+can still be employed to get a highly accurate approximation
+of the actual antenna pattern, its numerical evaluation is
+more complicated and the expression reveals little insight. In
+particular, as (17) showed, an additional integral is needed
+over the distance between the serving BS and the typical user.
+Furthermore, since κ = r0 in cellular networks, the summation
+of inﬁnite terms in the integrand does not converge quickly.
+Instead, we will analyze the cosine antenna pattern in this
+section, which will provide a more tractable expression. The
+impact of antenna arrays on the coverage probability will then
+be investigated.
+A. Coverage Analysis
+In contrast to existing works [9], we will present an
+analytical result for coverage probability that fully reﬂects
+the directionality in mm-wave cellular networks. Note that
+although the proposed approximate antenna pattern is more
+complicated than the ﬂat-top pattern, the new expression based
+on the analytical framework in Section III is more compact
+and tractable. With the cosine antenna pattern, the coverage
+probability is derived in the following proposition.
+Proposition 2. The coverage probability of mm-wave cellular
+networks with the cosine antenna pattern is given by
+pcos
+c (τ) = πλb
+Z R2
+e−πλbr
+CM(r)
+dr. (28)
+
+--- PAGE BREAK ---
+
+The nonzero entries in CM are determined by
+ck(r) = 2√πλbλΓ
+ k + 1
+Γ(M + k)τ k
+d(k!)2(αk −2)Γ(M)
+Jk (−τ) r −Jk
+Rα r
+R2−αkr
++1(k ≤1)(−1)k+1Mτσ2
+(29)
+where
+Jk (x) = 3F2
+k + 1
+2, k −δ, k + M; k + 1, k + 1 −δ; x
+(30)
+with 3F2(a1, a2, a3; b1, b2; z) denoting the generalized hyper-
+geometric function.
+Proof: See Appendix D.
+Note that the coefﬁcients ck(r) in Proposition 2 can be
+expressed based on the well-known hypergeometric function
+rather than the inﬁnite summations as in Proposition 1 for
+ad hoc networks, which are efﬁciently calculated in modern
+numerical software. This illustrates that the cosine antenna
+pattern enables a more tractable analysis for cellular networks.
+We will use Proposition 1 as an approximation for the coverage
+probability with the actual antenna pattern, while the accuracy
+of the cosine antenna pattern will be veriﬁed in Section VI.
+Furthermore, similar to Remark 3, the swap of two expecta-
+tions operated in (15) enables the derivation of Proposition 2
+and turns out to be an effective and tractable approach to tackle
+complicated channel gain distributions in mm-wave networks.
+Remark 6: With Proposition 2, we can numerically calculate
+the required BS density as well as the minimum number of
+antennas for a desirable coverage probability. Furthermore,
+the optimal BS density that achieves the maximum coverage
+probability, as we will see in Section VI-A, can also be
+numerically determined by Proposition 2.
+B. Impact of Directional Antenna Arrays
+In the last subsection, we have derived an analytical result
+for coverage probability of mm-wave cellular networks with
+the cosine antenna pattern. However, it is difﬁcult to further
+analyze the impact of directional antenna arrays since there
+is an extra integral of the induced ℓ1-norm of the matrix
+exponential, which contains the array size parameter Nt. As
+an alternative, a lower bound for the coverage probability in
+Proposition 2 is provided next, based on which we will present
+the impact directional antenna arrays.
+Corollary 2. A lower bound of the coverage probability (28)
+is given by
+pcos
+c (τ) ≥
+1 −e−πλbR2 exp
+Nt(1 −e−πλbR2)DM
+(31)
+The nonzero entries in DM determined by
+dk = 2λΓ
+ k + 1
+Γ(M + k)τ k
+√πd(k!)2(αk −2)Γ(M)
+yk (−τ) −(πλb)2R2−αk
+Z R2
+e−πλbrr
+2 Jk
+Rα r
++1(k ≤1)(−1)k+1Mτσ2
+βPt (πλb)
+1 + 1
+δ , πλbR2
+(32)
+where γ(s, x) is the lower incomplete gamma function [27,
+Page 890] and
+yk(x) = Jk(x)
+1 −e−πλbR2  1 + πλbR2i
++1(k = 0)
+πλbR2 −1 + e−πλbR2
+(33)
+Proof: See Appendix E.
+With this lower bound, the integrand no longer involves the
+induced ℓ1-norm of a matrix exponential, which creates the
+possibility to disclose the impact of antenna arrays as stated
+in the following corollary.
+Corollary 3. The lower bound of the coverage probability
+(28) is a non-decreasing concave function of the array size,
+and it can be rewritten as
+pcos
+c (t) ≥
+1 −e−πλbR2
+eβ0t
+βntn
+(34)
+where t =
+Nt is the inverse of the array size and
+βn =
+1 −e−πλbR2
+n = 0,
+∥(DM −d0IM)n∥1
+ 1 −e−πλbR2
+n ≥1.
+(35)
+When t →0, i.e., Nt →∞, the asymptotic outage probability
+is given by
+˜pcos
+o (t) ∼µ
++ e−πλbR2,
+(36)
+where µ = −PM−1
+n=0 dn > 0.
+Proof: The proof is similar to that of Corollary 1.
+It turns out that this lower bound of the coverage probability
+with the array size is quite similar to that in mm-wave ad
+hoc networks, yet with additional terms brought by the user
+association. This similarity shows that the impact of directional
+antenna arrays in mm-wave networks does not depend much
+on the user association strategy. Although this result is based
+on the cosine antenna pattern and a lower bound, later we will
+show its accuracy via simulations. Similar to Remark 5, the
+key tool here is the analytical framework proposed in Section
+III, which enables us to investigate the impact of antenna
+arrays in mm-wave cellular networks.
+VI. NUMERICAL RESULTS
+In this section, we will present numerical results of coverage
+probabilities in both mm-wave ad hoc and cellular networks.
+We assume that the bandwidth is 1 GHz, and the transmit
+
+--- PAGE BREAK ---
+
+10-6
+10-5
+10-4
+10-3
+BS Density (m-2)
+Coverage Probability
+SINR
+SINR w/o NLOS
+(a) SINR, SIR, and SNR coverage probabilities in mm-wave
+cellular networks when R = 200 m, Nt = 64, τ = 10 dB,
+M = 3, and α = 2.1.
+10-5
+10-4
+10-3
+10-2
+Node Density (m -2)
+Coverage Probability
+SINR
+SINR w/o NLOS
+(b) SINR, SIR, and SNR coverage probabilities in mm-wave
+ad hoc networks when R = 180 m, Nt = 64, τ = 5 dB,
+M = 5, α = 2.2, and r0 = 25 m.
+Fig. 3. The impact of NLOS signals and interference in mm-wave (a) cellular networks and (b) ad hoc networks.
+power of each BS is set as 1 Watt. The separation between the
+antenna elements is d = λ
+4 , i.e., quarter-wavelength to avoid
+the grating lobes. From the recent measurements of mm-wave
+signal propagations [5], the path loss exponent α is close to
+2 and the intercept is β = −61.4 dB. All simulation results
+shown in this section are averaged over 5 × 105 realizations.
+A. The Role of NLOS Signals and Interference
+In Section II-A, we stated the assumption that NLOS
+signals and NLOS interference are negligible in mm-wave
+networks, which will be justiﬁed in this subsection. To model
+the NLOS signals and interference, we set the propagation
+parameters as follows: the path loss exponent is αNLOS = 4
+and the intercept is βNLOS = −72 dB [5]. Due to the richer
+reﬂections and scattering environment of NLOS propagations,
+Rayleigh fading is assumed as the small-scale propagation
+model of the NLOS signals and interference. According to
+recent measurements, a practical value of the LOS ball radius
+R should be in the order of hundred meters [21].
+In Fig. 3(a), we show a simulation of the SINR coverage
+probability without incorporating the NLOS serving BS and
+NLOS interferers, whose curve almost coincides with that in-
+cluding NLOS components. This demonstrates that the impact
+of NLOS signals and interference is negligible and validates
+the LOS assumption made in Section II-A, i.e., we only need
+to focus on the analysis where the typical receiver is associated
+with a LOS transmitter and the interference is brought by
+LOS interferers. The underlying reasons are as follows for
+different BS densities: 1) When the BS density is low, the
+network is operating in the noise-limited regime, and thus
+only LOS signal matters; 2) At medium BS densities, there
+is a certain probability to have a LOS serving BS, and the
+interference gradually affects the SINR coverage. However,
+the LOS interference power is much higher compared to the
+NLOS ones. On the other hand, when the typical link is NLOS,
+it is difﬁcult to achieve a satisfactory SINR value; 3) Very
+dense mm-wave networks will be LOS interference-limited,
+which has been investigated in [1], [9].
+For mm-wave ad hoc networks, the typical dipole pair
+is assumed to be LOS. As explained in Section IV-A, the
+coverage probability is unsatisfactory due to the huge path
+loss and high noise power when the signal link is NLOS. Fig.
+3(b) demonstrates the impact of NLOS interferers when the
+tagged transmitter is in the LOS condition. It manifests that,
+with a LOS transmitter associated with the typical receiver, the
+NLOS interference is also negligible for the reasons which are
+similar to those in cellular networks [8].
+Hence, it is reasonable to neglect the NLOS components in
+the analysis for mm-wave networks. Although we showed that
+NLOS parts are minor, note that all the simulations include
+them to maintain the completeness and consistency. Moreover,
+we retain the actual antenna pattern (7) in the remaining
+simulations.
+B. Coverage Analysis
+The effects of noise and interference in mm-wave net-
+works are also investigated. In Fig. 3(a), we evaluate the
+signal-to-interference ratio (SIR) and signal-to-noise (SNR)
+coverage probabilities versus the BS density in mm-wave
+cellular networks. It was found in [20] that the SIR coverage
+probability will monotonically decrease with the increasing
+BS density in sub-6 GHz networks with the dual-slope path
+loss model, which, however, no longer holds in mm-wave
+cellular networks. This is because the difference in the small-
+scale fading for LOS and NLOS propagations in mm-wave
+networks, which were assumed to be the same in [20]. When
+the BS density gradually increases, the signal link tends to
+experience Nakagami fading rather than Rayleigh fading. This
+change in small-scale fading results in a slight increase of
+the SIR coverage probability, which also implicitly illustrates
+that Nakagami fading provides better coverage than Rayleigh
+fading. Therefore, as a lower bound of both SIR and SNR
+coverage probabilities, the SINR coverage probability in mm-
+wave cellular networks has a peak value with the increasing
+BS density. On the other hand, different from mm-wave
+cellular networks, the SINR coverage probability decreases
+
+--- PAGE BREAK ---
+
+SINR Threshold (dB)
+Coverage Probability
+Simulation
+(Actual antenna pattern)
+Analytical with eq. (22)
+(Sinc antenna pattern)
+r0=30 m, R=300 m, Nt=128, 
+6b=5#10-3 m-2, M=4, ,=2.5
+r0=25 m, R=200 m, Nt=64, 
+6b=1#10-3 m-2, M=3, ,=2.1
+(a) Coverage probability in mm-wave ad hoc networks.
+SINR Threshold (dB)
+Coverage Probability
+Simulation
+(Actual antenna pattern)
+Analytical with eq. (28)
+(Cosine antenna pattern)
+Analytical with eq. (31)
+(Lower bound with cosine antenna pattern)
+(b) Coverage probability in mm-wave cellular networks when
+R = 200 m, Nt = 128, λb = 1 × 10−3 m−2, M = 3, and
+α = 2.1.
+Fig. 4. Coverage analysis using (a) Proposition 1 for mm-wave ad hoc networks, and (b) Proposition 2 and Corollary 2 for mm-wave cellular networks.
+with network densiﬁcation due to the ﬁxed dipole distance and
+arbitrarily close interferers, which is shown in Fig. 3(b). This
+evaluation indicates the importance of analyzing the SINR
+distribution in mm-wave cellular networks, while the SIR
+coverage can be used as a good metric for mm-wave ad hoc
+networks.
+In this subsection, we will verify our analytical results
+in Sections IV and V through simulations. In Fig. 4(a), the
+SINR coverage probabilities for mm-wave ad hoc networks are
+evaluated. It can be seen that the analytical results match the
+simulations with negligible gaps, which implies the accuracy
+of the bound in Proposition 1. In Remark 1, we mentioned that
+using ﬁnite terms for the summations in {ck}M−1
+k=0 is sufﬁcient.
+In the numerical evaluation of Proposition 1 in Fig. 4(a), we
+only use 5 terms in the summations and it turns out that the
+higher-order terms are negligible for practical evaluation.
+In Fig. 4(b), the coverage probability for a mm-wave cellular
+network is evaluated. We see that both the analytical results in
+Proposition 2 and Corollary 2 give an approximate coverage
+probability with minor gaps. The expression in Proposition 2
+yields a very good approximation for smaller SINR thresholds
+and a tight bound for larger ones. This is because the major
+approximations made in the cosine antenna pattern (9) are on
+the side lobe gains that are approximated to be zeros, while the
+main lobe gains are approximated accurately with the cosine
+function. When the SINR threshold gets large, the interference
+power is smaller, which also means the interference is more
+likely to be produced by side lobe gains. Therefore, the gap
+will gradually increase due to the relatively crude approxima-
+tion of the side lobe gains.
+The analytical result in Corollary 2 provides a lower bound
+of the expression in Proposition 2. Although it is not guaran-
+teed to be a lower or upper bound of the exact SINR coverage
+probability, it gives a good approximation as shown in Fig.
+4(b), with more analytical tractability and potential for further
+analysis, which will be discussed in detail in the next subsec-
+tion. The results presented in Fig. 4(b) show the effectiveness
+and rationale of the proposed cosine antenna pattern (9) in
+coverage analysis for mm-wave cellular networks, which is an
+ideal candidate for further performance analysis in mm-wave
+cellular networks.
+C. Impact of Directional Antenna Arrays
+In this subsection, we will discuss the impact of directional
+antenna arrays on coverage probability in mm-wave networks4.
+Fig. 5(a) demonstrates that the analytical result in Corollary
+1 for mm-wave ad hoc networks well matches the simulation
+result. We see that the increase of the array size leads to an
+improvement of the coverage probability, which conﬁrms the
+monotonicity property in Corollary 1. In the following, we
+provide some intuitive explanations for this phenomenon. The
+increase of the array size increases the maximum array gain
+for both signal and interference at the same pace, in proportion
+to the array size, and therefore there is almost no performance
+gain from increasing the maximum array gain via enlarging the
+array size. Nevertheless, another effect of the increasing array
+size for the interference is the narrowing of the beams, which
+reduces the probability that the interferers direct the main lobes
+towards the typical receiver. Moreover, note that the lower
+bound derived in Corollary 1 is non-decreasing concave, which
+means that the beneﬁts on the coverage from leveraging more
+antennas gradually diminishes with the increasing antenna
+size. In addition, we discover that the increase of the Nakagami
+parameter M results in an increase of the coverage probability.
+In Fig. 5(b), the impact of antenna arrays in mm-wave
+cellular networks is investigated. For the analytical result,
+we evaluate the coverage probability using the expression
+in Corollary 3, which gives a lower bound of the coverage
+probability adopting the cosine antenna pattern. Although
+Rayleigh fading, i.e., M = 1, is only a special case for
+the analysis in this paper and not suitable for LOS mm-
+wave channels, it is valuable to examine this special case for
+checking the lower bound in Corollary 3. As stated in Section
+4In Figs. 5(a) and 5(b), the x-axes are reversed, and the y-axes are in the
+logarithm scale.
+
+--- PAGE BREAK ---
+
+Inverse of Antenna Size
+#10-3
+0.82
+0.84
+0.86
+0.88
+0.92
+0.94
+0.96
+0.98
+Coverage Probability
+Simulation
+(Actual antenna pattern)
+Analytical with eq. (25)
+(Sinc antenna pattern)
+Asymptotic result with eq. (27)
+(Sinc antenna pattern)
+M=3, 5, 7
+(a) Impact of antenna arrays in mm-wave ad hoc networks when
+R = 200 m, τ = 5 dB, λb = 1 × 10−3 m−2, α = 2.1, and
+r0 = 25 m.
+Inverse of Antenna Size
+#10-3
+0.86
+0.88
+0.92
+0.94
+0.96
+0.98
+Coverage Probability
+Simulation
+(Actual antenna pattern)
+Analytical with eq. (34)
+(Lower bound with cosine antenna pattern)
+Asymptotic result with eq. (36)
+(Lower bound with cosine antenna pattern)
+(b) Impact of antenna arrays in mm-wave cellular networks
+when R = 200 m, τ = 5 dB, λb = 1 × 10−3 m−2, and
+α = 2.1.
+Fig. 5. Investigation on the impact of antenna arrays using (a) Corollary 1 for mm-wave ad hoc networks, and (b) Corollary 3 for mm-wave cellular networks.
+IV-B, when M = 1, the lower bound (34) will reduce to an
+exponential one, which is linear in the logarithm scale shown
+in Fig. 5(b). When the Nakagami parameter M increases, the
+polynomial term will take effect to make the lower bound
+to be a non-decreasing concave one. It turns out that the
+lower bound derived in Corollary 3 can be regraded as an
+effective expression for analyzing the impact of directional
+antenna arrays in mm-wave cellular networks, and that the
+cosine antenna pattern is a satisfactory surrogate of the actual
+antenna pattern for tractable analysis in mm-wave networks.
+VII. CONCLUSIONS
+In this paper, we ﬁrst proposed a general framework for
+coverage analysis in mm-wave networks. It was then applied
+to derive new tractable expressions of coverage probabilities
+for mm-wave ad hoc and cellular networks, where two ap-
+proximate antenna patterns with good accuracy and analyt-
+ical tractability were adopted. We have shown that, as the
+network density increases, the coverage probability reaches
+a peak in mm-wave cellular networks, while it monotonically
+decreases in ad hoc networks. More importantly, analytical
+results show that the coverage probabilities of both types of
+networks increase as a non-decreasing concave function with
+the antenna array size. It will be interesting to extend the
+proposed analytical framework to more advanced precoding
+techniques, e.g., hybrid precoding [29], [30]. Moreover, a
+coverage analysis that includes the beam misalignment caused
+by the imperfect channel information also is a promising future
+research direction.
+APPENDIX A
+Deﬁning xn = (−s)n
+L(n)(s), the coverage probability (12)
+can be expressed as
+pc(τ) = Er0
+"M−1
+(37)
+where x0 = L(s) = exp{η(s)} is given in Lemma 2. Next,
+we will express xn in a recursive form. It is obvious that
+L(1)(s) = η(1)(s)L(s), and according to the formula of
+Leibniz for the n-th derivative of the product of two functions
+[33], we have
+L(n)(s) = dn−1
+ds L(1)(s) =
+n −1
+η(n−i)(s)L(i)(s),
+(38)
+followed by
+(−s)n
+L(n)(s) =
+n −i
+(−s)(n−i)
+(n −i)! η(n−i)(s)(−s)i
+L(i)(s).
+(39)
+Therefore, the recursive relationship of xn is
+xn =
+n −i
+cn−ixi,
+ck = (−s)k
+η(k)(s).
+(40)
+We deﬁne two power series as follows to solve for xn,
+C(z) ≜
+cnzn,
+X(z) ≜
+xnzn.
+(41)
+Following the method in [26, Appendix A], using the prop-
+erties that C(1)(z) = P∞
+n=0 ncnzn−1 and C(z)X(z) =
+i=0 cn−ixizn, from (40), we obtain the differential
+equation
+X(1)(z) = C(1)(z)X(z),
+(42)
+whose solution is
+X(z) = exp {C(z)} .
+(43)
+Therefore, according to (37), (41) and (43), the coverage
+probability is given by
+pc(τ) = Er0
+"M−1
+= Er0
+"M−1
+n! X(n)(z)
+= Er0
+"M−1
+dzn eC(z)
+(44)
+
+--- PAGE BREAK ---
+
+From [34, Page 14], the ﬁrst M coefﬁcients of the power
+series eC(z) form the ﬁrst column of the matrix exponential
+exp{CM}, whose exponent is given in (18).
+Equation (44) can be further expressed as (17). Furthermore,
+due to the fact
+dzEp(z) = −Ep−1(z), the coefﬁcients can be
+recast as (45). It can be proved that z2−αkE1+δ−k(z) is a
+monotone decreasing function with respect to z, and therefore
+the coefﬁcients ck > 0 for k ≥1. Summing up what has been
+mentioned above completes the proof of Theorem 1.
+APPENDIX B
+Since κ = 0 in mm-wave ad hoc networks, (16) can be
+simpliﬁed as
+R2 −δR2Eg
+E1+δ(sR−αg)
+= R2 −δR2
+R2 Γ (−δ) Eg
+(−s)p
+Rαpp! (p −δ)Eg [gp]
+= δR2
+(−s)p
+Rαpp! (p −δ)Eg [gp] −δsδΓ (−δ) Eg
+= δR2
+(−s)pΓ(M + p)
+Rαpp! (p −δ) Γ(M)M p
+sin2k   πd
+λ Ntθ
+  πd
+λ Ntθ
+−δsδΓ (−δ) Γ (M + δ)
+Γ(M)M δ
+  πd
+λ Ntθ
+λ Ntθ
+≤R2λ
+αdNt
+(−s)p
+2p−1
+Γ(M + p)
+Rαp(2p −1)!p! (p −δ) Γ(M)M p
+−δsδλ
+πdNt
+Γ (−δ) Γ (M + δ)
+Γ(M)M δ ξ,
+(46)
+where (b) is from the series expansion of the generalized
+exponential integral. Step (c) follows Lemma 3, and the upper
+bound is derived by extending the integral upper limit to
+inﬁnity given that, for the tiny ripple tails of the 2k-th power
+of the sinc, the additional integration values are extremely
+small and thus the upper bound in (c) is tight. Therefore, the
+exponent of the Laplace transform is given by
+η(s) = −πR2λbλ
+αdNt
+(−s)p
+2p−1
+Γ(M + p)
+Rαp(2p −1)!p! (p −δ) Γ(M)M p
++ δsδλbλ
+Γ (−δ) Γ (M + δ)
+Γ(M)M δ ξ −
+βPtNt
+(47)
+The coefﬁcients in Proposition 1 can be easily obtained via
+taking the k-th derivative of (47).
+APPENDIX C
+According to (13), the Laplace transform of noise and
+interference is
+L(s) = x0 = exp{η(s)}
+= exp
+ −sσ2
+n −πλbR2 
+1 −δEg
+E1+δ(sR−αg)
+(48)
+Note that 1 −δEg [E1+δ(sR−αg)] is a positive term due to
+the facts that E1+δ(z) is a monotone decreasing function of
+z and E1+δ(0) = 1
+δ . Hence, the Laplace transform x0 is non-
+decreasing with the antenna array size Nt, where η(s) is given
+in (47). According to the recursive relationship (40) between
+xn, it turns out that every xn is a non-decreasing function of
+Nt. Recalling that pc(τ) = Er0
+hPM−1
+n=0 xn
+, the monotonicity
+in Corollary 1 has been proved, and the concavity of the lower
+bound can be proved via similar steps.
+We ﬁrst write CM in the form
+CM = c0IM + (CM −c0IM),
+(49)
+where the ﬁrst term is a scalar matrix. Since CM is a lower
+triangular Toeplitz matrix, the second part is a nilpotent matrix,
+i.e., (CM −c0IM)n = 0 for n ≥M. Hence, according to the
+properties of matrix exponential, we have
+= ec0
+(CM −c0IM)
+(50)
+Since Theorem 1 has shown that ck > 0 for k ≥1, CM−c0IM
+is a strictly lower triangular Toeplitz matrix with all positive
+entries, and so are the matrices (CM −c0IM)n. Therefore,
+= ec0
+∥(CM −c0IM)n∥1
+(51)
+which completes the proof of Corollary (25). When t →0, by
+omitting the higher order terms, the linear Taylor expansion
+of the coverage is
+∼1+c0 + ∥CM −c0IM∥1
+= 1+
+PM−1
+n=0 cn
+(52)
+where the slope
+cn =
+(−s)n
+η(n)(s)
+= η(0) = 0.
+(53)
+Step (d) follows the fact that ck > 0 for k ≥1 as proved
+in Appendix A, and (e) follows from the Taylor expansion of
+η(0) at point s.
+APPENDIX D
+Following similar steps as in Appendix B, (16) can be
+derived as
+ 1 −Eg[exp(−sgx−α)]
+= δR2
+(−sR−α)k
+k!(k −δ) Eg[gk] −δr2
+(−sr−α
+k!(k −δ) Eg[gk].
+(54)
+
+--- PAGE BREAK ---
+
+ck =
+n + δπλbs
+R2−αEg[gEδ(sR−αg)] −κ2−αEg[gEδ(sκ−αg)]
+k = 1,
+πδλbsk
+R2−αkEg
+gkE1+δ−k(sR−αg)
+−κ2−αkEg
+gkE1+δ−k(sκ−αg)
+k ≥2.
+(45)
+Based on the cosine antenna pattern (9), we have
+(−z)k
+k!(k −δ)Eg[gk]
+πdNt
+(−z)k
+k!(k −δ)
+cos2k x
+2 dx +
+δdNt
+√πdNt
+(−z)kΓ
+2 + k
+(k!)2(k −δ)
+δdNt
+δdNt
+1 −3F2
+2, −δ, M; 1, 1 −δ; −z
+(55)
+where (f) inversely applies the deﬁnition (series expansion)
+of the generalized hypergeometric function [27, Page 1000].
+Substituting (55) into (54), the exponent of the Laplace
+transform is given by
+η(s) = −sσ2
+βPtNt
+−πλbλ
+−sr−α
+−sR−α
+(56)
+Note that the derivative for the generalized hypergeometric
+function is
+dz 3F2(a1, a2, a3; b1, b2; z)
+i=1 ai
+j=1 bj
+3F2(a1 + 1, a2 + 1, a3 + 1; b1 + 1, b2 + 1; z).
+(57)
+Based on this expression and Theorem 1, the entries in CM
+in Proposition 2 are obtained.
+APPENDIX E
+Similar to Appendix A, we deﬁne a power series
+Q(z) ≜Er0 [X(z)] =
+qnzn.
+(58)
+Recall that X(z) = exp{C(z)} in (43), and we obtain the
+following lower bound with a slight abuse of notation due to
+the fact that C(z) is a function of r0 in cellular networks,
+Q(z) = πλb
+Z R2
+−πλbr + 1
+C(z; r)
+= πλb
+Z R2
+e−πλbr exp
+ck(r)zk
+1 −e−πλbR2
+Nt(1 −e−πλbR2)
+ Z R2
+e−πλbrck(r)dr
+1 −e−πλbR2
+Nt(1 −e−πλbR2)D(z; r)
+(59)
+fact,
+Q(z)
+viewed
+1 −e−πλbR2
+Nt C(z; r′
+random
+variable with pdf fr′
+0(r) =
+1−e−πλbR2 e−πλbr. Due to the
+convexity of the exponential function, we apply Jensen’s
+inequality in (g) and obtain the lower bound. Therefore, the
+coverage probability is given by
+pcos
+c (τ) =
+dzn Q(z)|z=0 ,
+(60)
+which can be further expressed as in Corollary 3.
+REFERENCES
+[1] X. Yu, J. Zhang, and K. B. Letaief, “Coverage analysis for dense
+millimeter wave cellular networks: The impact of array size,” in Proc.
+IEEE Wireless Commun. Netw. Conf. (WCNC), Doha, Qatar, Apr. 2016,
+pp. 1–6.
+[2] S. Hur, T. Kim, D. J. Love, J. V. Krogmeier, T. A. Thomas, and
+A. Ghosh, “Millimeter wave beamforming for wireless backhaul and
+access in small cell networks,” IEEE Trans. Commun., vol. 61, no. 10,
+pp. 4391–4403, Oct. 2013.
+[3] T. S. Rappaport, R. W. Heath, Jr., R. C. Daniels, and J. N. Murdock,
+Millimeter Wave Wireless Communications.
+New York, NY, USA:
+Pearson Education, 2014.
+[4] W. Roh, J.-Y. Seol, J. Park, B. Lee, J. Lee, Y. Kim, J. Cho, K. Cheun, and
+F. Aryanfar, “Millimeter-wave beamforming as an enabling technology
+for 5G cellular communications: Theoretical feasibility and prototype
+results,” IEEE Commun. Mag., vol. 52, no. 2, pp. 106–113, Feb. 2014.
+[5] M. Akdeniz, Y. Liu, M. Samimi, S. Sun, S. Rangan, T. Rappaport,
+and E. Erkip, “Millimeter wave channel modeling and cellular capacity
+evaluation,” IEEE J. Sel. Areas Commun., vol. 32, no. 6, pp. 1164–1179,
+Jun. 2014.
+[6] S. Singh, M. N. Kulkarni, and J. G. Andrews, “A tractable model for
+rate in noise limited mmWave cellular networks,” in Proc. 48th Asilomar
+Conf. Signals, Syst. and Comput., Paciﬁc Grove, CA, USA, Nov. 2014,
+pp. 1911–1915.
+[7] K. Venugopal, M. C. Valenti, and R. W. Heath, Jr., “Interference in ﬁnite-
+sized highly dense millimeter wave networks,” in Proc. Inf. Theory and
+Appl. (ITA), San Diego, CA, USA, Feb. 2015, pp. 175 –180.
+[8] A. Thornburg, T. Bai, and R. W. Heath, Jr., “Performance analysis
+of outdoor mmWave ad hoc networks,” IEEE Trans. Signal Process.,
+vol. 64, no. 15, pp. 4065–4079, Aug. 2016.
+
+--- PAGE BREAK ---
+
+[9] T. Bai and R. W. Heath, Jr., “Coverage and rate analysis for millimeter-
+wave cellular networks,” IEEE Trans. Wireless Commun., vol. 14, no. 2,
+pp. 1100–1114, Feb. 2015.
+[10] M. D. Renzo, “Stochastic geometry modeling and analysis of multi-
+tier millimeter wave cellular networks,” IEEE Trans. Wireless Commun.,
+vol. 14, no. 9, pp. 5038–5057, Sep. 2015.
+[11] G. Lee, Y. Sung, and J. Seo, “Randomly-directional beamforming
+in millimeter-wave multiuser MISO downlink,” IEEE Trans. Wireless
+Commun., vol. 15, no. 2, pp. 1086–1100, Feb. 2016.
+[12] G. Lee, Y. Sung, and M. Kountouris, “On the performance of random
+beamforming in sparse millimeter wave channels,” IEEE J. Sel. Topics
+Signal Process., vol. 10, no. 3, pp. 560–575, Apr. 2016.
+[13] F. Babich and M. Comisso, “A reliable approach for modeling the actual
+antenna pattern in millimeter-wave communication,” IEEE Commun.
+Lett., vol. 19, no. 8, pp. 1335–1338, Aug. 2015.
+[14] D. Maamari, N. Devroye, and D. Tuninetti, “Coverage in mmWave
+cellular networks with base station co-operation,” IEEE Trans. Wireless
+Commun., vol. 15, no. 4, pp. 2981–2994, Apr. 2016.
+[15] A. Thornburg and R. W. Heath, Jr., “Ergodic capacity in mmWave ad hoc
+network with imperfect beam alignment,” in Proc. IEEE Mil. Commun.
+Conf. (MILCOM), Tampa, FL, USA, Oct. 2015, pp. 1479–1484.
+[16] J. Helander, K. Zhao, Z. Ying, and D. Sj¨oberg, “Performance analysis
+of millimeter-wave phased array antennas in cellular handsets,” IEEE
+Antennas Wireless Propag. Lett., vol. 15, pp. 504–507, Mar. 2016.
+[17] A. Ghosh, T. A. Thomas, M. C. Cudak, R. Ratasuk, P. Moorut,
+F. W. Vook, T. S. Rappaport, G. R. MacCartney, S. Sun, and S. Nie,
+“Millimeter-wave enhanced local area systems: A high-data-rate ap-
+proach for future wireless networks,” IEEE J. Sel. Areas Commun.,
+vol. 32, no. 6, pp. 1152–1163, Jun. 2014.
+[18] M. Haenggi, Stochastic Geometry for Wireless Networks.
+Cambridge,
+U.K.: Cambridge University Press, 2012.
+[19] A. Guo and M. Haenggi, “Spatial stochastic models and metrics for the
+structure of base stations in cellular networks,” IEEE Trans. Wireless
+Commun., vol. 12, no. 11, pp. 5800–5812, Nov. 2013.
+[20] X. Zhang and J. G. Andrews, “Downlink cellular network analysis with
+multi-slope path loss models,” IEEE Trans. Commun., vol. 63, no. 5,
+pp. 1881–1894, May 2015.
+[21] J. G. Andrews, T. Bai, M. N. Kulkarni, A. Alkhateeb, A. K. Gupta,
+and R. W. Heath, “Modeling and analyzing millimeter wave cellular
+systems,” IEEE Trans. Commun., vol. 65, no. 1, pp. 403–430, Jan. 2017.
+[22] A. Alkhateeb, G. Leus, and R. W. Heath, Jr., “Limited feedback hybrid
+precoding for multi-user millimeter wave systems,” IEEE Trans. Wireless
+Commun., vol. 14, no. 11, pp. 6481–6494, Nov. 2015.
+[23] J. Brady, N. Behdad, and A. M. Sayeed, “Beamspace MIMO for
+millimeter-wave communications: System architecture, modeling, anal-
+ysis, and measurements,” IEEE Trans. Antennas Propag., vol. 61, no. 7,
+pp. 3814–3827, Jul. 2013.
+[24] C. A. Balanis, Antenna Theory: Analysis and Design.
+Hoboken, NJ,
+USA: John Wiley & Sons, 2005.
+[25] C. Li, J. Zhang, and K. B. Letaief, “Throughput and energy efﬁciency
+analysis of small cell networks with multi-antenna base stations,” IEEE
+Trans. Wireless Commun., vol. 13, no. 5, pp. 2505–2517, May 2014.
+[26] C. Li, J. Zhang, J. G. Andrews, and K. B. Letaief, “Success probability
+and area spectral efﬁciency in multiuser MIMO HetNets,” IEEE Trans.
+Commun., vol. 64, no. 4, pp. 1544–1556, Apr. 2016.
+[27] D. Zwillinger, Table of integrals, series, and products.
+Amsterdam,
+Netherlands: Elsevier, 2014.
+[28] J. G. Andrews, F. Baccelli, and R. K. Ganti, “A tractable approach to
+coverage and rate in cellular networks,” IEEE Trans. Commun., vol. 59,
+no. 11, pp. 3122–3134, Nov. 2011.
+[29] O. El Ayach, S. Rajagopal, S. Abu-Surra, Z. Pi, and R. W. Heath, Jr.,
+“Spatially sparse precoding in millimeter wave MIMO systems,” IEEE
+Trans. Wireless Commun., vol. 13, no. 3, pp. 1499–1513, Mar. 2014.
+[30] X. Yu, J.-C. Shen, J. Zhang, and K. B. Letaief, “Alternating minimization
+algorithms for hybrid precoding in millimeter wave MIMO systems,”
+IEEE J. Sel. Topics Signal Process., vol. 10, no. 3, pp. 485–500, Apr.
+2016.
+[31] S. L. Cotton, W. G. Scanlon, and B. K. Madahar, “Millimeter-wave
+soldier-to-soldier communications for covert battleﬁeld operations,”
+IEEE Commun. Mag., vol. 47, no. 10, pp. 72–81, Oct. 2009.
+[32] J. Qiao, X. S. Shen, J. W. Mark, Q. Shen, Y. He, and L. Lei, “En-
+abling device-to-device communications in millimeter-wave 5G cellular
+networks,” IEEE Commun. Mag., vol. 53, no. 1, pp. 209–215, Jan. 2015.
+[33] S. Roman, “The formula of Faa di Bruno,” The American Mathematical
+Monthly, vol. 87, no. 10, pp. 805–809, Dec. 1980.
+[34] P. Henrici, Applied and computational complex analysis.
+New York,
+NY, USA: John Wiley & Sons, 1988.
+Xianghao Yu (S’15) received the B.Eng. degree in
+Information Engineering from Southeast University
+(SEU), Nanjing, China, in 2014. He is currently
+working towards the Ph.D. degree in Electronic and
+Computer Engineering at the Hong Kong University
+of Science and Technology (HKUST), under the
+supervision of Prof. Khaled B. Letaief. His research
+interests include millimeter wave communications,
+MIMO systems, mathematical optimization, and
+stochastic geometry.
+Jun Zhang (S’06-M’10-SM’15) received the B.Eng.
+degree in Electronic Engineering from the University
+of Science and Technology of China in 2004, the
+M.Phil. degree in Information Engineering from the
+Chinese University of Hong Kong in 2006, and the
+Ph.D. degree in Electrical and Computer Engineer-
+ing from the University of Texas at Austin in 2009.
+He is currently a Research Assistant Professor in
+the Department of Electronic and Computer Engi-
+neering at the Hong Kong University of Science and
+Technology (HKUST). His current research interests
+include dense wireless cooperative networks, mobile edge caching and com-
+puting, cloud computing, and data analytics systems.
+Dr. Zhang co-authored the book Fundamentals of LTE (Prentice-Hall,
+2010). He is a recipient of the 2016 Marconi Prize Paper Award in Wireless
+Communications, the 2016 Young Author Best Paper Awards by the IEEE
+Signal Processing Society (co-author), the 2014 Best Paper Award for the
+EURASIP JOURNAL ON ADVANCES IN SIGNAL PROCESSING, an IEEE
+ICC Best Paper Award in 2016, and an IEEE PIMRC Best Paper Award
+in 2014. He also received the 2016 IEEE ComSoc Asia-Paciﬁc Best Young
+Researcher Award. He is an Editor of IEEE TRANSACTIONS ON WIRELESS
+COMMUNICATIONS, and is a guest editor of the special section on “Mobile
+Edge Computing for Wireless Networks” in IEEE Access. He frequently
+serves on the technical program committees of major IEEE conferences in
+wireless communications, such as ICC, Globecom, WCNC, VTC, etc., and
+served as a MAC track co-chair for IEEE WCNC 2011.
+
+--- PAGE BREAK ---
+
+Martin Haenggi (S’95-M’99-SM’04-F’14) received
+the Dipl.-Ing. (M.Sc.) and Dr.sc.techn. (Ph.D.) de-
+grees in electrical engineering from the Swiss Fed-
+eral Institute of Technology in Zurich (ETH) in 1995
+and 1999, respectively. Currently he is the Freimann
+Professor of electrical engineering and a Concurrent
+Professor of applied and computational mathematics
+and statistics at the University of Notre Dame, Indi-
+ana, USA. In 2007-2008, he was a visiting professor
+at the University of California at San Diego, and
+in 2014-2015 he was an Invited Professor at EPFL,
+Switzerland.
+He is a co-author of the monograph “Interference in Large Wireless
+Networks” (NOW Publishers, 2009) and the author of the textbook “Stochastic
+Geometry for Wireless Networks” (Cambridge University Press, 2012), and
+he published 14 single-author journal articles. His scientiﬁc interests include
+networking and wireless communications, with an emphasis on cellular,
+amorphous, ad hoc (including D2D and M2M), cognitive, and vehicular
+networks.
+He served an Associate Editor of the ELSEVIER JOURNAL OF AD HOC
+NETWORKS, the IEEE TRANSACTIONS ON MOBILE COMPUTING (TMC),
+the ACM TRANSACTIONS ON SENSOR NETWORKS, as a Guest Editor
+for the IEEE JOURNAL ON SELECTED AREAS IN COMMUNICATIONS, the
+IEEE TRANSACTIONS ON VEHICULAR TECHNOLOGY, and the EURASIP
+JOURNAL ON WIRELESS COMMUNICATIONS AND NETWORKING, as a
+Steering Committee member of the TMC, and as the Chair of the Ex-
+ecutive Editorial Committee of the IEEE TRANSACTIONS ON WIRELESS
+COMMUNICATIONS (TWC). Currently he is the Editor-in-Chief of the TWC.
+He also served as a Distinguished Lecturer for the IEEE Circuits and Systems
+Society, as a TPC Co-chair of the Communication Theory Symposium of
+the 2012 IEEE International Conference on Communications (ICC’12), of
+the 2014 International Conference on Wireless Communications and Signal
+Processing (WCSP’14), and the 2016 International Symposium on Wireless
+Personal Multimedia Communications (WPMC’16), as a General Co-chair of
+the 2009 International Workshop on Spatial Stochastic Models for Wireless
+Networks (SpaSWiN’09), and the 2012 DIMACS Workshop on Connectivity
+and Resilience of Large-Scale Networks, as well as a Keynote Speaker at 10
+international conferences and workshops.
+For both his M.Sc. and Ph.D. theses, he was awarded the ETH medal, and
+he received a CAREER award from the U.S. National Science Foundation in
+2005 and the 2010 IEEE Communications Society Best Tutorial Paper award.
+Khaled
+Letaief
+(S’85–M’86–SM’97–F’03)
+received the BS degree with distinction in Electrical
+Engineering
+from
+Purdue
+University
+West
+Lafayette, Indiana, USA, in December 1984. He
+received the MS and Ph.D. Degrees in Electrical
+Engineering from Purdue University, in August
+1986, and May 1990, respectively.
+From 1990 to 1993, he was a faculty member
+at the University of Melbourne, Australia. He has
+been with the Hong Kong University of Science
+& Technology since 1993 where he is known as
+one of HKUSTs most distinguished professors. While at HKUST, he has
+held numerous administrative positions, including Head of the Electronic
+and Computer Engineering department, Director of Huawei Innovation
+Laboratory, and Director of the Hong Kong Telecom Institute of Information
+Technology. While at HKUST he has also served as Chair Professor and
+Dean of Engineering. Under his leadership, the School has also dazzled in
+international rankings (rising from #26 in 2009 to #14 in the world in 2015
+according to QS World University Rankings.) From September 2015, he
+joined HBKU as Provost to help establish a research-intensive university
+in Qatar in partnership with esteemed universities that include Northwester
+University, Cornell, CU, and Texas A&M.
+Letaief
+internationally
+recognized
+leader
+wireless
+communications with research interest in Green communications, Internet
+of Things, Cloud-RANs, and 5G systems. In these areas, he has over 560
+journal and conference papers and given keynote talks as well as courses all
+over the world. He also has 15 patents, including 11 US patents.
+Dr. Letaief served as consultants for different organizations including
+Huawei, ASTRI, ZTE, Nortel, PricewaterhouseCoopers, and Motorola.
+He is the founding Editor-in-Chief of the IEEE TRANSACTIONS
+WIRELESS COMMUNICATIONS and has served on the editorial board of
+other prestigious journals. In addition to his active research and professional
+activities, Professor Letaief has been a dedicated teacher committed to
+excellence in teaching and scholarship. He received the Michael G. Gale
+Medal for Distinguished Teaching (Highest university-wide teaching award
+and only one recipient/year is honored for his/her contributions).
+He is also the recipient of many other distinguished awards and honors
+including the 2007 IEEE Joseph LoCicero Publications Exemplary Award,
+2009 IEEE Marconi Prize Award in Wireless Communications, 2010 Purdue
+University Outstanding Electrical and Computer Engineer Award, 2011 IEEE
+Harold Sobol Award, 2016 IEEE Marconi Prize Paper Award in Wireless
+Communications, and over 11 IEEE Best Paper Awards.
+Dr. Letaief is recognized as a long time volunteer with dedicated service
+to professional societies and in particular IEEE where he has served in many
+leadership positions. These include Treasurer, Vice-President for Conferences
+and Vice-President for Technical Activities of IEEE Communications
+Society.
+Dr. Letaief is a Fellow of IEEE and a Fellow of HKIE. He is also
+recognized by Thomson Reuters as an ISI Highly Cited Researcher (which
+places him among the top 250 preeminent individual researchers in the ﬁeld
+of Computer Science and Engineering) and will be the President of IEEE
+Communications Society in 2018.

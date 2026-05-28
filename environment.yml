@@ -14,5 +14,11 @@ dependencies:
   - jupyterlab
   # ── EDA system tools (conda-forge provides pre-built binaries) ───────────
   - ngspice          # SPICE simulator — required for PySpice circuit validation
+  # ── Kaizen RAG agent runtime (NOT pip-installable) ───────────────────────
+  # Ollama serves the local agent LLM — install Ollama, then:
+  #     ollama pull qwen3.5:9b
+  # The Python RAG stack (chromadb, langchain-chroma/-huggingface, pypdf …)
+  # comes through requirements.txt below. ChromaDB + the all-MiniLM-L6-v2
+  # embedder run fully local — no API keys.
   - pip:
     - -r requirements.txt

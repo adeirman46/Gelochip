@@ -1,0 +1,1776 @@
+Supervised Learning for Analog and RF Circuit
+Design: Benchmarks and Comparative Insights
+Asal Mehradfar1, Xuzhe Zhao2, Yue Niu1, Sara Babakniya1, Mahdi Alesheikh2,
+Hamidreza Aghasi2, Salman Avestimehr1
+Abstract—Automating analog and radio-frequency (RF) circuit
+design using machine learning (ML) significantly reduces the
+time and effort required for parameter optimization. This study
+explores supervised ML-based approaches for designing circuit
+parameters from performance specifications across various cir-
+cuit types, including homogeneous and heterogeneous designs.
+By evaluating diverse ML models, from neural networks like
+transformers to traditional methods like random forests, we
+identify the best-performing models for each circuit. Our results
+show that simpler circuits, such as low-noise amplifiers, achieve
+exceptional accuracy with mean relative errors as low as 0.3%
+due to their linear parameter-performance relationships. In
+contrast, complex circuits, like power amplifiers and voltage-
+controlled oscillators, present challenges due to their non-linear
+interactions and larger design spaces. For heterogeneous circuits,
+our approach achieves an 88% reduction in errors with increased
+training data, with the receiver achieving a mean relative error
+as low as 0.23%, showcasing the scalability and accuracy of
+the proposed methodology. Additionally, we provide insights into
+model strengths, with transformers excelling in capturing non-
+linear mappings and k-nearest neighbors performing robustly in
+moderately linear parameter spaces, especially in heterogeneous
+circuits with larger datasets. This work establishes a foundation
+for extending ML-driven design automation, enabling more
+efficient and scalable circuit design workflows.
+Index Terms—Analog Circuit Design, Machine Learning, Su-
+pervised Learning, Design Automation, Radio Frequency Cir-
+cuits, Millimeter-Wave Circuits, Wireless Transceivers, CMOS
+I. INTRODUCTION
+NALOG and radio-frequency (RF) circuit design serves
+as a cornerstone of modern electronic systems, enabling
+advancements in communication, sensing, and signal process-
+ing applications. These circuits are integral to technologies
+such as 5G wireless communications [1], automotive radar
+systems [2], subsurface imaging [3], low-cost IoT devices
+[4], large-scale quantum computing [5] and terahertz (THz)
+spectroscopy [6]. However, as the semiconductor industry
+confronts the limits of Moore’s Law [7], the design of analog
+circuits has become increasingly challenging. Unlike digital
+circuits, which benefit from highly automated and scalable
+design methodologies [8]–[10], analog circuits demand exten-
+sive manual effort due to intricate trade-offs between design
+metrics such as power consumption, bandwidth, gain and
+noise [11]–[13]. This complexity is further exacerbated by
+1University of Southern California (USC), Los Angeles, CA 90089,
+USA (e-mail: mehradfa@usc.edu; yueniu@usc.edu; babakniy@usc.edu; aves-
+time@usc.edu).
+2University of California, Irvine (UCI), Irvine, CA 92697, USA (e-mail:
+xuzhez3@uci.edu; maleshei@uci.edu; haghasi@uci.edu).
+the need to select suitable circuit topologies and optimize
+parameters to meet tight performance specifications, a process
+that often spans weeks or months and requires substantial
+domain expertise [13], [14]. These challenges underscore the
+critical need for innovative approaches to streamline analog
+circuit design.
+The application of machine learning (ML) techniques in
+analog circuit design has gained significant momentum in
+recent years. By learning the complex relationships between
+design specifications (e.g., power consumption, bandwidth)
+and circuit parameters (e.g., transistor sizes, capacitance),
+ML models have shown potential to reduce the exhaustive
+parameter sweeps required for circuit optimization [14]–[16].
+Early works such as BagNet [14] and AutoCkt [15] demon-
+strated the potential of neural networks and reinforcement
+learning in synthesizing circuit parameters, reducing manual
+design effort. However, these methods often focus on simple,
+proof-of-concept circuits like single-stage amplifiers and fail
+to scale effectively to real-world, multi-block systems.
+More recent advancements have targeted complex analog
+systems. AnGeL [16] proposed a semi-supervised learning
+framework that integrates neural networks to improve data
+efficiency and accelerate circuit parameter optimization. Simi-
+larly, GCN-RL [17] utilized graph neural networks (GNNs)
+to capture the topological relationships within circuits and
+reinforcement learning to optimize transistor sizing, enabling
+better generalization across circuit types.
+In addition, [18] introduced a framework for designing
+analog circuits to meet threshold specifications using a com-
+bination of supervised learning and neural network-based
+optimization. Their approach focuses on ensuring that gen-
+erated designs meet critical performance metrics, providing a
+practical solution for the accurate synthesis of analog circuits.
+Despite these advances, many methods remain limited to
+specific circuit types or lack comprehensive datasets, empha-
+sizing the need for standardized benchmarks for robust model
+evaluation and scalability testing.
+To address these challenges, AICircuit [19] introduced a
+comprehensive benchmark dataset for ML-assisted analog cir-
+cuit design. This dataset encompasses homogeneous circuits,
+such as amplifiers and mixers, as well as heterogeneous sys-
+tems like transmitters and receivers, which consist of cascaded
+circuit blocks with distinct functionalities. AICircuit evaluated
+multiple ML algorithms, including traditional regressors (e.g.,
+random forests, support vector regression) and modern deep
+learning models (e.g., transformers, multi-layer perceptrons),
+revealing their strengths and limitations in learning complex
+arXiv:2501.11839v1  [cs.LG]  21 Jan 2025
+
+--- PAGE BREAK ---
+
+mappings between design metrics and circuit parameters.
+Despite its contributions, the initial AICircuit work left sev-
+eral key questions unanswered. For example, while it demon-
+strated the feasibility of ML models for analog circuit design,
+it did not thoroughly analyze model-specific performance
+across different circuit types. Moreover, actionable insights
+into selecting the most suitable ML algorithm for various
+design scenarios were limited. To bridge these gaps, this paper
+builds upon AICircuit with the following key contributions:
+• Exploration of ML Model Dynamics: Comprehensive
+descriptions of the ML models are provided, including
+their architectures, training protocols, and performance
+nuances for specific circuit categories.
+• Enhanced Evaluations: Aggregated and performance-
+specific comparisons are presented, supported by addi-
+tional tables and plots, offering a holistic view of each
+model’s strengths and weaknesses.
+• Guidelines for Algorithm Selection: We provide ob-
+servations on the suitability of different ML methods
+for distinct circuit types, empowering researchers and
+practitioners to make informed decisions when adopting
+ML in analog design workflows.
+By extending the scope of AICircuit, this work aims to
+establish a more comprehensive framework for AI-driven ana-
+log and radio frequency (RF) circuit design, bridging the gap
+between academic research and practical applications. This
+work not only serves as a guide for researchers in ML-assisted
+circuit design but also lays the groundwork for adopting
+these methodologies in industry-scale analog design processes.
+Through this analysis, we hope to provide a roadmap for
+leveraging ML techniques to streamline and enhance the de-
+sign process for both homogeneous and heterogeneous circuits.
+To enable reproducibility, all datasets and corresponding code
+are available at https://github.com/AvestimehrResearchGroup/
+AICircuit.
+II. PROBLEM STATEMENT
+The design of analog and radio-frequency (RF) circuits is
+a challenging process that often requires iterative parameter
+tuning to meet desired performance specifications. Traditional
+approaches, such as Bayesian optimization, have been ex-
+plored to optimize circuit performance by guiding the param-
+eter search using probabilistic models that balance exploration
+and exploitation [20], [21]. While Bayesian optimization can
+be effective for low-dimensional problems, it suffers from
+significant limitations when applied to circuit design. The iter-
+ative sampling process is computationally expensive, requiring
+substantial resources to evaluate the design space. Addition-
+ally, Bayesian optimization struggles with the complex and
+non-linear relationships inherent in circuit parameter spaces,
+making it impractical for real-world applications.
+Reinforcement learning (RL) has also been explored as a
+means of automating circuit design by iteratively learning
+parameter updates through a reward system based on achiev-
+ing performance targets [22]. However, RL-based methods
+suffer from significant drawbacks: they require vast amounts
+of training data, are computationally intensive, and demand
+considerable resources to converge. Furthermore, RL’s reliance
+on iterative exploration of the design space makes it time-
+consuming, particularly in circuit design tasks where data
+generation through simulation is expensive.
+In contrast to these previous works, supervised ML algo-
+rithms offer a more efficient alternative by leveraging pre-
+collected datasets to learn a direct mapping from performance
+specifications to circuit parameters, thereby eliminating the
+need for iterative searches and reducing computational over-
+head with greater scalability.
+To build upon this, we adopt a new perspective on the
+problem by reversing the conventional circuit design flow.
+Instead of iteratively searching for circuit parameters to opti-
+mize performance metrics, we directly model the relationship
+between performance specifications and circuit parameters.
+Specifically, given a desired performance vector x (e.g., power
+consumption, bandwidth, gain), we predict a corresponding
+set of circuit parameters y (e.g., resistances, capacitances,
+transistor widths) using a machine learning model M. This
+approach bypasses the need for computationally expensive
+optimization techniques and allows for efficient design:
+y = M(x),
+The challenge of this problem lies in the fact that there
+may exist multiple sets of circuit parameters y that satisfy the
+same performance specifications x. However, in real-world
+scenarios, the primary goal is not to identify all possible
+solutions but rather to find a single set of parameters that
+meets the desired performance requirements. This simplifies
+the design process and ensures the practicality of the solution
+for circuit designers.
+In short, our approach leverages supervised machine learn-
+ing to simplify the circuit design process significantly:
+• Reverse Design Flow: ML-assisted design predicts cir-
+cuit parameters from performance specifications, avoiding
+the need for parameter sweeps or optimization routines.
+• Diverse Models: We explore various ML models, in-
+cluding multilayer perceptrons (MLPs), transformers, and
+traditional methods such as decision trees, to learn the
+mapping from specifications to circuit parameters.
+• Circuit Diversity: We investigate the performance of
+these models on a range of circuits, from fundamental
+homogeneous blocks such as voltage amplifiers to het-
+erogeneous systems like wireless transmitters.
+By framing the problem as a direct mapping from perfor-
+mance to parameters, we aim to overcome the limitations of
+traditional optimization-based methods and provide a robust
+and scalable approach to analog and RF circuit design.
+A. Analytical ML Perspective
+Let (x, y) ∼P(x, y) represent i.i.d. samples from a joint
+distribution over inputs and outputs. The supervised learning
+objective aims to solve
+θ∗= arg min
+E(x,y)∼P (x,y)[ℓ(fθ(x), y)],
+where fθ(x) represents the ML model parameterized by θ,
+mapping input x to its predicted output, and ℓ: Y × Y →
+
+--- PAGE BREAK ---
+
+R≥0 denotes the loss function. The function ℓmeasures the
+prediction error between fθ(x) and the true output y. The
+presence of explicitly paired (x, y) samples ensures that each
+observed instance contributes a low-variance gradient signal
+∇θℓ(fθ(x), y), directly guiding fθ toward a function that
+minimizes expected error under P(x, y).
+In contrast, unsupervised learning optimizes criteria that
+depend solely on the input distribution P(x), without reference
+to a ground-truth target y. Such criteria, often expressed as
+minimizing divergences (e.g., D(P(x)∥Pθ(x))) or optimizing
+surrogate objectives, do not inherently guarantee that the
+discovered structures align with any specific predictive task.
+Without a direct mapping between x and y, parameter updates
+in unsupervised learning cannot explicitly reduce task-relevant
+errors, resulting in models that capture irrelevant patterns or
+converge to local minima that lack practical significance.
+similarly
+lacks
+direct
+sample-level
+targets,
+stead seeking to maximize expected cumulative returns
+Eπθ [P
+t γtR(st, at)]. The resulting optimization landscape is
+shaped by sequential dependencies and often sparse or de-
+layed rewards, producing high-variance gradient estimates and
+complicating convergence. Moreover, credit assignment across
+time and action sequences introduces structural complexity
+absent in the supervised setting.
+Therefore, the supervised approach leverages a known
+joint distribution P(x, y) and a well-defined per-sample error
+ℓ(fθ(x), y), yielding stable, directly interpretable gradient sig-
+nals and tractable optimization. This fundamental alignment
+of the learning objective with the underlying task’s data
+distribution and explicit targets provides a clear analytical
+advantage over both unsupervised and RL frameworks.
+B. Application to Circuit Schematic Design
+Consider the problem of sizing parameters in a circuit
+schematic. Let x represent the performance metrics (e.g., gain,
+bandwidth, power consumption) and y represent the design
+parameters (e.g., transistor dimensions, bias voltages). By
+performing a parametric sweep over y, we obtain a dataset of
+pairs {(xi, yi)}, effectively mapping each performance metric
+set to its associated parameter settings. The goal is to predict y
+(design parameters) given a performance specification xtarget,
+which naturally aligns with supervised learning.
+Specifically, let fθ(x) represent a model that predicts the cir-
+cuit’s parameter settings y given performance metrics x. This
+framework leverages the known performance metrics xtarget.
+Each sampled (x, y) pair, obtained from circuit simulations,
+provides a direct gradient signal that adjusts θ to optimize
+configurations yielding parameters y that achieve the desired
+performance xtarget. The data generation process (parameter
+sweeps) ensures (x, y) pairs reflect the circuit’s underlying
+physics and variability, granting a stable and interpretable
+mapping from performance metrics to parameters.
+In contrast, unsupervised learning would only see the inputs
+and outputs without a specific target. The model might find
+correlations or clusters in the design parameter space, but
+these patterns do not necessarily indicate optimal design
+performance. Without a target specification, identifying which
+configurations in x-y space correspond to the desired opera-
+tional point remains ambiguous.
+RL would treat circuit sizing as a sequential decision-
+making process, evaluating returns based on rewards. How-
+ever, parameter sizing for circuit design is often a one-shot
+problem, where a given x (performance metrics) and y (design
+parameters) pair is fully observable from a single simulation,
+and there is no temporal sequence of actions. Introducing
+RL would add unnecessary complexity, requiring policy ex-
+ploration, handling delayed or sparse rewards, and incurring
+a higher computational cost. Since the environment (circuit
+simulations) is static and deterministic, directly fitting a model
+to map x to y via supervised learning is more computationally
+efficient and theoretically direct.
+Thus, for circuit parameter sizing with performance targets,
+supervised learning provides a structured, data-driven route to
+optimal solutions, bypassing the ambiguities of unsupervised
+criteria and the complexity of RL-based exploration strategies.
+III. DATASET
+This section describes the dataset collection process, which
+encompasses both homogeneous and heterogeneous circuits.
+To provide a comprehensive understanding of the data, we
+first define the characteristics of homogeneous and heteroge-
+neous circuits. Subsequently, we detail the procedure used to
+generate the dataset for both categories.
+A. Datasets for Homogeneous Circuits
+Homogeneous circuits consist of a single type of circuit
+block, such as a common-source voltage amplifier (CSVA).
+These circuits are designed to perform a specific function,
+making them simpler in structure and easier to analyze com-
+pared to heterogeneous circuits. To capture a diverse range of
+use cases, the dataset includes seven commonly used analog
+and RF circuits: common-source voltage amplifier (CSVA),
+cascode voltage amplifier (CVA), two-stage voltage amplifier
+(TSVA), low-noise amplifier (LNA), mixer, voltage-controlled
+oscillator (VCO), and power amplifier (PA). These circuits,
+whose schematics are shown in Figure 1, represent fundamen-
+tal building blocks for complex systems.
+Among these circuits, the CSVA, CVA, and TSVA serve as
+essential components for voltage amplification in analog and
+feedback systems [23]. CSVA amplifies the input signal at
+the gate and generates an output at the drain. CVA, which
+combines common-source and common-gate stages, offers
+enhanced gain and bandwidth suitable for high-frequency
+applications. TSVA improves output swings and gain by
+employing a two-stage amplification structure.
+For RF applications, the dataset also includes LNAs, Mixers,
+VCOs, and PAs, all of which are essential building blocks in
+innovative and advancing wireless systems [24]. The LNA am-
+plifies weak input signals while maintaining low noise across a
+wide bandwidth, making it indispensable in RF receiver front-
+ends. Mixers are responsible for frequency upconversion and
+downconversion in RF transmitters and receivers, respectively.
+VCOs generate periodic signals with tunable frequency, utiliz-
+ing various topologies to provide negative resistances, e.g., the
+
+--- PAGE BREAK ---
+
+(a) CSVA
+(b) CVA
+(c) TSVA
+(d) LNA
+(e) Mixer
+(f) VCO
+(g) PA
+Fig. 1. Schematics of homogeneous circuits: (a) Common-Source Voltage Amplifier (CSVA), (b) Cascode Voltage Amplifier (CVA), (c) Two-Stage Voltage
+Amplifier (TSVA), (d) Low-Noise Amplifier (LNA), (e) Mixer, (f) Voltage-Controlled Oscillator (VCO), and (g) Power Amplifier (PA).
+TABLE I
+HOMOGENEOUS CIRCUITS AND THE CHOSEN PARAMETERS FOR EACH
+CIRCUIT. THE SWEEPING RANGE OF SELECTED DESIGN PARAMETERS IS
+WRITTEN IN THE FORM OF [BEG, INCREMENT, END].
+Homogeneous Circuit
+Parameter
+Description
+Sweeping Range
+CSVA
+specs:
+dc power | bandwidth | gain
+supply voltage
+1.2:0.1:1.8 (V)
+Vgate
+gate voltage
+0.6:0.05:0.9 (V)
+load resistor
+0.5:0.1:3 (kΩ)
+width of nmos
+3:1:10 (µm)
+specs:
+dc power | bandwidth | gain
+load resistor
+0.5:0.1:2 (kΩ)
+width of nmos
+6:1:17 (µm)
+width of nmos
+5:1:12 (µm)
+width of nmos
+4.5:0.5:9 (µm)
+TSVA
+specs:
+dc power | bandwidth | gain
+miller capacitor
+150:50:250 (fF)
+width of pmos
+10:1:18 (µm)
+width of pmos
+7.5:5:22.5 (µm)
+width of nmos
+10:1:18 (µm)
+width of nmos
+7.5:5:22.5 (µm)
+width of nmos
+16:2:24 (µm)
+specs:
+dc power | bandwidth
+| power gain | S11 | noise figure
+output capacitor
+300:100:600 (fF)
+input capacitor
+200:100:500 (fF)
+drain inductor
+3:1:5 (nH)
+gate inductor
+8.4:1:11.4 (nH)
+source inductor
+0.6:0.1:0.8 (nH)
+width of nmos
+25:1.25:30 (µm)
+width of nmos
+25:1.25:30 (µm)
+Mixer
+specs:
+dc power | voltage swing
+| conversion gain | noise figure
+coupling capacitor
+0.5:0.1:1.5 (pF)
+load resistor
+200:25:500 (Ω)
+width of nmos
+15:1:25 (µm)
+width of nmos
+5:1:15 (µm)
+specs:
+dc power | frequency
+| phase noise | tuning range
+| output power
+capacitor in resonant tank
+100:25:200 (fF)
+inductor in resonant tank
+2:1:6 (nH)
+parallel resistor
+1:1:4 (kΩ)
+width of nmos
+24:8:56 (µm)
+width of nmos
+11:1:12 (µm)
+width of nmos
+96:32:160 (µm)
+Wvar
+width of nmos capacitor
+75:12.5:125 (µm)
+specs:
+dc power | S11 | S22
+| power gain | PAE
+| drain efficiency | Psat
+input primary inductor
+175:175:525 (pH)
+input secondary inductor
+40:40:120 (pH)
+inter-stage matching inductor
+87.5:87.5:263 (pH)
+output primary inductor
+238:238:714 (pH)
+output secondary inductor
+30:30:90 (pH)
+width of nmos
+16:3:28 (µm)
+width of nmos
+24:4:40 (µm)
+cross-coupled configuration. PAs deliver substantial power to
+transmitting antennas while ensuring high efficiency. Table I
+summarizes the design parameters and their sweeping ranges
+for homogeneous circuits.
+B. Datasets for Heterogeneous Circuits
+In addition to homogeneous circuits, we also investigate
+heterogeneous systems, which comprise multiple circuit blocks
+with distinct functionalities, such as a transmitter incorporating
+VCO and PA. These circuits are more complex, as they inte-
+grate different components to achieve multifunctional objec-
+tives. This provides a richer dataset for analyzing interactions
+between diverse circuits and their combined performance.
+Specifically, we study a transmitter and a receiver system
+operating at 28 GHz, commonly used in high-speed commu-
+nication systems [25]. These systems combine blocks such
+as VCOs, PAs, LNAs, Mixers, and CVAs. In the transmitter
+system (Figure 2a), the VCO generates a periodic signal with
+a tunable frequency governed by a control voltage, which is
+then amplified by the PA to deliver sufficient power for signal
+transmission. In the receiver system (Figure 2b), an LNA
+amplifies the weak input signal while minimizing noise. A
+Mixer converts the signal from radio frequency to intermediate
+frequency (IF), and a CVA provides further amplification for
+signal processing [13], [26]. Figure 3 illustrates the transceiver
+system. Furthermore, the sweeping ranges for the design
+parameters of heterogeneous systems are detailed in Table II.
+
+--- PAGE BREAK ---
+
+(a) Transmitter
+(b) Receiver
+Fig. 2. Schematics of the heterogeneous transceiver system: (a) Transmitter, (b) Receiver. These circuits represent key components of the transceiver chain,
+designed to meet diverse performance specifications across varying tasks.
+Fig. 3. Heterogeneous architecture of a 28 GHz wireless transceiver
+highlighting functionality and design trade-offs for each block: The
+transmitter (left) includes a voltage-controlled oscillator (VCO) and power
+amplifier (PA). The receiver (right) consists of a low-noise amplifier (LNA),
+mixer, and cascode voltage amplifier (CVA).
+TABLE II
+HETEROGENEOUS CIRCUITS AND THE CHOSEN PARAMETERS FOR EACH
+BLOCK. THE SWEEPING RANGE OF SELECTED DESIGN PARAMETERS IS
+WRITTEN IN THE FORM OF [BEG, INCREMENT, END].
+Heterogeneous Circuits
+Individual Block
+Parameter
+Sweeping Range
+Transmitter System
+specs:
+dc power | bandwidth
+| output power | voltage swing
+Voltage-Controlled Oscillator (VCO)
+specs:
+phase noise | tuning range
+50:50:150 (fF)
+60:60:180 (pH)
+300:100:500 (Ω)
+7.5:2.5:12.5 (µm)
+187.5:12.5:212.5 (µm)
+Wvar
+70:10:90 (µm)
+Power Amplifier (PA)
+specs:
+power gain | drain efficiency | PAE
+175:175:350 (pH)
+60:60:120 (pH)
+360:353:713 (pH)
+45:45:90 (pH)
+22:5:32 (µm)
+16:5:26 (µm)
+Receiver System
+specs:
+dc power | gain | noise figure
+Low-Noise Amplifier (LNA)
+specs:
+power gain | S11 | noise figure
+130:50:180 (fF)
+170:50:220 (fF)
+180:50:230 (pH)
+850:100:950 (pH)
+80:10:90 (pH)
+20:3:26 (µm)
+37.5:2.5:42.5 (µm)
+Mixer
+specs:
+voltage swing | conversion gain
+1:0.1:1.1 (pF)
+400:100:500 (Ω)
+14:2:18 (µm)
+6:2:10 (µm)
+Cascode Voltage Amplifier (CVA)
+specs:
+gain
+300:100:400 (Ω)
+26:2:30 (µm)
+14:2:18 (µm)
+C. Dataset Collection Procedure
+To generate the dataset, we followed the procedure il-
+lustrated in Figure 4. First, a schematic for each circuit
+was designed using a 45 nm CMOS technology in Cadence
+Virtuoso [27]. Then, key design parameters were identified
+for each circuit, and sweeping ranges for these parameters
+were defined in the format [beg, increment, end]. For every
+parameter combination, simulations were performed using
+Cadence Virtuoso to calculate the corresponding performance
+metrics. Finally, the results were stored as rows in the dataset
+table, where each row consists of circuit parameters and their
+performance metrics.
+Table III provides the dataset statistics for each circuit.
+Compared to homogeneous circuits, heterogeneous systems
+feature larger parameter spaces, highly non-linear interactions
+between individual blocks, and intricate trade-offs within
+the blocks and across the entire system. These complexities
+significantly increase the challenge for ML models to learn
+accurate mappings and necessitate a larger number of data
+points to ensure robust and reliable performance.
+IV. METHODOLOGY
+The proposed design methodology, illustrated in Figure 5,
+consists of three primary stages. The first stage is schematic
+design, where circuit schematics are designed and key param-
+eters are identified. In the second stage, ML model, supervised
+machine learning models are trained to map performance
+specifications to circuit parameters using the dataset gener-
+ated from extensive simulations (Section III). Finally, in the
+simulation and validation stage, the predicted parameters are
+simulated to validate the model’s accuracy and ensure that
+the performance metrics meet the desired specifications. This
+end-to-end pipeline significantly reduces the manual effort
+traditionally required in analog and RF circuit design by
+leveraging the predictive power of machine learning models.
+In this section, we present the methodology for predicting
+circuit parameters from performance specifications using ML
+
+--- PAGE BREAK ---
+
+Select Circuit 
+Parameters
+Sweep in the 
+Valid Range
+Select One 
+Parameter Set
+Calculate 
+Performance Metrics 
+Parameters
+Performance
+Fig. 4. Procedure for creating dataset including homogeneous and heterogeneous circuits. This pipeline illustrates parameter selection, range sweeping,
+simulation, and performance metric computation to generate the final dataset.
+TABLE III
+DATASET STATISTICS FOR EACH CIRCUIT.
+Circuit
+CSVA
+TSVA
+Mixer
+Transmitter
+Receiver
+Dataset Size
+7.8k
+15.1k
+19.3k
+17.1k
+13.5k
+5.6k
+95.3k
+155.4k
+Number of Circuit Parameters
+Number of Performance Metrics
+Schematic Design 
+ML Model
+Simulation and 
+Validation
+Fig. 5. Pipeline of the proposed design methodology including three stages:
+(1) Schematic Design, where circuit structures and key design parameters
+are defined; (2) ML Model, where ML models are trained to predict circuit
+parameters from performance specifications; and (3) Simulation and
+Validation, where the predicted parameters are validated through simulation
+to ensure compliance with performance targets.
+techniques. Our approach focuses on three main aspects: the
+choice of models, the evaluation metrics, and the end-to-
+end training and evaluation process. First, we describe the
+ML models used to learn the mapping from performance to
+circuit parameters, including neural networks and conventional
+regression methods. Next, we outline the evaluation metrics
+employed to assess the accuracy, robustness, and reliability of
+the models, ensuring a comprehensive analysis of their perfor-
+mance across various circuit types. Finally, we introduce the
+end-to-end training and simulation-based evaluation pipeline,
+which integrates ML predictions with circuit simulation tools
+to validate the performance of predicted parameters.
+A. Models
+In this section, we describe the ML models employed to pre-
+dict circuit parameters y from input performance specifications
+x. These models include advanced deep learning techniques
+and conventional regression methods chosen for their ability
+to capture the complex, non-linear relationships inherent in
+analog and RF circuit design. Specifically, we utilize the multi-
+layer perceptron (MLP), transformer, random forest (RF), k-
+nearest neighbors (kNN), and support vector regression (SVR)
+models. Each model approximates the mapping y = M(x)
+(Equation 1) with unique mathematical formulations and ar-
+chitectures suited to specific challenges in circuit design. The
+key parameters for these models are summarized in Table IV,
+and their detailed descriptions are provided below.
+1) Multi-Layer Perceptron (MLP): MLP is a feedforward
+neural network that approximates the mapping y = M(x)
+by stacking multiple layers of linear transformations and non-
+linear activation functions:
+y = M(x) = W (L)z(L−1) + b(L),
+z(l) = σ(W (l)z(l−1) + b(l)),
+l = 1, . . . , L −1,
+z(0) = x.
+Here, W (l) and b(l) are the weight matrices and bias vectors
+for layer l, z(l) is the activation at layer l, and σ represents
+the non-linear activation function (e.g., ReLU). The depth and
+flexibility of MLP allow it to approximate highly non-linear
+relationships between x and y. MLP’s strength lies in its
+ability to handle complex mappings, though it may be prone
+to overfitting with small datasets.
+2) Transformer: The Transformer [28] leverages a self-
+attention mechanism to model complex dependencies between
+components of the performance vector y. It implements M as:
+y = M(x) = WoutFFN(MultiHead(xQ, xK, xV )),
+where xQ, xK, and xV are the query, key, and value matrices
+derived from x, and the multi-head attention mechanism is
+defined as:
+MultiHead(Q, K, V ) = Concat(head1, . . . , headh)W O,
+with each attention head computed as:
+headi = softmax
+QiKT
+Here, FFN represents the feedforward layers applied after the
+attention mechanism [29]. The transformer’s ability to capture
+both local and global dependencies in x makes it well-suited
+for complex mappings.
+
+--- PAGE BREAK ---
+
+TABLE IV
+MODELS AND THE CHOSEN PARAMETERS FOR EACH MODEL.
+Model
+Parameter
+Description
+Value
+Transformer
+dim_model
+first fully connected layer dim
+num_heads
+heads in the multi-head attention models
+dim_hidden
+load resistor
+dropout_p
+the dropout probability
+num_encoder_layers
+number of layers in transformer encoder
+activation
+activation function of transformer encoder
+relu
+Multi Layer Perception (MLP)
+num_layers
+number of fully connected layers
+dim_layers
+dimension of layers
+[200, 300, 500, 500, 300, 200]
+Support Vector Regressor (SVR)
+kernel
+kernel type of the algorithm
+multi_target_regression_type
+type of combining multiple SVRs
+MultiOutputRegression
+k-Nearest Neighbors Regressor (KNN)
+n_neighbors
+number of neighbors
+weights
+weight function used in prediction
+uniform
+Random Forest Regressor (RF)
+n_estimators
+number of trees in the forest
+criterion
+function to measure the quality of a split
+squared error (l2 Loss)
+3) Random Forest Regressor (RF): Random Forest (RF)
+approximates the mapping y = M(x) using an ensemble of
+decision trees [30]:
+y = M(x) = 1
+Ti(x),
+where Ti represents the output of the i-th decision tree trained
+on random subsets of data, and N is the number of trees. RF
+excels in modeling non-linear relationships with robustness to
+noise and overfitting, making it practical for circuit design.
+4) k-Nearest Neighbors Regressor (kNN): kNN imple-
+ments M by averaging the parameters of the k closest samples
+in the training set:
+y = M(x) = 1
+i∈Nk(x)
+where Nk(x) denotes the indices of the k nearest neighbors
+of x. This method captures localized mappings, though its
+computational cost scales with the dataset size [31].
+5) Support Vector Regressor (SVR): SVR solves a con-
+strained optimization problem for each circuit parameter yj
+to find a hyperplane that fits x to yj within a margin ϵ,
+approximating yj as wT
+j x+bj. Here, wj and bj are computed
+by solving:
+arg min
+2∥w∥2 + C
+max(0, |yj
+i −(wT xi + b)| −ϵ),
+where N is the number of training data points, w and b define
+the hyperplane, and C controls the trade-off between margin
+width and error tolerance [32]. Using kernel functions, SVR
+maps x into a higher-dimensional space, enabling it to handle
+non-linear mappings effectively [33]. These models collec-
+tively address the challenges of mapping x to y, leveraging
+their unique strengths to tackle diverse circuit complexities.
+However, a key limitation of SVR is that, unlike other models
+that jointly learn multiple outputs (multiple circuit parameters
+in our case), SVR does not consider dependencies between
+outputs, which can negatively impact accuracy.
+B. Metrics
+To evaluate the performance of our machine learning mod-
+els, we adopt a two-step evaluation approach. First, we use
+the predicted circuit parameters as inputs to the Cadence
+simulation tool to obtain the corresponding performance met-
+rics. These simulated performance values, denoted as ˆx, are
+compared against the desired performance metrics x specified
+in the dataset.
+The primary evaluation metric is the relative error, which
+quantifies the deviation between the predicted performance ˆxi
+and the target performance xi:
+ith Performance Error = |xi −ˆxi|
+To assess the overall accuracy of the predicted parameters
+for a given circuit, we compute the mean relative error across
+all performance metrics as:
+Mean Relative Error = 1
+|xi −ˆxi|
+where N is the total number of performance metrics.
+This aggregated performance metric provides a single value
+that summarizes the accuracy of each predicted parameter set.
+a) Error Distribution Analysis: In addition to computing
+the mean relative error, we analyze the distribution of errors by
+plotting histograms of the relative errors for each model. These
+histograms provide insights into the variability of prediction
+accuracy and highlight the models’ tendencies to produce
+outliers or consistently accurate predictions.
+b) Comparison Metrics: To compare the performance of
+models with each other and across different circuits, we report
+the following key statistical metrics derived from the error
+distributions:
+• Mean and Standard Deviation: The mean relative error
+and its standard deviation summarize the central tendency
+and spread of errors, respectively.
+• 75th Percentile (P75): This metric indicates the relative
+error threshold below which 75% of all errors fall. A
+lower P75 value reflects better overall performance.
+
+--- PAGE BREAK ---
+
+• 90th Percentile (P90): Similar to P75, P90 reflects the
+threshold for 90% of errors, providing insights into the
+upper error bounds.
+• % of Errors Below Thresholds: We report the percent-
+age of errors smaller than 2% and 5% to measure how
+frequently models achieve high accuracy.
+• Outlier Percentage (% > 20%): This metric highlights
+the proportion of predictions with large errors (greater
+than 20%), which is critical for identifying unreliable
+predictions.
+Each of these metrics captures different aspects of the
+error distribution, allowing for a comprehensive comparison of
+model performance. For example, the mean and P75 provide
+insights into general accuracy, while the outlier percentage
+highlights model robustness in avoiding large prediction errors.
+C. Model Training and Simulation-Based Evaluation
+Our codebase provides a seamless end-to-end model train-
+ing and evaluation pipeline, as illustrated in Algorithm 1 and
+2. This pipeline ensures smooth interaction between the ML
+workflow and the simulation process, enabling accurate and
+efficient evaluation of predicted circuit parameters.
+During the training stage, we follow the standard ML
+workflow. The input to the ML model consists of performance
+specifications, and the target output is the corresponding circuit
+parameters. The model is trained to minimize the ℓ1 loss,
+which measures the distance between predicted and actual
+circuit parameters.
+Algorithm 1 End-to-End Model Training Pipeline
+Require: Training dataset Dtrain = {(x, y)}, machine learn-
+ing model M, maximum iterations maxIter, loss func-
+tion L.
+Ensure: Trained model M.
+1: Initialize model parameters of M.
+2: for t = 1 to maxIter do
+Load data: Sample a mini-batch of b training pairs
+{(xj, yj)}b
+j=1 from Dtrain.
+for each training pair (xj, yj) in the mini-batch do
+Predict parameters: Use the current model to pre-
+dict the circuit parameters:
+ˆyj = M(xj).
+Compute loss: Evaluate the loss between the pre-
+dicted and ground truth circuit parameters:
+Lossj = L(ˆyj, yj).
+end for
+Update model: Compute the gradient of the average
+loss over the mini-batch:
+Lbatch = 1
+Lossj.
+Perform a gradient update on the model parameters to
+minimize Lbatch.
+9: end for
+10: Return the trained model M.
+In the evaluation stage, we assess the performance of
+the trained model using the evaluation dataset. For each
+performance specification vector x, the trained model pre-
+dicts the circuit parameters ˆy. These parameters are then
+passed to the Cadence simulator to compute the corresponding
+simulated performance metrics, denoted as ˆx. By comparing
+the simulated performance ˆx with the desired performance
+x, we compute the relative error for each performance. The
+output of the evaluation stage includes relative error for each
+performance specification, aggregated summaries (e.g., mean
+relative error), and histograms of error distributions.
+Algorithm 2 End-to-End Evaluation Pipeline
+Require: Trained model M, evaluation dataset Deval = {x},
+circuit simulator S, maximum iterations maxIter.
+Ensure: Relative error list E.
+1: Initialize relative error list E ←{}.
+2: for t = 1 to maxIter do
+Load data: Select input performance vector x =
+{x1, x2, . . . , xN} ∈Deval.
+Predict circuit parameters: Use the trained model M
+to predict:
+ˆy = M(x).
+Simulate performance: Run the circuit simulator S to
+generate simulated performance:
+ˆx = S(ˆy) = {ˆx1, ˆx2, . . . , ˆxN}.
+Compute errors: For each performance metric i =
+1, . . . , N, compute the relative error:
+ei = |xi −ˆxi|
+Append {e1, e2, . . . , eN} to the error list E.
+8: end for
+9: Return relative error list E and compute aggregated
+metrics (e.g., mean relative error, histograms).
+A key feature of this pipeline is the inclusion of a Cadence
+simulator in the evaluation phase. This allows us to accurately
+obtain performance metrics under realistic circuit conditions,
+including effects with inherent randomness, such as noise
+figure in low-noise amplifiers (LNA). This advanced analysis
+enables a more comprehensive evaluation compared to prior
+works, which often overlook such nuances.
+V. EXPERIMENTS
+In this section, we evaluate ML models for predicting circuit
+parameters from performance metrics, categorizing the circuits
+into two groups: homogeneous circuits and heterogeneous
+circuits. For each circuit, we analyze the accuracy and robust-
+ness of the ML models by comparing their predictions against
+simulation results and reporting evaluation metrics, including
+relative error distributions, mean error, error percentiles, and
+outlier percentages. This circuit-by-circuit analysis highlights
+the strengths and limitations of ML models for different circuit
+complexities and performance requirements.
+
+--- PAGE BREAK ---
+
+To account for the different numerical ranges of perfor-
+mance metrics and circuit parameters, we normalize all data
+to the range [−1, 1]. For each circuit, we randomly split the
+dataset into 90% for training and 10% for testing. We train
+the neural network models, including transformers and MLPs,
+for 100 epochs using the Adam optimizer [34] with a learning
+rate of 0.001. Each training process is repeated multiple times
+with different random seeds to ensure the robustness of results.
+A. Homogeneous Circuits
+Common-Source Voltage Amplifier (CSVA). The results
+for CSVA, presented in Table V and Figure 6, show that
+the Transformer model outperforms other models with the
+most accurate predictions and minimal error spread. The MLP
+follows closely, delivering competitive performance with low
+outlier rates. In contrast, traditional methods, RF, kNN, and
+SVR, exhibit higher error distributions and less robustness, as
+seen in their wider histograms and greater outlier percentages.
+These results highlight the effectiveness of deep learning
+models for predicting CSVA parameters.
+Fig. 6. Relative error histogram of individual performance metrics and
+mean relative error histogram for CSVA.
+TABLE V
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR CSVA
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+5.96
+7.54
+6.46
+12.27
+19.8
+60.2
+Transformer
+5.00
+6.13
+5.84
+9.58
+26.4
+67.4
+7.99
+11.69
+8.80
+19.45
+20.8
+59.4
+7.80
+11.76
+7.95
+17.81
+25.6
+61.4
+9.56
+14.91
+9.04
+16.61
+49.8
+Cascode Voltage Amplifier (CVA). The results for CVA,
+presented in Table VI and Figure 7, show that the Trans-
+former model outperforms all others with the lowest mean
+error, smallest spread, and the highest percentage of low-error
+predictions. The MLP follows closely with competitive perfor-
+mance and minimal outliers. In contrast, traditional methods
+(RF, kNN, and SVR) display larger error distributions, with
+SVR having the highest error spread and outlier rate. These
+results confirm the superior accuracy and robustness of deep
+learning models, for CVA parameter prediction.
+Fig. 7. Relative error histogram of individual performance metrics and
+mean relative error histogram for CVA.
+TABLE VI
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR CVA
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+2.81
+4.77
+2.95
+5.04
+56.4
+89.6
+Transformer
+2.34
+3.74
+2.08
+3.29
+72.6
+93.4
+4.24
+9.03
+3.92
+8.10
+59.4
+78.8
+4.61
+8.24
+4.24
+12.59
+57.0
+77.8
+8.44
+15.30
+6.82
+15.22
+19.6
+67.0
+Two-Stage Voltage Amplifier (TSVA). The results for
+TSVA, shown in Table VII and Figure 8, reveal that RF
+and kNN perform exceptionally well, achieving the highest
+percentage of low-error predictions and the smallest outlier
+rates. In particular, RF achieves the best overall accuracy
+with concentrated error distributions and minimal spread. In
+contrast, the Transformer and MLP exhibit higher mean
+errors and larger spreads, indicating challenges in capturing
+the parameter-performance mapping for TSVA. Among all
+models, SVR shows the weakest performance with the highest
+outlier rate and error spread. These results suggest that sim-
+pler regression-based methods can outperform deep learning
+approaches for circuits like TSVA.
+Fig. 8. Relative error histogram of individual performance metrics and
+mean relative error histogram for TSVA.
+
+--- PAGE BREAK ---
+
+TABLE VII
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR TSVA
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+8.66
+19.26
+5.47
+21.46
+43.6
+74.2
+11.0
+Transformer
+11.53
+27.36
+6.18
+34.83
+49.8
+73.0
+15.0
+3.30
+10.74
+1.60
+4.66
+80.0
+90.6
+5.95
+26.69
+1.87
+5.46
+77.0
+89.2
+12.43
+24.88
+8.08
+37.53
+37.8
+64.4
+14.6
+Low-Noise Amplifier (LNA). The results for LNA, shown
+in Table VIII and Figure 9, demonstrate outstanding perfor-
+mance across all models. Both the Transformer and MLP
+achieve near-perfect accuracy, with all errors below 2% and
+no outliers. Traditional methods (RF, kNN, and SVR) also
+perform remarkably well, with minimal error distributions
+and zero outliers. The mean relative errors and standard
+deviations for all models are remarkably low, as seen in the
+narrow and sharp error histograms. The results indicate that
+LNA’s performance metrics are easier to predict accurately
+compared to other circuits, likely due to its well-behaved
+parameter-performance relationships. Overall, this highlights
+the robustness and reliability of all evaluated models for LNA.
+Fig. 9. Relative error histogram of individual performance metrics and
+mean relative error histogram for LNA.
+TABLE VIII
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR LNA
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+0.30
+0.21
+0.38
+0.54
+100.0
+100.0
+Transformer
+0.40
+0.24
+0.51
+0.70
+100.0
+100.0
+0.61
+0.43
+0.77
+1.19
+98.2
+100.0
+0.53
+0.34
+0.65
+0.91
+99.4
+100.0
+0.81
+0.59
+1.03
+1.49
+94.8
+100.0
+Mixer. The Mixer results, presented in Table IX and Fig-
+ure 10, show that all models achieve comparable performance
+with minimal differences. The mean relative errors, as well
+as the P75 and P90 values, remain close across all meth-
+ods, indicating that the Mixer system is less challenging for
+ML models to learn. While MLP and Transformer achieve
+slightly lower mean errors and standard deviations, traditional
+models such as kNN, RF, and SVR also perform consistently
+with no significant outliers. The relative error histograms
+further confirm that the predictions are tightly distributed
+across all metrics. Overall, the results highlight that the Mixer
+system is well-suited for ML-based parameter prediction, with
+all models delivering strong and reliable performance.
+Fig. 10. Relative error histogram of individual performance metrics and
+mean relative error histogram for Mixer.
+TABLE IX
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR MIXER
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+3.28
+2.44
+4.14
+7.54
+34.0
+81.4
+Transformer
+3.22
+2.53
+4.04
+8.25
+37.0
+81.2
+3.30
+2.45
+4.03
+8.01
+33.8
+81.2
+3.27
+2.46
+4.09
+7.91
+34.2
+81.2
+3.30
+2.45
+4.19
+7.74
+34.4
+81.2
+Voltage-Controlled Oscillator (VCO). The results for
+VCO, summarized in Table X and Figure 11, reveal com-
+parable performance across all models. Traditional methods
+such as RF and kNN deliver slightly better results, achieving
+lower standard deviations and competitive error percentiles.
+Notably, SVR achieves the lowest outlier rate, highlighting
+its consistency despite relatively higher mean errors. Among
+neural networks, the MLP and Transformer models provide
+robust performance, with the Transformer achieving fewer
+errors below 5% compared to MLP. However, the broader error
+spread across all models indicates the complexity of accurately
+
+--- PAGE BREAK ---
+
+predicting VCO performance metrics, such as phase noise and
+oscillation frequency. Overall, traditional methods exhibit a
+slight edge for VCO, emphasizing their ability to handle this
+circuit’s parameter-performance trade-offs effectively.
+Fig. 11. Relative error histogram of individual performance metrics and
+mean relative error histogram for VCO.
+TABLE X
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR VCO
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+7.70
+57.13
+3.71
+5.02
+18.8
+89.8
+Transformer
+7.62
+60.10
+3.52
+4.85
+30.2
+90.6
+6.95
+52.06
+3.43
+5.24
+30.6
+89.4
+7.11
+52.99
+3.41
+4.75
+30.2
+91.8
+7.42
+58.73
+3.62
+5.09
+26.8
+89.4
+Power Amplifier (PA). The results for PA, summarized
+in Table XI and Figure 12, reveal significant challenges in
+accurately predicting the performance metrics. MLP achieves
+the lowest mean relative error and shows a relatively balanced
+error distribution, making it the most consistent model for
+PA among all tested approaches. The Transformer, while
+demonstrating some promise, struggles with higher standard
+deviations and a larger error spread. Traditional methods such
+as RF and kNN exhibit inconsistent performance, with kNN
+producing notable outliers and high P90 values. Notably, SVR
+performs poorly, yielding large mean errors and the highest
+outlier percentage, highlighting its inability to generalize well
+for PA’s complex performance metrics.
+The substantial error spread across all models indicates the
+nonlinearity and intricate trade-offs inherent in PA design,
+such as achieving high drain efficiency, PAE, and power gain
+simultaneously. This complexity underscores the difficulty of
+modeling PA behavior compared to other circuits.
+Fig. 12. Relative error histogram of individual performance metrics and
+mean relative error histogram for PA.
+TABLE XI
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR PA
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+19.98
+144.99
+10.08
+19.33
+17.2
+51.4
+Transformer
+22.39
+203.36
+10.63
+21.37
+38.2
+11.6
+66.27
+316.86
+42.11
+96.97
+47.4
+37.70
+98.20
+29.23
+63.31
+43.8
+140.85
+987.05
+64.30
+137.62
+67.6
+B. Heterogeneous Circuits
+Transmitter. The results for the Transmitter, shown in
+Table XII and Figure 13, highlight challenges in predicting
+performance metrics for complex systems. MLP achieves the
+lowest mean relative error and consistent accuracy across
+metrics. However, it shows slightly higher outlier errors com-
+pared to kNN. The kNN demonstrates strong performance in
+limiting large errors, achieving the lowest outlier percentage
+and competitive results in error percentiles. In contrast, the
+Transformer and RF models show increased error variabil-
+ity, with higher error spreads. SVR struggles significantly,
+exhibiting the largest mean error and the highest percentage of
+outliers, emphasizing its limitations in handling the Transmit-
+ter’s complexity. The results demonstrate that both MLP and
+kNN are effective for this circuit type, with MLP excelling in
+overall mean performance and kNN minimizing large errors.
+
+--- PAGE BREAK ---
+
+Fig. 13. Relative error histogram of individual performance metrics and mean relative error histogram for Transmitter. The plots illustrate the relative error
+distributions for system performance metrics, such as power consumption, along with block-specific metrics like phase noise for VCO.
+Fig. 14. Relative error histogram of individual performance metrics and mean relative error histogram for Receiver. The plots depict the relative error
+distributions for system-level performance metrics, such as power consumption, along with block-specific metrics like noise figure for the LNA.
+TABLE XII
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR TRANSMITTER
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+4.02
+38.51
+2.51
+5.36
+67.80
+88.65
+2.10
+Transformer
+9.52
+102.83
+4.98
+8.91
+42.97
+75.09
+3.15
+9.60
+97.08
+5.11
+11.44
+41.90
+74.50
+4.60
+4.73
+62.08
+2.76
+4.67
+60.45
+91.20
+1.85
+38.28
+240.91
+26.25
+56.94
+3.25
+22.32
+32.68
+Receiver. The Receiver circuit achieves excellent prediction
+accuracy across all models, as shown by the narrow distribu-
+tions in the relative error histograms (Figure 14) and the statis-
+tical summary in Table XIII. The kNN model demonstrates the
+best overall performance, with the lowest mean error, smallest
+standard deviation, and the highest percentage of predictions
+under 2% and 5% errors. Furthermore, kNN produces no out-
+lier predictions. RF also performs exceptionally well, closely
+matching kNN, with similarly small mean and P75 errors.
+MLP and Transformer models exhibit competitive results but
+with slightly larger error spreads, indicating less consistency.
+SVR, on the other hand, lags behind, showing higher mean
+errors and more significant relative errors. Overall, the receiver
+system results highlight the ability of kNN and RF to deliver
+highly reliable predictions with minimal variability.
+TABLE XIII
+STATISTICAL SUMMARY OF MEAN RELATIVE ERROR FOR RECEIVER
+Model
+Mean
+% Errors
+< 2%
+% Errors
+< 5%
+% Outlier
+(> 20%)
+0.75
+2.15
+0.68
+1.03
+97.35
+98.90
+0.15
+Transformer
+0.75
+0.71
+0.91
+1.41
+95.50
+99.65
+0.00
+0.44
+0.54
+0.52
+0.77
+99.35
+99.85
+0.00
+0.23
+0.14
+0.30
+0.40
+100.00
+100.00
+0.00
+3.08
+2.32
+3.79
+5.73
+37.50
+86.30
+0.10
+VI. DISCUSSION
+The performance of ML models in predicting circuit param-
+eters reflects a balance between circuit complexity and model
+capability. Simpler circuits with linear parameter-performance
+relationships tend to yield lower errors, whereas complex
+circuits with non-linear interactions and intricate trade-offs
+present greater challenges. Aligning model selection with the
+unique characteristics of each circuit and understanding their
+structural differences are crucial for achieving robust and
+reliable design automation in analog and RF circuits.
+The performance trends summarized in Table XIV high-
+light the relationship between circuit complexity and model
+accuracy. Among homogeneous circuits, more linear designs
+like the LNA exhibit the lowest mean relative errors, at-
+
+--- PAGE BREAK ---
+
+TABLE XIV
+SUMMARY OF BEST MODELS AND THE STATISTICS OF MEAN RELATIVE ERROR FOR EACH CIRCUIT
+Circuit
+Best Model
+Mean
+% Errors < 2%
+% Errors < 5%
+% Outlier > 20%
+CSVA
+Transformer
+5.00
+6.13
+5.84
+9.58
+26.4
+67.4
+Transformer
+2.34
+3.74
+2.08
+3.29
+72.6
+93.4
+TSVA
+3.30
+10.74
+1.60
+4.66
+80.0
+90.6
+0.30
+0.21
+0.38
+0.54
+100.0
+100.0
+Mixer
+Transformer
+3.22
+2.53
+4.04
+8.25
+37.0
+81.2
+6.95
+52.06
+3.43
+5.24
+30.6
+89.4
+19.98
+144.99
+10.08
+19.33
+17.2
+51.4
+Transmitter
+4.02
+38.51
+2.51
+5.36
+67.8
+88.65
+Receiver
+0.23
+0.14
+0.30
+0.40
+100.0
+100.0
+TABLE XV
+COMPARISON OF SCENARIOS AND MODELS
+Scenario
+Complexity
+Data
+Models
+Homogeneous
+Single M : RN →RD
+Fewer samples
+MLP, Transformer (best), RF
+Heterogeneous
+Coupled Mi’s; Larger N
+More samples
+MLP, kNN (best)
+tributed to their straightforward physical structures and linear
+parameter-performance relationships. For example, the LNA’s
+linear amplification characteristics enable models like MLP to
+accurately map performance metrics to parameters, achieving
+near-perfect alignment with training goals.
+Conversely, complex circuits like the PA and VCO exhibit
+higher mean relative errors due to their intricate trade-offs and
+non-linear behaviors. The PA’s challenges arise from its com-
+plexity, with MLP emerging as the best model for its ability to
+capture non-linear interactions, albeit with higher variability
+indicated by a large standard deviation. For the VCO, the
+RF model excels by handling non-linear relationships, which
+proves effective despite the circuit’s expansive design space
+and inherent randomness in metrics like phase noise.
+These results highlight the importance of aligning model
+capabilities with the physical and functional characteristics of
+each circuit. The best-performing model is determined not only
+by statistical accuracy but also by the design complexities and
+non-linearities inherent in the circuit’s structure.
+For heterogeneous circuits, the complexity increases due to
+a larger number of parameters to predict and a corresponding
+rise in the number of performance metrics. This expansion
+results in a larger design space. To address this challenge and
+maintain high prediction accuracy, we increase the number of
+data points during dataset generation. The Receiver benefits
+from kNN’s ability to efficiently handle its moderately linear
+parameter space, made possible by the abundance of samples
+distributed across different regions of the space. Similarly,
+the Transmitter is best modeled by both MLP and kNN.
+The MLP excels in managing multi-block complexities, while
+kNN effectively captures the slight linearity introduced by the
+extensive sampling of the parameter space.
+To demonstrate the scalability of our approach, Figure 15
+illustrates the mean relative error for the Transmitter and
+Receiver as the size of the training dataset increases. As
+shown, accuracy improves with more data points, emphasizing
+the scalability of our methodology. Importantly, the dataset
+(a) Transmitter
+(b) Receiver
+Fig. 15. Mean relative error histograms for (a) Transmitter using the MLP
+model and (b) Receiver using the kNN model, evaluated across different
+training dataset sizes. The plots illustrate the scalability of both models,
+showing that increasing the training data leads to improved prediction
+accuracy for their respective circuits.
+was carefully designed to ensure an adequate number of
+data points, achieving accuracy levels that are satisfactory for
+practical purposes.
+Building on the discussion of scalability, the analytical
+formulation provides insight into the structural differences
+between homogeneous and heterogeneous circuits, shedding
+light on their respective data and modeling requirements.
+A homogeneous circuit implements a single non-linear
+mapping:
+M : RN →RD,
+x 7→y,
+where x and y represent input and output vectors, respectively.
+Under supervised learning, given samples (x, y) ∼P(x, y),
+the training objective follows (2). Due to the single-stage
+mapping and moderate dimensionality, fewer samples are
+typically required for accurate predictions.
+In contrast, a heterogeneous circuit consists of multiple
+coupled mappings, for example, three sub-blocks with map-
+pings M1, M2, M3, each defined as:
+Mi : Rni →Rdi,
+i = 1, 2, 3.
+These mappings combine into a total mapping:
+Mtotal(X) = f(M1(x1), M2(x2), M3(x3)),
+
+--- PAGE BREAK ---
+
+where X = [x1; x2; x3], with overall input dimensionality
+N = P ni and output dimensionality D = P di. Although
+the supervised learning objective remains as (2), the increased
+complexity, non-linear interactions, and higher dimensionality
+D require larger datasets and more expressive models to
+achieve reliable predictions.
+Table XV summarizes the model-centric comparison for
+homogeneous and heterogeneous circuits. For homogeneous
+circuits, the single-stage mapping M and moderate input
+dimensionality N enable effective training with fewer data
+samples. In contrast, for heterogeneous circuits, the multi-
+stage structure, higher dimensionality N, and intricate interde-
+pendencies necessitate larger datasets or more expressive non-
+linear models to accurately capture the complex interactions.
+VII. CONCLUSION
+This work introduces an ML-based framework for pre-
+dicting circuit parameters from performance specifications,
+addressing both homogeneous and heterogeneous analog and
+RF circuits. The study highlights the impact of model selection
+on prediction accuracy and robustness, with Transformers and
+MLPs demonstrating strong performance in capturing complex
+relationships. Moreover, evaluation metrics, such as mean
+relative error, effectively measured prediction accuracy, while
+results emphasized the importance of aligning models with
+circuit complexities and operational characteristics.
+Future directions include extending the framework to incor-
+porate layout optimization, integrating uncertainty quantifica-
+tion for robust predictions, and exploring generative models to
+generate diverse parameter sets that meet performance specifi-
+cations. This research lays the groundwork for advancing ML-
+driven circuit design, streamlining workflows, and addressing
+the growing complexities of modern electronic systems.
+REFERENCES
+[1] W. Hong, Z. H. Jiang, C. Yu, D. Hou, H. Wang, C. Guo, Y. Hu, L. Kuai,
+Y. Yu, Z. Jiang, Z. Chen, J. Chen, Z. Yu, J. Zhai, N. Zhang, L. Tian,
+F. Wu, G. Yang, Z.-C. Hao, and J. Y. Zhou, “The role of millimeter-
+wave technologies in 5g/6g wireless communications,” IEEE Journal of
+Microwaves, vol. 1, no. 1, pp. 101–122, 2021.
+[2] S. H. Dokhanchi, B. S. Mysore, K. V. Mishra, and B. Ottersten,
+“A mmwave automotive joint radar-communications system,” IEEE
+Transactions on Aerospace and Electronic Systems, vol. 55, no. 3, pp.
+1241–1260, 2019.
+[3] M. Alesheikh, R. Feghhi, F. M. Sabzevari, A. Karimov, M. Hossain, and
+K. Rambabu, “Design of a high-power gaussian pulse transmitter for
+sensing and imaging of buried objects,” IEEE Sensors Journal, vol. 22,
+no. 1, pp. 279–287, 2022.
+[4] P. Tseng, W. Yang, M. Wu, L. Jin, D. Li, E. Low, C. Hsiao, H. Lin,
+K. Yang, S. Shen, C. Kuo, C. Heng, and G. Dehng, “A 55nm saw-
+less nb-iot cmos transceiver in an rf-soc with phase coherent rx and
+polar modulation tx,” in 2019 IEEE Radio Frequency Integrated Circuits
+Symposium (RFIC), 2019, pp. 267–270.
+[5] Y. Guo, Q. Liu, T. Li, N. Deng, Z. Wang, H. Jiang, and Y. Zheng,
+“Cryogenic cmos rf circuits: A promising approach for large-scale
+quantum computing,” IEEE Transactions on Circuits and Systems II:
+Express Briefs, vol. 71, no. 3, pp. 1619–1625, 2024.
+[6] R. Han and E. Afshari, “A cmos high-power broadband 260-ghz radiator
+array for spectroscopy,” IEEE Journal of Solid-State Circuits, vol. 48,
+no. 12, pp. 3090–3104, 2013.
+[7] R. R. Schaller, “Moore’s law: past, present and future,” IEEE spectrum,
+vol. 34, no. 6, pp. 52–59, 1997.
+[8] H. Bong, K. Cho, and Y. Seo, “Automation framework for digital
+circuit design and verification,” in 2022 19th International SoC Design
+Conference (ISOCC), 2022, pp. 263–264.
+[9] V. Vassilev, D. Job, and J. Miller, “Towards the automatic design of
+more efficient digital circuits,” in Proceedings. The Second NASA/DoD
+Workshop on Evolvable Hardware, 2000, pp. 151–160.
+[10] I. M. Elfadel, D. S. Boning, and X. Li, Machine learning in VLSI
+computer-aided design.
+Springer, 2019.
+[11] G. Gielen and R. Rutenbar, “Computer-aided design of analog and
+mixed-signal integrated circuits,” Proceedings of the IEEE, vol. 88,
+no. 12, pp. 1825–1854, 2000.
+[12] P. E. Allen and D. R. Holberg, CMOS analog circuit design.
+Elsevier,
+2011.
+[13] B. Razavi, RF Microelectronics, 2nd ed.
+Prentice Hall Press, 2011.
+[14] K. Hakhamaneshi, N. Werblun, P. Abbeel, and V. Stojanovi´c, “Bagnet:
+Berkeley analog generator with layout optimizer boosted with deep
+neural networks,” in 2019 IEEE/ACM International Conference on
+Computer-Aided Design (ICCAD).
+IEEE, 2019, pp. 1–8.
+[15] K. Settaluri, A. Haj-Ali, Q. Huang, K. Hakhamaneshi, and B. Nikolic,
+“Autockt: deep reinforcement learning of analog circuit designs,” in
+Proceedings of the 23rd Conference on Design, Automation and Test
+in Europe, ser. DATE ’20.
+San Jose, CA, USA: EDA Consortium,
+2020, p. 490–495.
+[16] M. Fayazi, M. T. Taba, E. Afshari, and R. Dreslinski, “Angel: Fully-
+automated analog circuit generator using a neural network assisted
+semi-supervised learning approach,” IEEE Transactions on Circuits and
+Systems I: Regular Papers, 2023.
+[17] H. Wang, K. Wang, J. Yang, L. Shen, N. Sun, H.-S. Lee, and S. Han,
+“Gcn-rl circuit designer: Transferable transistor sizing with graph neural
+networks and reinforcement learning,” in 2020 57th ACM/IEEE Design
+Automation Conference (DAC).
+IEEE, 2020, pp. 1–6.
+[18] D. Krylov, P. Khajeh, J. Ouyang, T. Reeves, T. Liu, H. Ajmal, H. Aghasi,
+and R. Fox, “Learning to design analog circuits to meet threshold
+specifications,” in Proceedings of the 40th International Conference on
+Machine Learning, ser. ICML’23.
+JMLR.org, 2023.
+[19] A. Mehradfar, X. Zhao, Y. Niu, S. Babakniya, M. Alesheikh, H. Aghasi,
+and S. Avestimehr, “AICircuit: A Multi-Level Dataset and Benchmark
+for AI-Driven Analog Integrated Circuit Design,” Machine Learning and
+the Physical Sciences Workshop @ NeurIPS, 2024.
+[20] S. A. Abdelaal, A. Hussein, and H. Mostafa, “A bayesian optimization
+framework for analog circuits optimization,” in 2020 15th International
+Conference on Computer Engineering and Systems (ICCES), 2020.
+[21] S. Zhang, F. Yang, C. Yan, D. Zhou, and X. Zeng, “An efficient
+batch-constrained bayesian optimization approach for analog circuit
+synthesis via multiobjective acquisition ensemble,” IEEE Transactions
+on Computer-Aided Design of Integrated Circuits and Systems, vol. 41,
+no. 1, pp. 1–14, 2022.
+[22] Z. Zhao and L. Zhang, “Deep reinforcement learning for analog circuit
+sizing,” in 2020 IEEE International Symposium on Circuits and Systems
+(ISCAS), 2020.
+[23] B. Razavi, Design of analog CMOS integrated circuits. New York, NY:
+McGraw-Hill Education, 2017.
+[24] A. Abidi, “Cmos wireless transceivers: the new wave,” IEEE Commu-
+nications Magazine, vol. 37, no. 8, pp. 119–124, 1999.
+[25] X. Liu, M. H. Maktoomi, M. Alesheikh, P. Heydari, and H. Aghasi,
+“A 49-63 ghz phase-locked fmcw radar transceiver for high resolution
+applications,” in ESSCIRC 2023- IEEE 49th European Solid State
+Circuits Conference (ESSCIRC), 2023, pp. 509–512.
+[26] X. Li and M. Ismail, Multi-Standard CMOS Wireless Receivers:
+Analysis
+Design.
+Springer
+2002.
+[Online].
+Available:
+https://books.google.com/books?id=OkSi8gSf-4IC
+[27] A. J. L. Martin, “Cadence design environment,” New Mexico State
+University, Tutorial paper, vol. 35, 2002.
+[28] A. Vaswani, N. Shazeer, and et al, “Attention is all you need,” Advances
+in neural information processing systems, vol. 30, 2017.
+[29] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, “Bert: Pre-training
+of deep bidirectional transformers for language understanding,” 2019.
+[30] L. Breiman, “Random forests,” Machine learning, vol. 45, pp. 5–32,
+2001.
+[31] O. Kramer, “K-nearest neighbors,” Dimensionality reduction with unsu-
+pervised nearest neighbors, pp. 13–23, 2013.
+[32] M. Awad, R. Khanna, M. Awad, and R. Khanna, “Support vector regres-
+sion,” Efficient learning machines: Theories, concepts, and applications
+for engineers and system designers, pp. 67–80, 2015.
+[33] J.-P. Vert, K. Tsuda, and B. Sch¨olkopf, “2 a primer on kernel methods,”
+Kernel Methods in Computational Biology, p. 35, 2004.
+[34] D. P. Kingma and J. Ba, “Adam: A method for stochastic optimization,”
+2017.

@@ -1,0 +1,580 @@
+arXiv:1709.07983v1  [cs.IT]  23 Sep 2017
+Full-Duplex Millimeter-Wave Communication
+Zhenyu Xiao, Pengfei Xia, Xiang-Gen Xia
+Abstract
+The potential of doubling the spectrum efﬁciency of full-duplex (FD) transmission motivates us
+to investigate FD millimeter-wave (FD-mmWave) communication. To realize FD transmission in the
+mmWave band, we ﬁrst introduce possible antenna conﬁgurations for FD-mmWave transmission. It is
+shown that, different from the cases in micro-wave band FD communications, the conﬁguration with
+separate Tx/Rx antenna arrays appears more ﬂexible in self-interference (SI) suppression while it may
+increase some cost and area versus that with the same array. We then model the mmWave SI channel with
+separate Tx/Rx arrays, where a near-ﬁeld propagation model is adopted for the line-of-sight (LOS) path,
+and it is found that the established LOS-SI channel with separate Tx/Rx arrays also shows spatial sparsity.
+Based on the SI channel, we further explore approaches to mitigate SI by signal processing, and we
+focus on a new cancellation approach in FD-mmWave communication, i.e., beamforming cancellation.
+Centered on the constant-amplitude (CA) constraint of the beamforming vectors, we propose several
+candidate solutions. Lastly, we consider an FD-mmWave multi-user scenario, and show that even if
+there are no FD users in an FD-mmWave cellular system, the FD beneﬁt can still be exploited in the
+FD base station. Candidate solutions are also discussed to mitigate both SI and multi-user interference
+(MUI) simultaneously.
+Index Terms
+Millimeter wave, mmWave, full duplex, FD, beamforming, SI channel, SI cancellation.
+I. INTRODUCTION
+ILLIMETER-WAVE (mmWave) communication is a promising technology for next-
+generation wireless communication [1]–[4] owing to its abundant frequency spectrum
+resource, which promises a much higher capacity than the existing micro-wave band wireless
+Zhenyu Xiao is with Beihang University.
+Pengfei Xia is with the Key Laboratory of Embedded System and Service Computing, Tongji University.
+Xiang-Gen Xia is with University of Delaware.
+
+--- PAGE BREAK ---
+
+local area networks (WLANs) and cellular mobile communications. In order to bridge the link
+budget gap due to the extremely high path loss in the mmWave band, beamforming with large an-
+tenna arrays are generally required. Subject to expensive radio-frequency (RF) chains, mmWave
+communication adopts particular beamforming structures, i.e., analog beamforming/combining
+is usually preferred for one-stream transmission, where all the antennas share a single RF
+chain and have constant-amplitude (CA) constraint on their weights [1], [4]. Meanwhile, hybrid
+analog/digital precoding/combining has also been proposed to realize multi-stream/multi-user
+transmission [2], [3], where a small number of RF chains are used together with a large antenna
+array with much more number of antenna elements.
+On the other hand, when applying mmWave communication in practice, its beneﬁt may be
+offset by the conventional time division duplex (TDD) or frequency division duplex (FDD). In
+particular, with TDD sufﬁcient Tx/Rx switching guard time should be reserved to make sure
+the Tx/Rx circuits work normally. Moreover, when considering multiple access, there may be
+signiﬁcant protocol overhead [5]. Even for bi-directional point-to-point transmission, there is
+still a lot of handshaking overhead [5]. While with FDD a large guard band should be arranged
+to make sure the interference leakage is small enough. In brief, the conventional TDD/FDD
+may reduce the effective capacity of mmWave communications. For this reason, we explore full
+duplex (FD) for mmWave communications in this paper. FD has received signiﬁcant interest
+in the past decade. Different from TDD/FDD, transmission and reception occur in the same
+time/frequency resource block in FD communication, which may double the spectrum efﬁciency
+[6], [7]. Moreover, FD provides more efﬁcient and ﬂexible access strategies for multiple access
+[7], and may not need handshaking for bi-directional point-to-point transmission, which can
+further increase the practical efﬁciency of mmWave communication.
+However, FD-mmWave communication faces particular challenges. Naturally, the most critical
+issue in FD-mmWave is also self-interference (SI), which is the transmitted signal received by
+the local receiver at the same node and needs to be cancelled. The SI itself as well as SI
+cancellation in FD-mmWave communication has its own features. Firstly, unlike the micro-wave
+band communications, large antenna arrays are generally required in mmWave communication,
+which means that speciﬁc antenna settings are required to enable FD-mmWave transmission.
+This is studied in Section II, where we show that the conﬁguration with separate Tx/Rx arrays
+appears more ﬂexible in SI suppression, while it may increase some cost and area. As using
+antenna Tx/Rx arrays leads to a matrix SI channel, we then model the line-of-sight (LOS)
+
+--- PAGE BREAK ---
+
+
+	
+
+	
+
+
+ !
+ !
+"
+
+	
+
+	
+
+
+ !
+ !
+#$			%
+#$&'			%
+Fig. 1. Possible antenna conﬁgurations of an FD-mmWave node.
+component of the SI channel by exploiting a near ﬁeld signal propagation model in Section III,
+and we show that the LOS-SI channel also demonstrates spatial sparsity when the number of
+antenna elements is large. Based on the SI channel, we next explore signal processing schemes to
+mitigate SI in Section IV, where the spatial sparsity of the SI channel is exploited. In particular,
+we propose a new SI cancellation method termed as beamforming cancellation, which utilizes
+the beamforming functions of the Tx and Rx antenna arrays. In Section V, we further consider
+FD-mmWave communication in a multi-user scenario, and show that the FD beneﬁt can be
+exploited in the FD base station even if there is no FD user. We also discuss possible solutions
+to mitigate both SI and multi-user interference (MUI) at the same time. Lastly, we conclude the
+paper in Section VI.
+II. ANTENNA CONFIGURATION
+The ﬁrst issue that we need to address is antenna conﬁguration for FD-mmWave commu-
+nication. In the mmWave band, the high power consumption of mixed signal components and
+expensive radio-frequency (RF) chains make it difﬁcult to realize digital baseband beamforming
+as used in the conventional multiple-input multiple-output (MIMO) systems. Consequently, an
+analog beamforming/combining structure [1], [4] is generally adopted1. Hence, to enable FD
+transmission in the mmWave band, we introduce two possible antenna conﬁgurations as shown
+1A hybrid analog/digital precoding/combining structure [2], [3] is also frequently used for multi-stream/multi-user transmission.
+
+--- PAGE BREAK ---
+
+in Fig. 1. There are one Tx RF chain and one Rx RF chain in both conﬁgurations. In Fig. 1–(a)
+Tx/Rx share the same antenna array by using circulators. The function of the circulator is to
+separate the Tx signal path from the Rx signal path, and meanwhile let the Tx/Rx signals be
+transmitted/received through the antenna connecting to it. In Fig. 1–(b) Tx/Rx are equipped with
+separate antenna arrays. We compare these two conﬁgurations as follows.
+Firstly, we compare the capability of SI suppression between the two conﬁgurations. For the
+conﬁguration of sharing the same antenna array in Fig. 1–(a), SI is suppressed by a circulator.
+The isolation of a circulator is dependent on the quality of the circulator. In the mmWave band,
+the isolation is still limited in general and needs further improvement. For instance, the isolation
+of the circulator designed in [8] is only 18 dB, less than that in the micro-wave band in general.
+On the other hand, even if the circulator is good enough, the signal transmitted from an arbitrary
+antenna element will also result in signiﬁcant SI to its neighbor antenna elements, because the
+distances between these antenna elements are quite small, basically at a level of the wavelength
+of the carrier. In contrast, with separate antennas as that in Fig. 1–(b), SI can be suppressed
+by blocking the signals between Tx/Rx antenna arrays and/or locating the Tx/Rx antennas far
+away from each other. Moreover, with separate arrays, the parameters of Tx/Rx array positioning
+may also be exploited as additional degrees of freedom to mitigate SI and optimize the system
+performance, as will be discussed in detail later.
+Then, we compare the cost and area of the two conﬁgurations. It is clear that the conﬁguration
+with separate Tx/Rx arrays requires an additional array, while it does not need circulators. It is
+hard to say whether an antenna array or the circulators have higher cost. Even if an antenna
+array has higher cost, it is affordable in general because it is only a small part of the total cost
+of the whole transceiver. In addition to cost, area is also important for an FD device, especially
+for portable devices. Note that in the micro-wave band the size of a micro-wave antenna is
+relatively large [6]. Hence, using sperate Tx/Rx antennas will double the antenna area, which
+may be unfavored for small devices, while sharing the same antennas can save a large area. In
+contrast, in the mmWave band the size of a mmWave antenna is small; thus an additional antenna
+array may occupy only a small area. For instance, for a 4 × 4 uniform planar array (UPA) with
+half wavelength spacing at 30 GHz, the required area is only about 2 × 2 cm2. However, when
+the number of the antenna elements is too large, the required area may be also large.
+In summary, the conﬁguration with separate Tx/Rx arrays appears more ﬂexible in SI sup-
+pression over the one sharing the same array for FD-mmWave communication, while it may
+
+--- PAGE BREAK ---
+
+increase some cost and area for an FD-mmWave device. In the rest of this paper, we will use
+the conﬁguration with separate Tx/Rx arrays for FD-mmWave communication, while the one
+with the same array can be seen as a particular case of the separate arrays from the signaling
+viewpoint, i.e., the two arrays completely coincide with each other.
+III. SI CHANNEL MODELING
+An mmWave SI channel refers to the channel from the local Tx array to the local Rx array at the
+same node. It is different from a mmWave communication channel between two different nodes.
+For comparison, we brieﬂy introduce a mmWave communication channel, which is expected to
+have limited scattering, and multi-path components (MPCs) are mainly generated by a few reﬂec-
+tions, i.e., a mmWave communication channel has spatial sparsity. Different MPCs have different
+angles of departure (AoDs) and angles of arrival (AoAs) [2], [3]. In particular, the communication
+channel from Node 1 to Node 2 can be expressed as HCM = PL
+ℓ=1 λℓa(NAN2, Ωℓ)a(NAN1, ψℓ)H,
+where λℓis the complex coefﬁcient of the ℓ-th path, L is the number of MPCs, a(·) is the
+steering vector function, NAN1 and NAN2 are the numbers of antennas at Node 1 and Node 2,
+respectively, Ωℓand ψℓare cos(AoD) and cos(AoA) (called AoA or AoD in the remaining of
+this paper) of the ℓ-th path, respectively. a(·) depends on the antenna array at Tx/Rx, and if
+uniform linear arrays (ULAs) with half wavelength spacing are adopted, it can be deﬁned as
+a(N, Ω) =
+N [ejπ0Ω, ejπ1Ω, ..., ejπ(N−1)Ω]T, where N is the number of antennas at the Tx or
+Rx, Ωis AoD or AoA. This model implicitly assumes that the distance of the two nodes is far
+greater than the wavelength of the carrier, such that a far-ﬁeld model is adopted.
+In contrast, the far-ﬁeld range condition, i.e., R ≥2D2/λ [9], does not hold in general
+for the LOS component of mmWave SI, where R is the distance between Tx and Rx arrays,
+D is the diameter of the antenna aperture, λ is the wavelength of the carrier. For instance,
+considering a half-wavelength spaced ULA with 32 elements, the far-ﬁeld range should satisfy
+R ≥2(16λ)2/λ = 1024λ, which is basically too large for small-size devices like mobile phones
+or laptops even at the mmWave band. Thus, the SI channel may have to use the near-ﬁeld model,
+which has a spherical wavefront [9]. In such a case, the LOS path of the SI channel is highly
+dependent on the structures and relative positions of the Tx/Rx antenna arrays.
+In addition to the LOS component, there are also non-LOS (NLOS) components for the
+mmWave SI channel, due to the possible reﬂectors near the mmWave device ( see Fig. 2), i.e.,
+HSI = HSI,L + HSI,N. Different from the LOS component, where the direct path between Tx/Rx
+
+--- PAGE BREAK ---
+
+
+
+
+
+Fig. 2. An illustration of Tx/Rx array positioning.
+antennas is short, the propagation distances via the NLOS paths are much longer, and can satisfy
+the far-ﬁeld range condition in general [10]. Hence, the NLOS components may adopt the same
+model as the mmWave communication channel as above introduced. Moreover, compared with
+the LOS components, the NLOS components experience much higher propagation loss as well
+as additional reﬂection loss. Hence, the strength of the NLOS components is much weaker than
+that of the LOS component. For these reasons, we put more attention to the LOS component of
+the mmWave SI channel.
+Without loss of generality, we consider an antenna placement as shown in Fig. 2. The distance
+between the ﬁrst elements of the two arrays is d, and the angle between these two ULAs is ω.
+With this antenna placement, the channel gain between the n-th receive antenna and the m-th
+Tx antenna, i.e., the coefﬁcient corresponding to the n-th row and the m-th column of HSI,L (the
+SI channel matrix with a near-ﬁeld model) is [11], [12] [HSI,L]nm = hnm =
+rnm exp
+ −j2π rnm
+where rnm is the distance between the m-th element of the transmit array and the n-th element
+of the receive array, and ρ is a constant for power normalization.
+Interestingly, although the LOS-SI channel exploits the near-ﬁeld model, from our model
+we ﬁnd that when the number of antenna elements is large, the LOS-SI channel also shows
+spatial sparsity, which is similar to the mmWave communication channel. To show this feature,
+we set the Tx/Rx antenna weight vectors (AWVs) as steering vectors with (cosine) steering
+angles from -1 to 1, and obtain the beamforming gains |a(N, α)HHSI,La(N, β)| with these angle
+combinations. Fig. 3 shows the results, where we can ﬁnd that when the number of antenna
+elements is larger, the angle area, in which the beamforming gain is signiﬁcant w.r.t. the largest
+
+--- PAGE BREAK ---
+
+−0.5
+−0.5
+Rx Cosine Steering Angle
+Tx Cosine Steering Angle
+Beamforming Gain (dB)
+−0.5
+−0.5
+Rx Cosine Steering Angle
+Tx Cosine Steering Angle
+Beamforming Gain (dB)
+Fig. 3. Spatial feature of the mmWave LOS-SI channel, where ω = 0. The number of antenna elements is 8 for both the Tx/Rx
+arrays in the left hand side ﬁgure, while 32 for the right hand side ﬁgure.
+beamforming gain, is smaller. When the number of elements is 32, as shown in the right hand
+side ﬁgure, the LOS-SI channel shows distinct spatial sparsity. In particular, the beamforming
+gain is signiﬁcant only when β −α ≈ω, the angle of the Tx/Rx arrays; otherwise it is small.
+This result implies that most of the SI power is distributed along only a few Tx/Rx steering
+angle pairs. Hence, by steering the Tx/Rx AWVs to other angle pairs, the SI can be efﬁciently
+mitigated provided the number of antennas is sufﬁciently large, and the parameters, e.g., ω, can
+also be optimized for SI cancellation as will be shown later.
+As we can see, a mmWave SI channel can be very complicated, which includes both LOS com-
+ponent with a near-ﬁeld propagation model and NLOS components with a far-ﬁeld propagation
+model. Fortunately, due to the packaging of a portable FD-mmWave device, the propagation
+circumstances within the device are basically stable. For instance, a mobile phone can be
+packaged with a metal shell, which can block the reﬂected mmWave signals from the back
+of the mobile phone and thus prevents the outside objects, e.g., hands, from affecting the SI
+channel. Hence, in general a mmWave SI channel can be seen slow-varying. As a consequence,
+we usually have enough time to make an accurate mmWave SI channel estimation.
+
+--- PAGE BREAK ---
+
+IV. SI CANCELLATION
+A. SI Cancellation in FD-mmWave Communication
+As SI is still signiﬁcant in FD-mmWave communication even with separate Tx/Rx antenna
+arrays, we need to mitigate it as much as possible. In the existing micro-wave band FD systems,
+antenna cancellation, which suppresses signals between Tx/Rx antennas, RF cancellation, which
+subtracts SI in the RF domain, and baseband cancellation, which mitigates residual SI in the
+baseband, are three typical methods to cancel SI, and a combination of them usually achieves
+better performance [6], [7].
+For FD-mmWave communication, SI cancellation has its particular challenges. Due to the
+high frequency and wide band signals, the RF impairments are usually more signiﬁcant than
+those in the micro-wave band, including power ampliﬁer (PA) nonlinearity, in phase-quadrature
+(IQ) mismatch, phase noise, etc. These RF impairments will be embedded in SI and can only be
+effectively mitigated in RF and antenna cancellations [7], since to cancel these impairments in
+the baseband is difﬁcult due to the unknown impairment parameters. Unfortunately, in mmWave
+communications, RF design faces particular challenges due to the high frequency and wide band
+signals, which means that the parameter design for RF cancellation may be inaccurate, and
+thus probably only a small part of SI can be reduced by RF cancellation. Moreover, within a
+small portable devices Tx/Rx antenna cancellation can also only mitigate limited SI. Hence,
+FD-mmWave communication must seek for other efﬁcient SI cancellation methods.
+Fortunately, in addition to the three typical SI cancellation methods, the inherent beamform-
+ing structure of mmWave communication enables another important approach to mitigate SI,
+i.e., beamforming cancellation. In fact, without considering the CA constraint of mmWave
+communication, the beamforming technology can even completely cancel SI, including Tx RF
+impairments, by using the zero-forcing (ZF) ﬁltering. In [13] it is shown that with unconstrained
+beamforming, FD-mmWave communication can achieve promising performance. However, under
+the CA constraint, the SI may not be completely mitigated, and it becomes a challenge for FD-
+mmWave communication to mitigate SI under the CA constraint. We focus on this issue in the
+following subsections.
+B. Constant-Amplitude Beamforming Cancellation
+Subject to the CA constraint, in regular mmWave communication analog beamforming/combining
+is generally realized by steering the Tx AWV and Rx AWV to the AoD and AoA of the strongest
+
+--- PAGE BREAK ---
+
+MPC, such that high array gain can be achieved. However, this method may not be viable in
+FD-mmWave communication, where strong SI may exist. In other words, the conventional Tx/Rx
+AWV settings may not be able to effectively reduce SI, although they can achieve a higher array
+gain. As a result, the overall signal-to-interference plus noise power ratio (SINR) may be not high,
+as pointed out in [10]. Hence, in FD-mmWave communication SI driven beamforming/combining
+must be considered. The problem of CA beamforming cancellation (CA-BFC) is challenging,
+because the objective function, e.g., the achievable sum rate (ASR) of the two nodes in an FD
+link, is usually complicated and non-concave due to the SI. Moreover, the CA constraints of the
+Tx/Rx AWVs are also non-concave/convex.
+While it is difﬁcult to ﬁnd an optimal solution of CA-BFC, it is interesting and with sig-
+niﬁcance to ﬁnd suboptimal solutions with low computational complexity. Here we discuss
+some preliminary solutions. Intuitively, as there are only phase uncertainty for each element
+of the Tx/Rx AWVs under the CA constraints, we may search from 0 to 2π for each element.
+Theoretically, provided small enough step size, an optimal solution can be found. However, as the
+numbers of antennas are large in general, the exhaustive search method is basically infeasible due
+to exhibitively high computational complexity. Hence, we propose the following two candidate
+methods:
+• Method 1: To restrict the Tx/Rx AWVs to the steering vector space, i.e., we assume that
+the Tx/Rx AWVs are all steering vectors and have uncertainty only on the steering angles.
+Under this assumption, we can search over the steering angle spaces of the Tx/Rx AWVs
+and ﬁnd the best steering angles for them to optimize the object. This method is viable just
+because that the mmWave SI channel also has spatial sparsity, as shown in Section III.
+• Method 2: To ﬁrst ﬁnd AWVs by solving the CA-BFC problem without considering the
+CA constraints, and then ﬁnd AWVs that satisfy the CA constraints and have the minimal
+Euclidean distances from the already found AWVs.
+The left hand side ﬁgure of Fig. 4 shows ASR comparison between different schemes in an
+FD-mmWave communication system. The upper bound is obtained by assuming that SI is zero
+and there are no CA constraints. The “Beam Steering” method is to simply set Tx/Rx AWVs to
+steer along a strong MPC without considering the SI, which is a typical beamforming method
+used for regular mmWave communication. “Angle Search” refers to Method 1. To use Method 2,
+we adopt ZF-Matched Filter (ZF-MF) to obtain the beamforming vectors, and then add the CA
+
+--- PAGE BREAK ---
+
+SNR (dB)
+Achievable Sum Rate (bits/s/Hz)
+Upper Bound
+Beam Steering
+Angle Search (Method 1)
+ZF−MF with CA  (Method 2)
+ZF−MF without CA
+SNR (dB)
+Achievable Sum Rate (bits/s/Hz)
+ω = 0
+ω = π/4
+ω = π/2
+ω = 3π/4
+ω = π
+Effect of CA is
+very significant
+Fig. 4.
+Left: Achievable sum rate comparison between different beamforming schemes in an FD-mmWave communication
+system, where for each scheme the numbers of Tx and Rx antennas are 16 and 8, respectively, ω = π and d/λ = 5. Right:
+Achievable sum rate comparison of Angle Search with varying ω, where the number of Tx and Rx antennas is 16 at both nodes,
+d/λ = 1. In both ﬁgures the signal/noise powers are the same at the two nodes, and the SI is 25 dB w.r.t. the signal power.
+constraints according to Method 2. ZF-MF is a linear beamforming algorithm which performs
+MF at the Tx ﬁrst and then performs ZF at the Rx.
+From the left hand side ﬁgure of Fig. 4 we can observe that a conventional beamforming
+approach (Beam Steering) which does not take SI into account cannot achieve a satisfactory
+performance. In addition, although the simple Angle Search and ZF-MF with CA methods are
+viable, there is a signiﬁcant performance gap from the upper bound, which means that these two
+methods may better work in low SI cases; when SI is strong (as shown in the ﬁgure), these two
+methods need to work together with other SI cancellation methods, like antenna cancellation
+or baseband cancellation. Meanwhile, more efﬁcient methods are in demand to deal with the
+SI under the CA constraint. In fact, it is just the CA constraint that limits the performance of
+Method 2. Without the CA constraint, ZF-MF can achieve a performance close to the upper
+bound.
+On the other hand, we’ve mentioned in Section III that the SI channel also has spatial sparsity,
+which can be exploited to design methods to mitigate SI, e.g., the Angle Search method. As we
+can expect, the Tx/Rx array positions may signiﬁcantly affect the performance of this category
+of methods. The right hand side ﬁgure of Fig. 4 shows the ASR comparison of Angle Search
+
+--- PAGE BREAK ---
+
+with varying ω. It is clear that ω can dramatically affect the performance, and thus may be
+considered as another degree of freedom to optimize the ASR. It is noteworthy that different
+methods may favor different ω.
+C. Beamforming Cancellation with Double RF Chains
+We’ve seen that the CA constraints greatly limit the performance of beamforming cancellation.
+If we can ﬁnd an approach to remove or avoid the CA constraints, beamforming cancellation
+can become very promising even without the need to work together with other SI cancellation
+methods [13]. Fortunately, the work in [14] provides a great opportunity to realize this. It is
+shown in [14] that an arbitrary vector v can be expressed as the linear combination of two CA
+vectors, i.e., v = β1v1 +β2v2, where β1 and β2 are coefﬁcients, v1 and v2 are CA vectors2. This
+result implies that by doubling the number of Tx/Rx RF chains, although CA constraint holds
+on each RF chain, the equivalent beamforming vector v does not exhibit the CA constraint any
+more, and thus ZF-MF without CA in the left hand side ﬁgure of Fig. 4 can be realized.
+The left hand side ﬁgure of Fig. 5 shows the structure with double Tx/Rx RF chains in an FD-
+mmWave node with separate Tx/Rx arrays. The Tx/Rx arrays are driven by the two independent
+Tx/Rx RF chains with CA AWVs. An additional Tx/Rx RF chain increases an additional degree
+of freedom to control the AWV, and thus the CA constraint does not appear or is circumvented
+in the beamforming cancellation, according to the result achieved in [14]. On the other hand,
+doubling the Tx/Rx RF chains may also increase the cost and power consumptions of an FD-
+mmWave node. Fortunately, as shown in the ﬁgure, the two Tx/Rx RF chains can share the
+same up/down-convertor, power ampliﬁers (PAs), and low-noise ampliﬁers (LNAs); hence the
+cost and power consumptions may not increase much.
+V. MULTI-USER SCENARIO
+A. Beneﬁt of FD Transmission
+In the previous section we mainly discuss point-to-point FD-mmWave transmission, which can
+be used for wireless backhaul link where bi-directional high data rate is required. In this section,
+we discuss the beneﬁt of FD-mmWave communication in a multi-user scenario, where a base
+2In fact, this result can be extended to multi-stream transmission, i.e., an equivalent fully-digital N-stream precoding can be
+realized provided 2N RF chains with CA constraints in mmWave communications [14].
+
+--- PAGE BREAK ---
+
+
+	
+
+
+	
+
+	
+
+	
+
+
+
+	
+		
+	 !"#$
+	%""!	
+
+
+	
+
+	
+
+	
+
+
+		
+
+	
+		
+
+	
+
+
+	
+			
+Fig. 5. Left: FD-mmWave communication with double Tx/Rx RF chains. Right: An FD hybrid precoding structure for the BS.
+station (BS) serves multiple users. Apparently, with FD transmission the multi-user capacity can
+be greatly improved, because the achievable rate of each user can be almost doubled. In practice,
+however, this beneﬁt may be offset, since in some cases one user does not need to transmit and
+receive simultaneously. For instance, when we make a call, we basically do not speak much
+when we are listening. Fortunately, with multiple users the BS can still sufﬁciently exploit the
+FD beneﬁt most of the time, by receiving from some users while transmitting to some other
+users at the same time.
+The left hand side ﬁgure of Fig. 6 shows a typical FD-mmWave multi-user scenario, where
+an FD BS serves multiple users simultaneously. It is noteworthy that within these users, there
+are FD users, like User 2, as well as half-duplex (HD) users, like User 1 and User 3. An FD
+user has the antenna setting shown in Fig. 1, while an HD user can only perform conventional
+mmWave beamforming, either Tx or Rx, but cannot perform FD Tx/Rx beamforming. In a
+conventional mmWave multi-user scenario, a mmWave BS usually exploits a hybrid precoding
+structure [15] to serve multiple users with spatial division multiple access (SDMA). Thus, in an
+FD-mmWave multi-user scenario, an FD-mmWave BS needs to exploit an FD hybrid precoding
+structure shown in the right hand side ﬁgure of Fig. 5, where MRF Tx RF chains share the
+same Tx array and NRF Rx RF chains share the same Rx array. With this structure, the BS can
+transmit data to MRF parallel users and meanwhile receives data from NRF parallel users by
+using both SDMA and FD transmission.
+
+--- PAGE BREAK ---
+
+
+
+
+!"
+SNR (dB)
+Sum Achievable Rate
+ZF−MF−Muser with CA, K=2
+Angle Search−Muser, K=2
+ZF−MF−Muser without CA, K=2
+ZF−MF−Muser with CA, K=4
+Angle Search−Muser, K=4
+ZF−MF−Muser without CA, K=4
+Fig. 6. Left: An FD-mmWave multi-user scenario, where an FD-mmWave BS serves multiple users, including FD users and
+half-duplex (HD) users. Right: Achievable sum rate comparison under a multi-user FD-mmWave scenario, where one BS serves
+K FD users. For all the users and the BS, the number of Tx and Rx antennas is 16. ω = π/8, d/λ = 5, and the SI is 20 dB
+w.r.t. the signal power.
+As shown in the left hand side ﬁgure of Fig. 6, at the same time and the same frequency
+band, the BS can serve the three users simultaneously. In particular, the BS transmits data to
+Users 1 and 2, and distinguishes them by SDMA, meanwhile the BS receives data from Users 2
+and 3, and also distinguishes them by SDMA. From this scenario we can ﬁnd that even if there
+is no FD users in practice, the FD-mmWave BS can still exploit the FD beneﬁt by transmitting
+data to some users (like User 1) while at the same time receiving data from some other users
+(like User 3).
+B. Interference Mitigation
+The FD-mmWave multi-user communication does not achieve the FD beneﬁt for no cost.
+Instead, the FD-mmWave BS must face more complicated interference management. It is known
+that in conventional mmWave multi-user systems hybrid precoding must be exploited to mitigate
+multi-user interference (MUI) and meanwhile achieve array gains for multiple users [15]. In an
+FD-mmWave multi-user system, the BS must deal with both MUI and SI and meanwhile achieve
+array gains, which is called FD hybrid precoding in this paper.
+Firstly, let us see the SI at the FD-mmWave BS. Unlike the point-to-point case discussed
+in the previous section and shown in Fig. 1, where the SI only contains one single Tx data
+stream, under the multi-user scenario, the SI may include multiple independent Tx data streams
+
+--- PAGE BREAK ---
+
+for multiple downlink users, which means that the SI becomes multi-dimensional. Appropriate
+Tx/Rx AWVs must be designed to handle the multi-dimensional SI in addition to the MUI.
+On the other hand, subject to the particular antenna structure in the FD-mmWave BS, the
+precoding matrix (also the combining matrix) has to be decomposed into the product of a
+digital matrix and an analog matrix, which correspond to digital precoding and analog precoding,
+respectively [15]. The analog matrix has the CA constraints, which challenges the interference
+mitigation. In fact, in a conventional mmWave multi-user scenario, where there is only MUI but
+no SI, the CA constraints already make the mitigation of MUI difﬁcult. For instance, in [15]
+an approach was proposed to ﬁrst perform BS-user analog beamforming one by one without
+considering MUI in analog precoding, and then try to mitigate MUI in digital precoding where
+there is no CA constraint. This approach can achieve good performance, because the BS-user
+analog beamforming basically induces little MUI due to the spatial sparsity of the mmWave
+channel. For this reason, this approach may be also used for the FD hybrid precoding here. In
+particular, we may ﬁrst perform BS-user analog beamforming by exploiting Method 1 or Method
+2 in the previous section, and then design digital precoding and combining matrices to mitigate
+MUI and the residual SI. In fact, considering that the SI channel also has the property of spatial
+sparsity, as introduced in Section III, the spatially sparse precoding [2], which formulates the
+hybrid precoding problem as a sparse reconstruction problem and solves it with the principle of
+basis pursuit, can be also exploited to solve the FD hybrid precoding problem.
+In addition, in the case that the system complexity is affordable, the method to double the
+number of Tx/Rx RF chains to remove the CA constraints in the previous section can be also
+applied in the FD-mmWave BS. In particular, the FD-mmWave BS may be equipped with 2NRF
+Rx RF chains and 2MRF Tx RF chains to serve NRF uplink users and MRF downlink users
+simultaneously. In such a case, the CA constraints will not appear in the beamforming cancel-
+lation according to the results in [14], and we can perform fully digital precoding/combining
+to mitigate SI and MUI, which is much more ﬂexible than the hybrid precoding/combining. In
+the case when the system complexity is limited that the BS can only be equipped with MRF Tx
+RF chains (and NRF Rx RF chains), there is a tradeoff between using these RF chains to serve
+MRF downlink users with CA constraints and serving MRF/2 downlink users but with the CA
+constraints circumvented. Channel conditions would determine which one is better.
+The right hand side ﬁgure of Fig. 6 shows a preliminary comparison of achievable sum
+rate under a multi-user FD-mmWave scenario, where ZF-MF-Muser refers to the scheme that
+
+--- PAGE BREAK ---
+
+uses ZF-MF (cf. Section IV-B) between the BS and each user for SI cancellation, while Angle
+Search-Muser refers to the scheme that uses Angle Search (cf. Section IV-B) between the BS and
+each user for SI cancellation. The MUI is simply mitigated by using ZF ﬁltering in the digital
+beamforming after SI cancellation. From this ﬁgure we can see that due to the CA constraint,
+the SI and MUI may not be completely cancelled, as there are performance ﬂoors for both
+ZF-MF-Muser and Angle Search-Muser at the high SNR regime. Hence, more efﬁcient methods
+are in demand to deal with the SI and MUI under the CA constraint. When the CA constraint
+is not considered, the performance can be greatly improved, which indicates that the method of
+doubling the number of Tx/Rx RF chains is also effective for the multi-user scenario.
+VI. CONCLUSIONS
+In this paper, we have explored the potential of FD-mmWave communication. We have
+ﬁrst designed antenna conﬁgurations for FD-mmWave transmission, and compared two typical
+settings, i.e., with separate Tx/Rx arrays or with the same array. It is shown that, different
+from the cases in the conventional micro-wave band FD communications, the conﬁguration with
+separate Tx/Rx arrays provides ﬂexibility to mitigate SI with signal processing methods, while
+it may increase some cost and area versus that with the same array. We then have modeled the
+mmWave SI channel, where a near-ﬁeld propagation model was exploited to model the LOS
+component, and we ﬁnd that the mmWave LOS-SI path also shows spatial sparsity, which is
+similar to the mmWave communication channel and can be used for SI mitigation.
+Afterwards, as RF cancellation may not achieve satisfactory performance in mmWave com-
+munication, we have explored a new approach to mitigate SI by spatial signal processing, i.e.,
+beamforming cancellation. With the structure constraints of mmWave beamforming taken into
+account, we have proposed several candidate solutions. Results show that the CA constraints lead
+to a signiﬁcant performance loss, and thus more efﬁcient algorithms are in demand. Moreover,
+the CA constraint can be circumvented in the beamforming cancellation by doubling the number
+of Tx/Rx RF chains, and in such a case beamforming cancellation can achieve much better
+performance. Lastly, we have considered an FD-mmWave multi-user scenario, and showed that
+even if there are no FD users in an FD-mmWave cellular system, the FD beneﬁt can still be
+exploited in the FD BS. However, interference cancellation is more stringent in this scenario,
+because there are both SI and MUI. We have also proposed two candidate solutions for this
+scenario, which either to disregard the multi-user interference or the CA constraints ﬁrst to
+
+--- PAGE BREAK ---
+
+simplify the hybrid precoding problem. In addition, the approach of doubling the number of RF
+chains may be also viable here provided that the complexity is affordable.
+REFERENCES
+[1] P. Xia, R. W. Heath, and N. Gonzalez-Prelcic, “Robust analog precoding designs for millimeter wave MIMO transceivers
+with frequency and time division duplexing,” IEEE Transactions on Communications, vol. 64, no. 11, pp. 4622–4634, Nov
+2016.
+[2] A. Alkhateeb, J. Mo, N. Gonz´alez-Prelcic, and R. Heath, “MIMO precoding and combining solutions for millimeter-wave
+systems,” IEEE Communications Magazine, vol. 52, no. 12, pp. 122–131, Dec. 2014.
+[3] S. Sun, T. S. Rappaport, R. Heath, A. Nix, and S. Rangan, “MIMO for millimeter-wave wireless communications:
+beamforming, spatial multiplexing, or both?” IEEE Communications Magazine, vol. 52, no. 12, pp. 110–121, Dec. 2014.
+[4] Z. Xiao, T. He, P. Xia, and X.-G. Xia, “Hierarchical codebook design for beamforming training in millimeter-wave
+communication,” IEEE Transactions on Wireless Communications, no. 5, pp. 3380–3392, May 2016.
+[5] S. K. Yong, P. Xia, and A. Valdes-Garcia, 60GHz Technology for Gbps WLAN and WPAN: from Theory to Practice.
+West
+Sussex, UK: Wiley, 2011.
+[6] D. Bharadia, E. McMilin, and S. Katti, “Full duplex radios,” in Special Interest Group on Data Communication
+(SIGCOMM).
+Hong Kong, China: ACM, 2013.
+[7] A. Sabharwal, P. Schniter, D. Guo, D. Bliss, S. Rangarajan, and R. Wichman, “In-band full-duplex wireless: challenges
+and opportunities,” IEEE Journal on Selected Areas in Communications, vol. 32, no. 9, pp. 1637–1652, Sept 2014.
+[8] T. Kijsanayotin and J. F. Buckwalter, “Millimeter-wave dual-band, bidirectional ampliﬁer and active circulator in a CMOS
+SOI process,” IEEE Transactions on Microwave Theory and Techniques, vol. 62, no. 12, pp. 3028–3040, 2014.
+[9] A. J. Fenn, “Evaluation of adaptive phased array antenna, far-ﬁeld nulling performance in the near-ﬁeld region,” IEEE
+Transactions on Antennas and Propagation, vol. 38, no. 2, pp. 173–185, Feb. 1990.
+[10] L. Li, K. Josiam, and R. Taori, “Feasibility study on full-duplex wireless millimeter-wave systems,” in 2014 IEEE
+International Conference on Acoustics, Speech and Signal Processing (ICASSP), May 2014, pp. 2769–2773.
+[11] Y.-P. Liao, H. Han, and Q. Guo, “Design of robust near-ﬁeld multi-beam forming based on improved LCMV algorithm,”
+Journal of Information Hiding and Multimedia Signal Processing, vol. 6, no. 4, pp. 783–791, July 2015.
+[12] J.-r. Lin, Q.-c. Peng, and H.-z. Shao, “Near-ﬁeld robust adaptive beamforming based on worst-case performance
+optimization,” International journal of electrical and computer engineering, vol. 1, no. 6, 2006.
+[13] X. Liu, Z. Xiao, L. Bai, J. Choi, P. Xia, and X.-G. Xia, “Beamforming based full-duplex for millimeter-wave
+communication,” Sensors, vol. 16, no. 7, pp. 1–22, July 2016.
+[14] F. Sohrabi and W. Yu, “Hybrid digital and analog beamforming design for large-scale MIMO systems,” in IEEE
+International Conference on Acoustics, Speech and Signal Processing (ICASSP).
+South Brisbane, QLD: IEEE, 2015,
+pp. 2929–2933.
+[15] A. Alkhateeb, G. Leus, and R. W. Heath, “Limited feedback hybrid precoding for multi-user millimeter wave systems,”
+IEEE Transactions on Wireless Communications, vol. 14, no. 11, pp. 6481–6494, 2015.

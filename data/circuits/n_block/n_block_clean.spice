@@ -1,0 +1,4 @@
+.subckt N_BLOCK VIN VOUT VX VSS
+XM1 VX   VIN VOUT VSS nfet_03v3 w=6 l=0.5 m=1
+XM2 VOUT VX  VSS  VSS nfet_03v3 w=3 l=0.5 m=1
+.ends N_BLOCK
