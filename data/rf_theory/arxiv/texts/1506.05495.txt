@@ -1,0 +1,1937 @@
+Draft version September 23, 2015
+Preprint typeset using LATEX style emulateapj v. 5/2/11
+LEO P: AN UNQUENCHED VERY LOW-MASS GALAXY*
+Kristen B. W. McQuinn1,2, Evan D. Skillman1, Andrew Dolphin3, John M. Cannon4, John J. Salzer5, Katherine
+L. Rhode5, Elizabeth A. K. Adams6, Danielle Berg1,7, Riccardo Giovanelli8, L´eo Girardi9, Martha P. Haynes8
+(Accepted ApJ July 2015)
+Draft version September 23, 2015
+ABSTRACT
+Leo P is a low-luminosity dwarf galaxy discovered through the blind Hi Arecibo Legacy Fast ALFA
+(ALFALFA) survey. The Hi and follow-up optical observations have shown that Leo P is a gas-rich
+dwarf galaxy with active star formation, an underlying older population, and an extremely low oxygen
+abundance. We have obtained optical imaging with the Hubble Space Telescope to two magnitudes
+below the red clump in order to study the evolution of Leo P. We reﬁne the distance measurement
+to Leo P to be 1.62 ± 0.15 Mpc, based on the luminosity of the horizontal branch stars and 10 newly
+identiﬁed RR Lyrae candidates. This places the galaxy at the edge of the Local Group, ∼0.4 Mpc
+from Sextans B, the nearest galaxy in the NGC 3109 association of dwarf galaxies of which Leo P
+is clearly a member. The star responsible for ionizing the Hii region is most likely an O7V or O8V
+spectral type, with a stellar mass ≳25 M⊙. The presence of this star provides observational evidence
+that massive stars at the upper-end of the initial mass function are capable of being formed at star
+formation rates as low as ∼10−5 M⊙yr−1. The best-ﬁtting star formation history derived from the
+resolved stellar populations of Leo P using the latest PARSEC models shows a relatively constant star
+formation rate over the lifetime of the galaxy. The modeled luminosity characteristics of Leo P at early
+times are consistent with low-luminosity dSph Milky Way satellites, suggesting that Leo P is what a
+low-mass dSph would look like if it evolved in isolation and retained its gas. Despite the very low mass
+of Leo P, the imprint of reionization on its star formation history is subtle at best, and consistent with
+being totally negligible. The isolation of Leo P, and the total quenching of star formation of Milky
+Way satellites of similar mass, implies that local environment dominates the quenching of the Milky
+Way satellites.
+Subject headings: galaxies: dwarf – galaxies: distances and redshifts – galaxies: photometry – galaxies:
+stellar content – galaxies: fundamental parameters – galaxies: evolution
+1. INTRODUCTION
+1.1. Evolution of Very Low-Mass Galaxies
+Galaxies at the faint-end of the luminosity function
+(LF) have provided vital tests for our understanding of
+structure formation and evolution. The dearth of both
+observable low-mass dwarf galaxies (“missing satellite
+problem”; e.g., Kauﬀmann et al. 1993; Klypin et al. 1999;
+* Based on observations made with the NASA/ESA Hubble
+Space Telescope, obtained from the Data Archive at the Space
+Telescope Science Institute, which is operated by the Association
+of Universities for Research in Astronomy, Inc., under NASA
+contract NAS 5-26555.
+1 Minnesota Institute for Astrophysics, School of Physics and
+Astronomy, 116 Church Street, S.E., University of Minnesota,
+Minneapolis, MN 55455; kmcquinn@astro.umn.edu
+2 University of Texas at Austin, McDonald Observatory, 2515
+Speedway, Stop C1402, Austin, Texas 78712
+3 Raytheon Company, 1151 E. Hermans Road, Tucson, AZ
+85756
+4 Department of Physics and Astronomy, Macalester College,
+1600 Grand Avenue, Saint Paul, MN 55105
+5 Department of Astronomy, Indiana University, 727 East 3rd
+Street, Bloomington, IN 47405
+6 ASTRON, the Netherlands Institute for Radio Astronomy,
+Postbus 2, 7990 AA, Dwingeloo, The Netherlands
+7 Center for Gravitation, Cosmology and Astrophysics, De-
+partment of Physics, University of Wisconsin Milwaukee, 1900
+East Kenwood Boulevard, Milwaukee, WI 53211
+8 Center for Radiophysics and Space Research, Space Sciences
+Building, Cornell University, Ithaca, NY 14853
+9 Osservatorio
+Astronomico
+Padova,
+INAF,
+Vicolo
+dell’Osservatorio 5, I-35122 Padova, Italy
+Moore et al. 1999) and of higher surface brightness dwarf
+galaxies (“too big to fail”; Boylan-Kolchin et al. 2011)
+compared to simulations based on the ΛCDM model
+has proven to be a multi-decade challenge. These issues
+have been partly alleviated with higher resolution simu-
+lations that include more baryonic eﬀects (e.g., Brooks
+et al. 2013; Ben´ıtez-Llambay et al. 2014; Sawala et al.
+2015; O˜norbe et al. 2015). In addition, large sky surveys
+have detected an increasing number of satellite systems,
+providing progressively better agreement between theory
+and observations for the missing satellite problem (e.g.,
+Koposov et al. 2015). While these results have reduced
+the inconsistencies, future revisions to structure forma-
+tion theories will undoubtedly be anchored by observa-
+tional constraints from studies of very low-mass systems.
+Furthermore, galaxies at the faint-end of the LF are
+broadening our understanding of star formation and
+galaxy evolution. The star formation properties of gas-
+rich, low-mass galaxies encompass a larger range of pa-
+rameters for a given stellar mass than more massive,
+“main-sequence” galaxies (Brinchmann et al. 2004; Both-
+well et al. 2009; Huang et al. 2012; McQuinn et al.
+2015b). It is unclear whether this is due to an inher-
+ently stochastic star formation process at low molecular
+gas column densities and metallicities, or to a variation
+in the primary processes that regulate star formation.
+In the nearby Universe, much work has been done to
+understand the evolutionary history of the rich popula-
+tion of nearby low-mass galaxies (e.g., Skillman et al.
+arXiv:1506.05495v2  [astro-ph.GA]  21 Sep 2015
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+Figure 1. Three-color HST image of Leo P showing both the main star forming complex and underlying older stellar population extending
+to greater radii. The image was created by combining the F475W band image (Blue), the average of F475W and F814W band images
+(Green), and the F814W band image (Red). The ﬁeld of view shown here is approximately 3.1′×1.8′. Note the dither pattern used did
+not cover the chip gap which is visible across the top of the image.
+1989; Hunter & Elmegreen 2004; Begum et al. 2008; Lee
+et al. 2009; Dalcanton et al. 2009; McQuinn et al. 2010;
+Weisz et al. 2011; Cannon et al. 2011; McConnachie 2012;
+Hunter et al. 2012; Lelli et al. 2014; Weisz et al. 2014a;
+Boyer et al. 2015a,b; McQuinn et al. 2015b,a, among
+others). The interpretations are often complicated be-
+cause relative diﬀerences between low-mass galaxies can
+depend signiﬁcantly on large-scale environmental dif-
+ferences.
+This latter factor is often described as the
+morphology-density relation, or the prevalence of gas-
+poor dwarfs (i.e., dwarf spheroidals or dSphs) to be lo-
+cated in higher galactic density environments whereas
+gas-rich dwarfs (i.e., dwarf irregulars or dIrrs) are pre-
+dominantly found in lower density ﬁeld environments
+(e.g., Einasto et al. 1974; Binggeli 1987; van den Bergh
+1994; Cˆot´e et al. 2009). The closest (and most accessible)
+low-mass galaxies are coevolving with the Milky Way,
+and thus disentangling the impact of the internal versus
+external evolutionary processes is a signiﬁcant challenge.
+Ideally, one could study the properties of a low-mass sys-
+tem located outside of a group environment. While such
+low-mass, low-luminosity systems are expected to be nu-
+merous, they have generally eluded detection outside of
+the immediate vicinity in the Local Group (LG) due to
+their faint and sometimes low surface brightness nature.
+An exception is Leo P, a low-luminosity (MV = −9.27
+mag), gas-rich galaxy discovered just outside the zero-
+velocity boundary of the LG. Leo P’s combined proper-
+ties of extremely low stellar mass (5.6 × 105 M⊙) and
+metallicity (3% solar), signiﬁcant gas content (8.1 × 105
+M⊙), proximity (1.62 Mpc), and isolation (0.4 Mpc from
+its nearest neighbor and outside of any group environ-
+ment) present a unique test for our understanding of both
+structure formation and galaxy evolution. Comparable
+in luminosity to some of the dSph satellites of the Milky
+Way and a few of the dIrrs inside the LG, Leo P pro-
+vides an opportune target for studying evolution at the
+faint end of the LF in a simpliﬁed system. Not only are
+many complex variables eliminated (e.g., tidal and ram
+pressure stripping, signiﬁcant possible merger events, etc.
+that are present in the majority of galaxies detected in
+this luminosity regime), but Leo P crosses over into the
+mass regime where (i) theories of structure formation
+predict diﬃculty in galaxies retaining their baryons due
+to stellar feedback processes (e.g., Larson 1974; Dekel
+& Silk 1986; Mac Low & Ferrara 1999; Ferrara & Tol-
+stoy 2000) and (ii) theories of the impact of reionization
+predict the photo-evaporization of the gas content and a
+sudden and irrevocable quenching of star formation (e.g.,
+Babul & Rees 1992; Efstathiou 1992; Thoul & Weinberg
+1996).
+In this work, we present a detailed study of the star
+formation history (SFH) and evolution of Leo P using
+HST optical imaging of Leo P that reaches ∼2 mag be-
+low the red clump (RC). In Section 2 we discuss the
+observations, data reduction, and variable star identiﬁ-
+cation. In Section 3, we reﬁne the distance measurement
+to Leo P using analysis of horizontal branch (HB) stellar
+populations and variable stars. In Section 4, we describe
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+the methodology for deriving the best-ﬁtting SFH, and
+in Section 5 we present measurements of the SFH and
+chemical evolution of Leo P. In Section 6 we present a
+comparison of the evolution of Leo P with previously
+studied Milky Way dSph galaxy satellites and three LG
+dIrrs. Our conclusions are summarized in Section 7.
+1.2. A Brief Synopsis of Leo P
+Leo P (AGC 208583; Giovanelli et al. 2013) was dis-
+covered through the Arecibo Legacy Fast ALFA survey
+(ALFALFA; Giovanelli et al. 2005; Haynes et al. 2011).
+The ALFALFA survey is a blind extragalactic survey in
+the Hi 21 cm line covering over 7000 square degrees of
+high Galactic latitude sky.
+Follow-up optical observa-
+tions at the location of the ALFALFA Hi detection, in-
+cluding WIYN 3.5m BVR and KPNO 2.1m Hα imaging,
+conﬁrmed the presence of both a resolved stellar popula-
+tion and a single Hii region (Rhode et al. 2013).
+Optical spectroscopy of the Hii region enabled a direct
+measurement of the auroral [O III] λ4363 line, yielding an
+oxygen abundance of 12 + log(O/H) = 7.17±0.04 (Skill-
+man et al. 2013), ∼3% Z⊙(based on a solar abundance
+of 12 + log(O/H) = 8.68; Asplund et al. 2009). This
+abundance measurement showed that Leo P is the low-
+est metallicity, gas-rich galaxy known in the Local Vol-
+ume. Its properties are consistent with the luminosity-
+metallicity relationship in Berg et al. (2012).
+Deeper optical imaging of the resolved stellar popula-
+tions from the Large Binocular Telescope (LBT) enabled
+a distance measurement based on the tip of the red giant
+branch (TRGB) detection of 1.72+0.14
+−0.40 (McQuinn et al.
+2013). The large lower uncertainty is due to the sparse-
+ness of the red giant branch (RGB) stars in such a low-
+mass galaxy. This distance measurement placed Leo P
+just outside the zero velocity boundary of the LG.
+Hi spectral line imaging from the VLA shows a small
+amplitude rotation (Vc = 15 ± 5 km s−1), with no obvi-
+ous signs of interaction or in-falling gas at larger spatial
+scales (Bernstein-Cooper et al. 2014).
+These observa-
+tions revealed that Leo P has one of the lowest neutral
+gas mass of any known low-metallicity dwarf, with a mass
+ratio of gas to stars of 2 : 1 and total mass to baryonic
+mass of > 15 : 1. Follow-up high-sensitivity observations
+with CARMA of the CO (J= 1 →0) transition did not
+detect any CO emission, but placed stringent upper lim-
+its on the CO luminosity of LCO < 2930 K km s−1 pc2
+(Warren et al. submitted). The molecular hydrogen mass
+remains uncertain as the ratio of CO to H2 is not well
+constrained at low-metallicities. In Table 1 we summa-
+rize the basic properties measured in Leo P from these
+previous studies.
+2. DATA PROCESSING
+2.1. Observations
+HST observations of Leo P were obtained using the
+Advance Camera for Surveys (ACS) instrument (Ford
+et al. 1998) in the F475W (Sloan g) and F814W (I) ﬁlters
+between April 23 and 26 2014 (GO 13376; PI McQuinn).
+The observations were taken over 17 orbits grouped in
+visits of 2 −3 orbits, and followed the ultra-deep ﬁeld
+dither pattern between exposures, shifted by 2 −3 pixels
+to aid in the removal of hot pixels and to average-out
+the detector response. The observations were designed
+to reach a photometric depth of ∼2 mag below the RC
+to aid in (i) constraining the SFH at older times and (ii)
+measuring the distance from the HB stars and RR Lyrae
+stars.
+Similar to the successful Local Cosmology from Iso-
+lated Dwarfs1 (LCID, e.g., Skillman et al. 2014) program,
+our observation strategy was designed to optimally sam-
+ple the light curves of short period variable stars (e.g.,
+Bernard et al. 2008, 2009), such as RR Lyrae, which pro-
+vide independent constraints on the distance to Leo P
+and the SFH. To achieve this, each orbit was split be-
+tween the two ﬁlters, with an alternating pattern for the
+exposures (i.e., F475W, F814W, F814W, F475W, etc.).
+In addition, the visits were executed sequentially and
+grouped within a 3-day time period, while minimizing
+orbits with a ∼12 hour cadence.
+These observations
+thus maximize sampling within the 17 orbits of a ∼0.6
+day period RR Lyrae star across 6 periods with minimal
+repetition of sampling at the same point in a light curve.
+The observational details are summarized in Table 1.
+HST Drizzlepac v2.0 was used to create mosaics in
+each ﬁlter. First, the charge transfer eﬃciency corrected
+images (i.e., flc ﬁles) were processed with Astrodriz-
+zle to remove cosmic-rays (CR), creating a set of CR
+cleaned images. Second, these CR cleaned images were
+processed through the task tweakreg to measure the
+astrometric shifts between the images. Third, the orig-
+inal flc.fits images were processed with Astrodriz-
+zle using the tweakreg shifts to create a combined
+mosaic in each ﬁlter.
+In Figure 1, we present a color image of Leo P from
+the HST ACS observations created using the F475W and
+F814W mosaics, along with an averaged image of the two
+ﬁlters. As seen in Figure 1, the galaxy has an irregular
+stellar morphology that is well-resolved and a single Hii
+region clearly identiﬁable in the image.
+2.2. Photometry and Color-Magnitude Diagram
+Point spread function (PSF) photometry was per-
+formed on the ﬂat, charge transfer eﬃciency corrected
+images (flc.fits) with the DOLPHOT photometry pack-
+age, a modiﬁed version of HSTPHOT with an ACS speciﬁc
+module (Dolphin 2000).
+The photometric catalog was
+ﬁltered for well-recovered stars (i.e., output error ﬂag
+< 8) and with a signal-to-noise ratio ≥5. Point sources
+with high sharpness or crowding values were rejected
+(i.e., (Vsharp+Isharp)2 > 0.075; (Vcrowd+Icrowd)> 0.8).
+Sharpness indicates whether a point source is too broad
+(such as background galaxies) or too sharp (such as cos-
+mic rays). Crowding measures how much brighter a star
+would be if nearby stars had not been ﬁtted simultane-
+ously; stars with higher values of crowding have higher
+photometric uncertainties. Spatial cuts were applied to
+the ﬁltered photometric catalog. These cuts were based
+on the ellipticity (e =0.52), semi-major axis (1′.2), and
+position angle (PA = 335◦) of Leo P (McQuinn et al.
+2013). The ﬁnal elliptical parameters are listed in Ta-
+ble 1.
+We expanded the spatial cuts for variable star
+identiﬁcation (see Section 2.4), extending the search to
+include the halo of the galaxy.
+Artiﬁcial star tests were performed to measure the
+completeness limits of the images using the same pho-
+1 http://www.iac.es/project/LCID/
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+Table 1
+Leo P Properties and Observations
+Updated Distance-
+Parameter
+Value
+Dependent Values
+R.A. (J2000)
+10:21:45.1
+· · ·
+Decl. (J2000)
++18:05:17
+· · ·
+Distance (Mpc)
+1.72+0.14
+−0.40
+1.62 ± 0.15
+MV (mag)
+−9.41+0.17
+−0.50
+−9.27 ± 0.20
+M∗(M⊙) from M/L
+5.7+0.4
+−1.8 × 105
+· · ·
+M∗(M⊙) from SFH
+· · ·
+5.6+0.4
+−1.9 × 105
+M∗/LV
+· · ·
+1.25
+MHI (M⊙)
+9.3 × 105
+8.1 × 105
+Vsys (km s−1)
+260.8 ± 2.5
+· · ·
+LCO (K km s−1 pc2)
+< 3300
+< 2930
+12+log(O/H)
+7.17±0.04
+· · ·
+LHα (erg s−1)
+6.2 × 1036
+5.5 × 1036
+SFRHα (M⊙yr−1)
+4.9 × 10−5
+4.3 × 10−5
+AV (mag)
+0.071
+· · ·
+Semi-major axis (′)
+· · ·
+Ellipticity
+0.52
+· · ·
+Position angle (◦)
+· · ·
+HST Program ID
+HST-GO-13376
+· · ·
+ACS Filters
+F475W; F814W
+· · ·
+Exposure F475W (s)
+25,829
+· · ·
+Exposure F814W (s)
+18,496
+· · ·
+Note. — Summary of the properties of Leo P based on measure-
+ments reported in Giovanelli et al. (2013); Rhode et al. (2013); Mc-
+Quinn et al. (2013); Skillman et al. (2013); Bernstein-Cooper et al.
+(2014) and Warren et al. (submitted) and the revised distance mea-
+surement from this work (see Table 4). Systemic velocity (Vsys)
+is in the Local Standard of Rest Kinematic frame. Hα-based SFR
+is based on the calibration by Kennicutt et al. (1994). Foreground
+extinction estimate is based on the dust maps from Schlegel et al.
+(1998) with recalibration from Schlaﬂy & Finkbeiner (2011).
+tometry package.
+Approximately 600k artiﬁcial stars
+were injected into the individual images following the
+spatial distribution of all sources in the non-ﬁltered pho-
+tometric catalog. The ﬁnal artiﬁcial star lists were ﬁl-
+tered using the same parameters that were used to pro-
+duce the ﬁnal photometry catalog.
+Figure 2 shows the CMD from the ﬁnal photometry
+plotted to the 50% completeness level as determined from
+the artiﬁcial star tests. Representative uncertainties per
+magnitude are plotted and include uncertainties from the
+photometry and uncertainties recovered from the artiﬁ-
+cial star tests.
+The photometry was corrected for ex-
+tinction (AF 475W = 0.086 mag; AF 814W = 0.039 mag)
+based on the dust maps of Schlegel et al. (1998) with
+recalibration from Schlaﬂy & Finkbeiner (2011).
+main sequence (MS), RGB, HB, and the RC are identi-
+ﬁable in the CMD. In addition, there is a sparse popula-
+tion of red and blue helium burning stars (i.e., blue loop
+stars with F814W ≲25 mag). These stars are intermedi-
+ate mass stars (2 M⊙≲M ≲15 M⊙) and are unambigu-
+ous signs of recent (t≲500 Myr) star-formation activity
+(Dohm-Palmer & Skillman 2002; McQuinn et al. 2011).
+We investigate the star-forming properties in Leo P in
+Section 5.
+Figure 3 shows the spatial distribution of stars sepa-
+rated into course age bins of “young” and “old” stars.
+Stars were classiﬁed as young and old based on their po-
+sition in the CMD. Speciﬁcally, young stars were selected
+from the upper MS corresponding to a B or O spectral-
+type classiﬁcation with lifetimes ≲300 Myr (i.e., F475W
+F475W-F814W (mag)
+F814W (mag)
+Leo P
+No. of Stars: 5879
+Figure 2. The CMD of Leo P from HST ACS imaging plotted to
+the 50% completeness limit determined from artiﬁcial star tests.
+The photometry was corrected for Galactic extinction (Schlaﬂy
+& Finkbeiner 2011). Representative uncertainties per magnitude
+bin are plotted and include both photometric and completeness
+uncertainties. The MS, RGB, HB, and RC are seen in the CMD.
+< 25.7 mag and F475W −F814W < 0.2 mag), and the
+blue and red helium burning branch stars which have
+a similar maximum lifetime.
+In Figure 4, we overlay
+an isochrone of 300 Myr to demonstrate the location of
+young stars in the CMD. The old category is populated
+with RGB stars identiﬁed from the CMD. Despite the
+coarse time bins, the selection of young vs. old stars is ro-
+bust. In Figure 3, the young stars are more centrally con-
+centrated with an irregular distribution. A small number
+of young star candidates are located in the outer regions
+of the galaxy. The locations of the RR Lyrae candidates,
+identiﬁed from the photometry, are also shown (see Sec-
+tion 2.4).
+2.3. Resolved Stars in the Hii Region
+The area within the one Hii region in the galaxy is re-
+solved into 7 individual point sources in the HST images.
+These sources were blended in previous, ground-based
+imaging of Leo P, leading to some speculation on the na-
+ture of the star(s) responsible for ionizing the surround-
+ing gas (Rhode et al. 2013, see their §4.1.2). Figure 4
+shows the CMD of Leo P with the F475W magnitude as
+the ordinate axis. Here, we highlight the stars located at
+the position of the Hii region in Leo P in red, including
+the luminous star likely responsible for the ionization of
+the region. Note that these stars are bluer than expected
+in the CMD, which is most likely due to contamination
+by emission lines in the Hii region. The most luminous
+of these stars has de-reddened F475W and F814W mag
+of 21.509 ± 0.001 and 21.892 ± 0.002 respectively. Us-
+ing the calibration of Saha et al. (2011) and an adopted
+distance modulus of 26.05 ± 0.20 (see Section 2.4 for dis-
+cussion of the calibration and Section 3.3 for the adopted
+distance), the ACS ﬁlter luminosities transform to an ab-
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+1000
+1500
+2000
+2500
+3000
+3500
+1000
+1500
+2000
+2500
+RGB Stars
+Young Stars
+RR Lyrae Stars
+Figure 3.
+Spatial distribution of “young” (age ≲300 Myr) and
+“old” (age ≳300 Myr) stars in Leo P as deﬁned in the text. The
+young stars are more centrally concentrated, with an irregular dis-
+tribution. Despite the central concentration, there are still young
+stars located in the outer regions of Leo P.
+solute Johnson V mag of −4.43. A star of this magnitude
+in the upper main sequence region of the CMD is con-
+sistent with an O5V spectral type, according to the em-
+pirical catalog of absolute magnitudes of OB stars from
+Wegner (2000, see their Table 1 of smoothed absolute
+magnitudes). However, if this star is truly an O5V star,
+then the star with a similar color but ∼1 mag fainter
+at F475W = 23.03 mag would correspond to a star with
+an O9.5 spectral type, which would be hot enough to
+create a second Hii region. Since no Hii region is found
+around this fainter star, it is likely that both of these
+point sources are blended binary stars. High mass stars
+have been shown to have binary fractions in excess of
+50% (Kobulnicky et al. 2014). If we assume each of these
+MS stars is comprised of equal mass binaries, the bright-
+est source located in the known Hii region could have
+two constituent O7 or O8 stars. The fainter source con-
+stituents would then be B2 or B3 stars, just below the
+limit for hosting a detectable Hii region.
+Rhode et al. (2013) calculated a SFR based on the Hα
+luminosity of the Hii region of 4.9 × 10−5 M⊙yr−1. Us-
+ing our adopted distance to Leo P, this SFR is revised
+downward to a value of 4.3 × 10−5 M⊙yr−1, compared
+with our SFR derived from the stellar populations over
+the past 4 Myr of 2.1 × 10−5 M⊙yr−1 (see Section 5).
+In this regime, the Hα luminosity has been shown to be
+a poor tracer of the actual star-formation activity due,
+in part, to the incomplete sampling of the high mass end
+of the initial mass function (IMF) (e.g., Boselli et al.
+2009; Goddard et al. 2010; Koda et al. 2012). Weidner
+& Kroupa (2005) and Pﬂamm-Altenburg et al. (2007)
+have suggested there may be an upper limit to the max-
+imum stellar mass that can form at low SFRs. In this
+scenario, the slope of the upper end of the IMF varies as
+a function of SFR. Using the framework of Weidner &
+Kroupa (2005, their Figure 11), and Pﬂamm-Altenburg
+et al. (2007, their Figure 4), the maximum stellar mass
+that would be able to form at a SFR = 10−5 M⊙yr−1 is
+∼2.5 M⊙. This is an order of magnitude lower than the
+mass of an ∼O8 star (M∗= 25 M⊙) likely responsible
+for ionizing the Hii region. Indeed, the mere presence of
+the Hii region in Leo P provides observational evidence
+that the maximum stellar mass capable of being formed
+at low SFRs is signiﬁcantly greater than 2.5 M⊙.
+F475W-F814W (mag)
+F475W (mag)
+Stars Located at HII Region
+[Fe/H] = -1.9; 12 Gyr
+[Fe/H] = -1.8; 12 Gyr
+[Fe/H] = -1.7; 12 Gyr
+[Fe/H] = -1.5; 300 Myr
+Figure 4.
+CMD with the F475W plotted as the ordinate axis.
+Stars located at the position of the Hii region are circled in red.
+PARSEC stellar evolution isochrones are over plotted for a 12 Gyr
+population with metallicities varying between [Fe/H] of −1.9 to
+−1.7 and for a 300 Myr population with a metallicity of [Fe/H]
+= −1.5, as shown in the legend.
+2.4. Variable Star Identiﬁcation
+We used the multi-epoch photometry to search for
+short-period variable stars. As noted in Section 2.2, the
+spatial cuts were relaxed to include a larger search area
+as RR Lyrae variable stars can be located in the stellar
+haloes of galaxies. Variable star candidates were identi-
+ﬁed ﬁrst using a series of automated cuts, similar to those
+used in the study of IC 1613 (Dolphin et al. 2001). Each
+variable star was required to meet ﬁve criteria testing
+the photometry, variability, and periodicity. First, the
+object had to have well-measured photometery. While
+it is possible for a variable star to be part of a blend,
+our PSF-ﬁtting photometry attempts to ﬁt the proﬁle to
+that of a single star and thus is unreliable for measuring
+blended stars. The next cuts were intended to eliminate
+non-variable or weakly-variable stars. The simplest re-
+quirement was that the RMS scatter of the magnitude
+measurements,
+σmag = (
+NF 475W + NF 814W
+NF 475W
+(F475Wi −F475W)2
+NF 814W
+(F814Wi −F814W)2))1/2
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+had to be 0.14 magnitudes or greater. Next, the overall
+reduced χ2,
+χ2 =
+NF 475W + NF 814W
+NF 475W
+(F475Wi −F475W)2
+NF 814W
+(F814Wi −F814W)2
+had to be 3.0 or greater.
+These two cuts eliminate
+stars that are weakly variable and those for which the
+photometry signal-to-noise is insuﬃcient to discern vari-
+ability. We also clipped 1/3 of the extreme points and
+required that the recalculated reduced χ2 exceed 0.5; this
+was intended to eliminate non-variable stars with a few
+bad points.
+The ﬁnal test was a modiﬁed Laﬂer-Kinman algorithm
+(Laﬂer & Kinman 1965), which tests for periodicity. This
+was implemented by computing Θ for periods between
+0.1 and 4.0 days. The Θ parameter is calculated by de-
+termining the light curve for a trial period and using the
+equation
+i=1(mi −mi+1)2
+i=1(mi −m)2
+where N is the number of exposures for a given ﬁlter,
+mi is the magnitude at phase i, and m is the mean mag-
+nitude.
+If the trial period is the correct period, each
+magnitude mi will be close to the adjacent magnitude
+mi+1, giving a value of Θ that decreases as 1/N 2. If the
+trial period is incorrect, there will be less correlation and
+consequently larger values of Θ. Because we had data in
+two ﬁlters, we combined the Θ values with:
+(1/√ΘF 475W + 1/√ΘF 814W )2 .
+For a star to pass the periodicity test, its minimum value
+of Θ had to be 0.85 or less. For more discussion on the
+use of the modiﬁed Laﬂer-Kinman algorithm to test for
+periodicity and speciﬁcs on the parameters, see Dolphin
+et al. (2002, 2004).
+Our photometry identiﬁed 13448 total objects, of
+which 45 passed our automatic selection process. Three
+of these were clearly RR Lyrae stars by location in the
+CMD, light curve shape, and period. The χ2 criterion
+was relaxed, and the search was constrained to an area
+centered on the horizontal branch, and ten more candi-
+dates were identiﬁed. Of these new ten, three of these
+candidate variables appeared to not be clean detections
+upon manual examination of the images and were re-
+moved from the list resulting in a ﬁnal total of ten candi-
+date RR Lyrae stars. The light curves for the ten variable
+stars are presented in Figure 5; complete photometry in
+the ACS ﬁlters is available in Table 2.
+The absolute magnitudes of RR Lyrae stars have been
+determined based on the Johnson BV RI ﬁlter systems.
+Therefore, we transform our measured ACS F475W and
+F814W magnitudes to standard Johnson V and I mag-
+nitudes using the calibration from Saha et al. (2011):
+27.5
+26.5
+Leo P RR Lyrae 1: P = 0.61 +/− 0.06 days
+27.5
+26.5
+F475W (magnitudes)
+Phase
+Leo P RR Lyrae 9: P = 0.53 +/− 0.07 days
+Phase
+Leo P RR Lyrae 10: P = 0.34 +/− 0.01 days
+27.5
+26.5
+Leo P RR Lyrae 7: P = 0.61 +/− 0.04 days
+Leo P RR Lyrae 8: P = 0.57 +/− 0.04 days
+27.5
+26.5
+Leo P RR Lyrae 5: P = 0.57 +/− 0.13 days
+Leo P RR Lyrae 6: P = 0.59 +/− 0.06 days
+27.5
+26.5
+Leo P RR Lyrae 3: P = 0.69 +/− 0.11 days
+Leo P RR Lyrae 4: P = 0.64 +/− 0.08 days
+Leo P RR Lyrae 2: P = 0.52 +/− 0.06 days
+Figure 5. Light curves for the ten identiﬁed RR Lyrae candidate
+stars in Leo P. The measured periods are noted in the individual
+panels for each star. Complete photometry is available in Table 2.
+Table 2
+Photometry of RR Lyrae Candidates
+Star ID 1
+10:21:44.388 +18:05:07.63
+F475W
+Epoch
+(mag)
+56770.631305
+26.70 ± 0.07
+56770.710315
+27.08 ± 0.08
+56770.829933
+27.12 ± 0.10
+56770.909546
+27.26 ± 0.10
+56771.626484
+27.04 ± 0.09
+F814W
+Epoch
+(mag)
+56770.647902
+26.04 ± 0.10
+56770.692595
+25.95 ± 0.10
+56770.846531
+26.03 ± 0.09
+56770.891826
+26.48 ± 0.15
+56771.643081
+26.25 ± 0.11
+Note. — Sample photometry of the ﬁrst ﬁve epochs for Star
+ID 1 in both ACS ﬁlters. The RA and Dec (J2000) coordinates
+for the star are listed at the top.
+These magnitudes have not
+been corrected for foreground extinction. The full seventeen epoch
+photometry for all ten RR Lyrae candidates is published in its
+entirety in the electronic edition of this journal. A portion is shown
+here for guidance regarding its content. Mean magnitudes for each
+of the ten stars can be found in Table 3.
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+V = 0.026 + F475W −0.406 ∗(F475W −F814W) (5)
+I = −0.038+F814W +0.014∗(F475W −F814W). (6)
+These transformations are an improvement over the pre-
+vious calibrations from Sirianni et al. (2005) as they were
+derived based on a larger number of stars down to fainter
+magnitudes and over a greater range in color. Further-
+more, the transformations from Saha et al. (2011) were
+based on updated corrections for time-dependent charge
+transfer losses in the ACS detector.
+To compute mean magnitudes, we calculated a phase-
+weighted average using
+⟨m⟩= −2.5 log
+φi+1 −φi−1
+10−0.4mi,
+where φi is the phase and mi is the magnitude at each
+point along the light curve. Finally, the mean magni-
+tudes for all ten stars are computed to be F475W =
+26.88±0.02, F814W = 26.18±0.07, and V = 26.62±0.03.
+Note, these mean magnitudes are not corrected for fore-
+ground extinction. Table 3 summarizes the mean mag-
+nitudes for each star in the three ﬁlters and the ﬁnal
+mean magnitudes for all ten stars. The location of the
+RR Lyrae candidates within Leo P are shown in Figure 3.
+Figure 6.
+A magniﬁed view of the HB and RC region of the
+CMD. A portion of the RGB is identiﬁable to the right. The ten
+RR Lyrae candidates are plotted in red. As expected, these stars
+lie in a tight sequence in CMD space.
+Figure 6 shows the location of the ten RR Lyrae candi-
+date variable stars in the CMD. All ten stars were found
+in a narrow range in luminosity. Because the HB is ∼
+2 magnitudes above the 50% completeness limit for our
+observations, we likely did not miss any RR Lyrae stars
+due to depth of photometry. Also, because of the number
+and spacing of the epochs, we are likely to have a very
+high completeness. The data provided excellent coverage
+for the range of relevant variable star periods. Due to the
+large number of observational epochs and the fact that
+the cadence was set to minimize redundancies, the max-
+imum gap in the phase coverage was always less than
+0.15 days for periods in the range 0.1 to 1.0 days (see
+Figure 5). Consequently, our mean magnitude measure-
+ments are robust, as indicated by the very small disper-
+sion (σV = ±0.03) in the sample. Thus, the distance to
+Leo P derived from the RR Lyrae stars (see Section 3) is
+limited by the systematic uncertainty of the calibration
+used.
+3. THE DISTANCE TO LEO P
+The previously published distance modulus measure-
+ment of 26.19+0.17
+−0.50 mag from McQuinn et al. (2013) was
+determined by applying the TRGB distance method to
+the photometry of the resolved stellar population from
+LBT V and I band imaging. Despite photometry reach-
+ing 3 magnitudes below the TRGB, the distance uncer-
+tainties in the ground-based observations are large due
+to the small number of stars in the RGB. Using Monte
+Carlo simulations of synthetic stellar populations analo-
+gous to low-mass galaxies, McQuinn et al. (2013) showed
+that the measured break in the LBT I band LF at the
+top of the RGB may, in fact, be below the actual TRGB
+luminosity. The large lower uncertainty estimated from
+the simulations put constraints on the actual TRGB of
+up to 0.5 mag brighter than the measured value.
+ing the same TRGB distance method described in Mc-
+Quinn et al. (2013), we re-measured the TRGB distance
+to Leo P using the HST data. This exercise yielded an
+identical measurement of the distance modulus of 26.19
+mag as the LBT data, but does not mitigate the uncer-
+tainties as measured by the Monte Carlo simulations.
+However, the new HST data reach 2 mag below the
+HB, enabling two additional distance techniques to be
+applied. First, as described above, the cadence of our
+observations was designed to maximize identiﬁcation of
+RR Lyrae stars, thus enabling a distance measurement
+based on the average V-band luminosity of this class of
+stars. Second, the luminosity of the HB provides a means
+to measure the distance based on a standard candle ap-
+proach. The HB luminosity can be more robustly mea-
+sured than the TRGB with sparse data as the mean lu-
+minosity of the HB is not as impacted by the presence
+or absence of a few individual stars.
+3.1. RR Lyrae Distance Measurement
+As discussed above, the mean V magnitude of the ten
+RR Lyrae stars is 26.62 ± 0.03 mag. To account for fore-
+ground extinction, we subtract AV = 0.071 mag based
+on the dust maps of Schlegel et al. (1998) with the re-
+calibration from Schlaﬂy & Finkbeiner (2011).
+There has been signiﬁcant work done to calibrate the
+luminosity of the RR Lyrae stars as a function of metal-
+licity, however the zero-point can still vary by ∼0.1
+mag between calibrations (for detailed reviews, see Smith
+1995; Cacciari 2003; Sandage 2006; Catelan 2009, among
+others). Some of the diﬀerences are due to the diﬃculty
+quantifying the luminosity dependence on stellar metal-
+licity.
+Regardless, the choice of calibration introduces
+a systematic error to our distance measurement, dom-
+inating the uncertainties. We use the calibration from
+Carretta et al. (2000) which was derived using dozens
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+Table 3
+Summary of RR Lyrae Candidates in Leo P
+<F475W>
+<F814W>
+Period
+Star ID
+(J2000)
+(J2000)
+(mag)
+(mag)
+(mag)
+(days)
+10:21:44.388
++18:05:07.63
+26.87 ± 0.09
+26.04 ± 0.07
+26.56 ± 0.14
+0.61±0.06
+10:21:47.080
++18:03:59.16
+26.85 ± 0.08
+26.22 ± 0.07
+26.62 ± 0.12
+0.52±0.06
+10:21:44.324
++18:05:33.73
+26.89 ± 0.06
+26.11 ± 0.07
+26.56 ± 0.09
+0.69±0.11
+10:21:43.240
++18:05:53.13
+26.90 ± 0.08
+26.16 ± 0.06
+26.62 ± 0.12
+0.64±0.08
+10:21:44.722
++18:05:39.91
+26.90 ± 0.10
+26.25 ± 0.07
+26.66 ± 0.15
+0.57±0.13
+10:21:42.750
++18:05:46.47
+26.89 ± 0.09
+26.17 ± 0.05
+26.63 ± 0.13
+0.59±0.06
+10:21:43.704
++18:05:34.37
+26.89 ± 0.10
+26.25 ± 0.07
+26.66 ± 0.15
+0.61±0.04
+10:21:45.227
++18:05:46.86
+26.91 ± 0.07
+26.11 ± 0.06
+26.61 ± 0.11
+0.57±0.04
+10:21:44.633
++18:05:21.31
+26.84 ± 0.12
+26.27 ± 0.06
+26.64 ± 0.18
+0.53±0.07
+10:21:44.087
++18:06:22.92
+26.86 ± 0.06
+26.24 ± 0.07
+26.63 ± 0.10
+0.34±0.01
+Mean Magnitudes
+26.88 ± 0.02
+26.18 ± 0.07
+26.62 ± 0.03
+Note. — 10 RR Lyrae variable star candidates were identiﬁed as described in Section 2.4. The coordinates, phase-weighted mean
+magnitudes, and periods of the individual stars are listed, followed by a mean magnitude computed for all ten stars. These magnitudes
+have not been corrected for foreground extinction.
+of RR Lyrae stars in globular clusters and anchored to
+several independent distance measurements:
+MV = (0.18 ± 0.09) ∗([Fe/H] + 1.5) + (0.57 ± 0.07). (8)
+As seen in Equation 8, the RR Lyrae luminosity depends
+on the metallicity of the population. For an estimate of
+the metallicity of the oldest stars, we ﬁt Padova-Trieste
+stellar evolution isochrones (PARSEC; Bressan et al.
+2012; Chen et al. 2014; Tang et al. 2014) to the RGB.
+The PARSEC models are the result of a thorough revi-
+sion of the previous Padova stellar evolution code with
+the most up to date input physics. The PARSEC library
+also includes post-helium core ﬂash phases of evolution
+and has been adjusted to a revised solar abundance. In
+Figure 4, we overlay isochrones for a 12 Gyr old popu-
+lation with [Fe/H] values of −1.9, −1.8, and −1.7. The
+best-ﬁtting isochrone to the mean color of the RGB has a
+metallicity value of [Fe/H] = −1.8 ± 0.1; the uncertainty
+is based on the metallicities of the same age isochrones
+that span the approximate width of the RGB. The −1.8
+value seems reasonable as it is lower than the present day
+gas-phase oxygen abundance measurement of −1.52 (as-
+suming [O/Fe] ∼0), and consistent with stellar metallic-
+ities spectroscopically measured in low-mass dwarfs (e.g.,
+Kirby et al. 2010). We experimented with using the Dart-
+mouth stellar evolution isochrones which are known to
+provide a good ﬁt to the RGB in low-metallicity sys-
+tems. The best-ﬁtting Dartmouth isochrones had a sim-
+ilar metallicity value and range of −1.9 ± 0.1, provid-
+ing a consistency check on the values from the PARSEC
+isochrones. Using an [Fe/H] value of −1.8 ± 0.1 in Equa-
+tion 8 yields MV = 0.52 ± 0.20, corresponding to a dis-
+tance modulus of 26.04 ± 0.21 mag.
+As noted above, there has been signiﬁcant work done to
+calibrate the luminosity of the RR Lyrae stars. For com-
+parison, we consider two additional calibrations from the
+literature. First, we utilize the calibration from Clemen-
+tini et al. (2003) based on photometry and spectroscopy
+of more than 100 RR Lyrae stars in the Large Magellenic
+Cloud:
+MV = (0.866 ± 0.085) + (0.214 ± 0.047) ∗[Fe/H].
+Using the same [Fe/H] value of −1.8, Equation 9 yields
+MV = 0.48 ± 0.12, corresponding to a distance modulus
+of 26.07 ± 0.13 mag.
+Second, we consider the calibration from Bono et al.
+(2003) with uses an updated theoretical prescription of
+the pulsating modes of RR Lyrae stars:
+MV = (0.718 ± 0.072) + (0.177 ± 0.069) ∗[Fe/H]. (10)
+This calibration yields an absolute magnitude of MV =
+0.40 ± 0.15, corresponding to a distance modulus of
+26.16 ± 0.15 mag. The distances from these additional
+calibrations agree within the uncertainties to the distance
+calculated based on the calibration from Carretta et al.
+(2000) above in Equation 8.
+3.2. HB Distance Measurement
+The luminosity of the red HB stars can also be used as
+a distance indicator. Similar to the RR Lyrae stars, the
+calibration for the HB stars has been done in the Johnson
+ﬁlters. Thus, we use the same transformations described
+in Equations 5 and 6 to convert the ACS magnitudes to
+V and I band magnitudes. To measure the luminosity of
+the HB, we ﬁt a parametric LF to the observed distribu-
+tion of stars in the magnitude and color range of the HB
+feature, without any correction for foreground extinction.
+This is a similar maximum likelihood approach used to
+measure the TRGB in many systems (e.g., Sandage et al.
+1979; M´endez et al. 2002; Makarov et al. 2006; Rizzi et al.
+2007), based on a probability estimation that takes into
+account photometric error distribution and completeness
+using artiﬁcial star tests. We assumed the following form
+for the theoretical LF:
+P = exp(A∗(V −VHB)+B) + exp(−0.5∗((V −VHB)/C)2)
+(11)
+where A, B, and C are free parameters.
+We selected
+stars in the HB identiﬁed by eye in the CMD to use in
+the ﬁt. Speciﬁcally, stars in the V mag range of 25 −28
+and within a V−I color range of 0.2−0.6 were used. The
+HB luminosity was measured to be V= 26.62±0.01 mag,
+from which we subtracted AV = 0.071 mag to correct for
+extinction.
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+Table 4
+Distance Measurements to Leo P
+Method
+(m-M)o
+Distance (Mpc)
+Calibration
+TRGB (LBT)
+26.19+0.17
+−0.50
+1.72+0.14
+−0.40
+Rizzi et al. (2007); Carretta et al. (2000)
+TRGB (HST)
+26.19+0.17
+−0.50
+1.72+0.14
+−0.40
+Rizzi et al. (2007); Carretta et al. (2000)
+Horizontal Branch
+26.05 ± 0.20
+1.62±0.15
+Carretta et al. (2000)
+RR Lyrae
+26.04±0.21
+1.61±0.16
+Carretta et al. (2000)
+RR Lyrae
+26.07±0.13
+1.64±0.10
+Clementini et al. (2003)
+RR Lyrae
+26.16±0.15
+1.70±0.12
+Bono et al. (2003)
+Note.
+— TRGB distance was measured from LBT optical imaging of the resolved stellar populations (McQuinn et al. 2013) and
+conﬁrmed via the HST data presented here. For the TRGB distance measured from the HST data, we adopt the uncertainties from the
+Monte Carlo simulations in McQuinn et al. (2013). All values include a correction for foreground extinction of AV = 0.071 mag. For the
+ﬁnal distance measurement to Leo P, we adopt the HB distance based on the calibration by Carretta et al. (2000) because this measurement
+agrees with the RR Lyrae distance based on the same calibration but has a slightly lower uncertainty. See Section 3.3 for discussion.
+We use the HB calibration from Carretta et al. (2000)
+to determine the absolute magnitude of the HB:
+MV = (0.13 ± 0.09) ∗([Fe/H] + 1.5) + (0.54 ± 0.04) (12)
+In the same manner described for the RR Lyrae stars, we
+assume an [Fe/H] value of −1.8±0.1. The HB luminosity
+based on the above calibration yields MV = 0.50 ± 0.20,
+in excellent agreement with the range in calibrated mag-
+nitudes of the ten RR Lyrae stars. Based on this HB
+luminosity, the distance modulus is 26.05 ± 0.20.
+3.3. Adopted Distance Measurement
+Table 4 summarizes the distance measurements to
+Leo P based on the TRGB from the LBT and HST data
+sets and RR Lyrae and HB measurements from the HST
+data. The distance moduli determined from the diﬀerent
+calibrations and techniques agree within the uncertain-
+ties. The calibrations from Carretta et al. (2000) provide
+consistency across the RR Lyrae, HB, and TRGB dis-
+tance techniques, allowing us to compare the three meth-
+ods without introducing a systematic uncertainty. These
+three techniques yield distance moduli of 26.04 ± 0.21,
+26.05 ± 0.20, and 26.19+0.17
+−0.50 respectively.
+The consis-
+tency of the RR Lyrae and HB distance measurements
+reinforces the conclusion that the TRGB identiﬁed in
+the CMD from McQuinn et al. (2013), similarly to the
+HST data presented here, is indeed a false tip. Further-
+more, all of the distance measurements are within the
+uncertainties estimated via Monte Carlo simulations of
+synthetic populations from McQuinn et al. (2013) sup-
+porting this approach for determining uncertainties on
+the TRGB in this very low-mass regime.
+The HB and RR Lyrae distances based on the calibra-
+tion from Carretta et al. (2000) are very similar.
+adopt the distance modulus of 26.05±0.20 mag from the
+HB stars due to the slightly lower uncertainty, yielding a
+distance of 1.62 ± 0.15 Mpc. The reﬁned distance places
+Leo P in the NGC 3109 association of dwarf galaxies
+(Tully et al. 2006) including Antlia, Sextans A, and Sex-
+tans B as proposed by McQuinn et al. (2013). The clos-
+est of these galaxies is Sextans B at a distance of ∼0.4
+Mpc. In Table 1, we include updated distance dependent
+parameters using this revised distance measurement.
+4. STAR FORMATION HISTORY METHODOLOGY
+The SFH was measured using the numerical CMD ﬁt-
+ting program MATCH (Dolphin 2002). Brieﬂy, MATCH uses
+a prescribed IMF and stellar evolutionary isochrones to
+create a series of synthetic simple stellar populations
+(SSPs) of diﬀerent ages and metallicities. The synthetic
+SSPs are modeled using the photometry and recovered
+fractions of the artiﬁcial stars as primary inputs. The
+modeled CMD that best-ﬁts the observed CMD based
+on a Poisson likelihood statistic provides the most likely
+SFH of the galaxy.
+The solutions are based on a Kroupa IMF (Kroupa
+2001) and the newly available PARSEC models (Bres-
+san et al. 2012; Chen et al. 2014; Tang et al. 2014). We
+assume a binary fraction of 35% with a ﬂat secondary
+distribution. While SFH solutions have been shown to
+be fairly insensitive to the choice of binary fraction, as-
+sumed fraction values between one and two thirds tend to
+improve the overall ﬁt (Monelli et al. 2010a). Extinction
+is a free parameter ﬁt by MATCH. Both foreground and
+internal extinction can broaden the features in a CMD,
+but they are expected to be low for Leo P based on its
+high Galactic latitude and low metallicity. Foreground
+extinction is estimated to be Ag = 0.086 mag (Schlaﬂy
+& Finkbeiner 2011) compared with the best-ﬁtting ex-
+tinction value of AF 475W = 0.12±0.05, corresponding to
+both foreground and internal extinction which is taken
+into account in the SFH solution.
+The general agree-
+ment between the foreground extinction from Schlaﬂy &
+Finkbeiner (2011) and the best-ﬁtting extinction value
+from MATCH provides an additional consistency check on
+the SFH solution. Because the photometric depth of the
+data does not fully constrain the metallicity evolution of
+the systems, we assumed that the chemical enrichment
+history, Z(t), is a continuous, non-decreasing function
+over the lifetime of the galaxy. Uncertainties on the SFHs
+take into account both systematic uncertainties from the
+stellar evolution models (Dolphin 2012) and random un-
+certainties due to the ﬁnite number of stars in a CMD
+(Dolphin 2013).
+Distance is a free parameter ﬁt by MATCH. MATCH can be
+run without distance constraints to determine the best-
+ﬁtting distance to the CMD by the models. This dis-
+tance can be compared with the measured distance from
+an independent approach as a consistency check on the
+solutions. The ﬁnal SFH solution is derived by ﬁxing the
+distance to be the best measured value. In the case of
+Leo P, the best-ﬁtting distance modulus by the PARSEC
+models is 26.15±0.05 which is in good agreement with the
+measured values in Table 4. We experimented by ﬁxing
+the distance modulus to the diﬀerent values derived from
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+Figure 7.
+The observed and modeled CMD for Leo P. (a) Ob-
+served Hess diagram of Leo P from photometry of the HST images.
+(b) Modeled Hess diagram based on the best-ﬁtting SFH solution
+to the observations with the PARSEC library. For both (a) and (b)
+the grayscale is based on the number of stars in each bin. (c) Resid-
+ual Hess diagram between observed and modeled CMD of Leo P.
+(d) Residual signiﬁcance between the observed and modeled CMD
+of Leo P. The grayscale spans 5σ and is based on the signiﬁcance of
+each bin in the residual (panel c) relative to the standard deviation
+of a Poisson distribution. The ﬁnal panel (d) highlights the good
+agreement between the modeled CMD and observed CMD.
+the HB and RR Lyrae stars. These tests showed that the
+modeled CMD with a smaller adopted distance modulus
+of 26.05 is an improvement over a larger distance mod-
+ulus of 26.19.
+The ﬁnal SFH solution for each model
+is based on ﬁxing the distance modulus to the adopted
+value of 26.05.
+In Figure 7, we present the observed CMD, modeled
+CMD using the PARSEC isochrones, residual CMD, and
+residual signiﬁcance from MATCH. The modeled CMD is
+an excellent ﬁt to the observed CMD of Leo P, with a
+corresponding χ2 value of 1.26. The residuals are most
+notable in some of the typical areas including the width
+of the RGB and the RC. While small, the residuals high-
+light the diﬀerences between the observations and the
+model from the isochrones. The diﬀerences in the SFH
+implied by the residuals are well within the measured
+uncertainties and do not impact our overall conclusions.
+The SFH solution depends on the ability of the stellar
+evolution isochrones to accurately model the luminosity,
+color, and number density of the features in a CMD (see
+Gallart et al. 2005, for a comprehensive review). Thus,
+as an additional test, we used two diﬀerent stellar evolu-
+tion models to derive the SFHs: the Padua stellar evo-
+lution models (Marigo et al. 2008) with updated AGB
+tracks from Girardi et al. (2010) and the BaSTI mod-
+els (Pietrinferni et al. 2004). The resulting CMDs mod-
+eled from the Padova and BaSTI libraries were also a
+good match to the observed CMD, with slightly larger
+discrepancies in the RGB and RC regions. Speciﬁcally,
+the Padova models expected RGB stars that were bluer
+than observed, while both libraries produce more HB
+stars than observed.
+The corresponding χ2 values for
+the Padova and BaSTI libraries were 1.34 and 1.37 re-
+spectively. Note that the BaSTI models do not include
+stars with ages ≲30 Myr. We present the SFH results
+for all three libraries in the following section.
+5. THE STAR FORMATION HISTORY OF LEO P
+The left panel of Figure 8 presents the cumulative SFH
+of Leo P based on the best-ﬁtting modeled CMD from
+MATCH using the PARSEC models with both random and
+systematic uncertainties.
+The fraction of stellar mass
+formed at each epoch is listed in Table 5.
+Compari-
+son solutions derived using the Padova and BaSTI li-
+braries are shown the middle panel, with constraints on
+the chemical evolution shown in the right panel. Given
+the range in the three solutions, the SFH is consistent
+with a relatively constant level of star-formation activity
+over cosmic timescales as seen in more massive dIrrs (e.g.,
+IC 1613; Skillman et al. 2014). The best-ﬁtting solutions
+for Leo P also suggest that star formation may have been
+damped after early epochs (i.e., post-reionization), with
+little SF occurring between 8 −12 Gyr ago. As seen in
+the middle panel of Figure 8, the solutions from the three
+stellar libraries provide a range for the degree and dura-
+tion of damping. Although diﬀerent in amplitude, this
+is reminiscent of the delayed star formation seen in the
+SFH of the gas-rich LG dwarfs Leo A (Cole et al. 2007)
+and DDO 210 (Cole et al. 2014). Regardless, from the
+SFH it is clear that Leo P experienced star formation at
+t ≥10 Gyr, in agreement with the identiﬁcation of ten
+RR Lyrae stars. Over the last ∼4 Gyr, the solutions
+from all three libraries show continual SF at an approx-
+imately constant rate.
+The stellar mass of Leo P can be estimated by inte-
+grating the SFH over time and assuming a 30% recy-
+cling fraction (Kennicutt et al. 1994). We use the PAR-
+SEC solution for this calculation and ﬁnd the present
+day stellar mass in Leo P to be 5.6+0.4
+−1.9 × 105 M⊙, re-
+ported in Table 1. The resulting stellar mass-to-light ra-
+tio is M∗/LV = 1.25, based on a solar MV = 4.86 ± 0.02
+(Pecaut & Mamajek 2013).
+The stellar mass derived
+from the SFH is in good agreement with the previous
+estimate of 5.7+0.4
+−1.8 × 105 M⊙from ground-based LBT
+images (McQuinn et al. 2013) which used the M/L ratio
+formalism from Bell & de Jong (2001).
+Regardless of the model, the best-ﬁtting chemical evo-
+lution histories show very little enrichment in the stars
+with [M/H] values ranging from −1.7 to −1.6. These val-
+ues are close to our estimate of [Fe/H] of −1.8±0.1 from
+PARSEC isochrone ﬁts for the oldest stars used in the
+distance calibrations of the HB and RR Lyrae stars. Rel-
+atively slow chemical evolution has been noted in other
+low-mass galaxies such as Leo A, IC 1613, and DDO 210
+(Cole et al. 2007; Skillman et al. 2014; Cole et al. 2014),
+but Leo P shows less chemical evolution than any of these
+systems. A follow-up investigation of the chemical evolu-
+tion history of Leo P will be presented in a future paper
+(K. B. W. McQuinn et al. in preparation).
+6. LEO P AS A PROBE OF EVOLUTIONARY SCENARIOS
+6.1. Comparison Sample and Present-Day Luminosities
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+Age (Gyr)
+Cumulative SFH
+Leo P
+Age (Gyr)
+PARSEC
+Padova
+BaSTI
+Age (Gyr)
+Metalicity
+PARSEC
+Padova
+BaSTI
+Figure 8. Left panel: Best-ﬁtting cumulative SFHs for Leo P derived using the PARSEC stellar evolution libraries. Random uncertainties
+are plotted in yellow (Dolphin 2013); combined random and systematic uncertainties are plotted in grey (Dolphin 2012). Middle panel: For
+comparison with the PARSEC models, we present the best-ﬁtting cumulative SFHs using two additional stellar libraries: Padova libraries
+(blue), and BaSTI libraries (red). Random uncertainties are plotted in shaded colors for each library. The systematic uncertainties derived
+for the PARSEC libraries using (Dolphin 2012) (shown in the left panel) are supported by this comparison. Right panel: Chemical evolution
+[M/H] solution for Leo P including random uncertainties. For clarity, we plot limited modeled values of stellar metallicity during periods
+of star formation. The chemical enrichment solutions show good agreement ranging from [M/H] of −1.6 to −1.7 across all ages.
+Table 5
+Cumulative SFH of Leo P
+Fraction of Stellar Mass
+Formed by each Epoch
+f10.10
+0.16+0.11
+−0.16
+f10.05
+0.18+0.10
+−0.17
+f10.00
+0.18+0.20
+−0.17
+f9.95
+0.18+0.47
+−0.00
+f9.90
+0.47+0.25
+−0.18
+f6.80
+1.00+0.00
+−0.00
+f6.75
+1.00+0.00
+−0.00
+f6.70
+1.00+0.00
+−0.00
+f6.65
+1.00+0.00
+−0.00
+f6.60
+1.00+0.00
+−0.00
+Note. — The fraction of stellar mass formed prior to each log
+time bin based on the best-ﬁtting SFH using the PARSEC stellar
+evolution library. Uncertainties include both random and system-
+atic uncertainties. The SFHs are derived assuming the fraction of
+stellar mass formed is zero at log(t) = 10.15 and unity at log(t)
+= 6.6.
+Integrating the SFH over all time bins, the total stellar
+mass formed is 8.6 × 105 M⊙. Assuming a 30% recycling fraction,
+the present day stellar mass in Leo P is 5.6+0.4
+−1.9 ×105 M⊙. The full
+cumulative SFH is published in its entirety in the electronic edition
+of this journal. A portion is shown here for guidance regarding its
+form and content.
+To provide context for Leo P’s properties, we compile
+a comparison sample of very low-mass, low-luminosity
+galaxies in the nearby universe, listed in Table 6. By both
+necessity and design, the sample is heterogeneous, in-
+cluding both gas-poor dSphs satellites of the Milky Way
+and gas-rich dIrrs that lie outside the virial radius of the
+Milky Way but still inside the LG zero velocity bound-
+ary. On the one hand, there are very few known gas-rich,
+star-forming galaxies in this mass range, despite predic-
+tions that they should be the most common galaxy struc-
+ture in the nearby universe (e.g., Haynes et al. 2011).
+As noted in the Introduction, these galaxies have proven
+elusive observationally. Thus, to build a larger sample
+of galaxies in this mass regime, we must include some
+of the gas-poor low-mass dSphs detected in close prox-
+imity to the Milky Way. On the other hand, the dSphs
+present very diﬀerent environment-driven histories than
+Leo P and other dIrrs. Thus, these galaxies provide a
+contrast to evolution in isolation allowing us to explore
+possible environmental diﬀerences on evolution in this
+mass regime.
+As an extension to our comparison, we also include
+three dSphs with even lower-lumnosities.
+The discov-
+ery and study of a population of very low-mass Milky
+Way satellite dSph galaxies, colloquially called “ultra-
+faint dwarf” galaxies, have extended the constraints of
+structure formation and evolution in the universe. These
+galaxies are very low-luminosity (MV ≳−8; Martin et al.
+2008) with little gas content and a predominantly old,
+metal-poor, stellar population (e.g., Sand et al. 2009,
+2010; Okamoto et al. 2008, 2012; de Jong et al. 2008a;
+Hughes et al. 2008; Martin et al. 2008; Frebel et al. 2010;
+Norris et al. 2010; Kirby et al. 2010, 2011a; Brown et al.
+2014; Weisz et al. 2014a).
+The mass-to-light ratios of
+these systems indicate that they are dark matter domi-
+nated (i.e., M/L ≳100 Kleyna et al. 2005; Mu˜noz et al.
+2006; Martin et al. 2007; Simon & Geha 2007), setting
+them apart from globular clusters of similar luminosity.
+Discovered from slight over-densities in the SDSS data
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+Table 6
+Comparison of Leo P with Nearby Very Low-Mass Galaxies
+Dist.
+Galaxy
+(mag)
+(kpc)
+(105 M⊙)
+Ref.
+Gas-Rich Low-Mass Dwarfs
+Leo A
+−12.1
+DDO 210
+−10.6
+Leo P
+−9.27
+1640
+· · ·
+Leo T
+−8.0
+Low-Mass dSphs
+Draco
+−8.8
+Ursa Minor
+−8.8
+Canes Venatici I
+−8.6
+Very Low-Mass dSphs
+Hercules
+−6.6
+0.37
+Leo IV
+−5.0
+0.19
+Canes Venatici II
+−4.9
+0.079
+Note. — All values for Leo P are from this work. Stellar Masses
+for the comparison sample are based on a stellar mass-to-light ratio
+of unity.
+References: (1) McConnachie (2012); (2) Cole et al. (2014); (3)
+de Jong et al. (2008b); (4) Martin et al. (2008); (5) Irwin &
+Hatzidimitriou (1995); (6) de Jong et al. (2010).
+set, it appears that these very low surface brightness
+galaxies are an extension of dSphs to lower masses (Be-
+lokurov et al. 2007; Clementini et al. 2012).
+From Table 6, the present-day luminosities of the dIrrs
+and dSphs span close to four magnitudes; this range in-
+creases to seven magnitudes when including the very low-
+mass dSphs. The dSphs are all located within ∼200 kpc
+of the Milky Way, well inside the virial radius. The three
+comparison dIrrs reside outside of this boundary, but still
+inside the LG (McConnachie 2012).
+6.2. Luminosity Evolution of Very Low-Mass Galaxies
+Another way to compare these low-mass galaxies is to
+consider the evolution of their luminosities with time
+based on their SFHs (e.g., Weisz et al. 2014b).
+This
+can allow one to compare the initial properties of the
+sample and study whether subsequent changes are cor-
+related with environment.
+Such a comparison can be
+made by converting the SFHs into luminosity evolution
+proﬁles. The SFHs from resolved stellar populations of
+various low-mass galaxies have been published by a num-
+ber of authors (e.g., Cole et al. 2007; Kirby et al. 2011a;
+Clementini et al. 2012; Brown et al. 2014; Weisz et al.
+2014a; Cole et al. 2014, among others).
+Because our analysis requires tabulated results of the
+fraction of stars as a function of time, we utilize the re-
+sults on eight galaxies in our comparison sample derived
+from HST optical imaging from Weisz et al. (2014a),
+and similarly obtained results on one galaxy (DDO 210)
+from Cole et al. (2014). The SFH solutions from Weisz
+et al. (2014a) were derived using the Padova isochrones,
+and the solution for DDO 210 from Cole et al. (2014)
+was derived using the PARSEC isochrones. However, the
+CMDs in both of these previous studies have photomet-
+ric depths reaching below the old main sequence turn-oﬀ
+(oMSTO), which provides robust constraints on the an-
+cient star formation. SFH solutions derived from diﬀer-
+ent stellar evolution libraries using data with photometry
+extending below the oMSTO have shown excellent agree-
+ment with each other (e.g., Gallart et al. 2005; Monelli
+et al. 2010a,b; Hidalgo et al. 2011; Weisz et al. 2011).
+Thus, the systematic uncertainties between members of
+our comparison sample should be small. For complete-
+ness in our qualitative comparison, we also include the
+luminosity evolution of Leo P based on the SFH from the
+Padova, PARSEC, and BaSTI models, which provides a
+sense of the systematic uncertainties.
+The SFHs were used as input to the stellar popula-
+tion synthesis technique from Bruzual & Charlot (2003)
+which builds a synthetic galaxy spectrum as a function
+of time, assuming a constant metallicity and an IMF.
+Because the SFHs from Weisz et al. (2014a) and Cole
+et al. (2014) were derived from HST data which do not
+encompass the full optical disks of the galaxies, a correc-
+tion is necessary. While the SFHs are generally assumed
+to be representative of the galaxy as a whole, the stellar
+mass only traces the stars (and luminosity) in the ﬁeld
+of view. As a result, the modeled present-day luminosi-
+ties from the SFHs are less than the measured luminosi-
+ties. The exception to this is the luminosity for Leo P
+whose stellar disk is contained within the observational
+footprint. To account for the disparate ﬁelds of view be-
+tween SDSS imaging used to determine the luminosities
+and data used to measure the SFHs from Weisz et al.
+(2014a) and Cole et al. (2007), we normalized the results
+from Bruzual & Charlot (2003) by the present-day mea-
+sured luminosity. This scaled the modeled luminosities
+while preserving relative changes as a function of time.
+In the left panel of Figure 9, we present a comparison
+of the luminosity evolution (MV (t)) for Leo P based on
+the three stellar evolution libraries. Because the best-
+ﬁtting solution from the Padova models has 50% of the
+stellar mass formed in the earliest epochs, compared to
+10% −20% from the BaSTI and PARSEC libraries re-
+spectively, the Padova luminosity proﬁle also shows the
+highest luminosity at earliest times. Regardless of the
+absolute magnitude, all three solutions show a peak in
+brightness at early times followed by a slow fading in
+luminosity.
+The right panel of Figure 9 presents a comparison of
+MV (t) for Leo P using the PARSEC models with six
+gas-poor dSphs and three gas-rich dIrrs.
+We chose to
+highlight the Leo P solution using the PARSEC mod-
+els which provided the best-ﬁtting modeled CMD to the
+data, but our overall interpretation is valid for the pro-
+ﬁles derived from all three stellar libraries. Two of the
+very low-mass dSphs (CVn II and Leo IV) lie 2 −4 mag-
+nitudes below the rest of the sample in both initial and
+present-day luminosity.
+Excluding these two systems,
+the rest of the sample shows a much narrower range in
+their initial luminosities than their present day luminosi-
+ties (i.e., ∆MV ∼2 versus ∆MV ∼5). The larger range
+at the present-epoch is mainly driven by changes in three
+galaxies. On the bright end are DDO 210 and Leo A
+which show dramatic increases in star formation in the
+last 6 Gyr (Cole et al. 2007, 2014). On the faint end is
+Hercules which has formed far fewer stars at recent times
+than the initially comparable low-luminosity dIrr, Leo T.
+Looking at the early evolution of the proﬁles in Fig-
+ure 9, Leo P’s initial luminosity is similar to one very
+low-mass dSph (Hercules) and lower than three other
+dSphs (CVn I, Draco, Ursa Minor).This similarity sug-
+gests that Leo P may be what a dSph would look like if it
+evolved in isolation and retained its gas. One of the ar-
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+Age (Gyr)
+Hercules
+CVn II
+Leo IV
+Age (Gyr)
+MV (t)
+Leo P
+PARSEC
+Padova
+BaSTI
+Leo P
+Leo A
+DDO 210
+Leo T
+CVn I
+Draco
+Ursa Minor
+PARSEC
+Padova
+BaSTI
+Figure 9.
+The luminosity evolution of Leo P and nine low-luminosity Milky Way satellites based on their SFHs and stellar population
+synthesis modeling. The luminosity of Leo P at early times is consistent with a number of the now gas-poor dSphs which have since faded
+to lower luminosities due to their lack of star formation. Leo P is analogous to a dSph evolving in isolation, highlighting the dramatic eﬀect
+environment has on very low-mass galaxies. Note the smoother proﬁle of DDO 210 is due to the larger time binning of the SFH from Cole
+et al. (2014).
+guments against a dIrr evolving into a dSph is based on
+conservation of angular momentum; dIrrs are typically
+rotation supported whereas dSph are pressure supported
+(e.g., Grebel et al. 2003). However, analysis of the gas ve-
+locity ﬁeld in Leo P shows that the gas velocity dispersion
+approaches the rotation speed. As discussed in detail in
+Bernstein-Cooper et al. (2014), there is signiﬁcant ran-
+dom motion of the gas in Leo P superposed on the bulk
+rotation signature. This agrees with previous ﬁndings of
+little evidence of rotational support in other very low-
+mass dIrrs such as Leo A and DDO 210 (Lo et al. 1993;
+Young & Lo 1997). In contrast to higher-mass dIrrs with
+clearly deﬁned rotation curves, the transformation of a
+very low-mass galaxy like Leo P to a dSph would not
+require a drastic loss of angular momentum.
+6.3. Similarities within Morphological Types at Recent
+Times
+From Figure 9, the patterns in luminosity proﬁles
+within the two morphological groups are quite similar
+over the last ∼7 Gyr. The dIrrs show fairly steady or
+increasing luminosities whereas the dSphs show declining
+luminosities. This more recent evolution in luminosity is
+presumably dictated by environment, described by the
+morphology-density relation (i.e., the isolated low-mass
+galaxies which retain their gas continue forming stars
+while those in closer proximity to a massive galaxy do
+not retain their gas and begin to fade).
+This is indi-
+rect evidence that the removal of gas in the dSphs is
+driven by environment −not internal stellar feedback −
+although feedback may be necessary to oust the gas from
+the inner, denser parts of the galaxies into an enveloping
+diﬀuse gaseous halo (see, e.g., Mayer et al. 2006; Simpson
+et al. 2013; Milosavljevi´c & Bromm 2014, and references
+therein) for more swift and eﬃcient removal. Previous
+authors have attributed the removal of gas and metals in
+Draco, CVn I, and Ursa Minor to stellar feedback pro-
+cesses (Kirby et al. 2011b), but additional factors must
+be involved to explain the distinct retention of gas in
+comparably low-mass systems such as Leo P and Leo T.
+6.4. Similarities across Morphological Types at Early
+Times and Implications
+Despite the heterogeneity and general divergence of the
+proﬁles between the morphological types at more recent
+times, there is a similarity in the ﬁrst 6 Gyr regardless
+of present-day morphological classiﬁcation. As seen in
+Figure 9, there is a peak in luminosity at early epochs
+followed by a decrease. As suggested by previous studies
+(Cole et al. 2007, 2014; Brown et al. 2014), this pat-
+tern is consistent with a quelling of star formation post-
+reionization. In this scenario, ionizing photons from the
+ﬁrst epochs of star formation (z = 11.3 ± 1.1; Planck
+Collaboration et al. 2014), may heat the outer disks of
+the galaxies in the mass and distance ranges probed,
+slowing or halting further gas accretion and causing an
+eventual (although sometimes temporary) decline in star
+formation (e.g., O˜norbe et al. 2015). As noted above,
+the galaxies at closer distances to the hostile environ-
+ment of a massive galaxy are more likely to have the
+hot coronal gas removed by stripping mechanisms. The
+more distant, isolated galaxies retain the gas heated by
+reionization, which is likely at extended radii in the dark
+matter halo. Through atomic line cooling processes over
+Gyr-long timescales, this hot coronal gas may eventu-
+ally condense onto the disk and reignite star formation,
+consistent with the increases noted for the more isolated
+galaxies (Leo P, Leo A, DDO 210, Leo T).
+The impact of reionization on an individual galaxy is
+likely dependent on the distance to the local source of
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+the ionizing photons, however it is unclear what distance
+scales are involved (e.g., Weinmann et al. 2007, and ref-
+erences therein). Excluding Leo P, the distances probed
+by our comparison sample range from 76 kpc −1000 kpc;
+within this range, the early evolution of the luminosity
+proﬁles do not show diﬀerences that can be obviously
+tied to present-epoch distances. For example, contrary
+to the idea that galaxies closer to the ionizing source
+should be more impacted by reionization, the galaxies
+closest to the Milky Way (Draco, Ursa Minor, CVn II,
+Leo IV) show smaller fractional increases in luminosity
+between ∼8 −12 Gyr ago; the more distant galaxies do
+not, suggesting additional variables (e.g., mass) must be
+considered. The literature SFHs used to model the lu-
+minosity evolution have similarly small uncertainties at
+old look back times. Thus, the luminosity proﬁles should
+be robust. The exception, of course, is Leo P, which at
+the larger distance of 1.6 Mpc, limits the accuracy of the
+ancient SFH with the current data set. The best-ﬁtting
+SFH suggests star formation was damped even at the
+larger distance of Leo P. However, given the uncertain-
+ties at older times, the SFH of Leo P does not preclude a
+fairly constant SFR as an alternative evolution for Leo P.
+If true, this would imply the damping of star formation
+occurs inside of ∼1.5 Mpc scales for a LG-type environ-
+ment.
+The impact of reionization on early star formation is
+also predicted to be dependent on the mass of a galaxy.
+Theoretical simulations ﬁne-tune a “ﬁltering mass” be-
+low which reionization universally quenches star forma-
+tion.
+While the “ﬁltering mass” generally falls within
+the mass range probed here (e.g., Gnedin 2000; Susa
+& Umemura 2004), we do not see evidence of univer-
+sal quenching, in agreement with previous results (e.g.,
+Grebel & Gallagher 2004; Monelli et al. 2010a; Hidalgo
+et al. 2011; Weisz et al. 2015). Yet, observational stud-
+ies have reported something akin to this “knife-edge”
+in star formation within the temporal limitations of the
+CMD analysis in a few dSphs of even lower-masses (i.e.,
+M∗≲104 M⊙Brown et al. 2014). There is still con-
+tinuing debate on whether the cessation of star forma-
+tion in the aforementioned systems can be solely at-
+tributed to photoevaporization from reionization (Brown
+et al. 2014) as these galaxies are also susceptible to
+environmentally-driven removal of gas, and possibly stel-
+lar feedback (Kirby et al. 2011b).
+Finally, we note that while Leo P has initial luminosity
+properties similar to the dSphs Hercules, Draco, CVn I,
+and Ursa Minor, the overall evolution of Leo P, based on
+the best-ﬁtting SFH, is most similar to Leo T (shifted to
+brighter magnitudes). Leo T lies just outside the virial
+radius of the Milky Way, but is thought to have been
+only recently accreted (tinfall < 1 Gyr; Rocha et al.
+2012). The similarities in the luminosity proﬁles support
+this hypothesis as tidal stripping of gaseous material in a
+galaxy as low-mass as Leo T becomes important at ∼1.5
+times the virial radius of the Milky Way, or ∼450 kpc
+(Milosavljevi´c & Bromm 2014). Thus, it is unlikely that
+Leo T would have retained its gas if it had been in resi-
+dence around the Milky Way for a cosmically-signiﬁcant
+time. Previous authors have suggested that Leo T, as
+well as Leo A, ﬁt in the general scenario outlined above
+for Leo P where star formation is quelled by reionization
+and reignited by late phase cold gas accretion (Cole et al.
+2007; Ricotti 2009; Weisz et al. 2012; Clementini et al.
+2012).
+7. CONCLUSION
+Using HST optical imaging, we have studied the stellar
+populations and evolutionary history of Leo P. We reﬁned
+the distance measurement to Leo P to 1.62 ± 0.15 Mpc
+based on HB stars and ten RR Lyrae candidate stars,
+identiﬁed from their light curves. Using a CMD-ﬁtting
+technique, we have reconstructed the SFH and chemical
+evolution of Leo P. The best-ﬁtting SFH solution favors
+star formation at the earliest epochs, followed by a period
+of quiescence, and a relatively constant star formation
+rate at recent times.
+The closest galaxies provide the most detailed con-
+straints on the evolution of galaxies at the faint-end of the
+LF. Using luminosity evolution proﬁles modeled from de-
+tailed SFHs, we note a similar pattern between low-mass
+dIrrs and comparably low-mass dSphs at early times.
+The luminosity proﬁles of both morphological types sug-
+gest a general quelling of star formation post-reionization
+with no obvious distance dependency, after which marked
+dissimilarities arise.
+There are a number of possible explanations for the
+quelling of star formation and subsequent evolutionary
+diﬀerences in this low-mass regime, but the scenario
+which ﬁts the observed trend includes the following gen-
+eral framework: (i) heating of the outer gaseous disks of
+low-mass galaxies by reionization at the earliest epochs,
+(ii) the cessation of gas accretion onto the galaxies, which
+provides a governor on the total gas mass of each system,
+(iii) in the case of dSphs, the stripping of the hot coronal
+gas in the hostile halo environment of the host galaxy
+(e.g., the Milky Way), (iv) in the case of isolated dIrrs,
+the slow cooling of the ionized gas which eventually con-
+denses and becomes available for further star formation.
+The similar initial luminosities of low-mass galaxies stud-
+ied provides supportive evidence that the removal of gas
+in post-reionization epochs has a strong environmental
+dependence for galaxies in this mass regime. Addition-
+ally, because both isolated and non-isolated galaxies will
+suﬀer the loss of material from their shallow potential
+wells due to stellar feedback processes during epochs of
+star formation, stellar feedback alone cannot explain the
+present-day luminosity diﬀerences between the galaxies.
+Whether or not the SF in Leo P at early epochs was
+temporarily damped by re-ionizing photons remains an
+open question. The SFH suggests there may have been
+a cessation in activity from 9 −13 Gyr ago.
+On the
+other hand, within the SFH uncertainties the solution is
+also consistent with a relatively constant SFR scenario
+with no quenching. If a more constant SFR is favored,
+this would imply that the impact of reionization is sig-
+niﬁcantly smaller outside of a ∼1.5 Mpc radius from a
+LG-type environment. Despite this ambiguity, it is clear
+that Leo P contains a population of old stars and has also
+retained a signiﬁcant gas reservoir and continues making
+stars at a fairly constant rate. The initial luminosity of
+Leo P is similar to dSphs, suggesting that Leo P is what
+a low-luminosity dSph would look like if evolved in iso-
+lation without losing its gas and its ability to form stars.
+8. ACKNOWLEDGEMENTS
+
+--- PAGE BREAK ---
+
+Leo P: An Unquenched Very Low-Mass Galaxy
+The authors would like to thank P. Rosenﬁeld for in-
+corporating the latest version of the PARSEC models
+into MATCH, M. Boylin-Kolchin and D. Weisz for helpful
+discussions, and E. Perriello at the STScI and C. Gallart
+and M. Monnelli at the IAC for assistance in planning
+the observations.
+Support for this work was provided
+by NASA through grant GO-13376 from the Space Tele-
+scope Institute, which is operated by Aura, Inc., under
+NASA contract NAS5-26555. J. M. C is supported by
+NSF grant AST-1211683. The ALFALFA work at Cor-
+nell is supported by NSF grants AST-0607007 and AST-
+1107390 to R. G. and M. P. H. and by grants from the
+Brinson Foundation. This research made use of NASA’s
+Astrophysical Data System and the NASA/IPAC Extra-
+galactic Database (NED) which is operated by the Jet
+Propulsion Laboratory, California Institute of Technol-
+ogy, under contract with the National Aeronautics and
+Space Administration.
+Facilities: Hubble Space Telescope
+REFERENCES
+Asplund, M., Grevesse, N., Sauval, A. J., & Scott, P. 2009,
+ARA&A, 47, 481
+Babul, A., & Rees, M. J. 1992, MNRAS, 255, 346
+Begum, A., Chengalur, J. N., Karachentsev, I. D., Sharina, M. E.,
+& Kaisin, S. S. 2008, MNRAS, 386, 1667
+Bell, E. F., & de Jong, R. S. 2001, ApJ, 550, 212
+Belokurov, V., Evans, N. W., Bell, E. F., et al. 2007, ApJ, 657,
+Ben´ıtez-Llambay, A., Navarro, J. F., Abadi, M. G., et al. 2014,
+ArXiv e-prints, arXiv:1405.5540
+Berg, D. A., Skillman, E. D., Marble, A. R., et al. 2012, ApJ, 754,
+Bernard, E. J., Gallart, C., Monelli, M., et al. 2008, ApJ, 678, L21
+Bernard, E. J., Monelli, M., Gallart, C., et al. 2009, ApJ, 699,
+1742
+Bernstein-Cooper, E. Z., Cannon, J. M., Elson, E. C., et al. 2014,
+AJ, 148, 35
+Binggeli, B. 1987, in Nearly Normal Galaxies. From the Planck
+Time to the Present, ed. S. M. Faber, 195–206
+Bono, G., Caputo, F., Castellani, V., et al. 2003, MNRAS, 344,
+1097
+Boselli, A., Boissier, S., Cortese, L., et al. 2009, ApJ, 706, 1527
+Bothwell, M. S., Kennicutt, R. C., & Lee, J. C. 2009, MNRAS,
+400, 154
+Boyer, M. L., McQuinn, K. B. W., Barmby, P., et al. 2015a,
+ApJS, 216, 10
+—. 2015b, ApJ, 800, 51
+Boylan-Kolchin, M., Bullock, J. S., & Kaplinghat, M. 2011,
+MNRAS, 415, L40
+Bressan, A., Marigo, P., Girardi, L., et al. 2012, MNRAS, 427, 127
+Brinchmann, J., Charlot, S., White, S. D. M., et al. 2004,
+MNRAS, 351, 1151
+Brooks, A. M., Kuhlen, M., Zolotov, A., & Hooper, D. 2013, ApJ,
+765, 22
+Brown, T. M., Tumlinson, J., Geha, M., et al. 2014, ApJ, 796, 91
+Bruzual, G., & Charlot, S. 2003, MNRAS, 344, 1000
+Cacciari, C. 2003, in Astronomical Society of the Paciﬁc
+Conference Series, Vol. 296, New Horizons in Globular Cluster
+Astronomy, ed. G. Piotto, G. Meylan, S. G. Djorgovski, &
+M. Riello, 329
+Cannon, J. M., Giovanelli, R., Haynes, M. P., et al. 2011, ApJ,
+739, L22
+Carretta, E., Gratton, R. G., Clementini, G., & Fusi Pecci, F.
+2000, ApJ, 533, 215
+Catelan, M. 2009, Ap&SS, 320, 261
+Chen, Y., Girardi, L., Bressan, A., et al. 2014, MNRAS, 444, 2525
+Clementini, G., Cignoni, M., Contreras Ramos, R., et al. 2012,
+ApJ, 756, 108
+Clementini, G., Gratton, R., Bragaglia, A., et al. 2003, AJ, 125,
+1309
+Cole, A. A., Weisz, D. R., Dolphin, A. E., et al. 2014, ApJ, 795, 54
+Cole, A. A., Skillman, E. D., Tolstoy, E., et al. 2007, ApJ, 659,
+Cˆot´e, S., Draginda, A., Skillman, E. D., & Miller, B. W. 2009,
+AJ, 138, 1037
+Dalcanton, J. J., Williams, B. F., Seth, A. C., et al. 2009, ApJS,
+183, 67
+de Jong, J. T. A., Martin, N. F., Rix, H.-W., et al. 2010, ApJ,
+710, 1664
+de Jong, J. T. A., Rix, H.-W., Martin, N. F., et al. 2008a, AJ,
+135, 1361
+de Jong, J. T. A., Harris, J., Coleman, M. G., et al. 2008b, ApJ,
+680, 1112
+Dekel, A., & Silk, J. 1986, ApJ, 303, 39
+Dohm-Palmer, R. C., & Skillman, E. D. 2002, AJ, 123, 1433
+Dolphin, A. E. 2000, PASP, 112, 1383
+—. 2002, MNRAS, 332, 91
+—. 2012, ApJ, 751, 60
+—. 2013, ApJ, 775, 76
+Dolphin, A. E., Saha, A., Olszewski, E. W., et al. 2004, AJ, 127,
+Dolphin, A. E., Saha, A., Skillman, E. D., et al. 2001, ApJ, 550,
+Dolphin, A. E., Saha, A., Claver, J., et al. 2002, AJ, 123, 3154
+Efstathiou, G. 1992, MNRAS, 256, 43P
+Einasto, J., Kaasik, A., & Saar, E. 1974, Nature, 250, 309
+Ferrara, A., & Tolstoy, E. 2000, MNRAS, 313, 291
+Ford, H. C., Bartko, F., Bely, P. Y., et al. 1998, in Society of
+Photo-Optical Instrumentation Engineers (SPIE) Conference
+Series, Vol. 3356, Space Telescopes and Instruments V, ed.
+P. Y. Bely & J. B. Breckinridge, 234–248
+Frebel, A., Simon, J. D., Geha, M., & Willman, B. 2010, ApJ,
+708, 560
+Gallart, C., Zoccali, M., & Aparicio, A. 2005, ARA&A, 43, 387
+Giovanelli, R., Haynes, M. P., Kent, B. R., et al. 2005, AJ, 130,
+2598
+Giovanelli, R., Haynes, M. P., Adams, E. A. K., et al. 2013, AJ,
+146, 15
+Girardi, L., Williams, B. F., Gilbert, K. M., et al. 2010, ApJ, 724,
+1030
+Gnedin, N. Y. 2000, ApJ, 542, 535
+Goddard, Q. E., Kennicutt, R. C., & Ryan-Weber, E. V. 2010,
+MNRAS, 405, 2791
+Grebel, E. K., & Gallagher, III, J. S. 2004, ApJ, 610, L89
+Grebel, E. K., Gallagher, III, J. S., & Harbeck, D. 2003, AJ, 125,
+1926
+Haynes, M. P., Giovanelli, R., Martin, A. M., et al. 2011, AJ, 142,
+Hidalgo, S. L., Aparicio, A., Skillman, E., et al. 2011, ApJ, 730, 14
+Huang, S., Haynes, M. P., Giovanelli, R., et al. 2012, AJ, 143, 133
+Hughes, J., Wallerstein, G., & Bossi, A. 2008, AJ, 136, 2321
+Hunter, D. A., & Elmegreen, B. G. 2004, AJ, 128, 2170
+Hunter, D. A., Ficut-Vicas, D., Ashley, T., et al. 2012, AJ, 144,
+Irwin, M., & Hatzidimitriou, D. 1995, MNRAS, 277, 1354
+Kauﬀmann, G., White, S. D. M., & Guiderdoni, B. 1993,
+MNRAS, 264, 201
+Kennicutt, Jr., R. C., Tamblyn, P., & Congdon, C. E. 1994, ApJ,
+435, 22
+Kirby, E. N., Cohen, J. G., Smith, G. H., et al. 2011a, ApJ, 727,
+Kirby, E. N., Martin, C. L., & Finlator, K. 2011b, ApJ, 742, L25
+Kirby, E. N., Guhathakurta, P., Simon, J. D., et al. 2010, ApJS,
+191, 352
+Kleyna, J. T., Wilkinson, M. I., Evans, N. W., & Gilmore, G.
+2005, ApJ, 630, L141
+Klypin, A., Kravtsov, A. V., Valenzuela, O., & Prada, F. 1999,
+ApJ, 522, 82
+Kobulnicky, H. A., Kiminki, D. C., Lundquist, M. J., et al. 2014,
+ApJS, 213, 34
+Koda, J., Yagi, M., Boissier, S., et al. 2012, ApJ, 749, 20
+Koposov, S. E., Belokurov, V., Torrealba, G., & Evans, N. W.
+2015, ApJ, 805, 130
+Kroupa, P. 2001, MNRAS, 322, 231
+Laﬂer, J., & Kinman, T. D. 1965, ApJS, 11, 216
+Larson, R. B. 1974, MNRAS, 169, 229
+
+--- PAGE BREAK ---
+
+McQuinn et al.
+Lee, J. C., Kennicutt, Jr., R. C., Funes, S. J. J. G., Sakai, S., &
+Akiyama, S. 2009, ApJ, 692, 1305
+Lelli, F., Fraternali, F., & Verheijen, M. 2014, A&A, 563, A27
+Lo, K. Y., Sargent, W. L. W., & Young, K. 1993, AJ, 106, 507
+Mac Low, M., & Ferrara, A. 1999, ApJ, 513, 142
+Makarov, D., Makarova, L., Rizzi, L., et al. 2006, AJ, 132, 2729
+Marigo, P., Girardi, L., Bressan, A., et al. 2008, A&A, 482, 883
+Martin, N. F., de Jong, J. T. A., & Rix, H.-W. 2008, ApJ, 684,
+1075
+Martin, N. F., Ibata, R. A., Chapman, S. C., Irwin, M., & Lewis,
+G. F. 2007, MNRAS, 380, 281
+Mayer, L., Mastropietro, C., Wadsley, J., Stadel, J., & Moore, B.
+2006, MNRAS, 369, 1021
+McConnachie, A. W. 2012, AJ, 144, 4
+McQuinn, K. B. W., Skillman, E. D., Dalcanton, J. J., et al.
+2011, ApJ, 740, 48
+McQuinn, K. B. W., Skillman, E. D., Dolphin, A. E., & Mitchell,
+N. P. 2015a, ApJ, 808, 109
+McQuinn, K. B. W., Skillman, E. D., Cannon, J. M., et al. 2010,
+ApJ, 721, 297
+McQuinn, K. B. W., Skillman, E. D., Berg, D., et al. 2013, AJ,
+146, 145
+McQuinn, K. B. W., Cannon, J. M., Dolphin, A. E., et al. 2015b,
+ApJ, 802, 66
+M´endez, B., Davis, M., Moustakas, J., et al. 2002, AJ, 124, 213
+Milosavljevi´c, M., & Bromm, V. 2014, MNRAS, 440, 50
+Monelli, M., Hidalgo, S. L., Stetson, P. B., et al. 2010a, ApJ, 720,
+1225
+Monelli, M., Gallart, C., Hidalgo, S. L., et al. 2010b, ApJ, 722,
+1864
+Moore, B., Ghigna, S., Governato, F., et al. 1999, ApJ, 524, L19
+Mu˜noz, R. R., Carlin, J. L., Frinchaboy, P. M., et al. 2006, ApJ,
+650, L51
+Norris, J. E., Wyse, R. F. G., Gilmore, G., et al. 2010, ApJ, 723,
+1632
+O˜norbe, J., Boylan-Kolchin, M., Bullock, J. S., et al. 2015, ArXiv
+e-prints, arXiv:1502.02036
+Okamoto, S., Arimoto, N., Yamada, Y., & Onodera, M. 2008,
+A&A, 487, 103
+—. 2012, ApJ, 744, 96
+Pecaut, M. J., & Mamajek, E. E. 2013, ApJS, 208, 9
+Pﬂamm-Altenburg, J., Weidner, C., & Kroupa, P. 2007, ApJ, 671,
+1550
+Pietrinferni, A., Cassisi, S., Salaris, M., & Castelli, F. 2004, ApJ,
+612, 168
+Planck Collaboration, Ade, P. A. R., Aghanim, N., et al. 2014,
+A&A, 571, A1
+Rhode, K. L., Salzer, J. J., Haurberg, N. C., et al. 2013, AJ, 145,
+Ricotti, M. 2009, MNRAS, 392, L45
+Rizzi, L., Tully, R. B., Makarov, D., et al. 2007, ApJ, 661, 815
+Rocha, M., Peter, A. H. G., & Bullock, J. 2012, MNRAS, 425, 231
+Saha, A., Shaw, R. A., Claver, J. A., & Dolphin, A. E. 2011,
+PASP, 123, 481
+Sand, D. J., Olszewski, E. W., Willman, B., et al. 2009, ApJ, 704,
+Sand, D. J., Seth, A., Olszewski, E. W., et al. 2010, ApJ, 718, 530
+Sandage, A. 2006, AJ, 131, 1750
+Sandage, A., Tammann, G. A., & Yahil, A. 1979, ApJ, 232, 352
+Sawala, T., Frenk, C. S., Fattahi, A., et al. 2015, MNRAS, 448,
+2941
+Schlaﬂy, E. F., & Finkbeiner, D. P. 2011, ApJ, 737, 103
+Schlegel, D. J., Finkbeiner, D. P., & Davis, M. 1998, ApJ, 500,
+Simon, J. D., & Geha, M. 2007, ApJ, 670, 313
+Simpson, C. M., Bryan, G. L., Johnston, K. V., et al. 2013,
+MNRAS, 432, 1989
+Sirianni, M., Jee, M. J., Ben´ıtez, N., et al. 2005, PASP, 117, 1049
+Skillman, E. D., Kennicutt, R. C., & Hodge, P. W. 1989, ApJ,
+347, 875
+Skillman, E. D., Salzer, J. J., Berg, D. A., et al. 2013, AJ, 146, 3
+Skillman, E. D., Hidalgo, S. L., Weisz, D. R., et al. 2014, ApJ,
+786, 44
+Smith, H. A. 1995, Cambridge Astrophysics Series, 27
+Susa, H., & Umemura, M. 2004, ApJ, 600, 1
+Tang, J., Bressan, A., Rosenﬁeld, P., et al. 2014, MNRAS, 445,
+4287
+Thoul, A. A., & Weinberg, D. H. 1996, ApJ, 465, 608
+Tully, R. B., Rizzi, L., Dolphin, A. E., et al. 2006, AJ, 132, 729
+van den Bergh, S. 1994, ApJ, 428, 617
+Wegner, W. 2000, MNRAS, 319, 771
+Weidner, C., & Kroupa, P. 2005, ApJ, 625, 754
+Weinmann, S. M., Macci`o, A. V., Iliev, I. T., Mellema, G., &
+Moore, B. 2007, MNRAS, 381, 367
+Weisz, D. R., Dolphin, A. E., Skillman, E. D., et al. 2014a, ApJ,
+789, 147
+—. 2015, ArXiv e-prints, arXiv:1503.05195
+Weisz, D. R., Johnson, B. D., & Conroy, C. 2014b, ApJ, 794, L3
+Weisz, D. R., Dalcanton, J. J., Williams, B. F., et al. 2011, ApJ,
+739, 5
+Weisz, D. R., Zucker, D. B., Dolphin, A. E., et al. 2012, ApJ, 748,
+Young, L. M., & Lo, K. Y. 1997, ApJ, 490, 710

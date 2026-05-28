@@ -1,0 +1,42 @@
+[
+  {
+    "circuit": "current_mirror",
+    "status": "verified_correct",
+    "scenario": "Generating an NMOS/PMOS current mirror netlist for LVS on gf180.",
+    "error": "LVS mismatch: extracted vs schematic node names differ; duplicate subckt suffixes like FVF_1.",
+    "root_cause": "glayout.cells current_mirror_netlist emits generic node labels ('B','VOUT') that don't match the layout's pin nets.",
+    "fix": "Monkey-patch current_mirror_netlist at runtime to rename 'B'->'VB' and 'VOUT'->'VCOPY'; never edit src/gelochip/glayout/cells/."
+  },
+  {
+    "circuit": "generic",
+    "status": "verified_correct",
+    "scenario": "Any gf180 layout that must pass DRC for guard-ring / well-tie spacing.",
+    "error": "Magic DRC reports N-well and diffusion-tie spacing violations.",
+    "root_cause": "Devices placed without substrate ties / guard rings under default placement.",
+    "fix": "Pass with_tie=True (and with_dummy=True where supported) to the gl primitives; this guarantees DRC-clean tie placement on gf180."
+  },
+  {
+    "circuit": "ota",
+    "status": "historical_error",
+    "scenario": "Building a 5-transistor OTA layout + netlist on gf180.",
+    "error": "OTA netlist has unresolvable node mismatches; LVS skipped.",
+    "root_cause": "four_transistor_interdigitized placement in cells/ produces inconsistent net ordering.",
+    "fix": "Build the OTA from gl.diff_pair + gl.current_mirror primitives instead of the raw interdigitized cell; keep DRC as the gating check and skip LVS until netlist is patched."
+  },
+  {
+    "circuit": "generic",
+    "status": "verified_correct",
+    "scenario": "Executing generated glayout code in the agent.",
+    "error": "Executor: 'No gdsfactory Component found.'",
+    "root_cause": "Generated code returned a gl wrapper or left the layout unbound.",
+    "fix": "Always end generated code with `component = <build>.component` so the executor can locate the gdsfactory Component."
+  },
+  {
+    "circuit": "generic",
+    "status": "verified_correct",
+    "scenario": "Choosing the PDK for any block.",
+    "error": "Layout generated against sky130 rules, fails gf180 DRC deck.",
+    "root_cause": "Wrong PDK selected.",
+    "fix": "Use gf180 for ALL blocks. Pass gl.gf180 / gf180_mapped_pdk everywhere; sky130 is out of scope."
+  }
+]

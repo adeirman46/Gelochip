@@ -1,0 +1,449 @@
+arXiv:2104.09199v1  [eess.SP]  19 Apr 2021
+SPSA-Based Successive Beamforming for Mobile
+Satellite Receivers with Phased Arrays
+Zheng Chen, Member, IEEE, and Håkan Johansson, Senior Member, IEEE
+Abstract—Efﬁcient and low-complexity beamforming design is
+an important element of satellite communication systems with
+mobile receivers equipped with phased arrays. In this work, we
+apply the simultaneous perturbation stochastic approximation
+(SPSA) method with successive sub-array selection for ﬁnding
+the optimal antenna weights that maximize the received signal
+power at a uniform plane array (UPA). The proposed algorithms
+are based on iterative gradient approximation by injecting some
+carefully designed perturbations on the parameters to be esti-
+mated. Additionally, the successive sub-array selection technique
+enhances the performance of SPSA-based algorithms and makes
+them less sensitive to the initial beam direction. Simulation results
+show that our proposed algorithms can achieve efﬁcient and
+reliable performance even when the initial beam direction is not
+well aligned with the satellite direction.
+I. INTRODUCTION
+Satellite communication (SatCom) has been a long-standing
+research ﬁeld for several decades. Recently, it has regained the
+spotlight because of the intensive discussions on integrating
+SatCom infrastructure into mobile networks to achieve seam-
+less and ﬂexible wireless connectivity in 5G and beyond [1].
+The related application scenarios are particularly meaningful
+for providing mobile coverage in those areas that are under-
+served by terrestrial cellular base stations, such as oceans and
+deserted areas.
+Phased array antennas are commonly considered for Sat-
+Com on-the-move applications where mobile terminals are
+communicating with satellites. A phased array can steer in a
+certain direction by electronically adjusting the phase shifts
+between the antenna elements. When a phased array on a
+moving platform receives satellite signals, the beam pointing
+direction needs to match the direction of arrival of the satellite
+signals to maximize the received signal power. This procedure
+is referred to as beam tracking. Though the fundamental theo-
+ries of phased arrays are well investigated, how to exploit the
+structure of phased arrays to achieve efﬁcient beam tracking
+with low-cost and low-complexity algorithms for SatCom on-
+the-move scenario remains a meaningful topic.
+Simultaneous perturbation stochastic approximation (SPSA)
+is a powerful and effective stochastic optimization tool for
+solving multivariate optimization problems without knowing
+exactly the gradient of the objective function with respect
+to the parameters being optimized [2]–[4]. This method has
+been applied in various engineering scenarios that involve
+Z. Chen and H. Johansson are with the Department of Electrical En-
+gineering (ISY), Linköping University, 58183 Linköping, Sweden. Email:
+{zheng.chen, hakan.johansson}@liu.se.
+This work was supported by VINNOVA (Swedish Agency for Innovation
+Systems).
+solving an optimization problem without explicitly knowing
+the model, such as source seeking in mobile robot systems
+[5]. For beam tracking in SatCom scenario with phased arrays,
+the parameters to be optimized are the phase shifts of the
+antenna elements. When the received signal power at the
+antenna array is the only available knowledge, SPSA can be
+a potentially effective solution for ﬁnding the optimal phase
+shifts by using gradient approximation. In [6], a receive beam-
+forming algorithm based on SPSA method is proposed for a
+uniform linear array (ULA). Similar algorithms for uniform
+plane array (UPA) have been proposed in [7]–[10]. In [11],
+both mechanical and electrical adjustments are considered for
+beam tracking in UAV-mounted SatCom, where the electrical
+adjustment algorithm is developed by using SPSA with the
+array structure information. Recently, SPSA methods have
+been adopted for training end-to-end communication systems
+with deep neural networks [12].
+Nevertheless, all the prior works consider the original form
+of the SPSA where two noisy measurements with perturbed
+parameters need to be simultaneously obtained in each itera-
+tion. This assumption can be unrealistic in practical scenarios
+where the channel conditions vary between two measurements.
+Another problem is that SPSA-based algorithms might fail
+to converge to the global optimal solution if the objective
+function is not convex or quasi-convex. In SatCom scenarios
+with phased arrays at the receiver side, the objective is to align
+the beam direction with the satellite direction. When the initial
+beam direction is far from the satellite direction, SPSA-based
+algorithms might converge to one of the local optimal points
+in the side lobes of the antenna array.
+In this paper, we utilize both the original two-point form
+and the modiﬁed one-point form of the SPSA method and
+propose two angle-domain SPSA algorithms with successive
+sub-array selection for mobile satellite receivers. Simulation
+results showed that our proposed algorithms provide an effec-
+tive and low-cost solution for receive beamforming in SatCom
+systems with phased arrays. Particularly, the successive sub-
+array selection design makes the SPSA-based algorithms less
+sensitive to the initial beam direction and achieves more robust
+performance under practical conditions.
+II. SYSTEM MODEL
+We consider a satellite communication system where a mov-
+ing vehicle receives signals from a single-antenna geostation-
+ary satellite. The vehicle is equipped with a two-dimensional
+UPA, which contains 푀× 푁uniformly spaced antennas with
+antenna spacing equal to 푑. The UPA has only one RF chain,
+
+--- PAGE BREAK ---
+
+which corresponds to the single channel receiver scenario. Let
+훼and 훽denote the direction of arrival (DoA) of the satellite
+signals seen at the UPA, where 훼is the azimuth angle and 훽
+is the elevation angle.
+A. Channel Model
+Assuming zero-band signal with carrier frequency 푓푐, the
+frequency response at the (푚, 푛)-th antenna element is:
+퐴(푚, 푛) =exp
+푗2휋푑푓푐
+(푚−1) sin 훼cos 훽+ (푛−1) sin 훼sin 훽
+where 푐is the speed of light, 푚= 1, . . . , 푀, and 푛= 1, . . . , 푁.
+Let A(훼, 훽) represent the 푀× 푁array gain matrix when
+the satellite signal arrives at the UPA with the DoA (훼, 훽).
+Considering the fact that the channel between the satellite and
+a mobile vehicle on the ground is most likely to be line-of-
+sight (LoS), we consider a similar channel model as in [11].
+The 푀× 푁channel matrix is be modeled as
+H = 퐶· exp( 푗휙0)A,
+where 퐶is a complex-valued constant parameter related to the
+signal power attenuation in the environment, and 휙0 denotes
+the phase of the arrived signal at the ﬁrst antenna element. The
+vector form of the channel gain can be written as h = vec(H),
+where the dimension of h is 푀푁× 1.
+We assume that the UPA contains phase shifters without
+ampliﬁcation capability. Let w = [푤1, . . . , 푤푀푁]푇denote the
+vector of antenna weights, we have |푤푖| = 1,∀푖. Each antenna
+weight corresponds to a certain phase shift, i.e., 푤푖= exp( 푗휙푖),
+where 휙푖is the phase shift of the 푖-th antenna element. The
+received signal at the output of the antenna array is
+푦= w퐻h푠+ w퐻n,
+where 푠denotes the transmitted data symbol from the satellite,
+and n denotes the size 푀푁×1 noise vector added at the input
+of the UPA. The instantaneous received signal power is
+푃= |푦|2 = w퐻R푠w + w퐻R푛w,
+where R푠= h푠푠퐻h퐻and R푛= nn퐻are covariance matrices
+of the signal and noise.
+If we have perfect knowledge of the channel vector h (or
+the DoA), it is well known that the received signal power
+or the signal-to-noise ratio is maximized when a matched
+ﬁlter is applied. Then, the optimal antenna weight vector is
+w = vec(A(훼, 훽)), given the DoA of the satellite signals. In
+reality, accurate DoA estimation usually requires advanced RF
+chains with high computational complexity. Therefore, in this
+work, we propose several low-cost zero-knowledge algorithms
+for single channel receive beamforming without the need of
+advanced hardware and signal processing units. The theory
+behind the proposed algorithms is simultaneous perturbation
+stochastic approximation (SPSA) method.
+B. Preliminaries on SPSA
+SPSA is an effective multivariate optimization method when
+the gradient of the objective function with respect to the
+optimization parameters is not directly available [4]. Consider
+the problem of minimizing a loss function 퐿(x) which is
+a scalar measure of the system performance and x is a 푝-
+dimensional vector containing the parameters to be optimized.
+SPSA is an iterative optimization method that contains three
+main steps:
+1) In each iteration 푘, generate some random perturbation
+vector 휹푘in the following form
+(푘+ 1)훾,
+where 푐and 훾are constant parameters, and Δ푘is a ran-
+dom vector whose elements are independently generated
+from some probability distribution.
+2) Obtain two noisy measurements of the loss function
+퐿(ˆx푘+ 휹푘) and 퐿(ˆx푘−휹푘). The gradient of the loss
+function is approximated by
+ˆ푔(ˆx푘) = 퐿(ˆx푘+ 휹푘) −퐿(ˆx푘−휹푘)
+3) Update the estimated parameter by
+ˆx푘+1 = ˆx푘−푎푘ˆ푔(ˆx푘),
+where 푎푘is the step size (sequence gain).
+When the parameters are appropriately chosen following the
+guidelines in [4], this iterative algorithm will effectively con-
+verge to a local optimum point.
+III. SPSA-BASED SUCCESSIVE RECEIVE BEAMFORMING
+Existing applications of the SPSA method for SatCom
+systems with phased arrays usually consider approximating
+the gradient of the received signal power subject to the phase
+shifts. For the case with a uniform linear array, an SPSA-
+based receive beamforming algorithm is proposed in [6] by
+considering phase-domain perturbation. The extension of this
+method to a two-dimensional UPA is not straightforward,
+because the phase difference between the received signals at
+two neighboring antennas is not always proportional to the
+distance between them. Another problem with the SPSA-based
+method is that the algorithm performance is strongly affected
+by the initial antenna weights. All the related works have to
+assume that the real DoA angles 훼and 훽are very small, or
+the initial beam direction is very close to the satellite direction
+[6], [11]. Otherwise, the algorithm might converge to a local
+optimum point within the side lobes instead of the main lobe
+in the radiation pattern of the antenna array.
+To resolve this problem, we propose a successive beam-
+forming algorithm using the angle-domain SPSA method and
+consider the DoA angles as the optimization parameters. The
+key design point is to choose a subset of antennas to apply the
+SPSA-based beamforming algorithm, and gradually increase
+the number of antennas being utilized to improve the accuracy
+of the beam pointing direction. Compared to the existing
+designs, our proposed design is much less sensitive to the
+initial antenna weights, which makes it more robust under
+realistic conditions.
+
+--- PAGE BREAK ---
+
+A. Angle Domain Successive SPSA
+Let 횽= [훼, 훽] be the parameter vector to be estimated,
+and 휹= [훿1, 훿2] be the perturbation vector in each iteration.
+We deﬁne the following function of the DoA angles and the
+antenna index (푚, 푛):
+푓(훼, 훽, 푚, 푛) = exp
+푗2휋푑푓푐
+(푚−1) sin 훼cos 훽
++(푛−1) sin 훼sin 훽
+The successive SPSA algorithm works as follows.
+1) Initialization. Set the initial estimated angle vector as
+ˆ횽0 = [훼0, 훽0].
+2) Antenna sub-array selection. For the 푙-th global iter-
+ation, choose a sub-array of 푀푙× 푁푙antennas, where
+1 < 푀푙≤푀, 1 < 푁푙≤푁, 푀푙> 푀푙−1 and 푁푙> 푁푙−1.
+The corresponding antenna weights are obtained by
+w(푚, 푛)
+푓(훼0, 훽0, 푚, 푛), ∀푚
+= {1, . . . , 푀푙}, 푛=
+{1, . . . , 푁푙}. Then, within the 푙-th global iteration, run
+퐾local iterations of stochastic approximation with per-
+turbed parameters.
+3) Stochastic Approximation. For each local iteration 푘=
+1, . . . , 퐾, set the perturbation vector as
+(푘+ 1)Ω · [푥1, 푥2],
+where 푥1, 푥2 ∈{+1, −1} are binary variables with equal
+probability 1/2, 푏and Ω are constant parameters cho-
+sen by following the guidelines in [4]. The estimated
+gradient of the received signal power is
+ˆ푔( ˆ횽푘) = 푃( ˆ횽푘+ 휹푘) −푃( ˆ횽푘−휹푘)
+(10)
+The received signal power with the perturbed angle
+vector is measured by setting the antenna weight at the
+(푚, 푛)-th element as w(푚, 푛) = 푓( ˜훼, ˜훽, 푚, 푛). where ˜훼
+and ˜훽are the perturbed DoA angles, corresponding to
+the ﬁrst and second elements in ˆ횽푘± 휹푘, respectively.
+4) Adjust the estimated angle vector in the next iteration:
+ˆ횽푘+1 = ˆ횽푘+ 휂푘ˆ푔( ˆ횽푘),
+(11)
+where 휂푘= 푎/(휁+ 푘) 휉is the step size, with 푎and 휉
+being priorly chosen parameters.1
+5) Update the antenna weight at the (푚, 푛)-th element by
+w(푚, 푛) = 푓( ˆ훼, ˆ훽, 푚, 푛), where ˆ훼= ˆ횽푘+1(1) and ˆ훽=
+ˆ횽푘+1(2) are the estimated DoA angles for the next local
+iteration.
+6) After executing steps (3−5) 퐾times, the estimated DoA
+ˆ훼, ˆ훽in the last local iteration will be returned to step
+2, as the initial DoA angles for the next global iteration
+with increased size of the sub-array.
+7) Repeat this procedure until the termination criterion is
+satisﬁed, e.g., |푃( ˆ횽푘+1) −푃( ˆ횽푘)| < 휖, where 휖is a
+pre-deﬁned threshold.
+1Note that the plus sign in (11) is because the objective is to maximize the
+received signal power instead of minimize it.
+B. Modiﬁed One-Point SPSA
+Though SPSA is a very powerful method for derivative-free
+multivariate optimization problems, in a practical communica-
+tion system, two different measurements can never been done
+simultaneously in the strict sense. Only when the environment
+remains unchanged while two measurements are obtained
+sequentially, these two measurements can be approximately
+considered as simultaneous.
+A one-point form of the SPSA method is proposed in
+[13], where only one noisy measurement is required in each
+iteration. Recall that for the perturbation vector deﬁned in (9),
+푥1, 푥2 ∈{+1, −1} are binary variables with equal probabilities.
+The perturbation vector has four discrete directions, which are
+[+1, +1], [+1, −1], [−1, +1], and [−1, −1]. Due to the random
+perturbation direction, it is possible that the perturbation is
+set toward undesired direction consecutively in many itera-
+tions, which results in longer convergence time. We propose
+a modiﬁed one-point SPSA algorithm which combines the
+advantages of the two-point and one-point SPSA methods.
+The new algorithm takes only one noisy measurement in each
+iteration, while the perturbation direction is set to be cyclic.
+Based on the original successive SPSA algorithm described in
+Section III-A, the main differences are as follows.
+• At each local iteration 푘= 1, . . . , 퐾, we set the perturba-
+tion vector by (9), where [푥1, 푥2] periodically takes values
+from {[+1, +1], [+1, −1], [−1, +1], [−1, −1]} in a cyclic
+way. The antenna weights are adjusted by w(푚, 푛) =
+푓( ˜훼, ˜훽, 푚, 푛) with
+˜훼= ˆ횽푘(1) + 휹푘(1)
+˜훽= ˆ횽푘(2) + 휹푘(2)
+(12)
+One measurement of the received signal power ˜푃푘is
+obtained with the new antenna weights.
+• The estimated gradient of the received signal power is
+ˆ푔( ˆ횽푘) =
+˜푃푘−˜푃푘−1
+휹푘−휹푘−1
+(13)
+where ˜푃푘= 푃( ˜Φ푘) with ˜Φ푘= [ ˜훼, ˜훽]. If the value of
+푥1 in iteration 푘is the same as in iteration 푘−1, then
+the ﬁrst element of ˆ푔( ˆ횽푘) is set to be zero to avoid an
+inﬁnite-valued element in ˆ푔( ˆ횽푘). The same rule applies
+for the value of 푥2 and the second element of ˆ푔( ˆ횽푘).
+IV. SIMULATION RESULTS
+In this section, we present and compare the performance of
+the proposed algorithms by performing Matlab-based simula-
+tions. We consider an UPA with 8 × 8 antennas, with uniform
+antenna spacing 푑= 휆푐/2 = 0.75 cm, where 휆푐= 푐/ 푓푐is the
+wavelength at carrier frequency 푓푐= 20 GHz. The parameters
+in the SPSA algorithm are chosen as 푎= 8 × 10−6, 푏= 휋/18,
+Ω = 0.101, 휁= 0.602, which follow the guidelines in [4].
+The signal-to-noise ratio at the receiver side is 20 dB. In the
+initialization step, the estimated DoA angles are 훼0 = 0◦and
+훽0 = 0◦. We consider the normalized received signal power
+(NRSP) as the performance metric, which is the ratio between
+the received signal power and the maximum power that can
+be achieved in the optimal case.
+
+--- PAGE BREAK ---
+
+Number of iterations
+NRSP
+SPSA-two
+SPSA-one
+(a) The DoA angles are 훼= 8◦and 훽= 6◦.
+Number of iterations
+NRSP
+SPSA-two
+SPSA-one
+(b) The DoA angles are 훼= 6◦and 훽= 8◦.
+Fig. 1: Performance comparison between the two-point and
+one-point SPSA algorithms without successive sub-array se-
+lection.
+For the ease of illustration, we name the proposed algo-
+rithms as follows.
+• SPSA-two: the original two-point SPSA algorithm de-
+scribed in Section III-A.
+• SPSA-one: the modiﬁed one-point SPSA algorithm de-
+scribed in Section III-B
+In Fig. 1, we show the NRSP performance of the two-point
+and one-point SPSA algorithms without successive sub-array
+selection. Depending on the speciﬁc DoA angles, one-point
+SPSA might achieve slightly better or worse performance
+than the two-point algorithm. However, the main advantage
+of the one-point SPSA method lies in the fact that only one
+measurement instead of two is required in each iteration.
+Considering this effect, we conclude that the modiﬁed one-
+point SPSA algorithm achieves comparable performance as
+the two-point version with only half of the measurements.
+As mentioned at the beginning of Section III, the perfor-
+mance of SPSA-based receive beamforming algorithms can be
+strongly affected by the initial DoA angles 훼0 and 훽0. In Fig.
+2, we show one example where the original SPSA algorithms
+(without successive sub-array selection) fail to converge to the
+optimal point. This happens when the real DoA angles are too
+far from the initial beam direction. In this case, SPSA-based
+algorithms can only converge to the nearest local optimum in
+the side lobes instead of the main lobe.
+In Fig. 3, we show the NRSP of the successive SPSA-based
+receive beamforming algorithm. For the ﬁrst six iterations, a
+sub-array of dimension 2 × 2 is selected. Then the selected
+sub-array increases to 4 × 4 for the next six iterations. At last,
+Number of iterations
+0.01
+0.02
+0.03
+0.04
+0.05
+NRSP
+SPSA-two
+SPSA-one
+Fig. 2: NSRP of the two-point and one-point SPSA algorithms
+without successive sub-array selection. The real DoA angles
+are 훼= 20◦and 훽= 15◦.
+Number of iterations
+NRSP
+sub-array
+Fig. 3: Performance of the one-point SPSA algorithm with
+successive sub-array selection. The real DoA angles are 훼=
+20◦and 훽= 15◦.
+the full antenna array is utilized. The NRSP is obtained as
+the receive signal power divided by the maximum received
+signal power with 8 × 8 full antenna array. For this reason,
+the NRSP values obtained with 2 × 2 and 4 × 4 sub-arrays are
+much smaller than the case with 8 × 8 array. We see that with
+the same DoA angles as in Fig. 2, our proposed successive
+beamforming algorithm can still converge to the global optimal
+point. This result shows that the successive sub-array selection
+technique can improve the robustness and effectiveness of the
+SPSA-based receive beamforming algorithms.
+V. CONCLUSIONS
+In this work, we proposed two receive beamforming algo-
+rithms using the SPSA method and successive antenna sub-
+array selection for mobile satellite receivers equipped with
+a two-dimensional phased array. The proposed algorithms
+were shown to be robust and efﬁcient at ﬁnding the optimal
+beamforming coefﬁcients, especially when the DoA angles of
+the satellite signals are relatively large.
+
+--- PAGE BREAK ---
+
+REFERENCES
+[1] E. Del Re and L. Pierucci, “Next-generation mobile satellite networks,”
+IEEE Communications Magazine, vol. 40, no. 9, pp. 150–159, 2002.
+[2] J. C. Spall, “A stochastic approximation technique for generating
+maximum likelihood parameter estimates,” in 1987 American Control
+Conference.
+IEEE, 1987, pp. 1161–1167.
+[3] J. C. Spall, “Multivariate stochastic approximation using a simultaneous
+perturbation gradient approximation,” IEEE Transactions on Automatic
+Control, vol. 37, no. 3, pp. 332–341, 1992.
+[4] J. C. Spall, “Implementation of the simultaneous perturbation algorithm
+for stochastic optimization,” IEEE Transactions on aerospace and elec-
+tronic systems, vol. 34, no. 3, pp. 817–823, 1998.
+[5] E. Ramírez-Llanos and S. Martínez, “Stochastic source seeking for
+mobile robots in obstacle environments via the SPSA method,” IEEE
+Transactions on Automatic Control, vol. 64, no. 4, pp. 1732–1739, 2019.
+[6] F. G. Zhang, W. M. Jia, W. Jin, and M. L. Yao, “Beamforming algorithm
+based on SPSA for mobile satellite receiver,” Electronics Letters, vol. 48,
+no. 22, pp. 1379 –1380, October 2012.
+[7] M. Fakharzadeh, S. H. Jamali, P. Mousavi, and S. Safavi-Naeini, “Fast
+beamforming for mobile satellite receiver phased arrays: Theory and
+experiment,” IEEE Transactions on Antennas and Propagation, vol. 57,
+no. 6, pp. 1645–1654, June 2009.
+[8] Chen Sun, A. Hirata, T. Ohira, and N. C. Karmakar, “Fast beamforming
+of electronically steerable parasitic array radiator antennas: theory and
+experiment,” IEEE Transactions on Antennas and Propagation, vol. 52,
+no. 7, pp. 1819–1832, July 2004.
+[9] P. Mousavi, M. Fakharzadeh, S. H. Jamali, K. Narimani, M. Hossu,
+H. Bolandhemmat, G. Raﬁ, and S. Safavi-Naeini, “A low-cost ultra low
+proﬁle phased array system for mobile satellite reception using zero-
+knowledge beamforming algorithm,” IEEE Transactions on Antennas
+and Propagation, vol. 56, no. 12, pp. 3667–3679, 2008.
+[10] M. Hossu, S. H. Jamali, P. Mousavi, K. Narimani, M. Fakharzadeh,
+and S. Safavi-Naeini, “Zero-knowledge adaptive beamforming using
+analog signal processor for satellite tracking applications with an ex-
+perimental comparison to a digital implementation,” IEEE Transactions
+on Aerospace and Electronic Systems, vol. 46, no. 3, pp. 1533–1543,
+2010.
+[11] J. Zhao, F. Gao, Q. Wu, S. Jin, Y. Wu, and W. Jia, “Beam tracking
+for UAV mounted SatCom on-the-move with massive antenna array,”
+IEEE Journal on Selected Areas in Communications, vol. 36, no. 2, pp.
+363–375, 2018.
+[12] V. Raj and S. Kalyani, “Backpropagating through the air: Deep learn-
+ing at physical layer without channel models,” IEEE Communications
+Letters, vol. 22, no. 11, pp. 2278–2281, 2018.
+[13] J. C. Spall, “A one-measurement form of simultaneous perturbation
+stochastic approximation,” Automatica, vol. 33, no. 1, pp. 109–112,
+1997.

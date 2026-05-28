@@ -1,0 +1,443 @@
+Impact of Passive Element Technological
+Limits on CMOS Low-Noise Amplifier Design
+J. L. Gonz´alez, R. L. Moreno, D. V´azquez
+Abstract
+This paper investigates the impact of technological constraints on passive elements in the design of
+inductively degenerated CMOS low-noise amplifiers (LNAs). A theoretical analysis is combined with
+circuit simulations in a 130-nm CMOS process at 2.45 GHz to explore how the available inductance and
+capacitance values limit key design objectives such as maximum gain, minimum power consumption,
+and transistor sizing. Results show that these limits significantly restrict the achievable design space,
+particularly for low-power implementations, and highlight the need to incorporate detailed passive-
+element models into RF integrated circuit design flows.
+Index Terms
+Low-noise amplifier (LNA), CMOS, integrated circuit, low power, passive elements, radio frequency
+I. INTRODUCTION
+In 1958, Jack Kilby demonstrated that both transistors and passive elements could be fabricated
+on a single semiconductor substrate, giving rise to the integrated circuit [1]. This milestone
+enabled rapid advances in microelectronics, driving the development of communication, infor-
+mation, and computing technologies that are essential in modern society.
+The integrated circuit market is largely dominated by CMOS technology due to its low
+production cost [2]. Continuous MOS transistor scaling has increased processing capability
+and speed while reducing power consumption [3]. These improvements benefit both digital and
+This document is the author’s translation of a peer-reviewed paper published initially in Spanish. How to cite: J. L. Gonz´alez,
+R. L. Moreno, and D. V´azquez, ”L´ımites impuestos por los elementos pasivos en el dise˜no de amplificadores de bajo ruido en
+tecnolog´ıa CMOS,” Revista de Ingenier´ıa Electr´onica, Autom´atica y Comunicaciones, vol. 36, no. 3, pp. 1-12, 2015. [Online].
+Available: http://rielac.cujae.edu.cu/index.php/rieac/article/view/296.
+arXiv:2509.01770v1  [eess.SY]  1 Sep 2025
+
+--- PAGE BREAK ---
+
+analog circuits, including those for radio-frequency (RF) applications [4]. Current submicron
+CMOS technologies allow the integration of complete communication systems—from RF front-
+ends to digital baseband processing—on a single chip, enabling wireless communication at
+gigahertz (GHz) frequencies [5], [6]. However, despite their presence since the inception of
+integrated circuits, the fabrication and modeling complexity of passive elements—particularly
+inductors—remains a major challenge in RF design [7].
+In integrated communication systems, RF block design is a critical challenge [8]. For RF
+receivers, the performance of the low-noise amplifier (LNA) strongly influences overall system
+behavior [8], [9]. The LNA must ensure sufficient gain and low noise contribution to achieve
+the required receiver sensitivity [10]. Additionally, it must provide proper input impedance
+matching (typically to a 50 Ωsource), high linearity—commonly characterized by the third-
+order intermodulation intercept point (IP3)—and good reverse isolation [9].
+The inductively degenerated common-source LNA (CS-LNA), shown in Fig. 1, is widely
+used in CMOS receivers for short-range wireless standards such as Wi-Fi, Bluetooth, and
+ZigBee [9]–[11]. For a given gain and power budget, transistor sizing can minimize the noise
+figure (NF) [12]–[14]. Furthermore, high IP3 with low power can be achieved by exploiting
+the linearity sweet spot that occurs when MOS transistors operate in moderate inversion [15]–
+[17]. This peak is associated with a specific current density in the common-source device,
+making transistor sizing critical for optimizing the trade-off among noise, linearity, and power
+consumption.
+To achieve this balance, a design space exploration is proposed, consisting of sweeping the
+width of M1 (W1) for different bias currents (ID) [18]–[20]. For each combination, the passive
+element dimensions are synthesized to meet gain and impedance matching requirements, after
+which NF and IP3 are evaluated. The resulting set of designs defines the design space from
+which an implementation can be selected. However, the synthesis of each LNA is constrained by
+the technological limits of passive elements, which impose additional restrictions on achievable
+performance—a topic rarely addressed in the literature.
+This work analyzes these constraints for a CS-LNA implemented in a 130-nm CMOS process
+with a 1.2-V supply and a target frequency of 2.45 GHz. First, qualitative dependencies between
+passive element values and design objectives (gain, bias current, transistor width) are derived
+from circuit analysis. These are then validated and refined through simulations. Results show that
+maximum gain, minimum bias current (and thus minimum power), and transistor dimensions
+
+--- PAGE BREAK ---
+
+Fig. 1. Common-source CMOS LNA with inductive degeneration.
+are ultimately limited by the inductors and capacitors available in the technology.
+II. THEORETICAL ANALYSIS OF PASSIVE ELEMENT CONSTRAINTS
+A. Description and Analysis of the Common-Source LNA with Inductive Degeneration
+Figure 1 shows the basic schematic of a common-source (CS) LNA with inductive degener-
+ation. The source inductor LS introduces a resistive component in the input impedance without
+adding extra noise sources [21]. The capacitor CX allows minimizing the noise figure for specific
+values of gain and power consumption [12]. The gate inductor Lg is included to tune the input
+impedance. Transistor M2 is used as a cascode stage to reduce the Miller effect on M1 and
+to improve reverse isolation [9]. At the output, LD forms a parallel resonant network with the
+output capacitances of the cascode stage and the impedance seen toward the load. A capacitive
+divider (C1, CP) is included to couple the output impedance to 50 Ωfor stand-alone LNA
+characterization with a spectrum analyzer. The gate-bias resistor (RG) and the input DC-blocking
+capacitor (Cb) must present sufficiently high and low impedances, respectively, such that their
+effects are negligible under normal operating conditions. The gate bias voltage of M1, VBIAS,
+can be derived from VDD by means of a current mirror or another voltage reference circuit [8].
+
+--- PAGE BREAK ---
+
+The available power gain of the LNA, G, can be written as a function of the input-stage
+transconductance Gm ≜|Io/Vs|1, the source resistance RS, and the output-stage conductance
+o =Re{Y ′
+o}. Assuming impedance matching at both ports and neglecting losses in the output
+coupling capacitors, one obtains
+G ≜Po
+Pavs
+= I2
+o/(4 G′
+s /(4 RS) = G2
+The output-stage conductance is the parallel combination of the cascode output conductance
+and the inductor’s parallel loss. Denoting by Yod the small-signal output admittance of the cascode
+stage and by RD the equivalent parallel resistance of LD, we have
+o ≡Re{Y ′
+o} = Re{Yod} + 1
+RD = ω0LDQD,
+where ω0 is the operating angular frequency and QD is the quality factor of LD.
+Using a simplified small-signal analysis of the input stage (considering in M1 only the gate-
+source capacitance Cgs and the controlled current source io = gmvgs, and treating LS, Lg, and CX
+as ideal while neglecting the loading of the cascode on the input), the effective transconductance
+under input matching can be approximated as [7]
+Gm ≃
+2 ω0 LS
+Equations (1)–(3) show that the LNA gain depends on both the drain inductor LD and the
+source-degeneration inductor LS: on the output side through the product LDQD (via RD), and
+on the input side mainly through its inductance. When selecting LD, the frequency response
+of the output impedance must also be taken into account. To widen the frequency range over
+which the output impedance remains adequate, the quality factor of the resonant network should
+be reduced; thus, a lower QD must be chosen. To maintain the same contribution of the output
+network to the gain when decreasing QD, LD must be increased proportionally. However, the
+maximum achievable inductance is limited both by the technological constraints of the on-chip
+inductors (including the dependence of feasible Q values on inductance [13]) and by the minimum
+capacitance in the output resonant network [14]. Due to these trade-offs and constraints, it is
+convenient to fix the characteristics of LD first and then select the remaining passive elements
+[20].
+1Vs and Io denote RMS values.
+
+--- PAGE BREAK ---
+
+The previous set of equations obtained from the simplified small-signal analysis establishes
+a logical sequence for determining the passive elements of the input stage. This sequence is
+depicted as a flowchart in Fig. 2, which includes the dependencies on device sizing and biasing
+[20]. Here, CT = CX + Cgs denotes the total equivalent capacitance between the gate and the
+source of M1. Due to the modeling simplifications, these expressions are not accurate enough
+to compute final design values; however, they are very useful for anticipating the restrictions
+imposed by technological limits.
+Fig. 2. Dependence of the passive elements in the transconductance stage on the LNA gain and the transistor dimensions and
+biasing, according to the analysis using simplified models.
+B. Behavior of Passive Elements as a Function of Synthesis Objectives
+1) Increasing the Contribution of the Transconductance Stage to the Gain (While Keeping Bias
+Current and Transistor Width Constant): The fundamental contribution to the LNA gain must be
+provided by the input stage, through a sufficiently large value of Gm, in order to reduce the noise
+figure [9], [10]. According to the expressions shown in Fig. 2, to increase Gm one must reduce
+the value of LS, which in turn implies a reduction of CT to keep the input resistance constant
+(taking into account that the transistor transconductance, gm, does not change for constant W1
+and ID). Both the reduction of LS and of CT require an increase of Lg in order not to alter the
+resonance frequency. Moreover, for fixed dimensions of M1 (constant Cgs) the reduction of CT
+is obtained by using a smaller value of CX.
+
+--- PAGE BREAK ---
+
+Therefore, the maximum value of Gm can be limited by the minimum feasible value of LS
+(LS,min), the minimum available capacitance for CX (CX,min), or the maximum achievable value
+of Lg (Lg,max).
+2) Decreasing the Bias Current (While Keeping Gain and Transistor Width Constant): When
+the bias current ID is reduced, the transconductance of the transistor gm also decreases. In
+order to maintain the same effective transconductance Gm (and therefore preserve the gain),
+the degeneration inductance LS must be increased. According to the relationships summarized
+in Fig. 2, an increase in LS requires a simultaneous increase in CT in order to keep the input
+resistance constant. Since the width of the transistor remains fixed (hence Cgs is constant), this
+increase in CT must be achieved by using a larger value of CX. At the same time, in order not
+to alter the resonance frequency, Lg must be reduced.
+Therefore, the minimum feasible bias current is limited by the maximum values that can be
+achieved for LS and CX, and by the minimum achievable value of Lg.
+3) Limits on the Transistor Width (While Keeping Gain and Bias Current Constant): In the
+proposed LNA design methodology, the transistor width is swept while keeping the gain and
+the bias current fixed. To analyze the impact of width variations, we again assume a constant
+transconductance Gm (and therefore a constant LS). Reducing the width of M1 (W1) at constant
+current decreases its transconductance gm [22], which in turn requires reducing CT. As previously
+discussed, this leads to an increase in Lg. Hence, the minimum W1 may be limited by Lgmax.
+Conversely, increasing the transistor width reduces Lg; however, this is unlikely to be a practical
+constraint, as it would imply very wide devices that are uncommon in low-power designs.
+The dependence of CX on transistor width is more complex. As the width of M1 increases,
+not only does CT increase (through its relation to gm), but the intrinsic gate–source capacitance
+Cgs of M1 also increases. Therefore, the behavior of CX depends on the relative rate of change
+of CT and Cgs with respect to transistor width: if CT increases more than Cgs for the same
+increment in W1, then CX increases, and vice versa. Equation (4) captures this dual dependence,
+under the approximations that transconductance is proportional to the square root of the product
+IDW1 and that gate–source capacitance is proportional to transistor width [22]. Assuming unit
+proportionality constants as a hypothetical case, Fig. 3 illustrates the dependence of CX on
+transistor width for different bias current values.
+CX = CT −Cgs = gmLS
+−Cgs = kgm
+IDW1 −kCgsW1
+
+--- PAGE BREAK ---
+
+As shown in Fig. 3b, the maximum transistor width is limited by the minimum value of CX.
+Furthermore, the lower the bias current, the smaller the maximum W1, which means that reducing
+power consumption restricts the transistor dimensions available for LNA implementation. From
+the behavior illustrated in Fig. 3b, it can also be inferred that there exists an interval of W1,
+around the maximum of the function, where the required CX exceeds the maximum capacitance
+supported by the technology. However, since this occurs only at higher ID values, it should not
+represent a practical limitation when designing for low-power operation. Therefore, the maximum
+W1 may ultimately be constrained by CXmin.
+M1's Width
+M1's Width
+Fig. 3. Simplified theoretical dependence of CX on the width of M1 (W1) for different values of the bias current: a) functions
+describing the behavior of CT [y =
+ID · x] and Cgs (y = x); b) function describing the behavior of CX [y =
+ID · x −x].
+The y-axis represents the capacitance values, while the x-axis represents the transistor width.
+4) Second-Order Effects Not Considered in the Simplified Models: Previous studies on this
+technology have shown that capacitive effects of transistor M1 not previously considered –
+specifically, the gate-to-substrate capacitance (Cgb) and the gate-to-drain capacitance (Cgd) -—
+cause a reduction in power gain compared to that predicted by simplified models [10]. Similarly,
+reducing the bias current ID increases the input impedance of the cascode stage (the inverse of
+the transconductance of M2, gm2 [22]), which also decreases the gain.
+Therefore, the wider the transistors (resulting in larger parasitic capacitances) or the lower
+the bias current, the higher the required Gm to compensate for the gain reduction introduced by
+both conditions. This implies that the minimum bias current and the maximum transistor width
+are also constrained by the same factors that limit the maximum achievable Gm, namely LSmin,
+CXmin, and Lgmax. However, in the particular case of Lg, its increase due to the second-order
+
+--- PAGE BREAK ---
+
+effects of wider transistors must be counterbalanced by the decrease in inductance predicted by
+simplified-model analysis under the same condition.
+Table I summarizes the influence of passive-element technological limits on LNA design,
+based on the theoretical analysis in this section. It includes both the primary effects predicted
+by simplified models and the secondary considerations discussed above.
+TABLE I
+TECHNOLOGICAL LIMITS OF PASSIVE ELEMENTS AND THEIR INFLUENCE ON LNA DESIGN. PRIMARY EFFECTS (P) AND
+SECOND-ORDER EFFECTS (S).
+Max Gm
+Min ID
+Min W1
+Max W1
+Min LS
+Max Lg
+Min CX
+III. VERIFICATION THROUGH SIMULATIONS FOR A SPECIFIC TECHNOLOGY AND
+APPLICATION IN DESIGN
+To validate and complement the theoretical analysis presented in the previous section, a design
+space exploration was performed using device models provided by the technology vendor for a
+130 nm CMOS process (1P8M: one polysilicon layer and eight metal layers) with a nominal
+channel length of 130 nm and a supply voltage of 1.2 V.
+For the LNA synthesis, the design specifications included a minimum gain of 10 dB and
+input/output impedance matching better than −10 dB, referenced to 50 Ω, over the 2.4–2.5 GHz
+band. These requirements correspond to the implementation of a ZigBee/IEEE 802.15.4 re-
+ceiver [23], [24].
+The width of transistor M2 (W2) was set to W2 = W1/2 to reduce its contribution to the load
+capacitance, thereby improving the selection margin of the output matching network [10]. All
+transistors were assigned the same channel length (L1 = L2 = L), and two values were evaluated:
+the minimum allowed by the technology (Lmin = 120 nm) and twice that value (2Lmin = 240 nm).
+A. Characteristics of Available Passive Elements
+The capacitors in the selected technology are of the metal–insulator–metal (MiM) type, while
+the inductors are implemented using octagonal spirals. These inductors can optionally include a
+ground shield to reduce coupling with the substrate [25], as illustrated in Fig. 4.
+
+--- PAGE BREAK ---
+
+Metal 8
+Metal 7
+Metal 8
+Metal 7
+Metal 1
+Ground plane 
+connection
+Metal 8
+Metal 7
+Metal 1
+Ground plane 
+connection
+Fig. 4. Structural details of an inductor from the available technology (number of turns nt = 2 3
+4): (left) structural parameters
+of the spiral traces, (center) inductor with ground plane to mitigate substrate coupling, and (right) close-up of the ground plane.
+The parameters for circuit modeling of these passive elements were obtained through simu-
+lations based on their constructive features: for capacitors, the plate area of the parallel-plate
+structure (the technology fixes the separation between plates); for inductors, the number of turns
+(nt), the outer diameter (od), and the trace width (w), with the spacing between turns (s) also
+fixed by the technology.
+Capacitances up to 5 pF can be achieved with negligible losses relative to the reactive
+component. For inductors, the relationships between inductance, quality factor (Q), and parallel
+parasitic resistance were analyzed and are plotted in Fig. 5.
+Gate and source inductors (Lg and LS) were selected from those with the highest quality factor
+in each inductance range, to minimize their contribution to the overall noise figure [9], [10],
+[26], as shown in Fig. 5a. The drain inductor (LD) was chosen among those with lower quality
+factors, based on its parallel parasitic resistance (see Fig. 5b), specifically one with intermediate
+values of resistance and inductance (LD = 9.5 nH, QD = 13, RD ≈2 kΩ).
+These values allow, if required, either enhancing the gain contribution of this inductor while
+keeping an approximately constant bandwidth (since increasing resistance above 2 kΩresults in
+minimal variations in Q), or broadening the bandwidth at the expense of gain.
+B. Behavior of Passive Elements According to Synthesis Objectives in the Available Technology
+The behavior of passive elements as a function of synthesis objectives was analyzed in two
+phases. In the first phase, a sweep of the bias current (ID) and the transistor width of transistor
+
+--- PAGE BREAK ---
+
+Fig. 5.
+Characteristics of the inductors available in the technology: (left) Quality factor (Q) vs. inductance (L), where the
+dashed line marks the inductors with the highest Q. (right) Quality factor (Q) vs. parallel parasitic resistance (ω0LQ), where the
+dashed line marks the inductors with the lowest Q. In both graphs, the drain inductor LD is indicated (square-enclosed circle).
+M1 (W1) was performed, targeting a gain near the minimum specification (10.5±0.5 dB). In the
+second phase, ID was fixed, and a sweep of gain and W1 was conducted. For each combination
+of gain, current, and transistor width, simulation-based optimizations determined the passive
+element dimensions required to meet impedance matching specifications (with an additional
+5 dB margin) and the desired gain.
+1) Variation of Bias Current and Transistor Width: Fig. 6 shows the passive element values
+for LNAs synthesized with a target gain of 10.5±0.5 dB as a function of W1 and ID. All designs
+achieved input/output matching (S11, S22 < −15 dB) and gains within [10.3, 10.8] dB.
+The results confirm both primary and secondary effects predicted by theoretical analysis. As ID
+decreases, the source degeneration inductance (LS) must be reduced, the required gate inductor
+(Lg) increases, and CX decreases. For higher ID, LS remains nearly constant with respect to
+W1. However, at lower ID, LS decreases more significantly as W1 increases, especially for
+longer channel lengths. An additional phenomenon not predicted theoretically was observed:
+LS decreases for small W1. This may be due to increased losses in the gate inductor (for
+small W1, Lg is larger and its quality factor decreases, increasing series resistance), which must
+be compensated by higher input-stage transconductance. Consequently, Lg increases and CX
+decreases beyond theoretical predictions. For ID = 0.3 mA, Lg also increases with W1.
+The behavior of CX with respect to W1 matches theoretical predictions and depends on ID:
+
+--- PAGE BREAK ---
+
+Fig. 6. Passive element values versus W1 and ID (△: ID = 0.3 mA; ♢: ID = 0.4 mA; □: ID = 0.5 mA; ◦: ID = 0.6 mA;
+▽: ID = 0.7 mA). Target gain: 10.5 ± 0.5 dB.
+CX initially increases with W1, reaches a maximum, and then decreases. Both the maximum
+CX and the corresponding W1 decrease as ID decreases. For L = 240 nm, CX values are lower
+than for L = 120 nm because the intrinsic gate-source capacitance (Cgs) is higher, requiring
+a smaller CX to maintain the total equivalent capacitance (CT) and preserve input resistance.
+Additionally, LS exhibits greater variation with decreasing ID in longer-channel devices.
+Within the analyzed ranges (16–104 µm for L = 120 nm and 32–208 µm for L = 240 nm),
+technological limits constrain LNA synthesis. For both channel lengths, at ID = 0.3 mA, the
+required Lg approaches the maximum available value (18 nH), preventing designs with lower
+power consumption. Furthermore, the maximum Lg limits the minimum W1 for low ID. For
+L = 240 nm, the minimum limits of LS (1 nH) and CX (0 pF) are also reached as W1 increases
+at low ID, reducing the number of feasible designs.
+2) Variation of LNA Gain and Transistor Width: To analyze the dependence of passive
+elements on LNA gain, the bias current was fixed at 0.4 mA, and amplifiers were synthesized for
+different target gains, starting from 10.5 dB. Fig. 7 shows the passive element values for each
+
+--- PAGE BREAK ---
+
+synthesized LNA as a function of W1 and the desired gain. All designs achieved input/output
+matching (S11, S22 < −15 dB) and gains within ±0.3 dB of the nominal value.
+Fig. 7. Passive element values versus W1 and LNA gain (◦: G = 10.5 dB; □: G = 11 dB; ♢: G = 12 dB; △: G = 13 dB).
+Bias current: 0.4 mA.
+The results confirm the dependencies predicted by circuit analysis: increasing gain requires
+reducing LS and CX, while increasing Lg. For both channel lengths, the maximum achievable
+gain is limited by the smallest physically realizable degeneration inductor. As gain increases,
+the number of feasible designs decreases due to constraints imposed by the maximum Lg on
+the minimum transistor width and by the minimum LS and CX on the maximum width. This
+reduction is more pronounced for longer channel lengths.
+The variation of passive elements with respect to W1 for each gain value is consistent with
+theoretical predictions and the trends observed in the previous subsection.
+C. Design Space Exploration
+Fig. 8 shows the simulation results at 2.45 GHz for the noise figure (NF) and the input-referred
+third-order intercept point (IIP3) of LNAs synthesized with a target gain of 10.5 ± 0.5 dB,
+completing the design space exploration. The horizontal dashed lines indicate the requirements
+
+--- PAGE BREAK ---
+
+for a ZigBee receiver [23], [24]. All synthesized LNAs meet the NF specification (NF < 3 dB),
+but the required linearity (IIP3 > −4 dBm) is not satisfied for the lowest bias currents (ID =
+0.3 mA with 120 nm transistors and ID < 0.5 mA with 240 nm transistors).
+Fig. 8. Simulation results at 2.45 GHz for NF (top) and IIP3 (bottom) versus W1 and ID (△: ID = 0.3 mA; ♢: ID = 0.4 mA;
+□: ID = 0.5 mA; ◦: ID = 0.6 mA; ▽: ID = 0.7 mA). Target gain: 10.5 ± 0.5 dB. Horizontal dashed lines indicate ZigBee
+requirements.
+For ID = 0.3 mA, neither transistor type reaches the IIP3 peak, as only the decreasing region
+of this parameter is observed with increasing W1. This occurs because circuits with narrower
+transistors could not be synthesized due to the limitations imposed by the available passive
+elements. For LNAs with 120 nm transistors, the IIP3 peaks for ID ≥0.4 mA significantly exceed
+the required linearity, suggesting that similar performance could be expected for ID = 0.3 mA
+if designs with W1 < 32 µm were feasible.
+Therefore, the technological limits of passive elements directly and indirectly constrain the
+minimum power consumption that can be achieved in the design of this type of amplifier.
+IV. CONCLUSIONS
+This work analyzed the constraints imposed by the technological limits of passive elements
+on the design of inductively degenerated CMOS LNAs. The study demonstrated that maximum
+gain, minimum bias current (and thus minimum power), and transistor dimensions are strongly
+determined by the extreme values of inductance and capacitance available in the technology.
+
+--- PAGE BREAK ---
+
+Reducing the channel length increases the number of feasible designs, but does not eliminate
+these limitations.
+These findings underscore the importance of integrating accurate passive-element models and
+their technological limits into RF design methodologies. Future work will focus on developing
+automated design tools that account for these constraints and on exploring alternative topologies
+or passive-element implementations to further expand the achievable design space.
+ACKNOWLEDGMENTS
+This work was supported by CAPES-Brazil (Project 176/12), CNPq, MAEC-AECID (Project
+FORTIN, Ref. D/024124/09), FEDER Program of Junta de Andaluc´ıa (Project P09-TIC-5386),
+and the Spanish Ministry of Economy and Competitiveness (Project TEC2011-28302).
+REFERENCES
+[1] J. Millman and A. Grabel, Microelectr´onica, 6th ed.
+Barcelona: Hispano Europea, S. A., 1993.
+[2] R. J. Baker, CMOS: Circuit Design, Layout, and Simulation, 3rd ed., ser. IEEE Press Series on Microelectronic Systems.
+Hoboken, NJ: John Wiley & Sons, 2010.
+[3] C. Sah, “Evolution of the MOS transistor-from conception to VLSI,” Proceedings of the IEEE, vol. 76, no. 10, pp.
+1280–1326, 1988.
+[4] P. H. Woerlee, M. J. Knitel, R. van Langevelde, D. B. M. Klaassen, L. F. Tiemeijer, A. J. Scholten, and A. T. A. Zegers-van
+Duijnhoven, “RF-CMOS performance trends,” Electron Devices, IEEE Transactions on, vol. 48, no. 8, pp. 1776–1782,
+2001.
+[5] V. Vidojkovic, J. van der Tang, A. Leeuwenburgh, and A. van Roermund, Adaptive Multi-Standard RF Front-Ends, ser.
+Analog Circuits and Signal Processing Series.
+Dordrecht: Springer, 2008.
+[6] M. C. Schneider and C. Galup-Montoro, CMOS Analog Design Using All-Region MOSFET Modeling.
+New York:
+Cambridge University Press, 2010.
+[7] T. H. Lee and S. S. Wong, “CMOS RF integrated circuits at 5 GHz and beyond,” Proceedings of the IEEE, vol. 88, no. 10,
+pp. 1560–1571, 2000.
+[8] B. Razavi, RF microelectronics, ser. Prentice Hall Communications Engineering and Emerging Technologies Series. Upper
+Saddle River, NJ: Prentice Hall, 1998.
+[9] T. H. Lee, The design of CMOS Radio-Frequency Integrated Circuits, 2nd ed.
+Cambridge: Cambridge University Press,
+2004.
+[10] P. Leroux and M. Steyaert, LNA-ESD Co-Design for Fully Integrated CMOS Wireless Receivers, ser. The Kluwer
+International Series in Engineering and Computer Science: Analog Circuits and Signal Processing.
+Dordrecht: Springer,
+2005.
+[11] S. Farahani, ZigBee Wireless Networks and Transceivers.
+Amsterdam: Elsevier, 2008.
+[12] D. K. Shaeffer and T. H. Lee, “A 1.5-V, 1.5-GHz CMOS low noise amplifier,” Solid-State Circuits, IEEE Journal of,
+vol. 32, no. 5, pp. 745–759, 1997.
+
+--- PAGE BREAK ---
+
+[13] P. Andreani and H. Sjoland, “Noise optimization of an inductively degenerated CMOS low noise amplifier,” Circuits and
+Systems II: Analog and Digital Signal Processing, IEEE Transactions on, vol. 48, no. 9, pp. 835–841, 2001.
+[14] L. Belostotski and J. W. Haslett, “Noise figure optimization of inductively degenerated CMOS LNAs with integrated gate
+inductors,” Circuits and Systems I: Regular Papers, IEEE Transactions on, vol. 53, no. 7, pp. 1409–1422, 2006.
+[15] V. Aparin, G. Brown, and L. E. Larson, “Linearization of CMOS LNA’s via optimum gate biasing,” in Circuits and Systems,
+2004. ISCAS ’04. Proceedings of the 2004 International Symposium on, vol. 4, 2004, pp. IV–748–51 Vol.4.
+[16] G. Niu, J. Pan, X. Wei, S. S. Taylor, and D. Sheridan, “Intermodulation linearity characteristics of CMOS transistors in a
+0.13 µm process,” in Radio Frequency integrated Circuits (RFIC) Symposium, 2005. Digest of Papers. 2005 IEEE, 2005,
+pp. 65–68.
+[17] B. Toole, C. Plett, and M. Cloutier, “RF circuit implications of moderate inversion enhanced linear region in MOSFETs,”
+Circuits and Systems I: Regular Papers, IEEE Transactions on, vol. 51, no. 2, pp. 319–328, 2004.
+[18] J. L. Gonz´alez, J. C. Cruz, R. L. Moreno, and D. V´azquez, “A Proposal for Yield Improvement with Power Tradeoffs in
+CMOS LNAs,” IEEE Latin America Transactions, vol. 14, no. 1, pp. 13–19, 2016.
+[19] J. L. Gonz´alez, R. L. Moreno, J. C. Cruz, and D. V´azquez, “Energy-aware low-power CMOS LNA with
+process-variations management,” Active and Passive Electronic Components, vol. 2016, 2016. [Online]. Available:
+http://dx.doi.org/10.1155/2016/8351406
+[20] J. L. Gonz´alez, J. C. Cruz, R. L. Moreno, and D. V´azquez, “2.4-GHz Integrated CMOS Low-Noise Amplifier,” in V
+International Symposium on Electronics, XVI Convention Informatica 2016, La Habana, Cuba, 2016.
+[21] A. N. Karanicolas, “A 2.7-V 900-MHz CMOS LNA and mixer,” Solid-State Circuits, IEEE Journal of, vol. 31, no. 12,
+pp. 1939–1944, 1996.
+[22] B. Razavi, Design of Analog CMOS Integrated Circuits, ser. McGraw-Hill Series in Electrical and Computer Engineering.
+New York: McGraw-Hill, 2001.
+[23] N. Trung-Kien, V. Krizhanovskii, L. Jeongseon, H. Seok-Kyun, L. Sang-Gug, K. Nae-Soo, and P. Cheol-Sig, “A Low-Power
+RF Direct-Conversion Receiver/Transmitter for 2.4-GHz-Band IEEE 802.15.4 Standard in 0.18-µm CMOS Technology,”
+Microwave Theory and Techniques, IEEE Transactions on, vol. 54, no. 12, pp. 4062–4071, 2006.
+[24] R. Fiorelli, A. Villegas, E. Peralias, D. Vazquez, and A. Rueda, “2.4-GHz single-ended input low-power low-voltage
+active front-end for ZigBee applications in 90 nm CMOS,” in Circuit Theory and Design (ECCTD), 2011 20th European
+Conference on, 2011, pp. 829–832.
+[25] C. P. Yue and S. S. Wong, “On-chip spiral inductors with patterned ground shields for Si-based RF ICs,” Solid-State
+Circuits, IEEE Journal of, vol. 33, no. 5, pp. 743–752, 1998.
+[26] R. Fiorelli, F. Silveira, and E. Peralias, “MOST Moderate-Weak-Inversion Region as the Optimum Design Zone for CMOS
+2.4-GHz CS-LNAs,” Microwave Theory and Techniques, IEEE Transactions on, vol. 62, no. 3, pp. 556–566, 2014.

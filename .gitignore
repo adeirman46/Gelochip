@@ -67,11 +67,37 @@ data/*/faiss_index/
 data/**/*.pkl
 data/**/*.index
 
-# Model weights
+# ── Model weights & large datasets (download from Drive — see README) ─────────
 *.pt
+*.pth
 *.bin
 *.safetensors
+*.gguf
+*.ckpt
+*.onnx
+*.mat
+*.npz
+# keep the small (216 KB) PPO policy tracked (comment on its own line — gitignore
+# does not allow trailing comments on a pattern):
+!models/layoutrl/drc_corrector_ppo.pt
 
 # Chainlit
 .chainlit/
 .files/
+
+# ── EDA scratch / Magic + Netgen extraction artifacts (never commit) ──────────
+*_drc_out/
+*_lvs_out/
+*_pex_out/
+*.ext
+*.nodes
+*.res.ext
+*.rpt
+els
+/*.gds
+/*.spice
+outputs/
+
+# ChromaDB vector store — auto-rebuilt by ./scripts/run.sh on first launch
+data/chroma_db/
+data/sessions.db

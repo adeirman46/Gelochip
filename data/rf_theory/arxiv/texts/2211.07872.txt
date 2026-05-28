@@ -1,0 +1,565 @@
+A Graph-Based Customizable Handover
+Framework for LEO Satellite Networks
+Mohamed Hozayen, Tasneem Darwish, Gunes Karabulut Kurt¶, Halim Yanikomeroglu
+Department of Systems and Computer Engineering, Carleton University, Otawa, ON, Canada
+¶Poly-Grames Research Center, Department of Electrical Engineering, Polytechnique Montr´eal, Montr´eal, QC, Canada
+Emails: {mohamedhozayen, tasneemdarwish, guneskurt, halim}@sce.carleton.ca
+Abstract—Future satellite networks are expected to have
+thousands of low Earth orbit (LEO) satellites orbiting Earth
+at very high speeds. User equipment (UE) communicating
+directly
+with
+satellites
+will
+experience
+frequent
+handovers. Managing the handover process is complicated
+due to the high frequency of handovers and the availability
+of multiple LEO satellites as handover targets. In addition,
+as the status of the communication link between a UE and
+an LEO satellite varies in accordance with the visibility
+period of the satellite, initiating handovers at the right time
+will signiﬁcantly aﬀect the quality of service (QoS) of the
+communication provided. To address this problem, this work
+proposes a graph-based customizable handover framework
+that considers both the handover timing and target while
+selecting
+handover
+sequence
+that
+maintains
+QoS.
+time-based graph is designed where the vertices represent
+the satellites’ instances over a certain period of time and
+the edges’ weights are the customizable handover criteria
+(i.e., data rate and delay in this work). Te appropriate
+sequence and timing of handovers that fulﬁll the required
+QoS are obtained by ﬁnding the shortest path in the graph.
+Discussion and simulations, which were conducted on the
+Starlink Phase I constellation, show the low complexity
+and performance advantages of the proposed handover
+framework.
+Index Terms—Mobility management, handover timing, LEO,
+satellite networks, 6G non-terrestrial networks, VHetNets,
+user preference customization.
+I. Introduction
+In future integrated vertical heterogeneous networks
+(VHetNets) [1], low Earth orbit (LEO) satellites will play a
+signiﬁcant role in providing global communication and Inter-
+net services. Many commercial companies, including SpaceX
+and Amazon are launching LEO satellite constellations to
+provide global connectivity [2]. Due to the low altitude of
+LEO satellites (500 km - 1,500 km), their propagation delays
+are lower than geostationary (GEO) satellites [3]. More-
+over, their low altitude reduces the amount of transmission
+power required and diminishes signaling atenuation, both
+of which are necessary to enable direct communication with
+user equipment (UE). Unfortunately, the deployment of LEO
+satellites has some disadvantages. Due to their high speeds,
+UE will need to handover its connection from one satellite
+to another every 5–10 minutes. In the near future, satellite
+mega-constellations will be able to provide communication
+services anywhere and anytime. However, the availability
+of several satellites over a certain geographic area makes
+handover decisions (i.e., choosing the handover timing and
+target satellite) a more complicated process. In addition,
+multiple applications with diﬀerent quality of service (QoS)
+requirements will use satellite networks. Tus, to satisfy
+the needs of diﬀerent applications, a customizable handover
+timing and target calculation is required.
+Some work has already been done to tackle handover
+issues for LEO satellite networks. In [4], the authors devel-
+oped a hard handover scheme and a hybrid channel adaptive
+handover scheme by considering satellite signal strength
+relative to the elevation angle. Te work in [5] proposed a
+guaranteed handover procedure in non-geostationary satel-
+lite constellations requiring mutual visibility based on various
+criteria, including visible time, satellite capacity, elevation
+angle, and a combination of the same. Te authors in [6]
+proposed a handover protocol based on a sofware-deﬁned
+satellite network architecture, where the performance was
+evaluated on the basis of latency, throughput, and quality
+of experience for users. Te work in [3] presented a graph-
+based framework to support handover decision strategies in
+LEO satellite networks on the basis of service time, elevation
+angle, and number of free channels. In [7], the authors
+proposed a multi-layer handover management framework,
+which introduced several handover procedures where the
+performance was evaluated on the basis of dropping proba-
+bility and throughput.
+Although several studies have been done on LEO satellite
+handover decisions, to the best of our knowledge, the joint
+consideration of satellite handover timing and targeting in
+planning the UE handover sequence has not yet been stud-
+ied. In this work, we investigate the optimal sequence for
+handover timing and targeting that would fulﬁll user QoS
+requirements while considering parameters that would aﬀect
+the handovers.
+In so doing, we present a graph-based customizable han-
+dover planning framework for LEO satellite networks. To do
+this, we formulate the problem as a time-based graph by
+representing a satellite as a series of instances that reﬂect
+its position and link status over time. Satellite instances are
+represented as graph nodes, and each edge has a weighted
+sum value calculated using a customized set of handover pa-
+arXiv:2211.07872v1  [cs.NI]  15 Nov 2022
+
+--- PAGE BREAK ---
+
+rameters (i.e., data rate and delay in this work). Te favorable
+sequence of handover timing and targets is determined by
+ﬁnding the shortest path in the graph. Te framework is
+customizable, modular, ﬂexible, and thus forward compatible
+with future integrated VHetNets. As the framework predicts
+future handover timing and targets, it will also be able to
+support sof handovers (connect before disconnect) leading
+to lower packet loss.
+II. Graph-Based Customizable Handover Planning
+Framework for LEO Satellite Communication
+Networks
+A. Network Model
+QEFC
+Fig. 1. A quasi earth-ﬁxed cell served by multiple satellites.
+In this work, we consider the scenario of a group of
+LEO satellites serving a quasi earth-ﬁxed cell (QEFC) on
+Earth. Tis was proposed by 3GPP in Release 17 as a po-
+tential solution for non-geostationary satellite orbit (NGSO)
+mobility management [8]. As shown in Fig. 1, when satel-
+lite s1 approaches the minimum elevation angle, users in
+the QEFC need to perform a handover to satellite s2 to
+maintain their current connections. In future LEO satellite
+mega-constellations, a single QEFC can be served by several
+satellites, which will create multiple targeted satellite options
+in the handover process. Due to satellite movement and the
+satellite’s signal blocking in some areas (e.g., urban areas with
+high buildings), the quality of satellite to UE communica-
+tion links varies in accordance with the satellite’s visibility
+period. In addition, users or applications with diﬀerent QoS
+requirements may necessitate customized handover decision-
+making. Tus, joint consideration of the handover timing and
+target (i.e., next satellite) is necessary to make optimized han-
+dover decisions. Fig. 2 shows diﬀerent instances of satellites
+s1, s2, s3, and s4 over a time duration, T, divided into several
+short, equally sized time durations t1, t2, ..., ti. Te optimal
+time for the handover from satellite s1 to any of the target
+satellites (s2, s3, or s4) is aﬀected by several criteria (e.g.,
+satellites positions, link quality, required QoS), which are
+variable through time. Terefore, in the proposed framework
+we represent every satellite as several satellite instances to
+reﬂect changes in satellite communication status over time.
+Accordingly, the satellite instance s2−2 represents satellite s2
+at time duration t2. Since future satellite networks will have
+thousands of LEO satellites, the coverage periods of multiple
+satellites will be overlapping. We assume user positions and
+LEO satellite information are readily obtainable, e.g., by using
+the GPS-based approach as in [9] and the simpliﬁed general
+perturbations (SGP4) model as in [10].
+s2-1
+s2-2
+s2-3
+s1-6
+s1-7
+s1-8
+s1-9
+Time 
+s3-4
+s3-5
+s3-6
+s3-7
+s4-2
+s4-3
+s4-4
+s4-5
+Duration
+Fig. 2. LEO satellite positions at diﬀerent time instances.
+B. Graph-Based Problem Formulation for Handover Timing and
+Target
+Let us suppose that for a given user in a QEFC, to maintain
+a connection with certain QoS requirements, a sequence of
+handovers is required among satellites for a time duration,
+T. As shown in Fig. 2, we split T into n equal sized time
+durations, ti, i.e., Pn
+i=1 ti = T and ti = (µi ± λ), where
+µi is the mean value of ti and λ is the relaxation period.
+Te satellites covering a certain QEFC during T are mapped
+to an instance at every ti creating several instances of each
+satellite (e.g., s2−1, s2−2, s2−3). Te satellite instances form
+a set S = {s1−1, s1−2, ..., s1−n, s2−1, ..., sk−n}, where k is
+the total number of satellites, n is the total number of time
+instances, n×k is the total number of satellite instances, and
+each element sj−i ∈S has a corresponding start and end
+periods, i.e., µi −λ and µi + λ, respectively. By considering
+satellite instances as graph nodes and the handover decision-
+making criteria as directed weighted edges, the sequence of
+handover timings and targets for period T is determined by
+ﬁnding the highest ranking path in the directed weighted
+graph.
+Fig. 3 shows the directed weighted time-based graph of
+the LEO satellites corresponding to Fig. 2. In the directed
+graph, the straight edges represent the transition between
+diﬀerent instances of the same satellite (no handover is
+performed), whereas diagonal edges represent handovers
+between instances of two diﬀerent satellites with an overlap-
+ping coverage period. Each directed edge weight in the graph
+is calculated as a weighted summation of pre-deﬁned utility
+functions, which collectively form the handover decision-
+making criteria. Te weighted summation model (WSM) is
+one of the multi-criteria decision making (MCDM) methods.
+
+--- PAGE BREAK ---
+
+Equation (1) formulates the directed edge weight calculation,
+in general, as
+W sj−i =
+wm U sj−i
+where W sj−i is the edge weight directed to the satellite
+instance sj−i, U sj−i
+is a utility function representing a
+handover criterion corresponding to satellite sj at time ti,
+wm is a weighting factor of utility function U sj−i
+, and M is
+the total number of considered utility functions in the han-
+dover decision-making, where PM
+m=0 wm = 1. Te handover
+framework can be customized to the requirements of each
+user by changing the weighting factors to give preference
+to certain utility functions and/or by using diﬀerent utility
+functions (e.g., data rate, delay, and jiter). It should be noted
+that since the model is a linear combination of diﬀerent utility
+functions, each utility function shall be normalized before
+calculating edge weights. Tis ensures that the model does
+not overlook a certain utility function over others due to its
+nature of high values. Nonetheless, the selection of which
+normalization technique to use is not the focus of this work.
+For example, delay is measured in milliseconds in satellite
+networks, whereas data rate is measured in megabits per
+seconds. Te preference for a certain utility function is given
+by the weight wm.
+In this work, the data rate and delay are the criteria
+considered in the handover decision-making process. Tus,
+the generic equation (1) can be speciﬁed as follows:
+W sj−i = wd U sj−i
++ wr U sj−i
+Te favorable sequence of handovers in the graph is deter-
+mined using the Dijkstra’s Algorithm to ﬁnd the shortest path
+between two selected nodes, where the shortest path is the
+path with the lowest summation of weight edges. Terefore,
+lower delays are preferred, and therefore,
+U sj−i
+where
+PD is the normalized propagation delay. However,
+higher data rate values are preferred, and therefore,
+U sj−i
+= 1 −ˆR,
+where ˆR is the normalized data rate.
+C. Customized Handover Sequence Selection Process
+Te graph-based customizable handover framework selects
+handover timings and sequence of targeted satellites for the
+next time duration T. Te selection process is detailed as
+follows:
+1) Select QEFC’s and UE’s location.
+2) Identify UE’s QoS preferences and utility functions.
+3) Select preferred T and λ.
+4) Obtain LEO satellite information accordingly.
+5) Choose appropriate channel model.
+6) Build UE’s customized database table.
+S1, t1
+S1, t2
+S1, t3
+S2, t3
+S3, t4
+S4, t4
+S2, t2
+S4, t3
+S4, t2
+S1, t4
+Fig. 3. Te directed weighted handover graph corresponding to Fig. 2.
+a) Row indexes are satellite numbers.
+b) Columns are time instances.
+c) Each cell represents a satellite instance of set S
+that matches its corresponding column and row
+index.
+d) Cells contain the calculated weighted sum of util-
+ity functions of the same satellite instance.
+7) Build a time-based graph as in Fig. 3.
+a) Te directed edge to a satellite instance is its own
+cell value.
+b) Add a virtual beginning node directed to the ﬁrst
+instance of all satellites, i.e., sj−1.
+c) Add a virtual end node for the last instance of all
+satellites, i.e, sj−n, directs to.
+8) Solve the graph from the virtual beginning node to the
+virtual end node using Dijkstra’s Algorithm.
+Te solution is a sequence of nodes in the form of sj−i,
+where j is the satellite number and i is the handover timing
+indication where ti=(µi ± λ). While λ, the relaxation period,
+provides some ﬂexibility as to the exact time in which the
+handover can take place, in this paper the handover timing
+is taken at (µi + λ).
+D. Channel Model
+Te channel model expression mainly consists of path loss,
+Rician small-scale fading, and atmospheric fading [11]. Te
+atmospheric fading, A(d), is given by
+A(d) = 10
+10h ,
+where χ is the atenuation through the clouds and rain in
+dB/km, d is the propagation distance between satellites and
+the UE, calculated by
+h2 + (x −ox)2 + (y −oy)2,
+where (ox, oy) is the position right below the satellite. Te
+channel model expression is
+
+--- PAGE BREAK ---
+
+G = ( clight
+4πdfc
+)2 A(d) ϕ,
+where ϕ is the Rician small-scale fading. clight and fc are
+the speed of light and the carrier frequency, respectively. Te
+received power is given by
+Prx = Ptx Gtx G Grx,
+where Ptx is the transmit power, Gtx and Grx represent the
+antenna gains of the transmiter and receiver, respectively.
+Te user data rate is given by the Shannon capacity theorem
+R = B log(1 + Prx
+where B is the channel bandwidth, and PN is the noise
+power. Propagation delay is given by
+PD =
+clight
+(10)
+III. Framework Evaluation
+A. Complexity Analysis
+Te highest ranking path in the constructed time-based
+graph is determined using the Dijkstra’s Algorithm by ﬁnd-
+ing the shortest path between two nodes. Te Dijkstra’s
+Algorithm has a complexity of O(E + V log V ) when a
+Fibonacci heap is used, where E is the number of edges
+and V is the number of nodes, or, in the context of this
+framework, the total number of satellite instances [12]. Let
+n = E + V , therefore, O(n) < O(E + V log V ) < O(n2).
+As T is split into smaller equally sized time durations,
+ti, λ →0, then V, E →∞, and thus, the complexity of
+the handover graph approaches inﬁnity while the handover
+solution approaches optimality:
+λ→0[H(S, T, λ), O(E + V log V )] = [v∗, ∞].
+(11)
+Fig. 4 shows the complexity analysis of ﬁnding the shortest
+path in the handover graph for diﬀerent λ values at T = 30
+minutes. In a worst case scenario, for a given QEFC, all 1,584
+satellites of Starlink Phase I constellation would be used, but
+in reality far fewer satellites would be expected to ﬂy over
+a QEFC during a 30-minutes period. To bring things into
+prospective, 1.8×109 operations are executed in half a second
+on a personal user device with a CPU frequency of 3.6 GHz,
+given that one operation consumes one CPU cycle.
+B. Simulation Parameters
+Te graph-based handover framework is simulated within
+a Starlink Phase I constellation environment generated by the
+well-known satellite constellation simulator STK version 12.1
+[13]. Te constellation consists of 1,584 satellites within 22
+orbits (72 satellites per orbit) with an altitude of 550 km [2].
+Te location of interest selected as the QEFC is Otawa with
+one UE under evaluation. Te downlink carrier frequency is
+in the Ku band at 11.9 GHz, the bandwidth block for the UE
+ (seconds)
+Complexity (# of operations)
+Complexity vs  (T=30 minutes)
+Fig. 4. Te complexity of ﬁnding the shortest path in the handover graph
+using all 1,584 satellites of Starlink Phase I Constellation using diﬀerent λ
+values.
+is 10 MHz, the noise power spectral density is -173 dBm/Hz,
+the satellite transmit power is 10 dB, the Rician small-scale
+fading is 20 dB, the atmospheric fading’s atenuation is 0.05
+db/km. Te utility functions of data rate and delay have the
+same preference, thus, the weights in equation (2) are both
+set to 0.5.
+Te graph-based handover framework is compared against
+a well-known legacy algorithm for satellite handover han-
+dovers. Tis algorithm is based on a threshold strategy of
+the satellite’s elevation angle from the UE. In this simulation,
+the threshold angle is 10 degrees. When the satellite elevation
+angle reaches 10 degrees, the handover process is triggered.
+C. Results and Discussion
+In this simulation, data rate and delay are the handover
+criteria used to customize the handover sequence to the UE.
+Our graph-based method (GM) and the threshold method
+(TH) are compared in terms of the resulted UE’s data rate. For
+both methods, the UE starts the connection with the same
+satellite.
+In Fig. 5, following the customized handover sequence
+selection process of the GM, the total time duration, T, is 30
+minutes, which is split into six equally sized time durations,
+ti. Each time duration is 300 seconds, where λ = 150 seconds,
+ti = (µ ± 150). During T, the TH results in three handovers
+while the GM results in ﬁve handovers at which a handover
+takes place once every ﬁve minutes or every 2λ. In fact, the
+GM’s number of handovers is dependent on λ; smaller λ
+values result in suggesting more handovers and vice-versa,
+as shown in Figs. 6 and 7. Although the number of handover
+suggestions might increase using the GM, with beter timing
+and selection of handovers, sof handovers can be achieved.
+Tis is diﬀerent from the TH method, where the handovers
+will mostly be hard handovers.
+Regarding the performance comparison, by visual inspec-
+tion, the GM data rate is constrained at a higher range of
+
+--- PAGE BREAK ---
+
+Time (min)
+Data rate (Mbps)
+ti =
+= 300 sec 
+GM: 5 handovers
+TH: 3 handovers
+Fig. 5. Te UE’s data rate over 30 minutes using the threshold method (TH)
+and the graph method (GM) with λ = 150 seconds (2.5 minutes).
+Time (min)
+Data rate (Mbps)
+ti =
+= 240 sec 
+GM: 6 handovers
+TH: 3 handovers
+Fig. 6. Te UE’s data rate over 30 minutes using the threshold method (TH)
+and the graph method (GM) with λ = 120 seconds (2 minutes).
+Time (min)
+Data rate (Mbps)
+ti =
+= 360 sec 
+GM: 4 handovers
+TH: 3 handovers
+Fig. 7. Te UE’s data rate over 30 minutes using the threshold method (TH)
+and the graph method (GM) with λ = 180 seconds (3 minutes).
+Mbps than the TH, as shown in Figs. 5, 6, and 7. In addition,
+it is obvious that GM prevents the sharp drops in data rate
+peaks, which clearly shows that GM has the advantage of
+maintaining QoS. In particular, the performance of GM in Fig.
+5, where GM results in ﬁve handovers at which a handover
+takes place once every ﬁve minutes, is perfectly reasonable
+and much beter than in normal terrestrial cellular networks
+with moving user terminals. Furthermore, a comprehensive
+statistical comparison is required to quantify the signiﬁ-
+cance of the framework over TH (the legacy algorithm). Te
+cumulative distribution function (CDF) is used to compare
+the TH and the GM with diﬀerent λ values. Fig. 8 shows
+the data rate behavior of both methods at diﬀerent CDF
+percentages. For example, at 20% CDF, the TH has 20% of
+its data rate performance under 15.7 Mbps, which is similar
+to the GM with λ = 300 seconds (GM-10), GM-6 is under
+19.3 Mbps, GM-5 is under 20.1 Mbps, and GM-4 is under 21.2
+Mbps. Terefore, as λ decreases in the GM, the performance
+improves while the cost to pay is the number of handovers.
+A direction for future research would be to analyze the trade
+oﬀon selecting the appropriate λ value considering sof
+handover and other optimization techniques.
+Data rate (Mbps)
+CDF (%)
+Data Rate CDF
+GM ti=1 min
+GM ti=2 min
+GM ti=3 min
+GM ti=4 min
+GM ti=5 min
+GM ti=6 min
+GM ti=7 min
+GM ti=8 min
+GM ti=9 min
+GM ti=10 min
+= 10o
+Fig. 8. Te UE’s data rate cumulative distribution function of the threshold
+method (TH) and the graph method (GM) with various λ values (λ = ti/2).
+IV. Conclusions
+Tis paper proposed a graph-based customizable handover
+planning framework for LEO satellite networks. As dis-
+cussed, the framework uses the idea of a time-based graph
+where the satellites instances are represented by vertices
+and the edge weights are obtained through the customizable
+handover criteria. Te results and accompanying discussion
+demonstrated shows the eﬀectiveness of the novel handover
+framework, which is also low in complexity, modular, ﬂexible,
+and expected to be forward compatible.
+V. Acknowledgment
+Tis work has been supported by the National Research
+Council Canada’s (NRC) High Troughput Secure Networks
+program (CSTIP Grant #CH-HTSN-625) within the Optical
+Satellite Communications Consortium Canada (OSC) frame-
+work. Te authors would like to thank Dr. Aizaz Chaudhry
+
+--- PAGE BREAK ---
+
+for providing the simulation data of Starlink Phase I constel-
+lation.
+References
+[1] M. Alzenad and H. Yanikomeroglu, “Coverage and Rate Analysis for
+Vertical Heterogeneous Networks (VHetNets),” IEEE Transactions on
+Wireless Communications, vol. 18, no. 12, pp. 5643–5657, 2019.
+[2] SpaceX
+update,
+Nov.
+2018,
+“SpaceX
+Non-Geostationary
+Satellite
+System,
+Atachment
+Technical
+Information
+Supplement
+Schedule
+[Online].
+Available:
+htps://fcc.report/
+IBFS/SAT-MOD-20181108-00083/1569860, Accessed: October 08, 2022.
+[3] Z. Wu, F. Jin, J. Luo, Y. Fu, J. Shan, and G. Hu, “A Graph-Based Satellite
+Handover Framework for LEO Satellite Communication Networks,”
+IEEE Communications Leters, vol. 20, no. 8, pp. 1547–1550, 2016.
+[4] M. Gkizeli, R. Tafazolli, and B. Evans, “Modeling Handover in Mobile
+Satellite Diversity Based Systems,” in 54th Vehicular Technology Con-
+ference., vol. 1, 2001, pp. 131–135.
+[5] P. Boedhihartono and G. Maral, “Evaluation of the Guaranteed Han-
+dover Algorithm in Satellite Constellations Requiring Mutual Visibil-
+ity,” International Journal of Satellite Communications and Networking,
+vol. 21, no. 2, pp. 163–182, 2003.
+[6] B. Yang, Y. Wu, X. Chu, and G. Song, “Seamless Handover in Sofware-
+Deﬁned Satellite Networking,” IEEE Communications Leters, vol. 20,
+no. 9, pp. 1768–1771, 2016.
+[7] Y. Li, W. Zhou, and S. Zhou, “Forecast Based Handover in an Extensible
+Multi-Layer LEO Mobile Satellite System,” IEEE Access, vol. 8, pp.
+42 768–42 783, 2020.
+[8] 3GPP,
+“Study
+Architecture
+Aspects
+Using
+Satellite
+Access
+5G,”
+Generation
+Partnership
+Project
+(3GPP),
+Technical
+Speciﬁcation
+(TS)
+23.737,
+March
+2021,
+version
+17.2.0.
+[Online].
+Available:
+htps://portal.3gpp.org/desktopmodules/
+Speciﬁcations/SpeciﬁcationDetails.aspx?speciﬁcationId=3485
+[9] I. Ali, N. Al-Dhahir, and J. E. Hershey, “Predicting the Visibility of
+LEO Satellites,” IEEE Transactions on Aerospace and Electronic Systems,
+vol. 35, no. 4, pp. 1183–1190, 1999.
+[10] D. A. Vallado, P. Crawford, R. Hujsak, and T. S. Kelso, “Revisiting
+Spacetrack Report #3,” in AIAA/AAS Astrodyn Specialist Conference,
+2006, pp. 1–88.
+[11] A. Ibrahim and A. S. Alfa, “Using Lagrangian Relaxation for Radio
+Resource Allocation in High Altitude Platforms,” IEEE Transactions on
+Wireless Communications, vol. 14, no. 10, pp. 5823–5835, 2015.
+[12] M. L. Fredman and R. E. Tarjan, “Fibonacci Heaps and Teir Uses
+in Improved Network Optimization Algorithms,” Journal of the ACM,
+vol. 34, no. 3, p. 596–615, 1987.
+[13] AGI, “Systems Tool Kit (STK),” [Online]. Available: htps://www.agi.
+com/products/stk, Accessed: October 08, 2022.

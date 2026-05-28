@@ -1,0 +1,6 @@
+.subckt STACKED_CM VG VREF VOUT VSS
+XM1 N1   VG VSS VSS nfet_03v3 w=4 l=0.5 m=2
+XM2 VREF VG N1  VSS nfet_03v3 w=4 l=0.5 m=2
+XM3 N2   VG VSS VSS nfet_03v3 w=4 l=0.5 m=2
+XM4 VOUT VG N2  VSS nfet_03v3 w=4 l=0.5 m=2
+.ends STACKED_CM

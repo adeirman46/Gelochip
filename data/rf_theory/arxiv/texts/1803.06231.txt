@@ -1,0 +1,452 @@
+A Programmable CMOS Transceiver for Structural
+Health Monitoring
+Xinyao Tang, Haixiang Zhao, and Soumyajit Mandal
+Department of Electrical Engineering and Computer Science
+Case Western Reserve University, Cleveland, OH 44106
+Email: sxm833@case.edu
+Abstract—We describe a highly-integrated CMOS transceiver
+for active structural health monitoring (SHM). The chip actu-
+ates piezoelectric transducers and also senses ultrasound waves
+received by the same or another transducer. The transmitter uses
+an integer-N frequency synthesizer and pulse-width modulation
+(PWM) to generate low-distortion, band-limited waveforms up
+to 12.7 Vpp with center frequency from ∼0.1-2.75 MHz. The
+integrated offset-canceling fully-differential receiver has pro-
+grammable gain and bandwidth, and uses quadrature demod-
+ulation to extract both amplitude and phase of the received
+waveforms for further signal processing. The transceiver was
+fabricated in a 0.5 µm CMOS process and has been validated
+using (2D) damage localization on an SHM test bed.
+I. INTRODUCTION
+The health of the world’s critical infrastructure, such as
+bridges, aircraft, and pipelines, is a subject of increasing
+concern. SHM enables real-time and continuous assessment
+of structural health by detecting the existence, location, and
+severity of potential damage. In active SHM, electrical pulses
+drive an array of piezoelectric transducers attached to the struc-
+ture, which convert them to ultrasonic guided waves. These
+waves are received by another set of transducers and analyzed
+to determine structural health [1]. Lamb waves have attractive
+propagation properties and are thus the most widely used
+ultrasonic guided waves for active SHM. However, a variety of
+Lamb wave modes with different velocities can propagate in
+the structure (see Fig. 1). The excitation waveform is usually
+designed to only excite the lowest-order modes (S0 and A0)
+in order to reduce the complexity of SHM signal processing.
+SHM systems are typically realized using discrete compo-
+nents. However, the size, weight, and power consumption of
+this approach makes it unattractive for emerging applications
+such as monitoring of aerospace structures [2]. This issue has
+been addressed using integrated piezoelectric drivers [3], [4]
+and ﬂexible sheets that combine integrated circuits (ICs) and
+thin-ﬁlm transistors for passive strain sensing [5], [6]. We pro-
+pose a heterogeneous microsystem that integrates miniaturized
+electronics and sensors within a ﬂexible substrate to further
+reduce system thickness, weight, and power, thus paving the
+way for scalable large-area SHM. We have earlier i) designed
+and tested a current-controlled transceiver IC in 0.5 µm 2P/3M
+CMOS for this application [7], and ii) veriﬁed its ability to
+detect structural damage [8]. Here we describe an improved
+digitally-controlled SHM transceiver and verify its ability to
+both detect and localize damage using a SHM test bed.
+Fig. 1: Dispersion of Lamb waves in a 1.5-mm-thick Alu-
+minum plate: (a) variation in group velocity with frequency;
+(b) illustration of plate deformation in the A0 and S0 modes.
+II. CHIP DESIGN
+A block diagram of the proposed IC is shown in Fig. 2. The
+transceiver runs off 5 V and is digitally-controlled through a
+standard serial peripheral interface (SPI) port. An integer-N
+frequency synthesizer generates programmable output frequen-
+cies (0.8–22 MHz) from a reference clock, thus allowing a
+single stable reference to be distributed to the entire SHM
+network. The synthesizer output is fed into a 4-bit PWM
+modulator that generates predeﬁned pulse widths based on
+data stored in on-chip memory (ROM). The widths are chosen
+to minimize the least-square error between the reference (a 5-
+cycle Hamming-windowed sinusoid) and the differential PWM
+outputs after a low-pass ﬁlter (LPF). The latter can drive
+signals up to 10(4/π) = 12.7 Vpp into the transducer.
+Quadrature Mixer
+Control & 
+Memory
+Integer-N 
+synthesizer
+LPF&PGA
+LPF&PGA
+LPF&PGA
+LPF&PGA
+Buffer0
+Buffer1
+Buffer2
+Buffer3
+Buffer4
+180o
+MOSI
+32.768 kHz
+Fully-differential Receiver
+Transmitter
+Bit [21:57]
+Bit [0:20]
+Off Chip
+Vdd = 5 V
+0o & 90o
+180o & 270o
+Inputs
+Reference 
+Clock
+Diff. 
+ADC #1
+Diff. 
+ADC #2
+Duplexer
+Φ1: Transmission
+Φ2: Reception
+Fig. 2: Block diagram of the proposed SHM transceiver IC.
+The fully-differential receiver uses a low-noise ampliﬁer
+arXiv:1803.06231v1  [eess.SP]  14 Mar 2018
+
+--- PAGE BREAK ---
+
+(LNA) with programmable gain and bandwidth. The LNA out-
+puts are down-converted to baseband using a passive double-
+balanced quadrature mixer. Two stages of low-pass ﬁlters
+and programmable-gain ampliﬁers are implemented for further
+ﬁltering and ampliﬁcation. The four complex outputs (I+,
+I−, Q+, Q−) retain both the amplitude and phase of the
+input signal, and are digitized by an off-chip ADC for further
+processing. The whole receiver is biased through a constant
+Gm current reference and programmed over SPI. It can also
+be put into a low-power shutdown mode between pulses.
+A. Low-Distortion Programmable Transmitter
+Modern active SHM algorithms, such as delay-and-sum and
+matched ﬁltering, are implemented through baseline subtrac-
+tion. Therefore, low-distortion and highly-accurate excitation
+waveforms are desired to reduce the false alarm rate (FAR)
+during long term SHM. Our solution uses (i) an integer-
+N synthesizer based on a fourth-order loop ﬁlter that uses
+a low-phase-noise 32.768 kHz reference clock; and (ii) a
+PWM scheme with predeﬁned transitions based on a priori
+knowledge of the desired SHM excitation signal after off-chip
+LC low-pass ﬁltering. This design allows the center frequency
+of the outputs to be programmed from 0.1-2.75 MHz, thus
+allowing a wide variety of structures to be studied.
+Fig. 3 shows the design of the main transmitter blocks in
+more detail. The synthesizer, shown in Fig. 3(a), includes
+a wide-linear-range transconductor (WLR), 5-bit NMOS and
+PMOS current DACs, and a current-starved ring oscillator
+(CCO). This allows the loop bandwidth to be controlled
+through the N- and P-DACs; in particular, we can make the
+bandwidth and phase margin independent of the division ratio
+(N). The synthesizer also uses a sequential phase frequency
+detector (PFD), a cascoded charge pump, and a passive third-
+order loop ﬁlter. The charge pump uses differential switching
+to reduce charge injection errors. The loop ﬁlter contains two
+high-frequency poles that are placed beyond the crossover
+frequency of the loop. These poles ﬁlter out high-frequency
+ripples on the control voltage (VLOOP ), thereby reducing jitter
+in the output clock while only minimally degrading phase
+margin. The WLR converts VLOOP to a current; it combines a
+well-input differential pair with other linearization techniques
+to achieve > 1.5 V input linear range. The loop bandwidth is
+set to 3.5 kHz (about 10% of the nominal reference frequency)
+to avoid degradation of phase margin due to the phase lag
+inherent in a discrete-time PFD; the desired value is set to
+50◦. Fig. 3(b) shows the block diagram of the 4-bit PWM. To
+generate fully-differential excitation pulses, it uses two XOR
+gates and a 180◦delay circuit. The ﬁnal pulse widths, as shown
+in Fig. 3(b), for the up-side and down-side are set as multiples
+of the synthesizer output period (1, 5, 7, 3 and 3, 7, 5, 1,
+respectively). The PWM outputs are ﬁltered using an off-chip
+LC LPF in which the C is provided by the transducer itself.
+B. Offset-Canceling Fully-Differential Receiver
+The implementation of the SHM receiver is shown in Fig. 4.
+A trigger pulse Φt initiates the measurement. RST and OPER
+4-bit Counter
+Digits
+Time
+4-bit
+Register
+4-bit
+Register
+(LSB)
+(MSB)
+(LSB)
+(MSB)
+4-bit
+Compar-
+ator
+Pulse Modulation
+Bit [0:3]
+1110 
+1010 
+0010 
+0110
+4x4-bit ROM
+Shift Register
+Control Logic
+Pulse
+Down 
+Pulse
+PA #2
+PA #1
+Time
+Amplitude
+Filtered 
+Loop Filter
+VREF
+Bit [0:4]
+Bit [0:4]
+Bit [0:9]
+N-DAC P-DAC
+Programmable N Divider
+Ref.
+IBIAS
+VLOOP
+Fig. 3: Low-distortion programmable transmitter circuit de-
+sign: (a) block diagram of the integer-N synthesizer; (b)
+digitally-deﬁned PWM transition times.
+are two non-overlapping clock signals derived from Φt. During
+the RST phase, each block resets to the input common-
+mode voltage VCM = 1.3 V. Auto-zeroing is used within
+each LPF and programmable-gain ampliﬁer (PGA) for offset
+cancellation. The receiver operates during the OPER phase.
+A fully-differential cascoded low-noise ampliﬁer (LNA), as
+shown in Fig. 4 (a), is used as the ﬁrst signal processing
+stage. The circuit uses a simple resistively-loaded differential
+pair and has an input-referred thermal noise PSD of v2
+n,in ≈
+8kTγ/gm, where γ ≈2/3 and gm is the transconductance of
+each transistor in the input pair. A replica bias circuit generates
+a reference voltage Vref that is nominally equal to the DC
+output voltage of the LNA. This voltage is used to set the
+common-mode input level of a differential buffer. We also
+use 3-bit resistor and bias current DACs for programmable
+LNA gain and bandwidth. Typically, at a bias current of 3 µA
+and a 40 kΩload, the LNA has a simulated small-signal
+gain of 21.6 dB, a bandwidth of 4.3 MHz, a 1/f corner
+frequency of 10 kHz, and an input-referred thermal noise PSD
+of 21 nV/Hz1/2. The input linear range, deﬁned using total
+harmonic distortion (THD) < 5%, is ∼60 mV and ∼70 mV
+for input frequencies of 400 kHz and 1.2 MHz, respectively.
+The differential buffer isolates LNA outputs from the pas-
+sive double-balanced quadrature downconversion mixer (see
+Fig. 4(b) and (d)). The buffer uses two common-mode feed-
+back (CMFB) ampliﬁers, one for each gain stage. A passive
+mixer design was chosen because of its small area, absence
+of static power consumption, and high linearity, while the
+double-balanced topology ensures high isolation between the
+ports. The typical conversion loss is −4 dB. Quadrature local
+oscillator (LO) signals for the mixers are generated from the
+same synthesizer used in the transmitter, resulting in a direct
+conversion (zero-IF) architecture. An external LO input also
+allows the receiver to be characterized at non-zero IF.
+
+--- PAGE BREAK ---
+
+Vclk
+Vclk
+Cov/2
+OPER
+VREF
+VREF
+OPER
+VR E F
+4-bit Cap DAC
+0.1~1.7 pF
+VREF
+VREF
+OPER
+ClkREF
+OPER
+OPER
+Mixer
+LPF+PGA
+Buffer
+Buffer
+I+, I- Branch
+Q+, Q- Branch
+Stage 1
+Stage 1
+IBIAS1 vin+
+vin-
+VREF
+vout-
+vout+
+3-bit
+3-bit
+3-bit
+vout-
+vout+
+vin-
+vin+
+vout+
+vout-
+IBIAS3
+IBIAS3
+vin-
+vin+
+vo+ vo-
+VCM1
+VCM1
+VCM2
+vout+
+vout-
+vout+
+vout-
+IBIAS2
+IBIAS2
+CMFB Stage 1
+CMFB Stage 2
+CMFB
+A2 &A3
+From 
+Stage 
+LPF&
+Buffer
+Fig. 4: Block diagram of the fully-differential receiver and its circuit design: (a) LNA with low-leakage-current switches;
+(b) LPF and PGA blocks in stage #1 after the passive mixers; (c) LNA circuit with programmable 3-bit resistor DAC; (d)
+fully-differential buffer with two stage CMFB; (e) fully-differential WLR OTA.
+A second-order Gm-C LPF removes the upper mixer side-
+bands. It uses a fully-differential WLR OTA with continuous-
+time CMFB, as shown in Fig. 4(e). The LPF cut-off frequency
+can be programmed using a 5-bit current DAC and a 4-
+bit capacitor DAC (up to 1.5 pF). The PGA circuit reuses
+the same OTAs as in the LPF, with one acting as a V -I
+converter and the other as a buffered resistor. The voltage gain
+G = Gm1/Gm2 ≈IBias1/IBias2 is set by two 5-bit current
+DACs, where the approximation is valid in subthreshold.c
+Fig. 5: Die photograph of the proposed transceiver IC.
+III. EXPERIMENTAL RESULTS
+A proof-of-concept SHM transceiver IC was fabricated in
+the OnSemi 0.5 µm CMOS process. Fig. 5 shows a die micro-
+graph of the proposed IC, which has a active area of 1.1 mm
+× 2.2 mm. The chip is powered from a single 5.0 V supply
+with average power consumption of 875 µW. Fig. 6(a) shows
+measured phase noise, which decreases to about -70 dBc/Hz
+at an offset of 10 Hz, while the transmitter tuning curve is
+shown in Fig. 6(b). Figs. 6(c) and (d) show the measured
+input-referred noise PSD and THD, respectively, of the LNA
+and buffer. The thermal noise ﬂoor and maximum input signal
+amplitude (deﬁned by THD < 5) are in good agreement with
+simulations. Given that the received signal amplitude in active
+SHM is typically ∼0.5 mV to 20 mV (depending on the sensor
+location), the proposed LNA provides sufﬁcient linear range.
+Fig. 7 shows the IC connected to an SHM test bed (1 foot2
+area). The bare dies were wire-bonded to miniature (diame-
+ter = 20 mm) wired sensor nodes fabricated (see Fig. 7(e)).
+Each sensor node also contains a microcontroller (MCU;
+Atemel SAM L21E) for programming, digitization, signal
+processing and communicating with the system controller.
+The PZT transducer (6 × 6 × 0.5 mm) is connected to the
+back of the PCB. Fig. 7(b) shows typical receiver outputs
+(I and Q). The reconstructed signal amplitude follows the
+envelope of the input signals, as expected. Fig. 7(d) shows
+an example of successful 2D localization of structural damage
+using the custom IC and an array of 8 PZT transducers
+mounted on a 3 mm-thick aluminum plate. Reversible damage
+is introduced as an stressed point loaded by clamps (see
+Fig. 7(c)). The damage map was generated by using the delay-
+and-sum localization algorithm on data recorded from the IC.
+Fig. 8 compares the performance of our chip with recently-
+reported driver ICs for active SHM applications [3], [7].
+IV. CONCLUSION
+We have i) presented a digitally-programmable single-chip
+transceiver for active SHM using ultrasonic guided waves, and
+ii) successfully localized damage on a SHM test bed using the
+proposed chip and a delay-and-sum algorithm. Future work
+will focus on i) further miniaturization of the sensor nodes by
+integrating an analog-to-digital converter (ADC) and custom
+digital signal processor (DSP) on the chip; and ii) eliminating
+the wired bus by using ultrasonic power and data transfer.
+
+--- PAGE BREAK ---
+
+Fig. 6: Chip measurement results: (a) phase noise for synthe-
+sizer output frequencies of 624 kHz, 702 kHz and 1.014 MHz;
+(b) CCO output frequency range; (c) input-referred noise of
+the LNA and buffer; (d) THD of the LNA and buffer; (e)
+measured gain of the LNA at 3.0 µA; (f) measured LNA gain
+and bandwidth in different scenarios.
+REFERENCES
+[1] A. Raghavan and C. E. S. Cesnik, “Review of Guided-wave Structural
+Health Monitoring,” The Shock and Vibration Digest, vol. 39, no. 2, pp.
+91–114, Mar 2007.
+[2] W. Staszewski, S. Mahzan, and R. Traynor, “Health monitoring of
+aerospace composite structures Active and passive approach,” Compos-
+ites Science and Tech., vol. 69, no. 11-12, pp. 1678–1685, Sep 2009.
+[3] Y. Guo, C. Aquino, D. Zhang, and B. Murmann, “A Four-Channel, +/-36
+V, 780 kHz Piezo Driver Chip for Structural Health Monitoring,” IEEE
+Journal of Solid-State Circuits, vol. 49, no. 7, pp. 1506–1513, Jul 2014.
+[4] R. Pierco, G. Torfs, J. Verbrugghe, B. Bakeroot, and J. Bauwelinck,
+“A 16 Channel High-Voltage Driver with 14 Bit Resolution for Driving
+Piezoelectric Actuators,” IEEE Transactions on Circuits and Systems I:
+Regular Papers, vol. 62, no. 7, pp. 1726–1736, Jul 2015.
+[5] Y. Hu, W. S. A. Rieutort-Louis, J. Sanz-Robinson, L. Huang, B. Glisic,
+J. C. Sturm, S. Wagner, and N. Verma, “Large-scale sensing system
+combining large-area electronics and CMOS ICs for structural-health
+monitoring,” J. Solid-State Circ., vol. 49, no. 2, pp. 513–523, Feb 2014.
+[6] Y. Hu, L. Huang, W. S. a. Rieutort-Louis, J. Sanz-Robinson, J. C. Sturm,
+S. Wagner, and N. Verma, “A self-powered system for large-scale strain
+sensing by combining CMOS ICs with large-area electronics,” IEEE
+Journal of Solid-State Circuits, vol. 49, no. 4, pp. 838–850, Apr 2014.
+[7] H. Zamani, C. Chen, X. Tang, P. Mohseni, and S. Mandal, “A current-
+controlled transceiver ic for structural health monitoring,” in IEEE New
+Circuits and Systems Conference (NEWCAS), June 2016, pp. 1–4.
+ Simulated Fault 
+Clamp Brigdge
+Side View
+Aluminum Cylinder
+Clamp Force
+12 inches
+12 inches
+Φ=20 mm
+PZT on back
+Wire-bonded chip
+Fig. 7: Experimental evaluation in a SHM test bed: (a)
+measured PWM digital output of the transmitter, and smooth
+Hamming-like waveform generated across the piezoelectric
+transducer after low-pass ﬁltering; (b) typical I and Q outputs
+from the SHM receiver, reconstructed signal magnitude, and
+the raw signal; (c) experimental setup in an SHM test bed;(d)
+2D damage localization results from the sensor node using
+delay-and-sum algorithm; (e) miniaturized SHM sensor node
+containing a commercial MCU and the SHM IC.
+Parameter
+JSSC 2014 [3]
+Earlier work [7]
+This work
+Technology
+0.25 μm BCD
+0.5 μm CMOS
+0.5 μm CMOS
+# of Tx channels
+# of Rx channels
+Tx filtering
+Off-chip
+On-chip
+Off-chip
+Tx amplification
+On-chip
+Off-chip
+On-chip
+Output voltage (max)
+     (on-chip)
+     (off-chip)
+      (on-chip)
+Output frequency
+780 kHz
+0.55 – 1 MHz
+0.1 – 2.75 MHz
+Power consumption
+28 µJ / 5 µs Tx
+325 – 575 µW
+875 µW
+Die area
+3.6 x 3.6 mm2
+0.55 x 1.1 mm2
+1.1 x 2.2 mm2
+Fig. 8: Comparison of the proposed chip with recently-reported
+driver ICs for SHM applications.
+[8] X. Tang, H. Zhao, and S. Mandal, “A highly-integrated cmos transceiver
+for active structural health monitoring,” in National Aerospace and
+Electronics Conference (NAECON), July 2016, pp. 133–138.

@@ -1,0 +1,1405 @@
+Geometric Performance Analysis of
+Doppler-Based Positioning with a Single LEO
+Satellite
+Qi Liu, Marc Fernández-Temprado, Antoni Reus-Bergas, Gonzalo Seco-Granados, José A.
+López-Salcedo
+Abstract—Low Earth Orbit (LEO) satellites have
+gained increasing attention as potential signal sources for
+Positioning, Navigation and Timing (PNT) applications.
+However, while most existing studies focus on multi-
+satellite LEO constellations, the fundamental position-
+ing performance achievable with a single LEO satellite
+remains less extensively explored. This paper analyzes the
+geometric characteristics and positioning performance of
+single-satellite Doppler positioning through a theoret-
+ical analysis of the Dilution of Precision (DOP) and
+extensive numerical simulations. The results reveal a
+strong directional error behavior, with severe error in
+the cross-track direction but a significantly less error
+along the satellite track, reflecting an intrinsic geometric
+limitation of single-satellite LEO positioning. While these
+features were already identified at the early stages of
+satellite PNT missions, the present work provides an in-
+depth analysis and unveils the fundamental limitations
+and characteristics that could make LEO-based Doppler
+positioning feasible nowadays, using one single satellite
+only. In this way, the results of this work not only provide
+valuable insights into the role of observational geometry
+in Doppler navigation, but also offer guidance for opti-
+mizing geometric configurations in future small or single-
+satellite LEO constellations for strategic applications.
+Keywords—LEO
+satellite,
+positioning,
+navigation,
+timing, dilution of precision, single-satellite, Doppler
+positioning, geometric characteristics.
+I. Introduction
+Positioning, Navigation, and Timing (PNT) ser-
+vices delivered by Global Navigation Satellite Sys-
+tems (GNSS) have become fundamental to modern
+society [1], [2], underpining a wide range of civilian
+and industrial applications from everyday smart-
+phone use [3] to precision operations in sectors such
+as agriculture [4] and logistics [5]. Moreover, critical
+infrastructure [6] and security operations [7] rely
+on GNSS for time synchronization and navigation,
+making modern society increasingly dependent on
+This work has been partly supported by the Catalan
+Government
+framework
+NewSpace
+Strat-
+egy of Catalonia and by the Spanish Agency of Research
+(AEI) under grant PID2023-152820OB-I00 funded by MI-
+CIU/AEI/10.13039/501100011033 and by ERDF/EU.
+them. However, owing to the intrinsic limitations
+of GNSS, particularly its degraded performance in
+urban canyons [8], dense vegetation, and under inten-
+tional interference, there is an increasing interest to
+develop complementary or alternative PNT systems.
+Building on this demand, a growing amount of
+research has focused on navigation schemes that
+exploit Signals of Opportunity (SOOP), such as
+those emitted by existing Low Earth Orbit (LEO)
+satellites [9], [10], terrestrial cellular base stations
+[11], and broadcast transmitters [12], which offer
+a promising means to enhance GNSS robustness
+in challenging environments. Traditionally, cellular
+base stations served as primary terrestrial SOOP for
+positioning, providing robust navigation solutions in
+populated regions, however, their utility is limited
+in remote areas. In recent years, driven by the New
+Space movement and the rapid deployment of large-
+scale LEO constellations, LEO satellite signals have
+emerged as a new class of SOOP for navigation [13].
+Their global coverage, higher transmit power, and
+wider bandwidth make LEO-based PNT a promis-
+ing complementary solution, particularly in GNSS-
+challenged environments [14], [15].
+The advent of the so-called New Space economy
+has paved the way for the rapid deployment of new
+LEO constellations, thus prompting researchers to
+exploit existing LEO signals for PNT applications,
+or to deploy new dedicated LEO constellations op-
+timized for PNT [16], [17]. In terms of applica-
+tion, researchers have conducted extensive studies
+on error sources and processing methods related to
+LEO-PNT [18], [19]. In that sense, satellite orbital
+errors are known to be a primary factor affecting
+LEO system performance. Ge et al. [20] proposed
+utilizing onboard accelerometers for real-time orbit
+prediction, achieving an accuracy of 5 cm. However,
+the high cost of this approach currently limits its
+widespread application. Furthermore, several studies
+have proposed the mitigation of orbital error effects
+through the implementation of differential correc-
+arXiv:2603.19499v1  [eess.SP]  19 Mar 2026
+
+--- PAGE BREAK ---
+
+tion architectures [21], [22]. When augmented with
+inertial navigation systems, this strategy enables
+sub-meter positioning accuracy and thus provides a
+promising framework for orbital error compensation
+in LEO-PNT applications [23]. While these efforts
+have significantly advanced the understanding and
+mitigation of measurement-related errors, a comple-
+mentary and equally critical question concerns the
+role of the constellation’s geometric and architectural
+properties in determining overall PNT performance.
+A. Role of Dilution of Precision (DOP)
+As research on LEO-based PNT continues to
+expand, it has become clear that beyond measure-
+ment error mitigation and processing techniques, the
+geometric configuration of the satellite constellation
+plays a fundamental role in determining achievable
+positioning accuracy [24]. This influence is commonly
+characterized by the Dilution of Precision (DOP),
+a metric that quantifies how satellite geometry
+amplifies measurement errors into position domain
+errors. LEO constellations exhibit rapidly changing
+spatial geometry and highly dynamic visibility pat-
+terns, leading to distinct DOP behaviors that vary
+significantly over time and user location [25], [26].
+Understanding these geometric effects is therefore
+essential for interpreting LEO positioning perfor-
+mance and for assessing how different constellation
+designs, orbital parameters, and observation condi-
+tions shape the overall error characteristics. Tyler
+et al. [27] conducted a detailed comparison between
+LEO constellations and GNSS based on aspects
+such as link budget, number of visible satellites,
+Geometric Dilution of Precision (GDOP), Horizontal
+Dilution of Precision (HDOP), Vertical Dilution of
+Precision (VDOP), and user ranging error. The
+results show that the LEO constellations have a
+better geometry than existing GNSS, while the study
+did not fully analyze the relationship between DOP
+and achievable positioning accuracy.
+Intuitively, DOP reflects how well the satellites are
+distributed across the sky and is inversely related
+to the volume of the tetrahedron formed by the
+user and the visible satellites. In addition, DOP
+plays a key role in positioning accuracy because
+the position error is determined by the product
+of the measurement standard deviation and the
+DOP. In other words, for the same measurement,
+a larger DOP will lead to a larger position error,
+whereas a smaller DOP limits this amplification
+and yields better positioning accuracy. As shown
+in Table I, a DOP value less than 1 typically
+indicates an ideal satellite-receiver configuration [24].
+Furthermore, through DOP optimization, a value of
+approximately 0.9 can be achieved even with only
+four visible GNSS satellites [28].
+TABLE I: DOP rating categories
+DOP Value
+Rating
+Ideal
+1 −2
+Excellent
+2 −5
+Good
+5 −10
+Fair
+> 10
+Poor
+The conventional DOP formulation is derived
+from pseudorange-based navigation solutions. In the
+context of LEO satellite systems, Doppler measure-
+ments offer a distinct advantage due to their strong
+sensitivity to the rapid relative motion between the
+satellites and the user. This makes Doppler-based
+DOP (DDOP) analysis particularly relevant and of
+growing interest for assessing the positioning poten-
+tial of LEO observations. Psiaki [29] and Baron [30]
+investigated a generalized DDOP analysis suitable
+for LEO systems and derived an accuracy factor anal-
+ogous to that used in GNSS, which can be employed
+to evaluate precision. Ruben et al. [24] provided a
+comprehensive comparison of code-based DOP and
+DDOP analysis across existing LEO systems and
+discussed the optimization steps to follow in building
+novel LEO-PNT constellations for best positioning
+performance. Although the analysis addressed sys-
+tem performance, it did not explicitly evaluate how
+key geometric variables, including orbital inclination
+and user location, influence positioning accuracy via
+DDOP.
+B. Motivation for Single-Satellite Positioning
+While large constellations of LEO satellites have
+received a significant attention in recent years (e.g.
+Starlink, Amazon LEO, etc.), small constellations
+are also playing a relevant role in many ongoing
+experimental and in-orbit demonstrations [31]. Many
+countries are also considering the deployment of
+institutional small LEO constellations to support
+secure communications, which may eventually pro-
+vide trusted PNT services as well. In parallel, within
+the private sector, small satellite constellations are
+increasingly attracting interest for applications such
+as strategic surveillance, technology demonstration,
+or as early proof-of-concept systems for future large-
+scale constellations.
+Moreover, in real-world operational conditions,
+users may effectively experience the equivalent of
+a small LEO constellation due to environmental
+constraints, such as in indoor environments, urban
+
+--- PAGE BREAK ---
+
+canyons, or other signal-degraded or denied scenar-
+ios. In all these situations, positioning based on a
+very limited number of satellites or, in the extreme
+case, relying on a single LEO satellite, becomes a
+relevant capability whose fundamental performance
+limits are not yet fully understood.
+These factors prompted our focus on studying the
+positioning performance of single-satellite LEO cases
+in this paper, yielding the following contributions.
+First, we establish a theoretical framework that ana-
+lytically relates DDOP to single-satellite positioning
+error, explicitly decoupling the error propagation
+into along-track and cross-track directions. This
+model is validated through an analysis of different
+satellite passes to ensure its reliability under varying
+geometric conditions. Secondly, based on this vali-
+dated framework, we conduct a systematic sensitivity
+analysis to quantify how single-satellite positioning
+performance is modulated by four critical factors: the
+observation sampling rate, the start time of the pass,
+orbital inclination, and the user’s position. Collec-
+tively, these investigations reveal the error evolution
+patterns driven by dynamic LEO geometries, serving
+as a theoretical basis for mitigating geometric singu-
+larities and finding the best conditions for user’s to
+implement single-satellite positioning. These findings
+provide a reference framework for optimizing user-
+side positioning performance in LEO-PNT scenarios
+under existing or future satellite constellations.
+II. Methodology
+This section introduces the methodology used to
+assess the performance of single-satellite Doppler-
+based positioning. First, the signal model for Doppler
+measurements will be presented, including the single-
+epoch and the multiple-epoch cases. Then, the geo-
+metrical problem of solving the user’s position will
+be formulated by means of Nonlinear Least Squares
+(NLS) estimation. Finally, the NLS framework will
+set the grounds for computing the DDOP for the
+problem at hand.
+A. Single-Epoch Doppler Shift Signal Model
+Doppler shift measurements at a receiver are ob-
+tained as the difference between the received signal’s
+instantaneous carrier frequency and the nominal
+(transmitted) carrier frequency. For a given satellite
+of interest, Doppler shift can be expressed in units
+of m/s as a range rate ˙ρ, as follows:
+˙ρ(t) = −λfD(t)
+= −vs(t)T r(t′) −rs(t)
+∥r(t′) −rs(t)∥+ c ˙δd
+where λ is the wavelength in meters, fD is the
+Doppler shift in Hz, t′ and t are the signal reception
+time and signal transmission time respectively. In
+turn, rs(t), vs(t) represent the satellite position and
+velocity at the transmission time, r(t′) represents the
+unknown user’s position at the reception time, and
+˙δd represents the clock drift.
+Two-Line Element (TLE) files are widely used
+to provide publicly available orbital parameters for
+satellites, allowing their positions to be propagated
+using models such as the Simplified General Per-
+turbations model 4 (SGP4). However, due to the
+simplified orbital representation and model limita-
+tions, satellite positions computed from TLE files
+are subject to certain errors that can be decom-
+posed into along-track and cross-track components.
+Interestingly, the along-track errors can be partly
+compensated by introducing a time offset δc [32] on
+the time at which the satellite velocity and position
+are computed, as indicated in Eq. (2). This equation
+assumes as well, for the sake of simplicity, that the
+user is static and thus the time dependence on r(t)
+can be dropped hereafter. This leads to
+˙ρ(t)
+−vs(t −δc)T r −rs(t −δc)
+∥r −rs(t −δc)∥+ c ˙δd (2)
+h(t; θ)
+which can equivalently be expressed as a nonlinear
+function h(t, θ) that relates the set of unknowns
+θ = [rT , ˙δd, δc]T with the observed Doppler shift ˙ρ(t).
+Finally, if we incorporate the measurement noise
+ϵ(t), the single-satellite single-epoch Doppler shift
+measurement z(t) result in
+z(t) = h(t; θ) + ϵ(t).
+B. Multi-Epoch Doppler Shift Signal Model
+Unlike GNSS, where multiple satellites are simul-
+taneously available, many LEO systems usually pro-
+vide only a single observable satellite at most epochs.
+Consequently, if such satellite is to be used for po-
+sitioning purposes, the problem must be formulated
+as that of a single-satellite multi-epoch estimation
+problem. This can easily be done by collecting a set
+of M measurements and staking them into vector
+into an (M ×1) vector z = [ ˙ρ(t1), ˙ρ(t2), . . . , ˙ρ(tM)]T ,
+so that Eq. (4) becomes
+z = h(θ) + ϵ
+with h(θ) = [h(t1; θ), h(t2; θ), . . . , h(tM; θ)]T con-
+taining the Doppler shifts at all epochs under analy-
+sis and ϵ = [ϵ(t1), ϵ(t2), . . . , ϵ(tM)]T the measurement
+noise contribution.
+
+--- PAGE BREAK ---
+
+As already mentioned, the nonlinear function
+h(t; θ) providing the Doppler shifts contains the
+geometrical information of the problem to be solved,
+which is determining the user’s position r based
+on the observation of h(t; θ) as a function of time.
+Therefore, it is evident that the achievable position-
+ing accuracy of single-satellite system is ultimately
+determined by the geometrical information contained
+in the M Doppler measurements collected within
+h(θ). This accuracy is commonly quantified by
+the concept of DOP but in our case, since non-
+collaborative positioning is targeted, Doppler mea-
+surements are used and this requires the computation
+of the DDOP instead, as shown later.
+C. Nonlinear Least Squares (NLS) Estimation
+Since the observation model in (5) is nonlinear
+with respect to the unknowns, direct computation
+of the latter is not feasible. In order to circumvent
+this limitation, a first-order Taylor linearization of
+the observation function near some initial value θ0
+is applied. This leads to
+h(θ) ≈h(θ0) +
+∂h(θ)
+θ=θ0
+where ∆θ = θ −θ0 = [∆rx, ∆ry, ∆rz, ∆˙δd, ∆δc]T
+contains the incremental values of the unknowns on
+the linearization process. In this way, the Doppler
+measurements in Eq. (5) can be expressed as
+z ≈h(θ0) +
+∂h(θ)
+θ=θ0
+∆θ + ϵ
+and thus the residuals between the measured Doppler
+and the modeled one, result in the following equation
+of residuals,
+∆z(θ0) ≈H(θ0)∆θ + ϵ
+where ∆z(θ0) = z −h(θ0) and the Jacobian matrix
+H(θ0) = (∂h(θ)/∂θ)|θ=θ0 becomes
+H(θ0) =
+
+∂˙ρ(t1)
+∂˙ρ(t1)
+∂˙ρ(t1)
+∂˙ρ(t1)
+∂˙ρ(t2)
+∂˙ρ(t2)
+∂˙ρ(t2)
+∂˙ρ(t2)
+∂˙ρ(tM)
+∂˙ρ(tM)
+∂˙ρ(tM)
+∂˙ρ(tM)
+
+θ=θ0
+whose elements are provided, for the sake of com-
+pleteness, in Appendix A.
+The Jacobian matrix plays a central role in the
+process of estimating the unknowns, since it charac-
+terizes how the measurements vary with respect to
+the unknown states while linking the geometry to
+the estimator performance.
+Subsequently, instead of directly solving for ∆θ
+in (8) using a least squares on the residuals, we
+will incorporate the fact that measurements at low
+elevation angles are more affected by noise than those
+at high elevation angles. In this way, ∆θ can be
+estimated as the solution to the following Weighted
+Least Squares (WLS) cost function
+J(∆θ) = (∆z(θ0)−H(θ0)∆θ)TW(∆z(θ0)−H(θ0)∆θ)
+(10)
+where W = diag( 1
+1 , 1
+2 , ...,
+σ2m ) is a weighted ma-
+trix, adopting an elevation-based weighted model
+sin2(Ei) and Ei is the elevation of the single
+satellite under analysis at the i-th measurement. This
+cost function measures the discrepancy between the
+model’s predicted values and actual observations. Its
+minization leads to the following estimate
+∆ˆθ =
+ HT (θ0)WH(θ0)
+−1HT (θ0)W∆z(θ0) (11)
+which can be implemented in an iterative manner as
+∆ˆθk =
+ HT (θk)WH(θk)
+−1HT (θk)W∆z(θk).
+(12)
+then updating the unknown as
+ˆθk+1 = ˆθk + ∆ˆθk
+(13)
+and the residuals as ∆z(θk+1) = z −h(θk+1), until
+convergence is achieved on ˆθk+1.
+D. DDOP Formulation and Computation
+As previously mentioned, the DOP characterizes
+the expected accuracy of the estimated unknowns
+as a function of the covariance matrix of the latter
+[29]. In the specific case of DDOP, two key aspects
+must be carefully addressed: (i) all estimation error
+states should be expressed in identical physical units,
+consistent with those of the measurement errors; and
+(ii) the corresponding measurement matrix should be
+rendered dimensionless through the same scaling.
+It is for this reason that the product between the
+elements in the Jacobian matrix H and the error
+states are required to be expressed in units of m/s.
+Consistently, the associated columns of this matrix
+need to be adjusted using scaling factors to obtain a
+dimensionless form. To this end, let S be a diagonal
+matrix of scaling factors so that Eq. (8) can be
+reformulated as follows:
+∆z(θ0)
+H(θ0)SS−1∆θ + ϵ
+(14)
+˜H(θ0)∆˜θ + ϵ
+(15)
+
+--- PAGE BREAK ---
+
+where the scaled Jacobian matrix ˜H(θ0) = H(θ0)S
+turns out to be given by
+˜H =
+
+∂˙ρ(t1)
+∂rx /γ
+∂˙ρ(t1)
+∂ry /γ
+∂˙ρ(t1)
+∂rz /γ
+∂˙ρ(t1)
+∂δc /η
+∂˙ρ(t2)
+∂rx /γ
+∂˙ρ(t2)
+∂ry /γ
+∂˙ρ(t2)
+∂rz /γ
+∂˙ρ(t2)
+∂δc /η
+∂˙ρ(tM)
+∂˙ρ(tM)
+∂˙ρ(tM)
+∂˙ρ(tM)
+
+(16)
+Similarly, the scaled residual unknowns ∆˜θ
+S−1∆θ are given by
+∆˜θ =
+
+γ∆rx
+γ∆ry
+γ∆rz
+c∆˙δd
+η∆δc
+
+(17)
+with γ and η, scaling factors given by [30]
+1 −re/aorb
+ r µ
+(18)
+re/aorb
+1 −re/aorb
+  µ
+(19)
+where re is the radius of earth 6371 km, aorb is
+the semi-major axis of the satellite’s orbit and µ is
+the Earth’s gravitational constant 3.986004418 · 1014
+m3/s2. When M satellites are used, and since a single
+value must be chosen for aorb, the average or the
+minimum aorb value is often chosen.
+According to the aforementioned formulation, the
+covariance matrix of the scaled unknown vector ∆˜θ
+in (11) is known to be given by [33]
+C∆ˆθ
+(∆ˆθ −E
+)(∆ˆθ −E
+)T i
+(20)
+T W ˜H)−1.
+(21)
+In this way, the DDOP is calculated as follows
+PDDOP
+C∆ˆθ
+1:3,1:3)
+(22)
+HDDOP
+C∆ˆθ
+1:2,1:2)
+(23)
+CDDOP
+C∆ˆθ
+4,4)
+(24)
+TDDOP
+C∆ˆθ
+(25)
+where
+C∆ˆθ
+a:b,c:d indicates rows a to b and columns
+c to d of matrix
+C∆ˆθ
+. In turn, PDDOP stands for
+the position DDOP, HDDOP the horizontal position
+DDOP, CDDOP the clock drift DDOP and TDOP
+the time offset DDOP.
+Fig. 1: Schematic diagram of the RTN coordinate
+frame.
+TABLE II: DDOP Expected Accuracy and Dimen-
+sional Precision Metrics
+Estimated Quantity
+Dimensional Precision Metric
+PDDOP ×
+λσDopp/γ
+TDDOP ×
+λσDopp/η
+CDDOP ×
+λσDopp/c
+Considering that user location variations pre-
+dominantly occur within the horizontal plane, we
+henceforth assume for simplicity that the coordinate
+in the z direction is known and remains constant,
+which means that the unknown parameters are
+∆θ = [rx, ry, ˙δd, δc]T .
+III. Numerical Results
+A. Simulation Setup
+Firstly, we describe the common simulation setup
+in our experiments. The receiver is assumed to be
+located at [41.3976◦, 2.1497◦, 60m], corresponding to
+Barcelona, Spain. The simulated dataset is generated
+at 1 s resolution over 350 s. Satellite trajectories
+are generated from TLE data of the Orbcomm 108,
+and only single satellite pass geometry is considered.
+Unless otherwise stated, all experiments are con-
+ducted using the simulation setup described above.
+To more clearly illustrate the relationship between
+positioning errors and the satellite’s orbital geom-
+etry, all positioning errors reported are expressed
+in the Radial-Transverse-Normal (RTN) coordinate
+frame. The frame is constructed with respect to the
+satellite that is closest to the user, following the
+procedure outlined in Fig. 1. In this coordinate frame,
+the T-axis points along the satellite’s direction of
+motion (i.e., the along-track direction), while the N-
+axis corresponds to the cross-track direction.
+To assess the goodness of the theoretical DDOP
+obtained in (22)-(25), the values obtained will be
+compared to the actual positioning errors incurred
+when solving the user’s position using the iterative
+WLS framework described in Section II.C. To do so,
+positioning errors over 1000 Montecarlo simulations
+
+--- PAGE BREAK ---
+
+will be computed, using two different satellite orbits
+in order to have some diversity on the impact of the
+actual satellite pass. Later, average results for all
+possible passes will be obtained.
+Doppler measurements are obtained by computing
+the noise-free Doppler shift based on the satellite
+and receiver state according to (2), and subsequently
+corrupting them with zero-mean Gaussian noise to
+obtain (4). The receiver state estimation is performed
+using a WLS algorithm, employing all observations
+within the observation period. To study the accuracy
+of the theory, the initial position is set to the true
+value and each trial uses the same satellite geome-
+try and receiver initial position, while independent
+realizations of measurement noise.
+B. Consistency Validation of DDOP Analysis and
+Positioning Errors
+The comparison between the actual single-satellite
+positioning errors and the theoretical bounding pro-
+vided by the DDOP is shown in Fig. 2 for two
+different satellite passes. In each of the upper and
+lower maps of this figure, the ground projection of
+the passes is indicated by a light blue solid line. In
+turn, the blue dots represent positioning error of each
+individual simulation with respect to the reference
+position. To describe the variation patterns of errors
+in different directions, the horizontal error is decom-
+posed into along-track and cross-track components
+as defined in Fig. 1.
+The empirical 95% confidence ellipse (solid green)
+computed from the positioning errors obtained from
+the simulations, is compared with the corresponding
+theoretical 95% ellipse (red dashed) predicted by
+the DDOP computation. The 95% confidence ellipse
+is derived from the covariance matrix, and the
+eigenvalues and eigenvectors of the covariance matrix
+determine the axis lengths and orientation of the el-
+lipse, respectively. The axes are scaled by the square
+root of the chi-square value corresponding to the 95%
+probability level with two degrees of freedom, i.e.,
+2,0.95 = 5.991. For the first satellite pass shown in
+Fig. 2(a), the simulated along-track and cross-track
+errors are 28 m and 9932 m, respectively, while their
+corresponding theoretical values are 27 m and 9629
+m, respectively. For the second satellite pass shown in
+Fig. 2(b), which is nearly orthogonal to the first pass,
+the simulated along-track and cross-track errors are
+20 m and 5561 m, respectively, while their theoretical
+counterparts are 19 m and 5384 m, respectively. Even
+though the magnitude of the positioning error varies
+across different satellite trajectories, the estimated
+empirical 95% confidence ellipse and the theoretical
+95% ellipse turn out to be in high agreement. This
+Fig. 2: Simulation error ellipse and theoretical ellipse
+of Orbcomm 108 under two different passes (σDopp =
+0.5m/s)
+confirms that the DDOP model can capture both the
+magnitude of the dominant error anisotropy and its
+directional characteristics.
+Once the validity of the theoretical DDOP has
+been confirmed, the subsequent sections will make
+use of the theoretical positioning accuracy only, thus
+enabling a more versatile and agile analysis.
+C. Impact of the Number of Observations
+The number of Doppler observations directly
+affects the geometry and observability of single-
+satellite positioning. To assess its impact on posi-
+tioning performance, experimental sub-datasets are
+constructed from a fixed time interval (2025/04/14
+17:30:27–17:36:16). This interval corresponds to the
+Orbcomm 108 satellite pass across the central region
+
+--- PAGE BREAK ---
+
+Observation number
+Cross-track error STD (m)
+Observation number
+Along-track error STD (m)
+Observation number
+1000
+2000
+3000
+HDDOP
+Fig. 3: Cross-track error, along-track error and HD-
+DOP under different observation number.
+of the sky, with a maximum elevation angle of
+about 70°. Doppler observations are then uniformly
+generated within this interval according to the pre-
+scribed observation quantity. By keeping the trajec-
+tory duration fixed, the influence of trajectory-length
+variations is eliminated, enabling a fair comparison of
+positioning performance under different observation
+quantities.
+Fig. 3 shows the influence of the number of Doppler
+observations on the positioning performance of the
+single-satellite solution. Specifically, the cross-track
+error exhibits most pronounced change that when
+the number of observations increases from 4 to 350,
+the cross-track error decreases from approximately
+4.2·104 m to below 104 m. A similar trend is observed
+in the along-track direction. Furthermore, the DDOP
+decreases markedly as the number of observation
+increases, indicating a gradual improvement in the
+geometric structure of the system.
+D. Impact of the Observations Sampling Time
+Considering the current visibility and measure-
+ment quality of most LEO constellations, it is also
+important to understand the performance limits of
+the system under minimal observation availability.
+In the model adopted in this study, four parameters
+are estimated as unknowns; therefore, a navigation
+solution can theoretically be obtained with four fully
+independent Doppler observations. As demonstrated
+in the previous experiment, positioning performance
+improves with an increase in the amount of measure-
+ments. However, in the case that the number of avail-
+able observations is constrained, one may wonder
+when these limited observations should be collected.
+The time between observations, herein referred to
+as the observation sampling time, is analyzed in the
+present subsection. To do so, the starting point is
+fixed at 2025/04/14 17:30:27, corresponding to the
+instant when the signal was first captured.
+Cross-track
+ error STD (m)
+Orbcomm 108 (obs-num = 4)
+Along-track 
+error STD (m)
+interval (s)
+HDDOP
+Fig. 4: Cross-track error, along-track error and HD-
+DOP under different sampling time.
+
+--- PAGE BREAK ---
+
+-150
+Time offset between observation window 
+center and closest approach (s)
+Cross-track error STD (m)
+10 s
+20 s
+30 s
+40 s
+50 s
+60 s
+70 s
+80 s
+Observation interval (s)
+Fig. 5: Impact of observation time and sampling
+time on cross-track accuracy using four Doppler
+measurements.
+Fig. 4 illustrates the variations of the along-track
+error, cross-track error, and HDDOP with respect
+to the observation sampling time, providing insight
+into the relationship between geometric strength and
+positioning accuracy. It can be concluded that both
+along-track and cross-track errors decrease monoton-
+ically as the interval increases, with the most pro-
+nounced improvement occurring at shorter intervals
+(approximately 20–40 s). Notably, the cross-track
+error remains consistently larger than the along-
+track error, reflecting the inherent geometry of single-
+satellite LEO positioning, in which Doppler measure-
+ments provide stronger constraints along the along-
+track direction than in the cross-track direction.
+The HDDOP also exhibits a decreasing trend
+consistent with the position errors, indicating that
+extending the observation interval improves geomet-
+ric observability in single-satellite, multi-epoch LEO
+positioning.
+E. Impact of the Observations Start Time
+In the previous analysis, the impact of the ob-
+servation time interval was evaluated by fixing the
+observation start time at the satellite rise epoch. In
+practical scenarios, however, the temporal placement
+of the observation window may be chosen by the user
+and this could have an impact on the underlying
+measurement geometry, thereby affecting positioning
+accuracy. In order to shed light onto this issue, we
+further investigate the positioning performance un-
+der different observation start times while comparing
+multiple observation sampling times.
+Fig. 5 represents cross-track positioning errors
+obtained using four equally spaced Doppler ob-
+servations from a single LEO satellite under dif-
+ferent observation sampling time. The horizontal
+axis denotes the time offset between the center of
+the observation window and the epoch of closest
+satellite–user approach, where zero corresponds to
+the minimum satellite–user range. Finally, the ver-
+tical axis denotes the cross-track error. It can be
+seen that for all sampling time configurations, the
+cross-track error exhibits a clear U-shaped behavior
+with respect to the time offset, reaching its minimum
+when the observation window is centered near the
+closest approach. For a fixed observation sampling
+time, shifting the center of the observation window
+away from the point of closest approach leads to a
+degradation in cross-track accuracy. This behavior
+reflects the increasing asymmetry of the satellite
+pass geometry, which in turn weakens the geometric
+strength of the positioning solution. In addition,
+increasing the observation sampling significantly re-
+duces the cross-track error for the same time offset.
+Even with a limited number of measurements, the
+cross-track error can be reduced from 105m to 103m
+just by increasing the observation sampling time
+from 10 to 80 s.
+Fig. 6 shows along-track positioning errors ob-
+tained using four equally spaced Doppler observa-
+tions from a single LEO satellite under different
+observation sampling times. In contrast to the cross-
+track component, the along-track error exhibits a
+generally smaller magnitude and a weaker sensitivity
+to the observation timing offset. Although the along-
+track error decreases as the center of the observation
+window shifts, this change is less pronounced than
+in the cross-track direction. Furthermore, extending
+the observation sampling time can improve the along-
+track error from approximately 600m to 100m. And
+the along-track error demonstrates smoother trends
+and smaller dynamic ranges compared to the cross-
+track error, suggesting that along-track direction is
+inherently more robust under limited-measurement
+conditions in single-satellite, multi-epoch LEO posi-
+tioning.
+The above results verified that both the obser-
+vation sampling time and the temporal placement
+of the observation window play a critical role in
+single-satellite LEO Doppler positioning. Positioning
+the observation window’s center point closer to the
+closest approach and employing a longer sampling
+time significantly improves algorithm performance
+when few Doppler measurements are available. It can
+also be readily observed from Fig. 5 and Fig. 6, when
+the observation sampling is set to 60 s, both cross-
+track and along-track errors can reach a relatively
+stable state, provided that the center of the selected
+
+--- PAGE BREAK ---
+
+-150
+Time offset between observation window 
+center and closest approach (s)
+Along-track error STD (m)
+10 s
+20 s
+30 s
+40 s
+50 s
+60 s
+70 s
+80 s
+Observation interval (s)
+Fig. 6: Impact of observation time and interval on
+along-track accuracy using four Doppler measure-
+ments.
+observation window coincides with the epoch of clos-
+est satellite–user approach. Subsequent experiments
+will be conducted based on this configuration.
+F. Impact of Orbital Inclination
+The orbital inclination determines the ground
+track of a satellite and therefore directly influ-
+ences the geometric evolution of the Line-of-Sight
+(LOS) vector between the satellite and the receiver.
+Intuitively, changing the orbital inclination alters
+the direction and shape of the satellite’s ground
+trajectory relative to the receiver, which may lead
+to different LOS variation patterns during a satellite
+pass. These geometric differences can significantly
+affect the performance for single-satellite positioning.
+It is important to note that the term inclination
+Fig. 7: Skyplot with different orbital inclinations
+(arrows indicate the direction of motion).
+refers herein to the relative orientation between
+the satellite orbital plane and the receiver’s local
+reference plane, rather than the classical orbital
+inclination defined in TLE files.
+To investigate this effect, we analyze the position-
+ing performance under different inclination configu-
+rations, as illustrated in Fig. 7. In the experiment,
+the inclination of the satellite’s orbital plane is varied
+while keeping the observation duration and measure-
+ment conditions unchanged. This controlled setup
+allows the resulting positioning errors to reveal how
+different orbital inclinations influence the positioning
+performance of a single LEO satellite.
+Fig. 8 shows the cross-track positioning error as a
+function of the orbital plane inclination. The effect
+of orbital inclination is represented here by the
+satellite’s maximum elevation angle rather than by
+the inclination itself, because the former is more
+directly related to the satellite–user geometry during
+a pass and provides a clearer way to present its vari-
+ation. During a satellite pass, the elevation changes
+approximately symmetrically, increasing from low
+elevation to a peak and then decreasing again, which
+makes the associated variation in estimation perfor-
+mance easier to visualize. Therefore, the maximum
+elevation angle is used as the horizontal axis in
+the figure. A pronounced peak is observed at an
+maximum elevation angle of 90◦, corresponding to to
+the satellite trajectory passing directly overhead the
+user’s receiver. In this configuration, the LOS vectors
+remain nearly coplanar throughout the satellite pass,
+leading to limited geometric diversity in the cross-
+track direction. As a result, cross-track observability
+is significantly degraded, with the estimation error
+nearly reaching 105m.
+In contrast, when the orbital inclination decreases
+below 90◦, the cross-track error initially decreases
+due to the enhanced geometric diversity introduced
+by the lateral offset of the satellite trajectory. How-
+ever, when the inclination continues to move further
+away, the error gradually increases again, as the
+degradation in overall measurement geometry and
+the associated increase in DDOP outweigh the bene-
+fits brought by additional cross-track information.
+This results in a non-monotonic, symmetric error
+profile.
+Fig. 9 illustrates the variation pattern of the
+along-track error, which exhibits an opposite trend
+compared to the cross-track error. The minimum
+error is minimized to within approximately 102 m
+when the maximum satellite elevation approaches
+90◦. As the elevation deviates from this configu-
+ration, along-track observability diminishes, causing
+the estimation error to increase continuously.
+
+--- PAGE BREAK ---
+
+Maximum satellite elevation (deg)
+Cross-track error STD (m)
+Fig. 8: Effect of orbital inclination on cross-track
+error for single LEO positioning.
+Maximum satellite elevation (deg)
+Along-track error STD (m)
+Fig. 9: Effect of orbital inclination on along-track
+error for single LEO positioning.
+It is not diﬀicult to notice that the geometry
+of the satellite passes determines a clear trade-off
+between along-track observability and cross-track
+observability. A near-zenith pass improves along-
+track estimation because the Doppler measurements
+change more strongly over time, but it also weakens
+cross-track estimation because the observation ge-
+ometry remains nearly coplanar. This phenomenon
+highlights a fundamental limitation of single-satellite
+positioning using Doppler measurements.
+Combining the results in Figs. 8 and 9, the most
+single-satellite positioning performance in the con-
+sidered scenario appears when the maximum satellite
+elevation is around 60◦. At this point, the cross-track
+error reaches its minimum, while the along-track
+error remains close to its minimum value, indicating
+a near-optimal trade-off between the two directions.
+G. Impact of User Position Relative to the Satellite
+Pass
+Positioning accuracy fundamentally depends on
+the relative geometry between the satellite and the
+user, whose effect is analyzed in this section for
+a fixed orbital configuration. The first half of this
+section analyzes the variation patterns of positioning
+errors when the user’s positions are distributed along
+the cross-track direction, as this corresponds to the
+weakest geometric constraint in a single-satellite
+LEO system.
+As shown in Fig. 10 (a), the plane coordinates
+represent the user’s latitude and longitude, while
+the vertical axis indicates the positioning error in
+the along-track and cross-track directions at the
+corresponding user’s location. The three-dimensional
+visualization simultaneously displays the satellite’s
+ground track and the lateral and longitudinal posi-
+tioning errors at different positions along the cross-
+track direction. Notably, the error surface exhibits
+significant directional dependence, indicating that
+positioning accuracy is highly dependent on the
+direction of satellite displacement.
+Fig. 10 (b) further quantifies this phenomenon by
+illustrating how the error distribution varies with
+the user’s distance from the ground track. Near the
+ground track, the cross-track error exhibits a pro-
+nounced peak, which can be attributed to the degra-
+dation of geometric observation capability in the
+cross-track direction in the user’s position amplify
+estimation uncertainties. As the user moves away
+from the ground track, the improved observation
+geometry.
+contrast,
+along-track
+error
+exhibits
+markedly smoother variation trend. This indicates
+that the geometric configuration along the satellite’s
+motion direction remains relatively stable. Further-
+more, the asymmetry between the cross-track and
+along-track error curves highlights the fundamental
+differences in observational characteristics between
+these two directions. The cross component is strongly
+influenced by the instantaneous satellite-user geom-
+etry, whereas the along component benefits from the
+inherent diversity in satellite trajectory motion.
+To more comprehensively investigate how the po-
+sitioning error depends on the user location relative
+to the satellite pass, the analysis is extended to users
+distributed over the entire observation region. In
+this analysis, the satellite orbit and all observation
+settings are kept fixed, so that only the user position
+varies. This enables a systematic examination of the
+
+--- PAGE BREAK ---
+
+-0.5
+Distance to ground track (m)
+Cross/along track error STD (m)
+Cross-track error
+Along-track error
+Fig. 10: Variation of positioning accuracy with
+ground-track distance for users distributed along the
+cross-track direction.
+spatial distribution and directional characteristics of
+the positioning errors in the single-satellite case.
+The cross-track error results in Fig. 11 indicate
+that under different passes, high-error zones consis-
+tently align with the satellite’s ground track. The
+direction experiencing the most severe error increase
+corresponds precisely to the direction with weaker
+cross-track geometric constraints, with error peaks
+reaching approximately 108 m. Although the high-
+error zones vary with the satellite’s orbit, their mag-
+nitude and structural characteristics remain similar
+across different orbits.
+In comparison, the along-track error is minimized
+Latitude (deg)
+Longitude (deg)
+105.5
+106.5
+107.5
+Cross-track error STD (m)
+Latitude (deg)
+Longitude (deg)
+105.5
+106.5
+107.5
+Cross-track error STD (m)
+Fig. 11: Spatial distribution of cross-track error
+in single-satellite LEO positioning systems under
+different satellite passes.
+along the satellite ground track direction in Fig. 12,
+where single-satellite Doppler measurements offer the
+strongest geometric constraint along the satellite’s
+motion direction. Both passes display similar spatial
+distribution patterns and error levels, with error
+magnitudes remaining within 500 meters. This indi-
+cates that in single-satellite Doppler positioning, the
+along-track direction yields significantly more precise
+information from the measurement data.
+Generally, the results show that single-satellite
+Doppler positioning can achieve reliable positioning
+performance under favorable geometric conditions.
+The analysis also indicates that the positioning
+accuracy is influenced by cross-track geometric re-
+lationships, particularly when the receiver is located
+close to the satellite’s ground track. These findings
+suggest that, while single-satellite observations can
+
+--- PAGE BREAK ---
+
+Latitude (deg)
+Longitude (deg)
+Along-track error STD (m)
+Latitude (deg)
+Longitude (deg)
+Along-track error STD (m)
+Fig. 12: Spatial distribution of along-track error
+in single-satellite LEO positioning systems under
+different satellite passes.
+already provide useful positioning capability in cer-
+tain scenarios, further improvements can be achieved
+by incorporating measurements with more diverse
+geometries, such as those obtained from multiple
+passes or complementary trajectories.
+IV. Conclusion
+In conclusion, we investigated the positioning per-
+formance of the single-satellite LEO case based on
+Doppler measurement, with a particular focus on the
+geometric characteristics and error behavior induced
+by limited observation geometry. A comprehensive
+numerical analysis was conducted to examine the
+consistency between DDOP-based theoretical predic-
+tions and positioning errors, as well as the influence
+of key geometric factors, including observation num-
+bers, sampling times, start time, orbital inclination
+and user positions.
+The results demonstrate that single-satellite LEO
+positioning exhibits pronounced directional charac-
+teristics in its error distribution. In particular, the
+cross-track direction is severely weakly constrained,
+leading to rapid error growth and extreme degrada-
+tion under certain geometric configurations, with the
+maximum error reaching 108 m. Moreover, the results
+show that the largest positioning error occurs along
+the satellite-motion direction, indicating that this
+behavior reflects an intrinsic geometric limitation.
+In contrast, the along-track direction is inherently
+better constrained in single-satellite Doppler posi-
+tioning, as the Doppler observables provide stronger
+sensitivity through the projection of the satellite ve-
+locity onto this direction. As a result, the positioning
+error is minimized along the satellite trajectory and
+remains comparatively stable across different ground
+tracks and orbital configurations.
+Moreover, based on the numerical results presented
+in this paper, several practical design guidelines can
+be concluded for single-satellite LEO-based position-
+ing:
+1) Increasing the sampling interval significantly
+improves positioning performance up to ap-
+proximately 60 s, after which the improve-
+ment becomes limited. Therefore, in practical
+single-satellite Doppler positioning applications,
+a sampling interval on the order of tens of
+seconds (around 60 s) provides a good balance
+between geometric diversity and measurement
+availability.
+2) Positioning accuracy strongly depends on the
+temporal placement of the observation window
+within the satellite pass, the observation interval
+should therefore be selected to cover the central
+portion of the satellite pass, with the best perfor-
+mance obtained when the observation window is
+centered near the closest satellite–user approach.
+3) The satellite orbital geometry also has a sig-
+nificant impact on positioning performance,
+the cross-track error becomes largest when the
+satellite passes directly overhead due to the
+nearly coplanar observation geometry. Consid-
+ering both along-track and cross-track perfor-
+mance, satellite passes with maximum elevation
+around 60° provide the best overall positioning
+performance and are therefore preferable for
+single-satellite Doppler positioning.
+These findings highlight the fundamental limi-
+tations and characteristics of single-satellite LEO
+positioning and provide useful guidance for im-
+proving observation geometry to achieve enhanced
+
+--- PAGE BREAK ---
+
+single-satellite LEO positioning performance. The
+presented analysis establishes a theoretical and nu-
+merical foundation for the design and evaluation of
+more advanced LEO-based PNT architectures, in-
+cluding multi-satellite configurations and geometry-
+aware estimation strategies. Future work will extend
+this framework to real measurement validation.
+Abbreviations
+Dilution of Precision
+DDOP
+Doppler-based Dilution of Precision
+GDOP
+Geometric Dilution of Precision
+GNSS
+Global Navigation Satellite System
+HDOP
+Horizontal Dilution of Precision
+Low Earth Orbit
+Line-Of-Sight
+Nonlinear Least Square
+Positioning, Navigation and Timing
+Radial-Transverse-Normal
+SGP4
+Simplified General Perturbations model 4
+SOOP
+Signals of Opportunity
+Two-Line Element
+VDOP
+Vertical Dilution of Precision
+Weighted Least Square
+References
+[1] W. Chen, C. Zhang, Y. Peng, Y. Yao, M. Cai, and
+D. Dong, “Enhancing gnss positioning in urban canyon
+areas via a modified design matrix approach,” IEEE
+Internet of Things Journal, vol. 11, no. 6, pp. 10 252–
+10 265, 2023.
+[2] Y. Wang, R. Sun, L. Jiang, H. Chen, Y. Mao, and
+W. Y. Ochieng, “Multipath inflation factor for robust
+gnss/imu/vo fusion based navigation in urban areas,”
+IEEE Internet of Things Journal, 2025.
+[3] F. Zangenehnejad and Y. Gao, “Gnss smartphones posi-
+tioning: Advances, challenges, opportunities, and future
+perspectives,” Satellite navigation, vol. 2, no. 1, p. 24,
+2021.
+[4] J. Guo, X. Li, Z. Li, L. Hu, G. Yang, C. Zhao, D. Fair-
+bairn, D. Watson, and M. Ge, “Multi-gnss precise point
+positioning for precision agriculture,” Precision agricul-
+ture, vol. 19, no. 5, pp. 895–911, 2018.
+[5] N. Z. Jhanjhi, L. Gaur, and N. A. Khan, “Global naviga-
+tion satellite systems for logistics: Cybersecurity issues
+and challenges,” Cybersecurity in the Transportation
+Industry, pp. 49–67, 2024.
+[6] E.
+Falletti,
+Margaria,
+Marucco,
+Motella,
+M. Nicola, and M. Pini, “Synchronization of critical
+infrastructures dependent upon gnss: Current vulnera-
+bilities and protection provided by new signals,” IEEE
+Systems Journal, vol. 13, no. 3, pp. 2118–2129, 2018.
+[7] J. Griﬀioen and P. Oonincx, “Suitability of low-frequency
+navigation systems for artillery positioning in a gnss
+denied environment,” The Journal of Navigation, vol. 66,
+no. 1, pp. 35–48, 2013.
+[8] M. Ding, W. Chen, and W. Ding, “Performance analysis
+of a normal gnss receiver model under different types
+of jamming signals,” Measurement, vol. 214, p. 112786,
+2023.
+[9] A. Allahvirdi-Zadeh, K. Wang, and A. El-Mowafy, “Pre-
+cise orbit determination of leo satellites based on undif-
+ferenced gnss observations,” Journal of surveying engi-
+neering, vol. 148, no. 1, p. 03121001, 2022.
+[10] T. Janssen, A. Koppert, R. Berkvens, and M. Weyn, “A
+survey on iot positioning leveraging lpwan, gnss, and leo-
+pnt,” IEEE Internet of Things Journal, vol. 10, no. 13,
+pp. 11 135–11 159, 2023.
+[11] S. M. Razavi, F. Gunnarsson, H. Rydén, Å. Busin, X. Lin,
+X. Zhang, S. Dwivedi, I. Siomina, and R. Shreevastav,
+“Positioning in cellular networks: Past, present, future,”
+in 2018 IEEE wireless communications and networking
+conference (WCNC).
+IEEE, 2018, pp. 1–6.
+[12] M. Li, G. Huang, L. Wang, W. Xie, and F. Yue, “Per-
+formance of multi-gnss in the asia-pacific region: signal
+quality, broadcast ephemeris and precise point position-
+ing (ppp),” Remote Sensing, vol. 14, no. 13, p. 3028, 2022.
+[13] W. Stock, C. A. Hofmann, and A. Knopp, “Leo-pnt
+with starlink: Development of a burst detection algorithm
+based on signal measurements,” in WSA & SCC 2023;
+26th International ITG Workshop on Smart Antennas
+and 13th Conference on Systems, Communications, and
+Coding.
+VDE, 2023, pp. 1–6.
+[14] M. Ji, R. Luo, N. Xu, Y. Li, and X. Chen, “An oppor-
+tunistic leo-based doppler differential positioning method
+with baseline optimization,” in Proceedings of the 2023
+International Conference on Communication Network
+and Machine Learning, 2023, pp. 123–128.
+[15] B. Eissfeller, T. Pany, D. Dötterböck, and R. Förstner,
+“A comparative study of leo-pnt systems and concepts,”
+in Proceedings of the ION 2024 Pacific PNT Meeting,
+2024, pp. 758–782.
+[16] H. Ge, B. Li, L. Nie, M. Ge, and H. Schuh, “Leo con-
+stellation optimization for leo enhanced global navigation
+satellite system (legnss),” Advances in Space Research,
+vol. 66, no. 3, pp. 520–532, 2020.
+[17] K. Çelikbilek, E. Simona Lohan, and J. Praks, “Opti-
+mization of a leo-pnt constellation: Design considerations
+and open challenges,” International Journal of Satellite
+Communications and Networking, vol. 43, no. 4, pp. 272–
+292, 2025.
+[18] Z. M. Kassas, S. Hayek, and J.-H. Ahmad, “Leo satellite
+orbit prediction via closed-loop machine learning with
+application to opportunistic navigation,” IEEE Aerospace
+and Electronic Systems Magazine, 2024.
+[19] N. Khairallah and Z. M. Kassas, “Ephemeris tracking
+and error propagation analysis of leo satellites with appli-
+cation to opportunistic navigation,” IEEE Transactions
+on Aerospace and Electronic Systems, vol. 60, no. 2, pp.
+1242–1259, 2023.
+[20] H. Ge, B. Li, M. Ge, L. Nie, and H. Schuh, “Improving
+low earth orbit (leo) prediction with accelerometer data,”
+Remote Sensing, vol. 12, no. 10, p. 1599, 2020.
+[21] J. Saroufim, S. Hayek, and Z. Kassas, “Analysis of satel-
+lite ephemeris error in differential and non-differential
+navigation with leo satellites,” in Proceedings of IEEE
+Aerospace Conference, 2024, pp. 1–9.
+[22] M. A. Hasan, M. H. Kabir, M. S. Islam, S. Han, and
+W. Shin, “A double-difference doppler shift-based po-
+sitioning framework with ephemeris error correction of
+leo satellites,” IEEE Systems Journal, vol. 18, no. 4, pp.
+2157–2168, 2024.
+[23] J. Saroufim, S. W. Hayek, and Z. M. Kassas, “Simulta-
+neous leo satellite tracking and differential leo-aided imu
+navigation,” in 2023 IEEE/ION Position, Location and
+Navigation Symposium (PLANS).
+IEEE, 2023, pp. 179–
+188.
+[24] R. Morales-Ferre, E. S. Lohan, G. Falco, and E. Falletti,
+“Gdop-based analysis of suitability of leo constellations
+for future satellite-based positioning,” in 2020 IEEE
+
+--- PAGE BREAK ---
+
+international conference on wireless for space and extreme
+environments (WiSEE).
+IEEE, 2020, pp. 147–152.
+[25] B. McLemore and M. L. Psiaki, “Dop analysis for a leo
+navigation constellation that relies on doppler shift and
+pseudorange,” in Proceedings of the 35th International
+Technical Meeting of the Satellite Division of The Insti-
+tute of Navigation (ION GNSS+ 2022), 2022, pp. 2503–
+2524.
+[26] R. M. Ferre and E. S. Lohan, “Comparison of meo, leo,
+and terrestrial iot configurations in terms of gdop and
+achievable positioning accuracies,” IEEE Journal of Radio
+Frequency Identification, vol. 5, no. 3, pp. 287–299, 2021.
+[27] T. G. Reid, A. M. Neish, T. Walter, and P. K. Enge,
+“Broadband leo constellations for navigation,” NAVIGA-
+TION: Journal of the Institute of Navigation, vol. 65,
+no. 2, pp. 205–220, 2018.
+[28] S. Xue and Y. Yang, “Positioning configurations with the
+lowest gdop and their classification,” Journal of Geodesy,
+vol. 89, no. 1, pp. 49–71, 2015.
+[29] M. L. Psiaki, “Navigation using carrier doppler shift
+from a leo constellation: Transit on steroids,” Navigation,
+vol. 68, no. 3, pp. 621–641, 2021.
+[30] A. Baron, P. Gurfil, and H. Rotstein, “Implementation
+and accuracy of doppler navigation with leo satellites,”
+NAVIGATION: Journal of the Institute of Navigation,
+vol. 71, no. 2, 2024.
+[31] R. Prieto-Cerdeira, P. Giordano, M. Cordero, F. Grec,
+A. Le Priellec, R. Sarnadas, E. Breeuwer, N. Ait-
+Mohammed, and M. Anghileri, “Enhancing GNSS with
+a low earth orbit layer: Celeste in-orbit demonstration
+mission,” in Proceedings of ION GNSS+, 2025, pp. 2322–
+2331.
+[32] W. Guo, W. Feng, L. Cheng, Y. Zhu, and X. Chen,
+“Burst doppler tracking and measurement in leo-pnt
+base station receivers with ephemeris assistance,” GPS
+Solutions, vol. 29, no. 4, p. 199, 2025.
+[33] S. M. Kay, Fundamentals of Statistical Signal Processing,
+Volume I: Estimation Theory.
+Prentice Hall, 1993.
+Figure Legends
+Fig. 1
+Schematic diagram of the RTN
+coordinate frame.
+Fig. 2
+Simulation error ellipse and theoretical
+ellipse of Orbcomm 108 under two
+different passes (σDopp = 0.5m/s)
+Fig. 3
+Cross-track error, along-track error and
+HDDOP under different observation
+number.
+Fig. 4
+Cross-track error, along-track error and
+HDDOP under different sampling time.
+Fig. 5
+Impact of observation time and sampling
+time on cross-track accuracy using four
+Doppler measurements.
+Fig. 6
+Impact of observation time and interval
+on along-track accuracy using four
+Doppler measurements.
+Fig. 7
+Skyplot with different orbital inclinations
+(arrows indicate the direction of motion).
+Fig. 8
+Effect of orbital inclination on cross-track
+error for single LEO positioning.
+Fig. 9
+Effect of orbital inclination on along-track
+error for single LEO positioning.
+Fig. 10
+Variation of positioning accuracy with
+ground-track distance for users
+distributed along the cross-track
+direction.
+Fig. 11
+Spatial distribution of cross-track error in
+single-satellite LEO positioning systems
+under different satellite passes.
+Fig. 12
+Spatial distribution of along-track error
+in single-satellite LEO positioning
+systems under different satellite passes.
+Table Legends
+Table I
+DOP rating categories.
+Table II
+DDOP Expected Accuracy and
+Dimensional Precision Metrics.
+Appendix A
+Elements of the Jacobian matrix H
+This appendix provides a detailed derivation of the
+measurement Jacobian matrix
+∂˙ρj
+∥ru −rj
+s)T (ru −rj
+s)(rx −rj
+s,x)
+∥ru −rj
+(26)
+∂˙ρj
+∥ru −rj
+s)T (ru −rj
+s)(ry −rj
+s,y)
+∥ru −rj
+(27)
+∂˙ρj
+∥ru −rj
+s)T (ru −rj
+s)(rz −rj
+s,z)
+∥ru −rj
+(28)
+∂˙ρj
+∂˙δd
+(29)
+∂˙ρj
+s)T (ru −rj
+∥ru −rj
+−(vj
+s)T vj
+∥ru −rj
+s)T (ru −rj
+s)(ru −rj
+s)T vj
+∥ru −rj
+(30)
+where the user position and satellite position are
+ru = [rx, ry, rz],rj
+s = [rj
+s,x, rj
+s,y, rj
+s,z], the satellite
+velocity is vj
+s = [vj
+s,x, vj
+s,y, vj
+s,z] and aj
+s is the satellite
+acceleration.

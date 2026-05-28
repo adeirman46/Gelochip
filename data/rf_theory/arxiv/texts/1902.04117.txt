@@ -1,0 +1,630 @@
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Low Cost Radiation Hardened Software and
+Hardware Implementation for CubeSats
+Brosnan Yuen and Mihai Sima∗
+University of Victoria
+brosnany@uvic.ca
+Abstract
+CubeSats are small satellites used for scientiﬁc experiments because they cost less than full sized
+satellites. Each CubeSat uses an on-board computer. The on-board computer performs sensor
+measurements, data processing, and CubeSat control. The challenges of designing an on-board
+computer are costs, radiation, thermal stresses, and vibrations. An on-board computer was designed
+and implemented to solve these challenges. The on-board computer used special components to
+mitigate radiation eﬀects. Software was also used to provide redundancies in cases of faults. This
+paper may aid future spacecraft design as it improves the reliability of spacecraft, while keeping
+costs low.
+Keywords: CubeSat; Satellite; Radiation; Radiation Hardened; Computer Memory
+ubeSats are just scaled down versions of full-sized satellites. CubeSats are used for small
+payloads such as scientiﬁc experiments in space, Earth observations, and low rate telecommu-
+nications. For example, AALTO-1 CubeSat (Praks et al., 2015) surveys mineral deposits and
+farmlands using an Earth observation camera. The camera allows miners to ﬁnd new mining sites.
+Moreover, farmers can calculate the yields of their farms using the images. GeneSat-1 CubeSat
+(Kitts et al., 2007) is an example of a CubeSat running biological experiments in space. GeneSat-1
+studies the eﬀects of micro-gravity on E. coli bacteria. Furthermore, BRICSat-P CubeSat (Hurley
+et al., 2016) has an experimental thruster design. BRICSat-P tests an electric propulsion system for
+future rocket designs.
+The International Space Station launches most of the CubeSats into low Earth orbit (LEO).
+These CubeSats orbit around 350 km to 800 km above Earth. A 10cm × 10cm × 10cm CubeSat costs
+around $30,000 USD (Heidt, Puig-Suari, Moore, Nakasuka, & Twiggs, 2000) to build and $100,000
+USD to launch. On the other hand, a 100kg full-sized satellite costs $100 million USD (Bearden,
+2001) to build and to launch. Costs for constructing and launching CubeSats are signiﬁcantly lower
+than for full-sized satellites. Therefore, CubeSats are low-cost alternatives to full-sized satellites. In
+conclusion, these low-cost CubeSats have been adopted by many universities across the world as an
+exploration tool.
+The CubeSat’s primary objective is the payload execution. Most payloads contain scientiﬁc
+experiments or sensor equipment. The CubeSat uses the on-board computer (OBC) to execute
+the payload and to retrieve sensor data. Moreover, the OBC has a microcontroller (MCU) and a
+memory storage. The MCU processes data, while the memory store stores the sensor data and the
+program data. After processing the data, the data is sent to Earth using amateur radio. Space-
+grade components such as the $950 VA10820 (Mouser_VA10820, 2018), $2900 MSP430FR5969-SP
+(Mouser_MSP430FR5969, 2018), $4000 5962H9853702VXC-CTEST (Arrow_5962H9853702VXC-
+CTEST, 2018), and $5100 HXNV01600AEN (Arrow_HXNV01600AEN, 2018) are very expensive.
+As CubeSat projects have low budgets of $30,000, CubeSat designers cannot aﬀord to use space
+∗This research was supported by a Jamie Cassels Undergraduate Research Award, University of Victoria.
+arXiv:1902.04117v1  [physics.space-ph]  11 Feb 2019
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+grade components. As a result, CubeSat designers use commercial oﬀthe shelf (COTS) components
+as COTS components are far cheaper. However, COTS components are less robust when compared
+to space grade components. COTS components have lower tolerance to radiation, vibrations, and
+thermal stresses. This lower tolerance limits the CubeSat’s lifespan to two years in LEO. Radiation
+poses a large risk to the OBC as memory regions of the OBC could get corrupted. Moreover,
+radiation could cause permanent damage to the OBC’s integrated circuits (ICs). Permanent damage
+results in an unrecoverable failure.
+This paper is organized into a literature review, design overview and requirements, implemented
+designs, and conclusion. The literature review gives detailed background information about the
+space environment and it compares this paper to other research papers. Design overview and
+requirements gives an outline of the implemented designs. The paragraph above states the problems
+of the COTS components. Solutions of these problems are found in the implemented design sections
+of this paper. The design implementations use special COTS components in conjunction with robust
+software designs. These special COTS components have a high tolerance to radiation, temperature,
+vibrations, and noise. Furthermore, these special COTS components meet the design requirements
+while keeping the costs low. In addition to the hardware solutions, software designs also mitigate the
+problems caused by radiation. In conclusion, this paper will assist CubeSat designers in advancing
+space exploration and scientiﬁc experiments.
+Literature Review
+This literature review shows the relevant background information about the space environment.
+Total Ionizing Dose (TID), Single Event Upsets (SEUs), Single Event Latch-ups (SELs), and Single
+Event Gate Ruptures (SEGRs) measure the impact of radiation on ICs. Firstly, TID measures the
+total amount of dose an IC could receive before an unrecoverable failure. TID quantiﬁes the lifetime
+of an IC in space. Secondly, SEUs measure the number of corrupted bits and computations caused
+by radiation. However, SEUs do not have any long-term eﬀects as cold reboots resolve SEUs. On
+the other hand, SELs could have long-term eﬀects. SELs cause high current states, which may
+cause permanent burnouts in IC. Lastly, SEGRs cause parts of an IC to rupture. SEGRs guarantee
+permanent loss of functionality in an IC.
+Other CubeSat designers have tackled the radiation problem using hardware solutions. Shields-1
+CubeSat (Thomsen, Kim, & Cutler, 2015) uses special shielding to protect the COTS components
+against radiation.
+Shields-1 uses Z-grade Al/Ta which has 30% higher shielding eﬀectiveness
+over standard Al. Austin et al.’s article (2017) shows radiation mitigation techniques for COTS
+components. Their article recommends measuring TIDs and SEUs of COTS components. This
+allows CubeSat designers to choose the best COTS components. Austin et al. also recommend the
+usage of ferromagnetic random access memory (FRAM) and watchdog timers. These components
+increase the reliability of the CubeSats. Unlike Austin et al., this paper uses software solutions in
+addition to hardware solutions. The software solutions in this paper increase the reliability of the
+CubeSats as software provides a cost-eﬀective way of mitigating radiation eﬀects.
+Design Overview and Requirements
+The OBC is the brains of the CubeSat because the OBC controls all of the CubeSat’s functions.
+Figure 1 shows the implemented OBC’s printed circuit board (PCB). The OBC’s PCB has a
+budget requirement of $2000 USD. The MCU is the TMS570LC4357. The memory storage is the
+MR4A16BCMA35. TMS570 uses MR4A16BCMA35 for external memory storage. Moreover, the
+system bus provides power and signal lines to the OBC. As a result of the system bus, TMS570 is
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Figure 1:
+The implemented OBC’s printed circuit board (PCB).
+able to control other systems. For example, Attitude Determination and Control System (ADCS)
+has GPS, magnetometers, gyroscopes, sun sensors, and Earth horizon sensors. ADCS determines
+the position and orientation of the CubeSat using the sensors. ADCS also adjusts the orientation of
+the CubeSat using magnetic solenoids and reaction wheels. Furthermore, OBC has a TMS320C5535
+digital signal processor. TMS320C5535 processes the low rate telecommunications on the CubeSat.
+Telecommunications allow the ground station to communicate with the TMS570. Two TPL5010-Q1
+external watchdog timers are placed on the OBC. Watchdog timers reset the OBC in an event of a
+failure. These low-cost COTS components are the solutions to the design requirements problem.
+Unlike other COTS components, these components have high radiation tolerances and they operate
+across large temperature ranges. Moreover, they are space ﬂight proven. In conclusion, these COTS
+components cost less while ensuring the CubeSat survives the space environment.
+Aside from the hardware descriptions, there are functional requirements. Telemetry, payload
+control, power control, data handling, timekeeping, and memory integrity are examples of the OBC’s
+functional requirements. Telemetry is the act of collecting remote sensor data. As a payload is used
+on all CubeSat missions, payload control ensures the payload is executing properly. Power control
+ensures brown-outs do not happen. Data handling involves sensor processing, telecommunications,
+and system monitoring. Memory integrity protects the memory from data corruption.
+Type of radiation
+Dose rate ( MeV cm2
+Heavy ion
+4.75 × 102
+Proton
+9.62 × 102
+Electron
+1.359 × 103
+Total
+2.796 × 103
+Table 1: Dose rates for solar maximum at 8 × 105 m LEO (Hussmann, 2016).
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Hardware requirements were made for LEO as they ensure the OBC’s survivability. Table
+1 shows the dose rates of a CubeSat at 8 × 105 m LEO with 2 × 10−3 m Al shielding. Table
+1 assumes a mission duration of 6.307 × 107 s (2 years). At the end of the mission, the total
+received dose of a 1cm × 1cm component is 2.825 × 103 rad (Si) as shown in Eqn. (1). Therefore,
+components must survive TIDs of 2.825 × 103 rad (Si). Moreover, components are susceptible to
+SEUs. Components must also withstand a few SEUs per hour. DIETR (CSDC_Thermal, 2014)
+speciﬁes a thermal-vacuum requirement. OBC must withstand a vacuum of 5 × 10−4 Torr. OBC
+must also have an out-gassing requirement (NASA, 2017). This conﬁnes out-gassing to 1% of the
+total mass. In addition, OBC must withstand thermal cycles from −20◦C to 70◦C. DIETR also
+speciﬁes a Launch Environment Tests requirement (CSDC_Launch, 2014). OBC must withstand a
+quasi-static acceleration test of 12g. The OBC must also withstand random vibrations of 1 × 10−1 g2
+at 2 × 102 Hz. OBC’s PCB is conﬁned to a 10 cm by 10 cm size.
+For the software requirements, a real time operating system (RTOS) is needed. A RTOS schedules
+tasks with high timing accuracy as the RTOS allows microsecond control of the CubeSat. Moreover,
+RTOS also manages memory allocations and hardware drivers. A ﬁle system is also needed to protect
+the data from radiation. The ﬁle system must have multiple copies of the ﬁle system structure.
+The ﬁle system must use an error correction code (ECC) for data recovery. ECC protects data by
+encoding the data. Encoded data contains multiple copies of the original data. The numerous data
+copies provide redundancies in case of failures. The ﬁle system must be scrubbed within a time
+interval in order to recover the corrupted data.
+Implemented Memory Design
+The OBC requires a reliable place to store sensor data and program data. MR4A16BCMA35
+was chosen as the nonvolatile memory storage for the MCU. Each MR4A16BCMA35 stores 2MB of
+data. MR4A16BCMA35 is low-cost as MR4A16BCMA35 costs around $40 USD (Digikey_MRAM,
+2018).
+MR4A16BCMA35 is cheap when compared to other memory storages.
+For example,
+5962H9853702VXC-CTEST costs $4000 (Arrow_5962H9853702VXC-CTEST, 2018) and
+HXNV01600AEN costs $5100 (Arrow_HXNV01600AEN, 2018). MR4A16BCMA35 (Everspin, 2017)
+uses magneto-resistive random access memory (MRAM) technology. In MRAM, bits are stored in
+magnetic ﬁelds of the magnetic tunnel junctions. A magnetic tunnel junction has two ferromagnets
+and one insulator. The insulator separates the two ferromagnets. One ferromagnet is permanent,
+while the other ferro-magnet is a free layer. Orientation of the magnetic ﬁeld in the free layer
+determines the bit’s value. In order to write a bit, a large current is required to change the orientation
+of the free layer.
+Radiation in LEO consists mostly of heavy ion bombardments. As NAND memory uses charge
+pumps to store bits, NAND memory is susceptible to heavy ions bombardments. Heavy ions
+bombardments corrupt bits in NAND memory by changing values in the charge pumps. On the
+other hand, MRAM is resistant to heavy ions bombardments as MRAM uses magnetic ﬁelds to
+store bits. Heavy ions bombardments cannot generate large surges of current. Therefore, heavy
+ions bombardments cannot corrupt bits in MRAM by changing the magnetic ﬁelds. As a result,
+MRAM has large SEU and SEL damage thresholds. In conclusion, MRAM is resistant to radiation
+as MRAM uses magnetic ﬁelds to store bits. Table 1 shows dose rates of components in LEO. The
+required TID in LEO is calculated below using the dose rates in Table 1. Then MRAM’s TID is
+compared to the required TID in order to prove MRAM’s survivability.
+Let LEOdoserateperarea = total dose rate per area of an object in LEO as shown in Table 1
+Let MRAMarea = the area of MRAM
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Let LEOdoserate = the dose rate of an object in 8 × 105 m LEO
+MRAMarea = 1cm2
+LEOdoserateperarea = 2.796 × 103 MeV · cm2
+g · s
+2.796 × 103 MeV · cm2
+g · s
+1cm2 = 2.796 × 103 MeV
+g · s
+2.796 × 103 MeV
+g · s × 1000g
+× 1.602 × 10−13J
+1MeV
+= 4.48 × 10−7
+kg · s
+LEOdoserate = 4.48 × 10−7
+kg · s × 100rad · kg
+LEOdoserate = 4.48 × 10−5 rad
+Let T = mission duration in seconds. 6.307 × 107s (2 years).
+Let LEOTID = required TID to survive in LEO for 6.307 × 107s (2 years)
+Let MRAMTID = MRAM’s TID as shown in Table 2
+T = 6.307 × 107s
+LEOTID = LEOdoserate × T
+LEOTID = 4.48 × 10−5 rad
+× 6.307 × 107s
+LEOTID = 2.825 × 103rad(Si)
+MRAMTID = 4 × 104rad(Si)
+MRAMTID >> LEOTID
+Parameter
+Limits
+Data retention
+20 Years
+4 × 104 rad (Si)
+>1 × 102 MeV ·cm2
+>8.4 × 101 MeV ·cm2
+Access time
+3.5 × 10−8 s
+7 bits of parity per 64 bits
+H ﬁeld tolerance
+8 × 103 A
+Table 2: Properties of Everspin MRAM (Everspin, 2017) (Heidecker, 2013) (Zhang et al., 2018).
+Table 2 shows the properties of Everspin MRAM. MRAM lasts for 20 years within a temperature
+range of −40◦C to 85◦C (Everspin, 2017). Furthermore, MRAM has a TID of 4 × 104 rad (Si)
+(Zhang et al., 2018). MRAM’s TID of 4 × 104 rad (Si) is far greater than the required TID of
+2.825 × 103 rad (Si) calculated in Eqn. (1). As a result of a large TID tolerance, MRAM survives the
+radiation in LEO. In spite of MRAM’s TID being overkill, MRAM is the only component that has a
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+known TID and costs less than $40 USD. Other components such as FRAM, NAND ﬂash, and NOR
+ﬂash have unknown TIDs. On the other hand, 5962H9853702VXC-CTEST and HXNV01600AEN
+have TIDs of 1 × 106 rad (Si) but cost $4000 and $5100 respectively. MRAM has virtually unlimited
+read/write endurance as MRAM does not wear out. MRAM’s access time of 3.5 × 10−8 s matches
+MCU’s SDRAM’s access time. MRAM’s SEU is greater than > 1 × 102 MeV ·cm2
+(Heidecker, 2013).
+Therefore, MRAM tolerates SEUs. MRAM mitigates bit ﬂips caused by SEUs as MRAM has high
+SEU tolerance.
+SEUs determines the bit error rate (BER) of memory. BER is important for MRAM as BER is
+used to determine the total number of bits errors over a time period. Using BER from Heidecker’s
+(2013) study, the total number of bit errors was calculated below for 4MB MRAM over 7.3 × 102
+days (2 years). Total number of bit errors shows the MRAM’s data integrity. Note: An upset is a
+bit error.
+Let pupset = probability of an upset per bit day
+pupset = 1 × 10−10 upsets
+bit · day
+Let p = probability of an upset for 1 bit in 7.3 × 102 days
+p = 1 × 10−10 upsets
+bit · day × 7.3 × 102days × 1bit
+p = 7.3 × 10−8upsets
+Calculations below show a PDF of bit errors for a 4MB MRAM with parity bits.
+Let N = number of bits in memory
+Let k = number of corrupted bits
+Let f = binomial distribution
+N = 3.55 × 107bits
+pk(1 −p)N−k
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Figure 2: PDF of error in MRAM’s 4MB memory in 730 days.
+Figure 2 shows the binomial distribution of bit errors generated from Eqn. (2). Mean bit errors
+are 2 bits over 7.3 × 102 days. As a result of low bit errors, MRAM fully corrects the bit errors.
+This results in zero bit errors when MRAM is turned on.
+However, there is a case where MRAM is turned oﬀ. During rocket launch, MRAM is powered
+oﬀfor 1 day. When MRAM is turned oﬀ, MRAM cannot correct bit errors until MRAM is turned
+back on. MRAM’s ECC uses 7 bits of parity for every 64 bits (Everspin, 2017). MRAM’s ECC
+recovers a 1 bit error in a 71 bit block. MRAM’s ECC protects against single bit ﬂips caused by
+radiation. The calculations below show the probability of failure when MRAM is turned oﬀfor 1
+day. The probability of failure determines the data’s integrity during rocket launch.
+Let p = probability of an upset for 1 bit in 1 day
+p = 1 × 10−10 upsets
+bit · day × 1day × 1bit
+p = 1 × 10−10upsets
+Let N = number of bits per block
+N = 71bits
+Used Eqn. (2) to solve for the probability P71bits when k > 1.
+Let P71bits = probability of ECC not correcting bit errors in 71 bits in 1 day
+P71bits = f(k > 1)
+P71bits = 6.66 × 10−16
+There are 5 × 105 blocks of 71 bits for the total memory capacity (4 MB).
+N = 5 × 105blocks
+Used Eqn. (2) to solve for the probability P4MB when k > 0.
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Let P4MB = probability of ECC not correcting bit errors in 4MB in 1 day
+P4MB = f(k > 0)
+P4MB = 3.33 × 10−10
+The probability of failure when MRAM is turned oﬀfor 1 day is P4MB = 3.33 × 10−10. As
+a consequence of a small probability of failure, MRAM’s ECC repairs the bit errors caused by
+radiation. In conclusion, MRAM’s ECC preserves data integrity during rocket launch.
+Implemented Microcontroller Design
+A MCU is required to control the CubeSat. TMS570 is a MCU series (Texas Instruments,
+2016). TMS570 is low-cost as TMS570 costs around $60 USD (Digikey_TMS570, 2018). TMS570 is
+inexpensive when compared to other MCUs such as $950 VA10820 (Mouser_VA10820, 2018) and
+$2900 MSP430FR5969-SP (Mouser_MSP430FR5969, 2018). TMS570 uses dual lockstep CPUs.
+The dual lockstep CPUs are identical. Each CPU on the TMS570 independently executes the exact
+same instruction. If the exact same instruction produces diﬀerent results, then both CPUs will
+re-execute the instruction again. Dual lockstep CPUs protect against SEUs as they prevent incorrect
+computations. TMS570 also has eFuses with parity bits. In eFuses, hardwired fuses store data.
+eFuses protect against radiation as radiation cannot damage fuses. TMS570 also has self testing
+capabilities to detect errors in hardware. At boot-up, the TMS570 checks each built-in module. Self
+testing enables the TMS570 to troubleshoot errors inﬂight.
+TMS570 operates within a temperature range of −40◦C to 125◦C, thus satisfying the temperature
+requirements. TRIUMF is a particle accelerator used for radiation testing. Radiation testing at
+TRIUMF determined the TMS570’s TID of 5 × 103 rad (Si). Therefore, TMS570 survives the
+required TID of 2.825 × 103 rad (Si). On the other hand, VA10820 and MSP430FR5969-SP have
+TIDs of 3 × 105 rad (Si) and 5 × 104 rad (Si) respectively. VA10820 and MSP430FR5969-SP have
+larger TIDs, but they cost more than the TMS570. The TMS570’s 4MB internal memory is used for
+program data and the boot loader. Moreover, TMS570’s internal memory uses 64/72 bit hamming
+for ECC. TMS570’s ECC corrects 1 bit for every 72 bits. During rocket launch, TMS570 is powered
+oﬀfor 1 day. When TMS570 is turned oﬀ, TMS570 cannot correct bit errors until TMS570 is turned
+back on. The calculations below are for the probability of bit errors when TMS570 is turned oﬀfor
+1 day. The bit errors determine TMS570’s data integrity during rocket launch.
+Let H = number of hours
+Let p = the probability of error in a bit
+Let N = number of bits
+Let k = number of corrupted bits
+Let f = binomial distribution
+p = 1 −e−H(9.0813×10−6)
+N = 72bits
+H = 24hours
+Let P72bits = probability of ECC not correcting bit errors larger than 1 bit error for 72 bits
+N = 79blocks
+P72bits = f(k > 1)
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Figure 3: PDF of error in 72 bits in 24 hours.
+P72bits = 1.2 × 10−4
+Figure 3 shows the probability of ECC not correcting bit errors larger than 1 bit error for 72
+bits. Bit error calculations used Eqn. (2) and Eqn. (3) (Hussmann, 2016). The bit error probability
+is very low as P72bits = 1.2 × 10−4.
+The boot-loader is a critical piece of software. If radiation corrupts the boot-loader then the
+entire CubeSat is useless. Therefore, the probability of error for the boot-loader is calculated below
+using Eqn. (2). The boot loader uses 5000 bits or 79 blocks of TMS570’s internal memory. Each
+block has 72 bits. The probability of error determines boot-loader’s survivability during rocket
+launch.
+Let P5000bits = probability of error in 5000 bits
+P5000bits = f(k > 0)
+P5000bits = 9.4 × 10−3
+The probability of error in the boot loader during launch is P5000bits = 9.4 × 10−3. As the probability
+of error is small, the boot-loader is safe from corruption during rocket launch.
+Aside from the boot-loader, TMS570 also stores program data. Program data is susceptible to
+radiation during rocket launch. Therefore, bit errors in the program data will be analyzed below.
+Bit errors for TMS570’s 4MB memory are calculated below using Eqn. (2) and Eqn. (3). The bit
+errors determine percentage of corrupted regions in the program data.
+H = 24hours
+p = 7.3 × 10−8
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+N = 3.6 × 107bits
+Figure 4: PDF of TMS570’s 4MB memory with parity in 24 hours.
+Figure 4 shows the bit errors for the TM570’s 4MB memory during a 24 hour period. Standard
+deviation is 55 bit errors and the mean is 7860 bit errors. Due to large bit errors in the TM570’s
+4MB memory, a ﬁle system is needed to mitigate the bit errors. The ﬁle system design is found in
+the software design section.
+Implemented Software Design
+In addition to the hardware, software also mitigates radiation. TMS570 uses FreeRTOS, a
+lightweight and modular RTOS. FreeRTOS handles task scheduling, interrupt scheduling, memory
+allocation, and hardware driver management. For task and interrupt scheduling, FreeRTOS allows
+preemptions and static memory allocations, which increase the timing accuracy of tasks and
+interrupts. FreeRTOS allows the OBC to react faster to faults and errors. Furthermore, FreeRTOS
+uses a round robin scheduler to control the execution of tasks. For each task with the same priority,
+the tasks receive the same CPU execution times. Along with tasks, interrupts are used to warn
+the MCU of high priority tasks. For example, if the battery system is running out of energy then
+an interrupt ﬁres. After the interrupt ﬁres, the MCU focuses solely on the interrupt and turns oﬀ
+certain systems to conserve energy. As FreeRTOS manages memory allocation, FreeRTOS runs
+directly on the MRAM instead of the TMS570’s internal memory. Running on the MRAM reduces
+bit errors caused by radiation.
+Figure 5: Bit arrangement in the modiﬁed queue system.
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Queues in FreeRTOS are used for interprocess communications between diﬀerent tasks. For
+example, one task sends sensor data to a buﬀer queue. Another task receives sensor data from the
+buﬀer queue and processes the sensor data. Moreover, queues have built-in mutexes to eliminate race
+conditions between tasks. However, the default queues in FreeRTOS are not very robust. Therefore,
+the default queues will be modiﬁed. Figure 5 shows the features of the modiﬁed queue system. Each
+queue element stores an 8 bit cyclic redundancy check (CRC8). CRC8 veriﬁes the element’s data
+integrity as CRC8 detects up to 8 bit errors in a element. If CRC8 detects a corrupted element, then
+the element is discarded. The 8 bit message ID represents the sensor’s label. For example, sensor 1
+will have a message ID of 1. Sensor 5 will have a message ID of 5. Message ID enables the receiving
+task to distinguish between sensors. Messages also have time stamps associated with them. Time
+stamps take up to 64 bits and are measured in seconds and microseconds. A time stamp determines
+the sample time of the data.
+File systems protect against data corruption as radiation corrupts data. The ﬁle system uses
+Bose Chaudhuri Hocquenghem (BCH) codes (Chien, 1964), a type of ECC. BCH codes protect the
+data by encoding the data. In the ﬁle system, data is placed into blocks. BCH codes encode each
+data block. Each encoded block contains parity bits. Parity bits are copies of the original data.
+When an encoded block gets corrupted, BCH codes recover the original data using the parity bits in
+the encoded block. As a consequence, BCH codes repair the errors caused by radiation. Thus, BCH
+codes protect against radiation. Moreover, BCH codes allow designers to determine the number of
+bits the BCH codes recovers. For every mt parity bits in a BCH code, the BCH code recovers up to
+t bits.
+The BCH code requires calculations to determine the optimal number of mt parity bits. If mt is
+too small, then the ﬁle system cannot recover from bit errors. If mt is too large, then the parity bits
+take up too much space. Calculations below determine the optimal number of mt parity bits for the
+TMS570’s 4MB memory. Calculations assume the ﬁle system has 4095 bit blocks with a scrubbing
+period of 6 hours.
+Let N = number of bits in a block
+Let H = scrubbing period in hours
+Let m = minimal polynomial over the ﬁeld GF(qm)
+Let p = probability of a bit ﬂip
+Let f = binomial distribution
+Let t = number of recoverable bit errors in a block
+Let R = number of parity bits in the block
+m = 12
+N = 2m −1
+N = 212 −1 = 4095
+H = 6hours
+Using Eqn. (3). The probability of one bit ﬂip in 6 hours is calculated.
+p = 5.448 × 10−5
+Using Eqn. (2) to create a function for every t input there is a P4095bits output.
+Let P4095bits = probability of error in a 4095 bit block
+P4095bits = f(k > t)
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Let N = number of 4095 bit blocks in TMS570’s 4MB memory
+N = 7815
+Using Eqn. (2) again for the total probability of error in TMS570’s 4MB memory.
+Let Perror = total probability of error in the entire TMS570’s 4MB memory
+Perror = f(k > 0)
+Figure 6: Probability of error vs number of t bits in TMS570’s 4MB memory.
+Figure 6 shows the probability of error in TMS570’s 4MB memory vs number of t bits. For the
+probability of error Perror < 10−10, select t = 9 bits. The m = 12 is determined by the minimal
+polynomial over the ﬁeld GF(qm).
+R = mt
+R = 12 × 9bits = 108bits
+Therefore, the ﬁle system requires R = 108 parity bits for Perror < 10−10. BCH code recovers up to
+t = 9 bit errors for every 4095 bit block in the TMS570’s 4MB memory.
+The optimal number of parity bits for MRAM’s 4MB memory was calculated below. Furthermore,
+the scrubbing period was changed to H = 24hours. The probability of one bit ﬂip for MRAM is
+changed to p = 10−10. Other parameters remained the same.
+H = 24hours
+p = 10−10
+Figure 7 shows probability of error in MRAM’s 4MB memory vs number of t bits. For an error
+probability of Perror < 10−10, select t = 2 bits.
+R = 12 × 2bits = 24bits
+Therefore, the ﬁle system requires R = 24 parity bits for Perror < 10−10. BCH code recovers up to
+t = 2 bit errors for every 4095 bit block in MRAM’s 4MB memory.
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Figure 7: Probability of error vs number of t bits in MRAM’s 4MB memory.
+Implemented Watchdog Design
+Figure 8: Layers of watchdogs on the OBC.
+The space environment causes many faults in ICs. However, watchdogs mitigate the faults by
+restarting ICs. Thus, watchdogs increase the reliability of the OBC. TMS570 has, TPL5010-Q1, a
+dedicated external hardware watchdog is shown in Figure 8. At $2 USD (Digikey_TPL5010, 2018),
+TPL5010-Q1 is low-cost. TPL5010-Q1 functions within a temperature range of −40◦C to 125◦C
+and is vibration resistant. TMS570 periodically sends done signals to TPL5010-Q1. TPL5010-Q1
+will force a power reset on the TMS570 if TPL5010-Q1 does not receive a done signal. TPL5010-Q1
+ensures the TMS570 recovers from faults. Moreover, TMS570 has a built-in windowed watchdog.
+The windowed watchdog monitors FreeRTOS for a done signal and will force a cold reboot on the
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+TMS570 if it does not receive a done signal. The windowed watchdog adds redundancy to the
+watchdog setup. Furthermore, a software watchdog monitors the individual tasks in FreeRTOS.
+The software watchdog activates periodically. When the software watchdog activates, the software
+watchdog checks the tasks’ time stamps. Each task has a time stamp, which contains the last time
+the task fed the software watchdog. If a task’s time stamp is not within the time interval, then the
+task will be restarted. Restarting a task clears the previous state and memory of the task. Thus,
+the software watchdog increases reliability of each individual task.
+Beningo (2010) shows the probabilities of watchdogs successfully recovering from faults. Calcula-
+tions below show the probabilities of success for the entire watchdog system. The probabilities of
+success for recovering from a fault quantify the reliability of the OBC.
+Let P(EWDG) = probability of external hardware watchdog successfully recovering from a
+fault
+Let P(WWDG) = probability of windowed watchdog successfully recovering from a fault
+Let P(SWDG) = probability of software watchdog successfully recovering from a fault
+P(EWDG) = 0.85
+P(WWDG) = 0.85
+P(SWDG) = 0.7
+Let P(EWDG ∪WWDG) = probability of external hardware watchdog or windowed watchdog
+successfully recovering from a fault
+P(EWDG ∪WWDG) = P(EWDG) + P(WWDG) −P(WWDG) · P(EWDG)
+P(EWDG ∪WWDG) = 0.9775
+Let P(EWDG ∪WWDG ∪SWDG) = probability of external hardware watchdog or windowed
+watchdog or software watchdog successfully recovering from a fault
+P(EWDG ∪WWDG ∪SWDG) = P(EWDG ∪WWDG) + P(SWDG)
+−P(EWDG ∪WWDG) · P(SWDG)
+P(EWDG ∪WWDG ∪SWDG) = 0.9933
+Each task in FreeRTOS has a probability of at least P(EWDG ∪WWDG ∪SWDG) = 0.9933 for
+successfully recovering from a fault. The probability of a failure is very low as there are many layers
+of watchdogs. As there many SEUs per hour in LEO, layers of watchdogs ensure the OBC will
+survive throughout the mission duration.
+Conclusion
+CubeSats are a low-cost alternative to full-sized satellites. As all CubeSats have a payload, an
+OBC is required to execute the payload. A single OBC has a MCU and some memory. Moreover,
+the OBC is built using COTS components as they are readily available and are cheap. However,
+COTS components are less tolerant to radiation, temperature, and vibrations when compared to
+space grade components. On the other hand, this paper presents hardware and software solutions
+to the problems. COTS components such as MR4A16BCMA35, TMS570, and TPL5010-Q1 were
+chosen for the OBC. These COTS components have a higher tolerance to radiation, temperature,
+and vibrations. Moreover, these components are low-cost as they cost $60, $40, and $2 respectively.
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+The MR4A16BCMA35 stores the program data and the sensor data. MR4A16BCMA35’s TID of
+4 × 104 rad (Si) is larger than the required TID of 2.825 × 103 rad (Si). Therefore, MR4A16BCMA35
+survives the radiation in LEO. OBC also uses TMS570, a MCU for CubeSat control. TMS570
+has dual lockstep CPUs which protect against SEUs. Moreover, TMS570’s TID of 5 × 103 rad (Si)
+meets the required TID of 2.825 × 103 rad (Si). Software solutions were also developed with the
+hardware solutions. A ﬁle system was designed to protect the data from radiation damage. In
+conclusion, these solutions can be used to increase the reliability of spacecraft and could be applied
+to radioactive environments.
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+References
+Arrow_5962H9853702VXC-CTEST. (2018). Arrow product page 5962H9853702VXC-CTEST. Re-
+trieved from https://www.arrow.com/en/products/5962h9853702vxc-ctest/honeywell
+Arrow_HXNV01600AEN. (2018). Arrow product page HXNV01600AEN. Retrieved from https://
+www.arrow.com/en/products/hxnv01600aen/honeywell
+Austin, R. A., Mahadevan, N., Sierawski, B. D., Karsai, G., Witulski, A. F., & Evans, J. (2017).
+A CubeSat-payload radiation-reliability assurance case using goal structuring notation. In
+Reliability and Maintainability Symposium (RAMS), 2017 Annual (pp. 1–8). Retrieved from
+https://doi.org/10.1109/RAM.2017.7889672 doi: 10.1109/RAM.2017.7889672
+Bearden, D. A. (2001). Small-satellite costs. Crosslink, 2(1), 32–44. Retrieved from https://
+spacese.spacegrant.org/uploads/Costs/BeardenComplexityCrosslink.pdf
+Beningo, J. (2010). A review of watchdog architectures and their application to Cubesats. Beningo
+Embedded Group. Retrieved from https://www.beningo.com/wp-content/uploads/images/
+Papers/WatchdogArchitectureReview.pdf
+Chien, R. (1964). Cyclic decoding procedures for Bose-Chaudhuri-Hocquenghem codes. IEEE
+Transactions on Information Theory, 10(4), 357–363. Retrieved from https://doi.org/
+10.1109/TIT.1964.1053699 doi: 10.1109/TIT.1964.1053699
+CSDC_Launch.
+(2014, October).
+Design, interface, and environmental testing requirements.
+Vancouver, British Columbia: The Canadian Satellite Design Challenge Management Society
+Inc, 14. Retrieved from http://csdcms.ca/wp-content/uploads/2016/10/CSDC_DIETR_3a
+_RELEASED_2014-10.pdf
+CSDC_Thermal. (2014, October). Design, interface, and environmental testing requirements.
+Vancouver, British Columbia: The Canadian Satellite Design Challenge Management Society
+Inc, 15. Retrieved from http://csdcms.ca/wp-content/uploads/2016/10/CSDC_DIETR_3a
+_RELEASED_2014-10.pdf
+Digikey_MRAM.
+(2018).
+Digikey product page MR4A16BCMA35.
+Retrieved
+from
+https://www.digikey.com/product-detail/en/everspin-technologies-inc/
+MR4A16BCMA35/819-1016-ND/2504975
+Digikey_TMS570. (2018). Digikey product page TMS570. Retrieved from https://www.digikey
+.com/products/en?mpart=TMS5704357BZWTQQ1&v=296
+Digikey_TPL5010.
+(2018).
+Digikey product page TPL5010QDDCRQ1.
+Retrieved from
+https://www.digikey.com/product-detail/en/texas-instruments/TPL5010QDDCRQ1/
+296-44963-1-ND/6235548
+Everspin. (2017). MR4A16B datasheet. Chandler, Arizona: Everspin Technologies. Retrieved from
+https://www.everspin.com/file/162/download
+Heidecker, J.
+(2013).
+MRAM technology status.
+Pasadena, California: Jet Propulsion Lab-
+oratory.
+Retrieved from https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/
+20140000668.pdf
+Heidt, H., Puig-Suari, J., Moore, A., Nakasuka, S., & Twiggs, R. (2000). Cubesat: A new generation
+of picosatellite for education and industry low-cost space experimentation. Proceedings of the
+AIAA/USU Conference on Small Satellites(32). Retrieved from https://digitalcommons
+.usu.edu/smallsat/2000/All2000/32/
+Hurley, S., Teel, G., Lukas, J., Haque, S., Keidar, M., Dinelli, C., & Kang, J. (2016). Thruster
+subsystem for the United States Naval Academy’s (USNA) ballistically reinforced com-
+munication satellite (BRICSat-P).
+Transactions of the Japan Society for Aeronautical
+and Space Sciences, Aerospace Technology Japan, 14(ists30), 157–163.
+Retrieved from
+https://doi.org/10.2322/tastj.14.Pb_157 doi: 10.2322/tastj.14.Pb_157
+
+--- PAGE BREAK ---
+
+The Arbutus Review • 2018 • Vol. 9, No. 1
+Hussmann, C. A. (2016). Reliable design of micro-satellite systems using combined physics of failure
+reliability estimation models. UVicSpace. Retrieved from https://dspace.library.uvic
+.ca//handle/1828/7385
+Kitts, C., Ronzano, K., Rasay, R., Mas, I., Williams, P., Mahacek, P., . . . Ricco, A. (2007). Flight
+results from the GeneSat-1 biological microsatellite mission. Proceedings of the AIAA/USU
+Conference on Small Satellites(69).
+Retrieved from https://digitalcommons.usu.edu/
+smallsat/2007/all2007/69/
+Mouser_MSP430FR5969.
+(2018).
+Mouser product page MSP430FR5969.
+Retrieved
+from https://www.mouser.com/ProductDetail/Texas-Instruments/M4FR5969SPHPT-MLS
+?qs=sGAEpiMZZMve4%2fbfQkoj%252bOzWEBFT%2fTFazi%252bWBzPT8YE%3d
+Mouser_VA10820.
+(2018).
+Mouser
+product
+page
+VA10820.
+Retrieved
+from
+https://www.mouser.com/ProductDetail/VORAGO/VA10820-CQ128F0ECA?qs=
+sGAEpiMZZMs1xdPSgahjwl3eNHGfvzn1nmCzHcPygu8%3d
+NASA. (2017). Outgassing data for selecting spacecraft materials. Greenbelt, Maryland: NASA
+Goddard Space Flight Center. Retrieved from http://outgassing.nasa.gov
+Praks, J., Kestilä, A., Tikka, T., Leppinen, H., Khurshid, O., & Hallikainen, M. (2015). AALTO-1
+earth observation cubesat mission-educational outcomes. In Geoscience and Remote Sensing
+Symposium (IGARSS), 2015 IEEE International (pp. 1340–1343). Retrieved from https://
+doi.org/10.1109/IGARSS.2015.7326023 doi: 10.1109/IGARSS.2015.7326023
+Texas Instruments. (2016, June). TMS570LC4357 datasheet. Dallas, Texas: Texas Instruments.
+Retrieved from http://www.ti.com/lit/ds/symlink/tms570lc4357.pdf
+Thomsen, D., Kim, W., & Cutler, J. (2015). Shields-1, A SmallSat radiation shielding technology
+demonstration. Hampton, VA: NASA Langley Research Center. Retrieved from https://
+ntrs.nasa.gov/search.jsp?R=20160006374
+Zhang, X.-Y., Guo, Q., Li, Y.-D., & Wen, L. (2018, Jul 04). Total ionizing dose and synergistic
+eﬀects of magnetoresistive random-access memory. Nuclear Science and Techniques, 29(8),
+111. Retrieved from https://doi.org/10.1007/s41365-018-0451-8
+doi: 10.1007/s41365
+-018-0451-8

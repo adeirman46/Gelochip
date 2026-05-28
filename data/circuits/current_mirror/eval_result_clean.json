@@ -1,0 +1,23 @@
+{
+  "component_name": "CMIRROR",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "copy_ratio": 1.0,
+      "target_ratio": 1.0
+    },
+    "theory": "NMOS current mirror, identical devices \u2192 I_copy \u2248 I_ref (1:1). Pass if measured copy ratio within 25% of 1.0.",
+    "theory_pass": true
+  },
+  "area_um2": 622.1
+}

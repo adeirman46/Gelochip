@@ -1,0 +1,7 @@
+.subckt OPAMP VIP VIM VOUT VX VTAIL VBIAS VDD VSS
+XM1 VX   VIP VTAIL VSS nfet_03v3 w=4 l=0.5 m=2
+XM2 VOUT VIM VTAIL VSS nfet_03v3 w=4 l=0.5 m=2
+XM3 VX   VX  VDD   VDD pfet_03v3 w=8 l=0.5 m=2
+XM4 VOUT VX  VDD   VDD pfet_03v3 w=8 l=0.5 m=2
+XM5 VTAIL VBIAS VSS VSS nfet_03v3 w=8 l=0.5 m=2
+.ends OPAMP

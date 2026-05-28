@@ -1,0 +1,438 @@
+2.4-GHz Integrated CMOS Low-Noise Amplifier
+(English Version*)
+Jorge L. Gonz´alez-Rios, Juan C. Cruz Hurtado, Robson L. Moreno, Diego V´azquez
+Abstract—This paper presents the analysis, design, fabrication,
+and measurement of an integrated low-noise amplifier (LNA)
+implemented using a 130 nm CMOS technology, operating in
+the 2.4 GHz band. The LNA is a crucial component in the
+performance of receivers, particularly in integrated receivers.
+The proposed LNA was designed to meet the specifications of the
+IEEE 802.15.4 standard. Post-layout simulation results, including
+pads with electrostatic discharge (ESD) protection, are as follows:
+gain of 10.7 dB, noise figure of 2.7 dB, third-order input intercept
+point (IIP3) of 0.9 dBm, input and output impedance matching
+better than -20 dB with respect to 50 Ωterminations, with a
+power consumption of 505 µW powered from a 1.2 V supply. The
+obtained results fall within the range of those recently reported
+for the same topology and operating frequency. The measured
+scattering parameters (S-parameters) are consistent with the
+simulation results. This work contributes to the development of
+a new research line in Cuba on the design of radio-frequency
+(RF) integrated circuits.
+Index Terms—Low-noise amplifier (LNA), CMOS, integrated
+circuit, low power, radio frequency.
+I. INTRODUCTION
+Short-range wireless communication devices are increas-
+ingly offering a higher number of applications, which pose
+design challenges such as miniaturization, low-voltage opera-
+tion, and reduced energy consumption. These demands can be
+satisfied using current CMOS technologies, which allow the
+integration of all system blocks, including RF circuits, into a
+single chip [1], [2].
+Data transfer in these applications requires receivers with a
+wide dynamic range due to the variability of RF signal levels
+and the presence of multiple interferers [3]. Therefore, mul-
+tiple design trade-offs arise when implementing the different
+RF front-end blocks [4], especially in the low-noise amplifier
+(LNA), which is the first active block of the receiver.
+The LNA determines the minimum detectable signal of the
+receiver, through a sufficiently high gain and a low noise
+figure [4], [5]. On the other hand, too high a gain can saturate
+subsequent blocks (such as the mixer) in the presence of strong
+input signals. Simultaneously, the LNA must also provide good
+input impedance matching, sufficiently high linearity, and good
+reverse isolation.
+This work presents an approach to the analysis, design,
+fabrication, and experimental characterization of a CMOS
+*This document is the author’s translation of a peer-reviewed paper pub-
+lished initially in Spanish. How to cite: J. L. Gonz´alez, J. C. Cruz, R. L.
+Moreno, and D. V´azquez, “2.4-GHz Integrated CMOS Low-Noise Amplifier,”
+in V International Symposium on Electronics, XVI Convention Informatica
+2016, La Habana, Cuba, 14-18 Mar, 2016.
+Fig. 1. Common-source LNA topology with inductive degeneration.
+LNA with common-source topology and inductive degener-
+ation (Figure 1). This topology is widely used in integrated
+CMOS receivers for short-range communications [5]–[7]. The
+design was implemented to meet the specifications of the IEEE
+802.15.4 standard [7] at 2.4 GHz, and fabricated in a 130
+nm, 1.2 V CMOS technology. This work contributes to the
+development of a new research line in Cuba on the design of
+RF integrated circuits [8], [9].
+The rest of the paper is organized as follows. Section II
+describes the chosen topology and the general design method-
+ology. Section III presents a simplified circuit analysis, provid-
+ing elements for selecting the passive components. Section IV
+presents the simulation results used for design, the measured
+scattering parameters, and considerations for physical imple-
+mentation, as well as experimental results. Finally, Section V
+provides conclusions and outlines future work.
+II. COMMON-SOURCE CMOS LNA TOPOLOGY WITH
+INDUCTIVE DEGENERATION
+The basic schematic of a common-source LNA (CS-LNA)
+with inductive degeneration is shown in Figure 1. The induc-
+tive degeneration (via Ls) produces the resistive component
+required to match the input impedance to the preceding stage
+without introducing additional noise [10]. The capacitor CX
+helps minimize the noise figure for specific gain and power-
+consumption targets [11]. The gate inductor Lg is included to
+tune the input impedance. Transistor M2 is used as a cascode
+arXiv:2509.02224v1  [eess.SY]  2 Sep 2025
+
+--- PAGE BREAK ---
+
+stage to reduce the Miller effect on M1 and to improve reverse
+isolation [5]. The drain inductor LD forms a parallel resonant
+network with the output capacitances of the cascode stage and
+the impedance seen toward the load. The capacitive divider
+(C1, CP ) is included to couple the output impedance to 50 Ω
+for stand-alone LNA characterization. Finally, Cb blocks the
+DC component from the RF source.
+Transistor sizing can be used to minimize the noise figure
+(NF), as demonstrated in prior work on this topology [11]–
+[13]. High IIP3 with low power consumption can be achieved
+by exploiting the linearity “sweet spot” in MOS transistors
+biased in moderate inversion [14]. This IIP3 peak occurs at
+approximately the same current density [15], [16], so linearity
+can also be maximized through proper transistor sizing.
+Guided by the above considerations and the need to min-
+imize power consumption, the design-space exploration con-
+sisted in sweeping the bias current (ID) and the transistor
+width. For each pair (ID, W), the passive-element dimensions
+were synthesized to meet the gain and impedance-matching
+requirements (LNA synthesis) while respecting the technology
+limits so that all candidate circuits were physically realizable.
+Once the passive elements were fixed, the NF and IIP3 of
+each synthesized LNA were obtained. The set of results for the
+different LNAs constitutes a design space from which the final
+implementation can be selected, balancing the criteria chosen
+by the designer (in addition to power, noise, and linearity,
+other aspects such as occupied area and robustness to process
+variations may be considered), balancing the criteria chosen
+by the designer (in addition to power, noise, and linearity,
+other aspects such as occupied area and robustness to process
+variations may be considered).
+III. CIRCUIT ANALYSIS
+The available power gain of the LNA can be expressed as
+G ≜Po
+Pavs
+= I2
+o/(4 G′
+s /(4 RS) = G2
+m RS
+where Gm ≜|Io/Vs| is the effective transconductance of
+the input stage under input matching, RS is the source
+resistance, and G′
+o ≡ℜ{Y ′
+o} is the real part of the output-
+stage admittance seen by the load.
+The output conductance is the parallel combination of
+the cascode output conductance and the drain-inductor loss,
+namely
+o = ℜ{Yod} +
+ω0LDQD
+where ω0 is the operating angular frequency and QD is the
+quality factor of LD.
+Using a simplified small-signal model for the input stage
+(considering in M1 only Cgs and the controlled source io =
+gmvgs, and treating LS, Lg, and CX as ideal), the effective
+transconductance under input matching can be approximated
+Gm ≃
+2 ω0 LS
+Fig. 2. Dependencies of passive elements in the transconductance stage on
+LNA gain, transistor dimensions, and biasing.
+TABLE I
+LNA SPECIFICATIONS
+Frecuency
+(GHz)
+Gain
+(dB)
+(dB)
+IIP3
+(dBm)
+S11, S22
+(dB)
+2.4 – 2.5
+10.5±0.5
+<-10
+Equations (1)–(3) show that the LNA gain exhibits a trade-
+off between the characteristics of the drain inductor LD and
+the source-degeneration inductor LS: the former contributes
+through the product LDQD (via G′
+o), and the latter domi-
+nates through its inductance. In selecting LD, the frequency
+response of the output impedance must also be considered. To
+widen the frequency span over which the output impedance
+remains adequate, the quality factor of the output resonant
+network should be reduced; thus, a lower QD is desired.
+To maintain the same contribution of the output network
+to the gain when decreasing QD, LD must be increased
+proportionally. However, the maximum achievable inductance
+is limited by both the technological constraints of on-chip
+inductors and the minimum capacitance in the output resonant
+network.
+Due to these trade-offs in selecting the drain inductor, it is
+convenient to fix the characteristics of LD first and then de-
+termine the remaining passive elements. The simplified small-
+signal equations are not accurate enough to directly compute
+final design values, but they provide a logical sequence for
+calculating the input-stage passive elements. This sequence is
+summarized in a flow chart in Figure 2, which also includes
+the dependencies on device sizing and biasing. The total
+equivalent capacitance between the gate and source of M1
+is given by CT = CX + Cgs.
+IV. RESULTS AND DISCUSSION
+A. Design Space Exploration
+Simulations were performed using the device models pro-
+vided by a 130 nm CMOS Process Design Kit (PDK) follow-
+ing the RF specifications in Table I for ZigBee/IEEE 802.15.4
+receivers [17], [18]. Input (S11) and output (S22) reflection
+coefficients are referenced to 50 Ω.
+
+--- PAGE BREAK ---
+
+Fig. 3. Simulation results at 2.45 GHz for NF (top) and IIP3 (bottom) versus
+transistor W1 and bias current.
+As described in Section II, the exploration consisted of
+sweeping the bias current (ID) and the width of transistor M1
+(W1). The width of M2 was set to W2 = W1/2 to reduce its
+contribution to the load capacitance and increase the selection
+margin of the output matching network [6]. The channel length
+of all transistors was fixed to the minimum allowed by the
+technology (L1 = L2 = L = 0.12 µm). The supply voltage
+was VDD = 1.2 V.
+Figure 3 shows simulation results at 2.45 GHz for the
+noise figure (NF) and the input-referred third-order intercept
+point (IIP3) as a function of W1 and ID. All results shown
+correspond to circuits with S11, S22 < −15 dB and gains in
+the interval [10.3, 10.9] dB. The minimum values of W1 for
+ID = 0.4 mA (24 µm) and ID = 0.3 mA (32 µm) were
+limited by the technology constraints on the passive elements
+required to meet the gain and matching specifications. All
+synthesized LNAs meet the NF specification (NF < 3 dB).
+However, the required linearity (IIP3 > −4 dBm) is not met
+for ID = 0.3 mA, so this bias current must be discarded. Based
+on these results, we selected the LNA with ID = 0.4 mA
+(the lowest current for which all requirements are met) and
+W1 = 40 µm, achieving the highest IIP3 at that power level.
+B. Fabrication and Experimental Results
+Figure 4 illustrates the schematic of the fabricated LNA.
+The gate of M1 is biased using a current mirror (MB) excited
+externally with a reference current IREF. All pads are protected
+against electrostatic discharge (ESD) by diodes [6] (not shown
+in the figure). Decoupling capacitors were included between
+the bias/supply terminals (BIAS and VDD) and ground (GND)
+to reduce RF coupling into DC lines. Table II lists the main
+device dimensions and component values used (with VDD =
+1.2 V).
+A microphotograph of the fabricated LNA is shown in Fig-
+ure 5. In the implemented layout, the inductors were placed as
+far apart as possible from each other and from the RF and bias
+signal traces within the available chip area to minimize elec-
+tromagnetic coupling, which can affect circuit performance.
+Fig. 4. Schematic of the fabricated LNA.
+TABLE II
+IMPLEMENTED LNA DIMENSIONS
+IREF
+W1/L1
+W2/L2
+WB/LB
+(µA)
+(µm/µm)
+(µm/µm)
+(µm/µm)
+(kΩ)
+(pF)
+31.5
+40/0.12
+20/0.12
+4/0.12
+12.6
+(nH)
+(fF)
+(nH)
+(nH)
+(fF)
+(pF)
+13.5
+1.24
+TABLE III
+POST-LAYOUT SIMULATION RESULTS
+IIP3
+(mA)
+(µW)
+(dB)
+(dB)
+(dBm)
+(dB)
+(dB)
+(dB)
+0.42
+10.7
+The free area between pads and between the gate inductor
+and the bias lines was used to implement large decoupling
+capacitors (e.g., CDD = 747 pF and CBIAS = 427 pF). In
+the implemented layout, the inductors were placed as far apart
+as possible from each other and from the RF and bias signal
+traces within the available chip area to reduce electromagnetic
+coupling, which affects the circuit performance [19], [20]. The
+free area between pads and between the gate inductor and the
+bias lines was used to implement large decoupling capacitors
+(e.g., CDD = 747 pF and CBIAS = 427 pF). The chip area
+is 1230 × 1240 µm2, including pads.
+Post-layout simulation results (i.e., including parasitic ex-
+traction of resistive and capacitive effects) are summarized
+in Table III for the center frequency of interest (2.45 GHz).
+The total supply current is IDD = IREF + ID, and PDC =
+IDDVDD. The table demonstrates compliance with all speci-
+fications, with power dissipation and RF metrics aligning with
+the state of the art [21].
+Measurements were performed directly on-chip using a
+Cascade® microprobe station (Figure 6). S-parameters were
+measured with an HP® 8510C network analyzer. To forward-
+bias the ESD protection diodes, a DC component of ap-
+
+--- PAGE BREAK ---
+
+Fig. 5. Microphotograph of the fabricated LNA.
+Fig. 6. LNA measurement setup.
+proximately 0.6 V was superimposed at the RF terminals
+by the analyzer itself. The minimum available RF excitation
+level in this analyzer is −13 dBm [22], which exceeds the
+maximum input level for which the LNA was designed and
+lies outside its linear range. This causes differences between
+the measurements and the S-parameter behavior under nominal
+IEEE 802.15.4 operating conditions.
+Figure 7 shows the frequency response of the S-parameters,
+comparing experimental results with post-layout simulations.
+For a more realistic comparison, post-layout simulations were
+performed at the same excitation used during measurement
+(−13 dBm). Since small-signal S-parameter simulations lin-
+earize the circuit around the operating point, they do not cap-
+ture effects arising when the LNA is driven outside its linear
+range. Therefore, a large-signal simulation was employed to
+obtain S-parameters under nonlinear conditions (LSSP, Large-
+Fig. 7.
+Frequency response of S-parameters: experimental vs. post-layout
+simulations.
+Signal Scattering Parameters [23]).
+Large-signal simulations confirm how the −13 dBm exci-
+tation alters the measured results, except for input matching
+(S11). It is therefore reasonable to expect improved values
+for the other S-parameters when the LNA is driven with ap-
+propriate input levels: increased gain (S21), improved reverse
+isolation (S12), and reduced frequency shift in output matching
+(S22). Although the measured input matching degrades with
+respect to simulation, it remains better than-10 dB across
+the band, thus meeting the specification. The gain response
+exhibits a steeper roll-off above the center frequency, suggest-
+ing parasitic capacitances higher than modeled; however, the
+gain at 2.45 GHz is only 0.5 dB lower than the simulated
+value at −13 dBm. Assuming a similar difference when the
+circuit operates with input levels below −20 dBm, the gain
+is expected to remain above 10 dB under normal operating
+conditions (the simulated gain at −45 dBm is 10.7 dB).
+For the output matching, a shift toward lower frequencies
+is observed, which may be associated with process variations
+[24]. The appearance of similar behavior in other published
+works—either at the same frequency with a different technol-
+
+--- PAGE BREAK ---
+
+ogy [21] or at higher frequencies with a similar technology
+[20]—suggests a non-random common cause. Thus, this de-
+viation may also be due to parasitic capacitances larger than
+modeled (consistent with the gain behavior) and/or magnetic
+coupling among inductors [20]. Reverse isolation likewise
+degrades with respect to simulations; this has been shown
+to occur primarily due to magnetic coupling between the
+drain, source, and gate inductors [19], [20]. Nevertheless, the
+measured value remains acceptable, and the LNA satisfies the
+usual stability criterion (e.g., K > 1 and ∆< 1 [25]).
+V. CONCLUSIONS
+This work presented the analysis, design, and measurement
+of a CMOS common-source LNA with inductive degeneration,
+contributing to RF IC research in Cuba. Designed for IEEE
+802.15.4 at 2.4 GHz in 130 nm CMOS, post-layout simulations
+show 10.7 dB gain, 2.7 dB NF, 0.9 dBm IIP3, S11 and S22
+better than -20 dB, and 505 µW consumption. Measurements
+confirmed simulations within expected deviations. The results
+and discussions presented can be used in future implemen-
+tations to improve experimental performance in the desired
+frequency band.
+REFERENCES
+[1] V. Vidojkovic et al., Adaptive Multi-Standard RF Front-Ends. Springer,
+2008.
+[2] M. Schneider and C. Galup-Montoro, CMOS Analog Design Using All-
+Region MOSFET Modeling.
+Cambridge University Press, 2010.
+[3] L. Tang et al., “Channel Characterization and Link Quality Assessment
+of IEEE 802.15.4-Compliant Radio for Factory Environments,” IEEE
+Transactions on Industrial Informatics, vol. 3, no. 2, pp. 99–110, 2007.
+[4] B. Razavi, RF Microelectronics.
+Prentice Hall, 1998.
+[5] T. Lee, The Design of CMOS Radio-Frequency Integrated Circuits,
+2nd ed.
+Cambridge University Press, 2004.
+[6] P. Leroux and M. Steyaert, LNA-ESD Co-Design for Fully Integrated
+CMOS Wireless Receivers, ser. The Kluwer International Series in
+Engineering and Computer Science.
+Springer, 2005.
+[7] S. Farahani, ZigBee Wireless Networks and Transceivers.
+Elsevier,
+2008.
+[8] J. L. Gonz´alez, J. C. Cruz, R. L. Moreno, and D. V´azquez, “A Proposal
+for Yield Improvement with Power Tradeoffs in CMOS LNAs,” IEEE
+Latin America Transactions, vol. 14, no. 1, pp. 13–19, 2016.
+[9] J. L. Gonz´alez, R. L. Moreno, J. C. Cruz, and D. V´azquez, “Energy-
+aware low-power CMOS LNA with process-variations management,”
+Active and Passive Electronic Components, vol. 2016, 2016. [Online].
+Available: http://dx.doi.org/10.1155/2016/8351406
+[10] A. Karanicolas, “A 2.7-V 900-MHz CMOS LNA and Mixer,” IEEE
+Journal of Solid-State Circuits, vol. 31, no. 12, pp. 1939–1944, 1996.
+[11] P. Andreani and H. Sjoland, “Noise Optimization of an Inductively
+Degenerated CMOS Low Noise Amplifier,” IEEE Transactions on
+Circuits and Systems II: Analog and Digital Signal Processing, vol. 48,
+no. 9, pp. 835–841, 2001.
+[12] D. Shaeffer and T. Lee, “A 1.5-V, 1.5-GHz CMOS Low Noise Ampli-
+fier,” IEEE Journal of Solid-State Circuits, vol. 32, no. 5, pp. 745–759,
+1997.
+[13] L. Belostotski and J. Haslett, “Noise Figure Optimization of Inductively
+Degenerated CMOS LNAs with Integrated Gate Inductors,” IEEE Trans-
+actions on Circuits and Systems I: Regular Papers, vol. 53, no. 7, pp.
+1409–1422, 2006.
+[14] V. Aparin, G. Brown, and L. Larson, “Linearization of CMOS LNA’s
+via Optimum Gate Biasing,” in Proceedings of the IEEE International
+Symposium on Circuits and Systems (ISCAS), 2004.
+[15] G. Niu et al., “Intermodulation Linearity Characteristics of CMOS
+Transistors in a 0.13 µm Process,” in IEEE RFIC Symposium, 2005.
+[16] B. Toole, C. Plett, and M. Cloutier, “RF Circuit Implications of Moderate
+Inversion Enhanced Linear Region in MOSFETs,” IEEE Transactions
+on Circuits and Systems I: Regular Papers, vol. 51, no. 2, pp. 319–328,
+2004.
+[17] N. Trung-Kien et al., “A Low-Power RF Direct-Conversion Re-
+ceiver/Transmitter for 2.4-GHz-Band IEEE 802.15.4 Standard in 0.18-
+µm CMOS Technology,” IEEE Transactions on Microwave Theory and
+Techniques, vol. 54, no. 12, pp. 4062–4071, 2006.
+[18] R. Fiorelli et al., “2.4-GHz Single-Ended Input Low-Power Low-Voltage
+Active Front-End for ZigBee Applications in 90 nm CMOS,” in 20th
+European Conference on Circuit Theory and Design (ECCTD), 2011.
+[19] C. Kim et al., “Design Guide of Coupling Between Inductors and
+its Effect on Reverse Isolation of a CMOS LNA,” in IEEE MTT-S
+International Microwave Symposium Digest, 2000.
+[20] V. Subramanian and G. Boeck, “On-Chip Electromagnetic Interactions in
+CMOS Cascode LNAs,” in IEEE RF Integration Technology Workshop
+(RFIT), 2007.
+[21] R. Fiorelli, F. Silveira, and E. Peralias, “MOST Moderate-Weak-
+Inversion Region as the Optimum Design Zone for CMOS 2.4-GHz
+CS-LNAs,” IEEE Transactions on Microwave Theory and Techniques,
+vol. 62, no. 3, pp. 556–566, 2014.
+[22] HP 8510C Network Analyzer, Hewlett-Packard Company, 1999.
+[23] V. Rizzoli, A. Lipparini, and F. Mastri, “Computation of Large-Signal
+S-parameters by Harmonic-Balance Techniques,” Electronics Letters,
+vol. 24, no. 6, pp. 329–330, 1988.
+[24] J. Gonz´alez Rios et al., “Analysis of Process Variations’ Impact on a
+2.4 GHz 90 nm CMOS LNA,” in IEEE Latin American Symposium on
+Circuits and Systems (LASCAS), Cusco, Peru, 2013.
+[25] G. Gonz´alez, Microwave Transistor Amplifiers: Analysis and Design,
+2nd ed.
+New Jersey: Prentice Hall, 1997.

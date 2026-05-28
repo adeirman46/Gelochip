@@ -1,0 +1,1423 @@
+arXiv:1310.2372v4  [astro-ph.CO]  7 Jun 2019
+Mon. Not. R. Astron. Soc. 000, 000–000 (0000)
+Printed 10 June 2019
+(MN LATEX style ﬁle v2.2)
+Bias-Hardened CMB Lensing with Polarization
+Toshiya Namikawa1⋆and Ryuichi Takahashi2
+1Yukawa Institute for Theoretical Physics, Kyoto University, Kyoto 606-8502, Japan
+2Faculty of Science and Technology, Hirosaki University, 3 bunkyo-cho, Hirosaki, Aomori, 036-8561, Japan
+10 June 2019
+ABSTRACT
+Polarization data will soon provide the best avenue for measurements of the CMB
+lensing potential, although it is potentially sensitive to several instrumental eﬀects
+including beam asymmetry, polarization angle uncertainties, sky coverage, as well as
+analysis choices such as masking. We derive “bias-hardened” lensing estimators to mit-
+igate these eﬀects, at the expense of somewhat larger reconstruction noise, and test
+them numerically on simulated data. We ﬁnd that the mean-ﬁeld bias from masking
+is signiﬁcant for the EE quadratic lensing estimator, however the bias-hardened esti-
+mator combined with ﬁltering techniques can mitigate the mean ﬁeld. On the other
+hand, the EB estimator does not signiﬁcantly suﬀer from the mean-ﬁeld from the point
+source masking and survey window function. The contamination from beam asymme-
+try and polarization angle uncertainties, however, can generate mean-ﬁeld biases for
+the EB estimator. These can also be mitigated using bias-hardened estimators, with at
+most a factor of ∼3 degradation of noise level compared to the conventional approach.
+Key words: gravitational lensing: weak – cosmic microwave background – cosmology:
+observations.
+INTRODUCTION
+On arcminute scales, the CMB temperature and polariza-
+tion anisotropies are distorted by gravitational lensing. For
+the past several years, CMB observations have been used to
+make increasingly precise measurements of this eﬀect, both
+with cross-correlations between CMB and large-scale struc-
+ture (Smith et al. 2007; Hirata et al. 2008; Bleem et al. 2012;
+Sherwin et al. 2012; Planck Collaboration 2013c; Holder
+et al. 2013; Geach et al. 2013; Hanson et al. 2013) as well as
+CMB maps alone (Das et al. 2011; van Engelen et al. 2012;
+Das et al. 2013; Planck Collaboration 2013b; Hanson et al.
+2013).
+These lensing measurements are already being used to
+constrain cosmology (e.g., Sherwin et al. 2011; van Enge-
+len et al. 2012; Planck Collaboration 2013a; Battye & Moss
+2013; Namikawa et al. 2013; Wilkinson et al. 2013), future
+measurements are expected to quantify the sum of neutrino
+masses (e.g., Namikawa et al. 2010; Joudaki & Kaplinghat
+2012; Abazajian et al. 2013 and refs. therein), and provide
+even tighter constraints on cosmic strings (e.g.,Namikawa
+et al. 2012; Yamauchi et al. 2012, 2013), primordial non-
+Gaussianity (e.g., Jeong et al. 2009; Takeuchi et al. 2012),
+and other fundamental physics. Lensing potential estimates
+should also be important for delensing (Knox & Song 2002;
+⋆E-mail: namikawa@yukawa.kyoto-u.ac.jp
+Kesden et al. 2002) to detect inﬂationary gravitational waves
+at > 10 if the tensor-to-scalar ratio is less than r ∼0.01.
+Given an observed CMB, estimators to reconstruct the
+lensing potential have been derived by several authors (e.g.,
+Zaldarriaga & Seljak 1999; Seljak & Zaldarriaga 1999; Hu
+& Okamoto 2002; Okamoto & Hu 2003; Hirata & Seljak
+2003; Namikawa et al. 2012). These estimators all utilize
+the fact that a ﬁxed lensing potential introduces statis-
+tical anisotropy into the observed CMB, in the form of
+a correlation between the CMB temperature/polarization
+anisotropies and their gradients. With a large number of
+observed CMB modes, this correlation may be used to form
+estimates of the lensing potential. The power spectrum of
+the lensing potential, which is of more interest for cosmolog-
+ical parameter constraints, can then be estimated from the
+power spectrum of these estimates (which probes the non-
+Gaussian 4-point function of the lensed CMB). For CMB
+observations with noise levels below 5µK ·arcmin, B-mode
+polarization is a particularly powerful probe of lensing as it
+is believed to be dominated by the lensing contribution on
+scales ≳100.
+For realistic CMB observations, there are so called
+mean-ﬁeld
+biases
+standard
+minimum-variance
+quadratic lensing estimators due to non-lensing sources of
+statistical anisotropy such as masking, inhomogeneous map
+noise, beam asymmetry, or spatially-varying errors in the
+detector polarization angles. With perfect statistical under-
+standing of the unlensed CMB and the instrument used to
+
+--- PAGE BREAK ---
+
+T. Namikawa et al.
+observe it, these biases may be corrected for, however given
+imperfections in our understanding of these quantities it can
+be useful to design estimators which are less sensitive to
+them.
+Approaches have been proposed in the literature to mit-
+igate some of the mean-ﬁeld biases. The mean ﬁelds from
+masking in temperature, for example, have been studied by
+several authors, with approaches including simply avoiding
+mask boundaries (Hirata et al. 2008; Carvalho & Tereno
+2011), or using inpainting/apodization (Perotto et al. 2010;
+Plaszczynski et al. 2012; Benoit-Levy et al. 2013) to smooth
+them. These techniques could also be utilized for polariza-
+tion, in conjunction with “pure” estimators for E and B
+modes (Smith 2006; Smith & Zaldarriaga 2007). For tem-
+perature case, the mean-ﬁeld bias from inhomogeneous map
+noise is also studied in Hanson et al. (2009).
+In this paper, we extend the bias-hardened estimators
+proposed in our previous work (Namikawa et al. 2013) to the
+case of lensing reconstruction with polarization, construct-
+ing lensing estimators which can have signiﬁcantly smaller
+mean-ﬁeld biases than the standard minimum-variance esti-
+mators, with minimal loss of signal-to-noise.
+This paper is organized as follows. In Sec. 2, we brieﬂy
+summarize quadratic estimators for the lensing potential us-
+ing CMB temperature and polarization. In Sec. 3, we discuss
+several possible mean-ﬁeld biases which must be corrected
+for, and then construct corresponding bias-hardened esti-
+mators. In Sec. 4, we demonstrate the usefulness of bias-
+hardened estimators using numerical simulations. Sec. 5
+summarizes our results.
+Finally, we note that when estimating the power spec-
+trum of the lensing potential, there is an additional worri-
+some bias, the reconstruction noise bias, which must be ac-
+counted for. This bias is analogous to shape-noise in galaxy
+weak lensing measurements; in principle it can be avoided by
+forming independent lensing estimates from subsets of the
+observed sky modes, for example using an odd/even parity
+split (Hu 2001) or the in/out Fourier split (Sherwin & Das
+2010). There is, however, usually a substantial loss of signal-
+to-noise associated with such splits. This bias is less of an
+issue in polarization than in temperature, because it falls
+with the instrumental noise level for estimates which utilize
+B-mode polarization, and can also be avoided using cross-
+spectra between diﬀerent lensing estimates. In appendix A
+we present a polarized derivation of the optimal trispectrum-
+estimator approach to correcting for this bias, also extending
+our discussion of this approach for the temperature case in
+(Namikawa et al. 2013).
+QUADRATIC LENSING
+RECONSTRUCTION FROM CMB MAPS
+Lensing eﬀect on CMB anisotropies
+The distortion eﬀect of lensing on the primary temperature
+and polarization anisotropies is expressed by a remapping
+of the primary anisotropies. Denoting the primary CMB
+anisotropies at position ˆn = (θ, ϕ) on the last scattering
+surface as Ξ(s)(ˆn), where s = 0 denotes the temperature,
+Ξ(0) = Θ, while s = ±2 are the spin-2 combination of
+the Stokes parameter, Ξ(±2) = Q ± iU ≡P ±, the lensed
+Table 1. The weight functions for lensing potentials, fx,(XY )
+Note that L′ = ℓ−L.
+Lensing
+x {ℓaLb eCΘΘ
++ ℓaL′
+L′ }
+x {ℓaLb eCΘE
+cos 2ϕL,L′ + ℓaL′
+L′ }
+x {ℓaLb e
+sin 2ϕL,L′
+x {ℓaLb eCEE
++ ℓaL′
+L′ } cos 2ϕL,L′
+x {ℓaLb eCEE
++ ℓaL′
+L′ } sin 2ϕL,L′
+x {ℓaLb eCBB
++ ℓaL′
+L′ } cos 2ϕL,L′
+anisotropies in a direction ˆn, are given by (e.g., Lewis &
+Challinor 2006)
+eΞ(s)(ˆn) = Ξ(s)(ˆn + d(ˆn))
+= Ξ(s)(ˆn) + da(ˆn)∂aΞ(s)(ˆn) + O(|d|2) .
+The two-dimensional vector, da(ˆn) (a = θ, ϕ), is the deﬂec-
+tion angle, and, in terms of parity symmetry, we can decom-
+pose it into two terms, known as gradient (even parity) and
+curl (odd parity) modes (e.g., Hirata & Seljak 2003; Cooray
+et al. 2005; Namikawa et al. 2012):
+da(ˆn) = ∂aφ(ˆn) + ǫab∂b̟(ˆn) =
+x=φ,̟
+x ∂bx(ˆn) ,
+where the symbol, cab
+φ , is the Kronecker delta and cab
+̟ = ǫab
+is the two-dimensional Levi-Chivita symbol.
+Estimator for lensing ﬁelds
+The temperature anisotropies are distorted by lensing as
+(e.g., Hu & Okamoto 2002) 1
+eΘℓ= Θℓ−
+x=φ,̟
+Z d2L
+(2π)2 cab
+x La(b−Lb)φLΘℓ−L .
+On the other hand, for polarization we usually use the rota-
+tionally invariant combination, i.e., the E and B mode polar-
+izations, instead of the spin-2 quantity (e.g., Hu & Okamoto
+2002):
+Eℓ± iBℓ= −
+d2 ˆn e−i ˆn·ℓP ±(ˆn)e∓2iϕℓ,
+where ϕℓis the angle of ℓmeasured from the x-axis. With
+deﬂection angle given in Eq. (2) , the lensed E and B modes
+1 Our deﬁnitions of Fourier transform and its inverse for arbitrary
+quantity X(ˆn) on a map are
+d2 ˆn e−i ˆn·ℓX(ˆn) ,
+X(ˆn) =
+(2π)2 eiℓ·ˆn Xℓ.
+These are the same as Hu & Okamoto (2002) but diﬀerent from,
+e.g., Lewis & Challinor (2006).
+
+--- PAGE BREAK ---
+
+Bias-Hardened CMB Lensing with Polarization
+are given by (e.g., Hu & Okamoto 2002; Cooray et al. 2005;
+Namikawa et al. 2012)
+eEℓ= Eℓ−
+Z d2L
+(2π)2 (LaL′
+aφL + ǫabLaL′
+b̟ℓ)
+× (EL′ cos 2ϕL′,ℓ−BL′ sin 2ϕL′,ℓ) ,
+eBℓ= Bℓ−
+Z d2L
+(2π)2 (LaL′
+aφL + ǫabLaL′
+b̟ℓ)
+× (BL′ cos 2ϕL′,ℓ+ EL′ sin 2ϕL′,ℓ) ,
+with L′ = ℓ−L and ϕℓ1,ℓ2 ≡ϕℓ1 −ϕℓ2.
+Denoting X and Y as Θ, E or B, the oﬀ-diagonal co-
+variance includes the gradient and curl modes of deﬂections
+XL eYL′⟩CMB = f x,(XY )
+where ⟨· · ·⟩CMB denotes the ensemble average over unlensed
+Θ, E or B, with a ﬁxed realization of the gradient and
+curl modes, and we ignore the higher-order terms of lens-
+ing ﬁelds. The weight functions for gradient and curl modes
+are summarized in Table 1 (Hu & Okamoto 2002; Cooray
+et al. 2005; Namikawa et al. 2012). Note that, to mitigate the
+higher-order biases (Hanson et al. 2011), the lensed power
+spectrum is used rather than the unlensed one (Lewis et al.
+2011; Anderes 2013): With a quadratic combination of X
+and Y ﬂuctuations, the lensing estimators are then formed
+as (e.g., Hu & Okamoto 2002),
+bx(XY )
+2Ax,(XY )
+Z d2L
+(2π)2 gx,(XY )
+XLY L′ ,
+(10)
+where, with the ratio of power spectra, rXY
+= bCXY
+/ bCXX
+we deﬁne 2
+gx,(XY )
+[f x,(XY )
+]∗−rXY
+rY X
+L′ [f x,(XY )
+ℓ,L′
+1 −rXY
+L′ rY X
+rY X
+(11)
+Ax,(XY )
+(Z d2L
+(2π)2
+gx,(XY )
+f x,(XY )
+2 bCXX
+bCY Y
+(12)
+The inverse-variance ﬁltered Fourier modes are given by
+bCXX
+(13)
+For the cosmic variance case, the estimated power spectrum
+reduces to the lensed power spectrum.
+BIAS-HARDENED LENSING ESTIMATORS
+There are many eﬀects which can generate mode-coupling
+between observed Θ, E and B modes, leading to mean-ﬁeld
+biases for the conventional lensing estimators. In the follow-
+ing, we compute the non-lensing statistical anisotropy due
+to masking, inhomogeneous noise (and/or unresolved point
+sources), and polarization angle (or scan strategy) system-
+atics in the presence of beam asymmetry. Then, in order to
+mitigate the mean-ﬁeld biases from these systematics, we
+construct bias-hardened estimator analogous to those of our
+previous work (Namikawa et al. 2013).
+2 Note here that the normalization, Ax,(XY )
+, is independent of
+the direction of ℓ, so we write the normalization as Ax,(XY )
+Table 2. The weight functions for masking, fM,(XY )
+. Note that
+L′ = ℓ−L.
+Masking
+cos 2ϕL,L′ −e
+sin 2ϕL,L′
+−( e
+L′ ) cos ϕL,L′
+−( e
+L′ ) sin ϕL,L′
+−( e
+L′ ) cos ϕL,L′
+Non-lensing sources in the oﬀ-diagonal
+covariance
+3.1.1
+Masking
+Let us ﬁrst consider the modiﬁcation due to a window func-
+tion, M(ˆn), which is deﬁned to be zero for an unmasked
+region and otherwise unity:
+bΘ(ˆn) = [1 −M(ˆn)]eΘ(ˆn) ,
+(14)
+bP ±(ˆn) = [1 −M(ˆn)] eP ±(ˆn) .
+(15)
+Such masking mixes E and B modes, leading to mode-
+coupling in temperature and polarization as
+bΘℓ= eΘℓ−
+Z d2L
+(2π)2 ML eΘL′ ,
+(16)
+bEℓ= eEℓ−
+Z d2L
+(2π)2 ML
+eEL′ cos ϕL′,L −eBL′ sin ϕL′,L
+(17)
+bBℓ= eBℓ−
+Z d2L
+(2π)2 ML
+eBL′ cos ϕL′,L + eEL′ sin ϕL′,L
+(18)
+With the above equations, the resultant oﬀ-diagonal covari-
+ance can be written as
+XL bYL′⟩= Mℓf M,(XY )
++ O(M 2) ,
+(19)
+where ⟨· · ·⟩denotes the usual ensemble average, and the
+weight functions are summarized in Table 2. The above
+equation implies that the resultant lensing estimator has
+the mean-ﬁeld bias due to the mask ﬁeld, Mℓ.
+3.1.2
+Inhomogeneous noise/unresolved point-source
+Let us next consider the modiﬁcation due to addition of
+arbitrary sky signals, nT (ˆn), nQ(ˆn) and nU(ˆn), which are
+uncorrelated between pixels – this approach can be used
+to model, e.g., residual point sources and inhomogeneous
+instrumental noise in temperature and polarization maps.
+The corresponding Θ, E and B modes are given by
+d2 ˆn e−i ˆn·ℓnT (ˆn) ,
+(20)
+ℓ± inB
+d2 ˆn e−i ˆn·ℓ[nQ ± inU](ˆn)e∓2iϕℓ.
+(21)
+
+--- PAGE BREAK ---
+
+T. Namikawa et al.
+Table 3. Same as Table 2, but for polarization angle, fψ(n,p),(XY )
+. For clarity, the exponential is expressed as “exp”.
+p = 0
+B(ΘΘ)
+L,(n,0) e
++ B(ΘE)
+L,(n,0) eCΘE
+ inϕ−L,ℓ
++ (L ↔L′)
+B(ΘΘ)
+L′,(n,0) e
++ B(ΘE)
+L′,(n,0) e
+ exp  inϕ−L′,ℓ
+B(ΘB)
+L′,(n,0) e
+ inϕ−L′,ℓ
+p = ±1
+B(EΘ)
+L,(n,p) e
++ B(EE)
+L,(n,p) e
+ inϕ−L,ℓ± 2iϕ−L,L′
+B(BΘ)
+L,(n,p) e
++ B(BE)
+L,(n,p) e
+ exp  inϕ−L,ℓ± 2iϕ−L,L′
+B(EΘ)
+L,(n,p) e
++ B(EE)
+L,(n,p) e
+ exp  inϕ−L,ℓ± 2iϕ−L,L′ + (L ↔L′)
+B(BΘ)
+L,(n,p) e
++ B(BE)
+L,(n,p) e
+ inϕ−L,ℓ± 2iϕ−L,L′
++ B(EB)
+L′,(n,p) e
+ inϕ−L′,ℓ± 2iϕ−L′,L
+B(BB)
+L,(n,p) e
+exp  inϕ−L,ℓ± 2iϕ−L,L′ + (L ↔L′)
+Assuming that ⟨nX(ˆn)nY (ˆn′)⟩= S(X)(ˆn)δXY δ(ˆn −ˆn′),
+SΘQ = SΘU = 0 and S(QQ) = S(UU) ≡S(P ), we have
+L′⟩= S(Θ)
+L′⟩= S(P )
+cos 2ϕL,L′ ,
+L′⟩= S(P )
+sin 2ϕL,L′ ,
+L′⟩= S(P )
+cos 2ϕL,L′ ,
+where we use L + L′ = ℓand deﬁne
+S(X)
+d2 ˆn e−i ˆn·ℓS(X)(ˆn) .
+(22)
+The oﬀ-diagonal covariance then has additional terms
+XL bYL′⟩= ⟨nX
+L nY
+L′⟩= f S,(XY )
+S(X)
+(23)
+where the weight function is f S,(ΘΘ)
+= 1, f S,(EE)
+f S,(BB)
+= cos 2ϕL,L′, and f S,(EB)
+= sin 2ϕL,L′.
+3.1.3
+Polarization angle with beam asymmetry
+Instrumental eﬀects such as beam asymmetry and errors in
+the detector polarization angles are also a potential concern
+for lensing reconstruction. Here we consider the eﬀect of a
+spatial variation in the polarization angle in the presence of
+the ellipticity in beam shape.
+Denoting
+temperature
+polarization
+anisotropies as Ξ(0) = Θ and Ξ(±2) = Q ± iU = P ±,
+we assume that the beam convolved anisotropies for the
+i-th pixel are expressed as follows:
+Ξ(s)(ˆni) =
+d2 ˆn R(ˆni −ˆn, α(ˆni))Ξ(s)(ˆn) ,
+(24)
+where s = 0 (temperature) or ±2 (polarization), and R
+denotes the beam-response function whose shape is inde-
+pendent of the measurements but whose orientation angle,
+α(ˆni) (Shimon et al. 2008), is dependent on both the pixels
+and measurements. The beam-response function, R, is given
+R(r, α(ˆni)) =
+Z d2L
+(2π)2 eiL·rRL(ˆni) ,
+(25)
+where the Fourier counterpart of the beam-response function
+is expanded as (Shimon et al. 2008)
+RL(ˆni) =
+n=−∞
+bL,n e−inα(ˆni) einϕL .
+(26)
+Here, by denoting the Bessel function as, Jn, the coeﬃcients
+are given by
+bL,n = in
+dr rJn(Lr)
+Z dϕr
+R(r, 0)e−inϕr .
+(27)
+Note that bL,−n = (−1)nbL,n, and if the shape of beam func-
+tion, R(r, 0), does not depend on the angle, ϕr, e.g., a circu-
+lar Gaussian beam, the coeﬃcients are non-zero only when
+n = 0. The beam-convolved anisotropies are then rewritten
+Ξ(s)(ˆni) = is
+n=−∞
+e−inα(ˆni)
+Z d2L
+(2π)2 bL,nΞ(s)
+L eiL·ˆni ei(n+s)ϕL ,
+(28)
+where Ξ(0) = Θ and Ξ(±2) = E ± iB.
+For a two-beam experiment, as shown in Shimon
+et al. (2008), the measured temperature and polarization
+anisotropies are distorted by the polarization angle and dif-
+ference of beam shapes between the ﬁrst and second detec-
+tor. If the anisotropies are measured several times at each
+
+--- PAGE BREAK ---
+
+Bias-Hardened CMB Lensing with Polarization
+pixel, the optimal estimators for temperature and polariza-
+tion anisotropies are given by (Shimon et al. 2008)
+bΞ(0) = ⟨Ξ(0)
++ ⟩pix + 1
+2⟨Ξ(−2)
+e2i bαt e−2iδt⟩pix
+2⟨Ξ(+2)
+e−2i bαt e2iδt⟩pix ,
+(29)
+bΞ(±2) = ⟨Ξ(±2)
+e±2iδt bΨ±
+t ⟩pix + ⟨Ξ(∓2)
+e∓2iδt e±4i bαt bΨ±
+t ⟩pix
++ 2⟨Ξ(0)
+−e±2i bαt bΨ±
+t ⟩pix ,
+(30)
+where the arguments, ˆni, are dropped. The bracket, ⟨· · ·⟩pix,
+denotes the average over all measurements in each pixel, and
+bαt is the estimated polarization angle for t-th measurement
+at each pixel, which has small polarization angle error δt ≡
+bαt −αt. We also deﬁne
+bΨ±1
+1 −e∓4i bαt⟨e±4i bαt⟩pix
+1 −⟨e∓4i bαt⟩pix⟨e±4i bαt⟩pix .
+(31)
+The subscripts, + and −, in Ξs are the total and diﬀerence
+of anisotropies obtained from the two detectors:
+Ξ(s)
++ = Ξ(s)
+± Ξ(s)
+(32)
+Note that, if the temperature and polarization anisotropies
+are measured only one time for each pixel, the quantities,
+bΨ±1
+t , in Eqs. (29) and (30) should be replaced with unity.
+With Eqs. (29) and (30), taking into account the po-
+larization angle involved in Ξ(s), the measured temperature
+and polarization in Fourier space are given by
+n=−∞
+p=0,±1
+Y =Θ,E,B
+Z d2L
+(2π)2
+× B(XY )
+L,(n,p) eYLψ(n,p)
+einϕL,L′ e2ipϕL,ℓ,
+(33)
+where X = Θ, E or B, the quantities, ψ(n,p)
+(p = 0, ±1), are
+deﬁned as the Fourier transform of the following quantities:
+ψ(n,p)(ˆni) = ⟨e−inbαt(ˆni) ei(n+2p)δt(ˆni) bΨp
+t (ˆni)⟩pixeinϕL ,
+(34)
+with bΨ0
+t = 1. Note that ψ(n,p)
+is the spin-(−n) transform
+of spin-(−n) quantity, ⟨e−inbαt(ˆni) bΨp
+t (ˆni)⟩pix, in the limit of
+δi = 0 for all measurements. The coeﬃcients, B(ZZ′)
+L,(n,p), are
+given by
+B(ΘΘ)
+L,(n,0) = b+
+B(ΘE)
+L,(n,0) = −
+L,n+2 + b−
+L,n−2
+B(ΘB)
+L,(n,0) = i
+L,n+2 −b−
+L,n−2
+B(EΘ)
+L,(n,±1) = −b−
+L,n±2
+B(EE)
+L,(n,±1) =
+L,n + b+
+L,n±4
+B(EB)
+L,(n,±1) = ±i
+L,n −b+
+L,n±4
+B(BY )
+L,(n,±1) = ∓iB(EY )
+L,(n,±1) ,
+(35)
+where b±
+L,n is the total and diﬀerence of beam transfer func-
+tions for two detectors:
+L,n =
+b(1)
+L,n ± b(2)
+(36)
+Note that, in full sky and only for temperature case, Eq. (33)
+is consistent with Hanson et al. (2010).
+In Fourier space, we break ψ(n,p)
+into constant and ﬂuc-
+tuation pieces
+ψ(n,p)
+= C(n,p)δℓ=0 + (ψ(n,p)
+)ani ,
+(37)
+with the assumption that (ψ(n,p)
+)ani are small. Then,
+Eq. (33) is rewritten as
+n=−∞
+p=0,±1
+Y =Θ,E,B
+B(XY )
+,(n,p) eYℓeinϕℓC(n,p)
+Z d2L
+(2π)2 B(XY )
+L,(n,p) eYL(ψ(n,p)
+)ani einϕL,L′ e2ipϕL,ℓ
+(38)
+For realistic cases, b+
+L,n/b+
+L,0 ≪1 for n ̸= 0, b−
+L,n ≪b+
+L,n and
+δi ≪1. Under these approximations, the dominant term
+in the ﬁrst term of Eq. (38) becomes b+
+,0Xℓ. Assuming that
+,0 = 1, the convolution in Eq. (38) leads to an oﬀ-diagonal
+covariance given by
+XL bYL′⟩=
+n̸=0
+p=0,±1
+f ψ(n,p),(XY )
+(ψ(n,p)
+)ani
++ O[(ψ(n,p))2
+ani] ,
+(39)
+where the weight functions are summarized in Table 3. Since
+ψ(n,p) is a spin-n quantities, it is useful to deﬁne a rotational-
+invariant quantities:
+ψ(n,e)
+= ψ(−n,0)
++ (−1)nψ(n,0)
+(40)
+ψ(n,b)
+= −i[ψ(−n,0)
+−(−1)nψ(n,0)
+(41)
+ψ(n,ε)
+= ψ(−n,+1)
++ (−1)nψ(n,−1)
+(42)
+ψ(n,β)
+= −i[ψ(−n,+1)
+−(−1)nψ(n,−1)
+(43)
+where the above quantities satisfy (ψ(n,ε)
+)∗= ψ(n,ε)
+(ψ(n,β)
+)∗= ψ(n,β)
+. The corresponding weight function is
+then given as
+f (n,e)
+= f (−n,0)
++ (−1)nf (n,0)
+(44)
+f (n,b)
+= −i[f (−n,0)
+−(−1)nf (n,0)
+(45)
+f (n,ε)
+= f (−n,+1)
++ (−1)nf (n,−1)
+(46)
+f (n,β)
+= −i[f (−n,+1)
+−(−1)nf (n,−1)
+(47)
+For b+
+,0 ̸= 1, we can utilize f ψ(n,p),(XY )
+/(b+
+L,0b+
+L′,0) for the
+weight function. Note that the above derivations cover sim-
+pler cases; if the beam of two detectors are the same, b−= 0,
+with Gaussian shape, bL,n ∝δn,0, and bαt is the same for all
+measurements, we obtain bΞ(±2)(ˆn) = Ξ(±2)(ˆn)e±2iδ(ˆn). We
+also note that, for only temperature case, the results are
+consistent with our previous work.
+Mean-ﬁeld biases
+All of the above contaminations lead to the mean-ﬁeld bias
+for lensing estimator, bx(XY )
+. Omitting the subscript (XY ),
+
+--- PAGE BREAK ---
+
+T. Namikawa et al.
+the mean-ﬁeld biases are given by
+⟨bxℓ⟩= Axx
+Z d2L
+(2π)2 gx
+ℓ,L⟨XLY L′⟩
+= Axx
+Z d2L
+(2π)2
+ℓ,Lf y
+ℓ,Lyℓ
+ℓyℓ,
+(48)
+where y = M, S or ψ(n,p), and we deﬁne the response func-
+tion Rℓand normalization Aℓas:
+= Axx
+Z d2L
+(2π)2 gx
+ℓ,Lf y
+ℓ,L′
+(49)
+Bias-hardened estimator
+Estimators which are bias-hardened against the eﬀects above
+many be constructed analogously to the temperature case,
+i.e., we ﬁrst construct a naive estimator for a given eﬀect y
+byℓ= Ayy
+Z d2L
+(2π)2 gy
+ℓ,LXLY L′ ,
+(50)
+where gy
+ℓ,L and Ayy
+are deﬁned as Eq. (11) and (12), respec-
+tively, but using the weight function, f y,(XY )
+, instead of the
+lensing weight function, f x,(XY )
+(x = φ, ̟). This estimator
+for yℓis in turn biased by lensing. We may then obtain a
+bias-hardened estimator as
+bx(BHE)
+{R−1
+ℓ}x,ybyℓ.
+(51)
+DEMONSTRATION OF BIAS-HARDENED
+ESTIMATOR FOR MEAN-FIELD BIAS
+In this section, we discuss whether the bias-hardened esti-
+mator for lensing ﬁelds can be used as a cross-check for con-
+ventional estimator. For this purpose, we ﬁrst compute the
+case where the mean ﬁeld is generated only from the eﬀect of
+masking. One concern here is the validity of linear-order ap-
+proximation. That is, to derive bias-hardened estimator, we
+have ignored any higher-order terms of ML (and, of course,
+for other non-lensing ﬁelds).
+Simulated Maps and Analysis
+We use simulated polarization maps produced using meth-
+ods similar to our previous work (Namikawa et al. 2013).
+For lensing reconstruction, we use 100 realizations of lensed
+Stokes Q and U maps, simulated on a 5× 5 deg2 patch. The
+details of the method used to generate these lensed maps
+are described in Appendix B. To simulate the masking of
+point sources we create masks by cutting 200 regions of ran-
+domly located 10′ × 10′ squares. Note that the area covered
+by the point-source masks is ∼5 % of total area, and the
+percentage roughly corresponds to that used in the SPT po-
+larization analysis (Hanson et al. 2013). To consider exper-
+iments with high-angular resolution such as SPTpol, Polar-
+Bear and ACTPol, as well as to avoid contamination by the
+Sunyaev-Zel’dovich eﬀect (Zel’dovich & Sunyaev 1969) and
+unresolved point sources, we assume a delta function instru-
+mental beam. The E and B modes multipoles are used at
+2 ≤≤3000. We assume homogeneous map noise, with a level
+of 0.01 µK-arcmin. Note that, even in the presence of an in-
+homogeneous noise, by combining the bias-hardened estima-
+tor described in Sec. 3.1.2, the mean ﬁeld due to inhomoge-
+neous noise would be reduced as already applied to the lens-
+ing reconstruction with Planck temperature map (Planck
+Collaboration 2013b), and the qualitative result would be
+similar to that obtained in this paper.
+Filtering
+For the conventional estimator approach, we experiment
+with the following ﬁltering techniques to suppress the mask-
+mean ﬁeld: apodization of the survey boundary and C−1
+ﬁltering for the point-source holes.
+4.2.1
+Apodization window function
+In our analysis, we use the following analytic apodization
+function whose value and derivatives are zero at the bound-
+aries of the survey region:
+W (x,y; s0) = w(x; s0)w(y; s0)M(x, y) ,
+(52)
+where w(s; s0) is a sine apodization function given by
+w(s; s0) =
+|s| < as0
+1 −|s|/a
+1 −s0
+2π sin
+2π 1 −|s|/a
+1 −s0
+as0 ≤|s| < a
+a ≤|s|
+(53)
+and M(x, y) represents the point-source mask, i.e., 0 at the
+presence of (resolved) point sources, and otherwise 1. The
+parameter, s0, indicates the width of the region where the
+apodization is applied.
+4.2.2
+C−1 ﬁltering
+minimum-variance
+ﬁltering
+which
+emerges
+from
+likelihood-based derivations of lensing estimators is known
+as C−1 ﬁltering. The inverse-variance ﬁltered Fourier modes,
+Xℓ= (Eℓ, Bℓ), are obtained by solving
+1 + C1/2N−1C1/2i
+(C1/2 ¯
+X) = C1/2N−1 ˆ
+(54)
+where
+X is a vector whose components are ¯
+Xℓ, C is the
+covariance of the CMB anisotropies with
+{C}ℓi,ℓj = δℓi−ℓj
+CEE
+(55)
+and N = ⟨n†n⟩is the covariance matrix for the instrumen-
+tal noise. The noise covariance matrix in Fourier space is
+obtained from that in real space as
+N −1 = Y †N
+−1Y ,
+(56)
+where the pointing matrix, Y , is deﬁned by
+{Y }ˆni,ℓj = exp(i ˆni · ℓj) exp(−2ϕℓj )
+(57)
+
+--- PAGE BREAK ---
+
+Bias-Hardened CMB Lensing with Polarization
+Figure 1. Left: Mean-ﬁeld power spectrum for the gradient-mode EE estimator, Mφ,(EE)
+, estimated with 100 lensed simulated maps.
+The left panel shows results with the conventional estimator, varying the apodization parameter, s0, as 0.0 and 0.5. The Monte-Carlo
+noise ﬂoors (dashed line) are shown comparing with the mean-ﬁeld power spectrum. The theoretical lensing power spectrum is also shown
+as a solid gray line. Note that the reconstruction is performed on (5 deg)2, with E-mode multipoles ranges of, 2 ≤≤3000. Right: Same
+as left panel but with the bias-hardened estimator.
+Figure 2. Same as Fig. 1, but for the EB case.
+Figure 3. Mean-ﬁeld power spectrum for curl modes with EE (left) and EB (right) estimators, respectively. The Monte-Carlo noise
+ﬂoors are shown with dashed lines.
+
+--- PAGE BREAK ---
+
+T. Namikawa et al.
+Figure 4. Left: Comparison of the noise level of lensing reconstruction between the case with and without the bias-hardened estimator
+for EB case. The noise level of the bias-hardened estimator, Nφ
+ℓ, is computed from Eq. (67). The labels, n = 2 and n = 4, denote the
+temperature to polarization leakage, and E-B mixing by the rotation of the coordinate system, respectively (see text for the deﬁnitions
+and details). Right: The ratio of the noise level described in the left panel compared to the case w/o the bias-hardened estimator,
+ℓ/Aφφ
+Note that the matrix in the above equation describes the
+transformation of (Eℓ, Bℓ)t to (Eℓ+ iBℓ, Eℓ−iBℓ)t. The
+mask is incorporated by setting the noise level of masked
+pixels to inﬁnity, and therefore the inverse of the noise co-
+variance in real space N
+−1 to zero for masked pixels. The
+inversion of the matrix on the left-hand side of Eq. (54) can
+be numerically costly, but may be evaluated using conjugate
+descent with careful preconditioning (Smith et al. 2007).
+Since the mask mean-ﬁled due to the survey boundary re-
+mains after applying the C−1 ﬁlter, we additionally apply
+an apodizing function given by Eq. (53).
+Mean-ﬁeld bias due to masking
+We now turn to discuss the mean-ﬁeld bias generated by
+masking.
+Given
+realizations
+estimator,
+bxi,(XY )
+1, 2, . . . , N), we deﬁne the mean-ﬁeld power spectrum as
+Mx,(XY )
+Z dϕℓ
+bxi,(XY )
+(58)
+where the quantity W4 is the normalization correction for
+eﬀect of window function as
+W4 =
+d2 ˆn [W (ˆn)]4 .
+(59)
+With N-realizations of CMB maps, the mean-ﬁeld becomes
+(Benoit-Levy et al. 2013)
+Mx,(XY )
+Z dϕℓ
+|⟨bx(XY )
+⟩|2 + Axx,(XY )
++ Cxx
+(60)
+The resulting mask mean-ﬁeld for bφ are shown in Figs. 1
+and 2 for quadratic combination of EE and EB cases, re-
+spectively. We compare results between the case with and
+without the bias-hardened estimator for mitigating mask
+mean-ﬁeld. We also vary the apodization parameter, s0, in-
+troduced in Eq. (53). The Monte-Carlo noise ﬂoor is the
+second term of Eq. (60). For EE, the mask mean-ﬁeld is
+large on large angular scales, and exceeds the expected lens-
+ing power. We can clearly see that the bias-hardened esti-
+mator works well to mitigate the mask mean-ﬁeld. On the
+other hand, the EB estimator has small contributions to
+the mask mean-ﬁeld. The reason is as follow. If we use the
+ﬁltering methods, the quantity Mℓhas value only around
+∼0, and thus the mask-mean ﬁeld, which is expressed as
+Mℓ, is signiﬁcant only for ∼0. For EB estimator, how-
+ever, the response function, RxM
+, given in Eq. (49), has the
+sine function involved in the weight function, f x,(EB)
+, and
+goes to zero as →0, which is contrary to the case of EE
+estimator in which the weight function includes the cosine
+function instead of sine function. Note that the origin of
+the sine function in the weight function is the parity of EB
+cross-correlation, i.e., odd parity symmetry, as the weight
+function is given by Eq. (9). We have also checked that,
+since the behavior of the response function for ΘB is similar
+to that of EB, the mask mean-ﬁeld is negligible for ΘB esti-
+mator. As expected, the mask mean-ﬁeld on the curl mode
+shown in Fig. 3 would also be negligible for both EE and
+EB estimator.
+The residual mean-ﬁeld bias also aﬀects on the power
+spectrum estimation through
+Z dϕℓ
+|bxℓ|2 = Mx
+ℓ+ Axx
++ Cxx .
+(61)
+The ﬁgure shows that, for EE, the conventional estimator
+generates a signiﬁcant mask-mean ﬁeld which exceeds the
+lensing power spectrum; the lensing power spectrum estima-
+tion could therefore suﬀer from uncertainties in the mean-
+ﬁeld correction. On the other hand, the bias-hardened esti-
+mator signiﬁcantly suppresses the mask-mean ﬁeld which is
+below the lensing power spectrum.
+Mean-ﬁeld bias due to polarization angle
+The mask-mean ﬁeld for the EB estimator is negligible even
+for the case with a simple apodization function, however,
+
+--- PAGE BREAK ---
+
+Bias-Hardened CMB Lensing with Polarization
+the mean-ﬁeld biases can be generated from other sources
+such as polarization angle errors. Here, to see the potential
+of bias-hardened estimators to mitigate polarization angle
+systematics, we compute a rough estimation of the response
+function and degradation of noise level for EB estimator.
+For a two-beam experiment, with b−̸= 0 and bL,n ∝
+δn,0, as an example, we consider the following non-zero
+weight functions for EB estimator:
+f ψ(±2,∓1)
+= ∓i e±2iϕL′,ℓb−
+L,0 eCΘE
+(62)
+f ψ(±4,∓1)
+= ±i e±2i(ϕL,ℓ+ϕL′,ℓ)(bL,0 eCBB
++ bL′,0 eCEE
+L′ ) ,
+(63)
+where we have omitted the label, (EB), in the weight func-
+tions. Note that the cases with (n, p) = (±2, ∓1) and
+(±4, ∓1) denote the systematics due to temperature to po-
+larization leakage and E-B modes mixing, respectively. In
+general, as an alternative to ψ(n,p)
+, we can use the following
+quantities:
+ψ(n,ε)
+= ψ(−n,+1)
++ (−1)nψ(n,−1)
+(64)
+ψ(n,β)
+= −i[ψ(−n,+1)
+−(−1)nψ(n,−1)
+(65)
+where the above quantities satisfy (ψ(n,ε)
+)∗= ψ(n,ε)
+(ψ(n,β)
+)∗= ψ(n,β)
+. The corresponding weight functions for
+ψ(n,ε)
+and ψ(n,β)
+f ψ(2,ε)
+= b−
+L,0 sin(2ϕL′,ℓ) eCΘE
+f ψ(2,β)
+= −b−
+L,0 cos(2ϕL′,ℓ) eCΘE
+f ψ(4,ε)
+= −sin(2ϕL,ℓ+ 2ϕL′,ℓ)(bL,0 eCBB
++ bL′,0 eCEE
+L′ ) ,
+f ψ(4,β)
+= cos(2ϕL,ℓ+ 2ϕL′,ℓ)(bL,0 eCBB
++ bL′,0 eCEE
+L′ ) . (66)
+In our calculation, for simplicity, we assume b−
+L,0 ≡ǫbL,0 and
+a top-hat function for bL,0, i.e., bL,0 = 1 for ≤3000 and 0
+otherwise, and also ignore eCBB
+in the above equation. Since
+the weight functions of ψ(n,β)
+is obtained only by replacing
+sine function in f (n,ε)
+with cosine function, we expect that
+the amplitude of the noise level for ψ(n,β)
+would be not so
+diﬀerent from that for ψ(n,ε)
+, and we only focus on the case
+to mitigate ψ(n,ε)
+in the following calculations.
+In the left panel of Fig. 4, we show the noise level for
+the bias-hardened estimator incorporating polarization an-
+gle systematics of ψ(n,ε)
+. The noise level for the conven-
+tional approach corresponds to the normalization, Aφφ
+ℓ. On
+the other hand, with n = 2 and 4, the noise level for the
+bias-hardened estimator is given by
+1 −Rφψ(n,ε)
+Rψ(n,ε)φ
+(67)
+where the response functions, Rφψ(n,ε) and Rψ(n,ε)φ, deﬁned
+in Eq. (49), are computed with the weight functions given in
+Eq. (66). Note that the noise level does not depend on ǫ. We
+ﬁnd that the noise level is not necessarily much larger us-
+ing a bias-hardened estimator compared to the conventional
+approach. In the right panel, we also show the ratio of the
+case with the bias-hardened estimator to that with conven-
+tional estimator. We ﬁnd that the degradation of noise level
+is only up to ≲1% for n = 4, and by a factor of ∼3 for
+n = 2. Our results imply that the bias-hardened estimator
+is enough to utilize for a cross check of usual method for
+polarization angle systematics.
+SUMMARY
+We have discussed methods for mitigating the mean-ﬁeld
+bias in the case of lensing reconstruction with CMB polar-
+ization. We ﬁrst derived the mean-ﬁeld bias generated from
+masking, inhomogeneous noise (and/or unresolved point
+sources), and polarization angle systematics associated with
+the asymmetric beam shape, in analogy to the temperature-
+only case. Then we performed numerical tests to see how
+signiﬁcantly the mean-ﬁeld bias from masking is mitigated
+with the bias-hardened estimator. We found that, for EE es-
+timator, it particularly useful for the reduction of the large-
+scale component of the mean-ﬁeld. On the other hand, for
+the EB estimator, we found that the amplitude of mask
+mean-ﬁeld is negligible compared to the lensing signal. The
+bias-hardened EB estimator, however, is useful for other
+potential sources of mean ﬁeld, such as polarization angle
+systematics, and we showed that the increase of noise level
+is only up to 1% for n = 4 (E-B mixing), and by a fac-
+tor of ∼3 for n = 2 (temperature to polarization leakage),
+compared to the conventional approach.
+ACKNOWLEDGMENTS
+We greatly appreciate Duncan Hanson for valuable com-
+ments and helpful discussions. We are also grateful to
+Takashi Hamana and Takahiro Nishimichi for kindly pro-
+viding the ray-tracing simulation code and the 2LPT code,
+and thank Ryo Nagata for useful comments. This work
+was supported in part by Grant-in-Aid for Scientiﬁc Re-
+search on Priority Areas No. 467 “Probing the Dark En-
+ergy through an Extremely Wide and Deep Survey with
+Subaru Telescope”, by the MEXT Grant-in-Aid for Scien-
+tiﬁc Research on Innovative Areas (No. 22111501), by JSPS
+Grant-in-Aid for Research Activity Start-up (No. 80708511),
+and by JSPS Grant-in-Aid for Scientiﬁc Research (B) (No.
+25287062) “Probing the origin of primordial mini-halos via
+gravitational lensing phenomena”. Numerical computations
+were carried out on SR16000 at YITP in Kyoto University
+and Cray XT4 at Center for Computational Astrophysics,
+CfCA, of National Astronomical Observatory of Japan.
+APPENDIX A: BIAS-HARDENED ESTIMATOR
+FOR LENSING POWER SPECTRUM
+Here we present an optimal estimator for the lensing angular
+power spectrum, bCxx
+ℓ, motivated by the maximum likelihood
+estimator for lensing trispectrum, as proposed in our previ-
+ous work (Namikawa et al. 2013) where we considered the
+temperature anisotropies alone.
+Formalism
+A1.1
+Likelihood for lensed CMB anisotropies
+Gaussian probability distribution function for temperature
+and polarization ﬁelds, a = Θ, E or B, whose covariance
+
+--- PAGE BREAK ---
+
+T. Namikawa et al.
+matrix are Caℓ,bℓ′ = ⟨aℓbℓ′⟩, is given by
+Pg =
+(2π)N det C
+ℓ,ℓ′
+aℓ(C−1)aℓ,bℓ′ bℓ′
+(A1)
+Since the lensed anisotropies, eΘ, eE, eB, are no longer the
+Gaussian ﬁelds, the perturbative expansion of the likeli-
+hood for the lensed anisotropies at leading order is given
+as (Amendola 1996; Regan et al. 2010)
+1 +
+abcd
+⟨aℓ1bℓ2cℓ3dℓ4⟩c
+∂aℓ1
+∂bℓ2
+∂cℓ3
+∂dℓ4
+Pg .
+(A2)
+Here, we ignore the three-point correlation because this is
+generated due to the correlation between the integrated
+Sachs-Wolfe eﬀect and lensing. The cumulant is given by
+⟨aℓ1bℓ2cℓ3dℓ4⟩c ≃f ab
+ℓ12,ℓ1f cd
+−ℓ12,ℓ3Cφφ
+|ℓ12|δℓ12,−ℓ34
++ f ac
+ℓ13,ℓ1f bd
+−ℓ13,ℓ2Cφφ
+|ℓ13|δℓ13,−ℓ24
++ f ad
+ℓ14,ℓ1f bc
+−ℓ14,ℓ2Cφφ
+|ℓ14|δℓ14,−ℓ23 .
+(A3)
+Substituting Eq. (A3) into Eq. (A4), we obtain the probabil-
+ity distribution function for lensed CMB anisotropies. Note
+here that, we do not compute higher order terms of Cφφ
+since we use an approximation which requires the expres-
+sion only up to the ﬁrst order of Cφφ
+A1.2
+Derivative of probability distribution function
+To obtain the maximum-likelihood point, we diﬀerentiate P
+with respect to Cxx
+ℓ, and obtain
+∂Cxx
+abcd
+( bf ab
+ℓbf cd
+−ℓ+ bf ac
+bf bd
+−ℓ+ bf ad
+bf bc
+−ℓ)Pg ,
+(A4)
+where the operator is deﬁned as
+bf ab
+f ab
+ℓ,ℓ1
+∂aℓ1
+∂bℓ−ℓ1
+(A5)
+We ﬁnd that
+bf ab
+ℓPg = (xab
+ℓ−⟨xab
+ℓ⟩)Pg ,
+(A6)
+where we deﬁne the unnormalized estimator as
+f ab
+ℓ,ℓ1aℓ1bℓ−ℓ1 ,
+(A7)
+with the inverse variance ﬁltered multipoles as aℓ
+a′,ℓ′(C−1)aℓa′
+ℓ′ a′
+ℓ′. Operating bf cd
+−ℓagain to Eq. (A6), we
+obtain
+bf cd
+−ℓbf ab
+ℓPg = xab,(C)
+xcd,(C)
+−nab,cd
+(A8)
+where the mean-ﬁeld corrected estimator and its reconstruc-
+tion noise bias are given by
+xab,(C)
+≡xab
+ℓ−⟨xab
+(A9)
+nab,cd
+≡⟨(xa(1)b
++ xab(1)
+)(xc(1)d
++ xcd(1)
+)⟩(1)
+2⟨(xa(1)b(2)
++ xa(2)b(1)
+)(xc(1)d(2)
++ xc(2)d(1)
+)⟩(1),(2) ,
+(A10)
+where index (i) denotes the simulated maps obtained from
+ith set of Monte Carlo simulation, and ⟨· · ·⟩(i) denotes the
+ensemble average for the ith set of Monte Carlo. Note
+here that ⟨nab,cd
+⟩corresponds to the disconnected part of
+⟨xab,(C)
+xcd,(C)
+⟩. We then obtain the derivative of a log-
+likelihood, L = ln P, as
+∂Cxx
+∂Cxx
+∂Cxx
+abcd
+xab,(C)
+xcd,(C)
+−nab,cd
++ (a ↔c) + (a ↔d)
+(A11)
+A1.3
+Temperature
+Here we ﬁrst consider the case of temperature alone (or a =
+b = c = d ≡X). With Eq. (A11), the derivative of a log-
+likelihood, L = ln P, is
+∂Cxx
+= 3[|x(C)
+|2 −nℓ] ,
+(A12)
+where we drop the index, X, in the unnormalized estima-
+tor and disconnected bias. Eq. (A12) motivates an unbiased
+estimator:
+bCxx
+[|x(C)
+|2 −nℓ] = |bx(C)
+|2 −bnℓ,
+(A13)
+where
+bx(C)
+= Aℓ
+fℓ,ℓ1Θℓ1Θℓ−ℓ1
+(A14)
+bnℓ= 2[2⟨bxΘ(1)Θ
+bxΘ(1)Θ
+⟩(1) −⟨bxΘ(1)Θ(2)
+bxΘ(1)Θ(2)
+⟩(1),(2)] .
+(A15)
+The above equation coincides with Namikawa et al. (2013),
+and is generalized for the cases using only lensed E-/B-
+modes alone.
+A1.4
+Temperature and Polarizations
+generalize
+case
+including
+polarizations.
+Eq. (A11) implies that, for each combination of (a, b) and
+(c, d), we can construct the lensing power spectrum estima-
+tor as
+bCab,cd
+= bxab,(C)
+bxcd,(C)
+−bnab,cd
+(A16)
+where the ﬁrst term is the power spectrum of the usual
+quadratic estimator but the second term is the estimator
+for the disconnected bias, bnab,cd, deﬁned as
+bnab,cd
+= ⟨(bxa(1)b
++ bxab(1)
+)(bxc(1)d
++ bxcd(1)
+)⟩(1)
+2⟨(bxa(1)b(2)
++ bxa(2)b(1)
+)(bxc(1)d(2)
++ bxc(2)d(1)
+)⟩(1),(2) ,
+(A17)
+Denoting α, β = abcd, an optimal estimator would be ob-
+tained by combining all combinations of abcd as
+bCxx
+= N xx
+{(N xx
+ℓ)−1}α,β bCα
+(A18)
+where the optimal noise level and noise covariance matrix
+are given by
+N xx
+β,β′
+{(Nxx
+ℓ)−1}β,β′ ;
+{Nℓ}α,β = ⟨bCα
+ℓbCβ
+(A19)
+
+--- PAGE BREAK ---
+
+Bias-Hardened CMB Lensing with Polarization
+APPENDIX B: NUMERICAL SIMULATION OF
+LENSED CMB MAPS
+In this section, we brieﬂy present our procedure to prepare
+lensed CMB maps. Our procedure is same as for the lensed
+CMB temperature maps in our previous paper (Namikawa
+et al. 2013, Appendix A), but newly including the polariza-
+tion ﬂuctuations. We prepared lensed CMB maps as follows:
+1) We obtain unlensed CMB temperature and polar-
+ization power spectra, CΘΘ
+, CΘE
+and CEE
+, with CAMB
+(Lewis et al. 2000).
+2) We generate Gaussian temperature ﬂuctuations Θℓ
+in Fourier space, based on the input power spectrum CΘΘ
+Then, we also generate polarization ﬂuctuations Eℓ
+−(CΘE
+)2/CΘΘ
+Rℓ+(CΘE
+/CΘΘ
+)Θℓwhere Rℓis nor-
+malized Gaussian ﬁelds (with zero mean and unit variance).
+Then, the ﬂuctuations of Θℓand Eℓsatisfy the input power
+spectra. Here we assume the primordial B-mode is zero. By
+performing a Fourier transform on the ﬂuctuations (Θℓand
+Eℓ), we generate an unlensed CMB map. The map is a
+square of
+4π radian (≃203deg) on a side. We prepare
+100 such unlensed maps.
+3) We make a lensed CMB map by remapping the un-
+lensed map according to Eq.(1). Here, we perform the ray-
+tracing simulations to obtain the deﬂection angles. We used
+a publicly available code RAYTRIX (Hamana & Mellier
+2001) which follows the multiple scattering. In the standard
+multiple lens plane algorithm, we divide the distance from
+the observer to the last scattering surface (LSS) into several
+equal intervals and then put lens planes in the every inter-
+vals. The light rays emitted from the observer are deﬂected
+in the every lens planes before reaching the LSS. We nu-
+merically solve the light-ray positions by solving the multi
+lens equation and ﬁnally obtain the angular position shifts
+on the LSS (See Namikawa et al. (2013), Appendix A, for
+detailed discussions). We checked that the power spectrum
+of the lensing potential agrees with the expectation from
+CAMB.
+4) By repeating the procedures 1) to 3), we prepared 100
+lensed CMB maps. Each map has an area of 10×10deg2 with
+1024×1024 grids, and hence the resulting angular resolution
+is 10deg/1024 ≃0.6arcmin. Note that, in our analysis of
+lensing reconstruction, we further cut the maps into 5 ×
+5deg2.
+Fig. B1 shows the CMB power spectra calculated from
+the 100 lensed CMB maps. The upper, middle and lower
+panels are for the TE, EE and BB power spectrum, re-
+spectively. The dots with error bars are the mean and
+the dispersion calculated from the 100 realizations. We use
+s0 = 0.5 for the apodization given in Eq. (53). Note that,
+in order to mitigate the eﬀect of E-B mixing due to the
+survey boundary eﬀect, we estimate the lensed E and B
+modes using “pure” E and B estimators (Smith & Zaldar-
+riaga 2007). The red(black) symbols are the results for the
+lensed(unlensed) case. The solid curves are the theoretical
+prediction of CAMB. Our simulation results agree with the
+theoretical prediction very well.
+REFERENCES
+Abazajian K., et al., 2013, preprint (arXiv:1309.5383)
+−100
+10−2
+10−3
+10−2
+10−1
+unlensed Cl
+lensed Cl
+l(l+1)Cl  /2
+(  K)2
+10  10 deg2
+s0=0.5
+theor. model
+simulation results
+100 realizations
+Figure B1. The lensed CMB power spectra for the TE(upper),
+EE(middle) and BB(lower). The red (black) symbols are the
+lensed (unlensed) power spectrum. The dots with error bars are
+our simulation results calculated from the 100 realizations of
+10 × 10deg2 maps. The solid curves are the theoretical predic-
+tion of CAMB.
+Planck Collaboration, 2013a, preprint (arXiv:1303.5076)
+Planck Collaboration, 2013b, preprint (arXiv:1303.5077)
+Planck Collaboration, 2013c, preprint (arXiv:1303.5078)
+Amendola L., 1996, MNRAS, 283, 983
+Anderes E., 2013, Phys. Rev. D, 88, 083517
+Battye R. A., Moss A., 2013, preprint (arXiv:1308.5870)
+Benoit-Levy A., Dechelette T., Benabed K., Cardoso J.-F.,
+Hanson D., Prunet S., 2013, Astronomy & Astrophysics,
+555, 10
+Bleem L. et al., 2012, ApJ, 753, L9
+Carvalho C. S., Tereno I., 2011, Phys. Rev. D, 84, 063001
+Cooray A., Kamionkowski M., Caldwell R. R., 2005, Phys.
+Rev. D, 71, 123527
+Das S. et al., 2013, preprint (arXiv:1301.1037)
+Das S. et al., 2011, Phys. Rev. Lett., 107, 021301
+Geach J. et al., 2013, Astronomical Journal, 776, L41
+Hamana T., Mellier Y., 2001, MNRAS, 327, 169
+Hanson D., Challinor A., Efstathiou G., Bielewicz P., 2011,
+Phys. Rev. D, 83, 043005
+Hanson D. et al., 2013, Phys. Rev. Lett., 111, 141301
+Hanson D., Lewis A., Challinor A., 2010, Phys. Rev., D81,
+103003
+Hanson D., Rocha G., Gorski K., 2009, MNRAS, 400, 2169
+Hirata C. M., Ho S., Padmanabhan N., Seljak U., Bahcall
+N. A., 2008, Phys. Rev. D, 78, 043520
+
+--- PAGE BREAK ---
+
+T. Namikawa et al.
+Hirata C. M., Seljak U., 2003, Phys. Rev. D, 68, 083002
+Holder G. et al., 2013, Astrophys.J., 771, L16
+Hu W., 2001, Phys. Rev. D, 64, 083005
+Hu W., Okamoto T., 2002, ApJ, 574, 566
+Jeong D., Komatsu E., Jain B., 2009, Phys. Rev. D, 80,
+123527
+Joudaki S., Kaplinghat M., 2012, Phys. Rev. D, 86, 023526
+Kesden M., Cooray A., Kamionkowski M., 2002, Phys. Rev.
+Lett., 89, 011304
+Knox L., Song Y.-S., 2002, Phys. Rev. Lett., 89, 011303
+Lewis A., Challinor A., 2006, Phys. Rep., 429, 1
+Lewis A., Challinor A., Hanson D., 2011, JCAP, 1103, 018
+Lewis A., Challinor A., Lasenby A., 2000, ApJ, 538, 473
+Namikawa T., Hanson D., Takahashi R., 2013, MNRAS,
+431, 609
+Namikawa T., Saito S., Taruya A., 2010, JCAP, 1012, 027
+Namikawa T., Yamauchi D., Taruya A., 2012, JCAP, 1201,
+Namikawa T., Yamauchi D., Taruya A., 2013, Phys. Rev.
+D, 88, 083525
+Okamoto T., Hu W., 2003, Phys. Rev. D, 67, 083002
+Perotto L., Bobin J., Plaszczynski S., Starck J.-L., Lavabre
+A., 2010, A&A, 519, A4
+Plaszczynski S., Lavabre A., Perotto L., Starck J.-L., 2012,
+A&A, 544, A27
+Regan D., Shellard E., Fergusson J., 2010, Phys. Rev. D,
+82, 023520
+Seljak U., Zaldarriaga M., 1999, Phys. Rev. Lett., 82, 2636
+Sherwin B. D., Das S., 2010, preprint (arXiv:1011.4510)
+Sherwin B. D. et al., 2012, Phys. Rev. D, 86, 083006,
+Sherwin B. D. et al., 2011, Phys. Rev. Lett., 107, 021302
+Shimon M., Keating B., Ponthieu N., Hivon E., 2008, Phys.
+Rev. D, 77, 083003
+Smith K. M., 2006, New Astron.Rev., 50, 1025
+Smith K. M., Zahn O., Dor`e O., 2007, Phys. Rev. D, 76,
+043510
+Smith K. M., Zaldarriaga M., 2007, Phys. Rev. D, 76,
+043001
+Takeuchi Y., Ichiki K., Matsubara T., 2012, Phys. Rev. D,
+85, 043518
+van Engelen A. et al., 2012, Astrophys.J., 756, 142
+Wilkinson R. J., Lesgourgues J., Boehm C., 2013, preprint
+(arXiv:1309.7588)
+Yamauchi D., Namikawa T., Taruya A., 2012, JCAP, 1210,
+Yamauchi D., Namikawa T., Taruya A., 2013, JCAP, 1308,
+Zaldarriaga M., Seljak U., 1999, Phys. Rev. D, 59, 123507
+Zel’dovich Y., Sunyaev R., 1969, Astrophysics and Space
+Science, 4, 301

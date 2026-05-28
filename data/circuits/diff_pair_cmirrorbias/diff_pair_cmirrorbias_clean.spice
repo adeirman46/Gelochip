@@ -1,0 +1,6 @@
+.subckt DP_CMBIAS VIP VIM VOP VOM VTAIL VB VSS
+XM1 VOP VIP VTAIL VSS nfet_03v3 w=4 l=0.5 m=2
+XM2 VOM VIM VTAIL VSS nfet_03v3 w=4 l=0.5 m=2
+XM3 VB  VB  VSS   VSS nfet_03v3 w=4 l=0.5 m=2
+XM4 VTAIL VB VSS  VSS nfet_03v3 w=4 l=0.5 m=2
+.ends DP_CMBIAS

@@ -1,0 +1,511 @@
+arXiv:1005.4208v2  [astro-ph.CO]  29 Jun 2010
+The Astrophysical Journal Letters, in press
+Preprint typeset using LATEX style emulateapj v. 11/10/09
+A COLLISIONAL ORIGIN FOR THE LEO RING
+Leo Michel-Dansac1, Pierre-Alain Duc2, Frederic Bournaud2, Jean-Charles Cuillandre3, Eric Emsellem4,1,
+Tom Oosterloo5, Raffaella Morganti5, Paolo Serra5, and Rodrigo Ibata6
+The Astrophysical Journal Letters, in press
+ABSTRACT
+Extended H i structures around galaxies are of prime importance to probe galaxy formation scenar-
+ios. The giant H i ring in the Leo group is one of the largest and most intriguing H i structures in the
+nearby universe. Whether it consists of primordial gas, as suggested by the apparent absence of any
+optical counterpart and the absence of an obvious physical connection to nearby galaxies, or of gas
+expelled from a galaxy in a collision is actively debated. We present deep wide ﬁeld-of-view optical
+images of the ring region obtained with MegaCam on the CFHT. They reveal optical counterparts to
+several H i and UV condensations along the ring, in the g′, r′, and i′ bands, which likely correspond
+to stellar associations formed within the gaseous ring. Analyzing the spectral energy distribution of
+one of these star-forming regions, we found it to be typical for a star-forming region in pre-enriched
+tidal debris. We then use simulations to test the hypothesis that the Leo ring results from a head-on
+collision between Leo group members NGC 3384 and M96. According to our model which is able
+to explain, at least qualitatively, the main observational properties of the system, the Leo ring is
+consistent with being a collisional ring. It is thus likely another example of extended intergalactic gas
+made-up of pre-enriched collisional debris.
+Subject headings: galaxies: evolution – galaxies: groups: individual (Leo group) – galaxies: individual
+(NGC 3384, M96) – galaxies: interactions
+1. INTRODUCTION
+The quest for primordial gas clouds that have never
+been involved in star-forming episodes in the local uni-
+verse has motivated extensive H i surveys (e.g., HIPASS,
+Meyer et al. 2004; and ALFALFA, Giovanelli et al. 2005)
+but has yet been rather unsuccessful.
+Among the
+putative candidates are the so-called dark galaxies
+(e.g., Davies et al. 2004),
+which are however likely
+tidal debris from galaxy interactions (Duc & Bournaud
+2008).
+Isolated H i clouds around early-type galax-
+ies (ETGs; Morganti et al. 2006; Oosterloo et al. 2007;
+Serra & Oosterloo 2010) could either be accreting clouds
+or the collisional remnants of the violent merger events
+that are usually invoked for the formation of ETGs. In-
+vestigating the stellar populations associated or not with
+these clouds could discriminate these formation scenar-
+ios.
+The Leo ring,
+in the Leo group of galaxies,
+one of the most spectacular and mysterious inter-
+galactic H i structures known in the nearby universe
+(Schneider et al. 1983; Schneider 1985; Schneider et al.
+1989; Stierwalt et al. 2009). It has a ring-like shape of
+diameter ∼200 kpc, quite asymmetric and somewhat
+1 Centre de Recherche Astrophysique de Lyon, Universit´e de
+Lyon, Universit´e Lyon 1, Observatoire de Lyon, Ecole Normale
+Sup´erieure de Lyon, CNRS, UMR 5574, 9 avenue Charles Andr´e,
+69561 Saint-Genis-Laval cedex, France; leo@obs.univ-lyon1.fr
+2 Laboratoire
+AIM,
+CEA/Irfu,
+CNRS,
+Universit´e
+Paris
+Diderot, SAp, 91191 Gif-sur-Yvette cedex, France
+3 Canada–France–Hawaii Telescope, P.O. Box 1597, Kamuela,
+HI 96743, USA
+4 European Southern Observatory, Karl-Schwarzschild-Str. 2,
+85748 Garching bei Muenchen, Germany
+5 ASTRON, Netherlands Institute for Radio Astronomy, Post-
+bus 2, 7990 AA Dwingeloo, The Netherlands
+6 Observatoire Astronomique de Strasbourg (UMR7550), 11,
+rue de l’Universit´e, 67000 Strasbourg, France
+clumpy, apparently centered on the NGC 3384/M105
+galaxy pair. Some radial ﬁlamentary structures are ob-
+served, in particular a bridge connecting the ring to the
+spiral galaxy M96.
+Numerous attempts were done to ﬁnd counterparts to
+the H i emission at other wavelengths, which remained
+unsuccessful in the optical and Hα regime. This had sug-
+gested that the ring could consist of primordial gas. The
+only relatively bright optical counterparts correspond
+to H i-rich dwarf galaxies in the group (Stierwalt et al.
+2009) whose velocities are discrepant from the ring ve-
+locity ﬁeld (e.g., HGC 201970)7.
+Lastly, Thilker et al. (2009) reported a UV counterpart
+to some H i clumps along the ring from Galaxy Evolution
+Explorer (GALEX) observations. The UV knots with the
+highest far-UV to near-UV ﬂux ratios are good candi-
+dates for being star-forming regions associated with the
+ring (and not background galaxies). The inferred star
+formation rate is very low but consistent with the H i
+column densities below 2 × 1020 cm−2.
+Based on the
+FUV–NUV color and upper limits on the FUV–r color,
+Thilker et al. (2009) estimated a very low gas metallicity,
+and concluded that the H i ring is likely primordial.
+More recently, Bot et al. (2009) reported a marginal
+detection of dust emission at 8 and 24 µm toward the
+densest H i condensation.
+If real, it implies that the
+metallicity of the H i ring is higher than the Z⊙/20 esti-
+mated by Thilker et al. (2009). This would support sce-
+narios where the gas has a galactic origin. Indeed, clouds
+expelled during galaxy interaction have been previously
+processed in the parent galaxies and are thus relatively
+7 One exception is HGC 202027, whose Sloan Digital Sky Survey
+(SDSS) redshift is close to that of the H i ring, but is not associated
+with an H i clump peak of the ring. It is most likely a pre-existing
+group member unrelated to the formation of the H i ring.
+
+--- PAGE BREAK ---
+
+Michel-Dansac et al.
+Fig. 1.— Leo ring. Left: distribution of the H i gas, as mapped at Arecibo (reddish contours; from Schneider 1989), the WSRT (in
+brown; T. A. Oosterloo et al., in preparation), superimposed on a deep optical image obtained at the CFHT. Right: zoom on several UV
+condensations (Thilker et al. 2009). The GALEX FUV (white contours) and WRST H i emission (brown contours) are superimposed on
+the optical true color image made from g′, r′, and i′ bands data. The apertures used by Thilker et al. (2009) are shown in green.
+metal-rich.
+Bekki et al. (2005) proposed that the dis-
+ruption of a low surface brightness galaxy in the grav-
+itational potential of a group forms gaseous arcs and
+rings with column density in agreement with observa-
+tions, without providing a speciﬁc model for the Leo ring,
+though. Collisional rings are a more classical example
+of such debris (Appleton & Struck-Marcell 1996; Bekki
+1998; Bournaud & Combes 2003): a head-on galaxy col-
+lision disrupts a gaseous galactic disk into an expanding
+pre-enriched ring of gas, whose star-forming activity de-
+pends on the remaining gas density.
+In this Letter, we present new optical images of the
+system and report the detection of counterparts in the
+g′, r′, and i′ bands (Section 2). We present a numerical
+model of the Leo ring as the result of a head-on collision
+in the Leo group (Section 3) and discuss this hypothesis
+in Section 4.
+2. OBSERVATIONS OF AN OPTICAL COUNTERPART TO
+THE LEO RING
+Deep optical observations of the Leo group of galaxies
+were obtained in 2009 January, November, and Decem-
+ber with the MegaCam camera on the CFHT, as part of
+a survey of H i-rich ETGs from the ATLAS3D project8
+(Serra et al. 2009).
+The whole H i structure was covered with two Mega-
+Cam pointings of 1 deg2 each. Each pointing consisted
+of individual exposures, oﬀset with respect to each other
+by typically 10 arcmin. This allowed to create a mas-
+ter sky which was subtracted before recombining the im-
+8 http://purl.org/atlas3d
+
+--- PAGE BREAK ---
+
+A collisional origin for the Leo ring
+TABLE 1
+Photometry of UV knot 2E
+FUVa
+NUVa
+AB mag corrected for Galactic extinction
+21.6 ± 0.15
+21.4 ± 0.2
+21.0 ± 0.04
+20.8 ± 0.04
+21.1 ± 0.06
+aOur photometric measurement resulted in larger error bars than
+those listed in Thilker et al. (2009), and ﬂuxes closer to the values
+listed in the GALEX online catalog.
+Aperture corrections and
+diﬀerences in the estimation of the background level might explain
+this.
+ages. Instrumental artifacts such as diﬀuse light could
+thus be removed down to a surface brightness limit of
+28.2 mag arcsec−2 in the g′ band. The total exposure
+times on the southern ﬁeld (which contains the densest
+H i condensations) were 1764 s in the g′ band, 2760 s
+in the r′ band, and 714 s in the i′ band. Observations
+of the northern ﬁeld were shallower: 882 s, 1380 s, and
+71 s in g′, r′, and i′, respectively. Weather conditions
+were photometric.
+The data were processed using the
+Elixir-LSB software originally developed as part of the
+Next Generation Virgo Cluster Survey (L. Ferrarese et
+al. 2010, in preparation).
+A true color image ﬁeld is presented in Figure 1 to-
+gether with close-ups toward three UV-detected H i con-
+densations. New H i maps obtained with the Westerbork
+Synthesis Radio Telescope (WSRT), to be presented in
+T. A. Oosterloo et al. (2010, in preparation) are super-
+imposed on the optical images.
+At the depth of our observations, no diﬀuse stellar
+emission is found along the H i ring. However, several
+faint, very compact, blue knots are detected for the ﬁrst
+time (in particular clump 2E in Figure 1) toward the UV
+knots. This seems to conﬁrm that the GALEX detec-
+tions are not spurious.
+If as claimed by Thilker et al.
+(2009) they are physically linked to the H i condensa-
+tions, they most likely correspond to OB associations
+formed in situ within the ring.
+The multi-band aperture photometry on the UV
+clumps proved to be challenging: indeed, with an average
+seeing of 0.9 arcsec, our optical observations resolve the
+GALEX UV knots into several optical point-like sources
+displaying a variety of colors and thus possibly of origin
+(see in particular clumps 1 and 2 in Figure 1). Clump 2E
+avoids these problems: the GALEX and optical emission
+coincide spatially and the MegaCam sources show a uni-
+form blue color. We carried out a detailed photometric
+analysis on this condensation. Our measurements in the
+NUV and FUV GALEX bands, and g′, r′, and i′ Mega-
+Cam bands are presented in Table 1. They were obtained
+by using the polyphot task of the IRAF package, with
+an aperture chosen to follow the external white contours
+shown in Figure 1. Local sky measurements were esti-
+mated manually to avoid nearby background/foreground
+sources.
+The UV to optical spectral energy distribution (SED)
+of clump 2E is shown in Figure 2.
+We compare it to
+the SED of NGC 5291N, a luminous star-forming re-
+gion in NGC 5291, which harbors an extended ring of
+conﬁrmed collisional debris (Bournaud et al. 2007) with
+a morphology recalling that of the Leo ring. Account-
+ing for a diﬀerent ﬂux and a diﬀerence in extinction of
+0.2 mag in AV , the two SEDs are strikingly similar (Fig-
+Fig. 2.— SED of a typical star-forming region in a collisional
+ring.
+The black ﬁlled squares correspond to NGC 5291N, the
+most luminous optical condensation in the collisional ring of NGC
+5291 (Duc & Mirabel 1998), assuming an optical extinction of
+E(B −V ) = 0.27 mag, as constrained by stellar synthesis mod-
+eling (Boquien et al. 2010). The best-ﬁtting model shown in green
+(curve:
+stellar emission, symbols:
+total emission including the
+line emission) corresponds to an instantaneous, 5 Myr old star-
+burst with an exponential decay timescale of 1 Myr and half-solar
+metallicity as measured in the H ii regions of NGC 5291.
+Calzetti et al. (2000) extinction curves were used. The same model
+matches the SED of clump 2E in the Leo ring, shown with red
+squares, assuming an optical extinction of E(B −V ) = 0.22 mag.
+The data are shown after normalizing the same R-band ﬂux: the
+scale on the left axis corresponds to NGC 5291N, and on the right
+axis to Leo clump 2E.
+ure 2). The metallicity of NGC 5291N, as estimated from
+a measure of the oxygen abundance in its ionized gas,
+is moderately high: 12+log(O/H)=8.4 (Duc & Mirabel
+1998), suggesting that this could also be the case for
+clump 2E. As recently shown by Boquien et al. (2010),
+the SED of NGC 5291N, and thus of Leo clump 2E (see
+also Figure 2), is well ﬁt by a model depicting an in-
+stantaneous starburst of age of about 5 Myr, within dust
+obscured pre-enriched gaseous material. Therefore, as-
+suming that dust is present in the Leo H i structure, as
+suggested by the marginal Spitzer detections reported by
+Bot et al. (2009), the SED of clump 2E is consistent with
+the hypothesis that it was formed within pre-enriched
+material9.
+These results contradict the claim by Thilker et al.
+(2009) that the gas fueling the star-formation episode
+can only be very metal poor and thus primordial. Then,
+the extended H i structure probably results from a past
+interaction in the group. In the following, we explore this
+hypothesis with numerical simulations.
+3. SIMULATIONS
+We model a galaxy encounter using a particle-mesh
+sticky particle code (Bournaud et al. 2007, and refer-
+ences therein), with a softening length of 150 pc. The
+particle mass is 8 × 104M⊙for gas, 4 × 105M⊙for stars,
+and 7.2 × 105M⊙for dark matter (DM). Gas dynam-
+ics is modeled through a sticky particle scheme with
+βr = βt = 0.45 and star formation is computed with a
+Schmidt–Kennicutt law (Kennicutt 1998) with the star
+9 The large error bars in the UV preclude a direct ﬁt of the SED
+of this speciﬁc object with spectro-photometric models.
+
+--- PAGE BREAK ---
+
+Michel-Dansac et al.
+Fig. 3.— Modeling the formation of the Leo ring in a head-on encounter between NGC 3384 and M96. Each panel measures 400 kpc on
+a side. The color coding traces both the gas density (in blue) and the stellar density (in yellow). The simulation is shown at six diﬀerent
+instants in the six small panels to the left, with time intervals of 230 Myr. For each snapshot the simulation is projected on the same way.
+The top left frame shows the position of the two galaxies at the beginning of the simulation. In this projection, the interloper is initially
+in front of the target. The pink arrows indicate the rotation of each galaxy, whereas the yellow one indicates the initial velocity of the
+interloper. The asymmetry in the disk of the target galaxy can be seen in the top middle panel. The right panel shows a snapshot 1.2 Gyr
+after the collision.
+formation rate proportional to the gas density to the ex-
+ponent 1.4.
+Among a set of 50 simulations of head-on collisions, we
+present here a speciﬁc case that reproduces, at least qual-
+itatively, the main properties of the Leo ring. It is a rela-
+tively low-velocity encounter, not because a high-velocity
+encounter is ruled out (high-velocity encounters can form
+rings and tidal debris, as shown by Duc & Bournaud
+2008; Bournaud et al. 2007), but because this conﬁgu-
+ration seems more likely in the low velocity dispersion
+Leo group. Besides, initial tests showed that the inter-
+loper had to be very massive to form a giant ring. In
+our model, NGC 3384 is the target disk of a head-on
+collision with the massive galaxy M96. M96 appeared
+to be the most likely interloper, assuming that the H i
+bridge linking it to the ring was left over after the col-
+lision.
+Note that the key role played by M96 in the
+formation of the ring had already been envisioned by
+Rood & Williams (1985). As for the target galaxy, the
+S0 galaxy NGC 3384 seemed a better candidate than the
+other central galaxy (M105): in the collision scenario,
+the target should initially be a gas-rich spiral, and an in-
+teraction without merger is more likely to convert it into
+a disky ETG (S0/Sa) than into a spherical elliptical such
+as M105 (Bekki 1998; Bournaud & Combes 2003).
+Both the interloper and the target galaxy are modeled
+with a disk of gas and stars, a stellar bulge, and a DM
+halo. The target galaxy is a gas-rich spiral galaxy with
+an extended gaseous disk. The stellar disk has a mass
+Md = 1.92 × 1010M⊙distributed according to a Toomre
+proﬁle of scalelength rd = 3.375 kpc.
+The bulge is a
+Plummer sphere with a mass Mb = 3.24 × 109M⊙and
+a characteristic radius rb = 1.5 kpc. The gaseous disk
+is a homogeneous disk with a mass Mg = 4.8 × 109M⊙
+truncated at rg = 18 kpc. These components are em-
+bedded in a spherical DM halo with pseudo-isothermal
+proﬁle, mass Mh = 7.08 × 1010M⊙, and core radius
+rh = 24.75 kpc.
+The interloper is a massive spiral galaxy resembling
+M96. Its components have the following characteristics:
+Md = 5.04×1010M⊙, rd = 3.75 kpc, Mb = 1.2×1010M⊙,
+rb = 3 kpc, Mg = 5.64 × 109M⊙, rg = 15 kpc, Mh =
+1.98 × 1011M⊙, and rh = 15 kpc.
+We found that the strong asymmetry of the H i struc-
+ture cannot be explained just by an oﬀ-center collision.
+We then added an initial asymmetry in the disk of the
+target by oﬀsetting both the initial gas disk center and
+the stellar components center by 8 kpc compared to
+the DM halo center and relaxing the initial conditions
+in this conﬁguration, before simulating the interaction.
+At the end of the relaxation stage, the asymmetry (as
+deﬁned in Bournaud et al. 2005) is ⟨A1⟩star ≃0.2 and
+⟨A1⟩gas ≃0.4. This corresponds to a relatively typical
+degree of asymmetry for a disk galaxy (Bournaud et al.
+2005).
+Angiras et al. (2006) found that one-third of
+group galaxies have ⟨A1⟩gas ≥0.3.
+In the model presented in Figure 2, the interloper en-
+tered the system from the north at about 600 km s−1
+and hit the target with an impact parameter of 2.25 kpc.
+The two disks collide perpendicularly and the orbit of
+the interloper has an inclination of 45◦with respect to
+the plane of the target disk.
+The collision forms an expanding gas ring, mostly from
+NGC 3384 material. 1.2 Gyr later, the model reproduces,
+
+--- PAGE BREAK ---
+
+A collisional origin for the Leo ring
+Fig. 4.— Left: velocity ﬁeld of the H i gas, as mapped by the WSRT (T. A. Oosterloo et al., in preparation). The ﬁeld of view is 400×400
+kpc, assuming a distance of 11.6 Mpc. Right: velocity ﬁeld of the gas in the numerical model of the collisional ring.
+at least qualitatively, the main observational features:
+the size, mass, column density, and asymmetry of the
+H i ring; the bridge of H i linking the ring to M96; the
+projected systemic velocity of the two colliding galaxies,
+and the global kinematics of the gas along the ring and
+in M96, as shown in Figures 2 and 3.
+The projected position of the target galaxy relative to
+the ring and the mass in the northern end of the ring
+are not exactly reproduced.
+There is also some mis-
+match between the gas velocities in the interloper and
+the ring. Nevertheless, the main intriguing properties of
+the Leo ring are reproduced, such as the strong asym-
+metry even if the exact orientation of this asymmetry is
+not just like in the Leo ring itself. Our simulation should
+be seen as a proof of concept that relatively common
+collisions with moderate velocities between two galaxies
+typical for the Leo group can easily form a “Leo ring-
+like” system. Matching all detailed properties accurately
+is not our purpose and would induce too many free pa-
+rameters: the tidal ﬁeld from other nearby galaxies (such
+as M105), and even of the whole Leo group, would have
+to be accounted for since large-scale ﬁelds can aﬀect the
+result of a pair interaction (Martig & Bournaud 2008).
+4. DISCUSSION AND CONCLUSIONS
+The origin of the Leo ring has been actively debated
+for more than two decades. If made of primordial gas,
+it would be the only such giant H i structure known in
+the nearby universe. The absence of an optical counter-
+part was often suggested to preclude a collisional origin.
+Our deep optical images have conﬁrmed that indeed it is
+not associated with a diﬀuse stellar component brighter
+than 28 mag arcsec−2. However, as shown by our nu-
+merical model of the Leo ring and previous simulations
+(Bournaud et al. 2007), collisional rings are not expected
+to systematically contain a signiﬁcant populations of old
+stars expelled from the progenitor galaxy. Old stars can
+spread in a halo rather than along the ring, as is the case
+in our model with a predicted brightness fainter than ∼
+29 mag arcsec−2.
+The Leo ring is striking for not having managed to
+convert a signiﬁcant fraction of its gas into stars. If pri-
+mordial, this would require unexampled long-term stabil-
+ity conditions (stabilization by a deep potential such as
+the Leo group could nevertheless quench star formation;
+Martig et al. 2009). Our imaging program has revealed
+the presence of compact, optical counterparts to the far-
+ultraviolet sources detected by GALEX. These are likely
+young stellar associations formed in situ in the H i ring,
+with very low star formation rates that are consistent
+with the low H i surface densities. Thilker et al. (2009)
+had estimated a very low metallicity from UV data, sug-
+gesting the presence of primordial gas. Adding three data
+points in the optical bands to the SED of one of the UV
+clumps, we ﬁnd it most consistent with that of a star-
+forming object in the NGC 5291 ring, known to be pre-
+enriched and of collisional origin (Bournaud et al. 2007).
+Thus, available data are actually consistent with the Leo
+ring being made-up of pre-enriched material. Obtaining
+a direct measurement of its metallicity would give the
+ﬁnal word.
+If the Leo ring is not made-up of primordial gas, its
+formation should involve pre-enriched gas expelled dur-
+ing galaxy–galaxy or galaxy–group interactions.
+pressure would require a very dense intracluster medium
+to produce such a massive and extended structure, a
+condition not met in a relatively loose group like Leo.
+Note also that ram pressure usually forms one-sided tails
+attached to the parent galaxy, not ring-like structures
+(Tonnesen & Bryan 2009).
+The tidal potential of the
+group could also aﬀect the gas content of galaxies, but is
+generally a second-order eﬀect compared to direct colli-
+sions in galaxy pairs.
+A more likely hypothesis is that the Leo ring has
+the same origin as the conﬁrmed collisional ring around
+NGC 5291 (Longmore et al. 1979; Bournaud et al. 2007)
+or the famous Cartwheel ring (Horellou & Combes 2001)
+— the later being much denser and actively star form-
+ing.
+Our numerical model reproduces the main char-
+acteristics of the Leo ring, after a galaxy collision at
+
+--- PAGE BREAK ---
+
+Michel-Dansac et al.
+a relatively moderate speed, quite plausible in the Leo
+group. The proposed progenitor galaxy, NGC 3384, does
+not show strong morphological disturbances, even in our
+deep imaging data.
+This is however expected in our
+model, that produces a gaseous collisional ring, an ex-
+tended and very faint (unobservable) stellar halo, but
+leaves little signs of collision such as classical tails and
+shells around the parent galaxy.
+SAURON observations
+of NGC 3384 (Emsellem et al. 2004; Kuntschner et al.
+2006) revealed a barred rotating disk, with a low gas
+and dust content and without very recent star forma-
+tion, which is also broadly consistent with our model
+where the pre-existing spiral is converted into a fastly
+rotating ETG by the 1.2 Gyr old collision.
+Large collisional rings can form in groups of galaxies
+and take an appearance a priori suggesting primordial
+gas rather than tidal debris. The Leo ring appears fully
+consistent with being the result of such a process.
+We acknowledge HPC resources from GENCI-CCRT
+(grant 2009-042192), support from Agence Nationale
+de la Recherche (ANR-08-BLAN-0274-01), and GALEX
+archival data. We thank Fran¸coise Combes for valuable
+discussions.
+REFERENCES
+Angiras, R. A., Jog, C. J., Omar, A., & Dwarakanath, K. S. 2006,
+MNRAS, 369, 1849
+Appleton, P. N. & Struck-Marcell, C. 1996, Fundam. Cosm.
+Phys., 16, 111
+Bekki, K. 1998, ApJ, 499, 635
+Bekki, K., Koribalski, B. S., Ryder, S. D., & Couch, W. J. 2005,
+MNRAS, 357, L21
+Boquien, M., et al. 2010, AJ, submitted
+Bot, C., et al. 2009, AJ, 138, 452
+Bournaud, F. & Combes, F. 2003, A&A, 401, 817
+Bournaud, F., Combes, F., Jog, C. J., & Puerari, I. 2005, A&A,
+438, 507
+Bournaud, F., et al. 2007, Science, 316, 1166
+Calzetti, D., et al. 2000, ApJ, 533, 682
+Davies, J., et al. 2004, MNRAS, 349, 922
+Duc, P.-A. & Bournaud, F. 2008, ApJ, 673, 787
+Duc, P.-A. & Mirabel, I. F. 1998, A&A, 333, 813
+Emsellem, E., et al. 2004, MNRAS, 352, 721
+Giovanelli, R., et al. 2005, AJ, 130, 2598
+Horellou, C. & Combes, F. 2001, Ap&SS, 276, 1141
+Kennicutt, R. C., J. 1998, ARA&A, 36, 189
+Kuntschner, H., et al. 2006, MNRAS, 369, 497
+Longmore, A. J., et al. 1979, MNRAS, 188, 285
+Martig, M. & Bournaud, F. 2008, MNRAS, 385, L38
+Martig, M., Bournaud, F., Teyssier, R., & Dekel, A. 2009, ApJ,
+707, 250
+Meyer, M. J., et al. 2004, MNRAS, 350, 1195
+Morganti, R., et al. 2006, MNRAS, 371, 157
+Oosterloo, T. A., Morganti, R., Sadler, E. M., van der Hulst, T.,
+& Serra, P. 2007, A&A, 465, 787
+Rood, H. J. & Williams, B. A. 1985, ApJ, 288, 535
+Schneider, S. 1985, ApJ, 288, L33
+Schneider, S. E. 1989, ApJ, 343, 94
+Schneider, S. E., Helou, G., Salpeter, E. E., & Terzian, Y. 1983,
+ApJ, 273, L1
+Schneider, S. E., Skrutskie, M. F., Hacking, P. B., Young, J. S., &
+Dickman, R. L. 1989, AJ, 97, 666
+Serra, P. & Oosterloo, T. A. 2010, MNRAS, 401, L29
+Serra, P., et al. 2009, in Proc. Panoramic Radio Astronomy:
+Wide-ﬁeld 1–2 GHz Research on Galaxy Evolution, ed. G.
+Heald & P. Serra (Groningen, The Netherlands)
+Stierwalt, S., et al. 2009, AJ, 138, 338
+Thilker, D. A., et al. 2009, Nature, 457, 990
+Tonnesen, S., & Bryan, G. L. 2009, ApJ, 694, 789

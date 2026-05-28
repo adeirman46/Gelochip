@@ -1,0 +1,23 @@
+{
+  "component_name": "LVCM",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "copy_ratio": 1.0,
+      "target_ratio": 1.0
+    },
+    "theory": "Low-voltage cascode current mirror, 1:1 \u2192 I_out \u2248 I_ref. Pass if copy ratio within 25% of 1.0.",
+    "theory_pass": true
+  },
+  "area_um2": 2217.7
+}

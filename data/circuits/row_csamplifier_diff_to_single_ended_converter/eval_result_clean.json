@@ -1,0 +1,23 @@
+{
+  "component_name": "ROW_CS_DSE",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": 39.36,
+      "bw_3db_hz": 5843414.13
+    },
+    "theory": "Common-source amplifier feeding a diff-to-single converter (gain stage). Pass if in-band |gain| > 6 dB.",
+    "theory_pass": true
+  },
+  "area_um2": 4278.4
+}

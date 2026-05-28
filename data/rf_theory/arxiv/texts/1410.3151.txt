@@ -1,0 +1,1652 @@
+arXiv:1410.3151v1  [astro-ph.IM]  12 Oct 2014
+The Hybrid Energy Spectrum of Telescope Array’s Middle Drum Detector and
+Surface Array
+R.U. Abbasia, M. Abem, T.Abu-Zayyada, M.G. Allena,∗, R. Andersona, R. Azumab, E. Barcikowskia, J.W. Belza,
+D.R. Bergmana, S.A. Blakea, R. Cadya, M.J. Chaec, B.G. Cheond, J. Chibae, M. Chikawaf, W.R. Chog, T. Fujiih,
+M. Fukushimah,i, T. Gotoj, W. Hanlona, Y. Hayashij, N. Hayashidak, K. Hibinok, K. Hondal, D. Ikedah, N. Inouem,
+T. Ishiil, R. Ishimorib, H. Iton, D. Ivanova, C.C.H. Juia, K. Kadotap, F. Kakimotob, O. Kalashevq, K. Kasaharar,
+H. Kawais, S. Kawakamij, S. Kawanam, K. Kawatah, E. Kidoh, H.B. Kimd, J.H. Kima, J.H. Kimy, S. Kitamurab,
+Y. Kitamurab, V. Kuzminq, Y.J. Kwong, J. Lana, S.I. Limc, J.P. Lundquista, K. Machidal, K. Martensi, T. Matsudat,
+T. Matsuyamaj, J.N. Matthewsa, M. Minaminoj, K. Mukail, I. Myersa, K. Nagasawam, S. Nagatakin, T. Nakamurau,
+T. Nonakah, A. Nozatof, S. Ogioj, J. Ogurab, M. Ohnishih, H. Ohokah, K. Okih, T. Okudav, M. Onon, A. Oshimaj,
+S. Ozawar, I.H. Parkw, M.S. Pshirkovx, D.C. Rodrigueza, G. Rubtsovq, D. Ryuy, H. Sagawah, N. Sakuraij,
+A.L. Sampsona, L.M. Scotto, P.D. Shaha, F. Shibatal, T. Shibatah, H. Shimodairah, B.K. Shind, H.S. Shinh,
+J.D. Smitha, P. Sokolskya, R.W. Springera, B.T. Stokesa, S.R. Strattona,o, T.A. Stromana, T. Suzawam,
+M. Takamurae, M. Takedah, R. Takeishih, A. Taketaz, M. Takitah, Y. Tamedak, H. Tanakaj, K. Tanakaaa, M. Tanakat,
+S.B. Thomasa, G.B. Thomsona, P. Tinyakovq,x, I. Tkachevq, H. Tokunob, T. Tomidaab, S. Troitskyq, Y. Tsunesadab,
+K. Tsutsumib, Y. Uchihoriac, S. Udok, F. Urbanx, G. Vasiloﬀa, T. Wonga, R. Yamanej, H. Yamaokat, K. Yamazakij,
+J. Yangc, K. Yashiroe, Y. Yonedaj, S. Yoshidas, H. Yoshiiad, R. Zollingera, Z. Zundela
+aHigh Energy Astrophysics Institute and Department of Physics and Astronomy, University of Utah, Salt Lake City, Utah, USA
+bGraduate School of Science and Engineering, Tokyo Institute of Technology, Meguro, Tokyo, Japan
+cDepartment of Physics and Institute for the Early Universe, Ewha Womans University, Seodaaemun-gu, Seoul, Korea
+dDepartment of Physics and The Research Institute of Natural Science, Hanyang University, Seongdong-gu, Seoul, Korea
+eDepartment of Physics, Tokyo University of Science, Noda, Chiba, Japan
+fDepartment of Physics, Kinki University, Higashi Osaka, Osaka, Japan
+gDepartment of Physics, Yonsei University, Seodaemun-gu, Seoul, Korea
+hInstitute for Cosmic Ray Research, University of Tokyo, Kashiwa, Chiba, Japan
+iKavli Institute for the Physics and Mathematics of the Universe (WPI), Todai Institutes for Advanced Study, the University of Tokyo,
+Kashiwa, Chiba, Japan
+jGraduate School of Science, Osaka City University, Osaka, Osaka, Japan
+kFaculty of Engineering, Kanagawa University, Yokohama, Kanagawa, Japan
+lInterdisciplinary Graduate School of Medicine and Engineering, University of Yamanashi, Kofu, Yamanashi, Japan
+mThe Graduate School of Science and Engineering, Saitama University, Saitama, Saitama, Japan
+nAstrophysical Big Bang Laboratory, RIKEN, Wako, Saitama, Japan
+oDepartment of Physics and Astronomy, Rutgers University - The State University of New Jersey, Piscataway, New Jersey, USA
+pDepartment of Physics, Tokyo City University, Setagaya-ku, Tokyo, Japan
+qInstitute for Nuclear Research of the Russian Academy of Sciences, Moscow, Russia
+rAdvanced Research Institute for Science and Engineering, Waseda University, Shinjuku-ku, Tokyo, Japan
+sDepartment of Physics, Chiba University, Chiba, Chiba, Japan
+tInstitute of Particle and Nuclear Studies, KEK, Tsukuba, Ibaraki, Japan
+uFaculty of Science, Kochi University, Kochi, Kochi, Japan
+vDepartment of Physical Sciences, Ritsumeikan University, Kusatsu, Shiga, Japan
+wDepartment of Physics, Sungkyunkwan University, Jang-an-gu, Suwon, Korea
+xService de Physique Th´eorique, Universit´eLibre de Bruxelles, Brussels, Belgium
+yDepartment of Physics, School of Natural Sciences, Ulsan National Institute of Science and Technology, UNIST-gil, Ulsan, Korea
+zEarthquake Research Institute, University of Tokyo, Bunkyo-ku, Tokyo, Japan
+aaGraduate School of Information Sciences, Hiroshima City University, Hiroshima, Hiroshima, Japan
+abAdvanced Science Institute, RIKEN, Wako, Saitama, Japan
+acNational Institute of Radiological Science, Chiba, Chiba, Japan
+adDepartment of Physics, Ehime University, Matsuyama, Ehime, Japan
+∗Corresponding Author
+Email address: monica@cosmic.utah.edu (M.G. Allen)
+Preprint submitted to Elsevier
+September 21, 2021
+
+--- PAGE BREAK ---
+
+1. Introduction
+The Telescope Array (TA) experiment is located near
+Delta, Utah, about 250 km southwest of Salt Lake City. It
+is a hybrid experiment that incorporates two of the main
+types of cosmic ray detectors (ﬂuorescence telescopes and a
+scintillation counter array) for studying Ultra High Energy
+Cosmic Rays (UHECR).
+Figure 1 shows the distribution of the 507 scintillation
+counters that comprise the TA scintillator Surface Detec-
+tor (SD) array. The locations of the counters, shown by
+the ﬁlled black squares, are laid out on a 1.2 km square
+grid.
+The SD counters sample the laterally-distributed
+remnants of the air showers at ground level (∼4600 ft
+above sea level). The SD array is operational 24 hours
+a day. It rarely has more than a few detectors down at
+any given time, and often operates with all of them. Tak-
+ing into account the data acquisition system eﬃciency, it
+has a duty cycle of >95%. The detection eﬃciency of air
+showers with the SD array rises quickly above ∼1018 eV
+and it becomes fully eﬃcient above ∼1019 eV. The aper-
+ture for the highest energy cosmic rays is about 1500 km2
+steradians.
+The three Fluorescence Detector (FD) sites, indicated
+by the triangles in Figure 1, are located at the periphery
+of the SD array and view the sky over the array.
+two southern sites each consist of 12 new telescopes built
+for the TA experiment.
+The northernmost FD site, lo-
+cated at Middle Drum (MD), was constructed with 14 re-
+furbished telescopes from the HiRes-1 site of the previous
+High-Resolution Fly’s Eye (HiRes) experiment. The re-use
+of these telescopes provides a direct connection between
+TA and HiRes: the energy scale of the HiRes experiment
+can be directly transferred to TA.
+In this paper, we introduce the MD hybrid reconstruc-
+TA MAP
+SD East/West Column Number [1200m units]
+SD North/South Row Number [1200m units]
+Figure 1: The layout of the Telescope Array experiment.
+The ﬁlled black squares indicate the locations of the 507
+scintillation counters that comprise the Surface Detector
+(SD) array. The triangles mark the three ﬂuorescence de-
+tector sites at the periphery of the SD array. The solid
+black lines indicate the ﬁeld of view for each of the ﬂuo-
+rescence detector sites. The Central Laser Facility (CLF),
+shown by the circle, is placed equidistant from the three
+ﬂuorescence detector sites to provide atmospheric moni-
+toring and cross-calibration.
+
+--- PAGE BREAK ---
+
+tion method and then compare the resulting spectrum to
+the measurement results achieved by the MD telescope
+station and the SD array acting alone. By using the SD
+and telescope detector in hybrid mode, the geometry re-
+construction of the showers is improved signiﬁcantly, as is
+shown in section 5.1. A more accurate reconstruction of
+the geometry leads to a more accurate energy measure-
+ment of the primary particle. An initial comparison be-
+tween this MD hybrid analysis and the MD monocular
+analysis has been shown in [1], along with a detailed com-
+parison between the MD monocular analysis and the HiRes
+experiment. Here, we intend to take these comparisons a
+step further by comparing the MD hybrid spectrum to the
+MD mono spectrum as well as the SD array, linking all
+parts of the TA measurements to those of the HiRes ex-
+periment.
+2. Surface Detectors
+The 507 scintillation counters in the SD array are ar-
+ranged on a 1.2 km square grid and each have an active
+area of 3 m2. The spacing and active area were optimized
+to provide ∼100% detection eﬃciency for events with en-
+ergy, E≥1019 eV. Each detector is composed of two layers
+of 1.2 cm thick extruded scintillator with grooves in it
+[2, 3]. Wavelength shifting optical ﬁbers run through the
+grooves to collect the light generated when particles pass
+through the scintillator and both ends of the optical ﬁbers
+run to one of two PMTs in the SD, one PMT per scin-
+tillator layer [2, 3]. Each layer of scintillator with optical
+ﬁbers is wrapped in Tyvek sheeting to help ensure opti-
+mum light capture. The average signal from single cosmic
+ray muons, or a Minimum Ionizing Particle (MIP) is used
+to calibrate the signal from an event.
+The signals from each of the PMTs pass through a
+shaping circuit and are digitized by a Flash Analog to Dig-
+ital Converter (FADC), operating at 50 MHz. While the
+FADC digitizes the analog input from the PMTs, those
+pulses which exceed 0.3 MIPs in integrated area are stored
+in memory, along with the time of the pulse (registered via
+a GPS clock) [2, 4]. The SD array is divided into three sub-
+arrays with one wireless control/communications tower over
+each sub-array. Trigger computers at the communication
+towers poll each SD counter in their sub-array at one sec-
+ond intervals. The time of pulses greater than 3 MIPs are
+reported to the towers and this information is used to form
+an event trigger. An event trigger occurs when three adja-
+cent SDs see a signal greater than 3 MIPs within an 8 µs
+window. When an event trigger does occur, the signals
+from all of the detectors in the array with signal greater
+than 0.3 MIPs within a coincidence window of ±32 µs are
+then transferred from the individual counters ﬁrst to the
+tower PC and ﬁnally to the central data acquisition sys-
+tem in the city to the east of the TA site via the wireless
+network [2, 4]. Figure 2 shows an event display of a typical
+SD event.
+3. Middle Drum Detector
+The MD detector consists of 14 telescopes and is lo-
+cated ∼10 km from the nearest SD at the northern end
+of the array.
+It is about 21 km northwest of the Cen-
+tral Laser Facility. Each of the 14 telescopes consists of
+a 5.1 m2 spherical mirror which images the luminous air
+shower onto a camera comprised of a cluster of 256 PMTs
+[5].
+Each telescope mirror is composed of four glass mirror
+segments arranged in a cloverleaf shape.
+The segments
+are individually adjustable, and have been aligned to focus
+light onto the camera at their common focal plane. Due
+
+--- PAGE BREAK ---
+
+Distance East,  [1200m]
+Distance North, [1200m]
+Time,  [4 
+MD Hybrid : 2010/08/12 07:30:33.216258
+Figure 2: An event display for a typical Surface Detector
+(SD) event. SD counters are located nearly at the inter-
+section points of the grid. For each detector viewing the
+event, the circle size is proportional to the number of inci-
+dent particles on that detector, and circle color represents
+the trigger timing of each detector. The arrow represents
+the reconstructed direction of the shower, and the point
+where the arrow crosses the solid black line represents the
+reconstructed shower core position on the ground. The red
+line represents the SD array boundary. The black dashed
+line represents the line of sight to the core of the shower
+from the Middle Drum Detector.
+Azimuth [Degree]
+266 268 270 272 274 276 278 280 282
+Elevation [Degree]
+EVENT: 2009/09/19 08:45:52
+Time,  [
+Figure 3: Middle Drum event display for event 2009/09/19
+08:45:52. For each PMT, the size of the circle is propor-
+tional to the amount of light collected by the PMT, while
+the color of the circle represents the timing with respect
+to the other tubes. The black line represents the ﬁt to the
+projection of the Shower Detector Plane (SDP).
+to the obscuration of the cluster box and stand directly
+in front of the mirror, the total eﬀective collection area
+of the mirror is 3.72 m2. Seven of the 14 telescopes view
+3◦−17◦in elevation, while the remainder view 17◦−31◦.
+In azimuth, all 14 mirrors used in conjunction can see 112◦
+between southwest and southeast.
+The ﬂuorescence light collected by the mirror passes
+through a UV band-pass ﬁlter before reaching the PMTs
+in order to remove most starshine and man made light and
+thus improve the signal to noise ratio. Within the cam-
+era cluster box, are 256 hexagonally close-packed PMTs.
+Each PMT is optimized to collect UV light and is provided
+with its own high voltage setting to provide uniform gain.
+Figure 3 shows an event display from the MD detector.
+Each PMT is individually monitored and the threshold
+(1240-2500 mV) is continuously modiﬁed to keep the tube
+trigger rate, or “count rate” at 200 Hz. A single tube trig-
+ger is saved for 25 µs. A “subcluster” (a 4x4 cluster of 16
+
+--- PAGE BREAK ---
+
+PMTs within one camera) trigger occurs when three tubes
+trigger within a 25 µs window, and two of them are adja-
+cent. When the conditions are met, the subcluster trigger
+is transmitted to a “mirror trigger” board. When two sub-
+clusters trigger within a 25 µs window, a “telescope” level
+trigger occurs [5]. All the PMT signals are converted to a
+digital signal through a 12-bit Analog to Digital Converter
+(ADC) [6].
+4. Middle Drum Hybrid Event Reconstruction
+The MD hybrid analysis takes advantage of existing
+programs used to reconstruct events in monocular mode by
+both the SDs and the FDs. After the initial reconstruction
+steps are done separately, the events are combined for a
+hybrid analysis.
+4.1. SD Reconstruction
+The raw data from the SD array contains trigger and
+waveform information from particles passing through the
+scintillator and producing light that is detected by the
+PMTs. The SD reconstruction determines the geometry
+and energy of the events from these signals. The FADC
+traces are scanned to ﬁnd the time of the signal.
+It is
+then calibrated using the 1 MIP from detected cosmic
+ray muons. The calibrated information from the triggered
+events is used to ﬁt the geometry of the shower. First, the
+counters with signals from the actual event are identiﬁed.
+This is done by only including counters which are consid-
+ered contiguous in both space and time. Counters that
+are within
+2 × the counter spacing are considered con-
+tiguous in space, thus including counters on the diagonal.
+Two counters with a time diﬀerence (divided by the speed
+of light) less than or equal to their spacing are considered
+contiguous in time. Counters that don’t ﬁt this pattern
+recognition criteria are removed as electronic noise or ran-
+dom muons. The shower track vector indicating the ge-
+ometry of the shower is then found using the trigger times
+of each SD in the event.
+In the ﬁnal reconstruction step for the SD events, the
+triggered counters are ﬁt to a Lateral Distribution Func-
+tion (LDF). The SD array is a direct derivative of the ba-
+sic design of the Akeno Giant Air Shower Array (AGASA)
+experiment, though it is optimized to detect events with
+higher energies by increasing the spacing and the detector
+size. Therefore, it makes sense that the SD reconstruction
+programs use the same LDF that was used by the AGASA
+experiment [4, 7]. This was done so that a good compari-
+son could be made between the TA surface array and the
+AGASA experiment. Such a comparison has been done [4].
+Using the result of the LDF geometry ﬁt, the density of
+particles at a lateral distance perpendicular to the shower
+core can be extrapolated at any point. Studies have shown
+that the optimum parameter for determining the energy of
+an air shower using a ground array is the signal at a ﬁxed
+distance from the shower core. That speciﬁc distance is
+dependent primarily on array geometry, and has little de-
+pendence on shower geometry or the lateral distribution
+function that is used [8]. The distance ∼800 m from the
+shower core has been determined to be a stable indicator
+of shower energy for this size detector (3 m2) and counter
+separation (1.2 km) [4]. The density of particles at this
+point is called S800. Once S800 is found, an energy table
+created from the Monte Carlo (MC) (described in section
+5) is used to determine the energy. The table is gener-
+ated by matching the original thrown energy of the Monte
+Carlo showers to the ﬁnal reconstructed values, including
+S800 and zenith angle. In this method, many simulated
+showers with diﬀerent energies and geometries are gener-
+
+--- PAGE BREAK ---
+
+ated to ﬁnd the one which gives signals in the detector
+which most closely resemble the actual data event.
+4.2. MD Reconstruction
+The FD reconstruction for MD begins by matching
+the triggered events from individual telescopes using GPS
+time-stamps. The data from the telescopes are then com-
+pared, and telescope triggers that occur within 100 µs of
+each other are combined into a single site event. The re-
+construction program then determines the probability that
+a given event was triggered by noise using a Rayleigh ﬁl-
+ter. Each pair of neighboring tubes is examined and a unit
+vector is drawn from the earlier tube to the later one. A
+Rayleigh vector describes the sum of all such segments for
+a given event. If the event is due to noise, the length of
+the Rayleigh vector will be short, while for a real cosmic
+ray event it will be long.
+Using the Rayleigh vector, a
+probability that the event was triggered randomly is cal-
+culated. Each event that has a probability of 1% or less of
+having been generated by noise is saved for further analy-
+sis. Using the pointing directions of the PMTs, the Shower
+Detector Plane (SDP) is calculated for each of the saved
+events. The SDP is treated as a line source and is ﬁt using
+χ2 minimization for Equation 1.
+χ2 =
+(ˆn · ˆni)2 · wi
+In this equation, ˆn represents the SDP normal vector, and
+ˆni is the viewing direction of triggered tube i. The number
+of photoelectrons seen by tube i is wi.
+For each tube,
+σi, or the angular uncertainty, is set to 1◦because this
+is the ﬁeld of view of an individual PMT and we can not
+determine where a photon hits on the face of the PMT.
+Finally, the program looks for groups of events that are
+similar in time, core location, and amount of light seen,
+with a goal of removing those events that are from artiﬁcial
+sources. These removed sources would include laser shots
+from the Central Laser Facility, which are routinely made
+for atmospheric monitoring.
+4.3. Hybrid Reconstruction
+As described in the previous sections, the SD and MD
+events are reconstructed separately through the SD and
+the MD reconstruction programs. In order to combine the
+two sets of information into one hybrid event set, a time
+matching program compares the two data sets. The time
+that the shower core intersects with the ground, or plane in
+which the SDs lie, is calculated for each set and compared.
+Events that are within 2 µs of each other are considered
+matched. They are combined into a single common hybrid
+event.
+Once a combined set has been created, the events are
+reprocessed using the information from both detectors. We
+minimize the χ2 taking into account (1) the Fluorescence
+Detector timing, (2) the SD timing, and (3) the position of
+the core of the shower as it hits the ground as determined
+by the SD, including uncertainties.
+The timing of the FDs and SDs is combined by com-
+paring timing with pointing direction. Using Equation 2,
+MD PMT trigger times can be related to their pointing di-
+rection. The resulting χ2 for minimization is then shown
+by Equation 3.
+ti = TRp + RP
+c tan
+π −ψ −χi
+MDT iming =
+ti −
+TRp + RP
+c tan
+π −ψ −χi
+In both equations, ti represents the triggered time of tube
+i, and TRp represents the time of the shower (in microsec-
+
+--- PAGE BREAK ---
+
+Time [
+ / ndf 
+  1063 / 20
+ 1.169
+ -83.65 
+ 533.1
+ 1.582e+04 
+ 1.039
+ 46.48 
+ / ndf 
+  1063 / 20
+ 1.169
+ -83.65 
+ 533.1
+ 1.582e+04 
+ 1.039
+ 46.48 
+EVENT: 2009/09/19 08:45:52
+Angle within the SDP  [degrees]
+Figure 4:
+Timing vs angle plot for event 2009/09/19
+08:45:52, observed by the Middle Drum ﬂuorescence de-
+tector site.
+The angle of the observed signal along the
+Shower Detector Plane (SDP) is plotted with respect to
+the time information of the signal. Fitting the curvature
+provides the timing and impact parameter and, when com-
+bined with the SDP, gives the pointing information of the
+primary cosmic ray.
+onds) at the impact parameter (RP ), measured in km. The
+angle of the shower track within the SDP is represented
+by ψ (in degrees), and χi is the tube viewing angle within
+the SDP.
+Figure 4 shows an example Timing vs. Angle plot of a
+ﬂuorescence event observed using the MD telescopes. The
+ﬁt curve is calculated from Equation 2 and χ2 minimiza-
+tion is used to determine the in-plane angle (ψ), impact
+parameter (RP ), and time at RP (TRp).
+Figure 5 shows the result of the Hybrid Timing vs.
+Angle analysis. While Figure 4 shows only the MD points,
+the hybrid plot (Figure 5) has been signiﬁcantly extended
+using the timing information from the SDs. Each triggered
+SD is treated as a virtual PMT located at the MD detector.
+Equation 4 shows how the trigger time is adjusted for the
+SD points.
+tSD = tSDT rig + SDDist
+Time [
+ / ndf 
+ 52.86 / 45
+ 0.31
+ -98.72 
+ 0.03E+03
+ 24.50E+03 
+ 0.21
+ 61.26 
+EVENT: 2009/09/19 08:45:52
+Angle within SDP  [degrees]
+Figure 5:
+Timing vs angle plot for event 2009/09/19
+08:45:52: it is extended using information from Surface
+Detectors. Virtual PMTs are created using information
+from the SD counters (red squares) which have been added
+to the information from the MD PMTs (black circles). In
+comparison with Figure 4, the curvature is more obvious,
+and the χ2 value is signiﬁcantly better here, after adding
+the extra information.
+Here, tSD is the trigger time of a virtual tube at the
+MD site that represents the position of the counter, while
+tSDT rig is the actual trigger time of the counter. SDDist
+is the distance from MD to the counter, and c is the speed
+of light. Equation 5 shows how the SDs are added to the
+overall χ2 calculation.
+SDT iming =
+ti −
+TRp + RP
+c tan
+π −ψ −χi
+Note that the equation is the same as Equation 3. The
+diﬀerence is that the observed time, ti, is calculated for
+each SD counter. The signals observed by the SDs arrive
+later than those measured by the PMTs at the MD de-
+tector because the SDs are sampling the shower on the
+ground, and the light then takes time to get from that
+point to the telescope. Therefore, as shown in Figure 5,
+all of the SD points are plotted at later times. Adding the
+
+--- PAGE BREAK ---
+
+SD counters to the calculation increases the total number
+of points in the χ2 minimization and, more importantly,
+extends the range in time and angle. Note that in com-
+parison with Figure 4, the curvature in Figure 5 is more
+obvious, and the χ2/dof is improved. As a result, a more
+accurate calculation of the geometry is achieved.
+The ﬁnal piece of the χ2 minimization is the core con-
+straint of the hybrid analysis. Equation 6 shows the min-
+imization to determine the x and y coordinates on the
+ground.
+Core =
+∥Ri −(RCOG)i ∥2
+RCOG
+Here, RCOG represents the reconstructed core position
+from the SD Center Of Gravity, COG, while Ri represents
+the trial parameters. Note that i = 1 corresponds to the
+x-coordinate and i = 2 corresponds to the y-coordinate.
+The σRCOG is equal to 170 m, the uncertainty determined
+by the SD Monte Carlo reconstruction [9, 4].
+The hybrid analysis uses the result of the ﬁt of the
+SDP normal, ˆn, from the MD reconstruction (Equation 1)
+and varies the parameters ψ, TRp, and RP to minimize the
+full χ2, including the timing from the SD’s, FD’s, and the
+core constraint, simultaneously. This ﬁtting results in the
+hybrid geometry reconstruction of the UHECR shower.
+The hybrid analysis uses the same energy reconstruc-
+tion program as the MD monocular processing. It uses an
+inverse Monte Carlo technique for calculating the shower
+energy. In order to do this, however, it must ﬁrst gener-
+ate a proﬁle of the shower. Using the calculated hybrid
+geometry, the program converts the viewing angle of each
+“good” PMT into a shower depth, in g/cm2.
+The Monte Carlo showers for this purpose are para-
+metrically calculated using Poisson statistics rather than
+thrown and saved. The input parameters for the proﬁle
+of the calculated shower are taken from the Gaisser-Hillas
+function, (Equation 7).
+Ne (x) = Nmax×
+x −X0
+Xmax −X0
+ Xmax−X0
+Xmax −x
+The function predicts the number of particles, Ne, at a
+given slant depth, x. The values of X0 and λ are ﬁxed to
+40 g/cm2and 70 g/cm2, respectively, while, Xmax, repre-
+senting the depth of the shower maximum, and Nmax, the
+number of particles at the shower maximum, are allowed
+to vary.
+The χ2 function for the proﬁle is then calcu-
+lated comparing the number of photoelectrons measured
+in each PMT to the predicted number calculated for an in-
+put shower. The shower with the minimum χ2 corresponds
+to the Monte Carlo generated shower that best matches
+the observed shower. The missing energy is estimated by
+comparing the integrated energy from the visible part of
+the shower to the original energy of the primary particle
+in the simulation. The energy of the primary particle from
+the Monte Carlo shower is then stored as the calculated
+hybrid energy of the real shower.
+Additional cuts were made on the data using the res-
+olution plots to improve the quality of the reconstruction.
+Below is a list of quality cuts that were made on the data,
+based on a study of the simulated showers.
+1. Failmode: Events that failed the proﬁle reconstruc-
+tion are removed from the set.
+2. Zenith angle > 56◦: Events with zenith angles greater
+than 60◦cannot be reconstructed reliably, using the
+SD technique. Therefore, the Monte Carlo for this
+analysis does not simulate showers with zenith angle
+greater than 60◦.
+Due to overﬂow, caused by the
+eﬀect of angular resolution, events close to 60◦are
+also diﬃcult to analyze. 56◦is safely distant from
+60◦for the analysis.
+
+--- PAGE BREAK ---
+
+3. Hybrid/SD Core Position (diﬀerence >1200 m): Since
+the events are time-matched, it is conceivable that
+two independent events (one SD event and one MD
+event) may be combined due to their proximity in
+time. The core location of the shower at the ground
+calculated using only the SDs is compared to the po-
+sition calculated using the hybrid analysis in order
+to ensure that the MD event and the SD event are
+the same event, so that only true hybrid events are
+kept.
+4. Border Cut (<100 m): The border cut uses the hy-
+brid core location to determine how close the shower
+falls to the edge of the SD array. Showers with cal-
+culated core locations that fall at, or outside, the
+border of the array are diﬃcult to reconstruct due
+to the missing information that may be out of range
+of the SDs. Therefore, showers with a core that is
+within 100 m of the border or outside the array are
+removed.
+5. Track Length <8.0◦: Events with shorter track lengths
+have less information, and therefore provide a less
+accurate reconstruction.
+6. Xmax not “Bracketed”: Events which reconstruct
+with the depth of the shower maximum, or Xmax
+outside of the ﬁeld of view of the detector camera
+(3-31◦elevation) are removed. The energy is recon-
+structed more accurately if Xmax is seen.
+5. Simulation
+An accurate measurement of the hybrid energy spec-
+trum depends upon an understanding of the aperture and
+exposure of the hybrid detector. The aperture of the detec-
+tor is dependent upon the layout and eﬃciency of the de-
+tector as well as on the geometry and energy of the shower.
+Monte Carlo simulations are used to make these calcula-
+tions.
+Simulated events are thrown such that the core of the
+shower intersects with the ground, or plane in which the
+SDs lie, within a circle of radius 25 km centered at the Cen-
+tral Laser Facility (CLF), which is at the center of the SD
+array, equidistant from all three telescope stations. The
+solid angle, Ω0, is deﬁned by Equation 8. Equation 9 rep-
+resents the “thrown” aperture and is deﬁned by the area
+of the circle multiplied by the solid angle. The calculated
+aperture for the spectrum is given in Equation 10.
+Ω0 = 2π
+Z θmax
+sinθcosθdθ = πsin2θmax
+A0Ω0 = π2R2sin2θmax
+AΩ= A0Ω0
+NReconstructed
+NT hrown
+(10)
+Here, R is the radius of the circle (25 km), θmax is 60◦
+(The maximum zenith angle thrown in the simulated show-
+ers), NReconstructed represents the number of Monte Carlo
+events that are reconstructed and pass cuts, and NT hrown
+represents the number of events that were thrown (gener-
+ated) in the set.
+The MC programs simulate both the cosmic ray show-
+ers as well as the detector response. The MC showers used
+for this hybrid analysis were generated using CORSIKA
+[10]. At high shower particle energies (E > 80 GeV), the
+QGSJET-II-03 [11] hadronic model was used to simulate
+particle interactions within the shower. At lower energies
+(E < 80 GeV), the FLUKA [12] model was used. The
+electromagnetic component of the shower was treated us-
+ing EGS4 [13] .
+Over 16,000 dethinned [14] proton showers ranging in
+energy from 1016.75 eV to 1020.55 eV with a variety of ge-
+ometries were created and stored in a shower library [4].
+
+--- PAGE BREAK ---
+
+This library was resampled thousands of times using ran-
+dom azimuthal and zenith angles, as well as timing to gen-
+erate a set of over 150 million simulated events. The set
+was generated using a piece-wise power law spectrum in a
+method similar to that used for the HiRes measurement
+[15]. The following list summarizes the parameters of this
+main simulated data set.
+• Composition: We assume pure protons and the QGSJET-
+II-03 hadronic model, which gives good agreement
+with all geometric variables needed to calculate ac-
+ceptance. [16].
+• Energy Slope, E: E−3.25 for 1016.75 < E < 1018.65 eV;
+E−2.81 for 1018.65 eV ≤E < 1019.75 eV; E−5.1 for
+E ≥1019.75 eV. This is the piece-wise power law that
+results from a ﬁt to the HiRes data [15].
+• Surface Impact Position: Uniform, random distribu-
+tion inside a circle of radius 25 km, centered at the
+CLF (39.296918 N Lat, 112.908733 W Long).
+• Zenith Angle, θ: sin(θ)cos(θ) distribution in [0◦−
+60◦] range. The sin(θ) represents a spherically isotropic
+distribution from the sky, while the cos(θ) represents
+the projection of the distribution on a ﬂat target.
+• Azimuthal Angle, φ: Flat distribution in [0◦, 360◦]
+range.
+5.1. Resolutions
+In the hybrid analysis, both the SD data and MD data
+are used to constrain the geometrical ﬁt parameters, as
+detailed in the previous section. In Figure 6, the recon-
+structed values of the in-plane angle (ψ), impact parame-
+ter (RP ), and zenith angle (θ) are compared with the MC
+generated values from the same events. The width of these
+resolutions from the reconstruction of MC events is used
+to place an uncertainty on the reconstructed values of the
+data events. The plots show that the in-plane angle and
+zenith angle have hybrid resolutions of ∼0.5◦, and the im-
+pact parameter has a 0.5% resolution. Figure 7 shows the
+MD monocular reconstruction resolutions for comparison.
+The MD hybrid resolutions show signiﬁcant improvement
+over the MD monocular reconstruction.
+Figure 8 shows the energy resolution for the MD hybrid
+reconstruction in three energy ranges. The improved geo-
+metrical resolution over the MD monocular measurement
+(Figure 6) directly contributes to the improvement in the
+energy resolution for the hybrid reconstruction. The reso-
+lution in energy starts at about 10% for the energy range
+of 1018.0 −1018.5 eV and improves with increased energy.
+This is more than a factor of two improvement over the
+MD monocular reconstruction, shown in Figure 9. These
+improvements show the strength of the extra constraint of
+SD information.
+5.2. Data/MC Comparisons
+MC simulations are also used to calculate the aperture
+of the TA detector which is then folded in with running
+time of each detector element to calculate the exposure.
+However, the MC must provide a faithful representation
+of distributions in the data for the aperture calculation
+and the resultant measured ﬂux to be trusted. We vali-
+date the ﬁdelity of the simulation by making a series of
+comparisons between the data and the Monte Carlo sim-
+ulated data for a number of parameter distributions. In
+particular, we compare those variables directly connected
+to the aperture.
+Here we show the distributions from accepted events of
+both the data and MC, having been processed using the
+same analysis programs and subjected to the same selec-
+tion cuts. In addition, for each comparison, a Kolmogorov-
+
+--- PAGE BREAK ---
+
+Entries 
+ 14479
+Constant 
+  2113
+Mean     
+ -0.2438
+Sigma    
+ 0.5258
+  [Degree]
+Number of Events
+1000
+1500
+2000
+2500
+Entries 
+ 14479
+Constant 
+  2113
+Mean     
+ -0.2438
+Sigma    
+ 0.5258
+Entries 
+ 14479
+Constant 
+  1706
+Mean     
+ -0.002875
+Sigma    
+ 0.004753
+-0.08
+-0.06
+-0.04
+-0.02
+0.02
+0.04
+0.06
+0.08
+Number of Events
+1000
+1200
+1400
+1600
+1800
+2000
+2200
+Entries 
+ 14479
+Constant 
+  1706
+Mean     
+ -0.002875
+Sigma    
+ 0.004753
+Entries 
+ 14479
+Constant 
+  1764
+Mean     
+ -0.04041
+Sigma    
+ 0.6215
+  [Degree]
+Number of Events
+1000
+1200
+1400
+1600
+1800
+2000
+2200
+Entries 
+ 14479
+Constant 
+  1764
+Mean     
+ -0.04041
+Sigma    
+ 0.6215
+Figure 6: Resolutions for Middle Drum hybrid geometric
+reconstructed parameters: shown are the in-plane angle
+(ψ), (top), impact parameter (RP ), (middle), and zenith
+angle (θ) (bottom). The red histogram shows the diﬀer-
+ence between the reconstructed and thrown values for each
+event, or in the case of the impact parameter, the normal-
+ized diﬀerence. The black line is a gaussian ﬁt to the his-
+togram. Note that the horizontal scale in the hybrid case
+is diﬀerent from the monocular reconstruction (shown in
+the next ﬁgure). This reﬂects the signiﬁcant improvement
+in the reconstruction due to the hybrid constraints.
+ [Degree]
+-80 -60 -40 -20
+Number of Events
+1000
+1200
+1400
+1600
+Entries  19631
+Mean      -2.535
+Sigma     10.27
+Entries  19631
+Mean      -2.535
+Sigma     10.27
+P-THR
+)/ R
+P-THR
+P-REC
+-1.5
+-0.5
+Number of Events
+1000
+1500
+2000
+2500
+Entries 
+ 19631
+Mean      -0.0603
+Sigma     0.1614
+Entries 
+ 19631
+Mean      -0.0603
+Sigma     0.1614
+  [Degree]
+-80 -60 -40 -20
+Number of Events
+1000
+1500
+2000
+2500
+3000
+3500
+4000
+Entries 
+ 19631
+Mean      0.06851
+Sigma    
+  4.24
+Entries 
+ 19631
+Mean      0.06851
+Sigma    
+  4.24
+Figure 7: Resolutions for Middle Drum monocular geomet-
+ric parameters: shown are the in-plane angle (ψ), (top),
+impact parameter (RP ), (middle), and zenith angle (θ)
+(bottom). The red histogram shows the diﬀerence between
+the reconstructed and thrown values for each event, or in
+the case of the impact parameter, the normalized diﬀer-
+ence. The black line is a gaussian ﬁt to the histogram.
+Note that the horizontal scale in the monocular case is
+diﬀerent from the hybrid reconstruction (shown in the pre-
+vious ﬁgure). This reﬂects the signiﬁcant improvement in
+the reconstruction due to the hybrid constraints.
+
+--- PAGE BREAK ---
+
+Entries 
+ 9160
+Constant 
+ 717.1
+Mean     
+ 0.02675
+Sigma    
+ 0.09808
+Log(E
+-0.8
+-0.6
+-0.4
+-0.2
+Number of Events
+Entries 
+ 9160
+Constant 
+ 717.1
+Mean     
+ 0.02675
+Sigma    
+ 0.09808
+18.0 < Log(E) < 18.5
+Entries 
+ 4299
+Constant 
+ 460.7
+Mean     
+ 0.01843
+Sigma    
+ 0.07114
+Log(E
+-0.8
+-0.6
+-0.4
+-0.2
+Number of Events
+Entries 
+ 4299
+Constant 
+ 460.7
+Mean     
+ 0.01843
+Sigma    
+ 0.07114
+18.5 < Log(E) < 19.0
+Entries 
+ 1020
+Constant 
+ 133.9
+Mean     
+ 0.01365
+Sigma    
+ 0.05676
+Log(E
+-0.8
+-0.6
+-0.4
+-0.2
+Number of Events
+Entries 
+ 1020
+Constant 
+ 133.9
+Mean     
+ 0.01365
+Sigma    
+ 0.05676
+Log(E) > 19.0
+Figure 8:
+Resolutions for Middle Drum hybrid recon-
+structed energy: events are shown by energy range: 1018 <
+E < 1018.5 eV (top), 1018.5 < E < 1019.0 eV (middle), and
+E > 1019.0 eV (bottom). In each case, the red histogram
+shows the log of the ratio of the reconstructed and thrown
+energy for each event. The black line is a gaussian ﬁt to
+the histogram. The energy resolutions (10%, 7%, and 6%)
+for the hybrid reconstruction represent more than a fac-
+tor of two improvement over the monocular reconstruction
+(34%, 26% and 19%) (shown in the next ﬁgure). Note that
+the horizontal scale is changed in the monocular case.
+Entries 
+ 11014
+Mean      -0.1672
+Sigma     0.3475
+Log(E
+-1.5
+-0.5
+Number of Events
+Entries 
+ 11014
+Mean      -0.1672
+Sigma     0.3475
+18.0 < Log(E) < 18.5
+Entries 
+ 6029
+Mean      -0.05218
+Sigma    
+ 0.259
+Log(E
+-1.5
+-0.5
+Number of Events
+Entries 
+ 6029
+Mean      -0.05218
+Sigma    
+ 0.259
+18.5 < Log(E) < 19.0
+Entries 
+ 1670
+Mean      0.04506
+Sigma     0.1936
+Log(E
+-1.5
+-0.5
+Number of Events
+Entries 
+ 1670
+Mean      0.04506
+Sigma     0.1936
+Log(E) > 19.0
+Figure 9: Resolutions for Middle Drum monocular recon-
+structed energy: events are shown by energy range: 1018
+< E < 1018.5 eV (top), 1018.5 < E < 1019.0 eV (middle),
+and E > 1019.0 eV (bottom). In each case, the red his-
+togram shows the log of the ratio of the reconstructed and
+thrown energy for each event. The black line is a gaussian
+ﬁt to the histogram. The energy resolutions (10%, 7%, and
+6%) for the hybrid reconstruction (in the previous ﬁgure)
+represent more than a factor of two improvement over the
+monocular reconstruction (34%, 26% and 19%). Note that
+the horizontal scale is changed in the monocular case.
+
+--- PAGE BREAK ---
+
+Smirnov (K-S) test is performed to compare the data and
+MC distributions. This test is appropriate for the small
+size of the data sample. In nearly every case, except when
+statistics are small (in the highest energy range), the agree-
+ment between data and MC for these parameters in these
+comparisons is very good.
+Figure 10 shows the Data/MC comparisons for the
+number of photoelectrons per degree of track length of
+accepted events. The agreement here gives a good indica-
+tion that the simulated detector response is accurate. The
+comparisons are shown in three energy regions.
+Figure 11 shows the Data/MC comparisons for the in-
+plane angle (ψ) for showers in three energy ranges. This
+comparison shows whether we are simulating the evolution
+of this parameter reliably with energy. MD hybrid anal-
+ysis is optimized in the region of 1018.5
+eV to 1019.0 eV
+and therefore, the most accurate reconstructions of show-
+ers are found in this energy range. It is important to note,
+however, that the agreement between data and MC is well
+reproduced in all energy ranges.
+Figures 12, 13, and 14 show Data/MC comparisons
+for the impact parameter (RP ), zenith angle (θ) and az-
+imuthal angle (φ) for three energy ranges.
+Again, the
+agreement between data and MC is consistently excellent
+in all three ranges in these plots. The K-S probability for
+each comparison is shown on the plot and indicates good
+agreement.
+6. Middle Drum Hybrid Energy Spectrum
+The energy spectrum refers to the diﬀerential ﬂux of
+cosmic rays. It is calculated by taking the number of data
+events per energy bin and dividing by the exposure and
+Number Photoelectrons/Degree
+1000
+Number of Events
+DATA/MC 18.0 < Log(E) < 18.5
+K-S Probability  0.814
+Number Photoelectrons/Degree
+1000
+Number of Events
+DATA/MC 18.5 < Log(E) < 19.0
+K-S Probability  0.574
+Number Photoelectrons/Degree
+1000
+Number of Events
+DATA/MC Log(E) > 19.0
+K-S Probability  0.975
+Figure 10: Data-MC comparison: the Middle Drum hy-
+brid number of photoelectrons per degree of track length
+is shown in three energy ranges: top to bottom, 1018.0 <
+E < 1018.5 eV, 1018.5 < E < 1019.0 eV, and E > 1019.0 eV,
+respectively, to show the evolution of this parameter with
+energy.
+The distribution of measurements is shown for
+the data (black points with error bars) and MC (red his-
+togram). The MC has been normalized to the area of the
+data in these plots. This ﬁgure shows that the data and
+MC agreement for this parameter is not dependent on en-
+ergy.
+
+--- PAGE BREAK ---
+
+ [Deg]
+Number of Events
+DATA/MC 18.0 < Log(E) < 18.5
+K-S Probability  0.844
+ [Deg]
+Number of Events
+DATA/MC 18.5 < Log(E) < 19.0
+K-S Probability  0.847
+ [Deg]
+Number of Events
+DATA/MC Log(E) > 19.0
+K-S Probability  0.082
+Figure 11: Data-MC comparison: the Middle Drum hybrid
+in-plane angle (ψ) is shown in three energy ranges: top to
+bottom, 1018.0 < E < 1018.5 eV, 1018.5 < E < 1019.0 eV,
+and E > 1019.0 eV, respectively, to show the evolution of
+this parameter with energy. The distribution of measure-
+ments is shown for the data (black points with error bars)
+and MC (red histogram). The MC has been normalized
+to the area of the data in these plots. This ﬁgure shows
+that the data and MC agreement for this parameter is not
+dependent on energy.
+ [km]
+Number of Events
+DATA/MC 18.0 < Log(E) < 18.5
+K-S Probability  0.411
+ [km]
+Number of Events
+DATA/MC 18.5 < Log(E) < 19.0
+K-S Probability  0.904
+ [km]
+Number of Events
+DATA/MC Log(E) > 19.0
+K-S Probability  0.442
+Figure 12: Data-MC comparison: the Middle Drum hybrid
+impact parameter (RP ) is shown in three energy ranges:
+top to bottom, 1018.0 < E < 1018.5 eV, 1018.5 < E <
+1019.0 eV, and E > 1019.0 eV, respectively, to show the
+evolution of this parameter with energy. The distribution
+of measurements is shown for the data (black points with
+error bars) and MC (red histogram). The MC has been
+normalized to the area of the data in these plots. This
+ﬁgure shows that the data and MC agreement for this pa-
+rameter is not dependent on energy.
+
+--- PAGE BREAK ---
+
+ [Deg]
+Number of Events
+DATA/MC 18.0 < Log(E) < 18.5
+K-S Probability  0.098
+ [Deg]
+Number of Events
+DATA/MC 18.5 < Log(E) < 19.0
+K-S Probability  0.610
+ [Deg]
+Number of Events
+DATA/MC Log(E) > 19.0
+K-S Probability  0.992
+Figure 13: Data-MC comparison: the Middle Drum hy-
+brid zenith angle (θ) is shown in three energy ranges: top
+to bottom, 1018.0 < E < 1018.5 eV, 1018.5 < E < 1019.0 eV,
+and E > 1019.0 eV, respectively, to show the evolution of
+this parameter with energy. The distribution of measure-
+ments is shown for the data (black points with error bars)
+and MC (red histogram). The MC has been normalized
+to the area of the data in these plots. This ﬁgure shows
+that the data and MC agreement for this parameter is not
+dependent on energy.
+ [Deg]
+Number of Events
+DATA/MC 18.0 < Log(E) < 18.5
+K-S Probability  0.971
+ [Deg]
+Number of Events
+DATA/MC 18.5 < Log(E) < 19.0
+K-S Probability  0.995
+ [Deg]
+Number of Events
+DATA/MC Log(E) > 19.0
+K-S Probability  0.171
+Figure 14: Data-MC comparison: the Middle Drum hy-
+brid azimuthal angle (φ) (angle of the shower with respect
+to east) is shown in three energy ranges: top to bottom,
+1018.0 < E < 1018.5 eV, 1018.5 < E < 1019.0 eV, and E >
+1019.0 eV, respectively, to show the evolution of this pa-
+rameter with energy. The distribution of measurements is
+shown for the data (black points with error bars) and MC
+(red histogram). The MC has been normalized to the area
+of the data in these plots. This ﬁgure shows that the data
+and MC agreement for this parameter is not dependent on
+energy.
+
+--- PAGE BREAK ---
+
+energy interval for that bin, as shown in Equation 11.
+J(E) =
+N(E)
+AΩ(E) × ∆t × ∆E
+(11)
+Here, N(E) refers to the number of reconstructed events
+in an energy bin, AΩis the calculated aperture for the
+energy bin, ∆t is the hybrid detector on-time, and ∆E is
+the energy interval covered by the bin.
+The systematic
+uncertainty of the energy calculation due to atmospheric
+conditions was taken into account when calculating this
+ﬂux. A study of the vertical aerosol optical depth found
+that uncertainty is ∼3% [5].
+The exposure is calculated by taking the aperture per
+energy bin and multiplying by the on-time for the detector.
+The SD array collects data 24 hours a day. Taking into
+account the data acquisition system and the individual de-
+tectors in the array that are not working periodically, the
+array has better than 95% on-time. Therefore, the main
+contribution to the on-time calculation for this analysis
+comes from the ﬂuorescence detector. The MD detector
+only operates on clear, moonless nights, with a minimum
+of three hours of dark time.
+The MD hybrid energy spectrum was calculated using
+four years of data, the number of integrated good weather
+on-time hours was 3071.8 between May 11, 2008 (SD turn
+on) and May 19, 2012. Good weather data includes only
+data taken on nights when clouds were not present in the
+directions that the MD telescopes point, namely, South
+and East. There were 1580 triggered events in the data set.
+After taking dark time and weather cuts into account, the
+MD detector duty cycle is ∼9%. The ﬁnal data set has 432
+events with reconstructed energies above 1018.4 eV, below
+which, the hybrid detector aperture drops oﬀsteeply. The
+raw energy distribution of these events is shown in Figure
+ Energy (eV)
+18.4
+18.6
+18.8
+19.2
+19.4
+19.6
+19.8
+20.2
+20.4
+Number of Events
+Number of Data Events Per Energy Bin
+E ≥1018.4 eV
+432 Events
+Figure 15: The raw energy distribution of events passing
+all quality cuts observed in hybrid mode by the Middle
+Drum telescope site: the events are binned in energy. a
+total of 432 events remain that were used to calculate the
+MD hybrid spectrum.
+15. Note that the highest energy event has a reconstructed
+energy of 1.32×1020 eV. This event was not used in the SD
+monocular spectrum because it was reconstructed with a
+zenith angle of 55.7◦, and events with zenith angle >45◦
+were cut from that analysis due to uncertainty in recon-
+structing the event energy using only the SD array.
+Figure 16 shows the calculated aperture from the Monte
+Carlo.
+The aperture falls oﬀsteeply below 1018.4 eV.
+Therefore, for the purpose of this analysis, the spectrum is
+calculated and shown for energies of 1018.4 eV and above.
+Figure 17 shows the diﬀerential ﬂux as a function of
+energy for the MD hybrid events. Due to the geometric
+and temporal limitations of collecting data in hybrid mode,
+the statistics for this spectrum are relatively small.
+The MD hybrid analysis plays an important role in
+connecting the measurements of the High Resolution Fly’s
+
+--- PAGE BREAK ---
+
+Energy (eV)
+Aperture (km
+Figure 16: The calculated Middle Drum hybrid aperture
+from proton Monte Carlo.
+Eye (HiRes) experiment to the Telescope Array experi-
+ment. The MD monocular spectrum [1] provided the ret-
+rograde link between the TA and HiRes spectra, and this
+hybrid analysis takes this link a step further by creating a
+direct connection between the MD detector and the SD ar-
+ray. For this purpose, comparisons of the measured energy
+and energy spectrum with other TA analyses are discussed
+in the next section.
+7. Comparison to MD Monocular and SD Spectra
+An event-by-event study was performed comparing the
+MD monocular data to the MD hybrid data. Figure 18
+shows the energy reconstruction comparison. The system-
+atic uncertainties in the MD monocular spectrum are pri-
+marily due to atmospheric changes, which are the same for
+the hybrid detector. The dashed line in the ﬁgure is the
+1:1 line, while the solid line represents a ﬁt to the data.
+No statistically signiﬁcant bias is seen here. Furthermore,
+Figure 19 shows a histogram of the log ratio of the MD
+Energy (eV)
+J (eV
+MD Hybrid 4 Year
+85 59 41
+41 36
+10 8
+Figure 17: Middle Drum hybrid 4 year energy spectrum:
+shown is the diﬀerential ﬂux of ultra high energy cosmic
+rays with energies, 1018.4 < E < 1020.2 eV, as a function
+of energy.
+The ﬂux has been multiplied by a factor of
+E3 to take out the steep slope of the overall spectrum
+and better show the ﬁne structure. The numbers above
+the data points indicate the number of observed events
+in those bins. Note that the top energy bins have been
+combined due to small statistics. Only three events were
+observed in hybrid mode with energies > 1019.6 eV.
+monocular reconstructed energy over the MD hybrid re-
+constructed energy. Again, no bias is seen.
+Figure 20 compares the MD monocular spectrum with
+this MD hybrid analysis, as well as the HiRes-1 and -2
+spectra. The MD hybrid spectrum is in reasonable agree-
+ment with the MD monocular spectrum as well as both of
+the HiRes spectra (see table 1).
+The next step in linking the HiRes spectrum to the
+Telescope Array is a comparison between the MD hybrid
+energy spectrum and that measured by the TA SD. Event-
+by-event comparisons were also made between the hybrid
+and the SD measurement. SD event energies are estimated
+using the correlation of the number of particles at a point
+800 m from the shower core, S800, and the zenith angle
+of the event with the primary energy from the MC study.
+A comparison of TA FD and SD events found that the
+
+--- PAGE BREAK ---
+
+ (eV)
+Hybrid-Nerling
+18.5
+19.5
+20.5
+ (eV)
+MD-Hillas
+18.5
+19.5
+20.5
+Data
+1:1 line
+Fit line to data
+log10 EHybrid (eV)
+log10 EMD (eV)
+Figure 18: A scatter plot showing the event-by-event com-
+parison of the energies of data events reconstructed by the
+Middle Drum hybrid analysis (X-axis), and those by the
+Middle Drum monocular analysis (Y-axis). The dashed
+line indicates the 1:1 line, while the solid line is a ﬁt to the
+data.
+Entries 
+Mean   -0.01037
+ 0.3022
+Hybrid
+ln E
+-1.5
+-0.5
+Number of Events
+Entries 
+Mean   -0.01037
+ 0.3022
+Figure 19: A histogram of the log ratio of the energies
+of events reconstructed by the Middle Drum monocular
+analysis over those by the Middle Drum hybrid analysis:
+the width in this histogram is dominated by the resolution
+in the MD monocular reconstruction (∼26%).
+Energy (eV)
+J (eV
+MD Hybrid 4 Year
+HiRes-1
+HiRes-2
+MD Monocular
+Figure 20:
+The Middle Drum hybrid energy spectrum
+(black circles) compared with the spectrum measured by
+the Middle Drum detector in monocular mode (green
+squares), as well as the spectra measured by the HiRes-
+1 (red triangles) and HiRes-2 (blue triangles) detectors.
+CORSIKA simulated showers were producing higher than
+expected numbers of particles at S800. Therefore, a scal-
+ing factor of 1.27 was used to calculate the SD energies
+[4, 17]. Figure 21 shows the scatter plot of the MD hybrid
+reconstructed energy of each event vs the SD reconstructed
+energy. Again, the 1:1 line is shown, and there is no signiﬁ-
+cant bias in the data. The histogram of the log ratio of the
+SD monocular reconstructed energy over the MD hybrid
+reconstructed energy is shown in ﬁgure 22. And ﬁnally,
+the MD hybrid spectrum is shown in comparison to the
+SD spectrum in Figure 23. They are in good agreement
+(see table 1).
+For each comparison, a χ2 test was performed to see
+how well the spectra agree. The results of the comparison
+of this hybrid analysis with each of the other spectra are
+summarized in Table 1.
+
+--- PAGE BREAK ---
+
+ (eV)
+Hybrid
+18.5
+19.5
+20.5
+ (eV)
+18.5
+19.5
+20.5
+Data
+1:1 line
+Figure 21: A scatter plot showing the event-by-event com-
+parison of the reconstructed event energy by the Middle
+Drum hybrid analysis (X-axis), and the Surface Detector
+analysis (Y-axis). The line indicates the 1:1 line.
+Entries 
+Mean   0.002817
+  0.368
+Hybrid
+ln E
+-1.5
+-0.5
+Number of Events
+Entries 
+Mean   0.002817
+  0.368
+Figure 22: A histogram of the log ratio of the energies of
+events reconstructed by the Surface Detector analysis over
+those by the Middle Drum hybrid analysis: the width in
+this histogram is dominated by the resolution in the SD
+reconstruction (∼29%).
+Energy (eV)
+J (eV
+MD Hybrid 4 Year
+Surface Detector
+MD Monocular
+Figure 23: The Middle Drum hybrid spectrum (black cir-
+cles) compared with the spectrum measured by the sur-
+face array (purple squares): the MD monocular spectrum
+(green squares) is shown for reference.
+Table 1: A summary of the results of a χ2 test performed to
+compare four analyses with the Middle Drum hybrid anal-
+ysis is given. The comparisons were performed for each
+analysis using only bins with energy 18.4 < log10(E) <
+19.4.
+Data
+Energy Range
+# Degrees
+log10(E)
+of Freedom
+MD Mono
+18.4-19.4
+23.78
+SD Mono
+18.4-19.4
+10.56
+HiRes-1
+18.5-19.4
+16.65
+HiRes-2
+18.4-19.0
+19.30
+8. Conclusion
+In conclusion, we measure the hybrid energy spectrum
+using the MD detector in conjunction with the SD. The
+MD site re-utilizes the telescopes and electronics from the
+HiRes experiment. Therefore, this work directly links the
+measurements of these two experiments. The MD monoc-
+ular spectrum has been shown previously to agree with the
+HiRes spectra. This hybrid analysis establishes a starting
+point for comparison between HiRes and TA spectra. The
+MD hybrid spectrum is in good agreement with the MD
+
+--- PAGE BREAK ---
+
+monocular spectrum and the HiRes spectra, conﬁrming
+this result. Furthermore, the hybrid spectrum agrees with
+the SD monocular spectrum, conﬁrming the HiRes result
+from the perspective of the TA experiment as a whole.
+
+--- PAGE BREAK ---
+
+Acknowledgment
+The Telescope Array experiment is supported by the
+Japan Society for the Promotion of Science through Grants-
+in-Aids for Scientiﬁc Research on Specially Promoted Re-
+search (21000002) “Extreme Phenomena in the Universe
+Explored by Highest Energy Cosmic Rays” and for Sci-
+entiﬁc Research (19104006), and the Inter-University Re-
+search Program of the Institute for Cosmic Ray Research;
+by the U.S. National Science Foundation awards PHY-
+0307098, PHY-0601915, PHY-0649681, PHY-0703893, PHY-
+0758342, PHY-0848320, PHY-1069280, and PHY-1069286;
+by the National Research Foundation of Korea (2007-0093860,
+R32-10130, 2012R1A1A2008381, 2013004883); by the Rus-
+sian Academy of Sciences, RFBR grants 11-02-01528a and
+13-02-01311a (INR), IISN project No. 4.4509.10 and Bel-
+gian Science Policy under IUAP VII/37 (ULB). The foun-
+dations of Dr. Ezekiel R. and Edna Wattis Dumke, Willard
+L. Eccles and the George S. and Dolores Dore Eccles all
+helped with generous donations. The State of Utah sup-
+ported the project through its Economic Development Board,
+and the University of Utah through the Oﬃce of the Vice
+President for Research.
+The experimental site became
+available through the cooperation of the Utah School and
+Institutional Trust Lands Administration (SITLA), U.S.
+Bureau of Land Management, and the U.S. Air Force. We
+also wish to thank the people and the oﬃcials of Millard
+County, Utah for their steadfast and warm support. We
+gratefully acknowledge the contributions from the techni-
+cal staﬀs of our home institutions. An allocation of com-
+puter time from the Center for High Performance Comput-
+ing at the University of Utah is gratefully acknowledged.
+
+--- PAGE BREAK ---
+
+References
+[1] T. Abu-Zayyad, R. Aida, M. Allen, R. Anderson, R. Azuma,
+E. Barcikowski, J. W. Belz, D. R. Bergman, S. A. Blake,
+R. Cady, B. G. Cheon, J. Chiba, M. Chikawa, E. J. Cho, W. R.
+Cho, H. Fujii, T. Fujii, T. Fukuda, M. Fukushima, D. Gorbunov,
+W. Hanlon, K. Hayashi, Y. Hayashi, N. Hayashida, K. Hibino,
+K. Hiyama, K. Honda, T. Iguchi, D. Ikeda, K. Ikuta, N. In-
+oue, T. Ishii, R. Ishimori, D. Ivanov, S. Iwamoto, C. C. H. Jui,
+K. Kadota, F. Kakimoto, O. Kalashev, T. Kanbe, K. Kasa-
+hara, H. Kawai, S. Kawakami, S. Kawana, E. Kido, H. B. Kim,
+H. K. Kim, J. H. Kim, K. Kitamoto, S. Kitamura, Y. Kita-
+mura, K. Kobayashi, Y. Kobayashi, Y. Kondo, K. Kuramoto,
+V. Kuzmin, Y. J. Kwon, S. I. Lim, S. Machida, K. Martens,
+J. Martineau, T. Matsuda, T. Matsuura, T. Matsuyama, J. N.
+Matthews, M. Minamino, K. Miyata, Y. Murano, S. Nagataki,
+T. Nakamura, S. W. Nam, T. Nonaka, S. Ogio, M. Ohnishi,
+H. Ohoka, K. Oki, D. Oku, T. Okuda, A. Oshima, S. Ozawa,
+I. H. Park, M. S. Pshirkov, D. C. Rodriguez, S. Y. Roh,
+G. Rubtsov, D. Ryu, H. Sagawa, N. Sakurai, A. L. Sampson,
+L. M. Scott, P. D. Shah, F. Shibata, T. Shibata, H. Shimodaira,
+B. K. Shin, J. I. Shin, T. Shirahama, J. D. Smith, P. Sokolsky,
+T. J. Sonley, R. W. Springer, B. T. Stokes, S. R. Stratton,
+T. Stroman, S. Suzuki, Y. Takahashi, M. Takeda, A. Taketa,
+M. Takita, Y. Tameda, H. Tanaka, K. Tanaka, M. Tanaka,
+S. B. Thomas, G. B. Thomson, P. Tinyakov, I. Tkachev,
+H. Tokuno, T. Tomida, S. Troitsky, Y. Tsunesada, K. Tsut-
+sumi, Y. Tsuyuguchi, Y. Uchihori, S. Udo, H. Ukai, G. Vasiloﬀ,
+Y. Wada, T. Wong, M. Wood, Y. Yamakawa, R. Yamane, H. Ya-
+maoka, K. Yamazaki, J. Yang, Y. Yoneda, S. Yoshida, H. Yoshii,
+R. Zollinger, Z. Zundel, The Energy Spectrum of Telescope Ar-
+ray’s Middle Drum Detector and the Direct Comparison to the
+High Resolution Fly’s Eye Experiment, Astroparticle Physics
+39-40 (2012) 109–119.
+[2] T. Abu-Zayyad, R. Aida, M. Allen, R. Anderson, R. Azuma,
+E. Barcikowski, J. Belz, D. Bergman, S. Blake, R. Cady,
+B. Cheon, J. Chiba, M. Chikawa, E. Cho, W. Cho, H. Fujii,
+T. Fujii, T. Fukuda, M. Fukushima, D. Gorbunov, W. Hanlon,
+K. Hayashi, Y. Hayashi, N. Hayashida, K. Hibino, K. Hiyama,
+K. Honda, T. Iguchi, D. Ikeda, K. Ikuta, N. Inoue, T. Ishii,
+R. Ishimori, D. Ivanov,
+S. Iwamoto,
+C. Jui,
+K. Kadota,
+F. Kakimoto, O. Kalashev, T. Kanbe, K. Kasahara, H. Kawai,
+S. Kawakami, S. Kawana, E. Kido, H. Kim, H. Kim, J. Kim,
+K. Kitamoto, K. Kobayashi, Y. Kobayashi, Y. Kondo, K. Ku-
+ramoto, V. Kuzmin, Y. Kwon, S. Lim, S. Machida, K. Martens,
+J. Martineau,
+T. Matsuda,
+T. Matsuura,
+T. Matsuyama,
+J. Matthews, I. Myers, M. Minamino, K. Miyata, H. Miyauchi,
+Y. Murano, T. Nakamura, S. Nam, T. Nonaka, S. Ogio,
+M. Ohnishi, H. Ohoka, K. Oki, D. Oku, T. Okuda, A. Os-
+hima, S. Ozawa, I. Park, M. Pshirkov, D. Rodriguez, S. Roh,
+G. Rubtsov, D. Ryu, H. Sagawa, N. Sakurai, A. Sampson,
+L. Scott, P. Shah, F. Shibata, T. Shibata, H. Shimodaira,
+B. Shin, J. Shin, T. Shirahama, J. Smith, P. Sokolsky, T. Son-
+ley, R. Springer, B. Stokes, S. Stratton, T. Stroman, S. Suzuki,
+Y. Takahashi, M. Takeda, A. Taketa, M. Takita, Y. Tameda,
+H. Tanaka, K. Tanaka, M. Tanaka, S. Thomas, G. Thomson,
+P. Tinyakov, I. Tkachev, H. Tokuno, T. Tomida, S. Troit-
+sky, Y. Tsunesada, K. Tsutsumi, Y. Tsuyuguchi, Y. Uchihori,
+S. Udo, H. Ukai, G. Vasiloﬀ, Y. Wada, T. Wong, M. Wood,
+Y. Yamakawa, H. Yamaoka, K. Yamazaki, J. Yang, S. Yoshida,
+H. Yoshii, R. Zollinger, Z. Zundel,
+The surface detector ar-
+ray of the Telescope Array experiment,
+Nuclear Instruments
+and Methods in Physics Research Section A: Accelerators, Spec-
+trometers, Detectors and Associated Equipment 689 (2012) 87–
+[3] M. Fukushima, P. Sokolsky, T. Abu-Zayyad, R. Aida, M. Allen,
+R. Anderson, R. Azuma, E. Barcikowski, J. W. Belz, D. R.
+Bergman, S. A. Blake, R. Cady, B. G. Cheon, J. Chiba,
+M. Chikawa,
+E. J. Cho, W. R. Cho,
+H. Fujii, T. Fujii,
+T. Fukuda, D. Gorbunov, W. Hanlon, K. Hayashi, Y. Hayashi,
+N. Hayashida, K. Hibino, K. Hiyama, K. Honda, T. Iguchi,
+D. Ikeda, K. Ikuta, N. Inoue, T. Ishii, R. Ishimori, D. Ivanov,
+S. Iwamoto, C. C. H. Jui, K. Kadota, F. Kakimoto, O. Kalashev,
+T. Kanbe, K. Kasahara, H. Kawai, S. Kawakami, S. Kawana,
+E. Kido, H. B. Kim, H. K. Kim, J. H. Kim, K. Kitamoto, S. Ki-
+tamura, Y. Kitamura, K. Kobayashi, Y. Kobayashi, Y. Kondo,
+K. Kuramoto, V. Kuzmin, Y. J. Kwon, S. I. Lim, S. Machida,
+K. Martens, J. Martineau, T. Matsuda, T. Matsuura, T. Mat-
+suyama, J. N. Matthews, M. Minamino, K. Miyata, Y. Murano,
+S. Nagataki, T. Nakamura, S. W. Nam, T. Nonaka, S. Ogio,
+M. Ohnishi, H. Ohoka, K. Oki, D. Oku, T. Okuda, A. Oshima,
+S. Ozawa, I. H. Park, M. S. Pshirkov, D. C. Rodriguez, S. Y.
+Roh, G. Rubtsov, D. Ryu, H. Sagawa, N. Sakurai, A. L. Samp-
+son, L. M. Scott, P. D. Shah, F. Shibata, T. Shibata, H. Shi-
+modaira, B. K. Shin, J. I. Shin, T. Shirahama, J. D. Smith, T. J.
+Sonley, R. W. Springer, B. T. Stokes, S. R. Stratton, T. Stro-
+man, S. Suzuki, Y. Takahashi, M. Takeda, A. Taketa, M. Takita,
+
+--- PAGE BREAK ---
+
+Y. Tameda, H. Tanaka, K. Tanaka, M. Tanaka, S. B. Thomas,
+G. B. Thomson, P. Tinyakov, I. Tkachev, H. Tokuno, T. To-
+mida, S. Troitsky, Y. Tsunesada, K. Tsutsumi, Y. Tsuyuguchi,
+Y. Uchihori, S. Udo, H. Ukai, G. Vasiloﬀ, Y. Wada, T. Wong,
+M. Wood, Y. Yamakawa, R. Yamane, H. Yamaoka, K. Ya-
+mazaki, J. Yang, Y. Yoneda, S. Yoshida, H. Yoshii, R. Zollinger,
+Z. Zundel, ICRR Annual Report, Technical Report April 2006,
+Institute for Cosmic Ray Research, University of Tokyo, 2006.
+[4] D. Ivanov, Energy Spectrum Measured by the Telescope Array
+Surface Detector, Ph.D. thesis, Rutgers, the State University of
+New Jersey, 2012.
+[5] D. C. Rodriguez, The Telescope Array Middle Drum Monocu-
+lar Energy Spectrum and a Search for Coincident Showers Using
+High Resolution Fly’s Eye HiRes-1 Monocular Data, Ph.D. the-
+sis, University of Utah, 2011.
+[6] M. G. Allen, Ultra High Energy Cosmic Ray Energy Spectrum
+and Composition Using Hybrid Analysis with Telescope Array,
+Ph.D. thesis, University of Utah, 2012.
+[7] M. Takeda, N. Sakaki, K. Honda, M. Chikawa, M. Fukushima,
+N. Hayashida, N. Inoue, K. Kadota, F. Kakimoto, K. Kamata,
+S. Kawaguchi, S. Kawakami, Y. Kawasaki, N. Kawasumi, A. M.
+Mahrous, K. Mase, S. Mizobuchi, Y. Morizane, M. Nagano,
+H. Ohoka, S. Osone, M. Sasaki, M. Sasano, H. M. Shimizu,
+K. Shinozaki, M. Teshima, R. Torii, I. Tsushima, Y. Uchihori,
+T. Yamamoto, S. Yoshida, H. Yoshii, Energy determination in
+the Akeno Giant Air Shower Array experiment, Astroparticle
+Physics 19 (2002) 447–462.
+[8] D. Newton, J. Knapp, a. Watson,
+The optimum distance at
+which to determine the size of a giant air shower, Astroparticle
+Physics 26 (2007) 414–419.
+[9] Telescope Array Collaboration,
+CORSIKA Simulation of the
+Telescope Array Surface Detector, Submitted to Astroparticle
+Physics (2014).
+[10] D. Heck, J. Knapp, J. N. Capdevielle, G. Schatz, T. Thouw,
+CORSIKA: A Monte Carlo Code to Simulate Extensive Air
+Showers, Forschungszentrum Karlsruhe FZKA 6019 (1998) 1–
+[11] S. Ostapchenko,
+QGSJET-II: towards reliable description of
+very high energy hadronic interactions,
+Nuclear Physics B -
+Proceedings Supplements 151 (2004) 143–146.
+[12] G. Battistoni, M. V. Garzelli, E. Gadioli, S. Muraro, P. R. Sala,
+A. Fass`o, A. Ferrari, S. Roesler, F. Cerutti, J. Ranft, L. S.
+Pinsky, A. Empl, M. Pelliccioni, R. Villari, The hadronic models
+for cosmic ray physics: the FLUKA code solutions,
+Nuclear
+Physics B - Proceedings Supplements 175-176 (2008) 88–95.
+[13] W. R. Nelson, H. Hirayama, D. W. Rogers, The EGS4 Code
+System, Technical Report SLAC-265, Standford Linear Accel-
+erator Center, 1985.
+[14] B. Stokes, R. Cady, D. Ivanov, J. Matthews, G. Thomson, De-
+thinning extensive air shower simulations, Astroparticle Physics
+35 (2012) 759–766.
+[15] R. U. Abbasi, T. Abu-Zayyad, M. Allen, J. F. Amman, G. Arch-
+bold, K. Belov, J. W. Belz, S. Y. Ben Zvi, D. R. Bergman, S. A.
+Blake, O. A. Brusova, G. W. Burt, C. Cannon, Z. Cao, B. C.
+Connolly, W. Deng, Y. Fedorova, C. B. Finley, R. C. Gray,
+W. F. Hanlon, C. M. Hoﬀman, M. H. Holzscheiter, G. Hughes,
+P. H¨untemeyer, B. F. Jones, C. C. H. Jui, K. Kim, M. A. Kirn,
+E. C. Loh, M. M. Maestas, N. Manago, L. J. Marek, K. Martens,
+J. A. J. Matthews, J. N. Matthews, S. A. Moore, A. O’Neill,
+C. A. Painter, L. Perera, K. Reil, R. Riehle, M. Roberts, D. Ro-
+driguez, N. Sasaki, S. R. Schnetzer, L. M. Scott, G. Sinnis, J. D.
+Smith, P. Sokolsky, C. Song, R. W. Springer, B. T. Stokes, S. B.
+Thomas, J. R. Thomas, G. B. Thomson, D. Tupa, S. West-
+erhoﬀ, L. R. Wiencke, X. Zhang, A. Zech,
+First observation
+of the Greisen-Zatsepin-Kuzmin suppression., Physical Review
+Letters 100 (2007) 4.
+[16] R. U. Abbasi, M. Abe, T. Abu-Zayyad, M. Allen, R. Anderson,
+R. Azuma, E. Barcikowski, J. W. Belz, D. R. Bergman, S. A.
+Blake, R. Cady, M. J. Chae, B. G. Cheon, J. Chiba, M. Chikawa,
+W. R. Cho, T. Fujii, M. Fukushima, T. Goto, W. Hanlon,
+Y. Hayashi, N. Hayashida, K. Hibino, K. Honda, D. Ikeda,
+N. Inoue, T. Ishii, R. Ishimori, H. Ito, D. Ivanov, C. C. H. Jui,
+K. Kadota, F. Kakimoto, O. Kalashev, K. Kasahara, H. Kawai,
+S. Kawakami, S. Kawana, K. Kawata, E. Kido, H. B. Kim,
+J. H. Kim, S. Kitamura, Y. Kitamura, V. Kuzmin, Y. J. Kwon,
+J. Lan, S. I. Lim, J. P. Lundquist, K. Machida, K. Martens,
+T. Matsuda, T. Matsuyama, J. N. Matthews, M. Minamino,
+Y. Mukai, I. Myers, K. Nagasawa, S. Nagataki, T. Naka-
+mura, T. Nonaka, A. Nozato, S. Ogio, J. Ogura, M. Ohnishi,
+H. Ohoka, K. Oki, T. Okuda, M. Ono, A. Oshima, S. Ozawa,
+I. H. Park, M. S. Pshirkov, D. C. Rodriguez, G. Rubtsov,
+D. Ryu, H. Sagawa, N. Sakurai, A. L. Sampson, L. M. Scott,
+P. D. Shah, F. Shibata, T. Shibata, H. Shimodaira, B. K. Shin,
+H. S. Shin, J. D. Smith, P. Sokolsky, R. W. Springer, B. T.
+Stokes, S. R. Stratton, T. Stroman, T. Suzawa, M. Takamura,
+M. Takeda, R. Takeishi, A. Taketa, M. Takita, Y. Tameda,
+
+--- PAGE BREAK ---
+
+H. Tanaka, K. Tanaka, M. Tanaka, S. B. Thomas, G. B. Thom-
+son, P. Tinyakov, I. Tkachev, H. Tokuno, T. Tomida, S. Troit-
+sky, Y. Tsunesada, K. Tsutsumi, Y. Uchihori, S. Udo, F. Ur-
+ban, G. Vasiloﬀ, T. Wong, R. Yamane, H. Yamaoka, K. Ya-
+mazaki, J. Yang, K. Yashiro, Y. Yoneda, S. Yoshida, H. Yoshiia,
+R. Zollinger, Z. Zundel,
+Study of Ultra-High Energy Cosmic
+Ray Composition Using Telescope Array’s Middle Drum Detec-
+tor and Surface Array in Hybrid Mode (2014) 22.
+[17] C. C. H. Jui,
+Cosmic Ray in the Northern Hemisphere: Re-
+sults from the Telescope Array Experiment, Journal of Physics:
+Conference Series 404 (2012) 012037.

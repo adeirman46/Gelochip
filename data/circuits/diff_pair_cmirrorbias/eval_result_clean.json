@@ -1,0 +1,23 @@
+{
+  "component_name": "DP_CMBIAS",
+  "source": "kaizen_clean_reimpl",
+  "drc": {
+    "is_pass": true,
+    "summary": {
+      "total_errors": 0
+    }
+  },
+  "pex": {
+    "status": "skipped",
+    "error": "'NoneType' object has no attribute 'write_gds'"
+  },
+  "testbench": {
+    "metrics": {
+      "inband_gain_db": 20.78,
+      "bw_3db_hz": 429866235.0
+    },
+    "theory": "Differential pair with current-mirror tail bias: single-ended gain \u2248 gm\u00b7RL. Pass if in-band |gain| > 6 dB.",
+    "theory_pass": true
+  },
+  "area_um2": 2461.3
+}

@@ -1,0 +1,4 @@
+.subckt TGATE IN OUT EN ENB VSS VDD
+XN OUT EN IN VSS nfet_03v3 w=1 l=0.5 m=1
+XP OUT ENB IN VDD pfet_03v3 w=2 l=0.5 m=1
+.ends TGATE

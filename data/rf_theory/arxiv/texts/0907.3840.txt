@@ -1,0 +1,767 @@
+arXiv:0907.3840v1  [q-bio.CB]  22 Jul 2009
+Noname manuscript No.
+(will be inserted by the editor)
+Modelling radiation-induced cell cycle delays
+Anna Ochab-Marcinek · Ewa
+Gudowska-Nowak · Elena Nasonova · Sylvia
+Ritter
+Received: date / Accepted: date
+Abstract Ionizing radiation is known to delay the cell cycle progression. In particular
+after particle exposure signiﬁcant delays have been observed and it has been shown
+that the extent of delay aﬀects the expression of damage such as chromosome aberra-
+tions. Thus, to predict how cells respond to ionizing radiation and to derive reliable
+estimates of radiation risks, information about radiation-induced cell cycle perturba-
+tions is required. In the present study we describe and apply a method for retrieval of
+information about the time-course of all cell cycle phases from experimental data on
+the mitotic index only. We study the progression of mammalian cells through the cell
+cycle after exposure. The analysis reveals a prolonged block of damaged cells in the
+G2 phase. Furthermore, by performing an error analysis on simulated data valuable
+information for the design of experimental studies has been obtained. The analysis
+This work was supported in part (A. O-M) by the grant of Polish State Committee for Scientiﬁc
+Research (KBN, Grant No 1 P03B 159 29). Moreover, E. G-N acknowledges Marie Curie TOK
+COCOS grant at the Mark Kac Complex Systems Research Center in Krak´ow, Poland. E.N.
+was supported by BMBF (Bonn, Germany) under contract number 02S8203 and 02S8497.
+A. Ochab-Marcinek
+Department of Soft Condensed Matter, Institute of Physical Chemistry, Polish Academy of
+Sciences, ul. Kasprzaka 44/52, Warsaw, Poland
+E-mail: ochab@ifka.ichf.edu.pl
+E. Gudowska-Nowak
+Marian Smoluchowski Institute of Physics, Jagiellonian University, ul. Reymonta 4, Krak´ow,
+Poland
+Mark Kac Complex Systems Research Centre, Jagiellonian University, Reymonta 4, Krak´ow,
+Poland
+Biophysics Department, Gesellschaft f¨ur Schwerionenforschung (GSI), Planckstrasse 1, Darm-
+stadt, Germany
+E. Nasonova
+Biophysics Department, Gesellschaft f¨ur Schwerionenforschung (GSI), Planckstrasse 1, Darm-
+stadt, Germany
+Joint Institute for Nuclear Research (JINR), 141980 Dubna, Moscow Region, Russia
+S. Ritter
+Biophysics Department, Gesellschaft f¨ur Schwerionenforschung (GSI), Planckstrasse 1, Darm-
+stadt, Germany
+
+--- PAGE BREAK ---
+
+showed that the number of cells analyzed in an experimental sample should be at least
+100 to obtain a relative error less than 20%.
+Keywords ionizing radiation · cell cycle delay · Monte Carlo simulation
+1 Introduction
+It is well-known that cells respond to DNA damage by activating checkpoints that delay
+the cell cycle transition in particular from G1 to S phase and from G2 to M phase.
+These delays are assumed to allow additional time for repair (Li and Zou (2005)).
+After sparsely ionizing radiation such as X-rays or γ-rays mild perturbations of the
+cell kinetics have been observed corresponding to the delay of about 1 hour per 1 Gy of
+exposure (Purrot et al (1980)). In contrast, after particle irradiation dramatic cell cycle
+delays have been measured lasting up to 3 cell generation times (Scholz et al (1994) and
+references therein). Moreover, a rapid desynchronization of initially synchronous cell
+populations has been observed after particle exposure (Scholz et al (1994); Ritter et al
+(1996, 2000)). The diﬀerences between the eﬀects induced by both radiation qualities
+may be directly attributed to spatial diﬀerences in the energy deposition (Ritter et al
+(2000); Gudowska-Nowak et al (2005)).
+Cell cycle delays as observed after radiation exposure are important for the in-
+terpretation of other biological experiments. For example, recent reports have shown
+that cell cycle delays interfere with the time-course of aberrations visible in cells at
+the ﬁrst mitosis post-irradiation. In particular, after particle exposure which delays the
+cell cycle progression more than sparsely ionizing radiation, a drastic increase in the
+aberration yield with sampling time has been observed (Ritter et al (1996, 2000)) and
+it has been recently shown that the average time to enter the ﬁrst mitosis correlates
+directly with the aberration burden of a cell (Gudowska-Nowak et al (2005)). In other
+words, cells entering mitosis at later times harbor more aberrations than those entering
+mitosis earlier. Since the frequency of aberrations expressed in ﬁrst cycle metaphases
+is used to determine the absorbed dose (e.g. Cucinotta and Durante (2006)) and to
+derive cancer risk estimates (e.g. Mateuca et al (2006)), the damage sustained by the
+whole cell population has to be determined. This can be archived by the analysis
+of samples collected at multiple sampling times covering the whole interval from the
+ﬁrst to the last cells reaching mitosis. Then, the total yield of aberrations can be deter-
+mined by a mathematical approach (i.e. integration analysis, see Kaufman et al (1974);
+Scholz et al (1998)).
+Experimental and theoretical studies of the cell cycle progression are also of primary
+interest in the context of cancer therapy (Hahnfeldt and Hlatky (1996); Montalenti et al
+(1998); Erba et al (2002); Basse and Ubezio (2007); Wilson (2007)), since the thera-
+peutic response of solid tumors is known to depend not only on the administrated dose
+of ionizing radiation or chemotherapy agents but also on repopulation and redistribu-
+tion of cancerous cells. Cancer therapies may target speciﬁc phases of the cell cycle
+by blocking or delaying the progress through one or more phases (see Montalenti et al
+(1998)).
+The speciﬁc aim of our project was to further elucidate the complexity of particle-
+induced cell cycle arrest. Investigations into the eﬀects of particles are becoming in-
+creasingly pertinent in light of rapidly growing interest in this type of radiotherapy
+
+--- PAGE BREAK ---
+
+(Amaldi and Kraft (2007)). Furthermore, for the planning of manned missions to Moon
+and Mars, a better knowledge of the action of charged particles is needed, since the
+main contribution of dose during a space mission outside the magnetic shielding of the
+Earth originates from galactic cosmic rays, which are heavy particles from the most
+frequent protons to up to iron ions (Cucinotta and Durante (2006)).
+In this study, we present a method for retrieval of information about all previous
+phases of the cell cycle, when only the mitotic index of the experimental cell sample
+is known. We use the method to analyze the data measured for mammalian V79 cells
+after exposure to Ar ions (Ritter et al (2000)). V79 cells represent a frequently used
+model system to study genotoxic eﬀects of ionizing radiation (Ritter et al (1996, 2000);
+Weyrather et al (1999); Groesser et al (2007); Pathak et al (2007)) or chemical agents
+(Virgilio et al (2004)). Information on the cell cycle progression was available in the
+form of subsequent measurements of the mitotic index in control and irradiated samples
+(Fig. 2) and duration times of cell cycle phases of control cells (Sinclair (1969); Scholz
+(2003)). Since in the experiment not only the mitotic index, but also the aberration
+yield has been measured, the approach may allow us to study in future the progression
+of cells carrying a diﬀerent number of aberrations.
+Mitotic index is the measure of the number of cells undergoing mitosis at a given
+time. As the duration of cell cycle phases varies from cell to cell, the mitotic index
+depends on the duration distribution of mitosis, but also on the corresponding du-
+ration distributions of the previous phases. We retrieve these distributions using a
+multi-dimensional ﬁt based on general assumptions concerning the distribution shape,
+which are inferred from other experiments (Montalenti et al, 1998). In this way, having
+only the mitotic indices for control and irradiated cells, we were able to compare their
+progression through the whole cell cycle and predict which phases are most vulnerable
+to irradiation. The ﬁtted parameters of the duration distributions of cell cycle phases
+have also been used to estimate the experimental error of the mitotic index measure-
+ment, depending on the number of cells in the sample. The estimation has been carried
+out using the Monte Carlo simulation of the cell cycle progression for a given number
+of cells.
+2 Materials and methods
+2.1 Experimental data used for the analysis
+To examine in more detail charged particle-induced cell cycle progression delays in
+the ﬁrst post-irradiation cycle, previously published data were reanalysed (Ritter et al
+(2000)).
+For the experiment, V79 Chinese hamster cells were synchronized by mitotic shake
+oﬀ, a method based on the selective detachment of mitotic cells from monolayers by
+shaking. Mitotic cells were plated in Petri dishes and about 2h after seeding, when the
+cells had attached and divided and progressed into G1-phase, the exposure was done.
+Irradiation with 10.4 MeV u−1 Ar ions (LET = 1226 keVµm−1) was performed with
+a ﬂuence of 106 particles cm−2 corresponding to a dose of 1.96 Gy, respectively. At the
+time of irradiation, at least 95% of cells were in G1 phase as determined by ﬂow cytom-
+etry. Immediately after exposure, 5’-Bromo-2’-deoxyuridine (10 µmg ml−1) was added
+to the samples to distinguish between metaphases in the diﬀerent post-irradiation cy-
+cles. Cells were harvested at multiple sampling times covering the time interval of 2 to
+
+--- PAGE BREAK ---
+
+Fig. 1
+Schematic representation of the cell cycle consisting of 4 distinct phases, namely G1,
+S, G2 and M. For V79 cells used in the present study the mean duration times of the these
+phases are 2.25 h, 6.5 h, 1.5 h and 0.75h, respectively (Sinclair (1969); Scholz et al (1994)).
+3 cell generation times. Each sampling time was preceded by a 2h colcemid treatment
+(0.1 µmg ml−1) to accumulate mitoses. Since the main purpose of the experiments was
+the analysis of the eﬀect of cell cycle delays on the expression of cytogentic damage,
+chromosome preparations were made according to the standard procedure and slides
+were stained with the ﬂuorescence-plus-Giemsa technique. At each sampling time chro-
+mosomal damages was scored in 100 ﬁrst cycle metaphases (Ritter et al (2000)). To
+gain information on the cell cycle progression, the mitotic index was determined for
+each sample by the direct scoring of 1000-2000 cells on the slides and the cell gener-
+ation of at least 200 metaphases was recorded. Due to experimetal limitation (access
+to the particle beam and number of cells that can be synchronized), more detailed
+measurements of the cell cycle progression, with a better time resolution, for example
+by ﬂow cytometry, were not feasible. A detailed description of the experimental setup
+is given in (Ritter et al (2000)).
+The passage through the cell cycle has been simulated by means of a kinetic model
+in which the duration of each phase is taken as a random variable characterized by
+its mean and dispersion (see below). The motivation for such an approach is the rapid
+radiation-induced desynchronization of initially synchronous cell populations. The cell-
+cycle time (the time interval between cell divisions) becomes then a random variable
+whose statistical properties can be inferred from the analysis of the frequencies of cells
+observed in diﬀerent phases at diﬀerent times. However, as mentioned above, the avail-
+able information on the cell cycle kinetics relies solely on the measured mitotic indices.
+Therefore, for the analysis, these values were used to deduce (a posteriori) duration
+times in all phases before the mitosis. In the following sections, we aim to expand this
+approach and to present a model which is general enough to be applied not only for
+the analysis of radiation-induced cell cycle delays but also for the analysis of multi-
+compartment cell populations perturbed by other cancer therapies (Kohandel et al
+(2007)).
+
+--- PAGE BREAK ---
+
+2.2 Mathematical model of cell cycle progression
+In many experiments a positive correlation between radiation dose and the dura-
+tion of cell-cycle delays was found. Although such ﬁndings were usually quantiﬁed in
+terms of a linear relationship between phase duration and dose (Zaider and Minerbo
+(1993); Hahnfeldt and Hlatky (1996)), a more detailed analysis points to a direct cor-
+relation between cell cycle delay and the number of aberrations carried by a cell
+(Gudowska-Nowak et al (2005)). This eﬀect is responsible for the loss of synchrony
+of the population and can be illustrated by interpreting the (normalized) mitotic index
+as a frequency histogram of times spent by cells before the actual division happens. The
+cell cycle kinetics can be then investigated by treating the durations of the four phases
+as independent stochastic variables having probability density functions described
+in terms of two adjustable parameters (Zaider and Minerbo (1993); Montalenti et al
+(1998)). The parameters of such distributions are ﬁxed in time (stationarity of the
+distribution is assumed), whereas the choice of a particular probability distribution
+function has been noted not to be critical for the ﬁnal result (Hartmann et al (1975)).
+For V79 Chinese hamster cells, as used in our simulations, the mean duration
+times of the cell cycle phases are tG1 = 2.25 h, tS = 6.5 h, tG2 = 1.5 h, tM =
+0.75h (Sinclair (1969); Scholz et al (1994)). The phase duration for an individual cell
+is given by a certain probability distribution Dph(τ), where τ is the time which a
+given cell had already spent in the current phase. Consequently, a single cell of phase
+age ph is assumed to leave its current phase within a time interval [τ, τ + dτ] with a
+probability Dph(τ)dτ. The mean number of cells dNph→(t) leaving the phase ph within
+an inﬁnitesimal time interval [t, t + dt] is deﬁned by the mean ﬂux dNph→(t)
+The experimental input to our model is given by the mitotic indices scored for
+exposed and control cell populations at subsequent 2h intervals (Ritter et al (2000)).
+Experimentally measured values of the mitotic index MI(i) at a timestep i
+MI(i) = N(i) −N(i −1)
+N(i −1)
+are deﬁned as the increase in the total number of cells in relation to their number at
+the previous sampling time. Since the time until all cells reached the ﬁrst mitosis was
+quite long compared to the average cycle length (Fig. 2), changes in the population size
+due to cell division have to be taken into account (Kaufman et al (1974); Scholz et al
+(1998)).
+To determine the increase in the number of cells in relation to their initial number
+one expresses then the corrected mitotic index in the form
+MIcorrected(i) = MI(i)N(i −1)
+N(0)
+= N(i) −N(i −1)
+N(0)
+In turn, the summed mitotic indices up to the time step n
+S(n) =
+MIcorrected(i) = N(n) −N0
+give then the fraction of cells which have already completed a full cycle, i.e. went
+through mitosis up to the given time. The experimental results show that this quantity
+
+--- PAGE BREAK ---
+
+Corrected Mitotic Index [%]
+Time t [h]
+Control cells, experiment
+Control cells, Fit I
+Control cells, Fit II
+Irradiated cells, experiment
+Irradiated cells, Fit I
+Irradiated cells, Fit II
+Fig. 2
+Corrected mitotic index of V79 cells exposed in G1 phase to 1.96 Gy Ar ions (10.4
+MeV/u): experimental data (Gudowska-Nowak et al (2005); Ritter et al (2000)) along with
+ﬁts and simulations of N0 = 1000 cells are shown. The mitotic index curve was ﬁtted with
+a lognormal probability density function with parameters µ and σ (cf. Eqs.(6, 7)) and the
+quality of the ﬁt was determined by using the standard χ2 test which yielded almost the same
+results in two cases. However, the underlying cell cycle kinetics is quite diﬀerent for Fit 1 and
+Fit 2 (see Sec. 3 and Figs. 4, 5). In Fit 1, the G1 phase is largely dispersed whereas other
+phases have well deﬁned duration times of negligible variance. In Fit 2 the phases S and G2
+are dispersed and G1 and M duration times are assigned constant values.
+tends to a constant level, which yields approximately 100% for control cells and less
+than 100% for irradiated cells, as displayed in Fig. 3.
+The mean ﬂux dNph→(t)
+deﬁnes a mean number of cells dNph→(t) leaving the phase
+ph within an inﬁnitesimal time interval [t, t + dt]. The term ”mean” is understood here
+as an average over a large number of identical experiments, each with an initial number
+of N0 cells. Note that t stands here for the ”absolute” time, diﬀerent from the phase
+age τ. In order to relate the description in terms of a mean ﬂux dNph→(t)
+based on
+the ensemble approach to the description of the time evolution of a single cell whose
+probability of leaving the current phase is Dph(τ), we assume that we deal with a large
+ensemble of samples, each initially containing N0 cells in the same phase ph. Moreover,
+the sample populations are assumed to be of the same phase age, e.g. τ = 0. We start
+our ”numerical experiment” at time t = 0, so that t = τ, and count the cells which
+leave the phase within the age τ and τ + dτ. Their mean number will be given by:
+dN(1)
+ph→(τ) = N0Fph(τ)dτ,
+where Fph(τ) is a probability distribution which gives the likelihood of a cell leav-
+ing the phase at the time t = τ.
+On the other hand, if we trace the behavior of a particular cell, we can deﬁne Dph(τ)
+as the conditional probability distribution of leaving the phase at age τ, provided that
+the cell had not completed the phase earlier:
+
+--- PAGE BREAK ---
+
+% of cells, summed
+t [h]
+control cells
+irradiated cells
+fit I, control cells
+fit II, control cells
+fit I, irradiated cells
+fit II, irradiated cells
+Fig. 3
+Cumulative fraction of cells which left the M phase of the ﬁrst cycle, compared with
+the experimental results. For the explanation of ﬁts, see Sec. 3
+Dph(τ) =
+Fph(τ)
+0 Fph(τ ′)dτ ′ .
+Function Fph(t) in the above formula represents the distribution of phase dura-
+tion times in an initially synchronized population of cells. We follow the suggestions
+of Zaider and Minerbo (1993) and Montalenti et al. (1998) and assume a lognormal
+distribution of phase duration (Engen and Lande (1996)):
+Fph(t) =
+2πσ2
+−(ln t −µph)2
+with parameters µph and σph determining the mean
+E[t] = eµph+
+and variance
+E[(t −E[t])2] = e2µph+σ2
+ph(eσ2
+ph −1).
+In the above expressions, µ and σ are the parameters to be ﬁtted.
+It should be noticed that a log-normal distribution is not the only possible choice
+to be postulated as suitable for the description of the random distribution of phase
+duration times. The other possibility might be, e.g., the gamma distribution resulting
+from a mixture of exponential distributions expected in simple renewal processes (Feller
+(1968); Zaider and Minerbo (1993); Hahnfeldt and Hlatky (1996)).
+Ensemble analysis of the mean ﬂux allows splitting dNph→(t) into a sum of con-
+tributions from subsequent cycles:
+dNph→(t) =
+dN(i)
+ph→(t)
+
+--- PAGE BREAK ---
+
+dN(1)
+G1→(t) is deﬁned as the product of the probability of leaving the G1 phase within
+the time interval (t, t + dt) and the mean total number of cells at time t:
+dN(1)
+G1→(t) = dPG1→(t)N(t),
+(10)
+which means that
+dPG1→(t) = FG1(t)dt.
+(11)
+In the ﬁrst cycle N(t) = N0, so
+dN(1)
+G1→(t) = dP (1)
+G1→(t)N0 = N0dtFG1(t).
+(12)
+The probability of leaving the S phase in the ﬁrst cycle at a certain time will depend
+on the probability of leaving the previous phase, and thus
+dN(1)
+S→(t) = dP (1)
+S→(t)N0 = N0dt
+FG1(t −τ)FS(τ)dτ = N0dtF1(t),
+(13)
+and, analogously:
+dN(1)
+G2→(t) = dP (1)
+G2→(t)N0 = N0dt
+F1(t −τ)FG2(τ)dτ = N0dtF2(t),
+(14)
+dN(1)
+M→(t) = dP (1)
+M→(t)N0 = N0dt
+F2(t −τ)FM(τ)dτ = N0dtF3(t).
+(15)
+In the moment of leaving the M phase, cells divide: two G1 cells are produced and
+therefore, the number of cells in G1 phase (and thus the number of those leaving G1
+phase) is twice larger:
+dN(2)
+G1→(t) = 2dP (2)
+G1→(t)N0 = 2N0dt
+F3(t −τ)FG1(τ)dτ = 2N0dtF4(t).
+(16)
+In this manner we generate consecutive contributions to Eq. (9). Knowing the mean
+ﬂux as given by Eq. (9) we can calculate other mean quantities of interest, such as
+mean number of cells found in the phase ph at a given time after irradiation. This
+method gives therefore a global view on the cell cycle kinetics.
+In order to reconstruct the fate of an individual cell, we have used the Monte Carlo
+method. The computer simulation tracks the cycle of each single cell separately. Ini-
+tially we generate an ensemble of N0 cells. Each cell is assumed to start in the G1
+phase and its phase age is τ = 0. In subsequent time steps each cell goes through its
+individual cycle, and in every time step dτ each cell has a probability Dph(τ)dτ to
+leave its current phase. T he algorithm is built based on the following scheme:
+1. The cell is in the phase ph. Its phase age is τ.
+2. A random number x, 0 ≤x < 1 is generated.
+3. If x < Dph(τ)dτ, the programme proceeds to 4., else it goes to 6.
+4. If the next phase ”ph + 1” ̸= G1, then the cell exits from its current phase:
+ph = ”ph + 1”, τ = 0. Go to 1.
+5. If the next phase ”ph + 1” = G1, then the cell exits from its current phase and
+replicates: ph = G1, τ = 0. Additionally, a new cell is generated, whose current phase
+is G1 and τ = 0. The cycle starts with going to 1.
+6. The cell remains in its current phase: τ = τ + dτ. At the next step the programme
+
+--- PAGE BREAK ---
+
+Fph(t)
+t [h]
+G1: mean=2.25, σ=0.663
+S:  mean=6.5,  σ=0.002
+G2: mean=1.5,  σ=0.000
+M:  mean=0.75, σ=0.000
+Fph(t)
+t [h]
+G1: mean=2.25, σ=0.000
+S:  mean=6.5,  σ=0.101
+G2: mean=1.5,  σ=0.900
+M:  mean=0.75, σ=0.000
+Fig. 4
+Control cells: Probability density functions for leaving a phase in phase age τ (top
+panel: Fit 1, bottom panel: Fit 2)
+starts with 1.
+All integrations to compute Dph(τ) from (5) have been performed in our simulation
+using the Euler method with discrete time steps ∆t.
+The above described approach allows to examine the kinetics of a single experiment.
+Computing the variance of quantities of interest, we can estimate how much a single
+realization of the experiment deviates from the ensemble average.
+
+--- PAGE BREAK ---
+
+Fph(t)
+t [h]
+G1: mean=2.25, σ=0.004
+S:  mean=6.50, σ=0.002
+G2: mean=11.90,σ=1.713
+M:  mean=0.75, σ=0.000
+Fph(t)
+t [h]
+G1: mean=2.40, σ=0.004
+S:  mean=6.5,  σ=0.101
+G2: mean=12.70,σ=1.828
+M:  mean=0.75, σ=0.000
+Fig. 5
+Irradiated cells: Probability density functions for leaving a phase in phase age τ (top
+panel: Fit 1, bottom panel: Fit 2), cf. Eqs. (18, 19).
+3 Results
+Using the methods described above, we have ﬁrst ﬁtted the experimental results, i.e.
+the mitotic indices (see Sec. 2.1). Since the experimentally accessible information refers
+to cells initially synchronized in G1 phase, we assumed an ”ideal synchrony” for the
+numerical analysis , i.e. at time t = 0 all of cells were assumed to be of the phase age
+τ = 0.
+
+--- PAGE BREAK ---
+
+Control cells
+Fit I
+Fit II
+Phase
+Median
+Mode
+Median
+Mode
+1.806
+1.164
+1.346
+2.25
+2.25
+6.500
+6.500
+6.467
+6.401
+9.876
+1.000
+0.445
+0.895
+0.75
+0.75
+0.75
+0.75
+Irradiated cells
+Fit I
+Fit II
+Phase
+Median
+Mode
+Median
+Mode
+2.250
+2.250
+2.398
+2.398
+6.500
+6.500
+6.467
+6.401
+9.876
+2.744
+0.146
+0.237
+2.389
+0.084
+0.192
+0.75
+0.75
+0.75
+0.75
+Table 1
+Median, modal values and coeﬃcients of variation for the ﬁtted phase duration time
+distributions Fph.
+3.1 Control cells
+The ﬁrst step in our analysis was ﬁtting the parameters of the Fph distributions (6)
+for each phase, in such a way that they together made up the time-course of mitosis
+(15) which ﬁtted the experimental corrected mitotic indices (2).
+We performed the integrations numerically with a time-step ∆t = 0.03 h (Euler
+method), obtaining an approximate ﬂux:
+∆Nph→(t)
+≈dNph→(t)
+(17)
+Having evaluated the outﬂow from the M phase, we could further easily compute the
+total mean number of cells at a given time, from which the (mean) corrected mitotic
+index (2) was constructed. (We recall that the word ”mean” is understood here as an
+average over a large number of identical experiments.)
+Since we would have had to ﬁt up to 8 parameters, we decided to simplify the task.
+The results cited in Sec. 2.1 delivered the values of mean duration times of each phase:
+tG1 = 2.25 h, tS = 6.5 h, tG2 = 1.5 h, tM = 0.75h. Therefore, we used them as the
+four (frozen) parameters needed for modelling and focused on four others (we chose
+σph, which can be treated as a measure of ﬁtted distribution’s width) which had to
+be chosen by the best ﬁt. The initial number of cells assumed for the modelling was
+N0 = 1000 and the parameters were ﬁtted by using a Metropolis algorithm.
+We found that the result of the ﬁtting (see Fig. 2) was ambiguous and there were
+two possible least-square ﬁts with χ2 value of the same order. The inferred coeﬃcients
+displayed a signiﬁcant variability between both data sets (see Fig. 4 and Tab. 1):
+Fit 1:
+σG1 = 0.663, σS = 0.002, σG2 = 0.000, σM = 0.000, χ2 = 55.0
+(18)
+Fit 2:
+σG1 = 0.000, σS = 0.101, σG2 = 0.900, σM = 0.000, χ2 = 50.0
+(19)
+
+--- PAGE BREAK ---
+
+Number of cells
+t[h]
+Control cells, Fit 2, G1
+Irradiated cells, Fit 2, G1
+Number of cells
+t[h]
+Control cells, Fit 2, S
+Irradiated cells, Fit 2, S
+Fig. 6
+Flux from phases G1 and S (number of cells passing per 1h) at time t, compared for
+control and irradiated cells (Fit 2).
+Although the two possible cell cycle schemes produced almost identical mitotic
+index curves, the intra-cycle distributions diﬀered very much. In Fit 1, the G1 phase
+is largely dispersed whereas other phases have well-deﬁned (deterministic) duration
+times. In contrast, in Fit 2, S and G2 phases are dispersed with the duration times of
+G1 and M phases being well speciﬁed.
+3.2 Irradiated cells
+In order to reproduce the mean corrected mitotic indices of the irradiated cell popula-
+tion we performed a similar ﬁtting procedure as mentioned above. To proceed, we made
+the biologically justiﬁed assumption that irradiation aﬀects only the characteristics of
+
+--- PAGE BREAK ---
+
+Number of cells
+t[h]
+Control cells, Fit 2, G2
+Irradiated cells, Fit 2, G2
+Number of cells
+t[h]
+Control cells, Fit 2, M
+Irradiated cells, Fit 2, M
+Fig. 7
+Flux from phases G2 and M (number of cells passing per 1h) at time t, compared for
+control and irradiated cells (Fit 2).
+G1 and G2 phases, since checkpoints in G1 and G2 are known to block the cell cycle
+progression to give the cell time to repair and continue cycling or to undergo apoptosis
+(Li and Zou (2005)). We also expected that the mean duration times of both phases,
+as well as the variances of the duration times should increase because the damaged
+cells would be blocked in either one of them for a longer time. Therefore, we ﬁtted only
+the parameters tG1, σG1, tG2, σG2, taking others as ﬁxed and referring to their values
+obtained in the former ﬁt for control cells. While doing so, we did not introduce any
+additional mortality parameter. Instead, we assumed solely that the damaged cells will
+stay in G1 or G2 phase for a very long time.
+For the parameters corresponding to Fit 1 the analysis yielded:
+
+--- PAGE BREAK ---
+
+tG1 = 2.25, σG1 = 0.004, tG2 = 11.90, σG2 = 1.713, χ2 = 5.6,
+(20)
+whereas for Fit 2 it resulted in:
+tG1 = 2.40, σG1 = 0.004, tG2 = 12.70, σG2 = 1.828, χ2 = 5.8
+(21)
+In both ﬁts the FG2(τ) distribution function became wider and its mean duration
+time strongly increased (Fig. 5, see also Tab. 1).
+In turn, the FG1(τ) distribution in Fit 1 became narrower in comparison to the
+corresponding distribution for the control cells, which implied that Fit 1 was unrealistic.
+This ﬁnding is consistent with previous ﬂow cytometric studies showing that V79 cells
+suﬀer short cell cycle delays in G1 phase, but more pronounced delays in S- or G2-phase
+(Scholz et al. 1994). The low activity of the G1 checkpoint in V79 cells might result
+from mutations in the p53 gene (Chaung et al, 1997). We have therefore concluded
+that Fit 2 was conﬁrmed as better matching the biological scenario: here the mean
+duration time of G1 increased and the distribution function became wider. The very
+long tail of FG2(τ), as predicted in this case, suggests that damaged cells may remain
+blocked in the G2 phase for an extremely long time with a non-zero probability as it
+has been experimentally shown by Scholz et al. (1994).
+Figs. 6 and 7 compare the progression of cell ﬂuxes between subsequent phases for
+control and irradiated populations, respectively, while the number of cells remaining in
+a given phase at time t is shown in Figs. 8 and 9. In the ﬁrst cell cycle a notably slower
+outﬂow of cells from the G2 phase is visible which corroborates with the number of
+cells remaining in that phase up to 16h after exposure. Cells blocked in that phase also
+diminish the fraction of those which are able to enter mitosis up to the same time-point.
+As expected, the cumulative number of cells which enter mitosis is much lower in the
+irradiated population than in the control sample and can be well correlated with the
+fraction of cells arrested in G2.
+3.3 Determination of experimental errors
+Another important ﬁnding of our work is that the applied approach allows for es-
+timation of inter-experimental diﬀerences resulting from the stochastic character of
+phase duration times. By performing a Monte Carlo simulation, described in Sec. 2.2
+we simulated a time-evolution of an ensemble of cells (here: N0 = 1000) using the
+set of previously ﬁtted parameters. The number of cells at diﬀerent moments of time
+was counted, and therefrom the mitotic index (1) was derived. Using this method, the
+variance/standard deviation of the corresponding probability distribution function was
+estimated (see Fig. 11).
+We performed a series of 100 cell cycle simulations with the initial number of
+cells N0. The mean number of cells found in a given phase ⟨Nph(t)⟩and the variance
+Nph(t) were calculated. Analyzing the mutual dependence of the relative error
+σNph
+⟨Nph⟩
+and ⟨Nph⟩we found that the relative error does not depend on the initial number of
+cells N0 nor on the set of parameters of Fph. It depends only on the current number
+of cells. A practical conclusion drawn from these results is that the number of cells
+analyzed in an experimental sample should be at least of order of 100 to obtain a
+
+--- PAGE BREAK ---
+
+ 1000
+ 1500
+ 2000
+ 2500
+ 3000
+ 3500
+Number of cells
+t[h]
+Control cells, Fit 2, G1
+Irradiated cells, Fit 2, G1
+ 1000
+ 1500
+ 2000
+ 2500
+ 3000
+ 3500
+Number of cells
+t[h]
+Control cells, Fit 2, S
+Irradiated cells, Fit 2, S
+Fig. 8
+Number of cells in phases G1 and S at time t, compared between control and irradiated
+cells (Fit 2).
+relative error less than 20%. If a better precision is required, a larger cell population
+has to be examined.
+4 Discussion
+In studies preceding this project (Ritter et al (1996, 2000); Scholz et al (1998); Gudowska-Nowak et al
+(2005)) the relationship between radiation-induced mitotic delay and expression of
+chromosome damage was shown. To further establish diﬀerences in progression through
+the division cycle of unirradiated (control) and exposed cells, we developed a method
+for retrieval of the information about the time-course of all cell cycle phases, when
+only the mitotic index of a cell sample is known. The method consists in a multi-
+
+--- PAGE BREAK ---
+
+ 1000
+ 1500
+ 2000
+ 2500
+ 3000
+ 3500
+Number of cells
+t[h]
+Control cells, Fit 2, G2
+Irradiated cells, Fit 2, G2
+ 1000
+ 1500
+ 2000
+ 2500
+ 3000
+ 3500
+Number of cells
+t[h]
+Control cells, Fit 2, M
+Irradiated cells, Fit 2, M
+Fig. 9
+Number of cells in phases G2 and M at time t, compared between control and irradiated
+cells (Fit 2).
+dimensional ﬁt based on general assumptions concerning the duration distribution of
+cell cycle phases, which are inferred from other experiments (Montalenti et al, 1998).
+The analysis of the experimentally measured mitotic indices for mammalian V79
+cells after exposure to Ar ions (Ritter et al (2000)) revealed a prolonged block of dam-
+aged cells in the G2 phase. Additionally, we have shown that this approach is applicable
+directly to determine experimental errors resulting from the stochastics of phase dura-
+tion times.
+In future studies the quality of the model will be validated through the application
+to data sets generated for other cell lines and cell types such as human skin ﬁbrob-
+lasts and lymphocytes whose cell-cycle kinetics after irradiation is altered diﬀerently
+(Flatt et al (1998); Lee et al (2005); Tenhumberg et al (2007)). For example, it has
+been shown that normal human ﬁbroblasts exposed in G0/G1 phase to ionizing radia-
+
+--- PAGE BREAK ---
+
+Number of cells
+Fig. 10
+Number of cells found in M phase at time t. Black line: theoretical prediction obtained
+using the mean ﬂux approach. Dashed line: a single simulation for N0 = 1000 cells. Error bars:
+standard deviation for the simulation.
+ 0.01
+ 1000
+sqrt(variance)/NM
+mean number
+fit 1,  control cells, N0=1000
+fit 2, control cells, N0=1000
+fit 2, irradiated cells, N0=1000
+fit 2, control cells, N0=10
+Fig. 11
+Relative error of the measurement vs. mean total number of cells analyzed.
+tion suﬀer a prolonged G1 arrest (Flatt et al (1998); Tenhumberg et al (2007)), while
+human lymphocytes are predominantly arrested in G2 (Lee et al (2005)). Furthermore,
+the model may be used to analyze the progression of cells carrying diﬀerent numbers
+of aberrations.
+
+--- PAGE BREAK ---
+
+References
+Amaldi U, Kraft G (2007) European developments in radiotherapy with beams of large
+radiobiological eﬀectiveness. J Radiat Res (Tokyo), Suppl A 48:27–41
+Basse B, Ubezio P (2007) A generalised age- and phase-structured model of human tu-
+mour cell populations both unperturbed and exposed to a range of cancer therapies.
+Bull Math Biol 69:1673–1690
+Cucinotta FA, Durante M (2006) Cancer risk from exposure to galactic cosmic rays:
+implications for space exploration by human beings. Lancet Oncol 7:431–435
+Engen S, Lande R (1996) Population dynamic models generating the lognormal species
+abundance distribution. Math Biosci 132:169–183
+Erba E, Bassano L, Liberti GD, Muradore I, Chiorino G, Ubezio P, Vignati S, Codegoni
+A, Desiderio MA, Faircloth G (2002) Cell cycle phase perturbations and apoptosis
+in tumour cells induced by aplidine. British Journal of Cancer 86:1510–1517
+Feller W (1968) An introduction to probability theory and its applications. John Wiley,
+New York
+Flatt P, Price J, Shaw A, Pietenpol J (1998) Diﬀerential cell cycle checkpoint response
+in normal human keratinocytes and ﬁbroblasts. Cell Growth Diﬀer 9:535–543
+Groesser T, Chun E, Rydberg B (2007) Relative biological eﬀectiveness of high-energy
+iron ions for micronucleus formation at low doses. Radiat Res 168:675–682
+Gudowska-Nowak E, Kleczkowski A, Nasonova E, Scholz M, Ritter S (2005) Correla-
+tion between mitotic delay and aberration burden, and their role for the analysis of
+chromosome damage. Int J Radiat Biol 81:23–32
+Hahnfeldt P, Hlatky L (1996) Resensitization due to redistribution of cells in phases
+of the cell cycle during arbitrary radiation protocols. Radiat Res 145:134–143
+Hartmann N, Gilbert C, Jansson B, Macdonald PDM, Steel G, Valleron A (1975) A
+comparison of computer methods for the analysis of fraction labelled mitoses curves.
+Cell Tissue Kinet 8:119–124
+Kaufman G, Miller M, Savage J, Papworth D (1974) Chromosome aberration yields
+from multiple ﬁxation regimes. J Theoret Biol 44:91–103
+Kohandel M, Kardar M, Milosevic M, Sivaloganathan S (2007) Dynamics of tumor
+growth and combination of anti-angiogenic and cytotoxic therapies. Phys Med Biol
+52:3665–3677
+Lee R, Nasonova E, Ritter S (2005) Chromosome aberration yields and apoptosis in
+human lymphocytes irradiated with Fe-ions of diﬀering LET. Adv Space Res 35:268–
+Li L, Zou L (2005) Sensing, signaling, and responding to DNA damage: organization
+of the checkpoint pathways in mammalian cells. J Cell Biochem 94:298–306
+Mateuca R, Lombaert N, Aka PV, Decordier I, Kirsch-Volders M (2006) Chromosomal
+changes: induction, detection methods and applicability in human biomonitoring.
+Biochimie 88:1515–1531
+Montalenti F, Sena G, Capella P, Ubezio P (1998) Simulating cancer cell kinetics after
+drug treatment: application to cisplatin on ovarian carcinoma. Phys Rev E 57:5877–
+5887
+Pathak R, Dey S, Sarma A, Khuda-Bukhsh A (2007) Genotoxic eﬀects in M5 cells and
+Chinese hamster V79 cells after exposure to 7Li-beam (LET=60 kev/micron) and
+correlation of their survival dynamics to nuclear damages and cell death. Mutat Res
+628:56–66
+
+--- PAGE BREAK ---
+
+Purrot R, Vulpis N, Lloyd D (1980) The use of harlequin staining to measure delay
+in the human lymphocyte cell cycle induced by in vitro X-irradiation. Mutat Res
+69:275–282
+Ritter S, Nasonova E, Scholz M, Kraft-Weyrather W, Kraft G (1996) Comparison of
+chromosomal damage induced by X-rays and Ar ions with an LET of 1840 kev/µm
+in G1 V79 cells. Int J Radiat Biol 69:155–166
+Ritter S, Nasonova E, Gudowska-Nowak E (2000) Eﬀect of LET on the yield and the
+quality chromosomal damage in metaphase cells: a time-course study. Int J Radiat
+Biol 78:191–202
+Scholz M (2003) Eﬀects of ion radiation on cells and tissues. Advances in Polymer
+Science 162:95–155
+Scholz M, Kraft-Weyrather W, Ritter S, Kraft G (1994) Cell cycle delays induced by
+heavy ion irradiation of synchronous mammalian cells. Int J Radiat Biol 66:59–75
+Scholz M, Ritter S, Kraft G (1998) Analysis of chromosome damage based on the time
+course of aberrations. Int J Radiat Biol 74:325–331
+Sinclair WK (1969) Protection by cysteamine against lethal X-ray damage during the
+cell cycle of Chinese hamster cells. Radiat Res 39:135–154
+Tenhumberg S, Gudowska-Nowak E, Nasonova E, Ritter S (2007) Cell cycle arrest and
+aberration yield in normal human ﬁbroblasts. II: Eﬀects of 11 MeV u−1 C ions and
+9.9 MeV u−1 Ni ions. Int J Radiat Biol 83:501–513
+Virgilio AD, Iwami K, W¨atjen W, Kahl R, Degen G (2004) Genotoxicity of the
+isoﬂavones genistein, daidzein and equol in V79 cells. Toxicol Lett 151:151–162
+Weyrather W, Ritter S, Scholz M, Kraft G (1999) RBE for carbon track-segment
+irradiation in cell lines of diﬀering repair capacity. Int J Radiat Biol 75:1357–1364
+Wilson G (2007) Cell kinetics. Clin Oncol 19:370–384
+Zaider M, Minerbo GN (1993) A mathematical model for cell cycle progression under
+continuous low-dose-rate irradiation. Radiat Res 133:20–26
