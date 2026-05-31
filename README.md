@@ -1,8 +1,9 @@
 # Gelochip
 
 **Describe an analog/RF circuit in plain English → get a DRC-clean gf180 GDSII layout.**
-A local, self-correcting RAG agent (no cloud, no fine-tuning) that designs, verifies
-(Magic DRC + AC/transient vs. theory), and learns from every run.
+A **Self improving Agentic AI** — a local RAG agent (no cloud, no fine-tuning) that designs,
+verifies (Magic DRC + AC/transient vs. theory), *sees its own rendered layout*, and learns
+from every run.
 
 ![Gelochip Kaizen](docs/img/kaizen_showcase.png)
 
@@ -74,16 +75,23 @@ never gradients. The 3 collections **auto-build on first launch** (instant after
 
 | # | Collection | Contents |
 |---|---|---|
-| 1 | `glayout_knowledge` | glayout layout/code knowledge + 15 DRC-clean circuit blocks |
+| 1 | `glayout_knowledge` | **visual chain-of-thought** construction dataset (per-step NL + code + rendered image) + 15 DRC-clean circuit blocks |
 | 2 | `rf_theory` | RF/mmWave books, papers, EE-QA, PySpice corpus |
 | 3 | `error_feedback` | error→fix memory (starts empty, grows at runtime) |
+
+> Inspect or rebuild any collection from the notebooks:
+> [manage_knowledge_db.ipynb](notebooks/manage_knowledge_db.ipynb) (browse/search/delete) ·
+> [ingest_to_chromadb.ipynb](notebooks/ingest_to_chromadb.ipynb) (how data is ingested + what the UUID folders mean).
 
 **Four tools** in the web UI:
 1. **Prompt → GDSII (RF)** — live `plan → research → retrieve → generate → DRC → fix → persist`
    with GDS preview, extracted SPICE, AC/transient plots, and code. A **Researcher** agent
    (arXiv / web / GitHub via crawl4ai → temporary RAG) and the retrieved knowledge are shown
    in a **Knowledge & Research** panel so you can verify the agent's sources *before* it
-   generates. On a DRC-clean result the research + verified code are persisted into ChromaDB.
+   generates. **Vision-in-the-loop:** on a failed attempt the corrector is shown the *rendered
+   GDS* (not just the DRC text) and reasons about where the geometry is wrong. On a DRC-clean
+   result the research + verified code are persisted into ChromaDB. Each run lands in a readable
+   project folder `outputs/kaizen/<slug>_<date>/` (code · data · database · images · link · text).
    A **left history sidebar** saves every run — click to restore its full state.
 2. **IP Library** — 15 DRC-clean blocks (with real µm² area), drag-n-drop onto the chip.
 3. **Padframe** — gf180 pad ring (sscs-chipathon-2025 / caravel-gf180mcu compatible).
@@ -100,6 +108,12 @@ follows. All 15 circuits in `data/circuits/` are **DRC-clean + theory-verified**
 | amplifier | diff_pair, diff_pair_cmirrorbias, ota, opamp, differential_to_single_ended_converter, diff_pair_stackedcmirror, row_csamplifier | DC gain / GBW |
 | 2-stage | opamp_twostage | ~43 dB (> single stage) |
 
+Each circuit is also captured as a **visual chain-of-thought** sequence — every placement
+and route, with the layout re-rendered after each step (893 steps across the 15 circuits)
+— so the agent learns *how* a block is built, not just its final code.
+
+![Visual chain-of-thought dataset](docs/img/visual_cot.png)
+
 ---
 
 ## Repository layout
@@ -108,7 +122,8 @@ follows. All 15 circuits in `data/circuits/` are **DRC-clean + theory-verified**
 Gelochip/
 ├── data/                  # all datasets
 │   ├── circuits/          #   15 DRC-clean circuit blocks (IP library)
-│   ├── glayout_code/      #   human→glayout-code JSONL  (collection 1)
+│   ├── visual_dataset/    #   visual chain-of-thought: dataset.jsonl + images/ (collection 1)
+│   ├── glayout_code/      #   step-tracer tooling (step_recorder, nl_templates, renderer)
 │   ├── rf_theory/         #   RF/mmWave corpus           (collection 2)
 │   └── pixelatedrf/       #   antenna_dataset.mat, data_split.npz
 ├── models/                # all model weights
@@ -159,7 +174,7 @@ Missing tools are skipped gracefully; fastest setup is [IIC-OSIC-TOOLS Docker](h
 ## Documentation
 
 - [Kaizen architecture](notebooks/kaizen_architecture/README.md) — the RAG agent, collections, 15 circuits
-- [Docker](docs/DOCKER.md) — one-command self-contained deploy · [Pushing to Docker Hub (PDF)](docs/push-to-dockerhub.pdf) — build + push tutorial
+- [Docker](docs/DOCKER.md) — one-command self-contained deploy
 - [Installation](docs/installation.md) · [Architecture](docs/architecture.md) · [PixelatedRF](docs/pixelated-rf.md) · [Datasets](docs/datasets.md)
 
 ## License
