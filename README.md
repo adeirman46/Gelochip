@@ -10,51 +10,58 @@ A local, self-correcting RAG agent (no cloud, no fine-tuning) that designs, veri
 
 ---
 
-## ▶ Run an app
+## ▶ Run with Docker (recommended)
+
+The published image bundles **everything** — OS, EDA tools (magic · netgen · ngspice ·
+klayout), gf180 PDK, datasets, embedding model, prebuilt ChromaDB, PixelatedRF weights,
+and both web apps. Nothing to install or build. One model, `qwen3.5:9b`, serves
+reasoning, code, **and** vision.
+
+```bash
+curl -O https://raw.githubusercontent.com/adeirman46/Gelochip/main/docker-compose.yml
+docker compose up                # pulls the image + LLM, then serves:
+#   Gelochip Studio   → http://localhost:8090
+#   PixelatedRF       → http://localhost:8001
+```
+
+**NVIDIA GPU** (much faster generation) — add the override (needs the
+[NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)):
+
+```bash
+curl -O https://raw.githubusercontent.com/adeirman46/Gelochip/main/docker-compose.gpu.yml
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
+```
+
+Image: [`adeirman2705/gelochip-studio`](https://hub.docker.com/r/adeirman2705/gelochip-studio)
+(~2 GB). The LLM auto-downloads once into a volume. See [docs/DOCKER.md](docs/DOCKER.md)
+for persistence and building your own image.
+
+---
+
+## ▶ Run from source
 
 ```bash
 git clone https://github.com/adeirman46/Gelochip.git && cd Gelochip
-./scripts/run.sh                 # Gelochip Studio  → http://localhost:8090
+./scripts/run.sh                 # Gelochip Studio → http://localhost:8090
 ```
 
-`run.sh` sets up the `.venv` (via `uv`), pulls the local model, and launches.
-Pick any of the three apps (optionally pass a port):
+`run.sh` sets up the `.venv` (via `uv`), pulls the model, and launches. Pick any app:
 
-| Command | App | Port | What it is |
-|---|---|---|---|
-| `./scripts/run.sh kaizen`  | **Gelochip Studio** | 8090 | RAG agent · IP library · padframe · pin-connect *(default)* |
-| `./scripts/run.sh pixelrf` | **PixelatedRF Designer** | 8001 | Draw an S₁₁ target → inverse-designed GDS layout |
-| `./scripts/run.sh web`     | Legacy LangGraph UI | 8080 | Original spec→layout pipeline |
-
-**Requirements:** `ollama` (`ollama pull qwen3.5:9b` — auto-pulled by the script) ·
-`magic`, `netgen`, `ngspice` + `PDK_ROOT` → gf180 PDK · `numpy<2.0` (gdsfactory<8 needs it).
-
-### Large assets (download)
-
-Model weights (`models/pixelatedrf/`) and EM datasets (`data/pixelatedrf/`) are **not
-in git** (kept under GitHub's file-size limit). The **Kaizen Studio** app needs none of
-them — it auto-builds its ChromaDB from the in-repo datasets. Only the **PixelatedRF**
-app/notebooks need them:
-
-```bash
-# 1. set your Drive link in scripts/fetch_assets.sh   2. run:
-./scripts/fetch_assets.sh
-```
-
-> Drive link: _TODO — add your Google Drive share link in `scripts/fetch_assets.sh`._
-
-**Where each file goes** (download from Drive, then place exactly here):
-
-| File | Put in | Used by |
+| Command | App | Port |
 |---|---|---|
-| `forward_model.pt` | `models/pixelatedrf/` | PixelatedRF forward surrogate |
-| `inverse_model.pt` | `models/pixelatedrf/` | PixelatedRF inverse (MCL) net |
-| `forward_model_resume.pt`, `inverse_resume.pt`, `_resume.pt` | `models/pixelatedrf/` | training resume (optional) |
-| `antenna_dataset.mat` | `data/pixelatedrf/` | raw EM dataset (notebook 01) |
-| `data_split.npz` | `data/pixelatedrf/` | train/val/test split (notebooks 02–04) |
-| `y_norm_stats.npz` | `data/pixelatedrf/` | S₁₁ normalisation stats |
+| `./scripts/run.sh kaizen`  | **Gelochip Studio** — RAG agent · IP library · padframe · pin-connect | 8090 |
+| `./scripts/run.sh pixelrf` | **PixelatedRF Designer** — S₁₁ target → inverse-designed GDS | 8001 |
+| `./scripts/run.sh web`     | Legacy LangGraph UI | 8080 |
 
-The `drc_corrector_ppo.pt` (layoutRL) is small and ships in git at `models/layoutrl/`.
+**Needs:** `ollama` · `magic`, `netgen`, `ngspice` · `PDK_ROOT` → gf180 PDK ·
+`numpy<2.0` (gdsfactory<8). The React UI ([`app/frontend/`](app/frontend/)) needs
+**Node 18+** — build it once with `cd app/frontend && npm install && npm run build`;
+until then the backend serves a vanilla-JS fallback, so it works without Node.
+
+> **PixelatedRF assets:** its model weights (`models/pixelatedrf/`) and EM datasets
+> (`data/pixelatedrf/`) are too big for git. The Docker image already includes them;
+> for source use, fetch them via `./scripts/fetch_assets.sh` (set your Drive link first).
+> Studio itself needs none of this — it auto-builds its ChromaDB from the in-repo data.
 
 ---
 
@@ -111,10 +118,14 @@ Gelochip/
 │   ├── kaizen/            # RAG agent: config, collections, executor, testbench, agent, studio
 │   ├── pixelrf/           # PixelatedRF inverse-design app + inference
 │   ├── glayout/  gl/  verification/   # gdsfactory layout + DRC/LVS/PEX
-├── app/                   # kaizen_app.py (Studio) · web_app.py · mcp_server.py · static/
+├── app/                   # the web app
+│   ├── kaizen_app.py      #   FastAPI backend (Studio) · web_app.py · mcp_server.py
+│   ├── frontend/          #   React (Vite) SPA — production UI
+│   └── static/            #   web/ (built SPA, served at /) · kaizen/ (vanilla fallback)
 ├── scripts/               # run.sh (launcher) · kaizen_ingest.py · build_clean_datasets.py · …
 ├── notebooks/             # kaizen_architecture/ · pixelatedRF/ · …
-└── docs/
+├── Dockerfile · docker-compose.yml   # one-command self-contained stack
+└── docs/                  # DOCKER.md · installation.md · architecture.md · …
 ```
 
 ---
@@ -148,6 +159,7 @@ Missing tools are skipped gracefully; fastest setup is [IIC-OSIC-TOOLS Docker](h
 ## Documentation
 
 - [Kaizen architecture](notebooks/kaizen_architecture/README.md) — the RAG agent, collections, 15 circuits
+- [Docker](docs/DOCKER.md) — one-command self-contained deploy · [Pushing to Docker Hub (PDF)](docs/push-to-dockerhub.pdf) — build + push tutorial
 - [Installation](docs/installation.md) · [Architecture](docs/architecture.md) · [PixelatedRF](docs/pixelated-rf.md) · [Datasets](docs/datasets.md)
 
 ## License

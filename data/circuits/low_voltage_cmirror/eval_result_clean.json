@@ -1,6 +1,6 @@
 {
   "component_name": "LVCM",
-  "source": "kaizen_clean_reimpl",
+  "source": "kaizen_canonical_from_ipynb",
   "drc": {
     "is_pass": true,
     "summary": {

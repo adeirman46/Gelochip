@@ -100,46 +100,49 @@ def _add_documents(store, docs: list, prefix: str, batch: int = 256) -> int:
 
 # ── Collection 1: glayout code templates ──────────────────────────────────────
 def ingest_templates(reset: bool = True) -> int:
-    """Ingest human→glayout-code pairs from the SFT JSONL datasets."""
+    """Ingest the visual chain-of-thought construction dataset + the verified
+    DRC-clean clean.py circuits into the glayout_knowledge collection."""
     from langchain_core.documents import Document
 
     store = get_vectorstore(config.COLL_TEMPLATES)
     if reset:
         _reset(store)
 
-    jsonl_files = sorted(config.SFT_DATASET_DIR.glob("dataset_*.jsonl"))
     docs: list[Document] = []
-    seen: set[str] = set()
 
-    for jf in jsonl_files:
-        for line in jf.read_text().splitlines():
+    # 1. Visual-CoT dataset (data/visual_dataset/dataset.jsonl): for each circuit,
+    #    a full step-by-step construction RECIPE document plus one document per
+    #    construction STEP (NL instruction + code, with the rendered image linked in
+    #    metadata). This is what lets the agent retrieve "how to build X step by
+    #    step" and "the code for this specific operation".
+    vds = config.DATA_DIR / "visual_dataset" / "dataset.jsonl"
+    if vds.exists():
+        for line in vds.read_text().splitlines():
             line = line.strip()
             if not line:
                 continue
             rec = json.loads(line)
-            convo = rec.get("conversations", [])
-            human = next((m["value"] for m in convo if m["from"] == "human"), "")
-            gpt = next((m["value"] for m in convo if m["from"] == "gpt"), "")
-            if not human or not gpt:
-                continue
-            key = human[:120]
-            if key in seen:
-                continue
-            seen.add(key)
-            # page_content holds instruction + code so retrieval returns runnable code.
-            content = f"# Task\n{human}\n\n# glayout solution\n{gpt}"
-            docs.append(
-                Document(
-                    page_content=content,
-                    metadata={
-                        "source": jf.name,
-                        "circuit": _guess_circuit(human),
-                        "pdk": config.PDK,
-                        "doc_type": "code_template",
-                    },
-                )
-            )
-    n = _add_documents(store, docs, prefix="tmpl")
+            circ = rec.get("circuit", "generic")
+            steps = rec.get("steps", [])
+            nice = circ.replace("_", " ")
+            recipe = "\n".join(
+                f"Step {s['step']} [{s.get('block', '')}]: {s.get('instruction', '')}\n{s['code']}"
+                for s in steps)
+            docs.append(Document(
+                page_content=f"# Step-by-step construction of a {nice} (gf180, DRC-clean)\n{recipe}",
+                metadata={"source": "visual_dataset", "circuit": circ, "pdk": config.PDK,
+                          "doc_type": "construction_recipe", "n_steps": len(steps),
+                          "final_image": rec.get("final_image") or ""}))
+            for s in steps:
+                instr = s.get("instruction", "")
+                if not instr:
+                    continue
+                docs.append(Document(
+                    page_content=f"# Operation in a {nice}: {instr}\n{s['code']}",
+                    metadata={"source": "visual_dataset", "circuit": circ, "pdk": config.PDK,
+                              "doc_type": "construction_step", "block": s.get("block", ""),
+                              "image": s.get("image") or ""}))
+    n = _add_documents(store, docs, prefix="vstep")
 
     # Also ingest the verified DRC-clean circuit reimplementations (data/circuits/*).
     clean_docs: list[Document] = []

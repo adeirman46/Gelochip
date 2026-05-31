@@ -10,8 +10,10 @@ DB lives at ``OUTPUT_DIR/sessions.db`` (git-ignored).
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 import time
+from pathlib import Path
 from typing import Any
 
 from gelochip.kaizen import config
@@ -20,6 +22,12 @@ from gelochip.kaizen import config
 def _db_path():
     # Chat/build history is a MAIN, persistent database → lives under data/
     # (alongside chroma_db), not under the ephemeral outputs/ tree.
+    # Override with KAIZEN_SESSIONS_DB to point at a mounted volume (Docker).
+    override = os.getenv("KAIZEN_SESSIONS_DB")
+    if override:
+        p = Path(override)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        return str(p)
     config.ensure_dirs()
     config.DATA_DIR.mkdir(parents=True, exist_ok=True)
     return str(config.DATA_DIR / "sessions.db")
