@@ -1,0 +1,55 @@
+# Keep the build context small + reproducible.
+.git
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# node / vite (rebuilt inside the frontend stage)
+app/frontend/node_modules
+app/frontend/dist
+app/static/web
+
+# runtime artifacts (regenerated; persisted via named volumes)
+outputs/
+data/chroma_db/
+data/sessions.db
+**/*_drc_out/
+**/*_lvs_out/
+**/*.ext
+**/*.res.ext
+**/*.nodes
+**/*.rpt
+
+# Big training-only weights are excluded by default…
+models/**/*.pt
+models/**/*.pth
+models/**/*.safetensors
+models/**/*.gguf
+models/**/*.ckpt
+models/**/*.onnx
+*.mat
+*.npz
+# …but DO ship the files needed to RUN, so the image is self-contained:
+#   • embedding model (RAG, offline)
+#   • PixelatedRF inference models + datasets + norm stats
+#   • layoutRL PPO policy
+# The *_resume.pt training checkpoints (~610 MB) stay excluded.
+!models/embeddings/all-MiniLM-L6-v2/model.safetensors
+!models/pixelatedrf/forward_model.pt
+!models/pixelatedrf/inverse_model.pt
+!models/layoutrl/drc_corrector_ppo.pt
+!data/pixelatedrf/*.mat
+!data/pixelatedrf/*.npz
+
+# notebooks + docs are not part of the served app
+notebooks/
+docs/
+*.ipynb
+
+# local env
+.env
+.DS_Store

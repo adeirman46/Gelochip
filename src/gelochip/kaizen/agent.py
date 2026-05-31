@@ -17,7 +17,9 @@ in-context learning instead of SFT.
 from __future__ import annotations
 
 import os
+import re
 import threading
+import time
 from pathlib import Path
 from typing import Any, Callable, Optional, TypedDict
 
@@ -40,6 +42,8 @@ class KaizenState(TypedDict, total=False):
     ctx_lessons: str
     ctx_research: str
     research_docs: list
+    extracted: str
+    image_findings: str
     code: str
     attempt: int
     test: dict
@@ -57,9 +61,16 @@ def get_llm(model: Optional[str] = None, temperature: Optional[float] = None,
     # window; crank KAIZEN_NUM_CTX up to 262144 if you have the RAM/VRAM for the KV
     # cache (it gets slow + memory-heavy at the extreme). num_predict caps OUTPUT
     # length — that's what governs how long the generated code can be.
+    # qwen3.5 is a *thinking* model: left on, it spends the entire num_predict
+    # budget on hidden <think> tokens and returns EMPTY content (done_reason=
+    # "length") — which is why the plan/code came back blank. We disable hidden
+    # reasoning by default so the budget produces real output; set
+    # KAIZEN_REASONING=1 to re-enable it (we still surface it as live "thinking").
+    reasoning = os.getenv("KAIZEN_REASONING", "0") == "1"
     return ChatOllama(
         model=model or config.LLM_MODEL,
         base_url=config.OLLAMA_BASE_URL,
+        reasoning=reasoning,
         temperature=config.LLM_TEMPERATURE if temperature is None else temperature,
         num_ctx=int(os.getenv("KAIZEN_NUM_CTX", "32768")),
         num_predict=num_predict if num_predict is not None
@@ -71,6 +82,84 @@ def get_llm(model: Optional[str] = None, temperature: Optional[float] = None,
     )
 
 
+def get_vlm(num_predict: int = 600):
+    """Vision-language model handle (Ollama) used by the Extractor to read
+    schematics/layout figures. Separate from the reasoning LLM so the main model
+    needn't be multimodal."""
+    from langchain_ollama import ChatOllama
+
+    return ChatOllama(
+        model=config.VLM_MODEL,
+        base_url=config.OLLAMA_BASE_URL,
+        temperature=0.1,
+        num_ctx=8192,
+        num_predict=num_predict,
+    )
+
+
+def _chunk_parts(chunk) -> tuple[str, str]:
+    """Return (content, reasoning) for an Ollama stream chunk. Thinking models
+    put their <think> stream in additional_kwargs['reasoning_content']."""
+    content = chunk.content if hasattr(chunk, "content") else str(chunk)
+    reasoning = ""
+    ak = getattr(chunk, "additional_kwargs", None) or {}
+    if isinstance(ak, dict):
+        reasoning = ak.get("reasoning_content") or ak.get("reasoning") or ""
+    return content or "", reasoning or ""
+
+
+def _looks_runaway(text: str, tail_lines: int = 14, max_unique: int = 3) -> bool:
+    """Detect a local model degenerating into a repetition loop (e.g. the same
+    one/two comment lines emitted forever). Looks at the last `tail_lines`
+    non-blank lines: if they collapse to <= max_unique distinct lines, it's a
+    runaway. Cheap enough to call on every streamed chunk."""
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    if len(lines) < tail_lines:
+        return False
+    tail = lines[-tail_lines:]
+    # ignore trivially short lines (closing brackets etc.) when judging variety
+    meaningful = [ln for ln in tail if len(ln) > 8]
+    if len(meaningful) < tail_lines - 2:
+        return False
+    return len(set(meaningful)) <= max_unique
+
+
+def _postprocess_code(text: str, max_period: int = 6, keep: int = 2) -> str:
+    """Clean a generated code blob: collapse runaway repetition and drop trailing
+    junk after the final top-level ``component =`` assignment. Handles both
+    single-line runs and multi-line CYCLES (the model's "A line / B line / A / B…"
+    degeneration), keeping at most `keep` copies of any repeating block. Conservative
+    — real glayout code almost never repeats a non-trivial block 3+ times, so this
+    only removes degeneration, never legitimate structure."""
+    out: list[str] = []
+    for ln in text.splitlines():
+        out.append(ln)
+        # if the tail now ends in > keep repetitions of a period-p block, drop the
+        # excess copy. Check small periods first so single-line runs collapse too.
+        for p in range(1, max_period + 1):
+            if len(out) < p * (keep + 1):
+                continue
+            block = out[-p:]
+            if not any(b.strip() for b in block):
+                continue  # don't collapse blank-line blocks
+            reps, j = 1, len(out) - p
+            while j - p >= 0 and out[j - p:j] == block:
+                reps += 1
+                j -= p
+            if reps > keep:
+                del out[-p:]
+                break
+    # 2) trim trailing junk: keep through the LAST top-level `component =` statement;
+    # anything after that which is only comments/blanks/repeats is degeneration.
+    last_comp = max((i for i, ln in enumerate(out)
+                     if re.match(r"\s*component\s*=", ln)), default=None)
+    if last_comp is not None:
+        tail = out[last_comp + 1:]
+        if all((not t.strip()) or t.lstrip().startswith("#") for t in tail):
+            out = out[:last_comp + 1]
+    return "\n".join(out).strip()
+
+
 def _text(resp) -> str:
     return resp.content if hasattr(resp, "content") else str(resp)
 
@@ -78,17 +167,27 @@ def _text(resp) -> str:
 def _stream_text(state, node: str, llm, prompt: str, label: str = "thinking") -> str:
     """Stream an LLM call, emitting live `thinking` events (chatty), return full text."""
     parts: list[str] = []
+    reason: list[str] = []
     last = 0
     try:
-        for chunk in llm.stream(prompt):
-            parts.append(chunk.content if hasattr(chunk, "content") else str(chunk))
-            cur = "".join(parts)
-            if len(cur) - last >= 120:           # throttle: ~every 120 chars
-                last = len(cur)
-                _emit(state, node, f"{label}… ({len(cur)} chars)", thinking=cur, streaming=True)
+        # Heartbeat covers the silent model-load before the first token streams.
+        with _Heartbeat(state, node, label):
+            for chunk in llm.stream(prompt):
+                c, r = _chunk_parts(chunk)
+                if c:
+                    parts.append(c)
+                if r:
+                    reason.append(r)
+                cur = "".join(parts)
+                # show the live answer if present, else the model's reasoning
+                shown = cur or "".join(reason)
+                if len(shown) - last >= 80:      # throttle: ~every 80 chars (chatty)
+                    last = len(shown)
+                    _emit(state, node, f"{label}… ({len(shown)} chars)", thinking=shown, streaming=True)
     except Exception:
         parts = [_text(llm.invoke(prompt))]
-    return "".join(parts)
+    out = "".join(parts)
+    return out or "".join(reason)   # fall back to reasoning if content was empty
 
 
 def _retrieve(collection: str, query: str, k: int, **flt) -> list:
@@ -188,6 +287,44 @@ def _emit(state: KaizenState, node: str, msg: str, **extra) -> None:
         cb(ev)
 
 
+class _Heartbeat:
+    """Keep the event log alive during long *blocking* calls (LLM model-load,
+    Magic DRC, web research) that would otherwise emit nothing for 30-90 s.
+
+    Runs a daemon thread that ticks every few seconds with elapsed time. The
+    event callback is thread-local (LangGraph quirk), so we capture it on the
+    main thread and hand it to the ticker explicitly.
+    """
+
+    def __init__(self, state: "KaizenState", node: str, label: str, every: float = 3.0):
+        self.state, self.node, self.label, self.every = state, node, label, every
+        self.cb = getattr(_CB, "on_event", None) or state.get("_on_event")
+        self._stop = threading.Event()
+        self._t: Optional[threading.Thread] = None
+        self._t0 = time.time()
+
+    def __enter__(self) -> "_Heartbeat":
+        if self.cb:
+            self._t = threading.Thread(target=self._run, daemon=True)
+            self._t.start()
+        return self
+
+    def _run(self) -> None:
+        while not self._stop.wait(self.every):
+            el = int(time.time() - self._t0)
+            ev = {"node": self.node, "msg": f"{self.label}… working ({el}s)", "heartbeat": True}
+            try:
+                self.state.setdefault("events", []).append(ev)
+                self.cb(ev)
+            except Exception:
+                return
+
+    def __exit__(self, *exc) -> None:
+        self._stop.set()
+        if self._t:
+            self._t.join(timeout=0.2)
+
+
 def node_plan(state: KaizenState) -> KaizenState:
     _emit(state, "plan", "planning the circuit… (first call may load the LLM, ~30–90 s)", start=True)
     llm = get_llm(num_predict=900)
@@ -221,9 +358,11 @@ def node_research(state: KaizenState) -> KaizenState:
     from gelochip.kaizen import researcher
 
     _emit(state, "research", "searching arXiv / web / GitHub (crawl4ai)…", start=True)
-    docs = researcher.research(state["query"] + " gf180 RF analog IC layout")
-    if docs:
-        researcher.build_temp_rag(docs, _job_id(state))
+    with _Heartbeat(state, "research", "researching the web"):
+        docs = researcher.research(state["query"] + " gf180 RF analog IC layout")
+        if docs:
+            _emit(state, "research", f"got {len(docs)} sources → building a temporary RAG index…")
+            researcher.build_temp_rag(docs, _job_id(state))
     srcs = {d["source"] for d in docs}
     # surface the extracted info so the user can verify it BEFORE generation
     sources = [{"title": (d.get("title") or "")[:140], "source": d.get("source", ""),
@@ -266,6 +405,157 @@ def node_retrieve(state: KaizenState) -> KaizenState:
             "ctx_lessons": _fmt(lessons, 900), "ctx_research": _fmt(research, 900)}
 
 
+def _fetch_image_b64(url: str, timeout: float = 8.0) -> Optional[tuple[str, str]]:
+    """Download an image → (mime_type, base64). None on failure / non-image."""
+    import base64
+
+    import httpx
+    try:
+        r = httpx.get(url, timeout=timeout, follow_redirects=True,
+                      headers={"User-Agent": "Mozilla/5.0 (gelochip-extractor)"})
+        r.raise_for_status()
+        ct = (r.headers.get("content-type") or "image/png").split(";")[0].strip()
+        if "image" not in ct or not r.content:
+            return None
+        return ct, base64.b64encode(r.content).decode()
+    except Exception:
+        return None
+
+
+def _local_image_b64(path: str) -> Optional[tuple[str, str]]:
+    """Read a local image file → (mime_type, base64). None on failure."""
+    import base64
+    try:
+        data = open(path, "rb").read()
+        if not data:
+            return None
+        mime = "image/png" if path.lower().endswith(".png") else "image/jpeg"
+        return mime, base64.b64encode(data).decode()
+    except Exception:
+        return None
+
+
+def _vision_review_layout(state: KaizenState, png_path: str, drc_text: str) -> str:
+    """Vision-in-the-loop: show the VLM the *rendered GDS* of the failed attempt
+    alongside its DRC errors, and ask what is visually wrong and how to fix the
+    placement/routing. Returns '' if no VLM / no image (purely additive)."""
+    from langchain_core.messages import HumanMessage
+    fetched = _local_image_b64(png_path) if png_path else None
+    if not fetched:
+        return ""
+    try:
+        vlm = get_vlm()
+    except Exception:
+        return ""
+    ct, b64 = fetched
+    try:
+        with _Heartbeat(state, "generate", "looking at the rendered layout"):
+            msg = HumanMessage(content=[
+                {"type": "text", "text": (
+                    "You are an analog IC layout engineer. This image is the RENDERED "
+                    "GDS of a layout your code just produced, and it FAILED DRC. Look at "
+                    "the actual geometry and, using the DRC errors below, say concretely "
+                    "WHERE the problem is (which devices/routes overlap, are too close, "
+                    "too narrow, or mis-aligned) and HOW to fix it in glayout terms "
+                    "(move a device, widen/shift a route, add spacing, change a via). "
+                    "Be terse — bullet points tied to what you SEE.\n\n"
+                    f"DRC errors:\n{drc_text[:800]}")},
+                {"type": "image_url", "image_url": f"data:{ct};base64,{b64}"},
+            ])
+            txt = _text(vlm.invoke([msg])).strip()
+        if txt:
+            _emit(state, "generate", "vision review of the failed layout ✓", streaming=True)
+        return txt
+    except Exception:
+        return ""
+
+
+def _extract_from_images(state: KaizenState, urls: list[str]) -> str:
+    """Vision pass: ask the VLM to mine concrete design facts out of each figure
+    (schematic / layout / plot). Fully best-effort — returns '' if no VLM, the
+    images can't be fetched, or anything goes wrong."""
+    from langchain_core.messages import HumanMessage
+
+    try:
+        vlm = get_vlm()
+    except Exception:
+        return ""
+    findings: list[str] = []
+    with _Heartbeat(state, "extract", "reading schematics/figures with the vision model"):
+        for i, u in enumerate(urls, 1):
+            fetched = _fetch_image_b64(u)
+            if not fetched:
+                continue
+            ct, b64 = fetched
+            try:
+                msg = HumanMessage(content=[
+                    {"type": "text", "text": (
+                        "You are an analog/RF IC layout expert. This image is a figure "
+                        "from a paper or repo — a schematic, a chip layout, or a plot. "
+                        "Extract ONLY concrete, design-useful facts: circuit topology, "
+                        "transistor roles & count, how devices connect, any device "
+                        "sizing / W-L / ratios / bias currents, and layout or floorplan "
+                        "cues (rows, mirroring, guard rings). If it is NOT a circuit "
+                        "figure, reply exactly 'not relevant'. Be terse — bullet facts.")},
+                    {"type": "image_url", "image_url": f"data:{ct};base64,{b64}"},
+                ])
+                txt = _text(vlm.invoke([msg])).strip()
+            except Exception:
+                continue
+            if txt and "not relevant" not in txt.lower()[:40]:
+                findings.append(f"[figure {i}] {txt}")
+                _emit(state, "extract", f"read figure {i}/{len(urls)} ✓", streaming=True)
+    return "\n\n".join(findings)
+
+
+def node_extract(state: KaizenState) -> KaizenState:
+    """Extractor agent: mine the retrieved CODE, THEORY, RESEARCH text and the
+    found IMAGES into one concrete DESIGN SPECIFICATION that upgrades the plan
+    before generation. This is the step that turns scattered grounding into a
+    precise, buildable spec — and it reads figures, not just text."""
+    _emit(state, "extract", "extracting facts from knowledge, code & figures…", start=True)
+
+    # 1. Vision pass over schematics/layouts the researcher surfaced.
+    img_urls = [d["url"] for d in state.get("research_docs", [])
+                if d.get("source") == "image" and d.get("url")][:config.VLM_MAX_IMAGES]
+    image_findings = _extract_from_images(state, img_urls) if img_urls else ""
+
+    # 2. Text consolidation: fuse every source into a single actionable spec.
+    llm = get_llm(num_predict=1200, temperature=0.2)
+    prompt = (
+        "You are a senior analog/RF IC designer acting as an INFORMATION EXTRACTOR. "
+        "From the grounding below, distil ONE concrete DESIGN SPECIFICATION the "
+        "layout-coder will follow. Mine every useful fact from the retrieved glayout "
+        "CODE (exact imports, device calls, real port-name patterns, routing idioms), "
+        "the RF THEORY, the RESEARCHED references, the VISION findings from figures, "
+        "and the original plan. Resolve conflicts, fill gaps, stay specific — no fluff.\n\n"
+        "Output these sections, terse and concrete:\n"
+        "A. CONFIRMED TOPOLOGY — every transistor (M1, M2, …), its role, and its "
+        "gate/drain/source net.\n"
+        "B. SIZING — W, L, fingers per device with a one-line reason (spec/theory/figure).\n"
+        "C. PORTS / NETS — the external pins (inputs, output, bias, VDD, VSS).\n"
+        "D. GLAYOUT API FACTS — exact imports, the nmos/pmos signature, the real "
+        "port-name patterns and the c_route/straight_route idioms seen in the code.\n"
+        "E. PLACEMENT & ROUTING — rows vs vertical stacks, spacing, which ports connect.\n"
+        "F. PITFALLS — concrete things to avoid, drawn from the lessons and figures.\n\n"
+        f"# Design request\n{state['query']}\n\n"
+        f"# Original plan\n{state.get('plan','')}\n\n"
+        f"# Retrieved glayout code / templates\n{state.get('ctx_templates','')}\n\n"
+        f"# RF/mmWave theory\n{state.get('ctx_theory','')}\n\n"
+        f"# Researched references\n{state.get('ctx_research','(none)')}\n\n"
+        f"# Lessons learned (past mistakes)\n{state.get('ctx_lessons','')}\n\n"
+        f"# Vision findings from figures/schematics\n{image_findings or '(no figures read)'}\n\n"
+        "Now output the consolidated DESIGN SPECIFICATION:"
+    )
+    spec = _stream_text(state, "extract", llm, prompt, label="extracting")
+    n_fig = image_findings.count("[figure")
+    _emit(state, "extract",
+          f"design spec ready ({len(spec)} chars" +
+          (f", {n_fig} figure(s) read)" if n_fig else ")"),
+          extracted=spec, image_findings=image_findings)
+    return {"extracted": spec, "image_findings": image_findings}
+
+
 def node_generate(state: KaizenState) -> KaizenState:
     # RAG (not SFT): generate with the main qwen3.5:9b agent, grounded on the
     # retrieved glayout templates. Set KAIZEN_USE_CODER=1 to use the SFT coder.
@@ -279,15 +569,26 @@ def node_generate(state: KaizenState) -> KaizenState:
     feedback = ""
     test = state.get("test")
     if test and not test.get("passed"):
+        drc_text = str(test.get("error") or test.get("drc"))
         feedback = (
             "\n\nThe PREVIOUS attempt FAILED. Fix it.\n"
             f"Failure stage: {test.get('stage')}\n"
-            f"Error / DRC: {test.get('error') or test.get('drc')}\n"
+            f"Error / DRC: {drc_text}\n"
         )
+        # Vision-in-the-loop: let the model SEE the rendered GDS of the failed
+        # attempt, not just read the error text, and fold the visual review in.
+        review = _vision_review_layout(state, test.get("png_path"), drc_text)
+        if review:
+            feedback += (
+                "\nVISUAL REVIEW of the rendered layout above (what the error looks "
+                f"like on the actual geometry):\n{review}\n"
+            )
     prompt = (
         f"{_GL_API_HINT}\n\n"
         f"# Design request\n{state['query']}\n\n"
         f"# Plan\n{state.get('plan','')}\n\n"
+        f"# Consolidated design spec — FOLLOW THIS (extracted from code, theory & figures)\n"
+        f"{state.get('extracted','(none)')}\n\n"
         f"# Retrieved glayout templates (reuse the closest one)\n{state['ctx_templates']}\n\n"
         f"# Relevant RF/mmWave theory\n{state['ctx_theory']}\n\n"
         f"# Researched references (papers/web/github)\n{state.get('ctx_research','(none)')}\n\n"
@@ -297,19 +598,35 @@ def node_generate(state: KaizenState) -> KaizenState:
     attempt = state.get("attempt", 0) + 1
     # Stream the code so the UI shows it being written live (throttled emits).
     parts: list[str] = []
+    reason: list[str] = []
     last = 0
     try:
-        for chunk in llm.stream(prompt):
-            parts.append(chunk.content if hasattr(chunk, "content") else str(chunk))
-            cur = "".join(parts)
-            if len(cur) - last >= 250:
-                last = len(cur)
-                _emit(state, "generate", f"writing code… ({len(cur)} chars)",
-                      code=cur, streaming=True, version=attempt)
+        # Heartbeat covers the silent model-load before the first code token.
+        with _Heartbeat(state, "generate", "the coder is warming up"):
+            for chunk in llm.stream(prompt):
+                c, r = _chunk_parts(chunk)
+                if c:
+                    parts.append(c)
+                if r:
+                    reason.append(r)
+                cur = "".join(parts)
+                if cur and len(cur) - last >= 150:
+                    last = len(cur)
+                    # Abort a degenerate repetition loop instead of burning the
+                    # whole token budget echoing the same line (the "writing
+                    # code… (15261 chars)" runaway). The code so far is salvaged
+                    # and cleaned below.
+                    if _looks_runaway(cur):
+                        _emit(state, "generate",
+                              "stopped a repetition loop — trimming the dead tail",
+                              streaming=True, version=attempt)
+                        break
+                    _emit(state, "generate", f"writing code… ({len(cur)} chars)",
+                          code=cur, streaming=True, version=attempt)
     except Exception:
         # fall back to a single blocking call if streaming is unavailable
         parts = [_text(llm.invoke(prompt))]
-    code = "".join(parts)
+    code = _postprocess_code("".join(parts) or "".join(reason))
     _emit(state, "generate", f"attempt {attempt}: {len(code)} chars",
           code=code, version=attempt)
     return {"code": code, "attempt": attempt}
@@ -320,8 +637,9 @@ def node_test(state: KaizenState) -> KaizenState:
 
     _emit(state, "test", "building GDS → Magic DRC → SPICE/AC/transient testbench…", start=True)
     job = state.get("job_dir") or str(config.OUTPUT_DIR / "session")
-    res = run_layout_code(state["code"], job, name=f"kaizen_{state.get('attempt',1)}",
-                          run_testbench=True)
+    with _Heartbeat(state, "test", "building + DRC + simulating"):
+        res = run_layout_code(state["code"], job, name=f"kaizen_{state.get('attempt',1)}",
+                              run_testbench=True)
     drc = res.get("drc", {})
     tb = res.get("testbench", {})
     summary = (f"stage={res['stage']} ok={res['ok']} passed={res['passed']} "
@@ -386,6 +704,25 @@ def node_summarize(state: KaizenState) -> KaizenState:
         f"GDS: {test.get('gds_path') or '—'}\n"
         f"DRC errors: {drc.get('total_errors', '—')}\n"
     )
+    # Persist the human-readable artifacts into the project's text/ and link/ folders.
+    try:
+        import json as _json
+        jd = Path(state.get("job_dir", ""))
+        if jd.name:
+            (jd / "text").mkdir(parents=True, exist_ok=True)
+            (jd / "link").mkdir(parents=True, exist_ok=True)
+            (jd / "text" / "summary.md").write_text(
+                f"# {state.get('circuit','design')}\n\n{answer}\n\n"
+                f"## Request\n{state['query']}\n\n## Plan\n{state.get('plan','')}\n")
+            drc_rep = drc.get("report") or drc.get("error") or str(drc.get("error_details", ""))
+            if drc_rep:
+                (jd / "text" / "drc_report.txt").write_text(str(drc_rep))
+            links = [{"url": d.get("url"), "source": d.get("source"), "title": d.get("title")}
+                     for d in state.get("research_docs", []) if d.get("url")]
+            if links:
+                (jd / "link" / "links.json").write_text(_json.dumps(links, indent=2))
+    except Exception:
+        pass
     _emit(state, "summarize", answer)
     return {"answer": answer, "done": True}
 
@@ -408,6 +745,7 @@ def build_graph():
     g.add_node("plan", node_plan)
     g.add_node("research", node_research)
     g.add_node("retrieve", node_retrieve)
+    g.add_node("extract", node_extract)
     g.add_node("generate", node_generate)
     g.add_node("test", node_test)
     g.add_node("kaizen_memory", node_kaizen_memory)
@@ -416,7 +754,8 @@ def build_graph():
     g.add_edge(START, "plan")
     g.add_edge("plan", "research")
     g.add_edge("research", "retrieve")
-    g.add_edge("retrieve", "generate")
+    g.add_edge("retrieve", "extract")
+    g.add_edge("extract", "generate")
     g.add_edge("generate", "test")
     g.add_conditional_edges("test", _route_after_test,
                             {"summarize": "summarize", "kaizen_memory": "kaizen_memory"})

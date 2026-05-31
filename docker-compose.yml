@@ -1,0 +1,86 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#  Gelochip Studio — one-command stack.
+#
+#      docker compose up --build
+#
+#  Brings up three things:
+#    • ollama       — local LLM server (qwen3.5:9b), GPU-optional
+#    • ollama-pull  — one-shot: pulls the agent model into the shared volume
+#    • studio       — the FastAPI app + React UI + EDA tools + gf180 PDK
+#
+#  Then open  http://localhost:8090
+#
+#  The model (~6 GB) downloads once into the `ollama` named volume and persists
+#  across restarts, so subsequent `up`s are instant. Nothing else to install.
+# ═══════════════════════════════════════════════════════════════════════════
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: gelochip-ollama
+    volumes:
+      - ollama:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+    # CPU by default (works for everyone). For NVIDIA GPU acceleration add the
+    # override:  docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
+    # (requires the NVIDIA Container Toolkit on the host).
+
+  # one-shot: pull the agent model into the shared ollama volume, then exit
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: gelochip-ollama-pull
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: "ollama:11434"
+    entrypoint: ["/bin/sh", "-c", "ollama pull ${KAIZEN_LLM_MODEL:-qwen3.5:9b}"]
+    restart: "no"
+
+  studio:
+    # Pulls the prebuilt image from Docker Hub (no local build needed).
+    # To build your own instead, run: docker build -t adeirman2705/gelochip-studio .
+    image: adeirman2705/gelochip-studio:latest
+    container_name: gelochip-studio
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_BASE_URL: "http://ollama:11434"
+      KAIZEN_LLM_MODEL: "${KAIZEN_LLM_MODEL:-qwen3.5:9b}"
+      KAIZEN_ALLOWED_ORIGINS: "${KAIZEN_ALLOWED_ORIGINS:-*}"
+      KAIZEN_MAX_CONCURRENT: "${KAIZEN_MAX_CONCURRENT:-2}"
+      KAIZEN_SESSIONS_DB: "/app/outputs/sessions.db"
+      PDK_ROOT: "/pdks"
+    ports:
+      - "8090:8090"
+    volumes:
+      # persist generated artifacts + chat history + learned knowledge
+      - studio-outputs:/app/outputs        # GDS/PNG/SPICE + sessions.db (history)
+      - studio-chroma:/app/data/chroma_db  # RAG collections (grows as agent learns)
+    restart: unless-stopped
+
+  # PixelatedRF Designer — S₁₁ target → inverse-designed GDS. Reuses the studio
+  # image (same EDA tools + PDK + bundled inference weights/datasets), just a
+  # different entrypoint. Open http://localhost:8001
+  pixelrf:
+    image: adeirman2705/gelochip-studio:latest
+    container_name: gelochip-pixelrf
+    depends_on:
+      - studio                             # ensures the shared image is built
+    environment:
+      PDK_ROOT: "/pdks"
+    command: ["python3", "-m", "uvicorn", "gelochip.pixelrf.app:app",
+              "--host", "0.0.0.0", "--port", "8001", "--timeout-graceful-shutdown", "2"]
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
+
+volumes:
+  ollama:
+  studio-outputs:
+  studio-chroma:

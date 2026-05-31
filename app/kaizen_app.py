@@ -41,7 +41,8 @@ logging.basicConfig(level=getattr(logging, config.LOG_LEVEL, logging.INFO),
                     format="%(asctime)s [%(levelname)s] kaizen: %(message)s")
 log = logging.getLogger("kaizen")
 
-_STATIC = Path(__file__).parent / "static" / "kaizen"
+_STATIC = Path(__file__).parent / "static" / "kaizen"     # legacy vanilla UI (fallback)
+_WEB = Path(__file__).parent / "static" / "web"           # compiled React SPA (frontend/)
 _STATIC.mkdir(parents=True, exist_ok=True)
 config.ensure_dirs()
 
@@ -113,6 +114,10 @@ async def _on_error(request: Request, exc: Exception):
 
 
 app.mount("/static", StaticFiles(directory=str(_STATIC)), name="static")
+# Compiled React SPA (Vite emits hashed assets under /assets). Mounted only
+# when the frontend has been built (frontend/ → npm run build).
+if (_WEB / "assets").exists():
+    app.mount("/assets", StaticFiles(directory=str(_WEB / "assets")), name="assets")
 app.mount("/output", StaticFiles(directory=str(config.OUTPUT_DIR)), name="output")
 # IP-block preview images live next to the circuit datasets.
 _DATASETS = config.CIRCUITS_DIR
@@ -160,7 +165,20 @@ class RunRequest(BaseModel):
 
 @app.get("/")
 async def index():
-    return FileResponse(str(_STATIC / "index.html"))
+    """Serve the React SPA if it has been built, else the vanilla fallback UI."""
+    spa = _WEB / "index.html"
+    return FileResponse(str(spa if spa.exists() else _STATIC / "index.html"))
+
+
+# Static assets that Vite emits at the SPA root (favicon, vite.svg, …).
+@app.get("/{fname}")
+async def web_root_file(fname: str):
+    if "/" in fname or fname.startswith("."):
+        raise HTTPException(404, "not found")
+    f = _WEB / fname
+    if f.is_file():
+        return FileResponse(str(f))
+    raise HTTPException(404, "not found")
 
 
 @app.get("/api/kaizen/collections")
@@ -202,7 +220,9 @@ async def run(req: RunRequest):
     job = Job(id=job_id, prompt=req.prompt, queue=asyncio.Queue())
     _JOBS[job_id] = job
     loop = asyncio.get_event_loop()
-    job_dir = str(config.OUTPUT_DIR / job_id)
+    # Readable per-project dir (outputs/kaizen/<slug>_<date>/) instead of a UUID.
+    from gelochip.kaizen.project_dir import make_project_dir
+    job_dir = str(make_project_dir(req.prompt, job_id=job_id))
 
     from gelochip.kaizen import history
     try:                                   # show in history immediately

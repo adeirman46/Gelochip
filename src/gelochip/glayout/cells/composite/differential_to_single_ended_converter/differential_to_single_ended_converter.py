@@ -43,7 +43,9 @@ def __create_sharedgatecomps(pdk: MappedPDK, rmult: int, half_pload: tuple[float
         pdk, "p+s/d", width=half_pload[0], length=half_pload[1], fingers=4, dummy=False, rmult=rmult
     )
     # TODO: figure out single dim spacing rule then delete both test delete and this
-    single_dim = to_decimal(relative_dim_comp.xmax) + to_decimal(0.11) + to_decimal(half_pload[1])/2
+    # gf180: the 0.11um inter-unit gap can leave adjacent pmos active <0.28 apart
+    # (DF.3a) for some half_pload sizes; widen to 0.25 to guarantee diffusion spacing.
+    single_dim = to_decimal(relative_dim_comp.xmax) + to_decimal(0.25) + to_decimal(half_pload[1])/2
     LRplusdopedPorts = list()
     LRgatePorts = list()
     LRdrainsPorts = list()
@@ -81,6 +83,7 @@ def __create_sharedgatecomps(pdk: MappedPDK, rmult: int, half_pload: tuple[float
     ytranslation_pcenter = 2 * pcenterfourunits.ymax + 5*pdk.util_max_metal_seperation()
     ptop_AB = (shared_gate_comps << twomultpcomps).movey(ytranslation_pcenter)
     pbottom_AB = (shared_gate_comps << twomultpcomps).movey(-1 * ytranslation_pcenter)
+    shared_gate_comps.add_padding(layers=(pdk.get_glayer("nwell"),), default=0.2)
 
     return shared_gate_comps, ptop_AB, pbottom_AB, LRplusdopedPorts, LRgatePorts, LRdrainsPorts, LRsourcesPorts, LRdummyports
 
@@ -133,10 +136,10 @@ def __route_sharedgatecomps(pdk: MappedPDK, shared_gate_comps, via_location, pto
     pmos_bsource_2Rdrain_v_center = via_stack(pdk,"met2","met3",fulltop=True)
     shared_gate_comps.add(align_comp_to_port(pmos_bsource_2Rdrain_v_center, bottom_pcompB_floating_port,('r','t')))
     # connect drain of B to each other directly over where the diffpair top left drain will be
-    pmos_bdrain_diffpair_v = shared_gate_comps << via_stack(pdk, "met2","met5",fullbottom=True)
+    pmos_bdrain_diffpair_v = shared_gate_comps << via_stack(pdk, "met2","met4",fullbottom=True)
     pmos_bdrain_diffpair_v = align_comp_to_port(pmos_bdrain_diffpair_v, movex(pbottom_AB.ports["L_gate_S"].copy(),destination=via_location))
     pmos_bdrain_diffpair_v.movey(0-_max_metal_seperation_ps)
-    pcomps_route_B_drain_extension = shared_gate_comps.xmax-ptop_AB.ports["R_drain_E"].center[0]+_max_metal_seperation_ps
+    pcomps_route_B_drain_extension = shared_gate_comps.xmax-ptop_AB.ports["R_drain_E"].center[0]+_max_metal_seperation_ps+0.5
     shared_gate_comps << c_route(pdk, ptop_AB.ports["R_drain_E"], pmos_bdrain_diffpair_v.ports["bottom_met_E"],extension=pcomps_route_B_drain_extension +_max_metal_seperation_ps)
     shared_gate_comps << c_route(pdk, pbottom_AB.ports["L_drain_W"], pmos_bdrain_diffpair_v.ports["bottom_met_W"],extension=pcomps_route_B_drain_extension +_max_metal_seperation_ps)
     shared_gate_comps.add_ports(pmos_bdrain_diffpair_v.get_ports_list(),prefix="minusvia_")
@@ -171,6 +174,12 @@ def differential_to_single_ended_converter(pdk: MappedPDK, rmult: int, half_ploa
 
     pmos_comps.info['netlist'] = differential_to_single_ended_converter_netlist(pdk, half_pload)
 
+    # gf180 fix: bake in the blanket nwell (added via add_padding) by snapping/flattening
+    # so importers (row_cs, opamp_twostage) get it even without their own snap step.
+    _nl = pmos_comps.info.get('netlist')
+    pmos_comps = component_snap_to_grid(pmos_comps)
+    if _nl is not None:
+        pmos_comps.info['netlist'] = _nl
     return pmos_comps
 
 # Create and evaluate a dse instance

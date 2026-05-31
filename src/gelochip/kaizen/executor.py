@@ -141,6 +141,13 @@ def run_layout_code(code: str, job_dir: str | Path, name: str = "kaizen_top",
     job.mkdir(parents=True, exist_ok=True)
     os.environ.setdefault("PDK_ROOT", config.PDK_ROOT)
 
+    def _sub(kind: str) -> Path:
+        """Artifact subfolder inside the job/project dir (code/data/database/images).
+        Keeps each run tidy: code=.py, data=.gds, database=.spice, images=.png."""
+        d = job / kind
+        d.mkdir(parents=True, exist_ok=True)
+        return d
+
     result: dict[str, Any] = {
         "ok": False, "passed": False, "stage": "exec", "error": "",
         "stdout": "", "gds_path": "", "png_path": "", "drc": {},
@@ -148,7 +155,7 @@ def run_layout_code(code: str, job_dir: str | Path, name: str = "kaizen_top",
     }
 
     src = _strip_code_fence(code)
-    (job / f"{name}.py").write_text(src)
+    (_sub("code") / f"{name}.py").write_text(src)
     ns: dict[str, Any] = {"__name__": "__kaizen__"}
     buf = io.StringIO()
 
@@ -176,7 +183,7 @@ def run_layout_code(code: str, job_dir: str | Path, name: str = "kaizen_top",
         result["error"] = exec_error
 
     # 3. Write GDS + preview.
-    gds_path = str(job / f"{name}.gds")
+    gds_path = str(_sub("data") / f"{name}.gds")
     try:
         comp.write_gds(gds_path)
         result["gds_path"] = gds_path
@@ -184,7 +191,7 @@ def run_layout_code(code: str, job_dir: str | Path, name: str = "kaizen_top",
         result.update(stage="build", error=traceback.format_exc(), stdout=buf.getvalue())
         return result
 
-    png_path = str(job / f"{name}.png")
+    png_path = str(_sub("images") / f"{name}.png")
     if render_preview(gds_path, png_path):
         result["png_path"] = png_path
 
@@ -195,7 +202,7 @@ def run_layout_code(code: str, job_dir: str | Path, name: str = "kaizen_top",
         try:
             from gelochip.verification.drc_lvs import run_drc as _run_drc
 
-            os.chdir(job)
+            os.chdir(_sub("database"))   # contain Magic scratch (*_drc_out/.ext)
             drc = _run_drc(gds_path, getattr(comp, "name", name), comp, pdk=config.PDK)
             result["drc"] = drc
             result["stage"] = "drc"
@@ -219,10 +226,10 @@ def run_layout_code(code: str, job_dir: str | Path, name: str = "kaizen_top",
             ex = _tb.extract_spice(comp)
             result["spice"] = ex.get("spice", "")
             if ex.get("ok"):
-                spice_file = job / f"{name}.spice"
+                spice_file = _sub("database") / f"{name}.spice"
                 spice_file.write_text(result["spice"])
                 result["spice_path"] = str(spice_file)
-                tb = _tb.run_testbenches(component=comp, out_dir=str(job / "tb"))
+                tb = _tb.run_testbenches(component=comp, out_dir=str(_sub("images") / "tb"))
                 result["testbench"] = {
                     "passed": tb.get("passed"),
                     "ac_plot": tb.get("plots", {}).get("ac", ""),

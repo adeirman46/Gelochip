@@ -36,11 +36,35 @@ RESEARCH_DB_DIR = Path(os.getenv("KAIZEN_RESEARCH_DB", OUTPUT_DIR / "research_db
 LLM_MODEL = os.getenv("KAIZEN_LLM_MODEL", "qwen3.5:9b")
 # Optional SFT-specialised model for the code-generation step only.
 CODER_MODEL = os.getenv("KAIZEN_CODER_MODEL", "gds-qwen35-4b:latest")
+# Vision model used by the Extractor to read figures/schematics/layouts the
+# Researcher found. The default agent model (qwen3.5:9b) is itself multimodal
+# (reports the `vision` capability in Ollama), so it doubles as the VLM — no
+# extra pull needed. Override with KAIZEN_VLM_MODEL to use a dedicated VLM.
+VLM_MODEL = os.getenv("KAIZEN_VLM_MODEL", "") or LLM_MODEL
+VLM_MAX_IMAGES = int(os.getenv("KAIZEN_VLM_MAX_IMAGES", "3"))   # cap vision calls / run
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 LLM_TEMPERATURE = float(os.getenv("KAIZEN_LLM_TEMPERATURE", "0.2"))
 
 # Local sentence-transformer embedding model (CPU-friendly, 384-dim).
-EMBED_MODEL = os.getenv("KAIZEN_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
+# Saved on disk under models/ after the first download, then loaded from there
+# (no HuggingFace download at runtime). Resolution order:
+#   1. KAIZEN_EMBED_MODEL env (explicit override)
+#   2. the saved local copy at EMBED_DIR, if present
+#   3. the HuggingFace id (downloaded once, then auto-saved to EMBED_DIR)
+EMBED_REPO = "sentence-transformers/all-MiniLM-L6-v2"
+EMBED_DIR = MODELS_DIR / "embeddings" / "all-MiniLM-L6-v2"
+
+
+def _resolve_embed_model() -> str:
+    env = os.getenv("KAIZEN_EMBED_MODEL")
+    if env:
+        return env
+    if (EMBED_DIR / "config.json").exists():
+        return str(EMBED_DIR)
+    return EMBED_REPO
+
+
+EMBED_MODEL = _resolve_embed_model()
 
 # ── The three knowledge collections ───────────────────────────────────────────
 COLL_TEMPLATES = "glayout_knowledge"   # 1: glayout layout/code knowledge (DRC-clean blocks)

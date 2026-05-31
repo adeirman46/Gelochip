@@ -1,0 +1,51 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Gelochip Studio — LEAN runtime deps for the Kaizen web app (Docker image).
+#
+# This is the *serving* subset of requirements.txt: everything the FastAPI app +
+# RAG agent + DRC/testbench pipeline need, and nothing from the training stack
+# (no unsloth / flash-attn / bitsandbytes / trl / peft / jupyter / pixelrf ML).
+#
+# torch is installed separately (CPU wheel) in the Dockerfile to avoid pulling
+# the multi-GB CUDA build — sentence-transformers only needs CPU inference here.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── EDA / GLayout core ───────────────────────────────────────────────────────
+gdsfactory>=7.0.0,<8.0.0
+gdstk>=0.9.0
+klayout>=0.28.0
+PySpice>=1.5
+schemdraw>=0.17
+svgutils>=0.3.4
+numpy>=1.24.0,<2.0           # gdsfactory<8 uses np.float_ (removed in numpy 2.0)
+pandas>=2.0.0
+matplotlib>=3.7.0
+scipy>=1.11.0
+mako>=1.3.0
+
+# ── Agent / RAG stack ────────────────────────────────────────────────────────
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+langchain-ollama>=0.2.0
+sentence-transformers>=3.0.0
+chromadb>=0.5.0
+langchain-chroma>=0.1.4
+langchain-huggingface>=0.1.0
+langchain-text-splitters>=0.3.0
+pypdf>=4.0.0
+pymupdf>=1.24.0
+grandalf>=0.8
+
+# ── Researcher agent (web / arxiv / github / crawl) ──────────────────────────
+arxiv>=2.1.0
+ddgs>=6.0
+crawl4ai>=0.4.0
+
+# ── Web server ───────────────────────────────────────────────────────────────
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+httpx>=0.27.0
+aiofiles>=23.2.0
+pydantic>=2.7.0
+python-dotenv>=1.0.0

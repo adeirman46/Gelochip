@@ -230,7 +230,13 @@ X8    t4    A    VGND    VGND  sky130_fd_pr__nfet_01v8 m=1 mult=1 w=180000u l=15
             'pdk': self.pdk
         }
         return pdk_files
-        
+
+
+# gf180 metal-separation floor used by util_max_metal_seperation(). sky130's 0.3um
+# pitch is too tight for gf180's wider-metal/via rules. Per-circuit code may raise
+# this (e.g. opamp) before building. Default 0.5 keeps the 6 committed cells clean.
+GF180_MIN_METAL_SEP = 0.5
+
 
 class MappedPDK(Pdk):
     """Inherits everything from the pdk class but also requires mapping to glayers
@@ -1086,7 +1092,9 @@ exit
         sep_rules = list()
         for met in metal_levels:
             sep_rules.append(self.get_grule(met)["min_separation"])
-        return self.snap_to_2xgrid(max(sep_rules))
+        # gf180: sky130's 0.3um pitch is too tight; floor configurable per-circuit
+        # via gelochip.glayout.pdk.mappedpdk.GF180_MIN_METAL_SEP (default 0.5).
+        return self.snap_to_2xgrid(max(max(sep_rules), GF180_MIN_METAL_SEP))
 
     def snap_to_2xgrid(self, dims: Union[list[Union[float,Decimal]], Union[float,Decimal]], return_type: Literal["decimal","float","same"]="float", snap4: bool=False) -> Union[list[Union[float,Decimal]], Union[float,Decimal]]:
         """snap all numbers in dims to double the grid size.
