@@ -19,5 +19,5 @@
     "theory": "Differential pair with mirror load (stacked-cmirror style amplifier). Pass if in-band |gain| > 6 dB.",
     "theory_pass": true
   },
-  "area_um2": 4278.4
+  "area_um2": 7075
 }

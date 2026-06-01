@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# Gelochip launcher.   Usage:  ./scripts/run.sh [app] [port]
+# Gelochip launcher.   Usage:  ./scripts/run.sh [port]
 #
-#   ./scripts/run.sh kaizen   [8090]   Gelochip Studio — RAG agent + IP library + padframe  (default)
-#   ./scripts/run.sh pixelrf  [8001]   PixelatedRF Designer — S₁₁ → GDS inverse EM design
-#   ./scripts/run.sh web      [8080]   Legacy LangGraph web UI
+#   ./scripts/run.sh   [8090]   Gelochip Studio — ONE app:
+#       Prompt → GDSII (RAG agent) · Chip Studio (IP library + padframe + wiring)
+#       · PixelatedRF (S₁₁ → GDS inverse EM design)
 #
-# Handles the venv, deps, and (for kaizen) the local model + ChromaDB build.
+# Handles the venv, deps, the local model + ChromaDB build.
 # ─────────────────────────────────────────────────────────────────────────────
 set -e
 cd "$(dirname "$0")/.."                       # repo root (scripts/ is one level down)
@@ -14,14 +14,11 @@ export PDK_ROOT="${PDK_ROOT:-$HOME/pdks}"
 export PYTHONPATH="$PWD/src:${PYTHONPATH:-}"
 export HF_HUB_DISABLE_TELEMETRY=1
 
-APP="${1:-kaizen}"
-case "$APP" in
-  kaizen)  TARGET="app.kaizen_app:app";       DEFPORT=8090 ;;
-  pixelrf) TARGET="gelochip.pixelrf.app:app"; DEFPORT=8001 ;;
-  web)     TARGET="app.web_app:app";          DEFPORT=8080 ;;
-  *) echo "unknown app '$APP' — use: kaizen | pixelrf | web"; exit 1 ;;
-esac
-PORT="${2:-$DEFPORT}"
+# Single unified app. (PixelatedRF + legacy web UI are merged into Studio.)
+APP="kaizen"
+TARGET="app.kaizen_app:app"; DEFPORT=8090
+PORT="${2:-${1:-$DEFPORT}}"
+case "${1:-}" in ''|[0-9]*) ;; *) echo "note: only one app now (Studio). ignoring '$1'." ;; esac
 
 # 1. Python env + deps ---------------------------------------------------------
 if [ ! -x .venv/bin/python ]; then

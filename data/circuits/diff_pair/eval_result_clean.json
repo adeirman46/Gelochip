@@ -19,5 +19,5 @@
     "theory": "Resistive-load NMOS differential pair: single-ended gain \u2248 gm\u00b7RL. Pass if in-band |gain| > 6 dB (real voltage gain).",
     "theory_pass": true
   },
-  "area_um2": 452.1
+  "area_um2": 461
 }

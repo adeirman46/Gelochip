@@ -19,5 +19,5 @@
     "theory": "Low-voltage cascode current mirror, 1:1 \u2192 I_out \u2248 I_ref. Pass if copy ratio within 25% of 1.0.",
     "theory_pass": true
   },
-  "area_um2": 2217.7
+  "area_um2": 4769
 }

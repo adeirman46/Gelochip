@@ -4,7 +4,7 @@
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│  Web UI  (app/web_app.py — FastAPI + SSE)                        │
+│  Web UI  (app/kaizen_app.py — FastAPI + SSE · Studio)                        │
 │  "Design a 5GHz LNA in gf180 with NF < 2dB"                     │
 └──────────────────────────┬───────────────────────────────────────┘
                            │
@@ -75,7 +75,7 @@ Gelochip/
 │   ├── verification/   # DRC/LVS runner, testbench generator
 │   └── api/            # FastAPI REST backend
 ├── app/
-│   ├── web_app.py      # FastAPI + SSE web UI (port 8080)
+│   ├── kaizen_app.py   # FastAPI + SSE · Studio (one app, port 8090, /pixelrf tab)
 │   ├── mcp_server.py   # MCP server for Claude Desktop
 │   └── static/
 ├── notebooks/

@@ -215,8 +215,8 @@ textarea:focus { outline: none; border-color: var(--accent); }
 
 /* ── studio layout ── */
 .studio {
-  display: grid; grid-template-columns: 260px 1fr 280px; gap: 1.25rem;
-  padding: 1.25rem 1.5rem; max-width: 1600px; margin: 0 auto; align-items: start;
+  display: grid; grid-template-columns: 230px 1fr 250px; gap: 1.1rem;
+  padding: 1rem 1.25rem; max-width: 1920px; margin: 0 auto; align-items: start;
 }
 .ip-rail, .net-rail { max-height: 80vh; overflow-y: auto; }
 .hint { color: var(--muted); font-size: .78rem; margin: 0 0 .6rem; }
@@ -241,18 +241,56 @@ textarea:focus { outline: none; border-color: var(--accent); }
 .ghost { background: var(--panel-2); color: var(--muted); border: 1px solid var(--border);
   border-radius: 9px; cursor: pointer; }
 .ghost:hover { color: var(--text); }
-#canvas { width: 100%; height: 72vh; background: #0a0e14;
+#canvas { width: 100%; height: 84vh; background: #0a0e14;
   border: 1px solid var(--border); border-radius: 12px; }
+#canvas.wiring { cursor: crosshair; }
+
+/* view toggle (Edit / GDS) */
+.view-toggle { display: inline-flex; gap: .25rem; margin-right: .4rem; }
+.pad.active { fill: var(--warn); stroke: #fff; stroke-width: 1.5; }
+/* GDS view: the klayout-rendered pad-ring GDS is the backdrop; the vector pads
+   become transparent click targets (so the real GDS pads show through) + labels. */
+#canvas.view-gds { background: #000; }
+/* the GDS padring IS the visual — hide the schematic pad squares, frame and core
+   box so they don't clutter it. Pads stay as INVISIBLE click targets for wiring;
+   only show a faint outline + label while in wire mode. */
+.view-gds .pad { fill: transparent; stroke: none; }
+.view-gds.wiring .pad { stroke: rgba(255,255,255,.35); }
+.view-gds .pad.active { fill: rgba(224,128,47,.55); stroke: #fff; }
+.view-gds .pad-label { fill: rgba(232,216,184,.0); }      /* hidden unless wiring */
+.view-gds.wiring .pad-label { fill: #e8d8b8; }
+.view-gds .frame { stroke: transparent; }
+.view-gds .core { stroke: transparent; }
+/* padring pinouts — visible markers on the inner edge you wire IP pins to */
+.padpin { fill: #f6ad55; stroke: #0a0e14; stroke-width: 1; cursor: crosshair; }
+.padpin.active { fill: var(--accent); stroke: #fff; stroke-width: 1.5; }
+.padpin-label { fill: #ffd9a0; font: 700 15px var(--mono); pointer-events: none;
+  paint-order: stroke; stroke: #000; stroke-width: 3px; }
+
+/* zoom control + manual-wire tool */
+.zoom-ctl { display: inline-flex; align-items: center; gap: .35rem; }
+.zoom-val { font: 11px var(--mono); color: var(--muted); min-width: 34px; text-align: center; }
+.pin-dot.active { fill: var(--accent); stroke: #fff; stroke-width: 1; }
+.wire.manual { stroke: var(--accent); stroke-width: 2; opacity: .95; }
+.wire.pending { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 5 4; opacity: .8; }
+.pixelrf-frame { display: block; }
 
 /* svg block styling */
-.pad { fill: var(--accent); }
-.pad-label { fill: var(--muted); font: 9px var(--mono); }
-.frame { fill: none; stroke: #30425e; stroke-width: 2; }
-.core { fill: none; stroke: #233044; stroke-dasharray: 6 5; }
+.pad { fill: var(--accent); stroke: #0a0e14; stroke-width: 1; }
+.pad-label { fill: #cdd9e5; font: 700 22px var(--mono); pointer-events: none; }
+.frame { fill: none; stroke: #30425e; stroke-width: 2.5; }
+.core { fill: none; stroke: #233044; stroke-width: 1.5; stroke-dasharray: 6 5; }
 .block-rect { fill: #1d2740; stroke: var(--accent-2); stroke-width: 1.5; rx: 6; cursor: move; }
-.block-label { fill: var(--text); font: 600 12px sans-serif; pointer-events: none; }
-.pin-dot { fill: var(--warn); }
-.pin-label { fill: #cdd9e5; font: 9px var(--mono); pointer-events: none; }
+/* border around the GDS image. fill:none is REQUIRED here — a CSS `fill` overrides
+   an inline fill="none", so without this the .block-rect blue fill covers the image. */
+.block-rect.framed { fill: none !important; stroke: var(--accent-2); stroke-width: 2.5; }
+.block-tab { fill: rgba(13,17,23,.78); pointer-events: none; }
+.block-label { fill: #e6edf3; font: 700 17px sans-serif; pointer-events: none; }
+.pin-label { font-size: 15px !important; }
+.pin-dot { fill: var(--warn); stroke: #0a0e14; stroke-width: .8; }
+.pin-dot.wiring { fill: #f6ad55; stroke: #000; stroke-width: 1.2; }
+.pin-halo { fill: rgba(246,173,85,.16); stroke: rgba(246,173,85,.6); stroke-width: 1.5; pointer-events: none; }
+.pin-label { fill: #e6edf3; font: 11px var(--mono); pointer-events: none; }
 .wire { stroke: var(--ok); stroke-width: 1.8; fill: none; opacity: .85; }
 .wire-label { fill: var(--ok); font: 9px var(--mono); }
 

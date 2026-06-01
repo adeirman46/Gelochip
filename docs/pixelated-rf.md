@@ -4,14 +4,20 @@ End-to-end pipeline for designing RF patch antennas using a tandem neural networ
 
 ## Quick Start — Web App
 
+PixelatedRF is now a **tab inside Gelochip Studio** (the standalone app was merged in):
+
 ```bash
-uv run uvicorn gelochip.pixelrf.app:app --host 0.0.0.0 --port 8001 --reload
+./scripts/run.sh                 # http://localhost:8090 → "PixelatedRF" tab
 ```
 
-Open [http://localhost:8001](http://localhost:8001):
-1. Draw an S11 target curve with mouse/touch (or pick a preset notch)
+It is also served directly at [http://localhost:8090/pixelrf](http://localhost:8090/pixelrf):
+1. Draw an S11 target curve with mouse/touch (1–10 GHz, 0 to −15 dB) — or pick a preset notch
 2. Click **Run Inverse Design**
 3. See the 12×12 pixel layout, surrogate S11 prediction, DRC results, and chip dimensions
+
+The deployed model is exactly the one trained in
+[`notebooks/pixelatedRF/02_train.ipynb`](../notebooks/pixelatedRF/02_train.ipynb)
+(`ForwardSurrogateNet` + `InverseNet`, loading `inverse_model.pt` / `forward_model.pt`).
 4. Download the GDS file
 
 Requires trained checkpoints in `notebooks/pixelatedRF/models/`. Run `02_train.ipynb` first.

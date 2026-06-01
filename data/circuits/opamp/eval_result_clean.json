@@ -19,5 +19,5 @@
     "theory": "Single-stage op-amp (5T OTA): high open-loop gain \u2248 gm1\u00b7(ro2\u2016ro4). Pass if in-band |gain| > 6 dB.",
     "theory_pass": true
   },
-  "area_um2": 4278.4
+  "area_um2": 82786
 }

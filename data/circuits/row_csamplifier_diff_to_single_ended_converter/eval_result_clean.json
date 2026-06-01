@@ -19,5 +19,5 @@
     "theory": "Common-source amplifier feeding a diff-to-single converter (gain stage). Pass if in-band |gain| > 6 dB.",
     "theory_pass": true
   },
-  "area_um2": 4278.4
+  "area_um2": 6631
 }

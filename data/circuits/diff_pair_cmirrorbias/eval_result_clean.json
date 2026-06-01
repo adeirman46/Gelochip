@@ -19,5 +19,5 @@
     "theory": "Differential pair with current-mirror tail bias: single-ended gain \u2248 gm\u00b7RL. Pass if in-band |gain| > 6 dB.",
     "theory_pass": true
   },
-  "area_um2": 2461.3
+  "area_um2": 3028
 }

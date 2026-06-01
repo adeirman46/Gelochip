@@ -76,7 +76,7 @@
   <div class="panel">
     <h2>S₁₁ Target Editor</h2>
     <p style="font-size:0.78rem;color:#718096;margin-bottom:10px">
-      Click &amp; drag on the chart to draw your target S₁₁ curve (1–10 GHz, 0 to −30 dB).
+      Click &amp; drag on the chart to draw your target S₁₁ curve (1–10 GHz, 0 to −15 dB).
       Release and click <strong>Run</strong>.
     </p>
     <div id="chart-wrap">
@@ -131,7 +131,7 @@
 const N_FREQ  = 81;
 const F_MIN   = 1.0;   // GHz
 const F_MAX   = 10.0;
-const DB_MIN  = -30;
+const DB_MIN  = -15;
 const DB_MAX  = 0;
 const freqs   = Array.from({length: N_FREQ}, (_, i) => F_MIN + i*(F_MAX-F_MIN)/(N_FREQ-1));
 
@@ -293,7 +293,7 @@ const resChart = new Chart(resCtx, {
     animation: false,
     scales: {
       x: { title:{display:true,text:'Freq (GHz)',color:'#718096'}, ticks:{color:'#718096',maxTicksLimit:10}, grid:{color:'#2d3748'} },
-      y: { min:-30, max:2, title:{display:true,text:'S₁₁ (dB)',color:'#718096'}, ticks:{color:'#718096'}, grid:{color:'#2d3748'} }
+      y: { min:-15, max:2, title:{display:true,text:'S₁₁ (dB)',color:'#718096'}, ticks:{color:'#718096'}, grid:{color:'#2d3748'} }
     },
     plugins: { legend: { labels: { color: '#a0aec0', font: { size: 11 } } } }
   }
@@ -308,7 +308,7 @@ async function runPredict() {
   status.textContent = 'Running inverse design…';
 
   try {
-    const resp = await fetch('/predict', {
+    const resp = await fetch('predict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ s11_db: s11Values, k_samples: 8 }),
@@ -364,7 +364,7 @@ function renderResults(data) {
 async function downloadGDS() {
   if (!currentGdsId) return;
   const a = document.createElement('a');
-  a.href = `/gds/${currentGdsId}`;
+  a.href = `gds/${currentGdsId}`;
   a.download = `pixelrf_${currentGdsId}.gds`;
   a.click();
 }

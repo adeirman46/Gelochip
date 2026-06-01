@@ -19,5 +19,5 @@
     "theory": "Source-follower FVF: small-signal gain \u2248 gm\u00b7Rout/(1+gm\u00b7Rout) \u2272 1 (\u22480 dB), low output resistance. Pass if in-band gain between -6 dB and +0.5 dB.",
     "theory_pass": true
   },
-  "area_um2": 991.4
+  "area_um2": 573
 }

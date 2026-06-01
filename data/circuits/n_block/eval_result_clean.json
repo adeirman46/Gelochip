@@ -19,5 +19,5 @@
     "theory": "FVF-based n-type input block (NMOS flipped voltage follower): in-band gain \u2248 unity (\u22126..+0.5 dB).",
     "theory_pass": true
   },
-  "area_um2": 991.4
+  "area_um2": 10905
 }

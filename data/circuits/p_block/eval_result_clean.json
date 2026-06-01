@@ -19,5 +19,5 @@
     "theory": "PMOS flipped voltage follower block: in-band gain \u2248 unity (\u22126..+0.5 dB).",
     "theory_pass": true
   },
-  "area_um2": 596.1
+  "area_um2": 737
 }

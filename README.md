@@ -22,7 +22,7 @@ reasoning, code, **and** vision.
 curl -O https://raw.githubusercontent.com/adeirman46/Gelochip/main/docker-compose.yml
 docker compose up                # pulls the image + LLM, then serves:
 #   Gelochip Studio   → http://localhost:8090
-#   PixelatedRF       → http://localhost:8001
+#   (one app, three tabs: Prompt → GDSII · Chip Studio · PixelatedRF)
 ```
 
 **NVIDIA GPU** (much faster generation) — add the override (needs the
@@ -34,7 +34,7 @@ docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
 ```
 
 Image: [`adeirman2705/gelochip-studio`](https://hub.docker.com/r/adeirman2705/gelochip-studio)
-(~2 GB). The LLM auto-downloads once into a volume. See [docs/DOCKER.md](docs/DOCKER.md)
+(~4.4 GB). The LLM auto-downloads once into a volume. See [docs/DOCKER.md](docs/DOCKER.md)
 for persistence and building your own image.
 
 ---
@@ -46,13 +46,18 @@ git clone https://github.com/adeirman46/Gelochip.git && cd Gelochip
 ./scripts/run.sh                 # Gelochip Studio → http://localhost:8090
 ```
 
-`run.sh` sets up the `.venv` (via `uv`), pulls the model, and launches. Pick any app:
+`run.sh` sets up the `.venv` (via `uv`), pulls the model, and launches **one unified app**
+at `http://localhost:8090` (port optional: `./scripts/run.sh 8095`). Everything is now a
+tab inside **Gelochip Studio**:
 
-| Command | App | Port |
-|---|---|---|
-| `./scripts/run.sh kaizen`  | **Gelochip Studio** — RAG agent · IP library · padframe · pin-connect | 8090 |
-| `./scripts/run.sh pixelrf` | **PixelatedRF Designer** — S₁₁ target → inverse-designed GDS | 8001 |
-| `./scripts/run.sh web`     | Legacy LangGraph UI | 8080 |
+| Tab | What it does |
+|---|---|
+| **Prompt → GDSII** | the self-improving RAG agent — plan · research · generate · DRC · self-correct |
+| **Chip Studio** | IP library (15 DRC-clean blocks) · gf180 padframe · drag-to-wire + AI pin-connect |
+| **PixelatedRF** | draw an S₁₁ target → inverse-designed pixel layout + GDS (served at `/pixelrf`) |
+
+> The standalone PixelatedRF server and the legacy LangGraph web UI have been **merged into
+> Studio** — there is just one app now.
 
 **Needs:** `ollama` · `magic`, `netgen`, `ngspice` · `PDK_ROOT` → gf180 PDK ·
 `numpy<2.0` (gdsfactory<8). The React UI ([`app/frontend/`](app/frontend/)) needs
@@ -133,9 +138,10 @@ Gelochip/
 │   ├── kaizen/            # RAG agent: config, collections, executor, testbench, agent, studio
 │   ├── pixelrf/           # PixelatedRF inverse-design app + inference
 │   ├── glayout/  gl/  verification/   # gdsfactory layout + DRC/LVS/PEX
-├── app/                   # the web app
-│   ├── kaizen_app.py      #   FastAPI backend (Studio) · web_app.py · mcp_server.py
-│   ├── frontend/          #   React (Vite) SPA — production UI
+├── app/                   # the web app (one unified Studio)
+│   ├── kaizen_app.py      #   FastAPI backend — serves Studio + mounts PixelatedRF at /pixelrf
+│   ├── mcp_server.py      #   MCP server for Claude Desktop
+│   ├── frontend/          #   React (Vite) SPA — 3 tabs (Prompt · Chip Studio · PixelatedRF)
 │   └── static/            #   web/ (built SPA, served at /) · kaizen/ (vanilla fallback)
 ├── scripts/               # run.sh (launcher) · kaizen_ingest.py · build_clean_datasets.py · …
 ├── notebooks/             # kaizen_architecture/ · pixelatedRF/ · …
@@ -176,6 +182,21 @@ Missing tools are skipped gracefully; fastest setup is [IIC-OSIC-TOOLS Docker](h
 - [Kaizen architecture](notebooks/kaizen_architecture/README.md) — the RAG agent, collections, 15 circuits
 - [Docker](docs/DOCKER.md) — one-command self-contained deploy
 - [Installation](docs/installation.md) · [Architecture](docs/architecture.md) · [PixelatedRF](docs/pixelated-rf.md) · [Datasets](docs/datasets.md)
+
+## Team
+
+**Bandung Institute of Technology (ITB), Indonesia**
+
+**Faculty advisor:** Nana Sutisna, S.T., M.T., Ph.D.
+
+**Members:**
+- William Anthony
+- Benedictus Kenneth Setiadi
+- Yozia Gedalya Marcho Ginting
+- Ade Irman Budi Hendriawan
+- Christopher Justin Kurniawan
+
+---
 
 ## License
 

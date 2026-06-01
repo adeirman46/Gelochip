@@ -19,5 +19,5 @@
     "theory": "Two-stage Miller op-amp (5T OTA + PMOS common-source output): gain = stage1\u00b7stage2, higher than single stage. Pass if in-band |gain| > 6 dB.",
     "theory_pass": true
   },
-  "area_um2": 7429.5
+  "area_um2": 18874
 }
