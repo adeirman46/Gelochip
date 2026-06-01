@@ -27,6 +27,63 @@ def _make_pin(pdk: MappedPDK, size: tuple[float, float], glayer: str = "met2_pin
     return add_ports_perimeter(pin, layer=pdk.get_glayer(glayer), prefix="pin_")
 
 
+def _get_component_netlist(component: Component) -> Netlist:
+    netlist_info = component.info.get("netlist") if hasattr(component, "info") else None
+    if isinstance(netlist_info, Netlist):
+        return netlist_info
+
+    netlist_obj = component.info.get("netlist_obj") if hasattr(component, "info") else None
+    if isinstance(netlist_obj, Netlist):
+        return netlist_obj
+
+    if isinstance(netlist_info, str) and netlist_info.strip():
+        netlist_data = component.info.get("netlist_data") if hasattr(component, "info") else None
+        if isinstance(netlist_data, dict):
+            circuit_name = netlist_data.get("circuit_name")
+            nodes = netlist_data.get("nodes")
+            source_netlist = netlist_data.get("source_netlist")
+            if circuit_name and nodes and source_netlist:
+                parameters: dict[str, str] = {}
+                model_index = 1 + len(nodes)
+                for line in netlist_info.splitlines():
+                    stripped = line.strip()
+                    if not stripped or stripped.startswith(".") or stripped.startswith("*"):
+                        continue
+                    if stripped[0].upper() != "X":
+                        continue
+                    parts = stripped.split()
+                    if len(parts) > model_index:
+                        parameters["model"] = parts[model_index]
+                        break
+                netlist = Netlist(
+                    circuit_name=circuit_name,
+                    nodes=list(nodes),
+                    parameters=parameters,
+                )
+                netlist.source_netlist = source_netlist
+                return netlist
+
+        for line in netlist_info.splitlines():
+            stripped = line.strip()
+            if stripped.lower().startswith(".subckt"):
+                parts = stripped.split()
+                if len(parts) >= 3:
+                    netlist = Netlist(circuit_name=parts[1], nodes=parts[2:])
+                    netlist.source_netlist = netlist_info
+                    return netlist
+
+    raise ValueError(f"Missing netlist data for component: {component.name}")
+
+
+def _label_ports(component: Component, port_names: Optional[list[str]] = None) -> None:
+    names = port_names or list(component.ports.keys())
+    for name in names:
+        port = component.ports.get(name)
+        if port is None:
+            continue
+        component.add_label(text=name, position=port.center, layer=port.layer)
+
+
 @validate_arguments
 @cell
 def lna_block(
@@ -118,10 +175,31 @@ def lna_block(
     _expose_port(top, "VDD", r_load.ports["source_N"])
     _expose_port(top, "VSS", r_gm.ports["source_S"])
 
-    top.info["netlist"] = Netlist(
+    _label_ports(top)
+
+    netlist = Netlist(
         circuit_name="LNA_BLOCK",
         nodes=["RF_IN", "RF_OUT", "VB_GM", "VB_CAS", "VDD", "VSS"],
     )
+    gm_netlist = _get_component_netlist(gm)
+    cas_netlist = _get_component_netlist(cas)
+    load_netlist = _get_component_netlist(load)
+    cap_netlist = _get_component_netlist(cap)
+    gm_drain = "NET_GM_DRAIN"
+    netlist.connect_netlist(
+        gm_netlist,
+        [("D", gm_drain), ("G", "VB_GM"), ("S", "VSS"), ("B", "VSS")],
+    )
+    netlist.connect_netlist(
+        cas_netlist,
+        [("D", "RF_OUT"), ("G", "VB_CAS"), ("S", gm_drain), ("B", "VSS")],
+    )
+    netlist.connect_netlist(
+        load_netlist,
+        [("D", "RF_OUT"), ("G", "VDD"), ("S", "VDD"), ("B", "VDD")],
+    )
+    netlist.connect_netlist(cap_netlist, [("V1", "VB_GM"), ("V2", "RF_IN")])
+    top.info["netlist"] = netlist
     return top
 
 
@@ -186,10 +264,23 @@ def rf_amp_block(
     _expose_port(top, "VDD", r_load.ports["source_N"])
     _expose_port(top, "VSS", r_drv.ports["source_S"])
 
-    top.info["netlist"] = Netlist(
+    _label_ports(top)
+
+    netlist = Netlist(
         circuit_name="RF_AMP_BLOCK",
         nodes=["RF_IN", "RF_OUT", "VBIAS", "VDD", "VSS"],
     )
+    drv_netlist = _get_component_netlist(drv)
+    load_netlist = _get_component_netlist(load)
+    netlist.connect_netlist(
+        drv_netlist,
+        [("D", "RF_OUT"), ("G", "RF_IN"), ("S", "VSS"), ("B", "VSS")],
+    )
+    netlist.connect_netlist(
+        load_netlist,
+        [("D", "RF_OUT"), ("G", "VBIAS"), ("S", "VDD"), ("B", "VDD")],
+    )
+    top.info["netlist"] = netlist
     return top
 
 
@@ -252,10 +343,23 @@ def buffer_block(
     _expose_port(top, "VDD", r_drv.ports["drain_N"])
     _expose_port(top, "VSS", r_bias.ports["source_S"])
 
-    top.info["netlist"] = Netlist(
+    _label_ports(top)
+
+    netlist = Netlist(
         circuit_name="BUFFER_BLOCK",
         nodes=["IN", "OUT", "VBIAS", "VDD", "VSS"],
     )
+    drv_netlist = _get_component_netlist(drv)
+    bias_netlist = _get_component_netlist(bias)
+    netlist.connect_netlist(
+        drv_netlist,
+        [("D", "VDD"), ("G", "IN"), ("S", "OUT"), ("B", "VSS")],
+    )
+    netlist.connect_netlist(
+        bias_netlist,
+        [("D", "OUT"), ("G", "VBIAS"), ("S", "VSS"), ("B", "VSS")],
+    )
+    top.info["netlist"] = netlist
     return top
 
 
@@ -296,6 +400,8 @@ def combiner_8to1(
         movey(pin_ref, (idx - (num_inputs - 1) / 2) * pin_pitch)
         top << straight_route(pdk, pin_ref.ports["pin_E"], trunk_ref.ports["trunk_W"])
         _expose_port(top, f"IN{idx}", pin_ref.ports["pin_W"])
+
+    _label_ports(top)
 
     top.info["netlist"] = Netlist(
         circuit_name="COMBINER_8TO1",
@@ -380,10 +486,36 @@ def rx_frontend(
     _expose_port(top, "VDD", r_lna.ports["VDD"])
     _expose_port(top, "VSS", r_lna.ports["VSS"])
 
-    top.info["netlist"] = Netlist(
+    _label_ports(top)
+
+    netlist = Netlist(
         circuit_name="RX_FRONTEND",
         nodes=["RF_IN", "LO_P", "LO_N", "IF_P", "IF_N", "VBIAS", "VDD", "VSS"],
     )
+    lna_netlist = _get_component_netlist(lna)
+    sw_p_netlist = _get_component_netlist(sw_p)
+    sw_n_netlist = _get_component_netlist(sw_n)
+    rf_out_int = "RF_OUT_INT"
+    netlist.connect_netlist(
+        lna_netlist,
+        [
+            ("RF_IN", "RF_IN"),
+            ("RF_OUT", rf_out_int),
+            ("VB_GM", "VBIAS"),
+            ("VB_CAS", "VBIAS"),
+            ("VDD", "VDD"),
+            ("VSS", "VSS"),
+        ],
+    )
+    netlist.connect_netlist(
+        sw_p_netlist,
+        [("D", "IF_P"), ("G", "LO_P"), ("S", rf_out_int), ("B", "VSS")],
+    )
+    netlist.connect_netlist(
+        sw_n_netlist,
+        [("D", "IF_N"), ("G", "LO_N"), ("S", rf_out_int), ("B", "VSS")],
+    )
+    top.info["netlist"] = netlist
     return top
 
 
@@ -422,6 +554,8 @@ def mtp_memory_wrapper(
         movex(pin_ref, x)
         movey(pin_ref, y)
         _expose_port(top, name, pin_ref.ports[port_name])
+
+    _label_ports(top)
 
     top.info["netlist"] = Netlist(
         circuit_name="MTP_MEMORY_WRAPPER",

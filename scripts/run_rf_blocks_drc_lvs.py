@@ -87,6 +87,18 @@ def _make_stub_netlist(name: str, nodes: list[str]) -> str:
     return f".subckt {name} {pins}\n.ends {name}"
 
 
+def _get_netlist_text(component: Component, design_name: str, nodes: list[str]) -> str:
+    netlist_info = component.info.get("netlist") if hasattr(component, "info") else None
+    if isinstance(netlist_info, str) and netlist_info.strip():
+        return netlist_info
+    if hasattr(netlist_info, "generate_netlist"):
+        try:
+            return netlist_info.generate_netlist()
+        except Exception:
+            pass
+    return _make_stub_netlist(design_name, nodes)
+
+
 def main() -> int:
     _require_pdk()
 
@@ -133,7 +145,7 @@ def main() -> int:
         elif hasattr(wrapper, "ports"):
             nodes = list(wrapper.ports.keys())
 
-        stub_netlist = _make_stub_netlist(design_name, nodes)
+        netlist_text = _get_netlist_text(comp, design_name, nodes)
 
         gds_path = gds_dir / f"{name}.gds"
         wrapper.write_gds(str(gds_path))
@@ -145,7 +157,7 @@ def main() -> int:
                 wrapper,
                 design_name,
                 pdk_root=pdk_root,
-                netlist=stub_netlist,
+                netlist=netlist_text,
                 output_file_path=out_dir,
             )
         except Exception as exc:
