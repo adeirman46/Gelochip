@@ -19,5 +19,5 @@
     "theory": "ON transmission gate \u2248 closed switch: |Vout/Vin| \u2248 1 (0 dB) in band; transient OUT tracks IN. Pass if low-freq gain > -3 dB.",
     "theory_pass": true
   },
-  "area_um2": 159.5
+  "area_um2": 135
 }

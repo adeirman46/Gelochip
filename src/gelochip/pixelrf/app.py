@@ -100,6 +100,13 @@ class PredictResponse(BaseModel):
 
 @app.post("/predict", response_model=PredictResponse)
 async def predict(req: PredictRequest):
+    # Lazy-load: when this app is MOUNTED as a sub-app (inside Gelochip Studio),
+    # Starlette does NOT run its startup event, so load the models on first use.
+    if inf._inv_model is None:
+        try:
+            inf.load_models()
+        except Exception as e:  # noqa: BLE001
+            raise HTTPException(503, f"Models not loaded ({e}) — run 02_train.ipynb first")
     if inf._inv_model is None:
         raise HTTPException(503, "Models not loaded — run 02_train.ipynb first")
 

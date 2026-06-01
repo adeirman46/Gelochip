@@ -13,8 +13,8 @@ docker compose up --build
 
 Then open:
 
-- **http://localhost:8090** — Gelochip Studio (the RAG agent)
-- **http://localhost:8001** — PixelatedRF Designer (S₁₁ → inverse-designed GDS)
+- **http://localhost:8090** — Gelochip Studio (one app, three tabs: the RAG agent,
+  Chip Studio, and PixelatedRF — the latter also served directly at `/pixelrf`)
 
 That's it. No VNC, no manual tool installs, no PDK setup. It's a normal web app,
 so you just expose the HTTP port and browse to it.
@@ -44,9 +44,8 @@ Self-contained — the image carries everything except the LLM (which runs in th
    volume, then exits. This is the only large one-time download.
 3. **`studio`** builds the app image (EDA tools compiled from source, gf180 PDK
    installed, Python deps, React SPA built, ChromaDB collections prebuilt, the
-   embedding model + PixelatedRF weights baked in) and serves it on port 8090.
-4. **`pixelrf`** reuses that same image (different entrypoint) and serves the
-   PixelatedRF Designer on port 8001.
+   embedding model + PixelatedRF weights baked in) and serves the **single unified
+   app** on port 8090 — PixelatedRF is a tab inside it (mounted at `/pixelrf`).
 
 The first build takes a while (magic + netgen compile from source). Subsequent
 `up`s are instant — the model, image layers, and volumes are all cached.

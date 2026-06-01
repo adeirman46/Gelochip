@@ -19,5 +19,5 @@
     "theory": "NMOS current mirror, identical devices \u2192 I_copy \u2248 I_ref (1:1). Pass if measured copy ratio within 25% of 1.0.",
     "theory_pass": true
   },
-  "area_um2": 622.1
+  "area_um2": 300
 }

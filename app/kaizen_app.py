@@ -124,6 +124,17 @@ _DATASETS = config.CIRCUITS_DIR
 if _DATASETS.exists():
     app.mount("/datasets", StaticFiles(directory=str(_DATASETS)), name="datasets")
 
+# PixelatedRF is now a tab inside Studio: mount the whole PixelatedRF FastAPI app
+# (its UI at /pixelrf/, API at /pixelrf/predict …) as a sub-application. Graceful:
+# if its model weights aren't present (they're fetched separately), Studio still runs
+# and the PixelatedRF tab shows a "weights not installed" notice from its own UI.
+try:
+    from gelochip.pixelrf.app import app as _pixelrf_app
+    app.mount("/pixelrf", _pixelrf_app, name="pixelrf")
+    log.info("PixelatedRF mounted at /pixelrf")
+except Exception as _e:  # noqa: BLE001
+    log.warning("PixelatedRF not mounted (%s) — tab will show a setup notice", _e)
+
 
 # ── Health / readiness ────────────────────────────────────────────────────────
 @app.get("/health")

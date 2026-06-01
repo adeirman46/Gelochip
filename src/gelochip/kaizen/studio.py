@@ -86,10 +86,14 @@ def list_ips(only_drc_clean: bool = True) -> list[dict[str, Any]]:
     for d in sorted(DATASETS_DIR.iterdir()):
         if not d.is_dir() or d.name in seen:
             continue
-        evalf = d / "eval_result.json"
+        # Prefer the current canonical, DRC-clean eval; fall back to the legacy one.
+        evalf = d / "eval_result_clean.json"
+        if not evalf.exists():
+            evalf = d / "eval_result.json"
         meta = json.loads(evalf.read_text()) if evalf.exists() else {}
         preview = next(iter(d.glob("*preview*.png")), None)
-        area = (meta.get("geometric", {}) or {}).get("raw_area_um2")
+        thumb = next(iter(d.glob("*_thumb.png")), None)   # tight-cropped GDS layout
+        area = meta.get("area_um2") or (meta.get("geometric", {}) or {}).get("raw_area_um2")
         side = round(math.sqrt(area)) if area else 60
         drc_summary = (meta.get("drc", {}) or {}).get("summary", {}) or {}
         drc = (meta.get("drc", {}) or {}).get("is_pass")
@@ -103,6 +107,8 @@ def list_ips(only_drc_clean: bool = True) -> list[dict[str, Any]]:
             "name": _pretty(d.name),
             "component_name": meta.get("component_name", d.name),
             "preview_url": f"/datasets/{d.name}/{preview.name}" if preview else None,
+            "thumb_url": f"/datasets/{d.name}/{thumb.name}" if thumb else (
+                f"/datasets/{d.name}/{preview.name}" if preview else None),
             "pins": _pins_for(d.name),
             "width_um": side,
             "height_um": side,

@@ -19,5 +19,5 @@
     "theory": "Stacked (cascode) NMOS current mirror, 1:1 \u2192 I_out \u2248 I_ref with high output resistance. Pass if copy ratio within 25% of 1.0.",
     "theory_pass": true
   },
-  "area_um2": 2217.7
+  "area_um2": 417
 }

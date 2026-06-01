@@ -158,6 +158,12 @@ export default function App() {
           >
             Chip Studio
           </button>
+          <button
+            className={"tab" + (tab === "pixelrf" ? " active" : "")}
+            onClick={() => setTab("pixelrf")}
+          >
+            PixelatedRF
+          </button>
           <span className={"health-dot " + health.cls} title={health.title}>
             ●
           </span>
@@ -192,8 +198,15 @@ export default function App() {
               onSubmit={onSubmit}
               onStop={onStop}
             />
-          ) : (
+          ) : tab === "studio" ? (
             <StudioView />
+          ) : (
+            <iframe
+              title="PixelatedRF"
+              src="/pixelrf/"
+              className="pixelrf-frame"
+              style={{ width: "100%", height: "100%", border: "none", background: "#0d1117" }}
+            />
           )}
         </div>
       </div>
