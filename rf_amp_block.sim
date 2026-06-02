@@ -1,0 +1,26 @@
+| units: 0.5 tech: gf180mcuD format: MIT
+x w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# s=180000,2700 d=103200,1372 l=56 w=1200 x=-141 y=2398 pfet_03v3
+x w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# d=175200,2692 l=56 w=1200 x=610 y=2398 pfet_03v3
+x w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# d=175200,2692 l=56 w=1200 x=-665 y=2398 pfet_03v3
+x w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# s=103200,1372 d=180000,2700 l=56 w=1200 x=86 y=2398 pfet_03v3
+x rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n142_n1189# w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n292_n981# w_n1578_n1909# s=137600,1772 d=240000,3500 l=56 w=1600 x=86 y=-980 nfet_03v3
+x rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n142_n1189# rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n292_n981# w_n1578_n1909# w_n1578_n1909# s=240000,3500 d=137600,1772 l=56 w=1600 x=-141 y=-980 nfet_03v3
+x w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# d=233600,3492 l=56 w=1600 x=610 y=-980 nfet_03v3
+x w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# w_n1578_n1909# d=233600,3492 l=56 w=1600 x=-665 y=-980 nfet_03v3
+C rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n292_n981# w_n1578_n1909# 3.6
+R rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n292_n981# 155
+R rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n142_n1189# 478
+= VSUBS rf_amp_block_62479d0d_0/VSUBS
+= VSUBS rf_amp_block_62479d0d_0/straight_route_f9433aae_0/VSUBS
+= VSUBS rf_amp_block_62479d0d_0/Unnamed_cb29a60b_0/VSUBS
+= VSUBS rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/VSUBS
+C w_n1578_n1909#0 9.0
+R w_n1578_n1909# 6064
+= w_n1578_n1909# rf_amp_block_62479d0d_0/w_n1578_n1909#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/a_n86_n981#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_1f5ec66d_0/w_n1578_n1909#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_cb29a60b_0/a_n86_n781#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/straight_route_f9433aae_0/m2_n278_1189#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_cb29a60b_0/w_n1078_n1209#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_cb29a60b_0/a_n142_n989#
+= w_n1578_n1909# rf_amp_block_62479d0d_0/Unnamed_cb29a60b_0/a_n292_n781#

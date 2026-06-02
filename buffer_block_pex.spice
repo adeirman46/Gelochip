@@ -1,0 +1,54 @@
+* NGSPICE file created from buffer_block.ext - technology: gf180mcuD
+
+.subckt Unnamed_5a535b60 w_n1578_n1709# a_n86_n781# a_n292_n781# a_n142_n989# VSUBS
+X0 a_n86_n781# a_n142_n989# a_n292_n781# w_n1578_n1709# nfet_03v3 ad=2.58p pd=6.86u as=4.5p ps=13.5u w=6u l=0.28u
+X1 w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# nfet_03v3 ad=4.38p pd=13.46u as=17.52p ps=53.84u w=6u l=0.28u
+X2 w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# nfet_03v3 ad=4.38p pd=13.46u as=0 ps=0 w=6u l=0.28u
+X3 a_n292_n781# a_n142_n989# a_n86_n781# w_n1578_n1709# nfet_03v3 ad=4.5p pd=13.5u as=2.58p ps=6.86u w=6u l=0.28u
+C0 a_n86_n781# w_n1578_n1709# 0.30478f
+C1 a_n292_n781# w_n1578_n1709# 0.82996f
+C2 a_n142_n989# w_n1578_n1709# 0.66712f
+C3 a_n86_n781# a_n292_n781# 2.07055f
+C4 a_n86_n781# a_n142_n989# 0.21114f
+C5 a_n142_n989# a_n292_n781# 0.14859f
+C6 a_n86_n781# VSUBS 0.26013f
+C7 a_n292_n781# VSUBS 0.68855f
+C8 a_n142_n989# VSUBS 0.13092f
+C9 w_n1578_n1709# VSUBS 4.59959f
+.ends
+
+.subckt Unnamed_1347871b a_n50_n689# w_n1464_n1409# a_28_n481# a_n178_n481# VSUBS
+X0 a_28_n481# a_n50_n689# a_n178_n481# w_n1464_n1409# nfet_03v3 ad=2.25p pd=7.5u as=2.25p ps=7.5u w=3u l=0.28u
+X1 w_n1464_n1409# w_n1464_n1409# w_n1464_n1409# w_n1464_n1409# nfet_03v3 ad=2.19p pd=7.46u as=8.76p ps=29.84u w=3u l=0.28u
+X2 w_n1464_n1409# w_n1464_n1409# w_n1464_n1409# w_n1464_n1409# nfet_03v3 ad=2.19p pd=7.46u as=0 ps=0 w=3u l=0.28u
+C0 a_28_n481# w_n1464_n1409# 0.42385f
+C1 a_n178_n481# w_n1464_n1409# 0.23898f
+C2 a_n50_n689# w_n1464_n1409# 0.3513f
+C3 a_28_n481# a_n178_n481# 0.70219f
+C4 a_28_n481# a_n50_n689# 0.03814f
+C5 a_n50_n689# a_n178_n481# 0.04962f
+C6 a_28_n481# VSUBS 0.36908f
+C7 a_n178_n481# VSUBS 0.27369f
+C8 a_n50_n689# VSUBS 0.0973f
+C9 w_n1464_n1409# VSUBS 3.74511f
+.ends
+
+.subckt buffer_block_62479d0d w_n1578_n1709# VSUBS
+XUnnamed_5a535b60_0 w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# VSUBS
++ Unnamed_5a535b60
+XUnnamed_1347871b_0 Unnamed_1347871b_0/a_n50_n689# w_n1578_n1709# w_n1578_n1709# Unnamed_1347871b_0/a_n178_n481#
++ VSUBS Unnamed_1347871b
+C0 w_n1578_n1709# Unnamed_1347871b_0/a_n50_n689# 0
+C1 Unnamed_1347871b_0/a_n178_n481# w_n1578_n1709# 0
+C2 Unnamed_1347871b_0/a_n178_n481# VSUBS 0.27369f
+C3 Unnamed_1347871b_0/a_n50_n689# VSUBS 0.0973f
+C4 w_n1578_n1709# VSUBS 8.22765f
+.ends
+
+.subckt buffer_block
+Xbuffer_block_62479d0d_0 w_n1578_n1709# VSUBS buffer_block_62479d0d
+C0 buffer_block_62479d0d_0/Unnamed_1347871b_0/a_n178_n481# VSUBS 0.27369f
+C1 buffer_block_62479d0d_0/Unnamed_1347871b_0/a_n50_n689# VSUBS 0.0973f
+C2 w_n1578_n1709# VSUBS 6.85354f
+.ends
+

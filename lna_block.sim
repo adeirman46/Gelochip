@@ -1,0 +1,50 @@
+| units: 0.5 tech: gf180mcuD format: MIT
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# d=292000,4292 l=56 w=2000 x=-665 y=9879 pfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# s=172000,2172 d=300000,4300 l=56 w=2000 x=86 y=9879 pfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# s=300000,4300 d=172000,2172 l=56 w=2000 x=-141 y=9879 pfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# d=292000,4292 l=56 w=2000 x=610 y=9879 pfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# d=584000,8292 l=56 w=4000 x=838 y=-2179 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# d=584000,8292 l=56 w=4000 x=-893 y=-2179 nfet_03v3
+x lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n370_n2390# w_n1806_3170# lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n520_n2180# w_n1806_3170# s=344000,4172 d=600000,8300 l=56 w=4000 x=314 y=-2179 nfet_03v3
+x lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n370_n2390# lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n520_n2180# w_n1806_3170# w_n1806_3170# s=600000,8300 d=344000,4172 l=56 w=4000 x=-369 y=-2179 nfet_03v3
+x lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n370_n2390# w_n1806_3170# lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n520_n2180# w_n1806_3170# s=344000,4172 d=344000,4172 l=56 w=4000 x=-141 y=-2179 nfet_03v3
+x lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n370_n2390# lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n520_n2180# w_n1806_3170# w_n1806_3170# s=344000,4172 d=344000,4172 l=56 w=4000 x=86 y=-2179 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# d=584000,8292 l=56 w=4000 x=838 y=4101 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# d=584000,8292 l=56 w=4000 x=-893 y=4101 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# s=344000,4172 d=600000,8300 l=56 w=4000 x=314 y=4101 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# s=600000,8300 d=344000,4172 l=56 w=4000 x=-369 y=4101 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# s=344000,4172 d=344000,4172 l=56 w=4000 x=-141 y=4101 nfet_03v3
+x w_n1806_3170# w_n1806_3170# w_n1806_3170# w_n1806_3170# s=344000,4172 d=344000,4172 l=56 w=4000 x=86 y=4101 nfet_03v3
+C lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n520_n2180# w_n1806_3170# 14.8
+C lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n370_n2390# w_n1806_3170# 2.6
+R lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n520_n2180# 530
+R lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n370_n2390# 2204
+= VSUBS lna_block_62479d0d_0/VSUBS
+= VSUBS lna_block_62479d0d_0/Unnamed_aa715e86_0/VSUBS
+= VSUBS lna_block_62479d0d_0/straight_route_92d07405_0/VSUBS
+= VSUBS lna_block_62479d0d_0/straight_route_a898fffc_0/VSUBS
+= VSUBS lna_block_62479d0d_0/Unnamed_36f005e6_0/VSUBS
+= VSUBS lna_block_62479d0d_0/straight_route_4ae44bf5_0/VSUBS
+= VSUBS lna_block_62479d0d_0/Unnamed_3c60cbf2_0/VSUBS
+= VSUBS lna_block_62479d0d_0/Unnamed_e7a4d786_0/VSUBS
+= VSUBS lna_block_62479d0d_0/straight_route_054952e4_0/VSUBS
+C w_n1806_3170#0 20.8
+R w_n1806_3170# 9543
+= w_n1806_3170# w_n1806_n3110#
+= w_n1806_3170# lna_block_62479d0d_0/w_n1806_3170#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_aa715e86_0/a_n86_n1181#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_aa715e86_0/a_n292_n1181#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_36f005e6_0/a_n314_n2180#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_aa715e86_0/a_n142_n1389#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_aa715e86_0/w_n1078_n1609#
+= w_n1806_3170# lna_block_62479d0d_0/straight_route_92d07405_0/m2_n506_8670#
+= w_n1806_3170# lna_block_62479d0d_0/straight_route_a898fffc_0/m2_n142_9670#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_36f005e6_0/a_n520_n2180#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_36f005e6_0/w_n1806_n3110#
+= w_n1806_3170# lna_block_62479d0d_0/w_n1806_n3110#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_36f005e6_0/a_n370_n2390#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_3c60cbf2_0/a_n314_n2180#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_e7a4d786_0/m2_n1120_n1120#
+= w_n1806_3170# lna_block_62479d0d_0/straight_route_054952e4_0/m2_n370_n50#
+= w_n1806_3170# lna_block_62479d0d_0/Unnamed_3c60cbf2_0/w_n1806_n3110#
+= w_n1806_3170# lna_block_62479d0d_0/straight_route_4ae44bf5_0/m2_n506_2390#

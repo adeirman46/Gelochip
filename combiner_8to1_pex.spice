@@ -1,0 +1,8 @@
+* NGSPICE file created from combiner_8to1.ext - technology: gf180mcuD
+
+
+* Top level circuit combiner_8to1
+
+C0 combiner_8to1_62479d0d_0/straight_route_fdede734_0/m2_n350_450# VSUBS 3.55308f
+.end
+
