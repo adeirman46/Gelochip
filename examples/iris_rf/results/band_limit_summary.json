@@ -1,0 +1,77 @@
+{
+  "results": [
+    {
+      "case": "bl_f060mhz_pp00dbm",
+      "freq_hz": 60000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.842331,
+      "vout_avg": 1.27969,
+      "vout_max": 1.408009,
+      "pce": 0.05458688320333333
+    },
+    {
+      "case": "bl_f070mhz_pp00dbm",
+      "freq_hz": 70000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.843338,
+      "vout_avg": 1.280324,
+      "vout_max": 1.408005,
+      "pce": 0.05464098483253334
+    },
+    {
+      "case": "bl_f080mhz_pp00dbm",
+      "freq_hz": 80000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.844006,
+      "vout_avg": 1.274758,
+      "vout_max": 1.40185,
+      "pce": 0.05416693195213333
+    },
+    {
+      "case": "bl_f090mhz_pp00dbm",
+      "freq_hz": 90000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.84437,
+      "vout_avg": 1.265198,
+      "vout_max": 1.391715,
+      "pce": 0.053357532640133334
+    },
+    {
+      "case": "bl_f100mhz_pp00dbm",
+      "freq_hz": 100000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.844584,
+      "vout_avg": 1.253875,
+      "vout_max": 1.379954,
+      "pce": 0.05240675052083334
+    },
+    {
+      "case": "bl_f120mhz_pp00dbm",
+      "freq_hz": 120000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.84439,
+      "vout_avg": 1.224439,
+      "vout_max": 1.349874,
+      "pce": 0.04997502882403334
+    },
+    {
+      "case": "bl_f150mhz_pp00dbm",
+      "freq_hz": 150000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.842939,
+      "vout_avg": 1.174876,
+      "vout_max": 1.299424,
+      "pce": 0.04601112051253333
+    },
+    {
+      "case": "bl_f200mhz_pp00dbm",
+      "freq_hz": 200000000.0,
+      "pin_dbm": 0.0,
+      "vrect_avg": 1.838534,
+      "vout_avg": 1.08994,
+      "vout_max": 1.213002,
+      "pce": 0.039598973453333325
+    }
+  ],
+  "upper_operating_hz": 120000000.0
+}

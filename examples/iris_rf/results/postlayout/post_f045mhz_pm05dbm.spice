@@ -1,0 +1,69 @@
+* IRIS post-layout RC-augmented simulation deck
+.options savecurrents reltol=1e-4 vabstol=1e-8 iabstol=1e-12 method=gear
+.temp 27
+.param pin_dbm=-5
+.param freq_hz=45000000.0
+.param load_res=30000.0
+.param pin_w = 1e-3*pow(10,pin_dbm/10)
+.param vhalf_peak = sqrt(100*pin_w)*9.0
+.include /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+VSP srcp 0 SIN(0 {vhalf_peak} {freq_hz})
+VSN srcn 0 SIN(0 {-vhalf_peak} {freq_hz})
+RSP srcp rfp_ext 25
+RSN srcn rfn_ext 25
+RRFP rfp_ext rfp 15.405814999999999
+CRFP rfp 0 1.0037209999999999e-13
+RRFN rfn_ext rfn 16.111819999999998
+CRFN rfn 0 1.050788e-13
+XHARV rfp rfn vout_ext 0 iris_harvester_post
+RVOUT vout_ext vout 16.263935
+CVOUT vout 0 1.006336e-13
+RLOAD vout 0 30000.0
+.tran 0.2n 80u 0 0.2n
+.meas tran vrect_avg AVG v(vrect) from=60u to=80u
+.meas tran vout_avg AVG v(vout) from=60u to=80u
+.meas tran vout_max MAX v(vout) from=60u to=80u
+.control
+run
+wrdata /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/iris_rf/results/postlayout/post_f045mhz_pm05dbm_wave.csv time v(vout) v(vrect) v(rfp) v(rfn)
+write /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/iris_rf/results/postlayout/post_f045mhz_pm05dbm.raw
+quit
+.endc
+.subckt iris_harvester_post rfp rfn vout vss
+RVR1 vrect_int vrect 59.20737499999999
+CVR1 vrect 0 3.5719424999999994e-13
+XBIAS rfp rfn gatep gaten vrect_int vss iris_startup_bias
+XRECT rfp rfn gatep gaten vrect_int vss iris_rectifier
+XPUMP rfp rfn vrect_int n1_int n2_int vout vss iris_charge_pump_post
+.ends iris_harvester_post
+.subckt iris_startup_bias rfp rfn gatep gaten vrect vss
+RGP gatep rfp 1m
+RGN gaten rfn 1m
+CINJP rfn gatep 0.6p
+CINJN rfp gaten 0.6p
+MPBIASP gatep vrect vrect vrect pmos_3p3 w=4.0u l=1.0u nf=1 m=1
+MPBIASN gaten vrect vrect vrect pmos_3p3 w=4.0u l=1.0u nf=1 m=1
+MNBIASP gatep vss vss vss nmos_3p3 w=2.0u l=1.0u nf=1 m=1
+MNBIASN gaten vss vss vss nmos_3p3 w=2.0u l=1.0u nf=1 m=1
+.ends iris_startup_bias
+.subckt iris_rectifier rfp rfn gatep gaten vrect vss
+MPP1 vrect gaten rfp vrect pmos_3p3 w=40.0u l=0.28u nf=4 m=1
+MPP2 vrect gatep rfn vrect pmos_3p3 w=40.0u l=0.28u nf=4 m=1
+MNN1 rfp gaten vss vss nmos_3p3 w=20.0u l=0.28u nf=4 m=1
+MNN2 rfn gatep vss vss nmos_3p3 w=20.0u l=0.28u nf=4 m=1
+.ends iris_rectifier
+.subckt iris_charge_pump_post rfp rfn vrect n1 n2 vout vss
+RN1A n1_int n1 10.223825
+CN1A n1 0 6.134295e-14
+RN2A n2_int n2 10.223825
+CN2A n2 0 6.134295e-14
+MCP1 vrect vrect n1_int n1_int nmos_3p3 w=16.0u l=0.28u nf=4 m=1
+MCP2 n1 n1 n2_int n2_int nmos_3p3 w=16.0u l=0.28u nf=4 m=1
+MCP3 n2 n2 vout vout nmos_3p3 w=16.0u l=0.28u nf=4 m=1
+CCP1 rfp n1 1.2p
+CCP2 rfn n2 1.2p
+CCP3 rfp vout 1.2p
+CSTORE vout vss 20.0p
+.ends iris_charge_pump_post
+.end
