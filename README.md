@@ -173,6 +173,16 @@ Missing tools are skipped gracefully; fastest setup is [IIC-OSIC-TOOLS Docker](h
 
 **PixelatedRF:** retrain in `notebooks/pixelatedRF/02_train.ipynb` (needs `data/pixelatedrf/data_split.npz` from `01_dataset.ipynb`); weights in `models/pixelatedrf/`.
 
+**ALIGN (SPICE → GDS):** automatic analog place-and-route in
+[`notebooks/align/`](notebooks/align/) — feed a SPICE netlist, get a placed-and-routed GDS, rendered
+with the **KLayout** engine (clean theme + pin labels). ALIGN is built into its **own** venv (it
+pins `pydantic<2`); `bash notebooks/align/setup_align.sh` installs it + PDKs / examples. Use the
+`spice2gds` module or the notebooks: [`sky130_examples.ipynb`](notebooks/align/sky130_examples.ipynb)
+(5 circuits, open **sky130** PDK) and [`gf180_align.ipynb`](notebooks/align/gf180_align.ipynb)
+(10 circuits, **GF180MCU** via `GF180_PDK` — extends ALIGN, which ships only sky130, to gf180 using
+real gf180 layer numbers + rules from `gf180_mapped_pdk`). Run gf180 **DRC + LVS sign-off before
+tapeout** (`gf180_mapped_pdk.drc_magic` / `.lvs_netgen`).
+
 </details>
 
 ---
@@ -182,6 +192,7 @@ Missing tools are skipped gracefully; fastest setup is [IIC-OSIC-TOOLS Docker](h
 - [Kaizen architecture](notebooks/kaizen_architecture/README.md) — the RAG agent, collections, 15 circuits
 - [Docker](docs/DOCKER.md) — one-command self-contained deploy
 - [Installation](docs/installation.md) · [Architecture](docs/architecture.md) · [PixelatedRF](docs/pixelated-rf.md) · [Datasets](docs/datasets.md)
+- [ALIGN SPICE → GDS](notebooks/align/README.md) — experimental automatic analog layout (isolated venv)
 
 ## Team
 
