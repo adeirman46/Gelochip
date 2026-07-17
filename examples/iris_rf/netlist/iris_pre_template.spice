@@ -1,0 +1,72 @@
+* IRIS pre-layout transient simulation deck
+.options savecurrents reltol=1e-4 vabstol=1e-8 iabstol=1e-12 method=gear
+.temp 27
+
+.param pin_dbm = {PIN_DBM}
+.param freq_hz = {FREQ_HZ}
+.param load_res = {LOAD_RES}
+.param lmatch = {LMATCH}
+.param cmatch = {CMATCH}
+.param rdamp = {RDAMP}
+.param match_gain = {MATCH_GAIN}
+.param pin_w = 1e-3*pow(10,pin_dbm/10)
+.param vhalf_peak = sqrt(100*pin_w)*match_gain
+
+.include {DESIGN_INCLUDE}
+.lib {MODEL_LIB} typical
+
+VSP srcp 0 SIN(0 {vhalf_peak} {freq_hz})
+VSN srcn 0 SIN(0 {-vhalf_peak} {freq_hz})
+RSP srcp rfp 25
+RSN srcn rfn 25
+
+XHARV rfp rfn vout vrect 0 iris_harvester
+RLOAD vout 0 {load_res}
+
+.tran 0.2n 80u 0 0.2n
+.meas tran vrect_avg AVG v(vrect) from=60u to=80u
+.meas tran vout_avg AVG v(vout) from=60u to=80u
+.meas tran vout_max MAX v(vout) from=60u to=80u
+
+.control
+run
+wrdata {WAVE_CSV} time v(vout) v(vrect) v(rfp) v(rfn) v(xharv.gatep) v(xharv.gaten)
+write {RAWFILE}
+quit
+.endc
+
+.subckt iris_harvester rfp rfn vout vrect vss
+XBIAS rfp rfn gatep gaten vrect vss iris_startup_bias
+XRECT rfp rfn gatep gaten vrect vss iris_rectifier
+XPUMP rfp rfn vrect vout vss iris_charge_pump
+.ends iris_harvester
+
+.subckt iris_startup_bias rfp rfn gatep gaten vrect vss
+RGP gatep rfp 1m
+RGN gaten rfn 1m
+CINJP rfn gatep {CINJ_PF}p
+CINJN rfp gaten {CINJ_PF}p
+MPBIASP gatep vrect vrect vrect pmos_3p3 w={BIAS_PMOS_W}u l={BIAS_PMOS_L}u nf=1 m=1
+MPBIASN gaten vrect vrect vrect pmos_3p3 w={BIAS_PMOS_W}u l={BIAS_PMOS_L}u nf=1 m=1
+MNBIASP gatep vss vss vss nmos_3p3 w={BIAS_NMOS_W}u l={BIAS_NMOS_L}u nf=1 m=1
+MNBIASN gaten vss vss vss nmos_3p3 w={BIAS_NMOS_W}u l={BIAS_NMOS_L}u nf=1 m=1
+.ends iris_startup_bias
+
+.subckt iris_rectifier rfp rfn gatep gaten vrect vss
+MPP1 vrect gaten rfp vrect pmos_3p3 w={RECT_PMOS_W}u l={RECT_PMOS_L}u nf={RECT_PMOS_NF} m=1
+MPP2 vrect gatep rfn vrect pmos_3p3 w={RECT_PMOS_W}u l={RECT_PMOS_L}u nf={RECT_PMOS_NF} m=1
+MNN1 rfp gaten vss vss nmos_3p3 w={RECT_NMOS_W}u l={RECT_NMOS_L}u nf={RECT_NMOS_NF} m=1
+MNN2 rfn gatep vss vss nmos_3p3 w={RECT_NMOS_W}u l={RECT_NMOS_L}u nf={RECT_NMOS_NF} m=1
+.ends iris_rectifier
+
+.subckt iris_charge_pump rfp rfn vrect vout vss
+MCP1 vrect vrect n1 n1 nmos_3p3 w={CP_DIODE_W}u l={CP_DIODE_L}u nf={CP_DIODE_NF} m=1
+MCP2 n1 n1 n2 n2 nmos_3p3 w={CP_DIODE_W}u l={CP_DIODE_L}u nf={CP_DIODE_NF} m=1
+MCP3 n2 n2 vout vout nmos_3p3 w={CP_DIODE_W}u l={CP_DIODE_L}u nf={CP_DIODE_NF} m=1
+CCP1 rfp n1 {CSTAGE_PF}p
+CCP2 rfn n2 {CSTAGE_PF}p
+CCP3 rfp vout {CSTAGE_PF}p
+CSTORE vout vss {CSTORE_PF}p
+.ends iris_charge_pump
+
+.end

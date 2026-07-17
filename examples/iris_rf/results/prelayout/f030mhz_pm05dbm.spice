@@ -1,0 +1,72 @@
+* IRIS pre-layout transient simulation deck
+.options savecurrents reltol=1e-4 vabstol=1e-8 iabstol=1e-12 method=gear
+.temp 27
+
+.param pin_dbm = -5
+.param freq_hz = 30000000.0
+.param load_res = 30000.0
+.param lmatch = 6.8e-07
+.param cmatch = 1.84e-11
+.param rdamp = 1.0
+.param match_gain = 9.0
+.param pin_w = 1e-3*pow(10,pin_dbm/10)
+.param vhalf_peak = sqrt(100*pin_w)*match_gain
+
+.include /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/gf180mcu-pdk/libraries/gf180mcu_fd_pr/latest/models/ngspice/design.ngspice
+.lib /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/gf180mcu-pdk/libraries/gf180mcu_fd_pr/latest/models/ngspice/sm141064.ngspice typical
+
+VSP srcp 0 SIN(0 {vhalf_peak} {freq_hz})
+VSN srcn 0 SIN(0 {-vhalf_peak} {freq_hz})
+RSP srcp rfp 25
+RSN srcn rfn 25
+
+XHARV rfp rfn vout vrect 0 iris_harvester
+RLOAD vout 0 {load_res}
+
+.tran 0.2n 80u 0 0.2n
+.meas tran vrect_avg AVG v(vrect) from=60u to=80u
+.meas tran vout_avg AVG v(vout) from=60u to=80u
+.meas tran vout_max MAX v(vout) from=60u to=80u
+
+.control
+run
+wrdata /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/iris_rf/results/prelayout/f030mhz_pm05dbm_wave.csv time v(vout) v(vrect) v(rfp) v(rfn) v(xharv.gatep) v(xharv.gaten)
+write /workspace/iris_c3a247b9-0025-43e1-bae8-42a940fa0b63/iris_rf/results/prelayout/f030mhz_pm05dbm.raw
+quit
+.endc
+
+.subckt iris_harvester rfp rfn vout vrect vss
+XBIAS rfp rfn gatep gaten vrect vss iris_startup_bias
+XRECT rfp rfn gatep gaten vrect vss iris_rectifier
+XPUMP rfp rfn vrect vout vss iris_charge_pump
+.ends iris_harvester
+
+.subckt iris_startup_bias rfp rfn gatep gaten vrect vss
+RGP gatep rfp 1m
+RGN gaten rfn 1m
+CINJP rfn gatep 0.6p
+CINJN rfp gaten 0.6p
+MPBIASP gatep vrect vrect vrect pmos_3p3 w=4.0u l=1.0u nf=1 m=1
+MPBIASN gaten vrect vrect vrect pmos_3p3 w=4.0u l=1.0u nf=1 m=1
+MNBIASP gatep vss vss vss nmos_3p3 w=2.0u l=1.0u nf=1 m=1
+MNBIASN gaten vss vss vss nmos_3p3 w=2.0u l=1.0u nf=1 m=1
+.ends iris_startup_bias
+
+.subckt iris_rectifier rfp rfn gatep gaten vrect vss
+MPP1 vrect gaten rfp vrect pmos_3p3 w=40.0u l=0.28u nf=4 m=1
+MPP2 vrect gatep rfn vrect pmos_3p3 w=40.0u l=0.28u nf=4 m=1
+MNN1 rfp gaten vss vss nmos_3p3 w=20.0u l=0.28u nf=4 m=1
+MNN2 rfn gatep vss vss nmos_3p3 w=20.0u l=0.28u nf=4 m=1
+.ends iris_rectifier
+
+.subckt iris_charge_pump rfp rfn vrect vout vss
+MCP1 vrect vrect n1 n1 nmos_3p3 w=16.0u l=0.28u nf=4 m=1
+MCP2 n1 n1 n2 n2 nmos_3p3 w=16.0u l=0.28u nf=4 m=1
+MCP3 n2 n2 vout vout nmos_3p3 w=16.0u l=0.28u nf=4 m=1
+CCP1 rfp n1 1.2p
+CCP2 rfn n2 1.2p
+CCP3 rfp vout 1.2p
+CSTORE vout vss 20.0p
+.ends iris_charge_pump
+
+.end

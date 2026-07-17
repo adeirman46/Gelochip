@@ -1,0 +1,34 @@
+
+* cell iris
+* pin VIN+,VIN-,VRECT,VSS,rfn,rfp,vrect,vss
+* pin gf180mcu_gnd
+.SUBCKT iris 2 3
+* net 2 VIN+,VIN-,VRECT,VSS,rfn,rfp,vrect,vss
+* net 3 gf180mcu_gnd
+* cell instance $10 r0 *1 30,260
+X$10 2 1 3 iris_startup_bias
+* device instance $1 r0 *1 257.247,92.247 mim_single_2p0fF
+C$1 1 6 1.199912072e-12 mim_single_2p0fF A=599.956036P P=97.976U
+* device instance $2 r0 *1 152.247,92.247 mim_single_2p0fF
+C$2 1 5 1.199912072e-12 mim_single_2p0fF A=599.956036P P=97.976U
+* device instance $3 r0 *1 47.247,92.247 mim_single_2p0fF
+C$3 1 4 1.199912072e-12 mim_single_2p0fF A=599.956036P P=97.976U
+* device instance $4 r0 *1 409.999,119.999 mim_single_2p0fF
+C$4 1 7 1.9999600002e-11 mim_single_2p0fF A=9999.800001P P=399.996U
+.ENDS iris
+
+* cell iris_startup_bias
+* pin 
+* pin 
+* pin gf180mcu_gnd
+.SUBCKT iris_startup_bias 1 2 5
+* net 5 gf180mcu_gnd
+* device instance $1 r0 *1 28.66,68.66 mim_single_2p0fF
+C$1 2 3 5.999648e-13 mim_single_2p0fF A=299.9824P P=69.28U
+* device instance $2 r0 *1 103.66,68.66 mim_single_2p0fF
+C$2 2 4 5.999648e-13 mim_single_2p0fF A=299.9824P P=69.28U
+* device instance $3 r0 *1 255.94,41 nmos_3p3
+M$3 1 1 1 5 nmos_3p3 L=1U W=4U AS=1.76P AD=0.8515P PS=9.76U PD=4.88U
+* device instance $5 r0 *1 255.94,122 pmos_3p3
+M$5 1 1 1 1 pmos_3p3 L=1U W=8U AS=3.52P AD=1.7315P PS=17.76U PD=8.88U
+.ENDS iris_startup_bias

@@ -1,0 +1,49 @@
+{
+  "project_name": "IRIS",
+  "description": "Injection-Assisted Differential RF Energy Harvester",
+  "process": "gf180mcuD",
+  "pdk_root": "pdks",
+  "pdk_repo": "gf180mcu-pdk",
+  "ngspice_bin": ".local-ngspice/usr/bin/ngspice",
+  "klayout_bin": "klayout",
+  "die_size_um": 500.0,
+  "target_frequency_hz": 45000000.0,
+  "frequency_sweep_hz": [30000000.0, 45000000.0, 60000000.0],
+  "band_limit_sweep_hz": [60000000.0, 70000000.0, 80000000.0, 90000000.0, 100000000.0, 120000000.0, 150000000.0, 200000000.0],
+  "power_sweep_dbm": [-20, -15, -10, -5, 0],
+  "load_res_ohm": 30000.0,
+  "matching_network": {
+    "type": "offchip_pi_like_differential",
+    "series_inductor_h": 6.8e-7,
+    "shunt_cap_f": 1.84e-11,
+    "damping_res_ohm": 1.0,
+    "effective_voltage_gain": 9.0
+  },
+  "rectifier": {
+    "pmos_w_um": 40.0,
+    "pmos_l_um": 0.28,
+    "pmos_nf": 4,
+    "nmos_w_um": 20.0,
+    "nmos_l_um": 0.28,
+    "nmos_nf": 4,
+    "bias_pmos_w_um": 4.0,
+    "bias_pmos_l_um": 1.0,
+    "bias_nmos_w_um": 2.0,
+    "bias_nmos_l_um": 1.0,
+    "inject_cap_pf": 0.6
+  },
+  "charge_pump": {
+    "diode_w_um": 16.0,
+    "diode_l_um": 0.28,
+    "diode_nf": 4,
+    "stage_cap_pf": 1.2,
+    "storage_cap_pf": 20.0
+  },
+  "layout": {
+    "gf_option": "A",
+    "metal_top": "30K",
+    "metal_level": 3,
+    "mim_option": "A",
+    "guard_ring": false
+  }
+}

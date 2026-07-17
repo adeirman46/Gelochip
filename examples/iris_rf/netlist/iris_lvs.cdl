@@ -1,0 +1,32 @@
+* IRIS LVS reference netlist
+.SUBCKT iris rfp rfn vout vss
+XBIAS rfp rfn gatep gaten vrect vss iris_startup_bias
+XRECT rfp rfn gatep gaten vrect vss iris_rectifier
+XPUMP rfp rfn vrect vout vss iris_charge_pump
+.ENDS iris
+
+.SUBCKT iris_startup_bias rfp rfn gatep gaten vrect vss
+CIJP rfn gatep $[mim_single_2p0fF] M=1 l=17.320508u w=17.320508u
+CIJN rfp gaten $[mim_single_2p0fF] M=1 l=17.320508u w=17.320508u
+MPBIASP gatep vrect vrect vrect pmos_3p3 m=1 w=4.0u l=1.0u nf=1
+MPBIASN gaten vrect vrect vrect pmos_3p3 m=1 w=4.0u l=1.0u nf=1
+MNBIASP gatep vss vss vss nmos_3p3 m=1 w=2.0u l=1.0u nf=1
+MNBIASN gaten vss vss vss nmos_3p3 m=1 w=2.0u l=1.0u nf=1
+.ENDS iris_startup_bias
+
+.SUBCKT iris_rectifier rfp rfn gatep gaten vrect vss
+MPP1 vrect gaten rfp vrect pmos_3p3 m=1 w=40.0u l=0.28u nf=4
+MPP2 vrect gatep rfn vrect pmos_3p3 m=1 w=40.0u l=0.28u nf=4
+MNN1 rfp gaten vss vss nmos_3p3 m=1 w=20.0u l=0.28u nf=4
+MNN2 rfn gatep vss vss nmos_3p3 m=1 w=20.0u l=0.28u nf=4
+.ENDS iris_rectifier
+
+.SUBCKT iris_charge_pump rfp rfn vrect vout vss
+MCP1 vrect vrect n1 n1 nmos_3p3 m=1 w=16.0u l=0.28u nf=4
+MCP2 n1 n1 n2 n2 nmos_3p3 m=1 w=16.0u l=0.28u nf=4
+MCP3 n2 n2 vout vout nmos_3p3 m=1 w=16.0u l=0.28u nf=4
+CCP1 rfp n1 $[mim_single_2p0fF] M=1 l=24.494897u w=24.494897u
+CCP2 rfn n2 $[mim_single_2p0fF] M=1 l=24.494897u w=24.494897u
+CCP3 rfp vout $[mim_single_2p0fF] M=1 l=24.494897u w=24.494897u
+CSTORE vout vss $[mim_single_2p0fF] M=1 l=100.000000u w=100.000000u
+.ENDS iris_charge_pump
