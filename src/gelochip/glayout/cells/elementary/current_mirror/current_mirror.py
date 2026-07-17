@@ -14,6 +14,7 @@ from typing import Optional, Union
 from glayout.primitives.via_gen import via_stack
 from gdsfactory.components import text_freetype, rectangle
 from glayout.pdk.sky130_mapped import sky130_mapped_pdk
+from glayout.pdk.gf180_mapped import gf180_mapped_pdk
 try:
     from glayout.verification.evaluator_wrapper import run_evaluation
 except ImportError:
@@ -219,7 +220,9 @@ def current_mirror(
     return top_level
 
 if __name__=="__main__":
-    cm = add_cm_labels(current_mirror(sky130_mapped_pdk, device='pfet'),sky130_mapped_pdk)
+
+
+                                                                                                                        
     cm.show()
     cm.name = "CMIRROR"
     #magic_drc_result = sky130_mapped_pdk.drc_magic(current_mirror, current_mirror.name)

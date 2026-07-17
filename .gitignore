@@ -110,3 +110,16 @@ data/sessions.db
 .drcwork/
 
 !Chipathon2025_2_padring.gds
+# ALIGN integration — materialized by notebooks/align/setup_align.sh, not committed.
+# Tracked: src/, *.py, *.ipynb, setup_align.sh, README.md, netlists/
+notebooks/align/.venv-align/
+notebooks/align/.align-build/
+notebooks/align/ALIGN-public/
+notebooks/align/.deps/
+notebooks/align/pdks/*
+!notebooks/align/pdks/GF180_PDK
+notebooks/align/pdks/GF180_PDK/**/__pycache__/
+notebooks/align/examples/
+notebooks/align/datasets/
+notebooks/align/runs/
+notebooks/align/out/
