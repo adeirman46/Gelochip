@@ -196,16 +196,12 @@ tapeout** (`gf180_mapped_pdk.drc_magic` / `.lvs_netgen`).
 
 ## Team
 
-**Bandung Institute of Technology (ITB), Indonesia**
-
-**Faculty advisor:** Nana Sutisna, S.T., M.T., Ph.D.
-
-**Members:**
-- William Anthony
-- Benedictus Kenneth Setiadi
-- Yozia Gedalya Marcho Ginting
-- Ade Irman Budi Hendriawan
-- Christopher Justin Kurniawan
+| Name | Affiliation | Education | Role |
+|------|-------------|------------|------|
+| William Anthony | Bandung Institute of Technology | 3rd Year Undergraduate Student, Electrical Engineering | Team Lead |
+| Ade Irman Budi Hendriawan | Pindad Military Ltd., Bandung Institute of Technology | B.Sc. in Electrical Engineering | Team Member |
+| Radhian Ferel Armansyah | ByteDance, University of Edinburgh | M.Sc. in Electrical Engineering | Team Member |
+| Benedictus Kenneth Setiadi | Bandung Institute of Technology | 2nd Year Undergraduate Student, Electrical Engineering | Team Member |
 
 ---
 
