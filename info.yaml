@@ -1,0 +1,66 @@
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+# Chipathon 2026: Project configuration
+# LICENSE: Apache License Version 2.0
+# http://www.apache.org/licenses/
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+
+# data will be pulled from main branch of the repo.
+# please be sure that the main branch contains the data you want to submit.
+# This file will be updated with more information later
+
+# ======================================================
+# Project metadata (used for documentation / review)
+# ======================================================
+project:
+  title: "D05_Gelochip RF Energy Harvester"
+  team: ""
+  discord: ""
+  description: "GF180MCU RF energy harvester using cross-coupled rectifier and Dickson charge pump (Vout ~2.2V @ 50MHz, 0dB)."
+  lvs_config: "lvs_config.json"
+
+# ======================================================
+# Design run summary (Stage 1)
+# ======================================================
+design_run:
+  stage_1: "Schematic Generation - XSCHEM & TB"
+  blocks:
+    - "Match Circuit (sch & tb.sch)"
+    - "Rectifier Circuit (sch & tb.sch)"
+    - "Dickson Charge Pump Circuit (sch & tb.sch)"
+    - "RF Energy Harvester (Top Level) Circuit (sch & tb.sch)"
+  simulation_result: "@0dB @50MHz Vout = 2.2V"
+
+# ======================================================
+# Technical summary
+# ======================================================
+summary:
+  technology: "GF180MCU (gf180mcuD), 3.3V devices"
+  die_size: "287 x 291 µm (0.083 mm², aspect 0.99)"
+  architecture: "cross-coupled rectifier + 2-leg startup bias + 3-stage Dickson + MOS-diode load"
+  transistors_main_dummy: 39
+  mim_capacitors: "2x 0.4 pF inject, 2x 1.2 pF stage, 22.0 pF storage (M2-M3, 1 fF/µm²)"
+  rf_input: "differential RF/RFN, 20–120 MHz tested, 30 MHz nominal"
+  zin_30mhz_large_signal: "2253 - j64j Ω differential"
+  matching_network_off_chip: "shunt 10.6 pF + series 1245 nH/side - 100 Ω"
+  vout_0db_30mhz: "0.32 V unmatched / 2.02 V matched"
+  vout_8dbm: "1.97 V unmatched / 3.64 V matched"
+  sensitivity_vout_gt_1v: "+3.5 dBm unmatched / -7.3 dBm matched"
+  startup_transient_09v_drive: "VRECT ≈ 0.81 V, VOUT ≈ 1.62 V in < 5 µs"
+  power_rails_vias: "met4 rails 2 µm + met5 VSS trunk; 1×3-cut via arrays on all power taps"
+  sign_off:
+    - "RECTIFIER"
+    - "STARTUP_BIAS"
+    - "PUMP_LADDER"
+    - "LOAD_DIODE"
+    - "RFEH_FULL"
+    - "RFEH"
+    - "PEX_PARAMS"
+    - "CAP_WIRING"
+
+# ======================================================
+# Lineage / attribution
+# ======================================================
+lineage:
+  original_source: "https://github.com/adeirman46/Gelochip"
+  ai_layouter_reference: "https://github.com/adeirman46/AnoaChip"
+  ai_schematic_reference: "https://github.com/adeirman46/PandaChip"
