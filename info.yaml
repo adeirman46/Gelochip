@@ -17,7 +17,7 @@
 # ======================================================
 project:
   title: "Recursive Intelligence for Analog Chip Generation"
-  team: "William Anthony (Team Lead), Ade Irman Budi Hendriawan, Radhian Ferel Armansyah, Benedictus Kenneth Setiadi"
+  team: "D5_Gelochip" # William Anthony (Team Lead), Ade Irman Budi Hendriawan, Radhian Ferel Armansyah, Benedictus Kenneth Setiadi
   discord: "icdesignboi, adeirman, radhian, bkenneth"
   description: "Gelochip: Agentic AI for RF/analog chip generation from plain-English specs to verified, reproducible GF180 layouts."
   lvs_config: "lvs_config.json"  # relative link to root ./lvs_config.json
