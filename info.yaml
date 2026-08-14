@@ -8,12 +8,16 @@
 # please be sure that the main branch contains the data you want to submit.
 # This file will be updated with more information later
 
+# NOTE: This file links to the LVS configuration at:
+#       ./lvs_config.json
+#       (relative path required by submission checks)
+
 # ======================================================
 # Project metadata (used for documentation / review)
 # ======================================================
 project:
-  title: "PDK test"
+  title: "Recursive Intelligence for Analog Chip Generation"
   team: "William Anthony (Team Lead), Ade Irman Budi Hendriawan, Radhian Ferel Armansyah, Benedictus Kenneth Setiadi"
   discord: "icdesignboi, adeirman, radhian, bkenneth"
-  description: "PDK test data for Gelochip by team from Bandung Institute of Technology, Pindad Military Ltd., and University of Edinburgh."
-  lvs_config: "lvs_config.json"
+  description: "Gelochip: Agentic AI for RF/analog chip generation from plain-English specs to verified, reproducible GF180 layouts."
+  lvs_config: "lvs_config.json"  # relative link to root ./lvs_config.json
