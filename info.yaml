@@ -13,7 +13,7 @@
 # ======================================================
 project:
   title: "PDK test"
-  team: "D5_Gelochip"
-  discord: "icdesignboi"
-  description: "PDK test data"
+  team: "William Anthony (Team Lead), Ade Irman Budi Hendriawan, Radhian Ferel Armansyah, Benedictus Kenneth Setiadi"
+  discord: "icdesignboi, adeirman, radhian, bkenneth"
+  description: "PDK test data for Gelochip by team from Bandung Institute of Technology, Pindad Military Ltd., and University of Edinburgh."
   lvs_config: "lvs_config.json"
