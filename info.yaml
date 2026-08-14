@@ -13,7 +13,7 @@
 # ======================================================
 project:
   title: "PDK test"
-  team: ""
-  discord: ""
+  team: "D5_Gelochip"
+  discord: "icdesignboi"
   description: "PDK test data"
   lvs_config: "lvs_config.json"
