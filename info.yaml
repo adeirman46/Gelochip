@@ -4,20 +4,228 @@
 # http://www.apache.org/licenses/
 # ----- ------ ----- ----- ------ ----- ----- ------ -----
 
-# data will be pulled from main branch of the repo.
-# please be sure that the main branch contains the data you want to submit.
-# This file will be updated with more information later
+# Data will be pulled from the main branch of the repository.
+# Please ensure that the main branch contains the data intended
+# for submission.
+#
+# This file may be updated with additional information later.
 
-# NOTE: This file links to the LVS configuration at:
-#       ./lvs_config.json
-#       (relative path required by submission checks)
+# NOTE:
+# The LVS configuration file is located at:
+#
+#   ./lvs_config.json
+#
+# The project.lvs_config property below uses a path relative
+# to the repository root, as required by the submission checks.
 
 # ======================================================
-# Project metadata (used for documentation / review)
+# Project metadata (used for documentation and review)
 # ======================================================
+
 project:
   title: "Recursive Intelligence for Analog Chip Generation"
-  team: "D5_Gelochip" # William Anthony (Team Lead), Ade Irman Budi Hendriawan, Radhian Ferel Armansyah, Benedictus Kenneth Setiadi
+  team: "D05_Gelochip"
   discord: "icdesignboi, adeirman, radhian, bkenneth"
-  description: "Gelochip: Agentic AI for RF/analog chip generation from plain-English specs to verified, reproducible GF180 layouts."
-  lvs_config: "lvs_config.json"  # relative link to root ./lvs_config.json
+  description: "Gelochip is an agentic-AI platform for generating RF and analog integrated circuits from plain-English specifications to verified and reproducible GF180MCU layouts."
+  lvs_config: "lvs_config.json"
+
+# ======================================================
+# Team information
+# ======================================================
+
+team:
+  track: "D"
+  team_id: "D05"
+  team_name: "Gelochip"
+  members:
+    - name: "William Anthony"
+      discord: "icdesignboi"
+      role: "Team Lead, Digital IC Design, and AI Architecture"
+
+    - name: "Ade Irman Budi Hendriawan"
+      discord: "adeirman"
+      role: "Analog IC Design, Layout Automation, and AI"
+
+    - name: "Radhian Ferel Armansyah"
+      discord: "radhian"
+      role: "Analog IC Design, Digital IC Design, and Agentic AI"
+
+    - name: "Benedictus Kenneth Setiadi"
+      discord: "bkenneth"
+      role: "Analog Layout, Verification, and Research"
+
+# ======================================================
+# Tapeout project
+# ======================================================
+
+tapeout:
+  project_name: "IRIS"
+  full_name: "Injection-Assisted Differential RF Energy Harvester"
+  technology: "GF180MCU-D"
+  process_option: "Option A"
+  device_voltage: "3.3 V"
+  primary_operating_band: "30-60 MHz"
+  evaluated_frequency_range: "20-120 MHz"
+  target_input_power: "Approximately 0 dBm"
+  target_output_voltage: "VOUT >= 1.2 V"
+  target_peak_pce: "PCE >= 5%"
+  maximum_die_area: "0.25 mm^2"
+  layout_dimensions: "287 um x 291 um"
+  estimated_layout_area: "Approximately 0.0835 mm^2"
+
+# ======================================================
+# Project objective
+# ======================================================
+
+objective:
+  description: "Design and verify an injection-assisted, fully differential RF energy harvester implemented in GF180MCU-D."
+  requirements:
+    - "Operate across the primary 30-60 MHz frequency band."
+    - "Generate a harvested DC output voltage from differential RF inputs."
+    - "Achieve VOUT >= 1.2 V at the intended operating point."
+    - "Achieve a peak power-conversion efficiency of at least 5%."
+    - "Fit within a maximum die area of 0.25 mm^2."
+    - "Preserve the intended behavior after layout extraction."
+    - "Provide reproducible schematic, layout, extraction, and verification artifacts."
+
+# ======================================================
+# Architecture summary
+# ======================================================
+
+architecture:
+  type: "Injection-assisted differential RF energy harvester"
+  signal_chain:
+    - "Off-chip matching network"
+    - "Injection-assisted startup-bias circuit"
+    - "Differential cross-coupled CMOS rectifier"
+    - "Three-stage Dickson charge pump"
+    - "On-chip storage capacitor"
+    - "External application load"
+
+  implementation:
+    rectifier: "Differential cross-coupled CMOS rectifier"
+    startup_bias: "Two-leg injection-assisted startup-bias circuit"
+    charge_pump: "Three-stage Dickson charge pump"
+    storage: "On-chip MIM storage capacitor"
+    load: "External application load or MOS-diode characterization load"
+
+# ======================================================
+# Design implementation summary
+# ======================================================
+
+summary:
+  technology: "GF180MCU-D, 3.3 V devices"
+  die_size: "287 um x 291 um"
+  die_area: "Approximately 0.0835 mm^2"
+  aspect_ratio: "Approximately 0.99"
+  architecture: "Cross-coupled rectifier, two-leg startup bias, three-stage Dickson charge pump, and output storage capacitor"
+  transistors_main_and_dummy: 39
+  mim_capacitors: "Two 0.4 pF injection capacitors, two 1.2 pF stage capacitors, and one 22.0 pF storage capacitor"
+  mim_stack: "M2-M3"
+  mim_density: "Approximately 1 fF/um^2"
+  rf_input: "Differential RFP and RFN inputs"
+  frequency_range_tested: "20-120 MHz"
+  primary_frequency_band: "30-60 MHz"
+  nominal_frequency: "30 MHz"
+  input_impedance_30mhz_large_signal: "Approximately 2253 - j64 ohm differential"
+  matching_network_off_chip: "10.6 pF shunt capacitance and 1245 nH series inductance per side for a 100-ohm differential source"
+  vout_0dbm_30mhz: "Approximately 0.32 V unmatched and 2.02 V matched"
+  vout_8dbm: "Approximately 1.97 V unmatched and 3.64 V matched"
+  sensitivity_vout_above_1v: "Approximately +3.5 dBm unmatched and -7.3 dBm matched"
+  startup_transient: "VRECT approximately 0.81 V and VOUT approximately 1.62 V in less than 5 us with a 0.9 V drive"
+  power_routing: "2 um metal-4 power rails with a metal-5 VSS trunk"
+  power_vias: "1 x 3-cut via arrays on power taps"
+
+# ======================================================
+# Pin information
+# ======================================================
+
+pins:
+  digital_pin_count: 0
+  analog_signal_count: 3
+  assignments:
+    - name: "RFP"
+      alias: "VIN+"
+      type: "Analog input"
+      description: "Positive differential RF input"
+
+    - name: "RFN"
+      alias: "VIN-"
+      type: "Analog input"
+      description: "Negative differential RF input"
+
+    - name: "VOUT"
+      type: "Analog output"
+      description: "Harvested DC output"
+
+    - name: "VCC"
+      type: "Power"
+      description: "3.3 V supply for the injection-assisted startup circuit"
+
+    - name: "VSS"
+      alias: "GND"
+      type: "Ground rail"
+      description: "Ground connection supplied through the pad-ring ground rail"
+
+# ======================================================
+# Design run summary
+# ======================================================
+
+design_run:
+  stage_1: "Schematic generation and testbench preparation using Xschem"
+  blocks:
+    - "Matching circuit schematic and testbench"
+    - "Rectifier circuit schematic and testbench"
+    - "Dickson charge-pump schematic and testbench"
+    - "Startup-bias schematic and testbench"
+    - "RF energy-harvester top-level schematic and testbench"
+
+  stage_2: "Layout generation"
+  layout_status: "Initial hierarchical GDS generated"
+
+  stage_3: "Layout extraction and post-layout verification"
+  extraction_status: "PEX netlist generated"
+  post_layout_status: "Post-layout verification in progress or completed according to the submitted report"
+
+# ======================================================
+# Verification and sign-off summary
+# ======================================================
+
+verification:
+  checks:
+    - "Schematic simulation"
+    - "Layout generation"
+    - "Layout extraction"
+    - "Post-layout simulation"
+    - "Frequency-range evaluation"
+    - "PCE optimization"
+    - "LVS submission configuration"
+
+  sign_off_blocks:
+    - "RECTIFIER"
+    - "STARTUP_BIAS"
+    - "PUMP_LADDER"
+    - "LOAD_DIODE"
+    - "RFEH_FULL"
+    - "RFEH"
+    - "PEX_PARAMS"
+    - "CAP_WIRING"
+
+# ======================================================
+# Submission files
+# ======================================================
+
+submission:
+  branch: "main"
+  lvs_configuration: "lvs_config.json"
+  layout_file: "report/D5_Gelochip_IRIS.gds"
+  extracted_netlist: "report/RFEH_pex.spice"
+
+# ======================================================
+# Lineage and attribution
+# ======================================================
+
+lineage:
+  original_source: "https://github.com/adeirman46/Gelochip"
+  ai_layouter_reference: "https://github.com/adeirman46/AnoaChip"
+  ai_schematic_reference: "https://github.com/adeirman46/PandaChip"
