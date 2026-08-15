@@ -1,6 +1,4 @@
 {
-  "_comment_info_yaml_link": "Linked from ./info.yaml through project.lvs_config using the relative path lvs_config.json",
-
   "STD_CELL_LIBRARY": "gf180mcu_fd_sc_mcu7t5v0",
 
   "INCLUDE_CONFIGS": [
@@ -18,7 +16,6 @@
   "LVS_IGNORE": [],
 
   "LVS_SPICE_FILES": [],
-
   "LVS_VERILOG_FILES": [],
 
   "LAYOUT_FILE": "$UPRJ_ROOT/report/D5_Gelochip_IRIS.gds"
