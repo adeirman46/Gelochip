@@ -37,22 +37,19 @@ team:
   track: "D"
   team_id: "D05"
   team_name: "Gelochip"
+
   members:
     - name: "William Anthony"
       discord: "icdesignboi"
-      role: "Team Lead, Digital IC Design, and AI Architecture"
 
     - name: "Ade Irman Budi Hendriawan"
       discord: "adeirman"
-      role: "Analog IC Design, Layout Automation, and AI"
-
+      
     - name: "Radhian Ferel Armansyah"
       discord: "radhian"
-      role: "Analog IC Design, Digital IC Design, and Agentic AI"
-
+      
     - name: "Benedictus Kenneth Setiadi"
       discord: "bkenneth"
-      role: "Analog Layout, Verification, and Research"
 
 # ======================================================
 # Tapeout project
@@ -79,6 +76,7 @@ tapeout:
 
 objective:
   description: "Design and verify an injection-assisted, fully differential RF energy harvester implemented in GF180MCU-D."
+
   requirements:
     - "Operate across the primary 30-60 MHz frequency band."
     - "Generate a harvested DC output voltage from differential RF inputs."
@@ -94,6 +92,7 @@ objective:
 
 architecture:
   type: "Injection-assisted differential RF energy harvester"
+
   signal_chain:
     - "Off-chip matching network"
     - "Injection-assisted startup-bias circuit"
@@ -143,6 +142,7 @@ summary:
 pins:
   digital_pin_count: 0
   analog_signal_count: 3
+
   assignments:
     - name: "RFP"
       alias: "VIN+"
@@ -168,11 +168,34 @@ pins:
       description: "Ground connection supplied through the pad-ring ground rail"
 
 # ======================================================
+# Verified LVS interface
+# ======================================================
+
+lvs_interface:
+  top_source: "RFEH"
+  top_layout: "RFEH"
+  net_count: 9
+
+  pins:
+    - "VSS"
+    - "N1"
+    - "N2"
+    - "VOUT"
+    - "VMID1"
+    - "VMID2"
+    - "RFP"
+    - "RFN"
+    - "VRECT"
+
+  note: "The extracted RFEH cell interface contains nine pins. This internal LVS interface is distinct from the external pad-ring pin classification."
+
+# ======================================================
 # Design run summary
 # ======================================================
 
 design_run:
   stage_1: "Schematic generation and testbench preparation using Xschem"
+
   blocks:
     - "Matching circuit schematic and testbench"
     - "Rectifier circuit schematic and testbench"
@@ -181,27 +204,48 @@ design_run:
     - "RF energy-harvester top-level schematic and testbench"
 
   stage_2: "Layout generation"
-  layout_status: "Initial hierarchical GDS generated"
+  layout_status: "Hierarchical GDS generated"
 
   stage_3: "Layout extraction and post-layout verification"
   extraction_status: "PEX netlist generated"
-  post_layout_status: "Post-layout verification in progress or completed according to the submitted report"
+  post_layout_status: "Post-layout results are available in the submitted project materials"
 
 # ======================================================
 # Verification and sign-off summary
 # ======================================================
 
 verification:
+  drc:
+    status: "PASS"
+    result: "No DRC errors found in the reported Magic DRC run"
+
+  lvs:
+    status: "MATCH"
+    result: "Circuits match uniquely"
+    top_source: "RFEH"
+    top_layout: "RFEH"
+    pin_lists_equivalent: true
+    device_classes_equivalent: true
+    source_net_count: 9
+    layout_net_count: 9
+    reduced_source_device_count: 14
+    reduced_layout_device_count: 14
+    extraction_warning_count: 16
+    primitive_model_note: "The Netgen run treated the nfet_03v3 and pfet_03v3 placeholder cells as black boxes."
+    qualification: "The top-level RFEH circuits match uniquely after series and parallel device merging. The extraction warnings and primitive placeholder messages should be reviewed separately."
+
   checks:
     - "Schematic simulation"
     - "Layout generation"
+    - "DRC verification"
     - "Layout extraction"
+    - "LVS verification"
     - "Post-layout simulation"
     - "Frequency-range evaluation"
     - "PCE optimization"
     - "LVS submission configuration"
 
-  sign_off_blocks:
+  design_blocks:
     - "RECTIFIER"
     - "STARTUP_BIAS"
     - "PUMP_LADDER"
