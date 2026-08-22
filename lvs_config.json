@@ -15,7 +15,10 @@
   "LVS_NOFLATTEN": [],
   "LVS_IGNORE": [],
 
-  "LVS_SPICE_FILES": [],
+  "LVS_SPICE_FILES": [
+    "report/rf_harvester_signoff_out/RFEH_source.spice"
+  ],
+
   "LVS_VERILOG_FILES": [],
 
   "LAYOUT_FILE": "$UPRJ_ROOT/report/rf_harvester_signoff_out/harvester_top_full.gds"
