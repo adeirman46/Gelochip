@@ -6,7 +6,7 @@
   ],
 
   "TOP_SOURCE": "RFEH",
-  "TOP_LAYOUT": "RFEH",
+  "TOP_LAYOUT": "RFEH_FULL",
 
   "EXTRACT_FLATGLOB": [],
   "EXTRACT_ABSTRACT": [],
@@ -18,5 +18,5 @@
   "LVS_SPICE_FILES": [],
   "LVS_VERILOG_FILES": [],
 
-  "LAYOUT_FILE": "$UPRJ_ROOT/report/D5_Gelochip_IRIS.gds"
+  "LAYOUT_FILE": "$UPRJ_ROOT/report/rf_harvester_signoff_out/harvester_top_full.gds"
 }
