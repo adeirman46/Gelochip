@@ -5,21 +5,18 @@
 # ----- ------ ----- ----- ------ ----- ----- ------ -----
 
 # Data will be pulled from the main branch of the repository.
-# Please ensure that the main branch contains the data intended
-# for submission.
+# Please ensure that the main branch contains the final data
+# intended for submission.
 #
-# This file may be updated with additional information later.
-
-# NOTE:
 # The LVS configuration file is located at:
 #
 #   ./lvs_config.json
 #
 # The project.lvs_config property below uses a path relative
-# to the repository root, as required by the submission checks.
+# to the repository root.
 
 # ======================================================
-# Project metadata (used for documentation and review)
+# Project metadata and requested pad interface
 # ======================================================
 
 project:
@@ -28,6 +25,30 @@ project:
   discord: "icdesignboi, adeirman, radhian, bkenneth"
   description: "Gelochip is an agentic-AI platform for generating RF and analog integrated circuits from plain-English specifications to verified and reproducible GF180MCU layouts."
   lvs_config: "lvs_config.json"
+
+  # Dedicated pad requests.
+  #
+  # VSS/GND is not included in this list because the design
+  # ground will be connected through the common ground rail
+  # supplied by the pad ring.
+  #
+  # Total dedicated pads: 4
+  # - Power: 1
+  # - Analog: 3
+  # - Digital: 0
+
+  pins:
+    - name: "VCC"
+      io_type: "power"
+
+    - name: "RFP"
+      io_type: "analog"
+
+    - name: "RFN"
+      io_type: "analog"
+
+    - name: "VOUT"
+      io_type: "analog"
 
 # ======================================================
 # Team information
@@ -44,10 +65,10 @@ team:
 
     - name: "Ade Irman Budi Hendriawan"
       discord: "adeirman"
-      
+
     - name: "Radhian Ferel Armansyah"
       discord: "radhian"
-      
+
     - name: "Benedictus Kenneth Setiadi"
       discord: "bkenneth"
 
@@ -136,47 +157,65 @@ summary:
   power_vias: "1 x 3-cut via arrays on power taps"
 
 # ======================================================
-# Pin information
+# External pad interface
 # ======================================================
 
-pins:
-  digital_pin_count: 0
-  analog_signal_count: 3
+external_interface:
+  dedicated_pad_count: 4
+  dedicated_power_pad_count: 1
+  dedicated_analog_pad_count: 3
+  dedicated_digital_pad_count: 0
+  dedicated_ground_pad_count: 0
 
   assignments:
+    - name: "VCC"
+      classification: "Power"
+      pad_required: true
+      description: "Proposed 3.3 V external supply for the injection-assisted startup circuit."
+
     - name: "RFP"
       alias: "VIN+"
-      type: "Analog input"
-      description: "Positive differential RF input"
+      classification: "Analog input"
+      pad_required: true
+      description: "Positive differential RF analog input."
 
     - name: "RFN"
       alias: "VIN-"
-      type: "Analog input"
-      description: "Negative differential RF input"
+      classification: "Analog input"
+      pad_required: true
+      description: "Negative differential RF analog input."
 
     - name: "VOUT"
-      type: "Analog output"
-      description: "Harvested DC output"
-
-    - name: "VCC"
-      type: "Power"
-      description: "3.3 V supply for the injection-assisted startup circuit"
+      classification: "Analog output"
+      pad_required: true
+      description: "Harvested DC analog output."
 
     - name: "VSS"
       alias: "GND"
-      type: "Ground rail"
-      description: "Ground connection supplied through the pad-ring ground rail"
+      classification: "Common ground rail"
+      pad_required: false
+      description: "Electrical ground connection supplied through the common ground rail in the pad ring."
+
+  ground_connection:
+    net: "VSS"
+    alias: "GND"
+    dedicated_pad_required: false
+    connection_method: "Pad-ring common ground rail"
+
+  note: "VSS/GND remains part of the electrical interface but is not requested as a dedicated pad because ground is supplied through the common ground rail in the pad ring."
 
 # ======================================================
-# Verified LVS interface
+# LVS and GDS hierarchy
 # ======================================================
 
 lvs_interface:
   top_source: "RFEH"
-  top_layout: "RFEH"
+  top_layout: "RFEH_FULL"
+  gds_top_cell: "RFEH_FULL"
+  extracted_circuit: "RFEH"
   net_count: 9
 
-  pins:
+  current_extracted_pins:
     - "VSS"
     - "N1"
     - "N2"
@@ -187,7 +226,57 @@ lvs_interface:
     - "RFN"
     - "VRECT"
 
-  note: "The extracted RFEH cell interface contains nine pins. This internal LVS interface is distinct from the external pad-ring pin classification."
+  external_signal_pins_present:
+    - "RFP"
+    - "RFN"
+    - "VOUT"
+
+  common_ground_net:
+    - "VSS"
+
+  internal_or_intermediate_nets:
+    - "N1"
+    - "N2"
+    - "VMID1"
+    - "VMID2"
+    - "VRECT"
+
+  proposed_external_power_pin:
+    - "VCC"
+
+  note: "The GDS top cell is RFEH_FULL, while the extracted and source LVS circuit is named RFEH. The current extracted RFEH interface contains nine terminals. RFP, RFN, and VOUT are external analog signals, while VSS connects through the pad-ring common ground rail. N1, N2, VMID1, VMID2, and VRECT represent internal or intermediate circuit nodes unless explicitly required for testing."
+
+  vcc_qualification: "VCC is listed as the proposed external 3.3 V power pad. VCC must be present consistently in the final schematic, physical layout, GDS label set, source netlist, extracted netlist, and LVS interface before final integration."
+
+# ======================================================
+# Layout integration information
+# ======================================================
+
+layout_integration:
+  layout_file: "report/rf_harvester_signoff_out/harvester_top_full.gds"
+  gds_top_cell: "RFEH_FULL"
+  source_top: "RFEH"
+  extracted_lvs_cell: "RFEH"
+
+  allocated_track: "D"
+  candidate_block: "D"
+  candidate_block_dimensions: "Approximately 550 um x 550 um"
+  reported_layout_dimensions: "287 um x 291 um"
+  reported_layout_area: "Approximately 0.0835 mm^2"
+  fits_reported_block_dimensions: true
+
+  requested_dedicated_pads:
+    - "VCC"
+    - "RFP"
+    - "RFN"
+    - "VOUT"
+
+  common_ground_connection:
+    net: "VSS"
+    dedicated_pad_required: false
+    connection_method: "Pad-ring common ground rail"
+
+  integration_note: "The reported 287 um x 291 um layout dimensions are smaller than the approximately 550 um x 550 um Track-D block dimensions. The final GDS bounding box, placement halo, accessible pin geometry, and top-level routing margin should still be checked by the integration flow."
 
 # ======================================================
 # Design run summary
@@ -204,11 +293,14 @@ design_run:
     - "RF energy-harvester top-level schematic and testbench"
 
   stage_2: "Layout generation"
-  layout_status: "Hierarchical GDS generated"
+  layout_status: "Hierarchical top-level GDS generated."
+  layout_file: "report/rf_harvester_signoff_out/harvester_top_full.gds"
+  gds_top_cell: "RFEH_FULL"
 
   stage_3: "Layout extraction and post-layout verification"
-  extraction_status: "PEX netlist generated"
-  post_layout_status: "Post-layout results are available in the submitted project materials"
+  extraction_status: "PEX netlist generated."
+  extracted_circuit: "RFEH"
+  post_layout_status: "Post-layout results are available in the submitted sign-off artifacts."
 
 # ======================================================
 # Verification and sign-off summary
@@ -217,26 +309,35 @@ design_run:
 verification:
   drc:
     status: "PASS"
-    result: "No DRC errors found in the reported Magic DRC run"
+    checked_gds_cell: "RFEH_FULL"
+    result: "No DRC errors found in the reported Magic DRC run."
+    reported_message: "No errors found."
+    report_file: "report/rf_harvester_signoff_out/RFEH_FULL_drc.log"
 
   lvs:
     status: "MATCH"
-    result: "Circuits match uniquely"
+    result: "Circuits match uniquely."
     top_source: "RFEH"
-    top_layout: "RFEH"
+    top_layout: "RFEH_FULL"
+    extracted_layout_circuit: "RFEH"
     pin_lists_equivalent: true
     device_classes_equivalent: true
     source_net_count: 9
     layout_net_count: 9
     reduced_source_device_count: 14
     reduced_layout_device_count: 14
-    extraction_warning_count: 16
-    primitive_model_note: "The Netgen run treated the nfet_03v3 and pfet_03v3 placeholder cells as black boxes."
-    qualification: "The top-level RFEH circuits match uniquely after series and parallel device merging. The extraction warnings and primitive placeholder messages should be reviewed separately."
+    report_file: "report/rf_harvester_signoff_out/RFEH_lvs.log"
+
+    primitive_model_note: "The Netgen run treated the nfet_03v3 and pfet_03v3 placeholder cells as black boxes. Their four-pin interfaces and device classes were reported as equivalent on both sides."
+
+    hierarchy_note: "Netgen flattened unmatched hierarchical subcells before completing the top-level comparison."
+
+    qualification: "The current RFEH source and extracted layout circuits match uniquely after hierarchy flattening and series or parallel device merging. The LVS result applies to the currently extracted nine-terminal RFEH interface."
 
   checks:
     - "Schematic simulation"
     - "Layout generation"
+    - "Top-level GDS generation"
     - "DRC verification"
     - "Layout extraction"
     - "LVS verification"
@@ -244,12 +345,15 @@ verification:
     - "Frequency-range evaluation"
     - "PCE optimization"
     - "LVS submission configuration"
+    - "Pad-interface consistency review"
+    - "Common-ground integration review"
 
   design_blocks:
     - "RECTIFIER"
     - "STARTUP_BIAS"
     - "PUMP_LADDER"
     - "LOAD_DIODE"
+    - "STAGE_CAP_BANK"
     - "RFEH_FULL"
     - "RFEH"
     - "PEX_PARAMS"
@@ -261,9 +365,42 @@ verification:
 
 submission:
   branch: "main"
+  project_information: "info.yaml"
   lvs_configuration: "lvs_config.json"
-  layout_file: "report/D5_Gelochip_IRIS.gds"
-  extracted_netlist: "report/RFEH_pex.spice"
+
+  layout_file: "report/rf_harvester_signoff_out/harvester_top_full.gds"
+  extracted_netlist: "report/rf_harvester_signoff_out/RFEH_pex.spice"
+
+  supporting_layout_copy: "report/D5_Gelochip_IRIS.gds"
+  supporting_extracted_netlist_copy: "report/RFEH_pex.spice"
+  signoff_directory: "report/rf_harvester_signoff_out"
+
+  expected_gds_top_cell: "RFEH_FULL"
+  expected_source_top: "RFEH"
+  expected_extracted_circuit: "RFEH"
+
+# ======================================================
+# Sign-off artifacts
+# ======================================================
+
+signoff_artifacts:
+  notebook: "report/rf_harvester_signoff_out/GLayout_RF_EnergyHarvester_Signoff.ipynb"
+
+  top_level:
+    gds: "report/rf_harvester_signoff_out/harvester_top_full.gds"
+    preview_png: "report/rf_harvester_signoff_out/harvester_top_full.png"
+    preview_svg: "report/rf_harvester_signoff_out/harvester_top_full.svg"
+    drc_report: "report/rf_harvester_signoff_out/RFEH_FULL_drc.log"
+    lvs_report: "report/rf_harvester_signoff_out/RFEH_lvs.log"
+    extracted_netlist: "report/rf_harvester_signoff_out/RFEH_pex.spice"
+
+  block_layouts:
+    - "report/rf_harvester_signoff_out/rectifier.gds"
+    - "report/rf_harvester_signoff_out/startup_bias.gds"
+    - "report/rf_harvester_signoff_out/pump_ladder.gds"
+    - "report/rf_harvester_signoff_out/load_diode.gds"
+    - "report/rf_harvester_signoff_out/stage_cap_bank.gds"
+    - "report/rf_harvester_signoff_out/unit_diode.gds"
 
 # ======================================================
 # Lineage and attribution
