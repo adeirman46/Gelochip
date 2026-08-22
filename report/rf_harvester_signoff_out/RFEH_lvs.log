@@ -1,0 +1,223 @@
+using user specified pdk_root, will search for required files in the specified directory
+
+Magic 8.3 revision 644 - Compiled on Sun May 17 10:32:25 PM WIB 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology gf180mcuD ...
+10 Magic internal units = 1 Lambda
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 m5hole obsm5 fillm5 glass fillblock lvstext obscomment 
+Scaled tech values by 10 / 1 to match internal grid scaling
+Loading gf180mcuD Device Generator Menu ...
+Using technology "gf180mcuD", version 1.0.493-0-g0fe599b
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: library
+Reading "RFEH".
+Extracting RFEH into RFEH.ext:
+Processing RFEH
+RFEH: 16 warnings
+exttospice finished.
+
+Running netgen command: bash /home/irman/gLayout/.venv/bin/netgen -batch lvs "/tmp/tmpxfi5mfei/RFEH_lvsmag.spice RFEH" "/tmp/tmpxfi5mfei/RFEH.spice RFEH" /home/irman/pdks/volare/gf180mcu/versions/0fe599b2afb6708d281543108caf8310912f54af/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl /tmp/tmpxfi5mfei/RFEH_lvs.rpt
+Netgen 1.5.272 compiled on Mon May 18 06:54:31 AM WIB 2026
+Warning: netgen command 'format' use fully-qualified name '::netgen::format'
+Warning: netgen command 'global' use fully-qualified name '::netgen::global'
+Reading netlist file /tmp/tmpxfi5mfei/RFEH_lvsmag.spice
+Call to undefined subcircuit pfet_03v3
+Creating placeholder cell definition.
+Call to undefined subcircuit nfet_03v3
+Creating placeholder cell definition.
+Reading netlist file /tmp/tmpxfi5mfei/RFEH.spice
+Call to undefined subcircuit pmos_3p3
+Creating placeholder cell definition.
+Call to undefined subcircuit nmos_3p3
+Creating placeholder cell definition.
+Call to undefined subcircuit pfet_03v3
+Creating placeholder cell definition.
+Call to undefined subcircuit nfet_03v3
+Creating placeholder cell definition.
+Duplicate cell two_trans_interdigitized_1 in file
+Renaming original cell to two_trans_interdigitized_1[[0]]
+
+Reading setup file /home/irman/pdks/volare/gf180mcu/versions/0fe599b2afb6708d281543108caf8310912f54af/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
+
+No property area found for device c
+Model nfet_03v3 pin 1 == 3
+No property par1 found for device nfet_03v3
+No property NRD found for device nfet_03v3
+No property NRS found for device nfet_03v3
+No property par found for device nfet_03v3
+No property sa found for device nfet_03v3
+No property sb found for device nfet_03v3
+No property sd found for device nfet_03v3
+No property par found for device nfet_03v3
+No property dtemp found for device nfet_03v3
+No property nf found for device nfet_03v3
+Model nfet_03v3 pin 1 == 3
+No property par1 found for device nfet_03v3
+No property NRD found for device nfet_03v3
+No property NRS found for device nfet_03v3
+No property par found for device nfet_03v3
+No property sa found for device nfet_03v3
+No property sb found for device nfet_03v3
+No property sd found for device nfet_03v3
+No property par found for device nfet_03v3
+No property dtemp found for device nfet_03v3
+No property nf found for device nfet_03v3
+No property as found for device nfet_03v3
+No property ad found for device nfet_03v3
+No property ps found for device nfet_03v3
+No property pd found for device nfet_03v3
+Model pfet_03v3 pin 1 == 3
+No property par1 found for device pfet_03v3
+No property NRD found for device pfet_03v3
+No property NRS found for device pfet_03v3
+No property par found for device pfet_03v3
+No property sa found for device pfet_03v3
+No property sb found for device pfet_03v3
+No property sd found for device pfet_03v3
+No property par found for device pfet_03v3
+No property dtemp found for device pfet_03v3
+No property nf found for device pfet_03v3
+Model pfet_03v3 pin 1 == 3
+No property par1 found for device pfet_03v3
+No property NRD found for device pfet_03v3
+No property NRS found for device pfet_03v3
+No property par found for device pfet_03v3
+No property sa found for device pfet_03v3
+No property sb found for device pfet_03v3
+No property sd found for device pfet_03v3
+No property par found for device pfet_03v3
+No property dtemp found for device pfet_03v3
+No property nf found for device pfet_03v3
+No property as found for device pfet_03v3
+No property ad found for device pfet_03v3
+No property ps found for device pfet_03v3
+No property pd found for device pfet_03v3
+Comparison output logged to file /tmp/tmpxfi5mfei/RFEH_lvs.rpt
+Logging to file "/tmp/tmpxfi5mfei/RFEH_lvs.rpt" enabled
+Circuit nfet_03v3 contains no devices.
+Circuit pfet_03v3 contains no devices.
+
+Contents of circuit 1:  Circuit: 'RFEH'
+Circuit RFEH contains 39 device instances.
+  Class: nfet_03v3             instances:  27
+  Class: pfet_03v3             instances:  12
+Circuit contains 9 nets.
+Contents of circuit 2:  Circuit: 'RFEH'
+Circuit RFEH contains 27 device instances.
+  Class: nfet_03v3             instances:  21
+  Class: pfet_03v3             instances:   6
+Circuit contains 9 nets.
+
+Circuit was modified by parallel/series device merging.
+New circuit summary:
+
+Contents of circuit 1:  Circuit: 'RFEH'
+Circuit RFEH contains 14 device instances.
+  Class: nfet_03v3             instances:   9
+  Class: pfet_03v3             instances:   5
+Circuit contains 9 nets.
+Contents of circuit 2:  Circuit: 'RFEH'
+Circuit RFEH contains 14 device instances.
+  Class: nfet_03v3             instances:   9
+  Class: pfet_03v3             instances:   5
+Circuit contains 9 nets.
+
+Circuit 1 contains 14 devices, Circuit 2 contains 14 devices.
+Circuit 1 contains 9 nets,    Circuit 2 contains 9 nets.
+
+No more changes can be made to series/parallel networks.
+No more changes can be made to series/parallel networks.
+
+Final result: 
+Circuits match uniquely.
+.
+Logging to file "/tmp/tmpxfi5mfei/RFEH_lvs.rpt" disabled
+LVS Done.
+
+
+Circuit 1 cell nfet_03v3 and Circuit 2 cell nfet_03v3 are black boxes.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: nfet_03v3                       |Circuit 2: nfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_03v3 and nfet_03v3 are equivalent.
+
+Circuit 1 cell pfet_03v3 and Circuit 2 cell pfet_03v3 are black boxes.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: pfet_03v3                       |Circuit 2: pfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_03v3 and pfet_03v3 are equivalent.
+Flattening unmatched subcell RECTIFIER in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized_1[[0]] in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell STARTUP_BIAS in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized_1 in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized_1_1 in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell PUMP_LADDER in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell NDIODE in circuit RFEH (1)(3 instances)
+Flattening unmatched subcell NMOS in circuit RFEH (1)(3 instances)
+Flattening unmatched subcell LOAD_DIODE in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell NDIODE_1 in circuit RFEH (1)(1 instance)
+Flattening unmatched subcell NMOS_1 in circuit RFEH (1)(1 instance)
+
+Class RFEH (0):  Merged 25 parallel devices.
+Class RFEH (1):  Merged 13 parallel devices.
+Subcircuit summary:
+Circuit 1: RFEH                            |Circuit 2: RFEH                            
+-------------------------------------------|-------------------------------------------
+pfet_03v3 (12->5)                          |pfet_03v3 (12->5)                          
+nfet_03v3 (27->9)                          |nfet_03v3 (27->9)                          
+Number of devices: 14                      |Number of devices: 14                      
+Number of nets: 9                          |Number of nets: 9                          
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: RFEH                            |Circuit 2: RFEH                            
+-------------------------------------------|-------------------------------------------
+VSS                                        |VSS                                        
+N1                                         |N1                                         
+N2                                         |N2                                         
+VOUT                                       |VOUT                                       
+VMID1                                      |VMID1                                      
+VMID2                                      |VMID2                                      
+RFP                                        |RFP                                        
+RFN                                        |RFN                                        
+VRECT                                      |VRECT                                      
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes RFEH and RFEH are equivalent.
+
+Final result: Circuits match uniquely.
+.
+

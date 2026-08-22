@@ -1,0 +1,50 @@
+* NGSPICE file created from RFEHCONN.ext - technology: gf180mcuD
+
+.subckt RFEHCONN VRECT VSS N1 N2
+X0 VSS VSS VSS VSS nfet_03v3 ad=0.58p pd=3.16u as=71.75999p ps=0.25284m w=1u l=10u
+X1 VSS VSS VSS VSS nfet_03v3 ad=2.92p pd=9.46u as=0 ps=0 w=4u l=0.28u
+X2 VRECT N1 N2 VRECT pfet_03v3 ad=3.75p pd=11.5u as=3.75p ps=11.5u w=5u l=0.28u
+X3 VRECT VRECT VRECT VRECT pfet_03v3 ad=3.65p pd=11.46u as=48.48p ps=0.16528m w=5u l=0.28u
+X4 VSS VSS VSS VSS nfet_03v3 ad=2.92p pd=9.46u as=0 ps=0 w=4u l=0.28u
+X5 N1 N1 VRECT VRECT pfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X6 VSS N2 N2 VSS nfet_03v3 ad=3p pd=9.5u as=1.72p ps=4.86u w=4u l=0.28u
+X7 VRECT VRECT VRECT VRECT pfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X8 N2 N2 VSS VSS nfet_03v3 ad=1.72p pd=4.86u as=3p ps=9.5u w=4u l=0.28u
+X9 VSS VSS VSS VSS nfet_03v3 ad=0.6p pd=3.2u as=0 ps=0 w=1u l=10u
+X10 VSS N2 N1 VSS nfet_03v3 ad=2.25p pd=7.5u as=2.25p ps=7.5u w=3u l=0.28u
+X11 VSS VSS VSS VSS nfet_03v3 ad=1.16p pd=5.16u as=0 ps=0 w=2u l=1u
+X12 N1 VRECT VRECT VSS nfet_03v3 ad=3p pd=9.5u as=1.72p ps=4.86u w=4u l=0.28u
+X13 N1 N1 N2 VSS nfet_03v3 ad=1.72p pd=4.86u as=3p ps=9.5u w=4u l=0.28u
+X14 N2 N2 VRECT VRECT pfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X15 VSS VSS VSS VSS nfet_03v3 ad=1.16p pd=5.16u as=0 ps=0 w=2u l=1u
+X16 VRECT VRECT VRECT VRECT pfet_03v3 ad=3.65p pd=11.46u as=0 ps=0 w=5u l=0.28u
+X17 VRECT N1 N2 VRECT pfet_03v3 ad=3.75p pd=11.5u as=3.75p ps=11.5u w=5u l=0.28u
+X18 VSS VSS VSS VSS nfet_03v3 ad=2.19p pd=7.46u as=0 ps=0 w=3u l=0.28u
+X19 N1 N1 VSS VSS nfet_03v3 ad=1.2p pd=5.2u as=1.2p ps=5.2u w=2u l=1u
+X20 VRECT VRECT VRECT VRECT pfet_03v3 ad=2.32p pd=9.16u as=0 ps=0 w=4u l=1u
+X21 VSS VSS VSS VSS nfet_03v3 ad=0.58p pd=3.16u as=0 ps=0 w=1u l=10u
+X22 VSS N1 N2 VSS nfet_03v3 ad=2.25p pd=7.5u as=2.25p ps=7.5u w=3u l=0.28u
+X23 N2 N2 VRECT VRECT pfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X24 VRECT VRECT N1 VSS nfet_03v3 ad=1.72p pd=4.86u as=3p ps=9.5u w=4u l=0.28u
+X25 N1 N1 VSS VSS nfet_03v3 ad=1.2p pd=5.2u as=1.2p ps=5.2u w=2u l=1u
+X26 VSS VSS VSS VSS nfet_03v3 ad=2.92p pd=9.46u as=0 ps=0 w=4u l=0.28u
+X27 VSS VSS VSS VSS nfet_03v3 ad=2.92p pd=9.46u as=0 ps=0 w=4u l=0.28u
+X28 VSS VSS VSS VSS nfet_03v3 ad=2.92p pd=9.46u as=0 ps=0 w=4u l=0.28u
+X29 N1 N1 VRECT VRECT pfet_03v3 ad=2.4p pd=9.2u as=2.4p ps=9.2u w=4u l=1u
+X30 VSS N1 N2 VSS nfet_03v3 ad=2.25p pd=7.5u as=2.25p ps=7.5u w=3u l=0.28u
+X31 VSS VSS VSS VSS nfet_03v3 ad=2.92p pd=9.46u as=0 ps=0 w=4u l=0.28u
+X32 VSS N2 N1 VSS nfet_03v3 ad=2.25p pd=7.5u as=2.25p ps=7.5u w=3u l=0.28u
+X33 VRECT N2 N1 VRECT pfet_03v3 ad=3.75p pd=11.5u as=3.75p ps=11.5u w=5u l=0.28u
+X34 N2 N2 VSS VSS nfet_03v3 ad=1.2p pd=5.2u as=1.2p ps=5.2u w=2u l=1u
+X35 VSS VSS VSS VSS nfet_03v3 ad=2.19p pd=7.46u as=0 ps=0 w=3u l=0.28u
+X36 N2 N2 VSS VSS nfet_03v3 ad=1.2p pd=5.2u as=1.2p ps=5.2u w=2u l=1u
+X37 N2 N1 N1 VSS nfet_03v3 ad=3p pd=9.5u as=1.72p ps=4.86u w=4u l=0.28u
+X38 VRECT N2 N1 VRECT pfet_03v3 ad=3.75p pd=11.5u as=3.75p ps=11.5u w=5u l=0.28u
+C0 N2 VRECT 17.5278f
+C1 N2 N1 28.4692f
+C2 N1 VRECT 18.6245f
+C3 N2 VSS 88.84139f
+C4 N1 VSS 96.2269f
+C5 VRECT VSS 76.9261f
+.ends
+
