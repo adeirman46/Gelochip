@@ -46,3 +46,5 @@ pins:
     io_type: analog
   - name: VSS
     io_type: ground # note: due to a common ground connection, ground pads are generally not needed.
+
+# die_size: "287 um x 291 um"
