@@ -14,18 +14,9 @@
 #
 # The project.lvs_config property below uses a path relative
 # to the repository root.
-# ----- ------ ----- ----- ------ ----- ----- ------ -----
-# Chipathon 2026: Project configuration
-# LICENSE: Apache License Version 2.0
-# http://www.apache.org/licenses/
-# ----- ------ ----- ----- ------ ----- ----- ------ -----
-
-# data will be pulled from main branch of the repo.
-# please be sure that the main branch contains the data you want to submit.
-# This file will be updated with more information later
 
 # ======================================================
-# Project metadata (used for documentation / review)
+# Project metadata
 # ======================================================
 
 project:
@@ -35,16 +26,27 @@ project:
   description: "Gelochip is an agentic-AI platform for generating RF and analog integrated circuits from plain-English specifications to verified and reproducible GF180MCU layouts."
   lvs_config: "lvs_config.json"
 
+# ======================================================
+# Externally connected I/O pads
+# ======================================================
+
 pins:
   - name: VCC
     io_type: power
+    
   - name: RFP
     io_type: analog
+    secondary_esd: false
+    
   - name: RFN
     io_type: analog
+    secondary_esd: false
+    
   - name: VOUT
     io_type: analog
+    secondary_esd: false
+    
   - name: VSS
-    io_type: ground # note: due to a common ground connection, ground pads are generally not needed.
+    io_type: ground
 
 # die_size: "287 um x 291 um"
