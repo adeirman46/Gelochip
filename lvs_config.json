@@ -4,7 +4,7 @@
     "$LVS_ROOT/tech/$PDK/lvs_config.base.json"
   ],
   "TOP_SOURCE": "RFEH",
-  "TOP_LAYOUT": "RFEH",
+  "TOP_LAYOUT": "rf_energy_harvester$1",
   "EXTRACT_FLATGLOB": [],
   "EXTRACT_ABSTRACT": [],
   "LVS_FLATTEN": [],
