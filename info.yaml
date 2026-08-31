@@ -31,22 +31,25 @@ project:
 # ======================================================
 
 pins:
-  - name: VCC
-    io_type: power
-    
-  - name: RFP
-    io_type: analog
-    secondary_esd: false
-    
-  - name: RFN
-    io_type: analog
-    secondary_esd: false
-    
-  - name: VOUT
-    io_type: analog
-    secondary_esd: false
-    
   - name: VSS
     io_type: ground
 
-# die_size: "287 um x 291 um"
+  - name: RFP
+    io_type: analog
+    secondary_esd: false
+
+  - name: RFN
+    io_type: analog
+    secondary_esd: false
+
+  - name: VOUT
+    io_type: analog
+    secondary_esd: false
+
+  - name: VCC
+    io_type: power
+
+# Physical slot / PR_bndry target: 550 um x 550 um.
+# The analog circuit geometry itself is NOT scaled; only the PR_bndry
+# is expanded to conform to the delivered Chipathon D05 slot.
+# die_size: "550 um x 550 um"
