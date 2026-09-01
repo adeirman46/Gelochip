@@ -14,5 +14,5 @@
     "$UPRJ_ROOT/report/rf_harvester_signoff_out/RFEH_source.spice"
   ],
   "LVS_VERILOG_FILES": [],
-  "LAYOUT_FILE": "$UPRJ_ROOT/harvester_top_full_D05_550x550_fixed"
+  "LAYOUT_FILE": "$UPRJ_ROOT/harvester_top_full_D05_550x550_fixed.gds"
 }
