@@ -11,8 +11,8 @@
   "LVS_NOFLATTEN": [],
   "LVS_IGNORE": [],
   "LVS_SPICE_FILES": [
-    "$UPRJ_ROOT/report/rf_harvester_signoff_out/RFEH_source.spice"
+    "$UPRJ_ROOT/Tapeout/netlist/RFEH_PEX_pex.spice"
   ],
   "LVS_VERILOG_FILES": [],
-  "LAYOUT_FILE": "$UPRJ_ROOT/harvester_top_full_D05_550x550_fixed.gds"
+  "LAYOUT_FILE": "$UPRJ_ROOT/Tapeout/gds/D05_Gelochip.gds"
 }
