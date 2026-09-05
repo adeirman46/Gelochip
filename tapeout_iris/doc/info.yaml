@@ -1,0 +1,162 @@
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+# Chipathon 2026: Project configuration
+# LICENSE: Apache License Version 2.0
+# http://www.apache.org/licenses/
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+
+project:
+  title: "D05_Gelochip RF Energy Harvester"
+  team: ""
+  discord: ""
+  description: >-
+    GF180MCU differential RF energy harvester: cross-coupled rectifier +
+    injection-assisted startup bias + 3-stage Dickson charge pump + MOS-diode load.
+  lvs_config: "lvs_config.json"
+
+# ======================================================
+# Tapeout package  (must match the submitted files exactly)
+# ======================================================
+tapeout:
+  slot: "D05"
+  variant: "EH"                      # west-edge slot, no Metal2 corner obstruction
+  slot_origin_on_chip_um: [350, 1475]
+  project_area_um: [550, 550]
+  gds_file: "gds/D05_Gelochip.gds"
+  top_cell: "D05_Gelochip"           # exact GDS top cell, no '$' suffix
+  gds_is_hierarchical: true
+  gds_cell_count: 163                # 1 top + 162 sub-cells, all prefixed D05_
+  boundary_layer: "0/0 rectangle at (0,0)-(550,550)"
+  core_size_um: [416.44, 496.85]
+  core_placement: "west edge at x=115 um (routing channel), centred vertically"
+
+# ======================================================
+# Pin plan  (order and names fixed by D05_EH_pad_map.yaml)
+# ======================================================
+pins:
+  - name: VSS
+    pad_slot: W12
+    cell: gf180mcu_fd_io__dvss
+    use: GROUND
+    internal_net: VSS
+    note: "DVSS of the whole D05 padring segment; ESD/substrate reference for all pads"
+  - name: RFP
+    pad_slot: W13
+    cell: gf180mcu_fd_io__asig_5p0
+    use: SIGNAL
+    internal_net: RFP
+    note: "differential RF input, positive"
+  - name: RFN
+    pad_slot: W14
+    cell: gf180mcu_fd_io__asig_5p0
+    use: SIGNAL
+    internal_net: RFN
+    note: "differential RF input, negative"
+  - name: VOUT
+    pad_slot: W15
+    cell: gf180mcu_fd_io__asig_5p0
+    use: SIGNAL
+    internal_net: VOUT
+    note: "harvested DC output"
+  - name: VCC
+    pad_slot: W16
+    cell: gf180mcu_fd_io__dvdd
+    use: POWER
+    internal_net: VRECT
+    note: >-
+      DVDD of the D05 padring segment, driven by the harvester's own rectified rail
+      (self-powered). Segment is isolated by BRK_BEFORE_EH / BRK_AFTER_EH.
+internal_nets_not_pinned: [VMID1, VMID2, N1, N2]
+
+# ======================================================
+# Verification status  (see VERIFICATION.md for the logs)
+# ======================================================
+verification:
+  drc: >-
+    GF180 KLayout sign-off deck, run_drc.py --variant=D (5LM, mim_option=B) with
+    --density and --antenna, on gds/D05_Gelochip.gds top cell D05_Gelochip:
+    ZERO flagged items. Log confirms "MIM Option selected: B" and
+    "fusetop has 34 polygons", i.e. the MIM rules ran on real geometry.
+  lvs_netgen: "Circuits match uniquely; all nine labelled ports match"
+  per_ip: >-
+    All nine IPs built and validated individually: unit_diode, rectifier,
+    startup_bias, pump_ladder, load_diode (foundry DRC clean + netgen LVS match);
+    mimb_unit, cap_inject, cap_stage, cap_storage (foundry DRC clean + plate
+    separation).
+  capacitors: >-
+    34 FuseTop plates, 23006.8 um^2 = 23.007 pF at 1.0 fF/um^2. Every plate pair
+    resolves to two distinct nets - real capacitors, not via stacks.
+    storage 19.998 pF, stage 1.200 pF x2, inject 0.300 pF x2.
+  net_separation: "9 labelled core nets -> 9 distinct; 5 slot pins each reach their core rail"
+  density:
+    met1: "43.2%"
+    met2: "43.7%"
+    met3: "42.8%"
+    met4: "45.6%"
+    met5: "45.9%"
+    poly2: "43.2%"
+    target: ">30% metal, 14% poly"
+  metal2_corner_obstruction:
+    EH: "no obstruction issued for this slot"
+    D:  "both keep-outs CLEAR when rebuilt for the D pin plan"
+  gds_audit: "1 top + 162 sub-cells, no '$' in any name, bbox exactly (0,0)-(550,550), 0/0 boundary present"
+
+# ======================================================
+# Open questions for the organisers (not layout defects)
+# ======================================================
+open_questions:
+  - id: PROCESS-VARIANT
+    summary: >-
+      The capacitors are drawn as MIM-B (Metal4 bottom plate / FuseTop top plate /
+      Via4 / Metal5 terminals), which is what run_drc.py offers for a 5LM stack
+      (variants C and D). Please confirm the shuttle runs a 5LM variant with the
+      MIM module enabled. If the metal count differs the capacitors move to a
+      different metal pair and the floorplan moves with them.
+  - id: POST-LAYOUT-RESIM
+    summary: >-
+      The published post-layout results were simulated with ideal capacitor values
+      in the testbench, so they are unaffected by the old broken geometry - but they
+      have not yet been re-closed against these real MIM-B capacitors and their
+      parasitics. That re-simulation is the remaining engineering step.
+
+fixed_in_this_revision:
+  - id: MIM-NOT-A-CAPACITOR
+    summary: >-
+      GLayout's gf180 mimcap drew met2 + CAP_MK + a via2 array + met3 with no
+      FuseTop, so every capacitor was a metal short and the 22 pF storage bank tied
+      VOUT to VSS. Rebuilt on the real MIM-B stack (tapeout/mimcap_b.py), verified
+      against all eleven MIMTM rules.
+  - id: DENSITY-BELOW-MINIMUM
+    summary: >-
+      Metal/poly coverage was 0.1-11% against a 30%/14% floor (316 density items).
+      tapeout/fill.py now tiles the free area on every layer: 42.8-45.9% metal,
+      43.2% poly, and the deck is clean with --density --antenna.
+  - id: TOP-LEVEL-SHORTS
+    summary: >-
+      Three routing faults found by net audit and fixed in tapeout/top_v2.py:
+      block ports must drop on met3 (not met4, which welded five rails together);
+      ports must be routed the way they face (N1/N2 sit inside the pump above its
+      own VSS bar); and every capacitor needs its own x column (st1 and in1 shared
+      one, merging their met5 buses).
+  - id: MIM-STUB-SHORT
+    summary: >-
+      cap_block()/cap_block_storage() placed the bottom-plate via_stack at
+      by + 0.5 um, but the Metal2 bottom plate overhangs the Metal3 top plate by only
+      0.6 um (grule met2/capmet min_enclosure), so the via's met3 landing pad sat on the
+      top plate. Every cap had its plates welded together, every bottom plate was left
+      floating, and the storage cap dragged VOUT onto the VSS rail.
+    fix: >-
+      The bottom plate now escapes on Metal2 and steps up to Metal3 only once it is a
+      full met3 min_separation clear of the top plate, with the clearance derived from
+      the real via_stack size.
+  - id: FLAT-GDS
+    summary: "shipped GDS was a single flat cell named rf_energy_harvester$1"
+    fix: "top-level snap skipped; cells renamed/prefixed in KLayout -> 181-cell hierarchy"
+  - id: NO-BOUNDARY-PINS
+    summary: >-
+      The core's five met4 rail pads sat 137 um inside the slot on the wrong layer;
+      nothing reached the padring's Metal2 handover at x = 0..1 um.
+    fix: "met4/met3 boundary router + Metal2 landings with pin shapes and labels"
+
+lineage:
+  original_source: "https://github.com/adeirman46/Gelochip"
+

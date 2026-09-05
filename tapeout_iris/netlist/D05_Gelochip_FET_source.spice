@@ -1,0 +1,75 @@
+.subckt two_trans_interdigitized VDD1 VDD2 VSS1 VSS2 VG1 VG2 VB l=0.28 w=5.0 m=1 
+XA VDD1 VG1 VSS1 VB pfet_03v3 l=0.28 w=5.0 m=2
+XB VDD2 VG2 VSS2 VB pfet_03v3 l=0.28 w=5.0 m=2
+XDUMMY VB VB VB VB pfet_03v3 l=0.28 w=5.0 m=2
+.ends two_trans_interdigitized
+
+.subckt two_trans_interdigitized_1 VDD1 VDD2 VSS1 VSS2 VG1 VG2 VB l=0.28 w=3.0 m=1 
+XA VDD1 VG1 VSS1 VB nfet_03v3 l=0.28 w=3.0 m=2
+XB VDD2 VG2 VSS2 VB nfet_03v3 l=0.28 w=3.0 m=2
+XDUMMY VB VB VB VB nfet_03v3 l=0.28 w=3.0 m=2
+.ends two_trans_interdigitized_1
+
+.subckt RECTIFIER RFP RFN VRECT VSS
+X0 VRECT VRECT RFP RFN RFN RFP VRECT two_trans_interdigitized l=0.28 w=5.0 m={1}
+X1 VSS VSS RFP RFN RFN RFP VSS two_trans_interdigitized_1 l=0.28 w=3.0 m={1}
+.ends RECTIFIER
+
+.subckt two_trans_interdigitized_2 VDD1 VDD2 VSS1 VSS2 VG1 VG2 VB l=1.0 w=4.0 m=1 
+XA VDD1 VG1 VSS1 VB pfet_03v3 l=1.0 w=4.0 m=2
+XB VDD2 VG2 VSS2 VB pfet_03v3 l=1.0 w=4.0 m=2
+XDUMMY VB VB VB VB pfet_03v3 l=1.0 w=4.0 m=2
+.ends two_trans_interdigitized_2
+
+.subckt two_trans_interdigitized_3 VDD1 VDD2 VSS1 VSS2 VG1 VG2 VB l=1.0 w=2.0 m=1 
+XA VDD1 VG1 VSS1 VB nfet_03v3 l=1.0 w=2.0 m=2
+XB VDD2 VG2 VSS2 VB nfet_03v3 l=1.0 w=2.0 m=2
+XDUMMY VB VB VB VB nfet_03v3 l=1.0 w=2.0 m=2
+.ends two_trans_interdigitized_3
+
+.subckt STARTUP_BIAS VRECT VMID1 VMID2 VSS
+X0 VMID1 VMID2 VRECT VRECT VMID1 VMID2 VRECT two_trans_interdigitized_2 l=1.0 w=4.0 m={1}
+X1 VMID1 VMID2 VSS VSS VMID1 VMID2 VSS two_trans_interdigitized_3 l=1.0 w=2.0 m={1}
+.ends STARTUP_BIAS
+
+.subckt NMOS D G S B DUM l=0.28 w=4.0
+XMAIN1 D G S B nfet_03v3 l=0.28 w=4.0
+XMAIN2 D G S B nfet_03v3 l=0.28 w=4.0
+XDUMMY1 DUM DUM DUM B nfet_03v3 l=0.28 w=4.0
+XDUMMY2 DUM DUM DUM B nfet_03v3 l=0.28 w=4.0
+.ends NMOS
+
+.subckt NDIODE P N B
+X0 P P N B B NMOS l=0.28 w=4.0
+.ends NDIODE
+
+.subckt PUMP_LADDER VRECT N1 N2 VOUT VSS
+X0 VRECT N1 VSS NDIODE
+X1 N1 N2 VSS NDIODE
+X2 N2 VOUT VSS NDIODE
+.ends PUMP_LADDER
+
+.subckt NMOS_1 D G S B DUM l=10.0 w=1.0
+XMAIN1 D G S B nfet_03v3 l=10.0 w=1.0
+XDUMMY1 DUM DUM DUM B nfet_03v3 l=10.0 w=1.0
+XDUMMY2 DUM DUM DUM B nfet_03v3 l=10.0 w=1.0
+.ends NMOS_1
+
+.subckt NDIODE_1 P N B
+X0 P P N B B NMOS_1 l=10.0 w=1.0
+.ends NDIODE_1
+
+.subckt LOAD_DIODE VOUT VSS
+X0 VOUT VSS VSS NDIODE_1
+.ends LOAD_DIODE
+
+.subckt RFEH_CORE RFP RFN VRECT VOUT VSS VMID1 VMID2 N1 N2
+X0 RFP RFN VRECT VSS RECTIFIER
+X1 VRECT VMID1 VMID2 VSS STARTUP_BIAS
+X2 VRECT N1 N2 VOUT VSS PUMP_LADDER
+X3 VOUT VSS LOAD_DIODE
+.ends RFEH_CORE
+
+.subckt D05_GELOCHIP_FET VSS RFP RFN VOUT VCC VMID1 VMID2 N1 N2
+X0 RFP RFN VCC VOUT VSS VMID1 VMID2 N1 N2 RFEH_CORE
+.ends D05_GELOCHIP_FET

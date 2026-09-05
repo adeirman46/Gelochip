@@ -1,0 +1,523 @@
+using user specified pdk_root, will search for required files in the specified directory
+
+Magic 8.3 revision 623 - Compiled on Fri Jun  5 09:11:46 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology gf180mcuD ...
+10 Magic internal units = 1 Lambda
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 m5hole obsm5 fillm5 glass fillblock lvstext obscomment 
+Scaled tech values by 10 / 1 to match internal grid scaling
+Loading gf180mcuD Device Generator Menu ...
+Using technology "gf180mcuD", version 1.0.493-0-g0fe599b
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: LIB
+Reading "D05_straight_route_3d233bda_1".
+Reading "D05_compass_df8d0505_8".
+Reading "D05_compass_65197a3d_15".
+Reading "D05_compass_65197a3d_8".
+Reading "D05_compass_65197a3d_12".
+Reading "D05_straight_route_d02c1ab1_1".
+Reading "D05_compass_df8d0505_12".
+Reading "D05_Unnamed_189d58fa".
+Reading "D05_compass_65197a3d_9".
+Reading "D05_compass_65197a3d_10".
+Reading "D05_compass_65197a3d_11".
+Reading "D05_straight_route_c9a99b65_1".
+Reading "D05_Unnamed_f821ddfa_1".
+Reading "D05_compass_df8d0505_11".
+Reading "D05_compass_df8d0505_9".
+Reading "D05_straight_route_3339a8e1_1".
+Reading "D05_Unnamed_a3bb9f01_1".
+Reading "D05_straight_route_6009b2ab_1".
+Reading "D05_Unnamed_d5ccfc3e_1".
+Reading "D05_compass_df8d0505_10".
+Reading "D05_straight_route_72f736a4_1".
+Reading "D05_compass_65197a3d_13".
+Reading "D05_c_route_8320ed88_1".
+Reading "D05_straight_route_8cf611d4_1".
+Reading "D05_straight_route_810a05b2_1".
+Reading "D05_Unnamed_6bad2a83_1".
+Reading "D05_compass_df8d0505_13".
+Reading "D05_compass_df8d0505_7".
+Reading "D05_c_route_8140c5f0_1".
+Reading "D05_Unnamed_7a43e7c4".
+Reading "D05_compass_65197a3d_14".
+Reading "D05_Unnamed_44e3372a".
+Reading "D05_via_stack_c2d496bb_70".
+Reading "D05_via_stack_c2d496bb_71".
+Reading "D05_via_stack_c2d496bb_57".
+Reading "D05_via_stack_c2d496bb_52".
+Reading "D05_via_stack_c2d496bb_51".
+Reading "D05_via_stack_c2d496bb_50".
+Reading "D05_transformed_7535ec5f".
+Reading "D05_Unnamed_624dc7df".
+Reading "D05_Unnamed_1881b605".
+Reading "D05_transformed_cc495468".
+Reading "D05_via_stack_c2d496bb_53".
+Reading "D05_Unnamed_4bfec9b4".
+Reading "D05_Unnamed_7806f369".
+Reading "D05_via_stack_c2d496bb_48".
+Reading "D05_via_stack_c2d496bb_47".
+Reading "D05_via_stack_c2d496bb_41".
+Reading "D05_via_stack_c2d496bb_40".
+Reading "D05_via_stack_c2d496bb_39".
+Reading "D05_via_stack_c2d496bb_38".
+Reading "D05_Unnamed_d42c94fd".
+Reading "D05_Unnamed_0c714910".
+Reading "D05_Unnamed_5ad87e85".
+Reading "D05_via_stack_c2d496bb_61".
+Reading "D05_via_stack_c2d496bb_46".
+Reading "D05_via_stack_c2d496bb_54".
+Reading "D05_Unnamed_24229d0e".
+Reading "D05_transformed_66ccfbb5".
+Reading "D05_via_stack_c2d496bb_36".
+Reading "D05_via_stack_c2d496bb_60".
+Reading "D05_via_stack_c2d496bb_45".
+Reading "D05_via_stack_c2d496bb_69".
+Reading "D05_via_stack_c2d496bb_55".
+Reading "D05_via_stack_c2d496bb_43".
+Reading "D05_via_stack_c2d496bb_37".
+Reading "D05_via_stack_c2d496bb_63".
+Reading "D05_via_stack_c2d496bb_58".
+Reading "D05_via_stack_c2d496bb_44".
+Reading "D05_Unnamed_e84328fe".
+Reading "D05_via_stack_c2d496bb_49".
+Reading "D05_via_stack_c2d496bb_56".
+Reading "D05_transformed_65c58623".
+Reading "D05_via_stack_c2d496bb_42".
+Reading "D05_via_stack_c2d496bb_62".
+Reading "D05_via_stack_c2d496bb_59".
+Reading "D05_Unnamed_15d39ef3".
+Reading "D05_Unnamed_5633bac7".
+Reading "D05_Unnamed_2afe006f".
+Reading "D05_Unnamed_24bdf163".
+Reading "D05_Unnamed_c9c0fd3a".
+Reading "D05_via_stack_c2d496bb_68".
+Reading "D05_via_stack_c2d496bb_67".
+Reading "D05_via_stack_c2d496bb_66".
+Reading "D05_via_stack_c2d496bb_65".
+Reading "D05_via_stack_c2d496bb_64".
+Reading "D05_via_stack_256ad2e2_12".
+Reading "D05_via_stack_256ad2e2_11".
+Reading "D05_via_stack_256ad2e2_10".
+Reading "D05_via_stack_256ad2e2_9".
+Reading "D05_Unnamed_7a36e901".
+Reading "D05_Unnamed_7daac79c".
+Reading "D05_via_array_f0bb7586_14".
+Reading "D05_via_stack_f048b779_42".
+Reading "D05_via_array_f0bb7586_13".
+Reading "D05_via_stack_f048b779_41".
+Reading "D05_via_stack_f048b779_40".
+Reading "D05_via_array_f0bb7586_11".
+Reading "D05_via_array_f0bb7586_10".
+Reading "D05_via_stack_f048b779_39".
+Reading "D05_via_array_f0bb7586_9".
+Reading "D05_via_array_f0bb7586_8".
+Reading "D05_via_stack_f048b779_37".
+Reading "D05_via_stack_f048b779_36".
+Reading "D05_via_stack_f048b779_34".
+Reading "D05_via_stack_f048b779_31".
+Reading "D05_via_stack_f048b779_30".
+Reading "D05_via_stack_f048b779_28".
+Reading "D05_Unnamed_10f8461e".
+Reading "D05_Unnamed_e9c58711".
+Reading "D05_Unnamed_9f877ec0".
+Reading "D05_via_stack_f048b779_29".
+Reading "D05_via_stack_f048b779_43".
+Reading "D05_via_array_f0bb7586_12".
+Reading "D05_via_stack_f048b779_33".
+Reading "D05_via_stack_f048b779_38".
+Reading "D05_via_stack_f048b779_27".
+Reading "D05_via_stack_f048b779_35".
+Reading "D05_via_array_f0bb7586_15".
+Reading "D05_via_stack_f048b779_32".
+Reading "D05_Unnamed_21ecff5b".
+Reading "D05_via_array_a2a52175_7".
+Reading "D05_via_array_a2a52175_6".
+Reading "D05_via_array_5b426597_3".
+Reading "D05_via_stack_f048b779_51".
+Reading "D05_via_stack_f048b779_50".
+Reading "D05_via_stack_256ad2e2_16".
+Reading "D05_via_stack_f048b779_49".
+Reading "D05_via_stack_f048b779_48".
+Reading "D05_via_stack_256ad2e2_15".
+Reading "D05_via_stack_f048b779_47".
+Reading "D05_via_stack_f048b779_46".
+Reading "D05_via_stack_256ad2e2_14".
+Reading "D05_via_array_a2a52175_5".
+Reading "D05_via_array_a2a52175_4".
+Reading "D05_via_array_5b426597_2".
+Reading "D05_rfeh_core_raw_1".
+Reading "D05_Gelochip_FET".
+Extracting D05_via_array_a2a52175_4 into D05_via_array_a2a52175_4.ext:
+Extracting D05_via_array_5b426597_2 into D05_via_array_5b426597_2.ext:
+Extracting D05_via_stack_f048b779_51 into D05_via_stack_f048b779_51.ext:
+Extracting D05_via_stack_f048b779_49 into D05_via_stack_f048b779_49.ext:
+Extracting D05_via_stack_f048b779_47 into D05_via_stack_f048b779_47.ext:
+Extracting D05_via_stack_f048b779_46 into D05_via_stack_f048b779_46.ext:
+Extracting D05_via_stack_256ad2e2_14 into D05_via_stack_256ad2e2_14.ext:
+Extracting D05_via_array_a2a52175_5 into D05_via_array_a2a52175_5.ext:
+Extracting D05_via_stack_f048b779_48 into D05_via_stack_f048b779_48.ext:
+Extracting D05_via_stack_256ad2e2_15 into D05_via_stack_256ad2e2_15.ext:
+Extracting D05_via_stack_256ad2e2_16 into D05_via_stack_256ad2e2_16.ext:
+Extracting D05_via_stack_f048b779_50 into D05_via_stack_f048b779_50.ext:
+Extracting D05_via_array_5b426597_3 into D05_via_array_5b426597_3.ext:
+Extracting D05_via_array_a2a52175_6 into D05_via_array_a2a52175_6.ext:
+Extracting D05_via_array_a2a52175_7 into D05_via_array_a2a52175_7.ext:
+Extracting D05_via_array_f0bb7586_15 into D05_via_array_f0bb7586_15.ext:
+Extracting D05_via_array_f0bb7586_14 into D05_via_array_f0bb7586_14.ext:
+Extracting D05_via_stack_f048b779_43 into D05_via_stack_f048b779_43.ext:
+Extracting D05_via_stack_f048b779_42 into D05_via_stack_f048b779_42.ext:
+Extracting D05_via_array_f0bb7586_13 into D05_via_array_f0bb7586_13.ext:
+Extracting D05_via_array_f0bb7586_12 into D05_via_array_f0bb7586_12.ext:
+Extracting D05_via_stack_f048b779_41 into D05_via_stack_f048b779_41.ext:
+Extracting D05_via_stack_f048b779_40 into D05_via_stack_f048b779_40.ext:
+Extracting D05_via_array_f0bb7586_11 into D05_via_array_f0bb7586_11.ext:
+Extracting D05_via_array_f0bb7586_10 into D05_via_array_f0bb7586_10.ext:
+Extracting D05_via_stack_f048b779_39 into D05_via_stack_f048b779_39.ext:
+Extracting D05_via_stack_f048b779_38 into D05_via_stack_f048b779_38.ext:
+Extracting D05_via_array_f0bb7586_9 into D05_via_array_f0bb7586_9.ext:
+Extracting D05_via_array_f0bb7586_8 into D05_via_array_f0bb7586_8.ext:
+Extracting D05_via_stack_f048b779_37 into D05_via_stack_f048b779_37.ext:
+Extracting D05_via_stack_f048b779_36 into D05_via_stack_f048b779_36.ext:
+Extracting D05_via_stack_f048b779_35 into D05_via_stack_f048b779_35.ext:
+Extracting D05_via_stack_f048b779_34 into D05_via_stack_f048b779_34.ext:
+Extracting D05_via_stack_f048b779_33 into D05_via_stack_f048b779_33.ext:
+Extracting D05_via_stack_f048b779_32 into D05_via_stack_f048b779_32.ext:
+Extracting D05_via_stack_f048b779_31 into D05_via_stack_f048b779_31.ext:
+Extracting D05_via_stack_f048b779_30 into D05_via_stack_f048b779_30.ext:
+Extracting D05_via_stack_f048b779_29 into D05_via_stack_f048b779_29.ext:
+Extracting D05_via_stack_f048b779_28 into D05_via_stack_f048b779_28.ext:
+Extracting D05_via_stack_f048b779_27 into D05_via_stack_f048b779_27.ext:
+Extracting D05_compass_df8d0505_13 into D05_compass_df8d0505_13.ext:
+Extracting D05_Unnamed_44e3372a into D05_Unnamed_44e3372a.ext:
+Extracting D05_compass_df8d0505_12 into D05_compass_df8d0505_12.ext:
+Extracting D05_Unnamed_d42c94fd into D05_Unnamed_d42c94fd.ext:
+Extracting D05_via_stack_c2d496bb_71 into D05_via_stack_c2d496bb_71.ext:
+Extracting D05_via_stack_c2d496bb_70 into D05_via_stack_c2d496bb_70.ext:
+Extracting D05_via_stack_c2d496bb_69 into D05_via_stack_c2d496bb_69.ext:
+Extracting D05_c_route_8320ed88_1 into D05_c_route_8320ed88_1.ext:
+Extracting D05_Unnamed_189d58fa into D05_Unnamed_189d58fa.ext:
+D05_Unnamed_189d58fa: 2 warnings
+Extracting D05_Unnamed_0c714910 into D05_Unnamed_0c714910.ext:
+Extracting D05_Unnamed_10f8461e into D05_Unnamed_10f8461e.ext:
+Extracting D05_compass_df8d0505_11 into D05_compass_df8d0505_11.ext:
+Extracting D05_Unnamed_15d39ef3 into D05_Unnamed_15d39ef3.ext:
+Extracting D05_compass_df8d0505_10 into D05_compass_df8d0505_10.ext:
+Extracting D05_Unnamed_5633bac7 into D05_Unnamed_5633bac7.ext:
+Extracting D05_compass_df8d0505_9 into D05_compass_df8d0505_9.ext:
+Extracting D05_Unnamed_2afe006f into D05_Unnamed_2afe006f.ext:
+Extracting D05_compass_df8d0505_8 into D05_compass_df8d0505_8.ext:
+Extracting D05_Unnamed_24bdf163 into D05_Unnamed_24bdf163.ext:
+Extracting D05_compass_df8d0505_7 into D05_compass_df8d0505_7.ext:
+Extracting D05_Unnamed_c9c0fd3a into D05_Unnamed_c9c0fd3a.ext:
+Extracting D05_via_stack_c2d496bb_68 into D05_via_stack_c2d496bb_68.ext:
+Extracting D05_via_stack_c2d496bb_67 into D05_via_stack_c2d496bb_67.ext:
+Extracting D05_via_stack_c2d496bb_66 into D05_via_stack_c2d496bb_66.ext:
+Extracting D05_via_stack_c2d496bb_65 into D05_via_stack_c2d496bb_65.ext:
+Extracting D05_via_stack_c2d496bb_64 into D05_via_stack_c2d496bb_64.ext:
+Extracting D05_via_stack_256ad2e2_12 into D05_via_stack_256ad2e2_12.ext:
+Extracting D05_via_stack_256ad2e2_11 into D05_via_stack_256ad2e2_11.ext:
+Extracting D05_via_stack_256ad2e2_10 into D05_via_stack_256ad2e2_10.ext:
+Extracting D05_via_stack_256ad2e2_9 into D05_via_stack_256ad2e2_9.ext:
+Extracting D05_c_route_8140c5f0_1 into D05_c_route_8140c5f0_1.ext:
+Extracting D05_Unnamed_7a43e7c4 into D05_Unnamed_7a43e7c4.ext:
+D05_Unnamed_7a43e7c4: 2 warnings
+Extracting D05_Unnamed_7a36e901 into D05_Unnamed_7a36e901.ext:
+Extracting D05_Unnamed_21ecff5b into D05_Unnamed_21ecff5b.ext:
+Extracting D05_compass_65197a3d_15 into D05_compass_65197a3d_15.ext:
+Extracting D05_Unnamed_624dc7df into D05_Unnamed_624dc7df.ext:
+Extracting D05_compass_65197a3d_14 into D05_compass_65197a3d_14.ext:
+Extracting D05_Unnamed_7daac79c into D05_Unnamed_7daac79c.ext:
+Extracting D05_compass_65197a3d_13 into D05_compass_65197a3d_13.ext:
+Extracting D05_Unnamed_e84328fe into D05_Unnamed_e84328fe.ext:
+Extracting D05_compass_65197a3d_12 into D05_compass_65197a3d_12.ext:
+Extracting D05_Unnamed_1881b605 into D05_Unnamed_1881b605.ext:
+Extracting D05_via_stack_c2d496bb_63 into D05_via_stack_c2d496bb_63.ext:
+Extracting D05_via_stack_c2d496bb_62 into D05_via_stack_c2d496bb_62.ext:
+Extracting D05_via_stack_c2d496bb_61 into D05_via_stack_c2d496bb_61.ext:
+Extracting D05_via_stack_c2d496bb_60 into D05_via_stack_c2d496bb_60.ext:
+Extracting D05_via_stack_c2d496bb_59 into D05_via_stack_c2d496bb_59.ext:
+Extracting D05_via_stack_c2d496bb_58 into D05_via_stack_c2d496bb_58.ext:
+Extracting D05_via_stack_c2d496bb_57 into D05_via_stack_c2d496bb_57.ext:
+Extracting D05_via_stack_c2d496bb_56 into D05_via_stack_c2d496bb_56.ext:
+Extracting D05_via_stack_c2d496bb_55 into D05_via_stack_c2d496bb_55.ext:
+Extracting D05_via_stack_c2d496bb_54 into D05_via_stack_c2d496bb_54.ext:
+Extracting D05_via_stack_c2d496bb_53 into D05_via_stack_c2d496bb_53.ext:
+Extracting D05_via_stack_c2d496bb_52 into D05_via_stack_c2d496bb_52.ext:
+Extracting D05_via_stack_c2d496bb_51 into D05_via_stack_c2d496bb_51.ext:
+Extracting D05_via_stack_c2d496bb_50 into D05_via_stack_c2d496bb_50.ext:
+Extracting D05_straight_route_6009b2ab_1 into D05_straight_route_6009b2ab_1.ext:
+Extracting D05_straight_route_d02c1ab1_1 into D05_straight_route_d02c1ab1_1.ext:
+Extracting D05_Unnamed_a3bb9f01_1 into D05_Unnamed_a3bb9f01_1.ext:
+Extracting D05_transformed_cc495468 into D05_transformed_cc495468.ext:
+D05_transformed_cc495468: 2 warnings
+Extracting D05_straight_route_3d233bda_1 into D05_straight_route_3d233bda_1.ext:
+Extracting D05_straight_route_3339a8e1_1 into D05_straight_route_3339a8e1_1.ext:
+Extracting D05_Unnamed_d5ccfc3e_1 into D05_Unnamed_d5ccfc3e_1.ext:
+Extracting D05_transformed_7535ec5f into D05_transformed_7535ec5f.ext:
+D05_transformed_7535ec5f: 2 warnings
+Extracting D05_Unnamed_e9c58711 into D05_Unnamed_e9c58711.ext:
+Extracting D05_compass_65197a3d_11 into D05_compass_65197a3d_11.ext:
+Extracting D05_Unnamed_24229d0e into D05_Unnamed_24229d0e.ext:
+Extracting D05_compass_65197a3d_10 into D05_compass_65197a3d_10.ext:
+Extracting D05_Unnamed_4bfec9b4 into D05_Unnamed_4bfec9b4.ext:
+Extracting D05_compass_65197a3d_9 into D05_compass_65197a3d_9.ext:
+Extracting D05_Unnamed_5ad87e85 into D05_Unnamed_5ad87e85.ext:
+Extracting D05_compass_65197a3d_8 into D05_compass_65197a3d_8.ext:
+Extracting D05_Unnamed_7806f369 into D05_Unnamed_7806f369.ext:
+Extracting D05_via_stack_c2d496bb_49 into D05_via_stack_c2d496bb_49.ext:
+Extracting D05_via_stack_c2d496bb_48 into D05_via_stack_c2d496bb_48.ext:
+Extracting D05_via_stack_c2d496bb_47 into D05_via_stack_c2d496bb_47.ext:
+Extracting D05_via_stack_c2d496bb_46 into D05_via_stack_c2d496bb_46.ext:
+Extracting D05_via_stack_c2d496bb_45 into D05_via_stack_c2d496bb_45.ext:
+Extracting D05_via_stack_c2d496bb_44 into D05_via_stack_c2d496bb_44.ext:
+Extracting D05_via_stack_c2d496bb_43 into D05_via_stack_c2d496bb_43.ext:
+Extracting D05_via_stack_c2d496bb_42 into D05_via_stack_c2d496bb_42.ext:
+Extracting D05_via_stack_c2d496bb_41 into D05_via_stack_c2d496bb_41.ext:
+Extracting D05_via_stack_c2d496bb_40 into D05_via_stack_c2d496bb_40.ext:
+Extracting D05_via_stack_c2d496bb_39 into D05_via_stack_c2d496bb_39.ext:
+Extracting D05_via_stack_c2d496bb_38 into D05_via_stack_c2d496bb_38.ext:
+Extracting D05_via_stack_c2d496bb_37 into D05_via_stack_c2d496bb_37.ext:
+Extracting D05_via_stack_c2d496bb_36 into D05_via_stack_c2d496bb_36.ext:
+Extracting D05_straight_route_8cf611d4_1 into D05_straight_route_8cf611d4_1.ext:
+Extracting D05_straight_route_810a05b2_1 into D05_straight_route_810a05b2_1.ext:
+Extracting D05_Unnamed_6bad2a83_1 into D05_Unnamed_6bad2a83_1.ext:
+Extracting D05_transformed_65c58623 into D05_transformed_65c58623.ext:
+D05_transformed_65c58623: 2 warnings
+Extracting D05_straight_route_c9a99b65_1 into D05_straight_route_c9a99b65_1.ext:
+Extracting D05_straight_route_72f736a4_1 into D05_straight_route_72f736a4_1.ext:
+Extracting D05_Unnamed_f821ddfa_1 into D05_Unnamed_f821ddfa_1.ext:
+Extracting D05_transformed_66ccfbb5 into D05_transformed_66ccfbb5.ext:
+D05_transformed_66ccfbb5: 2 warnings
+Extracting D05_Unnamed_9f877ec0 into D05_Unnamed_9f877ec0.ext:
+Extracting D05_rfeh_core_raw_1 into D05_rfeh_core_raw_1.ext:
+Extracting D05_Gelochip_FET into D05_Gelochip_FET.ext:
+exttospice finished.
+
+Running netgen command: bash /home/irman/.nix-profile/bin/netgen -batch lvs "/tmp/tmpg47saz1e/D05_Gelochip_FET_lvsmag.spice D05_Gelochip_FET" "/tmp/tmpg47saz1e/D05_Gelochip_FET.spice D05_Gelochip_FET" /home/irman/pdks/volare/gf180mcu/versions/0fe599b2afb6708d281543108caf8310912f54af/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl /tmp/tmpg47saz1e/D05_Gelochip_FET_lvs.rpt
+Netgen 1.5.316 compiled on Fri Jun  5 08:48:44 UTC 2026
+Warning: netgen command 'format' use fully-qualified name '::netgen::format'
+Warning: netgen command 'global' use fully-qualified name '::netgen::global'
+Reading netlist file /tmp/tmpg47saz1e/D05_Gelochip_FET_lvsmag.spice for /tmp/tmpg47saz1e/D05_Gelochip_FET_lvsmag.spice D05_Gelochip_FET
+Call to undefined subcircuit nfet_03v3
+Creating placeholder cell definition.
+Call to undefined subcircuit pfet_03v3
+Creating placeholder cell definition.
+Reading netlist file /tmp/tmpg47saz1e/D05_Gelochip_FET.spice for /tmp/tmpg47saz1e/D05_Gelochip_FET.spice D05_Gelochip_FET
+Call to undefined subcircuit pmos_3p3
+Creating placeholder cell definition.
+Call to undefined subcircuit nmos_3p3
+Creating placeholder cell definition.
+Call to undefined subcircuit pfet_03v3
+Creating placeholder cell definition.
+Call to undefined subcircuit nfet_03v3
+Creating placeholder cell definition.
+
+Reading setup file /home/irman/pdks/volare/gf180mcu/versions/0fe599b2afb6708d281543108caf8310912f54af/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl
+
+No property area found for device c
+Model nfet_03v3 pin 1 == 3
+No property par1 found for device nfet_03v3
+No property NRD found for device nfet_03v3
+No property NRS found for device nfet_03v3
+No property par found for device nfet_03v3
+No property sa found for device nfet_03v3
+No property sb found for device nfet_03v3
+No property sd found for device nfet_03v3
+No property par found for device nfet_03v3
+No property dtemp found for device nfet_03v3
+No property nf found for device nfet_03v3
+Model nfet_03v3 pin 1 == 3
+No property par1 found for device nfet_03v3
+No property NRD found for device nfet_03v3
+No property NRS found for device nfet_03v3
+No property par found for device nfet_03v3
+No property sa found for device nfet_03v3
+No property sb found for device nfet_03v3
+No property sd found for device nfet_03v3
+No property par found for device nfet_03v3
+No property dtemp found for device nfet_03v3
+No property nf found for device nfet_03v3
+No property as found for device nfet_03v3
+No property ad found for device nfet_03v3
+No property ps found for device nfet_03v3
+No property pd found for device nfet_03v3
+Model pfet_03v3 pin 1 == 3
+No property par1 found for device pfet_03v3
+No property NRD found for device pfet_03v3
+No property NRS found for device pfet_03v3
+No property par found for device pfet_03v3
+No property sa found for device pfet_03v3
+No property sb found for device pfet_03v3
+No property sd found for device pfet_03v3
+No property par found for device pfet_03v3
+No property dtemp found for device pfet_03v3
+No property nf found for device pfet_03v3
+Model pfet_03v3 pin 1 == 3
+No property par1 found for device pfet_03v3
+No property NRD found for device pfet_03v3
+No property NRS found for device pfet_03v3
+No property par found for device pfet_03v3
+No property sa found for device pfet_03v3
+No property sb found for device pfet_03v3
+No property sd found for device pfet_03v3
+No property par found for device pfet_03v3
+No property dtemp found for device pfet_03v3
+No property nf found for device pfet_03v3
+No property as found for device pfet_03v3
+No property ad found for device pfet_03v3
+No property ps found for device pfet_03v3
+No property pd found for device pfet_03v3
+Comparison output logged to file /tmp/tmpg47saz1e/D05_Gelochip_FET_lvs.rpt
+Logging to file "/tmp/tmpg47saz1e/D05_Gelochip_FET_lvs.rpt" enabled
+Circuit nfet_03v3 contains no devices.
+Circuit pfet_03v3 contains no devices.
+
+Contents of circuit 1:  Circuit: 'D05_Gelochip_FET'
+Circuit D05_Gelochip_FET contains 39 device instances.
+  Class: nfet_03v3             instances:  27
+  Class: pfet_03v3             instances:  12
+Circuit contains 10 nets, and 1 disconnected pin.
+Contents of circuit 2:  Circuit: 'D05_Gelochip_FET'
+Circuit D05_Gelochip_FET contains 27 device instances.
+  Class: nfet_03v3             instances:  21
+  Class: pfet_03v3             instances:   6
+Circuit contains 9 nets.
+
+Circuit was modified by parallel/series device merging.
+New circuit summary:
+
+Contents of circuit 1:  Circuit: 'D05_Gelochip_FET'
+Circuit D05_Gelochip_FET contains 14 device instances.
+  Class: nfet_03v3             instances:   9
+  Class: pfet_03v3             instances:   5
+Circuit contains 10 nets, and 1 disconnected pin.
+Contents of circuit 2:  Circuit: 'D05_Gelochip_FET'
+Circuit D05_Gelochip_FET contains 14 device instances.
+  Class: nfet_03v3             instances:   9
+  Class: pfet_03v3             instances:   5
+Circuit contains 9 nets.
+
+Circuit 1 contains 14 devices, Circuit 2 contains 14 devices.
+Circuit 1 contains 10 nets,    Circuit 2 contains 9 nets. *** MISMATCH ***
+
+
+Final result: 
+Top level cell failed pin matching.
+
+Logging to file "/tmp/tmpg47saz1e/D05_Gelochip_FET_lvs.rpt" disabled
+LVS Done.
+
+
+Circuit 1 cell nfet_03v3 and Circuit 2 cell nfet_03v3 are black boxes.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell nfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: nfet_03v3                       |Circuit 2: nfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes nfet_03v3 and nfet_03v3 are equivalent.
+
+Circuit 1 cell pfet_03v3 and Circuit 2 cell pfet_03v3 are black boxes.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell pfet_03v3 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: pfet_03v3                       |Circuit 2: pfet_03v3                       
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes pfet_03v3 and pfet_03v3 are equivalent.
+Flattening unmatched subcell D05_rfeh_core_raw_1 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_10f8461e in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_0c714910 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_189d58fa in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_9f877ec0 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_transformed_66ccfbb5 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_transformed_65c58623 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_e9c58711 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_transformed_7535ec5f in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_transformed_cc495468 in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_21ecff5b in circuit D05_Gelochip_FET (0)(1 instance)
+Flattening unmatched subcell D05_Unnamed_7a36e901 in circuit D05_Gelochip_FET (0)(3 instances)
+Flattening unmatched subcell D05_Unnamed_7a43e7c4 in circuit D05_Gelochip_FET (0)(3 instances)
+Flattening unmatched subcell RFEH_CORE in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell RECTIFIER in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized_1 in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell STARTUP_BIAS in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized_2 in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell two_trans_interdigitized_3 in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell PUMP_LADDER in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell NDIODE in circuit D05_Gelochip_FET (1)(3 instances)
+Flattening unmatched subcell NMOS in circuit D05_Gelochip_FET (1)(3 instances)
+Flattening unmatched subcell LOAD_DIODE in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell NDIODE_1 in circuit D05_Gelochip_FET (1)(1 instance)
+Flattening unmatched subcell NMOS_1 in circuit D05_Gelochip_FET (1)(1 instance)
+
+Cell D05_Gelochip_FET (0) disconnected node: VOUT
+Class D05_Gelochip_FET (0):  Merged 25 parallel devices.
+Class D05_Gelochip_FET (1):  Merged 13 parallel devices.
+Cell D05_Gelochip_FET (0) disconnected node: VOUT
+Subcircuit summary:
+Circuit 1: D05_Gelochip_FET                |Circuit 2: D05_Gelochip_FET                
+-------------------------------------------|-------------------------------------------
+nfet_03v3 (27->9)                          |nfet_03v3 (27->9)                          
+pfet_03v3 (12->5)                          |pfet_03v3 (12->5)                          
+Number of devices: 14                      |Number of devices: 14                      
+Number of nets: 10 **Mismatch**            |Number of nets: 9 **Mismatch**             
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: D05_Gelochip_FET                |Circuit 2: D05_Gelochip_FET                
+
+---------------------------------------------------------------------------------------
+Net: VCC                                   |Net: VCC                                   
+  pfet_03v3/(1|3) = 6                      |  pfet_03v3/(1|3) = 6                      
+  pfet_03v3/4 = 5                          |  pfet_03v3/4 = 5                          
+  pfet_03v3/2 = 1                          |  pfet_03v3/2 = 1                          
+                                           |  nfet_03v3/(1|3) = 1                      
+                                           |  nfet_03v3/2 = 1                          
+                                           |                                           
+Net: /D05_rfeh_core_raw_1_0/D05_Unnamed_21 |(no matching net)                          
+  nfet_03v3/(1|3) = 1                      |                                           
+  nfet_03v3/2 = 1                          |                                           
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+
+Subcircuit pins:
+Circuit 1: D05_Gelochip_FET                |Circuit 2: D05_Gelochip_FET                
+-------------------------------------------|-------------------------------------------
+VCC                                        |VCC                                        
+VSS                                        |VSS                                        
+RFN                                        |RFN                                        
+RFP                                        |RFP                                        
+(no pin, node is /D05_rfeh_core_raw_1_0/D0 |VOUT                                       
+VOUT                                       |(no matching pin)                          
+---------------------------------------------------------------------------------------
+Cell pin lists for D05_Gelochip_FET and D05_Gelochip_FET altered to match.
+Device classes D05_Gelochip_FET and D05_Gelochip_FET are equivalent.
+
+Final result: Top level cell failed pin matching.
+

@@ -1,0 +1,43 @@
+using user specified pdk_root, will search for required files in the specified directory
+
+Magic 8.3 revision 623 - Compiled on Fri Jun  5 09:11:46 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology gf180mcuD ...
+10 Magic internal units = 1 Lambda
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 m5hole obsm5 fillm5 glass fillblock lvstext obscomment 
+Scaled tech values by 10 / 1 to match internal grid scaling
+Loading gf180mcuD Device Generator Menu ...
+Using technology "gf180mcuD", version 1.0.493-0-g0fe599b
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: library
+Reading "UNIT_DIODE$1".
+Creating new cell
+
+Running netgen command: bash /home/irman/.nix-profile/bin/netgen -batch lvs "/tmp/tmpawdrjz3r/UNIT_DIODE_lvsmag.spice UNIT_DIODE" "/tmp/tmpawdrjz3r/UNIT_DIODE.spice UNIT_DIODE" /home/irman/pdks/volare/gf180mcu/versions/0fe599b2afb6708d281543108caf8310912f54af/gf180mcuD/libs.tech/netgen/gf180mcuD_setup.tcl /tmp/tmpawdrjz3r/UNIT_DIODE_lvs.rpt
+Netgen 1.5.316 compiled on Fri Jun  5 08:48:44 UTC 2026
+Warning: netgen command 'format' use fully-qualified name '::netgen::format'
+Warning: netgen command 'global' use fully-qualified name '::netgen::global'
+Reading netlist file /tmp/tmpawdrjz3r/UNIT_DIODE_lvsmag.spice for /tmp/tmpawdrjz3r/UNIT_DIODE_lvsmag.spice UNIT_DIODE
+-1
+    while executing
+"netgen::readnet $file1"
+    (procedure "lvs" line 58)
+    invoked from within
+"lvs {/tmp/tmpawdrjz3r/UNIT_DIODE_lvsmag.spice UNIT_DIODE} {/tmp/tmpawdrjz3r/UNIT_DIODE.spice UNIT_DIODE} /home/irman/pdks/volare/gf180mcu/versions/0fe..."
+    ("eval" body line 1)
+    invoked from within
+"eval $argv"
+
+
+EXC ValueError: LVS report not found!

@@ -1,0 +1,302 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{float}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{caption}
+
+\newcommand{\PASS}{\textcolor{green!50!black}{\textbf{PASS}}}
+\newcommand{\FAIL}{\textcolor{red!70!black}{\textbf{FAIL}}}
+\newcommand{\OPEN}{\textcolor{orange!80!black}{\textbf{OPEN}}}
+\newcommand{\um}{\,$\mu$m}
+\newcommand{\umsq}{\,$\mu$m$^2$}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.15}
+
+\title{\textbf{D05 RF Energy Harvester --- Module and Design-Rule Report}\\[4pt]
+\large GF180MCU, Chipathon 2026 project slot D05 (variant EH)}
+\author{Gelochip / IRIS Harvester}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+This report documents every module built for the D05 tapeout, the design rules each module
+must satisfy, whether it satisfies them, and the measured outputs. All results were produced
+by the foundry's own GF180MCU KLayout sign-off deck (\texttt{run\_drc.py}), \texttt{netgen}
+LVS, \texttt{magic} parasitic extraction and \texttt{ngspice-46}, run on the exact submitted
+file \texttt{D05\_Gelochip.gds} and the exact top cell \texttt{D05\_Gelochip}.
+\end{abstract}
+
+\section{Scope and submitted files}
+
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{File} & \textbf{Role} \\
+\midrule
+\texttt{gds/D05\_Gelochip.gds} & \textbf{The tapeout file.} Hierarchical, 163 cells, dummy fill applied, bounding box exactly $(0,0)$--$(550,550)$\um. \\
+\texttt{D05\_Gelochip\_nofill.gds} & Same topology without fill. Review aid only --- it fails density. \\
+\texttt{D05\_Gelochip\_FET.gds} & Capacitor-free view used for LVS and PEX (see Sec.~\ref{sec:method}). \\
+\texttt{D05\_Gelochip\_source.spice} & LVS source netlist. \\
+\texttt{RFEH\_PEX\_pex.spice} & Extracted netlist: 2293 resistors, 439 capacitors. \\
+\bottomrule
+\end{tabularx}
+
+\section{Module catalogue}
+
+Nine modules were built and validated individually. The five transistor blocks are taken
+verbatim from the signed-off design; the capacitor modules are new (Sec.~\ref{sec:mim}).
+
+\begin{longtable}{@{}llrrl@{}}
+\toprule
+\textbf{Module} & \textbf{Function} & \textbf{Size (\um)} & \textbf{Value} & \textbf{Status} \\
+\midrule
+\endhead
+\texttt{unit\_diode}   & guarded diode-connected NMOS      & $10.8\times9.1$    & ---        & \PASS \\
+\texttt{rectifier}     & cross-coupled full-wave rectifier & $17.2\times32.9$   & ---        & \PASS \\
+\texttt{startup\_bias} & injection-assisted startup bias   & $19.8\times30.9$   & ---        & \PASS \\
+\texttt{pump\_ladder}  & 3-stage Dickson charge pump       & $48.3\times14.1$   & ---        & \PASS \\
+\texttt{load\_diode}   & MOS-diode output load             & $37.9\times6.1$    & ---        & \PASS \\
+\texttt{mimb\_unit}    & \textbf{MIM-B capacitor unit}     & $29.6\times30.1$   & 0.784\,pF  & \PASS \\
+\texttt{cap\_inject}   & injection capacitor bank          & $25.7\times19.4$   & 0.300\,pF  & \PASS \\
+\texttt{cap\_stage}    & pump stage capacitor bank         & $32.9\times54.5$   & 1.200\,pF  & \PASS \\
+\texttt{cap\_storage}  & output storage capacitor bank     & $213.5\times119.4$ & 19.998\,pF & \PASS \\
+\bottomrule
+\end{longtable}
+
+Transistor modules were checked with foundry DRC + \texttt{netgen} LVS. Capacitor modules were
+checked with foundry DRC + a plate-separation test, because no extractor available here models
+a MIM device.
+
+\section{The MIM-B capacitor module}
+\label{sec:mim}
+
+The previous design used GLayout's \texttt{mimcap()}, which draws Metal2 $+$ \texttt{CAP\_MK}
+$+$ a Via2 array $+$ Metal3. On GF180 that is not a capacitor: it is an ordinary via array, a
+short circuit. A real MIM needs \textbf{FuseTop (75/0)} as the top electrode ---
+\texttt{mim\_a.drc} states \texttt{mim7\_l1 = fusetop.not(cap\_mk)}, i.e.\ \texttt{CAP\_MK}
+only \emph{marks} FuseTop.
+
+Which metal pair carries the MIM depends on the metal stack. The deck's variant table is
+authoritative:
+
+\begin{center}
+\begin{tabular}{@{}ccccl@{}}
+\toprule
+\textbf{Variant} & \textbf{metal\_top} & \textbf{mim\_option} & \textbf{metal\_level} & \\
+\midrule
+A & 30K & A & 3LM & \\
+B & 11K & B & 4LM & \\
+C & 9K  & \textbf{B} & \textbf{5LM} & $\leftarrow$ candidate \\
+D & 11K & \textbf{B} & \textbf{5LM} & $\leftarrow$ used for sign-off \\
+E & 9K  & B & 6LM & \\
+F & 9K  & A & 6LM & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This design is \textbf{5LM} (met1--met5; the padring cell \texttt{gf180mcu\_fd\_io\_\_asig\_5p0}
+is a 5LM cell), so only \texttt{mim\_option=B} exists. The module is therefore built as:
+Metal4 bottom plate, FuseTop top plate, Via4 contact, and \emph{both} terminals brought out on
+Metal5 --- rule MIMTM.10 forbids contacting the Metal4 bottom plate from below.
+
+\subsection*{MIM-B rule compliance}
+
+\begin{longtable}{@{}llll@{}}
+\toprule
+\textbf{Rule} & \textbf{Requirement} & \textbf{Implemented} & \textbf{Result} \\
+\midrule
+\endhead
+MIMTM.1  & met4 to neighbouring MIM bottom plate $\geq 1.2$\um & 1.4\um  & \PASS \\
+MIMTM.2  & met4 encloses via4 in the MIM region $\geq 0.4$\um  & 0.5\um  & \PASS \\
+MIMTM.3  & met4 encloses FuseTop $\geq 0.6$\um                 & 0.8\um  & \PASS \\
+MIMTM.4  & FuseTop encloses via4 $\geq 0.4$\um                 & 0.4\um  & \PASS \\
+MIMTM.5  & FuseTop to bottom-contact via4 $\geq 0.4$\um        & 0.5\um  & \PASS \\
+MIMTM.6  & FuseTop to unrelated FuseTop $\geq 0.6$\um          & 1.4\um  & \PASS \\
+MIMTM.7  & FuseTop covered by \texttt{CAP\_MK} $\geq 0$\um     & 0.2\um  & \PASS \\
+MIMTM.8a & FuseTop area $\geq 25$\umsq                         & enforced in code & \PASS \\
+MIMTM.8b & FuseTop area $\leq 10000$\umsq\ per capacitor       & enforced in code & \PASS \\
+MIMTM.9  & via4 spacing on the top plate $\geq 0.5$\um         & 0.54\um & \PASS \\
+MIMTM.10 & no Via3 may touch the Metal4 bottom plate           & both terminals on met5 & \PASS \\
+MIMTM.11 & FuseTop per shared bottom plate $\leq 10000$\umsq   & one plate per unit & \PASS \\
+\bottomrule
+\end{longtable}
+
+\textbf{Critical caveat.} A clean DRC result is only meaningful if the MIM rules actually ran.
+Every MIM rule keys off \texttt{fusetop}; with no FuseTop drawn they match nothing and pass
+\emph{vacuously} --- which is exactly why the previous, shorted design was reported ``DRC
+clean''. The sign-off log must therefore be read, not just its verdict. For the submitted file
+it contains:
+
+\begin{center}
+\texttt{MIM Option selected: B} \qquad \texttt{fusetop has 34 polygons}
+\end{center}
+
+\section{Metal, via and density rules}
+
+\begin{longtable}{@{}lllll@{}}
+\toprule
+\textbf{Rule} & \textbf{Requirement} & \textbf{Design uses} & \textbf{Measured} & \textbf{Result} \\
+\midrule
+\endhead
+M1.1 & met1 width $\geq 0.23$\um  & 0.5\um straps         & min 0.500\um & \PASS \\
+M2.1 & met2 width $\geq 0.28$\um  & 8.0\um pin landings   & min 0.500\um & \PASS \\
+M3.1 & met3 width $\geq 0.28$\um  & 0.8/2.0\um lanes      & min 0.500\um & \PASS \\
+M4.1 & met4 width $\geq 0.28$\um  & 2.0\um rails          & min 0.500\um & \PASS \\
+M5.1 & met5 width $\geq 0.28$\um  & 2.0\um buses          & min 2.000\um & \PASS \\
+V4.1 & via4 exactly $0.26$\um     & 0.26\um               & 0.26\um      & \PASS \\
+V4.2b& via4 spacing in arrays $\geq0.36$\um & 0.54\um pitch gap & ---   & \PASS \\
+M1.4 & met1 coverage $> 30\%$     & dummy fill            & \textbf{43.2\%} & \PASS \\
+M2.4 & met2 coverage $> 30\%$     & dummy fill            & \textbf{43.7\%} & \PASS \\
+M3.4 & met3 coverage $> 30\%$     & dummy fill            & \textbf{42.8\%} & \PASS \\
+M4.4 & met4 coverage $> 30\%$     & dummy fill            & \textbf{45.6\%} & \PASS \\
+M5.4 & met5 coverage $> 30\%$     & dummy fill            & \textbf{45.9\%} & \PASS \\
+PL.8 & poly2 coverage $= 14\%$    & dummy fill            & \textbf{43.2\%} & \PASS \\
+\bottomrule
+\end{longtable}
+
+Dummy fill uses a $1.4$\um\ clearance on met4 rather than the $0.3$\um\ metal spacing, because
+MIMTM.1 keeps any Metal4 at least $1.2$\um\ away from a MIM bottom plate. Fill also keeps clear
+of the slot edge, the Metal2 corner keep-outs and the five pin landings.
+
+\section{Project-slot rules}
+
+\begin{longtable}{@{}llll@{}}
+\toprule
+\textbf{Requirement} & \textbf{Source} & \textbf{Measured} & \textbf{Result} \\
+\midrule
+\endhead
+Area exactly $550\times550$\um & \texttt{D05\_EH.def} \texttt{DIEAREA} & bbox $(0,0)$--$(550,550)$ & \PASS \\
+Layer 0/0 boundary present & organiser flow & present & \PASS \\
+Five pins, Metal2, west edge & \texttt{D05\_EH\_interface.yaml} & all five landed & \PASS \\
+\quad VSS (W12, \texttt{dvss})   & 6 rects, 60.000\umsq & 60.000\umsq covered & \PASS \\
+\quad RFP (W13, \texttt{asig\_5p0}) & 8 rects, 20.320\umsq & 20.320\umsq covered & \PASS \\
+\quad RFN (W14, \texttt{asig\_5p0}) & 8 rects, 20.320\umsq & 20.320\umsq covered & \PASS \\
+\quad VOUT (W15, \texttt{asig\_5p0}) & 8 rects, 20.320\umsq & 20.320\umsq covered & \PASS \\
+\quad VCC (W16, \texttt{dvdd})   & 6 rects, 60.000\umsq & 60.000\umsq covered & \PASS \\
+Metal2 corner keep-outs & \texttt{D05\_EH.def} \texttt{BLOCKAGES} & none issued for EH & \PASS \\
+\quad (regression against variant D) & $(529,548)$--$(550,550)$, $(0,0)$--$(2,21)$ & both clear on a D build & \PASS \\
+Hierarchical GDS, unique cell names & requested by the integrator & 163 cells, all \texttt{D05\_}-prefixed, no \texttt{\$} & \PASS \\
+\bottomrule
+\end{longtable}
+
+\section{Verification methodology}
+\label{sec:method}
+
+Three points matter for interpreting the results.
+
+\textbf{DRC is the foundry KLayout deck, not magic.} magic's \texttt{gf180mcuD} technology has
+no MIM device and a much thinner rule set; it is what allowed the previous shorted capacitors
+to pass. All DRC numbers here come from
+\texttt{run\_drc.py -{-}variant=D -{-}density -{-}antenna}.
+
+\textbf{LVS runs on the capacitor-free FET view.} No extractor available here models a MIM, so
+a with-capacitor extraction would read the via4 sea on FuseTop as a plate short. LVS therefore
+proves the transistor topology; the capacitors are verified geometrically instead.
+
+\textbf{Capacitors are verified by layer-aware net extraction.} A via4 landing \emph{on}
+FuseTop is modelled as met5$\leftrightarrow$FuseTop; a via4 landing \emph{off} FuseTop as
+met5$\leftrightarrow$met4; FuseTop is never joined to met4 --- that gap \emph{is} the
+capacitor. A naive ``via4 joins met4 to met5'' model reports every MIM as a short.
+
+\section{Verification results}
+
+\begin{longtable}{@{}lll@{}}
+\toprule
+\textbf{Check} & \textbf{Result} & \textbf{Status} \\
+\midrule
+\endhead
+Foundry DRC, geometry $+$ density $+$ antenna & 0 flagged items & \PASS \\
+\quad MIM rules actually executed & \texttt{MIM Option: B}, \texttt{fusetop has 34 polygons} & \PASS \\
+\texttt{netgen} LVS, exact file and top cell & circuits match uniquely, 9 ports & \PASS \\
+Per-module DRC + LVS (9 modules) & all clean & \PASS \\
+Net separation & 9 named nets, each on exactly one net & \PASS \\
+Dangling metal & 0.00\umsq\ unreachable & \PASS \\
+Capacitor plate separation & 34 plates, none shorted or floating & \PASS \\
+Capacitor net assignment & all 5 on their intended net pairs & \PASS \\
+Route widths & nothing below its DRC minimum & \PASS \\
+PEX device parameters & schematic histogram $=$ extracted histogram & \PASS \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Capacitor net assignment}
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Bank} & \textbf{Top plate} & \textbf{Bottom plate} & \textbf{Intended} \\
+\midrule
+storage (28 units, 19.998\,pF) & VOUT  & VSS & VSS / VOUT \quad\PASS \\
+stage 1 (2 units, 1.200\,pF)   & N1    & RFN & RFN / N1 \quad\PASS \\
+stage 2 (2 units, 1.200\,pF)   & N2    & RFP & RFP / N2 \quad\PASS \\
+inject 1 (1 unit, 0.300\,pF)   & VMID1 & RFP & RFP / VMID1 \quad\PASS \\
+inject 2 (1 unit, 0.300\,pF)   & VMID2 & RFN & RFN / VMID2 \quad\PASS \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Measured outputs}
+
+Post-layout, on the extracted netlist (2293 R, 439 C) with the capacitors at the values the
+MIM-B geometry actually realises, simulated in \texttt{ngspice-46}.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Quantity} & \textbf{Condition} & \textbf{Result} \\
+\midrule
+VRECT (rectified rail) & $\pm0.9$\,V, 30\,MHz differential & 0.817\,V \\
+VOUT (harvested output) & same & 1.578\,V \\
+Pump gain VOUT/VRECT & same & $2.46\times$ \\
+Input impedance $Z_\mathrm{in}$ & 30\,MHz, large-signal & $2324 - 170j\ \Omega$ differential \\
+Matching network (off-chip) & to 100\,$\Omega$ & shunt 10.5\,pF $+$ series 1265\,nH/side \\
+VOUT at 0\,dBm & 30\,MHz, unmatched & 0.31\,V \\
+VOUT at $+8$\,dBm & 30\,MHz, unmatched & 1.94\,V \\
+Sensitivity (VOUT $\geq 1$\,V) & unmatched & $+3.7$\,dBm \\
+Sensitivity (VOUT $\geq 1$\,V) & L-matched & $-7.2$\,dBm \\
+Matching gain & --- & $\approx 10.8$\,dB \\
+Total on-chip MIM capacitance & --- & 22.998\,pF \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Defects found and corrected}
+
+\begin{longtable}{@{}p{0.30\textwidth}p{0.42\textwidth}l@{}}
+\toprule
+\textbf{Defect} & \textbf{Cause and correction} & \textbf{Status} \\
+\midrule
+\endhead
+Capacitors were metal shorts & \texttt{mimcap()} drew met2/via2/met3 with no FuseTop; the 22\,pF storage bank tied VOUT to VSS. Rebuilt on the MIM-B stack. & fixed \\
+Wrong metal pair & \texttt{mim\_option=A} (met2/met3) exists only for 3LM/6LM; this is 5LM. Capacitors moved to met4/met5. & fixed \\
+Flat GDS, cell named \texttt{rf\_energy\_harvester\$1} & \texttt{component\_snap\_to\_grid()} flattens by design. Skipped; cells renamed and prefixed. & fixed \\
+No connection to the padring & The core's rail pads sat 137\um\ inside the slot on met4. Added a met4/met3 boundary router to the Metal2 landings. & fixed \\
+Density 0.1--11\,\% & Added dummy fill on all six layers. & fixed \\
+Five met4 rails welded together & \texttt{mlink} draws each stub on the \emph{port's own} layer; met4 ports shorted the rails they crossed. Ports now drop on met3. & fixed \\
+N1/N2 shorted to VSS & Those ports sit \emph{inside} the pump, above its own met3 VSS bar. They now route upward to a second rail band. & fixed \\
+N1 merged with VMID1 & Two capacitors shared an $x$ column, so their met5 buses overlapped. Each capacitor now has its own column. & fixed \\
+VOUT and VRECT each split in two & The bottom rail did not extend to the met5 tie column, so the tie landed on an isolated pad. Rails now include the tie anchor. & fixed \\
+\bottomrule
+\end{longtable}
+
+\section{Open items}
+
+\begin{enumerate}
+\item \OPEN\ \textbf{Process variant.} The capacitors are MIM-B because that is what the deck
+offers for a 5LM stack. The organisers should confirm the shuttle runs a 5LM variant with the
+MIM module enabled. A different metal count moves the capacitors to a different metal pair, and
+the floorplan with them.
+\item \OPEN\ \textbf{Post-layout re-closure.} The results in Sec.~6 use the MIM-B capacitance
+values but an extraction taken from the capacitor-free view. They have not yet been re-closed
+against the real MIM-B parasitics. This is the remaining engineering step before tapeout.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,105 @@
+[
+ {
+  "ip": "unit_diode",
+  "kind": "fet",
+  "w": 10.78,
+  "h": 9.09,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_unit_diode.png",
+  "lvs": true,
+  "check": "netgen LVS"
+ },
+ {
+  "ip": "rectifier",
+  "kind": "fet",
+  "w": 17.23,
+  "h": 32.87,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_rectifier.png",
+  "lvs": true,
+  "check": "netgen LVS"
+ },
+ {
+  "ip": "startup_bias",
+  "kind": "fet",
+  "w": 19.75,
+  "h": 30.87,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_startup_bias.png",
+  "lvs": true,
+  "check": "netgen LVS"
+ },
+ {
+  "ip": "pump_ladder",
+  "kind": "fet",
+  "w": 48.34,
+  "h": 14.09,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_pump_ladder.png",
+  "lvs": true,
+  "check": "netgen LVS"
+ },
+ {
+  "ip": "load_diode",
+  "kind": "fet",
+  "w": 37.91,
+  "h": 6.1,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_load_diode.png",
+  "lvs": true,
+  "check": "netgen LVS"
+ },
+ {
+  "ip": "mimb_unit",
+  "kind": "cap",
+  "w": 29.6,
+  "h": 30.06,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_mimb_unit.png",
+  "lvs": true,
+  "check": "plate separation",
+  "pF": 0.784
+ },
+ {
+  "ip": "cap_inject",
+  "kind": "cap",
+  "w": 25.72,
+  "h": 19.38,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_cap_inject.png",
+  "lvs": true,
+  "check": "plate separation",
+  "pF": 0.3
+ },
+ {
+  "ip": "cap_stage",
+  "kind": "cap",
+  "w": 32.9,
+  "h": 54.52,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_cap_stage.png",
+  "lvs": true,
+  "check": "plate separation",
+  "pF": 1.2
+ },
+ {
+  "ip": "cap_storage",
+  "kind": "cap",
+  "w": 213.5,
+  "h": 119.36,
+  "drc": true,
+  "drc_items": {},
+  "png": "/home/irman/gLayout/notebook/tapeout/img/ip_cap_storage.png",
+  "lvs": true,
+  "check": "plate separation",
+  "pF": 19.998
+ }
+]
