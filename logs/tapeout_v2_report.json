@@ -1,0 +1,69 @@
+{
+ "fill": {
+  "met1": {
+   "tiles": 22630,
+   "before_pct": 0.13735404958677686,
+   "after_pct": 43.22786644628099,
+   "target": 30.0,
+   "ok": true
+  },
+  "met2": {
+   "tiles": 22496,
+   "before_pct": 0.8541966942148761,
+   "after_pct": 43.68955537190082,
+   "target": 30.0,
+   "ok": true
+  },
+  "met3": {
+   "tiles": 22033,
+   "before_pct": 0.8273352066115702,
+   "after_pct": 42.78108066115703,
+   "target": 30.0,
+   "ok": true
+  },
+  "met4": {
+   "tiles": 18435,
+   "before_pct": 10.248244892561983,
+   "after_pct": 45.3509225785124,
+   "target": 30.0,
+   "ok": true
+  },
+  "met5": {
+   "tiles": 18868,
+   "before_pct": 10.013903752066117,
+   "after_pct": 45.94107069421487,
+   "target": 30.0,
+   "ok": true
+  },
+  "poly2": {
+   "tiles": 22643,
+   "before_pct": 0.04938591735537191,
+   "after_pct": 43.164652033057855,
+   "target": 14.0,
+   "ok": true
+  }
+ },
+ "full": {
+  "gds": "/home/irman/gLayout/notebook/rf_harvester_tapeout_out/D05_Gelochip.gds",
+  "cells": 163,
+  "top": "D05_Gelochip",
+  "bbox": [
+   0.0,
+   0.0,
+   550.0,
+   550.0
+  ]
+ },
+ "lvs": true,
+ "fet": {
+  "gds": "/home/irman/gLayout/notebook/rf_harvester_tapeout_out/D05_Gelochip_FET.gds",
+  "cells": 138,
+  "top": "D05_Gelochip_FET",
+  "bbox": [
+   0.0,
+   0.0,
+   550.0,
+   550.0
+  ]
+ }
+}
