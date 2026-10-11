@@ -137,6 +137,32 @@ PYTHONPATH=src:src/gelochip python -m pytest tests
 
 Keberhasilan merge dan tes portal belum membuktikan pipeline LLM, simulasi, DRC/LVS, atau tapeout berhasil. Kebutuhan runtime harus tersedia sebelum pengujian desain menyeluruh.
 
+## End goal: satu website desain chip terpadu
+
+Target akhir proyek adalah **satu website Gelochip** yang menggabungkan Gelochip Studio, AnoaChip Auto Layouter, dan PandaChip Auto Schematic Maker dalam satu antarmuka dan satu workspace proyek. Pengguna dapat menjalankan seluruh alur tanpa berpindah aplikasi atau memindahkan netlist secara manual:
+
+```text
+Prompt / spesifikasi
+  -> Schematic (PandaChip)
+  -> Netlist dan simulasi
+  -> Layout GDSII (AnoaChip / Gelochip)
+  -> DRC / LVS dan laporan
+  -> Tinjau serta unduh artefak proyek
+```
+
+Website terpadu ditargetkan memiliki:
+
+- Satu dashboard proyek dengan editor/viewer schematic, layout, hasil simulasi, dan laporan verifikasi.
+- Satu API penghubung dengan format pertukaran netlist, spesifikasi, PDK, dan artefak yang disepakati antar engine.
+- Alur schematic-ke-layout otomatis, dengan pemeriksaan kompatibilitas port, model perangkat, tegangan, dan PDK sebelum pekerjaan dilanjutkan.
+- Status pekerjaan, log, dan riwayat hasil dalam proyek yang sama; hasil simulasi dan DRC/LVS tetap merujuk ke versi desain yang diperiksa.
+- Pilihan model lokal atau cloud dari antarmuka yang sama, dengan lingkungan dependensi setiap engine tetap terpisah di backend.
+- Pengoperasian di **localhost terlebih dahulu**, kemudian deployment cloud setelah alur terpadu berhasil diuji.
+
+Tahapan pengembangan: penggabungan source dan portal lokal (saat ini), API serta format pertukaran bersama, antarmuka web terpadu, pengujian alur desain menyeluruh, lalu kesiapan hosting cloud. End goal tercapai ketika satu proyek dapat melewati alur schematic, simulasi, layout, dan verifikasi dari website yang sama, tanpa transfer file manual antar aplikasi.
+
+Pengembangan berikutnya tetap menjaga `info.yaml`, `config.json`, dan folder serta artefak yang sudah ada seperti `OUTS`/`outputs`; integrasi harus menambahkan penghubung tanpa menimpa konfigurasi atau memindahkan hasil lama.
+
 ## Arah hosting cloud
 
 Struktur ini dapat menjadi dasar pemisahan layanan web, worker EDA, penyimpanan artefak dan model. Sebelum deployment publik, perlu konfigurasi reverse proxy, autentikasi, isolasi worker, storage persisten dan pengujian layanan. Portal saat ini bind ke loopback dan ditujukan untuk penggunaan lokal.
