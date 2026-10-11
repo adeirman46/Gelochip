@@ -4,6 +4,89 @@ Workspace untuk desain IC analog/RF yang menggabungkan **Gelochip Studio**, **An
 
 > Fokus integrasi ini: menyatukan source dan riwayat branch di `main`, menjaga konfigurasi serta artefak desain, dan menyediakan pintu masuk localhost. Ketiga engine memakai runtime masing-masing; transfer netlist antar engine masih manual.
 
+## Gambaran proyek
+
+Gelochip dikembangkan sebagai platform berbasis web untuk membantu proses desain integrated circuit (IC) analog dan radio frequency (RF), mulai dari spesifikasi rangkaian hingga peninjauan layout dan bukti verifikasinya. Proyek ini menyatukan kemampuan pembuatan schematic dari PandaChip, pembuatan layout dari AnoaChip, serta agent dan pustaka blok analog/RF dari Gelochip Studio.
+
+Bagian awal README ini disusun sebagai pengantar konsep proyek dengan gaya dokumen B100: menjelaskan latar belakang, masalah, tujuan, konsep solusi, dan batas pengembangan. Bagian ini bukan dokumen B100 formal yang mengikuti template institusi tertentu. Petunjuk instalasi dan penggunaan tersedia setelah penjelasan konsep.
+
+## Latar belakang
+
+Desain IC analog/RF melibatkan beberapa pekerjaan yang saling bergantung. Spesifikasi perlu diterjemahkan menjadi topologi rangkaian dan ukuran perangkat; schematic kemudian menghasilkan netlist untuk simulasi. Setelah perilaku rangkaian diperiksa, perangkat ditempatkan dan dihubungkan dalam layout sesuai aturan process design kit (PDK). Layout perlu diperiksa melalui design rule checking (DRC) dan layout versus schematic (LVS), serta dievaluasi kembali bila parasitik memengaruhi hasil desain.
+
+Dalam alur yang memakai beberapa alat terpisah, perancang harus menjaga konsistensi spesifikasi, koneksi, model perangkat, pilihan PDK, dan versi berkas pada setiap tahap. Ketika schematic berubah, netlist, simulasi, dan layout terkait perlu ditinjau ulang. Pemindahan berkas dan konfigurasi secara manual dapat membuat hasil dari versi desain yang berbeda tercampur atau membuat pekerjaan harus diulang.
+
+Repository ini telah memiliki beberapa bagian dari alur tersebut, tetapi kemampuan yang dibutuhkan tersebar di branch pengembangan dan proyek yang berbeda. PandaChip berfokus pada schematic xschem dan simulasi, AnoaChip menyediakan alur layout berbasis Glayout, sedangkan Gelochip menyediakan agent dan blok desain analog/RF. Penggabungan source menjadi langkah awal untuk membangun alur kerja bersama tanpa menghilangkan konfigurasi, hasil eksperimen, dan artefak desain yang sudah ada.
+
+Penggunaan AI diarahkan untuk membantu menerjemahkan spesifikasi, menghasilkan rancangan awal, dan mendukung iterasi. Keputusan bahwa suatu desain memenuhi persyaratan tetap harus didasarkan pada hasil simulasi, pemeriksaan aturan, dan bukti kesesuaian rangkaian. Karena itu, platform perlu menampilkan hasil alat EDA dan asal artefaknya bersama hasil yang dihasilkan agent.
+
+## Rumusan masalah
+
+1. Bagaimana menyatukan kemampuan schematic, simulasi, layout, dan verifikasi dari tiga engine dalam satu website?
+2. Bagaimana mempertahankan konsistensi netlist, port, model perangkat, tegangan, dan PDK saat desain berpindah tahap?
+3. Bagaimana mengelola revisi desain, pekerjaan yang berjalan, log, dan artefak agar hasil pemeriksaan merujuk ke versi desain yang tepat?
+4. Bagaimana menyediakan penggunaan awal di localhost dan mempersiapkan hosting cloud tanpa mengubah konfigurasi serta artefak lama?
+
+## Tujuan dan manfaat yang diharapkan
+
+Tujuan utama proyek adalah menghasilkan **satu website Gelochip dengan satu workspace proyek** untuk menjalankan alur desain analog/RF dari spesifikasi, schematic, dan simulasi hingga layout serta verifikasi.
+
+Pengembangan diarahkan untuk mengurangi pemindahan berkas antar aplikasi, membantu pengguna menelusuri hubungan antara schematic dan layout, serta memudahkan peninjauan hasil simulasi dan laporan DRC/LVS. Bagi tim pengembang, struktur bersama diharapkan memudahkan pemeliharaan kontribusi dan penambahan engine tanpa mencampurkan lingkungan dependensinya. Manfaat tersebut merupakan sasaran pengembangan; peningkatan waktu pengerjaan atau kualitas desain belum diukur dalam integrasi saat ini.
+
+## Pengguna dan kebutuhan utama
+
+Pengguna yang dituju adalah peserta Chipathon, mahasiswa, peneliti, dan pengembang yang mengerjakan desain IC analog/RF dengan alat EDA terbuka.
+
+| Kebutuhan pengguna | Respons sistem yang ditargetkan |
+|---|---|
+| Memulai desain dari spesifikasi | Form atau percakapan untuk memasukkan fungsi rangkaian, target kinerja, dan batasan desain |
+| Membuat dan meninjau rangkaian | Workspace schematic dengan netlist, parameter perangkat, dan hasil simulasi |
+| Melanjutkan rangkaian ke layout | Penghubung antar engine yang memeriksa kecocokan input sebelum menjalankan layout |
+| Memahami hasil pemeriksaan | Viewer artefak, status pekerjaan, log, dan laporan simulasi/DRC/LVS dalam proyek yang sama |
+| Mengulang desain setelah revisi | Riwayat versi dan hubungan antara input, run, serta hasil yang dihasilkan |
+| Menjalankan pada mesin sendiri | Pengoperasian localhost dengan konfigurasi model dan runtime EDA yang sesuai |
+
+## Konsep solusi
+
+Solusi yang diusulkan menggunakan satu antarmuka web dan API penghubung untuk mengoordinasikan engine yang tetap memiliki runtime masing-masing. PandaChip menangani pembuatan schematic, AnoaChip menangani otomatisasi layout, dan Gelochip menyediakan kemampuan desain serta blok analog/RF sesuai kebutuhan alur.
+
+Satu proyek menyimpan spesifikasi, pilihan PDK, revisi desain, dan hubungan antar artefak. Sebelum melanjutkan pekerjaan ke engine berikutnya, penghubung memeriksa format input dan kompatibilitas desain. Setiap pekerjaan menghasilkan status eksekusi dan bukti pemeriksaan yang dapat ditinjau pengguna; pekerjaan yang selesai dijalankan belum tentu memenuhi seluruh spesifikasi desain.
+
+```text
+Pengguna
+   -> Satu website dan workspace proyek Gelochip
+      -> Spesifikasi dan pilihan PDK
+      -> PandaChip: schematic, netlist, dan simulasi
+      -> AnoaChip / Gelochip: layout GDSII
+      -> Simulasi terkait layout, DRC, dan LVS
+      -> Peninjauan laporan dan artefak
+      -> Revisi desain bila diperlukan
+```
+
+Arsitektur ini adalah arah pengembangan. Implementasi saat ini baru menyatukan source dan menyediakan portal akses; API penghubung dan alur otomatis lintas engine belum tersedia.
+
+## Ruang lingkup dan batasan
+
+Ruang lingkup proyek mencakup integrasi aplikasi, pengelolaan proyek dan artefak, penghubung schematic-ke-layout, serta penyajian hasil simulasi dan verifikasi untuk desain analog/RF pada PDK yang didukung engine terkait. Dukungan suatu PDK atau topologi harus diperiksa pada alur yang benar-benar digunakan; tidak semua kombinasi otomatis didukung oleh seluruh engine.
+
+Tahap pertama berfokus pada localhost. Hosting cloud menjadi tahap berikutnya setelah alur terpadu diuji. Pemilihan model lokal atau cloud tidak mengubah kebutuhan terhadap runtime EDA, model perangkat, dan rule deck yang sesuai. Platform juga tidak menjamin desain siap fabrikasi hanya karena agent selesai atau berkas GDSII berhasil dibuat; keputusan tapeout memerlukan peninjauan dan persyaratan signoff yang berlaku untuk desain tersebut.
+
+Pengembangan wajib mempertahankan `info.yaml`, `config.json`, serta folder dan artefak yang sudah ada seperti `OUTS`/`outputs`. Source engine dapat dihubungkan melalui komponen tambahan tanpa menimpa konfigurasi atau memindahkan hasil desain lama.
+
+## Indikator keberhasilan dan kondisi saat ini
+
+| Indikator | Kondisi saat ini | Target akhir |
+|---|---|---|
+| Source dan kontribusi branch berada di main | Sudah digabungkan secara lokal | Struktur bersama dapat dipelihara dan dikembangkan |
+| Konfigurasi dan artefak lama terjaga | Audit baseline integrasi lulus | Tetap terlindungi selama pengembangan berikutnya |
+| Akses aplikasi melalui web | Portal localhost tersedia | Satu antarmuka untuk seluruh tahap desain |
+| Perpindahan schematic/netlist ke layout | Masih manual | Transfer otomatis dengan pemeriksaan kompatibilitas |
+| Hubungan revisi, run, dan hasil pemeriksaan | Belum terpadu lintas engine | Setiap hasil dapat ditelusuri ke input dan versi desainnya |
+| Pengujian desain menyeluruh | Belum dijalankan pada lingkungan integrasi ini | Proyek contoh melewati alur schematic, simulasi, layout, dan verifikasi sesuai kriteria yang ditetapkan |
+| Hosting cloud | Belum dideploy | Deployment setelah validasi localhost dan kesiapan layanan |
+
+Untuk pengujian akhir, tim perlu menetapkan proyek contoh, PDK, spesifikasi rangkaian, serta kriteria lulus simulasi dan DRC/LVS sebelum menjalankan evaluasi. End goal dinilai tercapai ketika proyek contoh tersebut dapat dikerjakan dan ditinjau dari website yang sama tanpa transfer berkas manual antar aplikasi, dengan bukti hasil yang dapat ditelusuri.
+
 ## Tiga aplikasi, satu repository
 
 | Aplikasi | Peran | Lokasi source | URL lokal |
