@@ -1,0 +1,25 @@
+.title PA Verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt pa VDD 0 RF_IN RF_OUT
+XM1 PA_D VBIAS 0 0 nfet_03v3 L=0.28u W=400u nf=40
+L1 VDD PA_D 1u
+Cout RF_OUT PA_D 1n
+Cin VBIAS RF_IN 100p
+R1 VDD VBIAS 10k
+R2 VBIAS 0 10k
+.ends
+
+X1 VDD 0 RF_IN RF_OUT pa
+V1 VDD 0 3.3
+V2 RF_IN 0 SIN(0 0.1 100MEG)
+Rload RF_OUT 0 50
+
+.tran 0.1n 200n
+.save all
+.control
+set filetype=binary
+run
+write pa_verify.raw
+.endc

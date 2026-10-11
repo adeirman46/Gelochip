@@ -1,0 +1,53 @@
+.title RX Top Verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt lna VDD 0 RF_IN RF_OUT
+XM1 MID VBIAS1 0 0 nfet_03v3 L=0.28u W=50u nf=5
+XM2 RF_OUT VBIAS2 MID 0 nfet_03v3 L=0.28u W=50u nf=5
+L1 VDD RF_OUT 100n
+C1 VDD RF_OUT 25.3p
+R_load VDD RF_OUT 2k
+Cin VBIAS1 RF_IN 10p
+R1 VDD VBIAS2 15k
+R2 VBIAS2 0 18k
+R3 VDD VBIAS1 25k
+R4 VBIAS1 0 8k
+.ends
+
+.subckt mixer VDD 0 RF_P RF_N LO_P LO_N IF_P IF_N
+XM1 M1D RF_P TAIL 0 nfet_03v3 L=0.28u W=50u nf=5
+XM2 M2D RF_N TAIL 0 nfet_03v3 L=0.28u W=50u nf=5
+XM3 IF_P LO_P M1D 0 nfet_03v3 L=0.28u W=50u nf=5
+XM4 IF_N LO_N M1D 0 nfet_03v3 L=0.28u W=50u nf=5
+XM5 IF_P LO_N M2D 0 nfet_03v3 L=0.28u W=50u nf=5
+XM6 IF_N LO_P M2D 0 nfet_03v3 L=0.28u W=50u nf=5
+R1 VDD IF_P 2k
+R2 VDD IF_N 2k
+I1 TAIL 0 2m
+.ends
+
+.subckt rx_top RF_IN LO_P LO_N IF_P IF_N VDD 0
+X1 VDD 0 RF_IN LNA_OUT lna
+X2 VDD 0 MIX_RF_P MIX_RF_N LO_P LO_N IF_P IF_N mixer
+Cc MIX_RF_P LNA_OUT 10p
+Rb1 VDD net1 10k
+Rb2 net1 0 10k
+Rb3 MIX_RF_P net1 10k
+Rb4 MIX_RF_N net1 10k
+Cbypass MIX_RF_N 0 100p
+.ends
+
+X1 RF_IN LO_P LO_N IF_P IF_N VDD 0 rx_top
+V1 VDD 0 3.3
+V2 RF_IN 0 SIN(0 0.01 100MEG)
+V3 LO_P 0 SIN(2.2 1.0 90MEG)
+V4 LO_N 0 SIN(2.2 1.0 90MEG 0 0 180)
+
+.tran 1n 500n
+.save all
+.control
+set filetype=binary
+run
+write rx_top_verify.raw
+.endc

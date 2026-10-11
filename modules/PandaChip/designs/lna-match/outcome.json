@@ -1,0 +1,6 @@
+{
+  "status": "done",
+  "steps": 35,
+  "summary": "Narrowband inductively degenerated LNA resonant at 40 MHz (gate inductor LG + source inductor LS, 50 ohm source, cascode), finalized as lna_match_tb.sch. All three specs verified: gain, input match, and transient.",
+  "evidence": "Verified WITHOUT any .ic initial conditions (self-biasing proven; lna_match_verify_*.raw): AC @ 39.8 MHz: OUT gain 56.8 dB (>= 50 dB spec), input v(IN) = -6.62 dB vs 0 dB off-resonance (50-ohm input match at resonance; perfect match = -6 dB). TRAN from zero state: OUT 0.706 V @ 40 MHz from 1 mV EMF, operating point 3.30 V. Design: inductively degenerated cascode, LG gate + LS source inductors, 50-ohm source."
+}

@@ -1,0 +1,21 @@
+.title matching_verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt matching RF_IN RF_BOOST
+L1 RF_BOOST RF_IN 694n
+C1 RF_BOOST 0 14p
+.ends
+
+X1 RF_IN RF_BOOST matching
+V1 RF_IN_SRC 0 SIN(0 0.632 50MEG)
+R1 RF_IN_SRC RF_IN 50
+
+.tran 1n 10u
+.save all
+.control
+set filetype=binary
+run
+write matching_verify.raw
+.endc
+.end

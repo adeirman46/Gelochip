@@ -492,7 +492,7 @@ def nmos(
 
     component = rename_ports_by_orientation(nfet).flatten()
 
-    component.info['netlist'] = fet_netlist(
+    netlist_obj = fet_netlist(
         pdk,
         circuit_name="NMOS",
         model=pdk.models['nfet'],
@@ -500,8 +500,14 @@ def nmos(
         length=length,
         fingers=fingers,
         multipliers=multipliers,
-        with_dummy=with_dummy
+        with_dummy=with_dummy,
     )
+    component.info['netlist'] = netlist_obj.generate_netlist()
+    component.info['netlist_data'] = {
+        'circuit_name': netlist_obj.circuit_name,
+        'nodes': netlist_obj.nodes,
+        'source_netlist': netlist_obj.source_netlist,
+    }
 
     return component
 
@@ -630,7 +636,7 @@ def pmos(
         )
     component =  rename_ports_by_orientation(pfet).flatten()
 
-    component.info['netlist'] = fet_netlist(
+    netlist_obj = fet_netlist(
         pdk,
         circuit_name="PMOS",
         model=pdk.models['pfet'],
@@ -638,7 +644,13 @@ def pmos(
         length=length,
         fingers=fingers,
         multipliers=multipliers,
-        with_dummy=with_dummy
+        with_dummy=with_dummy,
     )
+    component.info['netlist'] = netlist_obj.generate_netlist()
+    component.info['netlist_data'] = {
+        'circuit_name': netlist_obj.circuit_name,
+        'nodes': netlist_obj.nodes,
+        'source_netlist': netlist_obj.source_netlist,
+    }
 
     return component

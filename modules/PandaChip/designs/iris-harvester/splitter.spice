@@ -1,0 +1,18 @@
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/splitter.sch
+**.subckt splitter RF_BOOST VBIAS IN_P IN_N
+*.ipin RF_BOOST
+*.ipin VBIAS
+*.opin IN_P
+*.opin IN_N
+C1 IN_P RF_P 10p
+C2 IN_N RF_N 10p
+R1 VBIAS IN_P 100k
+R2 IN_N VBIAS 100k
+**** begin user architecture code
+
+E1 RF_P 0 RF_BOOST 0 1
+E2 RF_N 0 RF_BOOST 0 -1
+
+**** end user architecture code
+**.ends
+.end

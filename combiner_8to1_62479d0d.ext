@@ -1,0 +1,63 @@
+timestamp 1572014192
+version 8.3
+tech gf180mcuD
+style ngspice()
+scale 1000 1 0.5
+resistclasses 1000000 3250000 6300 7000 6300 7000 7300 1000000 60000 185000 60000 185000 6300 7000 6300 7000 6800 7300 350000 310000 1000000 90 90 90 90 60
+use straight_route_93435a71 straight_route_93435a71_0 1 0 0 0 1 0
+use pin$1 pin$1_0 1 0 -500 0 1 -4200
+use straight_route_7ac522a4 straight_route_7ac522a4_0 1 0 0 0 1 0
+use pin$2 pin$2_0 1 0 -500 0 1 -3000
+use straight_route_c2b23cbb straight_route_c2b23cbb_0 1 0 0 0 1 0
+use pin$3 pin$3_0 1 0 -500 0 1 -1800
+use straight_route_884e803c straight_route_884e803c_0 1 0 0 0 1 0
+use pin$4 pin$4_0 1 0 -500 0 1 -600
+use straight_route_fdede734 straight_route_fdede734_0 1 0 0 0 1 0
+use pin$5 pin$5_0 1 0 -500 0 1 600
+use straight_route_8916c10c straight_route_8916c10c_0 1 0 0 0 1 0
+use pin$6 pin$6_0 1 0 -500 0 1 1800
+use straight_route_a933a651 straight_route_a933a651_0 1 0 0 0 1 0
+use pin$7 pin$7_0 1 0 -500 0 1 3000
+use straight_route_aebad2be straight_route_aebad2be_0 1 0 0 0 1 0
+use pin$8 pin$8_0 1 0 -500 0 1 4200
+use combiner_trunk combiner_trunk_0 1 0 0 0 1 0
+use pin pin_0 1 0 500 0 1 0
+use straight_route_a56d8889 straight_route_a56d8889_0 1 0 0 0 1 0
+substrate "VSUBS" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+merge "straight_route_a56d8889_0/m2_200_n150#" "pin$8_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" -2193.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -10800 0 0 0 0 0 0
+merge "pin$8_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_aebad2be_0/m2_n350_4050#"
+merge "straight_route_aebad2be_0/m2_n350_4050#" "pin$6_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$6_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_8916c10c_0/m2_n350_1650#"
+merge "straight_route_8916c10c_0/m2_n350_1650#" "pin$7_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$7_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_a933a651_0/m2_n350_2850#"
+merge "straight_route_a933a651_0/m2_n350_2850#" "pin$5_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$5_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_fdede734_0/m2_n350_450#"
+merge "straight_route_fdede734_0/m2_n350_450#" "pin_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "combiner_trunk_0/rectangle_03d1523e_0/compass_768b3986_0/m2_n200_n4350#"
+merge "combiner_trunk_0/rectangle_03d1523e_0/compass_768b3986_0/m2_n200_n4350#" "pin$4_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$4_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_884e803c_0/m2_n350_n750#"
+merge "straight_route_884e803c_0/m2_n350_n750#" "pin$1_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$1_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_93435a71_0/m2_n350_n4350#"
+merge "straight_route_93435a71_0/m2_n350_n4350#" "pin$2_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$2_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_7ac522a4_0/m2_n350_n3150#"
+merge "straight_route_7ac522a4_0/m2_n350_n3150#" "pin$3_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#"
+merge "pin$3_0/rectangle_8d75c9f7_0/compass_3c2d6388_0/m2_n150_n150#" "straight_route_c2b23cbb_0/m2_n350_n1950#"
+merge "pin$8_0/VSUBS" "straight_route_aebad2be_0/VSUBS" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+merge "straight_route_aebad2be_0/VSUBS" "pin$7_0/VSUBS"
+merge "pin$7_0/VSUBS" "straight_route_a933a651_0/VSUBS"
+merge "straight_route_a933a651_0/VSUBS" "pin$6_0/VSUBS"
+merge "pin$6_0/VSUBS" "straight_route_8916c10c_0/VSUBS"
+merge "straight_route_8916c10c_0/VSUBS" "pin$5_0/VSUBS"
+merge "pin$5_0/VSUBS" "straight_route_fdede734_0/VSUBS"
+merge "straight_route_fdede734_0/VSUBS" "straight_route_a56d8889_0/VSUBS"
+merge "straight_route_a56d8889_0/VSUBS" "pin_0/VSUBS"
+merge "pin_0/VSUBS" "pin$4_0/VSUBS"
+merge "pin$4_0/VSUBS" "straight_route_884e803c_0/VSUBS"
+merge "straight_route_884e803c_0/VSUBS" "combiner_trunk_0/VSUBS"
+merge "combiner_trunk_0/VSUBS" "pin$3_0/VSUBS"
+merge "pin$3_0/VSUBS" "straight_route_c2b23cbb_0/VSUBS"
+merge "straight_route_c2b23cbb_0/VSUBS" "pin$2_0/VSUBS"
+merge "pin$2_0/VSUBS" "straight_route_7ac522a4_0/VSUBS"
+merge "straight_route_7ac522a4_0/VSUBS" "pin$1_0/VSUBS"
+merge "pin$1_0/VSUBS" "straight_route_93435a71_0/VSUBS"
+merge "straight_route_93435a71_0/VSUBS" "VSUBS"

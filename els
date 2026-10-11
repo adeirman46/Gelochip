@@ -1,0 +1,45 @@
+| units: 0.5 tech: gf180mcuD format: MIT
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# mtp_memory_wrapper_62479d0d_0/pin$12_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# 0.1
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# mtp_memory_wrapper_62479d0d_0/pin$10_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# 0.0
+C mtp_memory_wrapper_62479d0d_0/pin$16_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# 0.1
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# mtp_memory_wrapper_62479d0d_0/pin$13_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# 0.1
+C mtp_memory_wrapper_62479d0d_0/pin$9_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# 0.1
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# mtp_memory_wrapper_62479d0d_0/pin$14_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# 0.1
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# mtp_memory_wrapper_62479d0d_0/pin$11_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# 0.0
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000# mtp_memory_wrapper_62479d0d_0/pin$15_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200# 0.1
+C mtp_memory_wrapper_62479d0d_0/pin$11_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+C mtp_memory_wrapper_62479d0d_0/pin$13_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+C mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/m1_n6000_n4000#0 78.2
+C mtp_memory_wrapper_62479d0d_0/pin$15_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+= VSUBS mtp_memory_wrapper_62479d0d_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$13_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$13_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$13_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$12_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$12_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$12_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$10_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$10_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$10_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$9_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$9_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$9_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$11_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$11_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$11_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$16_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$16_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$16_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$14_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$14_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$14_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/rectangle_4051c3fd_0/compass_0bf82c13_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$15_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$15_0/rectangle_c6be4b6f_0/VSUBS
+= VSUBS mtp_memory_wrapper_62479d0d_0/pin$15_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/VSUBS
+C mtp_memory_wrapper_62479d0d_0/pin$9_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+C mtp_memory_wrapper_62479d0d_0/pin$10_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+C mtp_memory_wrapper_62479d0d_0/pin$12_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+C mtp_memory_wrapper_62479d0d_0/pin$14_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3
+C mtp_memory_wrapper_62479d0d_0/pin$16_0/rectangle_c6be4b6f_0/compass_3bfbf061_0/m2_n200_n200#0 0.3

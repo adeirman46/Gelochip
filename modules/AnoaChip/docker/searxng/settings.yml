@@ -1,0 +1,59 @@
+# AnoaChip SearXNG settings — tuned for programmatic use by the agents.
+# JSON API is enabled (formats: json) so _searxng_search in app.py can use &format=json.
+use_default_settings: true
+
+general:
+  instance_name: "AnoaChip Research"
+  debug: false
+
+server:
+  secret_key: "anoa-searxng-secret-change-me"
+  limiter: false
+  image_proxy: false
+  method: "GET"
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  formats:
+    - html
+    - json
+
+# Engine selection. Re-probed from this host 2026-07-01: the general web engines are NO LONGER
+# blocked for the server IP (the old CAPTCHA/access-denied state cleared) —
+#   brave=20, google=10, bing=10, mojeek=9, github=7 results for a plain query;
+#   brave+google+bing+mojeek together = 41 hits, top result chipverify.com (real HW content).
+# So SearXNG now serves BROWSER-QUALITY general web directly. Still dead from this host:
+# duckduckgo/duckduckgo-lite (SSL hostname mismatch), startpage/qwant (0). General web is
+# still ALSO backstopped by the host-side ddgs merge in app.py::_searxng_search.
+engines:
+  # --- general web (verified working) ---
+  - name: brave
+    disabled: false
+  - name: google
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: mojeek
+    disabled: false
+  # --- code + reference ---
+  - name: github
+    disabled: false
+  - name: wikipedia
+    disabled: false
+  # --- papers (API-backed, always answer) ---
+  - name: arxiv
+    disabled: false
+  - name: semantic scholar
+    disabled: false
+  - name: crossref
+    disabled: false
+  - name: pubmed
+    disabled: false
+  # --- dead from this server IP (SSL/0 results) — leave off so they only add latency ---
+  - name: duckduckgo
+    disabled: true
+  - name: startpage
+    disabled: true
+  - name: qwant
+    disabled: true

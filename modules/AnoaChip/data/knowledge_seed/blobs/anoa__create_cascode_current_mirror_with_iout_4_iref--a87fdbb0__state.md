@@ -1,0 +1,5 @@
+# Run journal — what has ACTUALLY happened in this run
+
+- 20:32:42 **generate:start** query='create cascode current mirror with iout = 4 iref'
+- 20:33:10 **config:written** config/cascode_mirror_4x.json — 4:1 NMOS cascode current mirror (wide-swing, self-biased), gf180mcuD. 4 NFETs: M1/M3 input branch (diode-connected, 1 finger, W=5u L=1u), M2/M4 output branch (4 fingers, W=5u L=1u) for exact 1:4 unit-cell ratio. Iref=25uA -> Iout=100uA. Spec: ratio=4, Rout>=10MOhm, compliance=1.3V. Sizing verified via square-law: Vov=302mV, Vgs=1.002V, Rout~41.5MOhm. Wiring: 7 nets (VDD,VSS,iref,iout,n1,n2,pbias), 4 components, ports [VDD,VSS,iref,iout]. Layout hints seeded from validated glayout cascode mirror reference (interdigitized pair per branch, single tapring finishing).- 20:34:15 **generate:done** planned=0, missing=0, unit verified=[]
+- 20:34:25 **layout** layout OK — 4 ports, 4 labels, bbox [-9.755, -12.405, 9.755, 12.405] µm, ref-netlist yes DRC: PASS ✓ LVS: PASS ✓ (layout matches netlist)

@@ -1,0 +1,451 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "artifacts": [
+    {
+      "bytes": 568,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/contract-test.json",
+      "role": "contract-test",
+      "sha256": "ee224f78b5f4d8be63b879a5db96764ab95250d0f94c4a1423d5c8ce7390da08",
+      "source_output": "contract-test-verdict",
+      "source_step": "materialize-pinned-sources"
+    },
+    {
+      "bytes": 1715,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/design-provenance.json",
+      "role": "design-provenance",
+      "sha256": "6c2803336f6b854d1ed10a33c4ae3d44e6bea2c21d04a617d058f42bf838758a",
+      "source_output": "design-provenance",
+      "source_step": "materialize-pinned-sources"
+    },
+    {
+      "bytes": 1807,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/ota-netlist.json",
+      "role": "native-artifact",
+      "sha256": "a6558b408d1624126433c3d12a470bd7303bb7d1d72528eca99e0364107fbd17",
+      "source_output": "ota-netlist-result",
+      "source_step": "netlist-ota"
+    },
+    {
+      "bytes": 1700,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/work/ota.cir",
+      "role": "native-artifact",
+      "sha256": "155e50b29e95da3cad518bff83f5edcb9424fede3ac21dfc6e419720e635e84f",
+      "source_output": "ota-deck",
+      "source_step": "netlist-ota"
+    },
+    {
+      "bytes": 1843,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/inverter-netlist.json",
+      "role": "native-artifact",
+      "sha256": "7d2f36aaa464431f0ecbb19436919b27012f5b5d9c3c05b5272828f6d18783e2",
+      "source_output": "inverter-netlist-result",
+      "source_step": "netlist-inverter"
+    },
+    {
+      "bytes": 800,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/work/inverter.cir",
+      "role": "native-artifact",
+      "sha256": "a714a13c5403a9eef722b775929db9cf6a76d8482f24a1593249e080014d71db",
+      "source_output": "inverter-deck",
+      "source_step": "netlist-inverter"
+    },
+    {
+      "bytes": 11820,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/provider-ac.json",
+      "role": "native-artifact",
+      "sha256": "b7a87f83d03e676d315462abba5c84ef9af59e5da1e712211ce85130f047a8f6",
+      "source_output": "ota-ac-provider-result",
+      "source_step": "provider-ac"
+    },
+    {
+      "bytes": 1147866,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/provider-ac/work/ota_ac.raw",
+      "role": "native-artifact",
+      "sha256": "bd28b1ba2cd418e994ccfbf0db03a429858a9cf7b0d65eb8f0c229f90d1ba003",
+      "source_output": "ota-ac-raw",
+      "source_step": "provider-ac"
+    },
+    {
+      "bytes": 911,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/provider-ac/simulation/ota.log",
+      "role": "native-artifact",
+      "sha256": "9f70940d94c632ba814e7a240a78dcf61aef8fbb62939c5e47fba9579b025925",
+      "source_output": "ota-ac-log",
+      "source_step": "provider-ac"
+    },
+    {
+      "bytes": 130,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/provider-ac/simulation/ota.openada-control.sp",
+      "role": "native-artifact",
+      "sha256": "49a969b9ad3068b1237788aadf0c2108768826c751a1095f6173e02ba9d98c98",
+      "source_output": "ota-ac-launcher",
+      "source_step": "provider-ac"
+    },
+    {
+      "bytes": 12274,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/provider-tran.json",
+      "role": "native-artifact",
+      "sha256": "dfc853d50964ec1e7d3d5bb89869026892a3ff2e62ed6da7561180405c61b49e",
+      "source_output": "inverter-tran-provider-result",
+      "source_step": "provider-tran"
+    },
+    {
+      "bytes": 98906,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/provider-tran/work/inverter_spectral.raw",
+      "role": "native-artifact",
+      "sha256": "3e82b4cc0ae53a69138cf9f68ef7213e2e5a5cd290081ace5328feb644db9a34",
+      "source_output": "inverter-tran-raw",
+      "source_step": "provider-tran"
+    },
+    {
+      "bytes": 1245,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/provider-tran/simulation/inverter.log",
+      "role": "native-artifact",
+      "sha256": "3ee1c23ec0b61074105aa98791d5f4382290d83f4323959e7ed5404ef9ded69b",
+      "source_output": "inverter-tran-log",
+      "source_step": "provider-tran"
+    },
+    {
+      "bytes": 135,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/provider-tran/simulation/inverter.openada-control.sp",
+      "role": "native-artifact",
+      "sha256": "2d2d1697075b4d047232cf1bd71a45ffbde096d848bfb04597302f38c2fa3836",
+      "source_output": "inverter-tran-launcher",
+      "source_step": "provider-tran"
+    },
+    {
+      "bytes": 8021,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/independent-oracle.json",
+      "role": "independent-oracle",
+      "sha256": "7d42d03e6997d1961512675dadfbb0a43157cb729e0137024b3ab531f25568ac",
+      "source_output": "independent-oracle-verdict",
+      "source_step": "independent-native-oracle"
+    },
+    {
+      "bytes": 100862,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/extract-ac.json",
+      "role": "normalized-evidence",
+      "sha256": "ccda438f3bb7789ce17b58c29088feb9bc193c9503493ecf393679494e5f29f1",
+      "source_output": "ota-ac-extraction-result",
+      "source_step": "extract-ac"
+    },
+    {
+      "bytes": 76858,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/extract-tran.json",
+      "role": "normalized-evidence",
+      "sha256": "2c86eb376e39dc53506755351227afcf7e0bf5ac77ffd999ee3249ad9ae1c213",
+      "source_output": "inverter-tran-extraction-result",
+      "source_step": "extract-tran"
+    },
+    {
+      "bytes": 67645,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/transfer-low_frequency_gain_db.json",
+      "role": "normalized-evidence",
+      "sha256": "4ea41582d6908f39633ce538b48ca148383483d43445bff636bdf40292005465",
+      "source_output": "transfer-low_frequency_gain_db-result",
+      "source_step": "transfer-low-frequency-gain-db"
+    },
+    {
+      "bytes": 67629,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/transfer-bandwidth_3db.json",
+      "role": "normalized-evidence",
+      "sha256": "fec4a27f96a8ef6dda8a4cfc419726caae8ab55f5d7f19dcbe24fef7c4a01c1f",
+      "source_output": "transfer-bandwidth_3db-result",
+      "source_step": "transfer-bandwidth-3db"
+    },
+    {
+      "bytes": 67657,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/transfer-unity_gain_frequency.json",
+      "role": "normalized-evidence",
+      "sha256": "b64958e7a922638d6964f7f7970a6adfbcba3e2bb024054fb95780ca42972965",
+      "source_output": "transfer-unity_gain_frequency-result",
+      "source_step": "transfer-unity-gain-frequency"
+    },
+    {
+      "bytes": 67645,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/transfer-phase_margin.json",
+      "role": "normalized-evidence",
+      "sha256": "acb657de118f652067d49597b1e40df7fbe6ed57fbc7fe4475547a5475898b7c",
+      "source_output": "transfer-phase_margin-result",
+      "source_step": "transfer-phase-margin"
+    },
+    {
+      "bytes": 15559,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/spectral-snr.json",
+      "role": "normalized-evidence",
+      "sha256": "660882156e94bd1571eb5f3501dc2e6421ada1e1ea2c8d00e64e490414011474",
+      "source_output": "spectral-snr-result",
+      "source_step": "spectral-snr"
+    },
+    {
+      "bytes": 15567,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/spectral-sinad.json",
+      "role": "normalized-evidence",
+      "sha256": "c0451e1957d72dceafd797bda3c7d8af7640ac6f0a8d436208aa16ff42840ab7",
+      "source_output": "spectral-sinad-result",
+      "source_step": "spectral-sinad"
+    },
+    {
+      "bytes": 15560,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/spectral-thd.json",
+      "role": "normalized-evidence",
+      "sha256": "abeb65813b6a3d91eeb8afb3ffccd03e32ffb1a1bf1ac391db6cacf207e01624",
+      "source_output": "spectral-thd-result",
+      "source_step": "spectral-thd"
+    },
+    {
+      "bytes": 15564,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/results/spectral-sfdr.json",
+      "role": "normalized-evidence",
+      "sha256": "faba0af9751bbf3bf4a5d009e163ae8253b22422c3ad16a4101d02263290983e",
+      "source_output": "spectral-sfdr-result",
+      "source_step": "spectral-sfdr"
+    },
+    {
+      "bytes": 3546,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/normalized-evidence.json",
+      "role": "normalized-evidence",
+      "sha256": "9748f280dc700e0df922e3ac039a1a6bd0f96f7fad8b2722778af8eed5479535",
+      "source_output": "normalized-measurement-evidence",
+      "source_step": "spectral-sfdr"
+    },
+    {
+      "bytes": 2051,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/engineering-decision.json",
+      "role": "downstream-decision",
+      "sha256": "d65cd5f42f80c1088ffb256e3e188f42efa82fd8b17b436fcf8c643f0c9cc93b",
+      "source_output": "downstream-engineering-decision",
+      "source_step": "spectral-sfdr"
+    },
+    {
+      "bytes": 6463,
+      "replay_id": null,
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/agent-evidence.json",
+      "role": "agent-visible-evidence",
+      "sha256": "6ee43eac36c8677ca52fd2f211988887dfbd32efc8d2d5b51cd33afa4c1c8d33",
+      "source_output": "agent-visible-measurement-evidence",
+      "source_step": "agent-evidence"
+    },
+    {
+      "bytes": 2224,
+      "replay_id": "netlist-missing-symbol",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/netlist-missing-symbol.json",
+      "role": "negative-replay",
+      "sha256": "f9e1ba768ae4d5d4ac61a52285bd0a9bd38529646ae76b6cfada10b3c45902c3",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3237,
+      "replay_id": "provider-ac-parameter-mismatch",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/provider-ac-parameter-mismatch.json",
+      "role": "negative-replay",
+      "sha256": "ea68771a8eec7ba99a1c98ff8e9c1e114c034206803f4a5832e762a1f0aacf1c",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3221,
+      "replay_id": "provider-tran-parameter-mismatch",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/provider-tran-parameter-mismatch.json",
+      "role": "negative-replay",
+      "sha256": "e6b8c447b35543d98286c40f7af8d4188a13e4620e2a75c3bd49d859d0e0ddd8",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 2302,
+      "replay_id": "extract-ac-missing-selector",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/extract-ac-missing-selector.json",
+      "role": "negative-replay",
+      "sha256": "dadb14c78fff53a8894b59bb2a3f984594b0b4a8fda58eaa4ae67ed44f73e322",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 2326,
+      "replay_id": "extract-tran-missing-selector",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/extract-tran-missing-selector.json",
+      "role": "negative-replay",
+      "sha256": "81cf549f7166c523bf3590dff82dd943b03d2ec2a12bcf0d365bc473a09c0b65",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3399,
+      "replay_id": "transfer-low-frequency-gain-invalid-unit",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/transfer-low_frequency_gain_db.json",
+      "role": "negative-replay",
+      "sha256": "cab7183071a22e0becd1d71dd7155bb292cca04891397db32da2497cea096d32",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3451,
+      "replay_id": "transfer-bandwidth-unsupported-drop",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/transfer-bandwidth_3db.json",
+      "role": "negative-replay",
+      "sha256": "4d5e2569142ae16e3eec19d17c003aa7693ea971c703e60165d5a724fe29a97f",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3470,
+      "replay_id": "transfer-unity-unsupported-policy",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/transfer-unity_gain_frequency.json",
+      "role": "negative-replay",
+      "sha256": "210372e1fb0aa6063f3337455bfe2eebdfc7a1f0072735bb3fa67001b8311002",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3411,
+      "replay_id": "transfer-phase-margin-invalid-context",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/transfer-phase_margin.json",
+      "role": "negative-replay",
+      "sha256": "06006b79cde930b406dd1211d28b46e677d396d3f1e395929d886533dce805c7",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3191,
+      "replay_id": "spectral-snr-noncoherent",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/spectral-snr.json",
+      "role": "negative-replay",
+      "sha256": "136ebe46eb640a2569af0e85db5fe4adf1ea713824b3f73727569230aa81781c",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3168,
+      "replay_id": "spectral-sinad-record-length",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/spectral-sinad.json",
+      "role": "negative-replay",
+      "sha256": "7b0515305c65861b9e3e387df9724a158d039cbdac63608bb4e7d9e40a912557",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3194,
+      "replay_id": "spectral-thd-unsupported-window",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/spectral-thd.json",
+      "role": "negative-replay",
+      "sha256": "e06136f70ecc2c76f49ed9855946523a39f589fff1fca3196c92bffc6151943c",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 3173,
+      "replay_id": "spectral-sfdr-invalid-standard-context",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/negative/spectral-sfdr.json",
+      "role": "negative-replay",
+      "sha256": "c9c7631f17430fdac187380f27d6e31dbf8df277314e5b37ae1273ef402fb64a",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 302,
+      "replay_id": "native-raw-byte",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/tamper/native-raw-byte.json",
+      "role": "tamper-replay",
+      "sha256": "f72fa49618aee9db342efd6af9ea09a16247c3eec093cf66f803973e328782dc",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 381,
+      "replay_id": "normalized-metric-value",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/tamper/normalized-metric-value.json",
+      "role": "tamper-replay",
+      "sha256": "681995319d89c151fa6662537739e2b49d06d6dd460f0b01457285374f267326",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 317,
+      "replay_id": "standards-context",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/tamper/standards-context.json",
+      "role": "tamper-replay",
+      "sha256": "22b6001bd4f7ace1389f08ed740383e4e97d8393834fecbd0935ecbcd4f5e8db",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 287,
+      "replay_id": "source-contract-hash",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/tamper/source-contract-hash.json",
+      "role": "tamper-replay",
+      "sha256": "1e00245a0355e1c1f32f8ad1318aca124f4f4cc5eb760ed535374039b067db7b",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 308,
+      "replay_id": "engineering-decision",
+      "repository_path": "conformance/ihp-analog-measurements/semantic-artifacts/tamper/engineering-decision.json",
+      "role": "tamper-replay",
+      "sha256": "99d69626a5596230b5f0cc0c7e7991430eb6aef3c46d4e104e53f8ac9e052082",
+      "source_output": null,
+      "source_step": null
+    }
+  ],
+  "chain_id": "openada.chain/ihp-analog-measurements/v1",
+  "chain_manifest_sha256": "6edb6e09c834e2510881de90264e652953023773b47631193c72b6c037423bb8",
+  "checks": {
+    "agent_visible_evidence": true,
+    "contract_test": true,
+    "downstream_decision": true,
+    "independent_artifact_check": true,
+    "native_run": true,
+    "negative_replay": true,
+    "normalized_evidence": true,
+    "pinned_real_design": true,
+    "tamper_replay": true
+  },
+  "extensions": {
+    "org.openada.measurements": {
+      "publication": "release fresh replay",
+      "source_revision": "0c5b3d6261a8dd14c7618bcc1f4902bca7fd8d96"
+    }
+  },
+  "schema": "openada.semantic-chain-run/v0alpha1",
+  "semantic_subject_sha256": "1338756109b4ae767eb871c381aed905b41dee542bd622cf07f50f605044e0c1",
+  "source_attestation": {
+    "clean_after": true,
+    "clean_before": true,
+    "extensions": {},
+    "receipt_class": "release",
+    "repository_revision": "0c5b3d6261a8dd14c7618bcc1f4902bca7fd8d96",
+    "repository_tree": "2c62f4d3fcaa963a9011cbd559adc08baf2973c9",
+    "semantic_subject_sha256": "1338756109b4ae767eb871c381aed905b41dee542bd622cf07f50f605044e0c1",
+    "state_unchanged": true
+  },
+  "status": "pass"
+}

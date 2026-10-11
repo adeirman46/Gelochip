@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="id">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gelochip Workspace</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#e5edf8;font:16px/1.65 system-ui,sans-serif}main{max-width:1040px;margin:auto;padding:70px 24px}small{color:#7dd3fc;letter-spacing:2px}h1{font-size:clamp(32px,6vw,58px);line-height:1.15;margin:20px 0}p{color:#a9b8cf}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:38px 0}article{background:#142037;border:1px solid #283854;border-radius:18px;padding:26px}h2{margin:12px 0}a{display:inline-block;color:#08121f;background:#7dd3fc;text-decoration:none;border-radius:8px;padding:10px 18px;font-weight:650}.status{font-size:14px;color:#fbbf24}footer{border-top:1px solid #283854;padding-top:24px;color:#a9b8cf}code{color:#e5edf8}
+</style>
+<main><small>CHIPATHON · LOCAL WORKSPACE</small><h1>Satu workspace.<br>Tiga alat desain chip.</h1>
+<p>Mulai dari schematic, lanjutkan ke layout, lalu periksa hasil desain analog/RF Anda.</p>
+<div class="grid">
+<article><small>01 · ANALOG / RF</small><h2>Gelochip Studio</h2><p>Agent desain, pustaka building blocks, dan alur pemeriksaan layout.</p><p class="status" id="gelochip">Memeriksa layanan…</p><a href="http://localhost:8090">Buka Studio ↗</a></article>
+<article><small>02 · AUTO LAYOUTER</small><h2>AnoaChip</h2><p>Alur SPICE ke GDSII dengan Glayout, simulasi, DRC, dan LVS.</p><p class="status" id="anoa">Memeriksa layanan…</p><a href="http://localhost:5175">Buka Layouter ↗</a></article>
+<article><small>03 · AUTO SCHEMATIC</small><h2>PandaChip</h2><p>Pembuatan schematic xschem, netlist, dan simulasi melalui OpenADA.</p><p class="status" id="panda">Memeriksa layanan…</p><a href="http://localhost:8317">Buka Schematic Maker ↗</a></article>
+</div><footer>Jalankan setiap layanan sesuai <code>README.md</code>. Portal ini menyediakan akses bersama; transfer schematic/netlist antar aplikasi masih manual. Konfigurasi dan artefak lama tetap berada di folder asalnya.</footer></main>
+<script>
+async function refresh(){try{const r=await fetch('/api/services');if(!r.ok)throw Error();const services=await r.json();for(const [id,s] of Object.entries(services)){document.getElementById(id).textContent=s.running?'Backend dapat diakses':'Layanan belum dapat diakses';document.getElementById(id).style.color=s.running?'#86efac':'#fbbf24'}}catch{document.querySelectorAll('.status').forEach(el=>el.textContent='Status layanan tidak tersedia')}}refresh();setInterval(refresh,15000);
+</script></html>

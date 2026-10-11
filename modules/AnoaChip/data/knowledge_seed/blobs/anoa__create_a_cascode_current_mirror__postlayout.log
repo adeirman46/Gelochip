@@ -1,0 +1,248 @@
+
+Note: Compatibility modes selected: ll a
+
+
+Circuit: * cascode_current_mirror post-layout (pex) testbench
+
+
+[stderr]
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*3.2e+041+(fnoicor==1)*3.5e+042
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*3.2e+041+(fnoicor==1)*3.5e+042
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_03v3_noia={(fnoicor==0)*3.2e+041+(fnoicor==1)*3.5e+042}| : |nfet_03v3_noia|=|(fnoicor==0)*3.2e+041+(fnoicor==1)*3.5e+042|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1.2e+020+(fnoicor==1)*1.2e+020
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1.2e+020+(fnoicor==1)*1.2e+020
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_03v3_noib={(fnoicor==0)*1.2e+020+(fnoicor==1)*1.2e+020}| : |nfet_03v3_noib|=|(fnoicor==0)*1.2e+020+(fnoicor==1)*1.2e+020|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*6.0e+008+(fnoicor==1)*6.0e+008
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*6.0e+008+(fnoicor==1)*6.0e+008
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_03v3_noic={(fnoicor==0)*6.0e+008+(fnoicor==1)*6.0e+008}| : |nfet_03v3_noic|=|(fnoicor==0)*6.0e+008+(fnoicor==1)*6.0e+008|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*3.2e+041+(fnoicor==1)*4.0e+042
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*3.2e+041+(fnoicor==1)*4.0e+042
+Netlist line no. 714:
+ Formula() error.
+      |.param pfet_03v3_noia={(fnoicor==0)*3.2e+041+(fnoicor==1)*4.0e+042}| : |pfet_03v3_noia|=|(fnoicor==0)*3.2e+041+(fnoicor==1)*4.0e+042|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1.8e+020+(fnoicor==1)*1.8e+020
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1.8e+020+(fnoicor==1)*1.8e+020
+Netlist line no. 714:
+ Formula() error.
+      |.param pfet_03v3_noib={(fnoicor==0)*1.8e+020+(fnoicor==1)*1.8e+020}| : |pfet_03v3_noib|=|(fnoicor==0)*1.8e+020+(fnoicor==1)*1.8e+020|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*3.0e+009+(fnoicor==1)*6.0e+009
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*3.0e+009+(fnoicor==1)*6.0e+009
+Netlist line no. 714:
+ Formula() error.
+      |.param pfet_03v3_noic={(fnoicor==0)*3.0e+009+(fnoicor==1)*6.0e+009}| : |pfet_03v3_noic|=|(fnoicor==0)*3.0e+009+(fnoicor==1)*6.0e+009|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1.998e+041+(fnoicor==1)*8e+041
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1.998e+041+(fnoicor==1)*8e+041
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_06v0_noia={(fnoicor==0)*1.998e+041+(fnoicor==1)*8e+041}| : |nfet_06v0_noia|=|(fnoicor==0)*1.998e+041+(fnoicor==1)*8e+041|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1e+025+(fnoicor==1)*4e+025
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1e+025+(fnoicor==1)*4e+025
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_06v0_noib={(fnoicor==0)*1e+025+(fnoicor==1)*4e+025}| : |nfet_06v0_noib|=|(fnoicor==0)*1e+025+(fnoicor==1)*4e+025|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*5e+008+(fnoicor==1)*2e+009
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*5e+008+(fnoicor==1)*2e+009
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_06v0_noic={(fnoicor==0)*5e+008+(fnoicor==1)*2e+009}| : |nfet_06v0_noic|=|(fnoicor==0)*5e+008+(fnoicor==1)*2e+009|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*6e+040+(fnoicor==1)*2e+043
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*6e+040+(fnoicor==1)*2e+043
+Netlist line no. 714:
+ Formula() error.
+      |.param pfet_06v0_noia={(fnoicor==0)*6e+040+(fnoicor==1)*2e+043}| : |pfet_06v0_noia|=|(fnoicor==0)*6e+040+(fnoicor==1)*2e+043|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1.5945e+025+(fnoicor==1)*1.5945e+025
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1.5945e+025+(fnoicor==1)*1.5945e+025
+Netlist line no. 714:
+ Formula() error.
+      |.param pfet_06v0_noib={(fnoicor==0)*1.5945e+025+(fnoicor==1)*1.5945e+025}| : |pfet_06v0_noib|=|(fnoicor==0)*1.5945e+025+(fnoicor==1)*1.5945e+025|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1.0499e+009+(fnoicor==1)*1.0499e+009
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1.0499e+009+(fnoicor==1)*1.0499e+009
+Netlist line no. 714:
+ Formula() error.
+      |.param pfet_06v0_noic={(fnoicor==0)*1.0499e+009+(fnoicor==1)*1.0499e+009}| : |pfet_06v0_noic|=|(fnoicor==0)*1.0499e+009+(fnoicor==1)*1.0499e+009|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*5.5e+040+(fnoicor==1)*1e+041
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*5.5e+040+(fnoicor==1)*1e+041
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_06v0_nvt_noia={(fnoicor==0)*5.5e+040+(fnoicor==1)*1e+041}| : |nfet_06v0_nvt_noia|=|(fnoicor==0)*5.5e+040+(fnoicor==1)*1e+041|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*2.5e+025+(fnoicor==1)*9.5e+025
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*2.5e+025+(fnoicor==1)*9.5e+025
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_06v0_nvt_noib={(fnoicor==0)*2.5e+025+(fnoicor==1)*9.5e+025}| : |nfet_06v0_nvt_noib|=|(fnoicor==0)*2.5e+025+(fnoicor==1)*9.5e+025|
+Netlist line no. 714:
+Undefined parameter [fnoicor]
+Netlist line no. 714:
+ Expression err: fnoicor==0)*1e+007+(fnoicor==1)*2e+007
+Netlist line no. 714:
+ Expression err: (fnoicor==0)*1e+007+(fnoicor==1)*2e+007
+Netlist line no. 714:
+ Formula() error.
+      |.param nfet_06v0_nvt_noic={(fnoicor==0)*1e+007+(fnoicor==1)*2e+007}| : |nfet_06v0_nvt_noic|=|(fnoicor==0)*1e+007+(fnoicor==1)*2e+007|
+Netlist line no. 95:
+Undefined parameter [fail_count]
+Netlist line no. 95:
+ Formula() error.
+      |.param fail_count={fail_count} + check_settling| : |fail_count|=|fail_count|
+Netlist line no. 773:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 773:
+Cannot compute substitute
+Netlist line no. 1017:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 1017:
+Cannot compute substitute
+Netlist line no. 1260:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 1260:
+Cannot compute substitute
+Netlist line no. 1495:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 1495:
+Cannot compute substitute
+Netlist line no. 1696:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 1696:
+Cannot compute substitute
+Netlist line no. 1935:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 1935:
+Cannot compute substitute
+Netlist line no. 2178:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 2178:
+Cannot compute substitute
+Netlist line no. 2416:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 2416:
+Cannot compute substitute
+Netlist line no. 2613:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 2613:
+Cannot compute substitute
+Netlist line no. 2859:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 2859:
+Cannot compute substitute
+Netlist line no. 3094:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 3094:
+Cannot compute substitute
+Netlist line no. 3339:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 3339:
+Cannot compute substitute
+Netlist line no. 3539:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 3539:
+Cannot compute substitute
+Netlist line no. 3749:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 3749:
+Cannot compute substitute
+Netlist line no. 3951:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 3951:
+Cannot compute substitute
+Netlist line no. 4159:
+Undefined parameter [nfet_03v3_noia]
+Netlist line no. 4159:
+Cannot compute substitute
+Netlist line no. 0:
+Undefined parameter [sw_stat_mismatch]
+Netlist line no. 0:
+Cannot compute substitute
+Netlist line no. 0:
+Undefined parameter [sw_stat_mismatch]
+Netlist line no. 0:
+Cannot compute substitute
+Netlist line no. 0:
+Undefined parameter [sw_stat_mismatch]
+Netlist line no. 0:
+Cannot compute substitute
+Netlist line no. 0:
+Undefined parameter [sw_stat_mismatch]
+Netlist line no. 0:
+Cannot compute substitute
+Netlist line no. 0:
+Undefined parameter [sw_stat_mismatch]
+Netlist line no. 0:
+Cannot compute substitute
+Netlist line no. 0:
+Undefined parameter [sw_stat_mismatch]
+Netlist line no. 0:
+Cannot compute substitute
+Netlist line no. 61:
+Undefined parameter [ac_gain_db]
+Netlist line no. 61:
+ Expression err: ac_gain_db-3} fall=1
+Netlist line no. 61:
+Cannot compute substitute
+Netlist line no. 62:
+Undefined parameter [ac_ugbw_hz]
+Netlist line no. 62:
+Cannot compute substitute
+
+ERROR: fatal error in ngspice, exit(1)

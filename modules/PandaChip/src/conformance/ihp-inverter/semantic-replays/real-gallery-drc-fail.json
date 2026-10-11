@@ -1,0 +1,40 @@
+{
+  "chain_id": "openada.chain/ihp-inverter-physical/v1",
+  "extensions": {},
+  "replay": {
+    "covers": [
+      "surface|openada.surface/cli.drc/v1",
+      "preflight|drc-clean"
+    ],
+    "evidence": [
+      {
+        "bytes": 17266,
+        "filename": "drc-fail.json",
+        "sha256": "b7b958f1bfb6920c61653dee66efe70d4d839e3f8101379693d3692db22a272b"
+      },
+      {
+        "bytes": 123327,
+        "filename": "lvs-tester.drc.lyrdb",
+        "sha256": "205d85acb90e313a36565feb231953b9b33a96a471ff9ce3f4a12a9dd1840104"
+      }
+    ],
+    "expected_status": "fail",
+    "fixture": "public-design-native-run",
+    "id": "real-gallery-drc-fail",
+    "mutation": null,
+    "observed_diagnostic": "KLayout reported 8 DRC violation(s).",
+    "observed_status": "fail",
+    "required_diagnostic": "KLayout reported 8 DRC violation(s).",
+    "verdict": "accepted-negative-outcome"
+  },
+  "replay_type": "negative-replay",
+  "schema": "openada.semantic-replay-verdict/v0alpha1",
+  "source_evidence": {
+    "conformance_manifest_sha256": "1159520a46ad2c360503316f41790df48686e73ab7eebfd168125837aaceb8b9",
+    "run": {
+      "bytes": 1739,
+      "filename": "run.json",
+      "sha256": "1e727b178aeb07e2d5c577de051c9d1b25a5e6d38ed51dfe8d95474271305ded"
+    }
+  }
+}

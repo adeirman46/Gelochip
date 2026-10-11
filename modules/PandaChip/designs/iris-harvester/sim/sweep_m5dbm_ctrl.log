@@ -1,0 +1,57 @@
+******
+** ngspice-46 : Circuit level simulation program
+** Compiled with KLU Direct Linear Solver
+** The U. C. Berkeley CAD Group
+** Copyright 1985-1994, Regents of the University of California.
+** Copyright 2001-2025, The ngspice team.
+** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html
+** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html
+** Creation Date: Mon Jun 22 10:09:10 UTC 2026
+******
+
+Note: Compatibility modes selected: hs a
+
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Circuit: ** sch_path: /home/irman/pandachip/designs/iris-harvester/tb_iris.sch
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+rf_boost                                     0
+rf_in                                        0
+vdd                                        3.3
+vbias                                  0.52056
+in_p                                  0.520559
+x3.net1                                      0
+x3.rf_p                                      0
+in_n                                  0.520559
+x3.rf_n                                      0
+vrect_p                               0.275003
+vrect_n                               0.504325
+x4.dummy_net1                         0.275003
+x4.dummy_net2                         0.504325
+x5.n1                                 0.175977
+x5.n2                                  0.10142
+x5.n3                                0.0446868
+vout                               1.23794e-06
+rf_src                                       0
+l.x1.l1#branch                               0
+e.x3.e2#branch                               0
+e.x3.e1#branch                               0
+v_dd#branch                             -1e-06
+v_rf#branch                                  0
+v.x4.v_dummy2#branch                         0
+v.x4.v_dummy1#branch                         0
+
+
+No. of Data Rows : 10245
+binary raw file "sweep_m5dbm.raw"
+ngspice-46 done

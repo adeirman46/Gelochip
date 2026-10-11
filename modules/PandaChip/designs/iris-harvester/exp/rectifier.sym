@@ -1,0 +1,17 @@
+v {xschem version=3.4.8 file_version=1.2}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=X1"}
+G {}
+V {}
+S {}
+E {}
+L 4 -40 -40 40 -40 {}
+L 4 -40 40 40 40 {}
+L 4 -40 -40 -40 40 {}
+L 4 40 -40 40 40 {}
+B 5 -42.5 -22.5 -37.5 -17.5 {name=IN_P dir=in}
+B 5 -42.5 17.5 -37.5 22.5 {name=IN_N dir=in}
+B 5 37.5 -22.5 42.5 -17.5 {name=VRECT_P dir=out}
+B 5 37.5 17.5 42.5 22.5 {name=VRECT_N dir=out}
+T {rectifier} -25 -6 0 0 0.2 0.2 {}

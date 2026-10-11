@@ -1,0 +1,20 @@
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/rectifier.sch
+**.subckt rectifier IN_P IN_N VRECT_P VRECT_N
+*.ipin IN_P
+*.ipin IN_N
+*.opin VRECT_P
+*.opin VRECT_N
+XM_P1 IN_P IN_N VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_P2 IN_N IN_P VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_N1 IN_P IN_N VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_N2 IN_N IN_P VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_D1 0 0 VRECT_N 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+V_DUMMY1 VRECT_P DUMMY_NET1 0
+V_DUMMY2 VRECT_N DUMMY_NET2 0
+**.ends
+.end

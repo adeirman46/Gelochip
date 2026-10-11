@@ -1,0 +1,2 @@
+# Preserve imported ZIP file bytes, including original line endings.
+* -text

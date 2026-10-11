@@ -1,0 +1,130 @@
+{
+  "artifacts": [],
+  "data": {
+    "evaluation": {
+      "algorithm": {
+        "id": "openada.algorithm/specification.closed-interval/v1",
+        "version": "1.0.0"
+      },
+      "conditions": {
+        "matched_count": 2,
+        "required_count": 2,
+        "status": "matched"
+      },
+      "extensions": {},
+      "limits": [
+        {
+          "inclusive": true,
+          "kind": "upper",
+          "unit": "V",
+          "value": 0.5
+        }
+      ],
+      "margin": {
+        "relative_to": "upper",
+        "unit": "V",
+        "value": -0.7025433181809455
+      },
+      "measured": {
+        "unit": "V",
+        "value": 1.2025433181809455
+      },
+      "measurement_id": "inverter.vout.maximum",
+      "source": {
+        "measurement_sha256": "6fe45621a2d406a7d35060877fbd812dc95821b764d319f9f2c24556f6ede4ef",
+        "measurement_source": {
+          "artifact_role": "measurement.source",
+          "artifact_sha256": "64947f6cbdecf72286d7c388e8ed37379f2d671b5305d6c69bc62ef091d66f73",
+          "conditions": [
+            {
+              "name": "corner",
+              "unit": "1",
+              "value": "mos_tt"
+            },
+            {
+              "name": "supply_voltage",
+              "unit": "V",
+              "value": 1.2
+            }
+          ],
+          "conditions_sha256": "11294bbcfbf6c39e95aa9b6efcda4f8cf6aeff77dcd600a19c13b4c942f3345c",
+          "lineage": {
+            "artifact_role": "simulation.result",
+            "artifact_sha256": "af50356c6f7dea9e2a79ad63e1b02846139ac1bdd3bfc7e724076a10cef3acb9",
+            "binding": "unverified",
+            "operation": "circuit.simulate",
+            "request_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "operation": "openada.operation/result.series.extract/v1alpha1",
+          "request_id": "10000000-0000-4000-8000-000000000002",
+          "series_sha256": "64947f6cbdecf72286d7c388e8ed37379f2d671b5305d6c69bc62ef091d66f73"
+        },
+        "specification": {
+          "conditions": [
+            {
+              "name": "corner",
+              "unit": "1",
+              "value": "mos_tt"
+            },
+            {
+              "name": "supply_voltage",
+              "unit": "V",
+              "value": 1.2
+            }
+          ],
+          "extensions": {},
+          "limits": {
+            "upper": {
+              "inclusive": true,
+              "unit": "V",
+              "value": 0.5
+            }
+          },
+          "measurement_id": "inverter.vout.maximum",
+          "specification_id": "inverter.vout.maximum.fail-limit"
+        },
+        "specification_sha256": "085913f6e2019ec8114c4d05645db1921c548c24a0249a8185ebb10e16bfda0c"
+      },
+      "specification_id": "inverter.vout.maximum.fail-limit",
+      "status": "fail"
+    },
+    "extensions": {},
+    "protocol": {
+      "assertion_profile": "openada.assertion/specification.satisfied/v1alpha1",
+      "implementation_id": "org.openada.kernel.typed-evidence",
+      "implementation_version": "1.0.0",
+      "operation_profile": "openada.operation/specification.evaluate/v1alpha1",
+      "request_id": "13000000-0000-4000-8000-000000000003"
+    }
+  },
+  "diagnostics": [
+    {
+      "code": "specification.limit.violated",
+      "message": "The measured value violates the upper limit.",
+      "severity": "error"
+    }
+  ],
+  "engineering": {
+    "status": "fail",
+    "summary": "Specification 'inverter.vout.maximum.fail-limit' is violated."
+  },
+  "execution": {
+    "command": [],
+    "duration_ms": 0,
+    "exit_code": 0,
+    "status": "completed"
+  },
+  "inputs": [],
+  "operation": "specification.evaluate",
+  "provenance": {
+    "created_at": "2026-07-16T15:19:28.649901Z",
+    "host": {
+      "machine": "x86_64",
+      "python": "3.12.3",
+      "system": "Linux"
+    },
+    "openada_version": "0.4.0"
+  },
+  "schema": "openada.result/v0alpha1",
+  "tool": null
+}

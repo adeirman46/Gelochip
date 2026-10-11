@@ -1,0 +1,49 @@
+** sch_path: /home/irman/PandaChip/designs/lna-match/lna_match_tb.sch
+**.subckt lna_match_tb
+VS VS_EMF 0 SIN(0 0.001 40MEG) AC 1
+RS RS_OUT VS_EMF 50
+Cdc IN RS_OUT 100n
+LG G1 IN 1u
+Cext G1 S1 15p
+XM1 MID1 G1 S1 0 nfet_03v3 L=0.28u W=100u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+LS S1 0 60n
+XM2 D1 VCAS1 MID1 0 nfet_03v3 L=0.28u W=100u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+Lt1 VDD D1 1u
+Ct1 VDD D1 15p
+Rt1 VDD D1 1.5k
+Ccoup G2 D1 1n
+Rb1 G1 VB1 1Meg
+VBS1 VB1 0 0.9
+Rb2 G2 VB2 1Meg
+VBS2 VB2 0 0.9
+XM3 MID2 G2 0 0 nfet_03v3 L=0.28u W=100u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM4 OUT VCAS2 MID2 0 nfet_03v3 L=0.28u W=100u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+Lt2 VDD OUT 1u
+Ct2 VDD OUT 15p
+Rt2 VDD OUT 1.5k
+VDDSRC VDD 0 3.3
+VCAS1SRC VCAS1 0 2.0
+VCAS2SRC VCAS2 0 2.0
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.tran 0.5n 2u
+.ac dec 20 1k 1G
+.save all
+
+**** end user architecture code
+**.ends
+.control
+set filetype=binary
+run
+setplot tran1
+write lna_match_verify_tran.raw
+setplot ac1
+write lna_match_verify_ac.raw
+.endc
+.end

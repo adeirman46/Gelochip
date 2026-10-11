@@ -1,0 +1,42 @@
+** sch_path: /home/irman/PandaChip/designs/dbm/dbm_tb.sch
+**.subckt dbm_tb
+XM1 M1D RF_P TAIL 0 nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM2 M2D RF_N TAIL 0 nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM3 IF_P LO_P M1D 0 nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM4 IF_N LO_N M1D 0 nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 IF_P LO_N M2D 0 nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM6 IF_N LO_P M2D 0 nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+R1 VDD IF_P 5k
+R2 VDD IF_N 5k
+I1 TAIL 0 200u
+V1 VDD 0 3.3
+V2 RF_P 0 SIN(1.5 0.05 5MEG)
+V3 RF_N 0 SIN(1.5 0.05 5MEG 0 0 180)
+V4 LO_P 0 SIN(2.2 0.4 4MEG)
+V5 LO_N 0 SIN(2.2 0.4 4MEG 0 0 180)
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+E1 IF_DIFF 0 IF_P IF_N 1
+.tran 1n 10u
+.save all
+.option savecurrents
+
+**** end user architecture code
+**.ends
+.control
+set filetype=binary
+run
+setplot tran1
+write dbm_tb_tran.raw
+setplot op1
+write dbm_tb_op.raw
+.endc
+.end

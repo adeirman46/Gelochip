@@ -1,0 +1,20 @@
+.title splitter_verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt splitter RF_BOOST VBIAS IN_P IN_N
+C1 IN_P RF_P 10p
+C2 IN_N RF_N 10p
+R1 VBIAS IN_P 100k
+R2 IN_N VBIAS 100k
+E1 RF_P 0 RF_BOOST 0 1
+E2 RF_N 0 RF_BOOST 0 -1
+.ends
+
+X1 RF_BOOST VBIAS IN_P IN_N splitter
+V1 RF_BOOST 0 SIN(0 2.0 50MEG)
+V2 VBIAS 0 0.6
+
+.tran 1n 10u
+.save all
+.end

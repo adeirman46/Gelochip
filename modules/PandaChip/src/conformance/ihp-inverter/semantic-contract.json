@@ -1,0 +1,29 @@
+{
+  "chain_id": "openada.chain/ihp-inverter-physical/v1",
+  "extensions": {},
+  "implementations": [
+    {
+      "repository_path": "conformance/ihp-inverter/semantic.py",
+      "sha256": "70cc572c823aec150617adad43b256126b2ff0baf35e44f563faead395d0b674"
+    },
+    {
+      "repository_path": "conformance/ihp-inverter/verify.py",
+      "sha256": "87495ed1efcba4d2ddad9d0803ba100e9606d13dbc6cca7d8b3997b9cefe2b88"
+    }
+  ],
+  "native_replay": {
+    "independent_verification": "pass",
+    "repository_path": "conformance/ihp-inverter/semantic-artifacts/run.json",
+    "sha256": "1e727b178aeb07e2d5c577de051c9d1b25a5e6d38ed51dfe8d95474271305ded"
+  },
+  "schema": "openada.semantic-contract-verdict/v0alpha1",
+  "status": "pass",
+  "suite": {
+    "failed": 0,
+    "passed": 141,
+    "repository_path": "tests/test_conformance.py",
+    "selection": "not semantic_",
+    "sha256": "608f5363d4001708c688114f7d4c4f1af27af72777151ba2b992971b9321c51d",
+    "skipped": 1
+  }
+}

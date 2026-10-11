@@ -1,0 +1,46 @@
+# --- Secrets / local config ---
+.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- uv / virtualenv ---
+.venv/
+# uv.lock IS committed (reproducible installs).
+
+# --- Legacy FAISS RAG indexes (runtime now uses pgvector; these are migration-only) ---
+# Large binaries — kept out of git. Run scripts/migrate_faiss_to_pg.py to import them
+# into the local knowledge store, then they can be deleted.
+data/verilog_datasets/index.faiss
+data/verilog_datasets/index.pkl
+data/verilog_datasets/knowledge_faiss/
+data/verilog_datasets/faiss_github_*/
+faiss_verilog_db/
+data/verilog_datasets/verilog-instruct-deepseek-60k.csv
+verilogeval-v2.csv
+
+# --- Knowledge store seed (COMMITTED so a fresh clone is NOT empty) ---
+# data/knowledge_seed/ IS tracked on purpose — it auto-loads into Postgres+MinIO on
+# first run so the RLM starts with the example corpus + lessons, not a cold store.
+!data/knowledge_seed/
+
+# --- LibreLane / OpenLane run output ---
+openlane_run/
+librelane_run/
+**/runs/
+*.vvp
+
+# --- Generated design artifacts ---
+examples/generated_chips/**/runs/
+examples/verilog_designs/**/runs/
+
+# --- Caches ---
+.cache/
+output/
+.claude
+
+# AnoaChip's local EDA tools env (built by scripts/install.sh — not committed)
+.tools/

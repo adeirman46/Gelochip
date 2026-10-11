@@ -1,0 +1,1 @@
+{"prompt":"Design RF Tranceiver 100MHz, create LNA, PA, Mixer, LO, create top level for receiver and transmitter too, and then combine both in 1 top level again\r\n\r\nUse GF180MCU 3.3V devices (nfet_03v3 / pfet_03v3) with VDD = 3.3V.","pid":1427975,"created":"2026-07-20 07:48:06","model":"gemini-3.1-pro-preview","pdk":"gf180mcuD"}

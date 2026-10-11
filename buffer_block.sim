@@ -1,0 +1,26 @@
+| units: 0.5 tech: gf180mcuD format: MIT
+x w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# s=180000,2700 d=103200,1372 l=56 w=1200 x=-141 y=-780 nfet_03v3
+x w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# d=175200,2692 l=56 w=1200 x=610 y=-780 nfet_03v3
+x w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# d=175200,2692 l=56 w=1200 x=-665 y=-780 nfet_03v3
+x w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# s=103200,1372 d=180000,2700 l=56 w=1200 x=86 y=-780 nfet_03v3
+x buffer_block_62479d0d_0/Unnamed_1347871b_0/a_n50_n689# buffer_block_62479d0d_0/Unnamed_1347871b_0/a_n178_n481# w_n1578_n1709# w_n1578_n1709# s=90000,1500 d=90000,1500 l=56 w=600 x=-27 y=-3658 nfet_03v3
+x w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# d=87600,1492 l=56 w=600 x=496 y=-3658 nfet_03v3
+x w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# w_n1578_n1709# d=87600,1492 l=56 w=600 x=-551 y=-3658 nfet_03v3
+R buffer_block_62479d0d_0/Unnamed_1347871b_0/a_n178_n481# 27
+R buffer_block_62479d0d_0/Unnamed_1347871b_0/a_n50_n689# 113
+C w_n1578_n1709#0 6.9
+R w_n1578_n1709# 5949
+= w_n1578_n1709# w_n1464_n4587#
+= w_n1578_n1709# buffer_block_62479d0d_0/w_n1578_n1709#
+= w_n1578_n1709# buffer_block_62479d0d_0/Unnamed_5a535b60_0/w_n1578_n1709#
+= w_n1578_n1709# buffer_block_62479d0d_0/w_n1464_n4587#
+= w_n1578_n1709# buffer_block_62479d0d_0/Unnamed_5a535b60_0/a_n142_n989#
+= w_n1578_n1709# buffer_block_62479d0d_0/Unnamed_5a535b60_0/a_n86_n781#
+= w_n1578_n1709# buffer_block_62479d0d_0/Unnamed_5a535b60_0/a_n292_n781#
+= w_n1578_n1709# buffer_block_62479d0d_0/straight_route_09e9351a_0/m2_n278_n2489#
+= w_n1578_n1709# buffer_block_62479d0d_0/Unnamed_1347871b_0/a_28_n481#
+= w_n1578_n1709# buffer_block_62479d0d_0/Unnamed_1347871b_0/w_n1464_n1409#
+= VSUBS buffer_block_62479d0d_0/VSUBS
+= VSUBS buffer_block_62479d0d_0/Unnamed_5a535b60_0/VSUBS
+= VSUBS buffer_block_62479d0d_0/straight_route_09e9351a_0/VSUBS
+= VSUBS buffer_block_62479d0d_0/Unnamed_1347871b_0/VSUBS

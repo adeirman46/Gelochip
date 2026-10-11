@@ -1,0 +1,65 @@
+
+Note: Compatibility modes selected: ll a
+
+
+Circuit: * testbench for cascode_mirror_4x (post-layout pex) - tran analysis
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                        3.3
+iref                                  -265.973
+out                                          0
+xdut.b                                -265.212
+iout                                  -265.212
+vout_src#branch                              0
+vdd#branch                            -2.5e-05
+
+
+No. of Data Rows : 211
+
+  Measurements for Transient Analysis
+
+	measure 'ratio_check'  failed
+Error: measure  ratio_check  :
+	no such function as 'if'
+	measure 'iout_check'  failed
+Error: measure  iout_check  :
+	no such function as 'if'
+iout_avg            =  0.000000e+00 from=  1.500000e-03 to=  2.000000e-03
+ratio_calc          =   failed
+ratio_err_pct       =   failed
+
+SPEC current_ratio PASS/FAIL measured= want=4.0
+SPEC iout_ua PASS/FAIL measured= want=100u
+Result: PASSED
+ngspice-41 done
+
+[stderr]
+
+Error: measure  iref_avg  avg(TRIG) : no such vector as 'i(iref_src)'
+ .measure tran iref_avg avg i(iref_src) from=1.5m to=2m failed!
+
+ .measure tran ratio_check if ratio_err_pct < ratio_tol ratio_tol=0.02 else ratio_err_pct failed!
+
+ .measure tran iout_check if abs(iout_avg - iout_target) < iout_target*ratio_tol ratio_tol=0.02 else abs(iout_avg - iout_target) failed!
+
+Netlist line no. 37:
+Undefined parameter [iref_avg]
+Netlist line no. 37:
+Cannot compute substitute
+Netlist line no. 40:
+Undefined parameter [ratio_calc]
+Netlist line no. 40:
+ Expression err: ratio_calc-4.0)/4.0*100}
+Netlist line no. 40:
+ Expression err: abs(ratio_calc-4.0)/4.0*100}
+Netlist line no. 40:
+Cannot compute substitute
+Error: &ratio_calc: no such variable.
+Error: &iout_avg: no such variable.

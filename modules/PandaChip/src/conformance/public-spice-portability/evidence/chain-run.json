@@ -1,0 +1,444 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "artifacts": [
+    {
+      "bytes": 414,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/contract-tests.json",
+      "role": "contract-test",
+      "sha256": "196cef29abdf6cfdf98557522df94a93063cbfdf051b86576f4bc8a44e83ac1b",
+      "source_output": "contract-test-verdict",
+      "source_step": "contract-tests"
+    },
+    {
+      "bytes": 1042,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/design-provenance.json",
+      "role": "design-provenance",
+      "sha256": "76f83f9e50ebd3282964ebd870ff49fe7771546be12fb629bf74fad80d4280ad",
+      "source_output": "design-provenance",
+      "source_step": "materialize-pinned-sources"
+    },
+    {
+      "bytes": 1754,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/secondary-design-provenance.json",
+      "role": "source-provenance",
+      "sha256": "59dec04fc3baffd0b4644f1669ed88eb3b381ba43f176d2b113de2018f674c0f",
+      "source_output": "secondary-design-provenance",
+      "source_step": "materialize-pinned-sources"
+    },
+    {
+      "bytes": 668,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/sim/ngspice-op/inverter-op.raw",
+      "role": "native-artifact",
+      "sha256": "edf7a21a998cea0a7cd1046e99218add4d0bac77e42fc2ccdb24bae2b1b04725",
+      "source_output": "ngspice-op-raw",
+      "source_step": "simulate-ngspice-op"
+    },
+    {
+      "bytes": 7184,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/sim/ngspice-op.json",
+      "role": "semantic-result",
+      "sha256": "98d1dfc47cffddb8600e66ca283b1feda968e2fc3f37d4a04b857fc40cf9e03b",
+      "source_output": "ngspice-op-result",
+      "source_step": "simulate-ngspice-op"
+    },
+    {
+      "bytes": 1862,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/sim/ngspice-dc/inverter-dc.raw",
+      "role": "native-artifact",
+      "sha256": "bdebfb0ccabfcdd4a2a14013c42a96003def7332b281314eeb86c035a24aa9ab",
+      "source_output": "ngspice-dc-raw",
+      "source_step": "simulate-ngspice-dc"
+    },
+    {
+      "bytes": 7348,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/sim/ngspice-dc.json",
+      "role": "semantic-result",
+      "sha256": "cfdb6e65e6416894c63647b0ccdc830f64b925ad3a9daa80f05c4fa4aa11be6e",
+      "source_output": "ngspice-dc-result",
+      "source_step": "simulate-ngspice-dc"
+    },
+    {
+      "bytes": 24869,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/sim/ngspice-ac/ota-ac.raw",
+      "role": "native-artifact",
+      "sha256": "81a836c63d98faeb146fcf8949789e3a55d9762a818da1518bf0031e23c5fc5b",
+      "source_output": "ngspice-ac-raw",
+      "source_step": "simulate-ngspice-ac"
+    },
+    {
+      "bytes": 7391,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/sim/ngspice-ac.json",
+      "role": "semantic-result",
+      "sha256": "2db92091c6999a77af62150a4e0cb9c3b72fdfc82f7a4d7781c48d06c4903bb9",
+      "source_output": "ngspice-ac-result",
+      "source_step": "simulate-ngspice-ac"
+    },
+    {
+      "bytes": 5535,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/sim/xyce-dc/xyce-dc.xyce.raw",
+      "role": "native-artifact",
+      "sha256": "bbdafaa628bbc95ed2dbec4bb555f8e1ba14aac1d7d36151cbd75a2ff1076869",
+      "source_output": "xyce-dc-raw",
+      "source_step": "simulate-xyce-dc"
+    },
+    {
+      "bytes": 8975,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/sim/xyce-dc.json",
+      "role": "semantic-result",
+      "sha256": "ca41bdc108cd46082d17dd3b79801a2a89e12d3cae561d924b479172f9212293",
+      "source_output": "xyce-dc-result",
+      "source_step": "simulate-xyce-dc"
+    },
+    {
+      "bytes": 3657,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/sim/xyce-ac/xyce-ac-derived.xyce.raw",
+      "role": "native-artifact",
+      "sha256": "6c4aa7c6cfbf43e1938562df950628c2f3fbd851fe24cc326eeb1cdca7256bc3",
+      "source_output": "xyce-ac-raw",
+      "source_step": "simulate-xyce-ac"
+    },
+    {
+      "bytes": 9063,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/sim/xyce-ac.json",
+      "role": "semantic-result",
+      "sha256": "dc49faf9fbb95d4a837fb448be26e22c36a4b4ba0aac716a1535cdf2376e15e9",
+      "source_output": "xyce-ac-result",
+      "source_step": "simulate-xyce-ac"
+    },
+    {
+      "bytes": 1151,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/sim/xyce-tran/xyce-tran.xyce.raw",
+      "role": "native-artifact",
+      "sha256": "87db8af6f5e7d0d30e72b29423ccc7011760229ece9b6388f5c714d9f0178a69",
+      "source_output": "xyce-tran-raw",
+      "source_step": "simulate-xyce-tran"
+    },
+    {
+      "bytes": 9972,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/sim/xyce-tran.json",
+      "role": "semantic-result",
+      "sha256": "30ad8657e4873eb618da5d228aaf4b756a43f21561eaa6d129e45a215895b987",
+      "source_output": "xyce-tran-result",
+      "source_step": "simulate-xyce-tran"
+    },
+    {
+      "bytes": 668,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/legacy/ngspice-op/inverter-op.raw",
+      "role": "native-artifact",
+      "sha256": "39278b06f54892243c244f3cd2e94521f5e4d9ec4551c843d8e3e3b307f9840c",
+      "source_output": "legacy-ngspice-raw",
+      "source_step": "simulate-legacy-ngspice"
+    },
+    {
+      "bytes": 6770,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/independent-verification.json",
+      "role": "independent-oracle",
+      "sha256": "fa2c7e546e3eeade3ebcfb1684ac36385a084e26c0d6bd429d3247750c2405ff",
+      "source_output": "independent-portability-verdict",
+      "source_step": "independent-verifier"
+    },
+    {
+      "bytes": 3848,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/extract/ngspice-op.json",
+      "role": "normalized-evidence",
+      "sha256": "7735db05d41d4dd5aed20f69fe26ddc67635bd9934494c84a23d29ebf390e568",
+      "source_output": "ngspice-op-series",
+      "source_step": "extract-ngspice-op"
+    },
+    {
+      "bytes": 4881,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/extract/ngspice-dc.json",
+      "role": "normalized-evidence",
+      "sha256": "91e5366ee568748f1f899d85d7c83925bd88f78923de4ac02729384bb8be3668",
+      "source_output": "ngspice-dc-series",
+      "source_step": "extract-ngspice-dc"
+    },
+    {
+      "bytes": 8943,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/extract/ngspice-ac.json",
+      "role": "normalized-evidence",
+      "sha256": "4ad703329462f93e5130757169d8ecddb80004dcce3995d8d9eff9fb32c9f87b",
+      "source_output": "ngspice-ac-series",
+      "source_step": "extract-ngspice-ac"
+    },
+    {
+      "bytes": 7247,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/extract/xyce-dc.json",
+      "role": "normalized-evidence",
+      "sha256": "629b37a59b0d1d8cdece5023e687e2ac74c9f44bc416818560c53ac82ff7e30f",
+      "source_output": "xyce-dc-series",
+      "source_step": "extract-xyce-dc"
+    },
+    {
+      "bytes": 7767,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/extract/xyce-ac.json",
+      "role": "normalized-evidence",
+      "sha256": "7a220248738c8498b7d91065ff2173304071e5feb9a2be551feab8a22f96e98c",
+      "source_output": "xyce-ac-series",
+      "source_step": "extract-xyce-ac"
+    },
+    {
+      "bytes": 4417,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/extract/xyce-tran.json",
+      "role": "normalized-evidence",
+      "sha256": "6cdb370dcd750827604fe250b88b2d08ad670604e4446a11307b9c40887f97b4",
+      "source_output": "xyce-tran-series",
+      "source_step": "extract-xyce-tran"
+    },
+    {
+      "bytes": 18690,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/admin/capabilities.json",
+      "role": "admin-evidence",
+      "sha256": "254c972aa8de78eb5097dc0dc7f585443c4efcf8bfecb2304d2750634f5b4197",
+      "source_output": "capabilities-result",
+      "source_step": "capabilities"
+    },
+    {
+      "bytes": 18690,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/admin/doctor.json",
+      "role": "admin-evidence",
+      "sha256": "6c7e1b4e8e59d22e1b5502f11385e1b1910a63ff10359f8a222f248764912997",
+      "source_output": "doctor-result",
+      "source_step": "doctor"
+    },
+    {
+      "bytes": 5085,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/admin/profile-list.json",
+      "role": "admin-evidence",
+      "sha256": "5758c9f103df751a06fa98fb47da7822b8eb0f8ac8b3f8fc3174e8b5def28a12",
+      "source_output": "profile-list-result",
+      "source_step": "profile-list"
+    },
+    {
+      "bytes": 46205,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/admin/profile-show.json",
+      "role": "admin-evidence",
+      "sha256": "697dbf507842c7a67f888cc27b753275762ee0f106d41d3a58d01cd0759023b9",
+      "source_output": "profile-show-result",
+      "source_step": "profile-show"
+    },
+    {
+      "bytes": 2452,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/admin/provider-list.json",
+      "role": "admin-evidence",
+      "sha256": "b5abf084b858d5ebb2ecca598a49edfed2f238a7a826d196d8f4ea62a1d9b62e",
+      "source_output": "provider-list-result",
+      "source_step": "provider-list"
+    },
+    {
+      "bytes": 2478,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/results/admin/provider-validate.json",
+      "role": "downstream-decision",
+      "sha256": "f26800f418aef67b6eb31d2a88511edafee911f6e790632b4a4655b311458c4a",
+      "source_output": "provider-validation-decision",
+      "source_step": "provider-validate"
+    },
+    {
+      "bytes": 13857,
+      "replay_id": null,
+      "repository_path": "conformance/public-spice-portability/evidence/agent-evidence.json",
+      "role": "agent-visible-evidence",
+      "sha256": "1fb17770b180bdf0641d88513129add36ba8d7654393ee7f0e669fb90825079b",
+      "source_output": "agent-portability-evidence",
+      "source_step": "agent-decision"
+    },
+    {
+      "bytes": 2859,
+      "replay_id": "xyce-ac-presentation-rejected",
+      "repository_path": "conformance/public-spice-portability/evidence/results/negative/xyce-ac-presentation-rejected.json",
+      "role": "negative-replay",
+      "sha256": "8e5f334005a10861fdc1f43441192305070ea0f312d11864f8f7883c4ecb5291",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 2706,
+      "replay_id": "xyce-op-unsupported",
+      "repository_path": "conformance/public-spice-portability/evidence/results/negative/xyce-op-unsupported.json",
+      "role": "negative-replay",
+      "sha256": "3b3a6cf4acf9eb52a870c7e457959f1d0c0c61b5cd5850059fb561e9cdd52add",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 2869,
+      "replay_id": "ngspice-analysis-mismatch",
+      "repository_path": "conformance/public-spice-portability/evidence/results/negative/ngspice-analysis-mismatch.json",
+      "role": "negative-replay",
+      "sha256": "994a46d61699dd087922311c324f5796176dc87924bf0f0e79618b916d1eae75",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 2274,
+      "replay_id": "extract-missing-selector",
+      "repository_path": "conformance/public-spice-portability/evidence/results/negative/extract-missing-selector.json",
+      "role": "negative-replay",
+      "sha256": "d2f179b6f0b6a4e0bc23db6ab0e3ccdac369a95b6b10ec779702a2c8de144b6f",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 859,
+      "replay_id": "admin-unknown-profile",
+      "repository_path": "conformance/public-spice-portability/evidence/results/negative/admin-unknown-profile.json",
+      "role": "negative-replay",
+      "sha256": "4408cc8ef767e7b95da3e5dfd1ea7fd8dd94a8e38293c1ea007cacd9abb525b9",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 938,
+      "replay_id": "admin-invalid-provider",
+      "repository_path": "conformance/public-spice-portability/evidence/results/negative/admin-invalid-provider.json",
+      "role": "negative-replay",
+      "sha256": "c441fb8bc9a98df904f56c14f7ef41b014fa591055550a70d579d060701fd414",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 534,
+      "replay_id": "request-contract-byte",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/request-contract-byte.json",
+      "role": "tamper-replay",
+      "sha256": "fe936d97a7ff61c3bc50f709eaf417be3acc5ab079dc7fee0abb8004e542edbf",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 368,
+      "replay_id": "public-source-byte",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/public-source-byte.json",
+      "role": "tamper-replay",
+      "sha256": "27e860e7ffb499640cb642d20b6e2c57afa512798629bbe70043b3b0ef1f3ce0",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 364,
+      "replay_id": "derived-deck-byte",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/derived-deck-byte.json",
+      "role": "tamper-replay",
+      "sha256": "58890444b1bcf0fb70bc9bb1cd027dab52cef6f30279a92bb970b4bab49c4bed",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 492,
+      "replay_id": "native-raw-byte",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/native-raw-byte.json",
+      "role": "tamper-replay",
+      "sha256": "9c5023bbd37562127406ba668701a62cc60cfe75a7ac2b3e6c89eb6f600afc1e",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 395,
+      "replay_id": "simulation-analysis-type",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/simulation-analysis-type.json",
+      "role": "tamper-replay",
+      "sha256": "fc6c573b8b7ec375b5e1338cd0fd20a271f2cd27261db6e4a0d059aa79106cdb",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 428,
+      "replay_id": "simulation-backend-id",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/simulation-backend-id.json",
+      "role": "tamper-replay",
+      "sha256": "cf4822eb31c45d4d25adf35589c859b7427b99eae042a65d879178d730d8c787",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 518,
+      "replay_id": "extraction-series-digest",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/extraction-series-digest.json",
+      "role": "tamper-replay",
+      "sha256": "f01b501c75624dc66d1ff7b75143023d98958e362c318bf20ff471f3ca921b1b",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 515,
+      "replay_id": "admin-result-byte",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/admin-result-byte.json",
+      "role": "tamper-replay",
+      "sha256": "ef27e8fbe2d3ceeabb7d4df7d512a01b1ae7f9651403887e4ccbd519525ab31d",
+      "source_output": null,
+      "source_step": null
+    },
+    {
+      "bytes": 411,
+      "replay_id": "agent-decision-byte",
+      "repository_path": "conformance/public-spice-portability/evidence/tamper/agent-decision-byte.json",
+      "role": "tamper-replay",
+      "sha256": "c5083925eecc9c86b4bc396434305820f82eca434790a98fae9010842b62b7f2",
+      "source_output": null,
+      "source_step": null
+    }
+  ],
+  "chain_id": "openada.chain/public-spice-portability/v1",
+  "chain_manifest_sha256": "3946310a993ebc13bac7683c26e6aac92638693f84cf9ef7d5405e2afb9bc9a1",
+  "checks": {
+    "agent_visible_evidence": true,
+    "contract_test": true,
+    "downstream_decision": true,
+    "independent_artifact_check": true,
+    "native_run": true,
+    "negative_replay": true,
+    "normalized_evidence": true,
+    "pinned_real_design": true,
+    "tamper_replay": true
+  },
+  "extensions": {
+    "org.openada": {
+      "provisional": false,
+      "source_freeze_attested": true,
+      "tamper_probe_count": 9,
+      "verifier": "conformance/public-spice-portability/verify.py"
+    }
+  },
+  "schema": "openada.semantic-chain-run/v0alpha1",
+  "semantic_subject_sha256": "1338756109b4ae767eb871c381aed905b41dee542bd622cf07f50f605044e0c1",
+  "source_attestation": {
+    "clean_after": true,
+    "clean_before": true,
+    "extensions": {},
+    "receipt_class": "release",
+    "repository_revision": "c942ee2254577f7d225b28d204fc30ae4013ed3d",
+    "repository_tree": "3f84247ee353101e7823d48efe083408cc7a350b",
+    "semantic_subject_sha256": "1338756109b4ae767eb871c381aed905b41dee542bd622cf07f50f605044e0c1",
+    "state_unchanged": true
+  },
+  "status": "pass"
+}

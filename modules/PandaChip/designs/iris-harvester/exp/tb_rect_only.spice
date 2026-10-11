@@ -1,0 +1,39 @@
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/exp/tb_rect_only.sch
+**.subckt tb_rect_only
+X4 IN_P IN_N VRECT_P VRECT_N rectifier
+V1 IN_P 0 SIN(0.6 1.0 50MEG)
+V2 IN_N 0 SIN(0.6 1.0 50MEG 0 0 180)
+RL VRECT_P 0 1MEG
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.tran 1n 1u
+.save all
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  rectifier.sym # of pins=4
+** sym_path: /home/irman/PandaChip/designs/iris-harvester/exp/rectifier.sym
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/exp/rectifier.sch
+.subckt rectifier IN_P IN_N VRECT_P VRECT_N
+*.ipin IN_P
+*.ipin IN_N
+*.opin VRECT_P
+*.opin VRECT_N
+XM_P1 IN_P IN_N VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_P2 IN_N IN_P VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_N1 IN_P IN_N VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_N2 IN_N IN_P VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_D1 0 0 VRECT_N 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+V_DUMMY1 VRECT_P DUMMY_NET1 0
+V_DUMMY2 VRECT_N DUMMY_NET2 0
+.ends
+
+.end

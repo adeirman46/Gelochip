@@ -1,0 +1,17 @@
+{
+ "model": "gemini-3.1-pro-preview",
+ "suggestions": [
+  {
+   "title": "Resolve Xschem Exit Code 10 in TX Top",
+   "detail": "Xschem failed to netlist tx_top.sch (exit code 10), indicating a schematic syntax error. Inspect the .sch file text directly for disconnected wires, missing pin symbols (ipin/opin), or malformed component attributes. Ensure the Mixer and PA symbol instantiations exactly match their generated .sym pinouts."
+  },
+  {
+   "title": "Bypass Schematic Integration to Save Step Budget",
+   "detail": "The run exhausted its step budget before completing the TX and TRX tops. Instead of drawing tx_top.sch and trx_top.sch in Xschem, instantiate the verified subcircuits (LNA, Mixer, PA, LO) directly in a structural SPICE netlist (trx_top.spice) using .include and X subcircuit calls to accelerate integration."
+  },
+  {
+   "title": "PA Biasing and Output Matching",
+   "detail": "When building the TX top, ensure the Class-A PA uses an RF choke >1uH at the drain for high impedance at 100MHz. Add a >1nF series DC-blocking capacitor to the 50-ohm PA_OUT port to satisfy the 0V DC spec without pulling down the 3.3V VDD bias."
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+include CHANGELOG.md
+include CONTRIBUTING.md
+include SECURITY.md
+recursive-include bin *
+recursive-include catalog *.json
+graft conformance
+recursive-include docs *.md
+recursive-include evaluation *.md *.json *.py
+include fixtures/smoke/smoke_hdl.sv
+include fixtures/smoke/smoke_klayout.drc
+include fixtures/smoke/smoke_klayout.py
+include fixtures/smoke/smoke_klayout_generate.rb
+include fixtures/smoke/smoke_magic.tcl
+include fixtures/smoke/smoke_netgen_a.spice
+include fixtures/smoke/smoke_netgen_b.spice
+include fixtures/smoke/smoke_netgen_setup.tcl
+include fixtures/smoke/smoke_ngspice.cir
+include fixtures/smoke/smoke_openroad.tcl
+include fixtures/smoke/smoke_xschem.sch
+include fixtures/smoke/smoke_yosys.v
+include fixtures/smoke/smoke_yosys.ys
+recursive-include schemas *.json
+recursive-include profiles *.json
+recursive-include providers *.json *.md
+recursive-include skills *.md *.yaml
+recursive-include tools *.py
+recursive-include .agents *.json
+recursive-include .claude-plugin *.json
+recursive-include .codex-plugin *.json
+global-exclude __pycache__ *.py[cod]

@@ -1,0 +1,27 @@
+{
+ "spec_ingestion": {
+  "status": "done",
+  "at": "10:02:02",
+  "note": "spec was read to write plan.md"
+ },
+ "plan": {
+  "status": "done",
+  "at": "10:02:02",
+  "note": "plan.md present in the workspace"
+ },
+ "sch_gen": {
+  "status": "done",
+  "at": "10:02:02",
+  "note": "lna.sch has a clean netlist"
+ },
+ "tb_gen": {
+  "status": "done",
+  "at": "10:02:02",
+  "note": "lna_verify.spice ran with stimulus"
+ },
+ "sim": {
+  "status": "done",
+  "at": "10:02:02",
+  "note": "rawfiles and waveform plots exist"
+ }
+}

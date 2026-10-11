@@ -1,0 +1,22 @@
+.title LO Verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt lo VDD 0 LO_P LO_N
+XM1 LO_P LO_N TAIL 0 nfet_03v3 L=0.28u W=50u nf=5
+XM2 LO_N LO_P TAIL 0 nfet_03v3 L=0.28u W=50u nf=5
+L1 VDD LO_P 100n
+L2 VDD LO_N 100n
+R1 VDD LO_P 2k
+R2 VDD LO_N 2k
+C1 LO_P 0 31.2p
+C2 LO_N 0 31.2p
+I1 TAIL 0 1m
+.ends
+
+X1 VDD 0 LO_P LO_N lo
+V1 VDD 0 3.3
+
+.ic v(LO_P)=3.3 v(LO_N)=3.2
+.tran 0.1n 500n uic
+.save all

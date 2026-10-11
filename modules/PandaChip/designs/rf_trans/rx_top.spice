@@ -1,0 +1,72 @@
+** sch_path: /home/irman/PandaChip/designs/rf_trans/rx_top.sch
+**.subckt rx_top RF_IN LO_P LO_N IF_P IF_N VDD 0
+*.ipin RF_IN
+*.ipin LO_P
+*.ipin LO_N
+*.opin IF_P
+*.opin IF_N
+*.ipin VDD
+*.ipin 0
+X1 VDD 0 RF_IN LNA_OUT lna
+X2 VDD 0 MIX_RF_P net2 LO_P LO_N IF_P IF_N mixer
+Cc MIX_RF_P LNA_OUT 10p
+Rb1 VDD net1 10k
+Rb2 net1 0 10k
+Rb3 MIX_RF_P net1 10k
+Rb4 net2 net1 10k
+Cbypass net2 0 100p
+**.ends
+
+* expanding   symbol:  lna.sym # of pins=4
+** sym_path: /home/irman/PandaChip/designs/rf_trans/lna.sym
+** sch_path: /home/irman/PandaChip/designs/rf_trans/lna.sch
+.subckt lna VDD 0 RF_IN RF_OUT
+*.ipin VDD
+*.ipin RF_IN
+*.opin RF_OUT
+*.ipin 0
+XM1 MID VBIAS1 0 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM2 RF_OUT VBIAS2 MID 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+L1 VDD RF_OUT 100n
+C1 VDD RF_OUT 25.3p
+R_load VDD RF_OUT 2k
+Cin VBIAS1 RF_IN 10p
+R1 VDD VBIAS2 15k
+R2 VBIAS2 0 18k
+R3 VDD VBIAS1 25k
+R4 VBIAS1 0 8k
+.ends
+
+
+* expanding   symbol:  mixer.sym # of pins=8
+** sym_path: /home/irman/PandaChip/designs/rf_trans/mixer.sym
+** sch_path: /home/irman/PandaChip/designs/rf_trans/mixer.sch
+.subckt mixer VDD 0 RF_P RF_N LO_P LO_N IF_P IF_N
+*.ipin VDD
+*.ipin 0
+*.ipin RF_P
+*.ipin RF_N
+*.ipin LO_P
+*.ipin LO_N
+*.opin IF_P
+*.opin IF_N
+XM1 M1D RF_P TAIL 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM2 M2D RF_N TAIL 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM3 IF_P LO_P M1D 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM4 IF_N LO_N M1D 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM5 IF_P LO_N M2D 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM6 IF_N LO_P M2D 0 nfet_03v3 L=0.28u W=50u nf=5 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+R1 VDD IF_P 2k
+R2 VDD IF_N 2k
+I1 TAIL 0 2m
+.ends
+
+.end

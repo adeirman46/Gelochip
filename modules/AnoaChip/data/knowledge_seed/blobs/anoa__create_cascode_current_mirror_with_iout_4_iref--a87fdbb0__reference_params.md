@@ -1,0 +1,229 @@
+# Reference parameter values (extracted from the researched netlists/papers)
+
+These are the device sizes / component values used by the closest reference designs. SEED config/<name>.json's `params` from these (copy the W/L/M, R, C, L, bias values), then adjust for THIS design's spec — do NOT invent from scratch.
+
+## from paper `LTspice4_3.pdf.txt`
+- ECE: type=vcvs, value=25500:
+- IC: type=isource
+- Rayane: type=resistor
+- Due: type=diode, value=5:00
+- if: type=isource, value=2%
+- instruction: type=isource
+- Single-Stage: type=switch
+- low: type=inductor
+- covered: type=capacitor
+- basic: type=behavioral
+- by: type=behavioral
+- gate: type=vccs
+- However,: type=ccvs
+- Speciﬁcally,: type=switch, value=45
+- dimensions.: type=diode
+- discrete: type=diode, value=3).
+- Design: type=diode
+- MOSFETs: type=mosfet, value=12
+- model: type=mosfet, model=MOSFETs
+- Submission: type=switch
+- chosen: type=capacitor, value=13
+- Importing: type=isource, model=MOSFET
+- left: type=inductor, model=NMOS, value=45
+- Repeat: type=resistor, model=PMOS, value=.txt
+- schematic: type=switch
+- mode,: type=mosfet
+- Save: type=switch, model=NMOS
+- select: type=switch
+- Important:: type=isource, model=nmos4
+- length: type=inductor
+- body: type=behavioral
+- M1: type=mosfet
+- M2: type=mosfet
+- M3: type=mosfet
+- M4: type=mosfet
+- VDD: type=vsource
+- vout: type=vsource
+- M5: type=mosfet
+- M6: type=mosfet
+- RREF: type=resistor
+- vin: type=vsource
+- Fig.1: type=cccs, model=CMOS, value=Single-stage
+- .model pmos (pmos): level=54
+- .model pmos45nm (pmos): level=54
+
+## from paper `lecture16-140907.pdf.txt`
+- Lecture: type=inductor, value=16-20
+- CMOS: type=capacitor, value=2016
+- LECTURE: type=inductor
+- REFERENCES: type=resistor
+- MOSFET: type=mosfet
+- version: type=vsource
+- VDD: type=vsource, value=1 0 DC 5.0
+- Current: type=capacitor
+- Mirror: type=mosfet
+- iIN: type=isource
+- iOUT: type=isource, iout=KiIN
+- IIN: type=isource
+- IOUT: type=isource, iout=KIIN
+- iin: type=isource
+- iOUTiIN: type=isource
+- Characterization: type=capacitor
+- characteristics: type=capacitor
+- Graphically:: type=vccs
+- Simple: type=switch
+- Circuit:: type=capacitor
+- iO: type=isource
+- iI: type=isource
+- VGS-VT1: type=vsource
+- K1’: type=coupling
+- If: type=isource, value=+, m3=M4,, vgs1=VT1
+- M1: type=mosfet, value=9, w=20U, l=1U
+- vDS1: type=vsource
+- vDS2: type=vsource, value=-
+- Fig.: type=cccs, value=370-08
+- Influence: type=isource
+- if: type=isource, l1=L2).
+- Ratio: type=resistor
+- measure: type=mosfet
+- Measure: type=mosfet
+- solve: type=switch
+- channel: type=capacitor
+- Illustration: type=isource
+- Key:: type=coupling
+- Example: type=vcvs, value=16-2
+- identical: type=isource, model=find, value=5 0.1 actual, l1=L2), w1=5
+- Solution: type=switch
+- is: type=isource
+- factor: type=cccs, value=4.
+- VDS1: type=vsource
+- VGS: type=vsource
+- M1M2: type=mosfet
+- GND: type=vccs
+- Solutions: type=switch
+- M1M2bM2a: type=mosfet
+- Summary: type=switch
+- gm: type=vccs
+- M2: type=mosfet, value=9, w=20U, l=1U
+- VTiI: type=vsource
+- VT+VON: type=vsource
+- VON: type=vsource
+- Ib: type=isource
+- IbIb: type=isource
+- M3: type=mosfet, value=1, w=25U, l=1U
+- M5: type=mosfet, value=1, w=25U, l=1U
+- IMPROVED: type=isource
+- Large: type=inductor
+- vin: type=vsource, value=+, vin=iinR
+- rds5: type=resistor, value=+
+- gm3rds3(1+gm5rds5): type=vccs, value=1
+- gm3: type=vccs
+- in: type=isource
+- M1M3: type=mosfet
+- M4: type=mosfet, value=1, w=25U, l=1U
+- gm5vgs5: type=vccs
+- gm3vgs3: type=vccs
+- vs5: type=vsource
+- D5=G3: type=diode, d5=G3
+- D3=S5: type=diode, d3=S5
+- S3=G5: type=switch, s3=G5
+- viniin: type=vsource
+- ioutR: type=isource
+- gm3vin: type=vccs
+- Self-Biased: type=switch
+- But,: type=behavioral
+- vgs1: type=vsource, vgs1=vin-iinR
+- vgs3: type=vsource, vgs3=vin-rds1(iin-gm1vgs1)
+- vin[1+gm3rds3+gm1rds1gm3rds3+gm1rds1]: type=vsource
+- Rin: type=resistor
+- R: type=resistor, value=10KILOHM
+- gm1: type=vccs, value=+
+- I1: type=isource
+- rds3: type=resistor
+- gm1vgs1: type=vccs
+- v2: type=vsource
+- v1: type=vsource
+- Small-signal: type=switch
+- MOS: type=mosfet
+- gm4: type=vccs
+- IBias: type=isource
+- IO: type=isource
+- ii: type=isource
+- FIG.: type=cccs, value=310-11
+- io: type=isource
+- II: type=isource
+- Resistance: type=resistor
+- Input: type=isource
+- Minimum: type=mosfet
+- Voltage: type=vsource
+- Swing: type=switch
+- Cascode: type=capacitor
+- Excellent: type=vcvs
+- Self-biased: type=switch
+- Regulated: type=resistor
+- Good-: type=vccs
+- gm2rds3: type=vccs, value=1
+- VOLTAGE: type=vsource
+- How: type=ccvs
+- S: type=switch
+- VREF: type=vsource
+- VREF/VREF: type=vsource
+- VDD/VDD: type=vsource
+- fractional: type=cccs
+- For: type=cccs, value=10%
+- Ideally,: type=isource
+- MOSFET-Resistance: type=mosfet
+- Higher: type=ccvs
+- R2: type=resistor
+- vout: type=vsource
+- R1: type=resistor
+- Load: type=inductor
+- VDD+D: type=vsource
+- VDD-D: type=vsource
+- VREF-: type=vsource
+- Bipolar-Resistance: type=behavioral
+- q: type=bjt
+- Is: type=isource
+- give: type=vccs
+- RIs: type=resistor
+- VCC: type=vsource
+- ln[VCC/(RIs)]: type=inductor, value=1
+- ln(I/Is): type=inductor
+- current: type=capacitor
+- Can: type=capacitor
+- CURRENT: type=capacitor
+- IREF: type=isource
+- IREF/IREF: type=isource
+- Gate-Source: type=vccs
+- reference: type=resistor
+- KN’(W1/L1): type=coupling
+- Solving: type=switch
+- VGS1: type=vsource
+- VT1: type=vsource
+- i: type=isource
+- v: type=vsource
+- IQ: type=isource
+- VQ: type=vsource
+- RI2: type=resistor
+- LI1: type=inductor, value=-, li1=(VGS1
+- I5: type=isource
+- M8: type=mosfet
+- I6: type=isource
+- M6: type=mosfet
+- Startup: type=switch
+- M7: type=mosfet
+- Desired: type=diode
+- K'N: type=coupling
+- Simulation: type=switch
+- ID1: type=isource
+- SPICE: type=switch
+- Simple,: type=switch
+- VSS: type=vsource, value=9 0 DC 0.0
+- RB: type=resistor
+- GAMMA=0.4: type=vccs, gamma=0.4, phi=0.7, lambda=0.04
+- GAMMA=0.57: type=vccs, gamma=0.57, phi=0.8, lambda=0.05
+- ID2: type=isource
+- Cascoded: type=capacitor
+- Cascode,: type=capacitor
+- M3C: type=mosfet
+- MC4: type=mosfet, value=1, w=25U, l=1U
+- RON: type=resistor
+- MC5: type=mosfet
+- .model N (NMOS): vto=0.7, kp=110U
+- .model P (PMOS): vto=-0.7, kp=50U

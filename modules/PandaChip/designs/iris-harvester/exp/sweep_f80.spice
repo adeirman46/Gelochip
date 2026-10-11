@@ -1,0 +1,114 @@
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/tb_iris.sch
+**.subckt tb_iris
+X1 RF_IN RF_BOOST matching
+X2 VDD VBIAS bias
+X3 RF_BOOST VBIAS IN_P IN_N splitter
+X4 IN_P IN_N VRECT_P VRECT_N rectifier
+X5 VRECT_P IN_P IN_N VOUT charge_pump
+V_RF RF_SRC 0 SIN(0 0.632 80MEG)
+R_S RF_IN RF_SRC 50
+V_DD VDD 0 3.3
+C_STORE VOUT 0 100p
+R_LOAD VOUT 0 1MEG
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.tran 1n 10u
+.save all
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  matching.sym # of pins=2
+** sym_path: /home/irman/PandaChip/designs/iris-harvester/matching.sym
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/matching.sch
+.subckt matching RF_IN RF_BOOST
+*.iopin RF_IN
+*.iopin RF_BOOST
+L1 RF_BOOST RF_IN 694n
+C1 RF_BOOST 0 14p
+.ends
+
+
+* expanding   symbol:  bias.sym # of pins=2
+** sym_path: /home/irman/PandaChip/designs/iris-harvester/bias.sym
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/bias.sch
+.subckt bias VDD VBIAS
+*.iopin VDD
+*.iopin VBIAS
+I1 VDD VBIAS 1u
+XM1 VBIAS VBIAS 0 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+
+* expanding   symbol:  splitter.sym # of pins=4
+** sym_path: /home/irman/PandaChip/designs/iris-harvester/splitter.sym
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/splitter.sch
+.subckt splitter RF_BOOST VBIAS IN_P IN_N
+*.ipin RF_BOOST
+*.ipin VBIAS
+*.opin IN_P
+*.opin IN_N
+R_DUMMY1 IN_P 0 1T
+R_DUMMY2 net1 0 1T
+C1 IN_P RF_P 10p
+C2 IN_N RF_N 10p
+R1 VBIAS IN_P 100k
+R2 IN_N VBIAS 100k
+**** begin user architecture code
+
+E1 RF_P 0 RF_BOOST 0 1
+E2 RF_N 0 RF_BOOST 0 -1
+
+**** end user architecture code
+.ends
+
+
+* expanding   symbol:  rectifier.sym # of pins=4
+** sym_path: /home/irman/PandaChip/designs/iris-harvester/rectifier.sym
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/rectifier.sch
+.subckt rectifier IN_P IN_N VRECT_P VRECT_N
+*.ipin IN_P
+*.ipin IN_N
+*.opin VRECT_P
+*.opin VRECT_N
+XM_P1 IN_P IN_N VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_P2 IN_N IN_P VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_N1 IN_P IN_N VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_N2 IN_N IN_P VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_D1 0 0 VRECT_N 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+V_DUMMY1 VRECT_P DUMMY_NET1 0
+V_DUMMY2 VRECT_N DUMMY_NET2 0
+.ends
+
+
+* expanding   symbol:  charge_pump.sym # of pins=4
+** sym_path: /home/irman/PandaChip/designs/iris-harvester/charge_pump.sym
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/charge_pump.sch
+.subckt charge_pump VRECT_P IN_P IN_N VCP
+*.ipin VRECT_P
+*.ipin IN_N
+*.ipin IN_P
+*.opin VCP
+XM_D1 VRECT_P VRECT_P N1 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_D2 N1 N1 N2 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_D3 N2 N2 N3 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM_D4 N3 N3 VCP 0 nfet_03v3 L=0.28u W=10u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+C1 N1 IN_N 10p
+C2 N2 IN_P 10p
+C3 N3 IN_N 10p
+R_DUMMY1 VCP 0 1T
+.ends
+
+.end

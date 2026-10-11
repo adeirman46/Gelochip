@@ -1,0 +1,86 @@
+[project]
+name = "anoa-chip"
+version = "0.1.0"
+description = "AnoaChip — local-LLM-driven analog IC automation: prompt → SPICE netlist → ngspice spec check → Glayout GDS → DRC/LVS (Ollama + Glayout)"
+readme = "README.md"
+# Python 3.12 (not 3.13): on 3.13 scipy needs numpy>=2.0, but glayout/gdsfactory pin
+# numpy<2.0 — 3.12 has scipy 1.13 + numpy 1.26 wheels so the whole stack coexists.
+requires-python = ">=3.11,<3.13"
+license = { text = "MIT" }
+dependencies = [
+    # --- Web UI ---
+    "python-dotenv>=1.0",
+    "graphviz>=0.20",
+    # --- Data / async utils ---
+    "pandas>=2.2",
+    "numpy>=1.26,<2.0",          # gdsfactory 7.x / glayout run fine on 1.26.x
+    "nest-asyncio>=1.6",
+    "requests>=2.32",
+    "httpx>=0.28",
+    "aiohttp>=3.11",
+    # --- Local ML / embeddings for RAG (uses the local GPU when available) ---
+    "torch>=2.6",
+    "transformers>=4.51",
+    "sentence-transformers>=4.1",
+    "scikit-learn>=1.3,<1.6",   # 1.6 needs numpy>=2.0; glayout pins numpy<2.0
+    "faiss-cpu>=1.11",
+    # --- LangGraph / LangChain orchestration ---
+    "langgraph>=0.2",
+    "langchain>=0.3,<0.4",
+    "langchain-core>=0.3,<0.4",
+    "langchain-community>=0.3,<0.4",
+    "langchain-huggingface>=0.1",
+    # Local model provider (DEFAULT): Ollama, e.g. qwen3.5:9b
+    "langchain-ollama>=0.2",
+    # Optional cloud fallback: Google Gemini
+    "langchain-google-genai>=2.0",
+    # --- Deep agents (RLM-style recursive agents) ---
+    "deepagents>=0.0.5",
+    "matplotlib>=3.9",
+    "scipy>=1.11,<1.14",        # 1.14 needs numpy>=2.0; 1.13 has cp312 wheels + numpy 1.26
+    "pypdf>=6.13.1",
+    "pillow>=12.2.0",
+    "psycopg[binary]>=3.3.4",
+    "boto3>=1.43.27",
+    "fastapi>=0.136.3",
+    "uvicorn[standard]>=0.49.0",
+    "python-multipart>=0.0.32",
+    "sse-starlette>=3.4.4",
+    # --- Analog layout backend: Glayout (local checkout, editable) -----------
+    # Brings gdsfactory 7.7, klayout, gdstk, prettyprint(tree), nltk, svgutils.
+    # DRC = magic, LVS = netgen, SIM = ngspice: system binaries, see install.sh.
+    "glayout",
+    "jupytext>=1.16",   # knowledge-seed builder reads gLayout's .ipynb tutorials
+]
+
+[tool.uv.sources]
+# Use the local gLayout checkout (sibling folder ../gLayout) so its fixes are
+# picked up. Change the path if your gLayout lives elsewhere.
+glayout = { path = "../gLayout", editable = true }
+
+[project.optional-dependencies]
+# Web-research agent (netlist / glayout reference hunting on the live web).
+# Kept optional because crawl4ai pulls Playwright + a Chromium download.
+web = [
+    "crawl4ai>=0.4",
+    "ddgs>=9.0",                 # DuckDuckGo search (reliable, no API key)
+    "googlesearch-python>=1.2",  # fallback search
+]
+
+[tool.uv]
+# This is an application, not a library — uv manages the environment but does
+# not try to build/install the project itself.
+package = false
+
+# glayout's setup.py pins numpy<=1.24 / klayout<=0.29 etc. tighter than needed —
+# its own dev venv runs numpy 1.26.4 + gdsfactory 7.7.0 fine. Override so the
+# resolver can pick versions compatible with the ML stack above.
+override-dependencies = [
+    "numpy>=1.26,<2.0",
+    "pandas>=2.2,<2.4",
+    "matplotlib>=3.9,<3.11",
+    "klayout>=0.28.0,<0.31",
+    # keep the ML/recall stack on the numpy-1.26 ABI glayout requires (cp312 wheels exist)
+    "scipy>=1.11,<1.14",
+    "scikit-learn>=1.3,<1.6",
+]

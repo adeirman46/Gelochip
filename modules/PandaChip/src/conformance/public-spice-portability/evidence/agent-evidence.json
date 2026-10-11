@@ -1,0 +1,394 @@
+{
+  "admin": [
+    {
+      "engineering_status": "not_applicable",
+      "id": "capabilities",
+      "operation": "doctor",
+      "result": {
+        "bytes": 18690,
+        "path": "/evidence/results/admin/capabilities.json",
+        "sha256": "254c972aa8de78eb5097dc0dc7f585443c4efcf8bfecb2304d2750634f5b4197"
+      }
+    },
+    {
+      "engineering_status": "not_applicable",
+      "id": "doctor",
+      "operation": "doctor",
+      "result": {
+        "bytes": 18690,
+        "path": "/evidence/results/admin/doctor.json",
+        "sha256": "6c7e1b4e8e59d22e1b5502f11385e1b1910a63ff10359f8a222f248764912997"
+      }
+    },
+    {
+      "engineering_status": "pass",
+      "id": "profile-list",
+      "operation": "profile.list",
+      "result": {
+        "bytes": 5085,
+        "path": "/evidence/results/admin/profile-list.json",
+        "sha256": "5758c9f103df751a06fa98fb47da7822b8eb0f8ac8b3f8fc3174e8b5def28a12"
+      }
+    },
+    {
+      "engineering_status": "pass",
+      "id": "profile-show",
+      "operation": "profile.show",
+      "result": {
+        "bytes": 46205,
+        "path": "/evidence/results/admin/profile-show.json",
+        "sha256": "697dbf507842c7a67f888cc27b753275762ee0f106d41d3a58d01cd0759023b9"
+      }
+    },
+    {
+      "engineering_status": "pass",
+      "id": "provider-list",
+      "operation": "provider.list",
+      "result": {
+        "bytes": 2452,
+        "path": "/evidence/results/admin/provider-list.json",
+        "sha256": "b5abf084b858d5ebb2ecca598a49edfed2f238a7a826d196d8f4ea62a1d9b62e"
+      }
+    },
+    {
+      "engineering_status": "pass",
+      "id": "provider-validate",
+      "operation": "provider.validate",
+      "result": {
+        "bytes": 2478,
+        "path": "/evidence/results/admin/provider-validate.json",
+        "sha256": "f26800f418aef67b6eb31d2a88511edafee911f6e790632b4a4655b311458c4a"
+      }
+    }
+  ],
+  "chain_id": "openada.chain/public-spice-portability/v1",
+  "conclusion": "portable-for-reviewed-analysis-matrix",
+  "decision_basis": {
+    "admin_surfaces": 6,
+    "independent_oracle_required": true,
+    "positive_simulations": 6,
+    "typed_extractions": 6,
+    "typed_negative_replays": 6
+  },
+  "extensions": {},
+  "limitations": [
+    "The result establishes portability only for the six reviewed analysis/backend cells and exact pinned public fixtures.",
+    "The IHP model closure and PSP103 OSDI executable module are content-bound; native tool defaults and host runtime libraries remain bounded provenance.",
+    "The Xyce AC source is minimally derived by removing one presentation-only .print directive; both source and derived bytes are retained.",
+    "The shared ngspice startup report remains native-default-unenumerated; this chain independently binds the isolated HOME startup bytes.",
+    "These checks are engineering evidence for agent decisions, not foundry electrical signoff."
+  ],
+  "matrix": [
+    {
+      "analysis": "op",
+      "backend": "ngspice",
+      "dependent_variable_count": 11,
+      "driver_id": "org.openada.driver.ngspice",
+      "driver_version": "0.4.0",
+      "engineering_status": "pass",
+      "extraction_result": {
+        "bytes": 3848,
+        "path": "/evidence/results/extract/ngspice-op.json",
+        "sha256": "7735db05d41d4dd5aed20f69fe26ddc67635bd9934494c84a23d29ebf390e568"
+      },
+      "finite_value_count": 11,
+      "id": "ngspice-op",
+      "native_artifact": {
+        "bytes": 668,
+        "path": "/evidence/sim/ngspice-op/inverter-op.raw",
+        "sha256": "edf7a21a998cea0a7cd1046e99218add4d0bac77e42fc2ccdb24bae2b1b04725"
+      },
+      "point_count": 1,
+      "selected_series": [
+        "vin",
+        "vout"
+      ],
+      "simulation_result": {
+        "bytes": 7184,
+        "path": "/evidence/results/sim/ngspice-op.json",
+        "sha256": "98d1dfc47cffddb8600e66ca283b1feda968e2fc3f37d4a04b857fc40cf9e03b"
+      }
+    },
+    {
+      "analysis": "dc",
+      "backend": "ngspice",
+      "dependent_variable_count": 11,
+      "driver_id": "org.openada.driver.ngspice",
+      "driver_version": "0.4.0",
+      "engineering_status": "pass",
+      "extraction_result": {
+        "bytes": 4881,
+        "path": "/evidence/results/extract/ngspice-dc.json",
+        "sha256": "91e5366ee568748f1f899d85d7c83925bd88f78923de4ac02729384bb8be3668"
+      },
+      "finite_value_count": 143,
+      "id": "ngspice-dc",
+      "native_artifact": {
+        "bytes": 1862,
+        "path": "/evidence/sim/ngspice-dc/inverter-dc.raw",
+        "sha256": "bdebfb0ccabfcdd4a2a14013c42a96003def7332b281314eeb86c035a24aa9ab"
+      },
+      "point_count": 13,
+      "selected_series": [
+        "vin",
+        "vout"
+      ],
+      "simulation_result": {
+        "bytes": 7348,
+        "path": "/evidence/results/sim/ngspice-dc.json",
+        "sha256": "cfdb6e65e6416894c63647b0ccdc830f64b925ad3a9daa80f05c4fa4aa11be6e"
+      }
+    },
+    {
+      "analysis": "ac",
+      "backend": "ngspice",
+      "dependent_variable_count": 28,
+      "driver_id": "org.openada.driver.ngspice",
+      "driver_version": "0.4.0",
+      "engineering_status": "pass",
+      "extraction_result": {
+        "bytes": 8943,
+        "path": "/evidence/results/extract/ngspice-ac.json",
+        "sha256": "4ad703329462f93e5130757169d8ecddb80004dcce3995d8d9eff9fb32c9f87b"
+      },
+      "finite_value_count": 2856,
+      "id": "ngspice-ac",
+      "native_artifact": {
+        "bytes": 24869,
+        "path": "/evidence/sim/ngspice-ac/ota-ac.raw",
+        "sha256": "81a836c63d98faeb146fcf8949789e3a55d9762a818da1518bf0031e23c5fc5b"
+      },
+      "point_count": 51,
+      "selected_series": [
+        "vout.real",
+        "vout.imaginary"
+      ],
+      "simulation_result": {
+        "bytes": 7391,
+        "path": "/evidence/results/sim/ngspice-ac.json",
+        "sha256": "2db92091c6999a77af62150a4e0cb9c3b72fdfc82f7a4d7781c48d06c4903bb9"
+      }
+    },
+    {
+      "analysis": "dc",
+      "backend": "xyce",
+      "dependent_variable_count": 2,
+      "driver_id": "org.openada.driver.xyce",
+      "driver_version": "0.4.0",
+      "engineering_status": "pass",
+      "extraction_result": {
+        "bytes": 7247,
+        "path": "/evidence/results/extract/xyce-dc.json",
+        "sha256": "629b37a59b0d1d8cdece5023e687e2ac74c9f44bc416818560c53ac82ff7e30f"
+      },
+      "finite_value_count": 202,
+      "id": "xyce-dc",
+      "native_artifact": {
+        "bytes": 5535,
+        "path": "/evidence/sim/xyce-dc/xyce-dc.xyce.raw",
+        "sha256": "bbdafaa628bbc95ed2dbec4bb555f8e1ba14aac1d7d36151cbd75a2ff1076869"
+      },
+      "point_count": 101,
+      "selected_series": [
+        "v1"
+      ],
+      "simulation_result": {
+        "bytes": 8975,
+        "path": "/evidence/results/sim/xyce-dc.json",
+        "sha256": "ca41bdc108cd46082d17dd3b79801a2a89e12d3cae561d924b479172f9212293"
+      }
+    },
+    {
+      "analysis": "ac",
+      "backend": "xyce",
+      "dependent_variable_count": 1,
+      "driver_id": "org.openada.driver.xyce",
+      "driver_version": "0.4.0",
+      "engineering_status": "pass",
+      "extraction_result": {
+        "bytes": 7767,
+        "path": "/evidence/results/extract/xyce-ac.json",
+        "sha256": "7a220248738c8498b7d91065ff2173304071e5feb9a2be551feab8a22f96e98c"
+      },
+      "finite_value_count": 102,
+      "id": "xyce-ac",
+      "native_artifact": {
+        "bytes": 3657,
+        "path": "/evidence/sim/xyce-ac/xyce-ac-derived.xyce.raw",
+        "sha256": "6c4aa7c6cfbf43e1938562df950628c2f3fbd851fe24cc326eeb1cdca7256bc3"
+      },
+      "point_count": 51,
+      "selected_series": [
+        "v1.real",
+        "v1.imaginary"
+      ],
+      "simulation_result": {
+        "bytes": 9063,
+        "path": "/evidence/results/sim/xyce-ac.json",
+        "sha256": "dc49faf9fbb95d4a837fb448be26e22c36a4b4ba0aac716a1535cdf2376e15e9"
+      }
+    },
+    {
+      "analysis": "tran",
+      "backend": "xyce",
+      "dependent_variable_count": 2,
+      "driver_id": "org.openada.driver.xyce",
+      "driver_version": "0.4.0",
+      "engineering_status": "pass",
+      "extraction_result": {
+        "bytes": 4417,
+        "path": "/evidence/results/extract/xyce-tran.json",
+        "sha256": "6cdb370dcd750827604fe250b88b2d08ad670604e4446a11307b9c40887f97b4"
+      },
+      "finite_value_count": 36,
+      "id": "xyce-tran",
+      "native_artifact": {
+        "bytes": 1151,
+        "path": "/evidence/sim/xyce-tran/xyce-tran.xyce.raw",
+        "sha256": "87db8af6f5e7d0d30e72b29423ccc7011760229ece9b6388f5c714d9f0178a69"
+      },
+      "point_count": 18,
+      "selected_series": [
+        "v1"
+      ],
+      "simulation_result": {
+        "bytes": 9972,
+        "path": "/evidence/results/sim/xyce-tran.json",
+        "sha256": "30ad8657e4873eb618da5d228aaf4b756a43f21561eaa6d129e45a215895b987"
+      }
+    }
+  ],
+  "negative_replays": [
+    {
+      "diagnostic_codes": [
+        "simulation.request.invalid"
+      ],
+      "engineering_status": "unknown",
+      "id": "xyce-ac-presentation-rejected",
+      "operation": "simulate",
+      "result": {
+        "bytes": 2859,
+        "path": "/evidence/results/negative/xyce-ac-presentation-rejected.json",
+        "sha256": "8e5f334005a10861fdc1f43441192305070ea0f312d11864f8f7883c4ecb5291"
+      }
+    },
+    {
+      "diagnostic_codes": [
+        "simulation.analysis.unsupported"
+      ],
+      "engineering_status": "unknown",
+      "id": "xyce-op-unsupported",
+      "operation": "simulate",
+      "result": {
+        "bytes": 2706,
+        "path": "/evidence/results/negative/xyce-op-unsupported.json",
+        "sha256": "3b3a6cf4acf9eb52a870c7e457959f1d0c0c61b5cd5850059fb561e9cdd52add"
+      }
+    },
+    {
+      "diagnostic_codes": [
+        "simulation.request.invalid"
+      ],
+      "engineering_status": "unknown",
+      "id": "ngspice-analysis-mismatch",
+      "operation": "simulate",
+      "result": {
+        "bytes": 2869,
+        "path": "/evidence/results/negative/ngspice-analysis-mismatch.json",
+        "sha256": "994a46d61699dd087922311c324f5796176dc87924bf0f0e79618b916d1eae75"
+      }
+    },
+    {
+      "diagnostic_codes": [
+        "series.selector.missing"
+      ],
+      "engineering_status": "unknown",
+      "id": "extract-missing-selector",
+      "operation": "result.series.extract",
+      "result": {
+        "bytes": 2274,
+        "path": "/evidence/results/negative/extract-missing-selector.json",
+        "sha256": "d2f179b6f0b6a4e0bc23db6ab0e3ccdac369a95b6b10ec779702a2c8de144b6f"
+      }
+    },
+    {
+      "diagnostic_codes": [
+        "profile.not_found"
+      ],
+      "engineering_status": "fail",
+      "id": "admin-unknown-profile",
+      "operation": "profile.show",
+      "result": {
+        "bytes": 859,
+        "path": "/evidence/results/negative/admin-unknown-profile.json",
+        "sha256": "4408cc8ef767e7b95da3e5dfd1ea7fd8dd94a8e38293c1ea007cacd9abb525b9"
+      }
+    },
+    {
+      "diagnostic_codes": [
+        "provider.manifest.invalid"
+      ],
+      "engineering_status": "unknown",
+      "id": "admin-invalid-provider",
+      "operation": "provider.validate",
+      "result": {
+        "bytes": 938,
+        "path": "/evidence/results/negative/admin-invalid-provider.json",
+        "sha256": "c441fb8bc9a98df904f56c14f7ef41b014fa591055550a70d579d060701fd414"
+      }
+    }
+  ],
+  "runtime_identity": {
+    "bytes": 2193,
+    "path": "/evidence/runtime-identities.json",
+    "sha256": "17cd16fd0c64c219f9369fd7a38e48d7a8c2a04d643d5a06fe16768e7c253d09"
+  },
+  "schema": "openada.public-spice-portability-agent-evidence/v0alpha1",
+  "source_derivations": {
+    "inverter-dc": {
+      "analysis_directive": ".dc V1 0 1.2 0.1",
+      "derived_sha256": "b41a8e3a154454122074e6a1c9c2b0c39ceca6e06c4e3df553c8dff128184563",
+      "inlined_parameter_include_count": 4,
+      "operation": "remove reviewed control/library directives; inline pinned mos_tt closure; inject one typed analysis",
+      "removed_control_blocks": 1,
+      "removed_library_directives": 1,
+      "source_sha256": "95a38219b5284ca57fbeead4d6ffc34d63d163fdfaccb4a524c88eb0e9c942d7"
+    },
+    "inverter-op": {
+      "analysis_directive": ".op",
+      "derived_sha256": "a017954533340bf57ea8fb9e69c1a689477d5b89f92cae9ac388bf2799d53c43",
+      "inlined_parameter_include_count": 4,
+      "operation": "remove reviewed control/library directives; inline pinned mos_tt closure; inject one typed analysis",
+      "removed_control_blocks": 1,
+      "removed_library_directives": 1,
+      "source_sha256": "95a38219b5284ca57fbeead4d6ffc34d63d163fdfaccb4a524c88eb0e9c942d7"
+    },
+    "ota-ac": {
+      "analysis_directive": ".ac dec 10 1 100000",
+      "derived_sha256": "33a9c3440008ca72cf8ba1e75911587433137437b5c3f452f90c3f18d9055e38",
+      "inlined_parameter_include_count": 4,
+      "operation": "remove reviewed control/library directives; inline pinned mos_tt closure; inject one typed analysis",
+      "removed_control_blocks": 2,
+      "removed_library_directives": 1,
+      "source_sha256": "e53471d266d8cfdd3f43ed24a177497095caaaf8a6b8d179d8a3d7598159c1f9"
+    },
+    "xyce-ac": {
+      "derived_sha256": "5e1258932db2b737a94e9b1c61bfa7e6c37ef5da086ad68e22a452351f014cf0",
+      "operation": "remove exactly one active presentation directive",
+      "removed_count": 1,
+      "removed_line": ".print ac v(1)",
+      "source_sha256": "e992eced2155febdb8b79922f0579a4798838385b7aa573dff5440719d9d7df9"
+    },
+    "xyce-op-unsupported": {
+      "derived_sha256": "9d03d0ea3a52d2568de05646f7eb0eee3a537ed516232de992822d467700d674",
+      "operation": "replace exactly one .dc directive with .op to probe advertised support",
+      "replacement_count": 1,
+      "source_sha256": "8cc7ba1548a9591c33bef458865b3f89cd6ceeae9dd84843e2a96b069e0f87d3"
+    }
+  },
+  "source_identity": {
+    "bytes": 3758,
+    "path": "/evidence/source-identities.json",
+    "sha256": "634e106f741a226cac2e8bace0edaecac1aaddb5669608f25c2d439b92120dda"
+  }
+}

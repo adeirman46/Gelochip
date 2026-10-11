@@ -1,0 +1,113 @@
+{
+  "schema": "openada.semantic-chain-index/v0alpha1",
+  "records": [
+    {
+      "id": "openada.chain/ihp-inverter-physical/v1",
+      "conformance_record_ids": [],
+      "manifest": {
+        "repository_path": "conformance/ihp-inverter/semantic-chain.json",
+        "sha256": "5696871d7da7a758af72d98ae300bd4df20013670d46fc939f6a7321d0663861",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/ihp-inverter/semantic-chain-run.json",
+        "sha256": "c92742652ea37bb390a01fe20a526b36f3a9be0bd5239db09e1713161f87b1b9",
+        "extensions": {}
+      },
+      "extensions": {}
+    },
+    {
+      "id": "openada.chain/ihp-analog-measurements/v1",
+      "conformance_record_ids": [],
+      "manifest": {
+        "repository_path": "conformance/ihp-analog-measurements/manifest.json",
+        "sha256": "6edb6e09c834e2510881de90264e652953023773b47631193c72b6c037423bb8",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/ihp-analog-measurements/semantic-chain-run.json",
+        "sha256": "4bbc746553526b1069656809939c9d04a8127f9ed14dd0129c2d78f0600e5c9b",
+        "extensions": {}
+      },
+      "extensions": {}
+    },
+    {
+      "id": "openada.chain/ihp-inverter-agent-chain/v1",
+      "conformance_record_ids": [],
+      "manifest": {
+        "repository_path": "conformance/ihp-inverter-agent-chain/manifest.json",
+        "sha256": "98a5d434244eb88565e804900d074c9df0bcd4bf5d9d45a7dc7e6c6808933812",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/ihp-inverter-agent-chain/evidence/chain-run.json",
+        "sha256": "0c98b9b42433c1418df5768d360bd7605cb46d47dca65ba6a7defd3cdb8119fd",
+        "extensions": {}
+      },
+      "extensions": {}
+    },
+    {
+      "id": "openada.chain/ihp-ngspice-provider-analyses/v1",
+      "conformance_record_ids": [
+        "org.openada.conformance/ihp-analog-analyses-ngspice-provider/v1"
+      ],
+      "manifest": {
+        "repository_path": "conformance/ihp-ngspice-provider-analyses/manifest.json",
+        "sha256": "307fc5de510dfccb7bede2ecd16ecf8acfa8fbbccac8d36eeeaf32993ff4b5e9",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/ihp-ngspice-provider-analyses/semantic-chain-run.json",
+        "sha256": "2f7389bab1b18f5b29c2728e5fea98a5f3e7d4eeb3663b90e7e3d6d786b3b84c",
+        "extensions": {}
+      },
+      "extensions": {}
+    },
+    {
+      "id": "openada.chain/ihp-sar-rtl/v1",
+      "conformance_record_ids": [],
+      "manifest": {
+        "repository_path": "conformance/ihp-sar-rtl/semantic-chain.json",
+        "sha256": "1779176dbcf518055187fc55e262abff31c3e757424d8f94fcbd9eaee4d2df09",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/ihp-sar-rtl/semantic-chain-run.json",
+        "sha256": "3fc3995726eff363339ad0066a569269b7acfb935c7818c8a1ab27eeeb128ca6",
+        "extensions": {}
+      },
+      "extensions": {}
+    },
+    {
+      "id": "openada.chain/public-spice-portability/v1",
+      "conformance_record_ids": [],
+      "manifest": {
+        "repository_path": "conformance/public-spice-portability/manifest.json",
+        "sha256": "3946310a993ebc13bac7683c26e6aac92638693f84cf9ef7d5405e2afb9bc9a1",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/public-spice-portability/evidence/chain-run.json",
+        "sha256": "ac42342242f063c517c737cd4d09694313943292c9be1e81381f08b6acbab42c",
+        "extensions": {}
+      },
+      "extensions": {}
+    },
+    {
+      "id": "openada.chain/orfs-ibex-synthesis-timing/v1",
+      "conformance_record_ids": [],
+      "manifest": {
+        "repository_path": "conformance/orfs-ibex-synthesis-timing/semantic-chain.json",
+        "sha256": "3c63e6f145df8ffb169750db9f6213bf454b5fa0ca79cf22655525c5171187dc",
+        "extensions": {}
+      },
+      "run": {
+        "repository_path": "conformance/orfs-ibex-synthesis-timing/semantic-chain-run.json",
+        "sha256": "42bd38a2ed16a83f5660c951fcd6f93b95068c044aa13beb4ca402e018aa6ece",
+        "extensions": {}
+      },
+      "extensions": {}
+    }
+  ],
+  "extensions": {}
+}

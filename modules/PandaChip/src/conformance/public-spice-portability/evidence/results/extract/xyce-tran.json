@@ -1,0 +1,155 @@
+{
+  "artifacts": [],
+  "data": {
+    "extensions": {},
+    "extraction": {
+      "extensions": {},
+      "plot": {
+        "encoding": "ascii",
+        "extensions": {},
+        "native_axis_name": "time",
+        "native_axis_type": "time",
+        "numeric_type": "real",
+        "plotname": "Transient Analysis",
+        "point_count": 18
+      },
+      "request_sha256": "1523e3107ef8ebfe8519df653ff3102656f01135217b3f47694b3d2e99462cff",
+      "series": {
+        "axis": {
+          "name": "time",
+          "unit": "s",
+          "values": [
+            0.0,
+            5e-11,
+            1.5e-10,
+            3.5e-10,
+            7.5e-10,
+            1.15e-09,
+            1.95e-09,
+            2.75e-09,
+            3.55e-09,
+            4.35e-09,
+            5.15e-09,
+            5.95e-09,
+            6.75e-09,
+            7.55e-09,
+            8.35e-09,
+            9.15e-09,
+            9.95e-09,
+            1e-08
+          ]
+        },
+        "conditions": [
+          {
+            "name": "design",
+            "unit": "1",
+            "value": "Xyce_Regression/tran-raw-override-noprint"
+          },
+          {
+            "name": "xyce_release",
+            "unit": "1",
+            "value": "7.10.0"
+          }
+        ],
+        "extensions": {},
+        "signals": [
+          {
+            "name": "v1",
+            "unit": "V",
+            "values": [
+              0.0,
+              0.0314158749,
+              0.0942463843,
+              0.219893761,
+              0.471064507,
+              0.721937719,
+              1.222158,
+              1.719291,
+              2.21208093,
+              2.69928294,
+              3.17966634,
+              3.65201762,
+              4.11514359,
+              4.56787434,
+              5.00906625,
+              5.43760483,
+              5.85240754,
+              5.87785252
+            ]
+          }
+        ],
+        "source": {
+          "artifact_role": "measurement.source",
+          "artifact_sha256": "fcbf36fe76134d714b7ab18bc07e4ab783e75a0054abdea03aa36dbdeccbe479",
+          "lineage": {
+            "artifact_role": "simulation.result",
+            "artifact_sha256": "87db8af6f5e7d0d30e72b29423ccc7011760229ece9b6388f5c714d9f0178a69",
+            "binding": "unverified",
+            "operation": "circuit.simulate",
+            "request_id": "9337e6df-dfeb-4757-9bfd-fe3801fb2214"
+          },
+          "operation": "openada.operation/result.series.extract/v1alpha1",
+          "request_id": "21000000-0000-4000-8000-000000000006"
+        }
+      },
+      "source": {
+        "analysis_type": "tran",
+        "artifact": {
+          "bytes": 1151,
+          "exists": true,
+          "kind": "xyce-raw",
+          "path": "/evidence/sim/xyce-tran/xyce-tran.xyce.raw",
+          "role": "simulation.result",
+          "sha256": "87db8af6f5e7d0d30e72b29423ccc7011760229ece9b6388f5c714d9f0178a69"
+        },
+        "backend": "xyce",
+        "binding": "verified",
+        "driver_id": "org.openada.driver.xyce",
+        "driver_version": "0.4.0",
+        "operation_profile": "openada.operation/circuit.simulate/v1alpha2",
+        "request_id": "9337e6df-dfeb-4757-9bfd-fe3801fb2214"
+      },
+      "status": "extracted"
+    },
+    "protocol": {
+      "assertion_profile": "openada.assertion/series.extraction.valid/v1alpha1",
+      "implementation_id": "org.openada.kernel.spice3-series",
+      "implementation_version": "1.0.0",
+      "operation_profile": "openada.operation/result.series.extract/v1alpha1",
+      "request_id": "21000000-0000-4000-8000-000000000006"
+    }
+  },
+  "diagnostics": [],
+  "engineering": {
+    "status": "pass",
+    "summary": "Extracted a bounded normalized real series from exact native simulation evidence."
+  },
+  "execution": {
+    "command": [],
+    "duration_ms": 0,
+    "exit_code": 0,
+    "status": "completed"
+  },
+  "inputs": [
+    {
+      "bytes": 1151,
+      "exists": true,
+      "kind": "xyce-raw",
+      "path": "/evidence/sim/xyce-tran/xyce-tran.xyce.raw",
+      "role": "simulation.result",
+      "sha256": "87db8af6f5e7d0d30e72b29423ccc7011760229ece9b6388f5c714d9f0178a69"
+    }
+  ],
+  "operation": "result.series.extract",
+  "provenance": {
+    "created_at": "2026-07-16T15:21:52.507784Z",
+    "host": {
+      "machine": "x86_64",
+      "python": "3.12.3",
+      "system": "Linux"
+    },
+    "openada_version": "0.4.0"
+  },
+  "schema": "openada.result/v0alpha1",
+  "tool": null
+}

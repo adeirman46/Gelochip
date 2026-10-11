@@ -1,0 +1,51 @@
+******
+** ngspice-46 : Circuit level simulation program
+** Compiled with KLU Direct Linear Solver
+** The U. C. Berkeley CAD Group
+** Copyright 1985-1994, Regents of the University of California.
+** Copyright 2001-2025, The ngspice team.
+** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html
+** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html
+** Creation Date: Mon Jun 22 10:09:10 UTC 2026
+******
+
+Note: Compatibility modes selected: hs a
+
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Circuit: ** sch_path: /home/irman/pandachip/designs/dbm/dbm_tb.sch
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+m1d                                    1.34755
+rf_p                                       1.5
+tail                                  0.647081
+m2d                                    1.34755
+rf_n                                       1.5
+if_p                                       2.8
+lo_p                                       2.2
+if_n                                       2.8
+lo_n                                       2.2
+vdd                                        3.3
+if_diff                           -7.10765e-12
+e1#branch                                    0
+v5#branch                                    0
+v4#branch                                    0
+v3#branch                                    0
+v2#branch                                    0
+v1#branch                              -0.0002
+
+
+No. of Data Rows : 10008
+binary raw file "dbm_tb_tran.raw"
+Error: no such plot named op1
+binary raw file "dbm_tb_op.raw"
+ngspice-46 done

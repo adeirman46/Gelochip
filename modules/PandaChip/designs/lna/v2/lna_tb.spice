@@ -1,0 +1,29 @@
+** sch_path: /home/irman/PandaChip/designs/lna/v2/lna_tb.sch
+**.subckt lna_tb
+VDD VDD 0 3.3
+VBS VBIAS 0 0.9
+VIN IN 0 SIN(0.9 0.001 100MEG) AC 1
+XM1 N1 IN 0 0 nfet_03v3 L=0.28u W=80u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+RL1 VDD N1 2k
+C1 N1 N1G 10p
+RB1 N1G VBIAS 1M
+XM3 N2 N1G 0 0 nfet_03v3 L=0.28u W=80u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+RL2 VDD N2 2k
+C2 N2 N2G 10p
+RB2 N2G VBIAS 1M
+XM5 OUT N2G 0 0 nfet_03v3 L=0.28u W=80u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+RL3 VDD OUT 2k
+**** begin user architecture code
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+.tran 0.2n 2u
+.ac dec 20 1k 1G
+.save all
+
+**** end user architecture code
+**.ends
+.end

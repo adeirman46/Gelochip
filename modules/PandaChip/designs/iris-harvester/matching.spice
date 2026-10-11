@@ -1,0 +1,8 @@
+** sch_path: /home/irman/PandaChip/designs/iris-harvester/matching.sch
+**.subckt matching RF_IN RF_BOOST
+*.ipin RF_IN
+*.opin RF_BOOST
+L1 RF_BOOST RF_IN 694n
+C1 RF_BOOST 0 14p
+**.ends
+.end

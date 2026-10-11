@@ -1,0 +1,15 @@
+v {xschem version=3.4.8 file_version=1.2}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=X1"}
+G {}
+V {}
+S {}
+E {}
+L 4 -40 -20 40 -20 {}
+L 4 -40 20 40 20 {}
+L 4 -40 -20 -40 20 {}
+L 4 40 -20 40 20 {}
+B 5 -42.5 -2.5 -37.5 2.5 {name=RF_IN dir=inout}
+B 5 37.5 -2.5 42.5 2.5 {name=RF_BOOST dir=inout}
+T {matching} -25 -6 0 0 0.2 0.2 {}

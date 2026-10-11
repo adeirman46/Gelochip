@@ -1,0 +1,7 @@
+{
+  "PandaChip": [
+    "templates/ieeeaccess/logo.png",
+    "templates/ieeeaccess/notaglinelogo.png"
+  ],
+  "resolution": "identical content; one physical path per case-insensitive pair"
+}

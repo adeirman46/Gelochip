@@ -1,0 +1,60 @@
+******
+** ngspice-46 : Circuit level simulation program
+** Compiled with KLU Direct Linear Solver
+** The U. C. Berkeley CAD Group
+** Copyright 1985-1994, Regents of the University of California.
+** Copyright 2001-2025, The ngspice team.
+** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html
+** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html
+** Creation Date: Mon Jun 22 10:09:10 UTC 2026
+******
+
+Note: Compatibility modes selected: hs a
+
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Circuit: ** sch_path: /home/irman/pandachip/designs/lna-match/lna_match_tb.sch
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+No. of Data Rows : 121
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vs_emf                                       0
+rs_out                                       0
+in                                         0.9
+g1                                         0.9
+s1                                -1.11022e-16
+mid1                                  0.993479
+d1                                         3.3
+vcas1                                        2
+vdd                                        3.3
+g2                                         0.9
+vb1                                        0.9
+vb2                                        0.9
+mid2                                  0.993479
+out                                        3.3
+vcas2                                        2
+lt2#branch                          0.00204968
+lt1#branch                          0.00204968
+ls#branch                           0.00204875
+lg#branch                                    0
+vcas2src#branch                              0
+vcas1src#branch                              0
+vddsrc#branch                      -0.00409936
+vbs2#branch                       -1.05879e-22
+vbs1#branch                       -1.05879e-22
+vs#branch                                    0
+
+
+No. of Data Rows : 4008
+binary raw file "lna_match_verify_tran.raw"
+binary raw file "lna_match_verify_ac.raw"
+ngspice-46 done

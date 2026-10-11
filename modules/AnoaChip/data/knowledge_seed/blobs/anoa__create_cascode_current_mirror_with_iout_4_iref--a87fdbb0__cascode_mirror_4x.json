@@ -1,0 +1,156 @@
+{
+  "name": "cascode_mirror_4x",
+  "pdk": "gf180mcuD",
+  "description": "4:1 NMOS cascode current mirror (wide-swing, self-biased). Iout = 4 x Iref. M1/M3 diode-connected input branch generates gate biases; M2/M4 output branch sized 4x via 4 unit fingers for exact 1:4 ratio. Cascode (M4) shields M2 drain keeping Vds2 = Vgs1, giving high output resistance and current accuracy independent of output voltage.",
+  "spec": {
+    "topology": "cascode_current_mirror",
+    "device_class": "nfet",
+    "supply_v": 3.3,
+    "vdd": 3.3,
+    "vss": 0,
+    "iref": 2.5e-05,
+    "iref_ua": 25,
+    "iout": 0.0001,
+    "iout_ua": 100,
+    "current_ratio": 4,
+    "ratio_tolerance_pct": 2,
+    "output_resistance_min_mohm": 10,
+    "compliance_v": 1.3,
+    "model_nfet": "gf180mcu_fd_pr__nfet_03v3",
+    "model_pfet": "gf180mcu_fd_pr__pfet_03v3"
+  },
+  "params": {
+    "VDD": 3.3,
+    "VSS": 0,
+    "Iref": 2.5e-05,
+    "Iout": 0.0001,
+    "ratio": 4,
+    "unit_w": 5e-06,
+    "unit_l": 1e-06,
+    "vov_v": 0.302,
+    "vgs_v": 1.002,
+    "rout_mohm": 41.5,
+    "M1": {
+      "type": "nfet",
+      "w": 5e-06,
+      "l": 1e-06,
+      "fingers": 1,
+      "m": 1,
+      "role": "input mirror (diode-connected, unit cell)"
+    },
+    "M3": {
+      "type": "nfet",
+      "w": 5e-06,
+      "l": 1e-06,
+      "fingers": 1,
+      "m": 1,
+      "role": "input cascode (diode-connected, unit cell)"
+    },
+    "M2": {
+      "type": "nfet",
+      "w": 5e-06,
+      "l": 1e-06,
+      "fingers": 4,
+      "m": 1,
+      "role": "output mirror (4x unit cells for 1:4 ratio)"
+    },
+    "M4": {
+      "type": "nfet",
+      "w": 5e-06,
+      "l": 1e-06,
+      "fingers": 4,
+      "m": 1,
+      "role": "output cascode (4x unit cells, matches M2)"
+    }
+  },
+  "wiring": {
+    "ports": [
+      "VDD",
+      "VSS",
+      "iref",
+      "iout"
+    ],
+    "nets": {
+      "VDD": "Positive supply rail (3.3V) - bulk/body tie reference",
+      "VSS": "Ground / negative supply - common source and bulk of all NMOS",
+      "iref": "Reference current input node (top of input branch, drain of M3)",
+      "iout": "Scaled output current node (top of output branch, drain of M4)",
+      "n1": "Input branch mid-net: drain of M1 = source of M3 = gate of M1 = gate of M2 (bottom bias / diode net)",
+      "n2": "Output branch mid-net: drain of M2 = source of M4 (cascode-shielded drain of M2)",
+      "pbias": "Cascode gate bias net: gate of M3 = gate of M4 = drain of M3 (diode-generated cascode bias)"
+    },
+    "components": [
+      {
+        "name": "M1",
+        "type": "nfet",
+        "model": "gf180mcu_fd_pr__nfet_03v3",
+        "w": "unit_w",
+        "l": "unit_l",
+        "fingers": 1,
+        "m": 1,
+        "d": "n1",
+        "g": "n1",
+        "s": "VSS",
+        "b": "VSS",
+        "note": "Diode-connected input mirror device. d=g=n1 establishes Vgs bias for the mirror pair."
+      },
+      {
+        "name": "M3",
+        "type": "nfet",
+        "model": "gf180mcu_fd_pr__nfet_03v3",
+        "w": "unit_w",
+        "l": "unit_l",
+        "fingers": 1,
+        "m": 1,
+        "d": "iref",
+        "g": "pbias",
+        "s": "n1",
+        "b": "VSS",
+        "note": "Diode-connected input cascode. d=iref, g=pbias (self-biased). Source sits on n1 (M1 drain)."
+      },
+      {
+        "name": "M2",
+        "type": "nfet",
+        "model": "gf180mcu_fd_pr__nfet_03v3",
+        "w": "unit_w",
+        "l": "unit_l",
+        "fingers": 4,
+        "m": 1,
+        "d": "n2",
+        "g": "n1",
+        "s": "VSS",
+        "b": "VSS",
+        "note": "Output mirror device, 4 fingers (4x unit width). g=n1 shares M1's diode bias -> Iout = 4*Iref."
+      },
+      {
+        "name": "M4",
+        "type": "nfet",
+        "model": "gf180mcu_fd_pr__nfet_03v3",
+        "w": "unit_w",
+        "l": "unit_l",
+        "fingers": 4,
+        "m": 1,
+        "d": "iout",
+        "g": "pbias",
+        "s": "n2",
+        "b": "VSS",
+        "note": "Output cascode device, 4 fingers. g=pbias (shared with M3). Shields M2 drain: Vds2 = Vgs1, keeping M2 in saturation and giving high Rout."
+      }
+    ],
+    "connections": [
+      "M1.d = M1.g = M2.g = M3.s  -> net n1 (bottom diode/bias net)",
+      "M3.d = M3.g = M4.g         -> net pbias (cascode gate bias, diode-generated)",
+      "M1.s = M2.s = M1.b = M2.b = M3.b = M4.b -> net VSS (common source & bulk)",
+      "M3.d = iref (input current port, top of input branch)",
+      "M4.d = iout (output current port, top of output branch)",
+      "M2.d = M4.s -> net n2 (output branch mid-net, cascode-shielded)"
+    ]
+  },
+  "layout_hints": {
+    "placement": "M1 and M3 stacked vertically on the left (input branch); M2 and M4 stacked vertically on the right (output branch). Use interdigitized unit-cell pairs per branch: ref branch = 1 unit cell pair (M1,M3), out branch = 4 unit cell pairs (M2,M4) - the textbook unit-cell method for an exact 1:4 ratio.",
+    "routing": "Shared gate nodes n1 (M1.g=M2.g) and pbias (M3.g=M4.g) routed horizontally across the gap between branches with straight_route. Source strap VSS on met2. Intra-branch stack routes (M1.d-M3.s = n1; M2.d-M4.s = n2) as nested c_routes on the inner edge. Diode shorts (M1.g-M1.d, M3.g-M3.d) on the free outer edge of the reference branch.",
+    "matching": "M1/M2 and M3/M4 are matching-critical. Identical unit cell (W=5u, L=1u, 1 finger); output branch has 4x the unit cells. Add edge dummies on the outer edges only (keep gap edge dummy-free for clean cross-gap routing).",
+    "finishing": "1) Place bare devices (with_tie=False, with_substrate_tap=False, with_dummy=False) -> 2) Route all nets -> 3) LVS clean -> 4) Add single tapring substrate tie centered on content bbox + edge dummies routed to ring.",
+    "ports_labels": "Expose ports IREF (M3 drain top), IOUT (M4 drain top), VSS (source strap), and bulk label B (tapring). Place text labels on met2 at each port center for LVS net matching."
+  }
+}

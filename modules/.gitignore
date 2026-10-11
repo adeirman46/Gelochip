@@ -1,0 +1,6 @@
+# Runtime dependencies stay local; source, original lockfiles and artifacts
+# are imported explicitly by the integration commit.
+**/node_modules/
+**/__pycache__/
+**/.venv/
+gLayout/

@@ -1,0 +1,47 @@
+******
+** ngspice-46 : Circuit level simulation program
+** Compiled with KLU Direct Linear Solver
+** The U. C. Berkeley CAD Group
+** Copyright 1985-1994, Regents of the University of California.
+** Copyright 2001-2025, The ngspice team.
+** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html
+** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html
+** Creation Date: Mon Jun 22 10:09:10 UTC 2026
+******
+
+Note: Compatibility modes selected: hs a
+
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Circuit: ** sch_path: /home/irman/pandachip/designs/lna/lna_tb.sch
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+No. of Data Rows : 121
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                        3.3
+vbias                                      0.9
+in                                         0.9
+n1                                    0.103898
+n1g                                        0.9
+n2                                    0.103898
+n2g                                        0.9
+out                                   0.103898
+vin#branch                                   0
+vbs#branch                                   0
+vdd#branch                         -0.00119854
+
+
+No. of Data Rows : 10008
+binary raw file "lna_tb_tran.raw"
+Warning from checkvalid: vector @c1[i] is not available or has zero length.
+Error during 'write': no writable vector found.
+ngspice-46 done

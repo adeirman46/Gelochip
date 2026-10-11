@@ -1,0 +1,24 @@
+.title charge_pump_verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt charge_pump VRECT_P IN_P IN_N VCP
+XM_D1 VRECT_P VRECT_P N1 0 nfet_03v3 L=0.28u W=10u nf=2
+XM_D2 N1 N1 N2 0 nfet_03v3 L=0.28u W=10u nf=2
+XM_D3 N2 N2 N3 0 nfet_03v3 L=0.28u W=10u nf=2
+XM_D4 N3 N3 VCP 0 nfet_03v3 L=0.28u W=10u nf=2
+C1 N1 IN_N 10p
+C2 N2 IN_P 10p
+C3 N3 IN_N 10p
+.ends
+
+X1 VRECT_P IN_P IN_N VCP charge_pump
+V1 VRECT_P 0 1.5
+V2 IN_P 0 SIN(0.6 2.0 50MEG)
+V3 IN_N 0 SIN(0.6 2.0 50MEG 0 0 180)
+C_LOAD VCP 0 100p
+R_LOAD VCP 0 1MEG
+
+.tran 1n 10u
+.save all
+.end

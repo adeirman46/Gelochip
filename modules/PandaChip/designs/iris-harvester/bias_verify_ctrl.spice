@@ -1,0 +1,20 @@
+.title bias_verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt bias VDD VBIAS
+I1 VDD VBIAS 1u
+XM1 VBIAS VBIAS 0 0 nfet_03v3 L=0.28u W=10u nf=2
+.ends
+
+X1 VDD VBIAS bias
+V1 VDD 0 3.3
+
+.tran 1n 10u
+.save all
+.control
+set filetype=binary
+run
+write bias_verify.raw
+.endc
+.end

@@ -1,0 +1,60 @@
+# AnoaChip SearXNG settings — tuned for programmatic use by the agents.
+# JSON API is enabled (formats: json) so _searxng_search in app.py can use &format=json.
+use_default_settings: true
+
+general:
+  instance_name: "AnoaChip Research"
+  debug: false
+
+server:
+  secret_key: "anoa-searxng-secret-change-me"
+  limiter: false
+  image_proxy: false
+  method: "GET"
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  formats:
+    - html
+    - json
+
+# Engine selection. On this host the general web-scraping engines (google/bing/brave/
+# startpage/duckduckgo/mojeek) are BLOCKED for the server IP — they return CAPTCHA /
+# "access denied" / SSL errors, so SearXNG had 0 results. They are DISABLED here so
+# SearXNG is fast and only runs engines that actually answer from this IP:
+#   • API/paper engines (science): arxiv, semantic scholar, crossref, pubmed  → WORK
+#   • github (it), wikipedia                                                  → WORK
+# General web + repo discovery is handled in app.py by the `ddgs` library fallback
+# (host-side, which DOES work), so the agent still finds repos like meiniKi/FazyRV.
+engines:
+  # --- keep: these answer from this IP ---
+  - name: arxiv
+    disabled: false
+  - name: semantic scholar
+    disabled: false
+  - name: crossref
+    disabled: false
+  - name: pubmed
+    disabled: false
+  - name: wikipedia
+    disabled: false
+  - name: github
+    disabled: false
+  # --- disable: blocked / CAPTCHA / SSL-broken for this server IP (just add latency) ---
+  - name: google
+    disabled: true
+  - name: google scholar
+    disabled: true
+  - name: bing
+    disabled: true
+  - name: brave
+    disabled: true
+  - name: startpage
+    disabled: true
+  - name: qwant
+    disabled: true
+  - name: duckduckgo
+    disabled: true
+  - name: mojeek
+    disabled: true

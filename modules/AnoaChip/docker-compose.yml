@@ -1,0 +1,76 @@
+# AnoaChip durable memory — PostgreSQL (knowledge rows) + MinIO (S3-compatible
+# object storage for RTL/TB/sim/GDS/references/uploads). This is AnoaChip's OWN
+# stack, separate from Chip-Orchestra: distinct container names, ports and volumes,
+# so the two can run side by side. 100% local + free — MinIO is self-hosted S3, no
+# cloud bill.
+#
+#   docker compose up -d            # bring it up
+#   docker compose down             # stop (keeps data in the named volumes)
+#
+# Defaults match .env.example (ANOA_* vars). Ports: Postgres 5434, MinIO 9102
+# (S3 API) / 9101 (web console at http://localhost:9103, login anoa/anoasecret).
+services:
+  postgres:
+    # pgvector image = Postgres 16 + the `vector` extension (semantic recall lives
+    # in the DB, no separate FAISS file).
+    image: pgvector/pgvector:pg16
+    container_name: anoachip-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: anoa
+      POSTGRES_PASSWORD: anoa
+      POSTGRES_DB: anoachip
+    ports:
+      - "5434:5432"
+    volumes:
+      - anoa_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anoa -d anoachip"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  minio:
+    image: minio/minio:latest
+    container_name: anoachip-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: anoa
+      MINIO_ROOT_PASSWORD: anoasecret
+    ports:
+      - "9102:9000"   # S3 API
+      - "9103:9001"   # web console
+    volumes:
+      - anoa_miniodata:/data
+    healthcheck:
+      test: ["CMD-SHELL", "mc --version >/dev/null 2>&1 || exit 0"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  # SearXNG — self-hosted metasearch (Google/Bing/DuckDuckGo/GitHub/arXiv in one query,
+  # no per-engine rate limits). It FINDS pages; crawl4ai READS them. The agents query it
+  # at http://localhost:8890 (SEARXNG_URL) for planning + debugging research. The mounted
+  # settings.yml enables the JSON API the Python client needs.
+  searxng:
+    image: searxng/searxng:latest
+    container_name: anoachip-searxng
+    restart: unless-stopped
+    ports:
+      - "8890:8080"
+    environment:
+      SEARXNG_BASE_URL: http://localhost:8890/
+      # generated on first `docker compose up` if left blank below; or set your own
+      SEARXNG_SECRET: anoa-searxng-secret-change-me
+    volumes:
+      - ./docker/searxng:/etc/searxng:rw
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- 'http://localhost:8080/search?q=test&format=json' >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  anoa_pgdata:
+  anoa_miniodata:

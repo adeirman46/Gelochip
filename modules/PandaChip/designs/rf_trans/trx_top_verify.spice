@@ -1,0 +1,72 @@
+.title TRX Top Verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt lna VDD 0 RF_IN RF_OUT
+XM1 MID VBIAS1 0 0 nfet_03v3 L=0.28u W=50u nf=5
+XM2 RF_OUT VBIAS2 MID 0 nfet_03v3 L=0.28u W=50u nf=5
+L1 VDD RF_OUT 100n
+C1 VDD RF_OUT 25.3p
+R_load VDD RF_OUT 2k
+Cin VBIAS1 RF_IN 10p
+R1 VDD VBIAS2 15k
+R2 VBIAS2 0 18k
+R3 VDD VBIAS1 25k
+R4 VBIAS1 0 8k
+.ends
+
+.subckt mixer VDD 0 RF_P RF_N LO_P LO_N IF_P IF_N
+XM1 M1D RF_P TAIL 0 nfet_03v3 L=0.28u W=50u nf=5
+XM2 M2D RF_N TAIL 0 nfet_03v3 L=0.28u W=50u nf=5
+XM3 IF_P LO_P M1D 0 nfet_03v3 L=0.28u W=50u nf=5
+XM4 IF_N LO_N M1D 0 nfet_03v3 L=0.28u W=50u nf=5
+XM5 IF_P LO_N M2D 0 nfet_03v3 L=0.28u W=50u nf=5
+XM6 IF_N LO_P M2D 0 nfet_03v3 L=0.28u W=50u nf=5
+R1 VDD IF_P 2k
+R2 VDD IF_N 2k
+I1 TAIL 0 2m
+.ends
+
+.subckt pa VDD 0 RF_IN RF_OUT
+XM1 PA_D VBIAS 0 0 nfet_03v3 L=0.28u W=400u nf=40
+L1 VDD PA_D 1u
+Cout RF_OUT PA_D 1n
+Cin VBIAS RF_IN 100p
+R1 VDD VBIAS 10k
+R2 VBIAS 0 10k
+.ends
+
+.subckt rx_top VDD 0 RF_IN LO_P LO_N IF_P IF_N
+X1 VDD 0 RF_IN LNA_OUT lna
+X2 VDD 0 MIX_RF_P MIX_RF_N LO_P LO_N IF_P IF_N mixer
+Cc MIX_RF_P LNA_OUT 10p
+Rb1 VDD net1 10k
+Rb2 net1 0 10k
+Rb3 MIX_RF_P net1 10k
+Rb4 MIX_RF_N net1 10k
+Cbypass MIX_RF_N 0 100p
+.ends
+
+.subckt tx_top VDD 0 IF_P IF_N LO_P LO_N RF_OUT
+X1 VDD 0 IF_P IF_N LO_P LO_N MIX_OUT_P MIX_OUT_N mixer
+X2 VDD 0 PA_IN RF_OUT pa
+Cc PA_IN MIX_OUT_P 10p
+Rdummy 0 MIX_OUT_N 10k
+.ends
+
+.subckt trx_top RX_RF_IN RX_IF_P RX_IF_N TX_IF_P TX_IF_N TX_RF_OUT LO_P LO_N VDD 0
+X1 VDD 0 RX_RF_IN LO_P LO_N RX_IF_P RX_IF_N rx_top
+X2 VDD 0 TX_IF_P TX_IF_N LO_P LO_N TX_RF_OUT tx_top
+.ends
+
+X1 RX_RF_IN RX_IF_P RX_IF_N TX_IF_P TX_IF_N TX_RF_OUT LO_P LO_N VDD 0 trx_top
+V1 VDD 0 3.3
+V2 RX_RF_IN 0 SIN(0 0.01 100MEG)
+V3 TX_IF_P 0 SIN(1.5 0.1 10MEG)
+V4 TX_IF_N 0 SIN(1.5 0.1 10MEG 0 0 180)
+V5 LO_P 0 SIN(2.2 1.0 90MEG)
+V6 LO_N 0 SIN(2.2 1.0 90MEG 0 0 180)
+Rload TX_RF_OUT 0 50
+
+.tran 1n 500n
+.save all

@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openada"
+version = "0.4.0"
+description = "Open agent-EDA contracts and deterministic drivers for open-source EDA tools"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Simra Tech" },
+]
+keywords = ["eda", "agents", "xschem", "ngspice", "xyce", "klayout", "netgen", "verilator", "yosys", "opensta"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+]
+dependencies = [
+  "jsonschema>=4.18",
+]
+
+[project.urls]
+Homepage = "https://github.com/simra-tech/OpenADA"
+Repository = "https://github.com/simra-tech/OpenADA"
+Issues = "https://github.com/simra-tech/OpenADA/issues"
+
+[project.scripts]
+openada = "openada.cli:main"
+openada-provider-ngspice = "openada.providers.ngspice_pdk_control:main"
+
+[project.optional-dependencies]
+conformance = [
+  "cryptography>=38",
+  "jsonschema>=4.18",
+  "pytest>=8",
+]
+dev = [
+  "build>=1.2",
+  "cryptography>=38",
+  "jsonschema>=4.18",
+  "pytest>=8",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.data-files]
+"share/openada/schemas" = [
+  "schemas/driver-manifest-v0alpha1.schema.json",
+  "schemas/operation-profile-v0alpha1.schema.json",
+  "schemas/operation-profile-v0alpha2.schema.json",
+  "schemas/request-v0alpha1.schema.json",
+  "schemas/result-v0alpha1.schema.json",
+  "schemas/design-provenance-v0alpha1.schema.json",
+  "schemas/semantic-chain-manifest-v0alpha1.schema.json",
+  "schemas/semantic-chain-run-v0alpha1.schema.json",
+  "schemas/semantic-surface-catalog-v0alpha1.schema.json",
+]
+"share/openada/catalog" = [
+  "catalog/semantic-surfaces-v0alpha1.json",
+]
+"share/openada/profiles" = [
+  "profiles/circuit.simulate-v1alpha1.json",
+  "profiles/circuit.simulate-v1alpha2.json",
+  "profiles/logic.synthesize-v1alpha1.json",
+  "profiles/result.measure-v1alpha1.json",
+  "profiles/result.series.extract-v1alpha1.json",
+  "profiles/result.spectral.measure-v1alpha1.json",
+  "profiles/result.transfer.measure-v1alpha1.json",
+  "profiles/rtl.lint-v1alpha1.json",
+  "profiles/specification.evaluate-v1alpha1.json",
+  "profiles/timing.analyze-v1alpha1.json",
+]
+"share/openada/providers/ngspice-pdk-control" = [
+  "providers/ngspice-pdk-control/driver-manifest.json",
+  "providers/ngspice-pdk-control/provider-config-v0alpha1.schema.json",
+]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+markers = [
+  "conformance: opt-in tests that require the pinned external EDA runtime and design",
+]

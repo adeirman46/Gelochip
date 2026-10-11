@@ -1,0 +1,84 @@
+#root {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* PandaChip dark theme: remap the light-palette utilities used across the
+   app when the ShellLayout toggle sets .dark on <html>. */
+.dark .bg-stone-100 { background-color: #0b0f14 !important; }
+.dark .bg-white { background-color: #121821 !important; }
+.dark .bg-stone-50 { background-color: #0e141c !important; }
+.dark .bg-stone-200 { background-color: #1f2a37 !important; }
+.dark .bg-stone-900 { background-color: #05080c !important; }
+.dark .text-stone-900 { color: #e8eef4 !important; }
+.dark .text-stone-800 { color: #dbe4ee !important; }
+.dark .text-stone-700 { color: #c3cdd8 !important; }
+.dark .text-stone-600 { color: #a5b2bf !important; }
+.dark .text-stone-500 { color: #8b98a5 !important; }
+.dark .text-stone-400 { color: #6d7a87 !important; }
+.dark .text-stone-300 { color: #3d4954 !important; }
+.dark .border-stone-100, .dark .border-stone-200,
+.dark .border-stone-300 { border-color: #1f2a37 !important; }
+.dark .ring-stone-200 { --tw-ring-color: #1f2a37 !important; }
+.dark .bg-emerald-50 { background-color: rgba(16,185,129,.10) !important; }
+.dark .bg-emerald-100 { background-color: rgba(16,185,129,.16) !important; }
+.dark .text-emerald-700 { color: #34d399 !important; }
+.dark .text-emerald-900 { color: #6ee7b7 !important; }
+.dark .bg-sky-100 { background-color: rgba(56,189,248,.16) !important; }
+.dark .text-sky-700 { color: #60a5fa !important; }
+.dark .bg-amber-100 { background-color: rgba(251,191,36,.16) !important; }
+.dark .text-amber-700 { color: #fbbf24 !important; }
+.dark .bg-rose-100 { background-color: rgba(244,63,94,.16) !important; }
+.dark .bg-rose-50 { background-color: rgba(244,63,94,.10) !important; }
+.dark .text-rose-700 { color: #fb7185 !important; }
+.dark .bg-lime-100 { background-color: rgba(163,230,53,.16) !important; }
+.dark .text-lime-700 { color: #a3e635 !important; }
+.dark input, .dark select, .dark textarea {
+  background-color: #0e141c !important;
+  color: #dbe4ee !important;
+  border-color: #1f2a37 !important;
+}
+.dark option { background-color: #0e141c; color: #dbe4ee; }
+.dark .hover\:bg-white\/80:hover { background-color: rgba(255,255,255,.06) !important; }
+.dark .hover\:bg-emerald-50\/40:hover { background-color: rgba(16,185,129,.08) !important; }
+.dark .hover\:text-stone-800:hover { color: #dbe4ee !important; }
+.dark .hover\:border-emerald-300:hover { border-color: #34d399 !important; }

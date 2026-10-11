@@ -1,0 +1,26 @@
+.title rectifier_verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt rectifier IN_P IN_N VRECT_P VRECT_N
+XM_P1 IN_P IN_N VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2
+XM_P2 IN_N IN_P VRECT_P VRECT_P pfet_03v3 L=0.28u W=20u nf=2
+XM_N1 IN_P IN_N VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2
+XM_N2 IN_N IN_P VRECT_N VRECT_N nfet_03v3 L=0.28u W=20u nf=2
+XM_D1 0 0 VRECT_N 0 nfet_03v3 L=0.28u W=10u nf=2
+.ends
+
+X1 IN_P IN_N VRECT_P VRECT_N rectifier
+V1 IN_P 0 SIN(0.6 2.0 50MEG)
+V2 IN_N 0 SIN(0.6 2.0 50MEG 0 0 180)
+C1 VRECT_P VRECT_N 10p
+R1 VRECT_P VRECT_N 100k
+
+.tran 1n 10u
+.save all
+.control
+set filetype=binary
+run
+write rectifier_verify.raw
+.endc
+.end

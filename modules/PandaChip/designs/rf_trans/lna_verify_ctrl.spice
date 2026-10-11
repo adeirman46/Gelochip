@@ -1,0 +1,28 @@
+.title LNA Verify
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice typical
+
+.subckt lna VDD RF_IN RF_OUT 0
+XM1 MID VBIAS1 0 0 nfet_03v3 L=0.28u W=50u nf=5
+XM2 RF_OUT VBIAS2 MID 0 nfet_03v3 L=0.28u W=50u nf=5
+L1 VDD RF_OUT 100n
+C1 VDD RF_OUT 25.3p
+R_load VDD RF_OUT 2k
+Cin VBIAS1 RF_IN 10p
+R1 VDD VBIAS2 15k
+R2 VBIAS2 0 18k
+R3 VDD VBIAS1 25k
+R4 VBIAS1 0 8k
+.ends
+
+X1 VDD RF_IN RF_OUT 0 lna
+V1 VDD 0 3.3
+V2 RF_IN 0 SIN(0 0.01 100MEG)
+
+.tran 0.1n 200n
+.save all
+.control
+set filetype=binary
+run
+write lna_verify.raw
+.endc

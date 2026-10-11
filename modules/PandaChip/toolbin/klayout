@@ -1,0 +1,17 @@
+#!/bin/sh
+# PandaChip EDA wrapper: runs the tool inside the pandachip-eda
+# IIC-OSIC-TOOLS container. PandaChip and the session scratchpad are
+# mounted at identical paths, so file arguments pass through unchanged.
+TOOL=$(basename "$0")
+case "$PWD" in
+  /home/irman/PandaChip*|/tmp/claude-1000*) WORKDIR="$PWD" ;;
+  *) WORKDIR=/home/irman/PandaChip ;;
+esac
+exec docker exec -i \
+  -e PWD="$WORKDIR" \
+  -w "$WORKDIR" \
+  -e DISPLAY="${DISPLAY:-:0}" \
+  -e PDK_ROOT=/foss/pdks \
+  -e PDK="${PANDACHIP_PDK:-gf180mcuD}" \
+  -e PATH=/headless/.local/bin:/foss/tools/bin:/foss/tools/sak:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/foss/tools/klayout:/foss/tools/osic-multitool \
+  pandachip-eda "$TOOL" "$@"
