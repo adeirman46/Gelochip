@@ -1,180 +1,199 @@
-# Gelochip - Unified Chip Design Workspace
+# Gelochip
 
-Workspace untuk desain IC analog/RF yang menggabungkan **Gelochip Studio**, **AnoaChip Auto Layouter**, dan **PandaChip Auto Schematic Maker** dalam satu repository.
+**A unified workspace for AI-assisted analog and RF integrated-circuit design.**
 
-> Fokus integrasi ini: menyatukan source dan riwayat branch di `main`, menjaga konfigurasi serta artefak desain, dan menyediakan pintu masuk localhost. Ketiga engine memakai runtime masing-masing; transfer netlist antar engine masih manual.
+Gelochip brings together **PandaChip Auto Schematic Maker**, **AnoaChip Auto Layouter**, and **Gelochip Studio** to connect circuit intent, schematic generation, simulation, physical layout, and verification within one project.
 
-## Gambaran proyek
+The end goal is **one website where a designer can develop and review a circuit from specification to verified layout**, with a traceable relationship between every design revision and its results. Development starts on localhost, with cloud deployment planned after the integrated workflow has been validated.
 
-Gelochip dikembangkan sebagai platform berbasis web untuk membantu proses desain integrated circuit (IC) analog dan radio frequency (RF), mulai dari spesifikasi rangkaian hingga peninjauan layout dan bukti verifikasinya. Proyek ini menyatukan kemampuan pembuatan schematic dari PandaChip, pembuatan layout dari AnoaChip, serta agent dan pustaka blok analog/RF dari Gelochip Studio.
+> **Current status:** the development branches and both application archives have been consolidated into this repository, and a localhost portal provides access to the three applications. The engines still run independently. Automatic schematic-to-layout transfer, a shared project API, and a unified design interface are planned capabilities.
 
-Bagian awal README ini disusun sebagai pengantar konsep proyek dengan gaya dokumen B100: menjelaskan latar belakang, masalah, tujuan, konsep solusi, dan batas pengembangan. Bagian ini bukan dokumen B100 formal yang mengikuti template institusi tertentu. Petunjuk instalasi dan penggunaan tersedia setelah penjelasan konsep.
+## Project background
 
-## Latar belakang
+Analog and RF IC design connects electrical requirements with physical implementation. A specification must become a circuit topology, device dimensions, bias conditions, and a simulation setup. The circuit then becomes a layout whose placement and routing must satisfy the selected process design kit (PDK). Physical implementation can introduce parasitic effects that require further analysis and design iteration.
 
-Desain IC analog/RF melibatkan beberapa pekerjaan yang saling bergantung. Spesifikasi perlu diterjemahkan menjadi topologi rangkaian dan ukuran perangkat; schematic kemudian menghasilkan netlist untuk simulasi. Setelah perilaku rangkaian diperiksa, perangkat ditempatkan dan dihubungkan dalam layout sesuai aturan process design kit (PDK). Layout perlu diperiksa melalui design rule checking (DRC) dan layout versus schematic (LVS), serta dievaluasi kembali bila parasitik memengaruhi hasil desain.
+These stages produce different artifacts: schematics, SPICE netlists, testbenches, simulation data, layout generators, GDSII files, and verification reports. Keeping those artifacts consistent is a central integration problem. A schematic revision can invalidate an earlier netlist or layout; a change in device models or PDK configuration can alter the meaning of previously generated results.
 
-Dalam alur yang memakai beberapa alat terpisah, perancang harus menjaga konsistensi spesifikasi, koneksi, model perangkat, pilihan PDK, dan versi berkas pada setiap tahap. Ketika schematic berubah, netlist, simulasi, dan layout terkait perlu ditinjau ulang. Pemindahan berkas dan konfigurasi secara manual dapat membuat hasil dari versi desain yang berbeda tercampur atau membuat pekerjaan harus diulang.
+When each stage lives in a separate application, the designer must manage these relationships manually. Files need to be transferred, input formats reconciled, tool environments configured, and results associated with the correct design revision. The resulting coordination work makes the design process harder to reproduce and review.
 
-Repository ini telah memiliki beberapa bagian dari alur tersebut, tetapi kemampuan yang dibutuhkan tersebar di branch pengembangan dan proyek yang berbeda. PandaChip berfokus pada schematic xschem dan simulasi, AnoaChip menyediakan alur layout berbasis Glayout, sedangkan Gelochip menyediakan agent dan blok desain analog/RF. Penggabungan source menjadi langkah awal untuk membangun alur kerja bersama tanpa menghilangkan konfigurasi, hasil eksperimen, dan artefak desain yang sudah ada.
+Gelochip addresses this problem by bringing existing capabilities into a common platform. PandaChip contributes schematic generation and simulation through xschem and OpenADA. AnoaChip contributes a Glayout-based path toward physical layout and verification. Gelochip Studio contributes design agents and reusable analog/RF building blocks. Consolidating their source is the foundation; the next challenge is to connect their engineering workflows through explicit interfaces and shared project records.
 
-Penggunaan AI diarahkan untuk membantu menerjemahkan spesifikasi, menghasilkan rancangan awal, dan mendukung iterasi. Keputusan bahwa suatu desain memenuhi persyaratan tetap harus didasarkan pada hasil simulasi, pemeriksaan aturan, dan bukti kesesuaian rangkaian. Karena itu, platform perlu menampilkan hasil alat EDA dan asal artefaknya bersama hasil yang dihasilkan agent.
+AI supports specification interpretation, candidate generation, and iteration. Engineering acceptance must remain grounded in the circuit's measured behavior and the evidence produced by EDA tools. The platform therefore aims to preserve the connection between a generated design, its inputs, and the checks performed on that exact revision.
 
-## Rumusan masalah
+This overview follows the conceptual structure requested for a B100-style introduction: background, problem definition, objectives, proposed solution, scope, and acceptance criteria. It is a project overview rather than a formal submission against an institution-specific B100 template.
 
-1. Bagaimana menyatukan kemampuan schematic, simulasi, layout, dan verifikasi dari tiga engine dalam satu website?
-2. Bagaimana mempertahankan konsistensi netlist, port, model perangkat, tegangan, dan PDK saat desain berpindah tahap?
-3. Bagaimana mengelola revisi desain, pekerjaan yang berjalan, log, dan artefak agar hasil pemeriksaan merujuk ke versi desain yang tepat?
-4. Bagaimana menyediakan penggunaan awal di localhost dan mempersiapkan hosting cloud tanpa mengubah konfigurasi serta artefak lama?
+## Problem definition
 
-## Tujuan dan manfaat yang diharapkan
+The project centers on four integration questions:
 
-Tujuan utama proyek adalah menghasilkan **satu website Gelochip dengan satu workspace proyek** untuk menjalankan alur desain analog/RF dari spesifikasi, schematic, dan simulasi hingga layout serta verifikasi.
+1. How can schematic generation, simulation, layout generation, and verification be coordinated through one website?
+2. How can the system maintain consistent connectivity, port definitions, device models, voltage assumptions, and PDK selection across engines?
+3. How can design revisions, execution logs, and artifacts be linked so that each verification result identifies the design it actually checked?
+4. How can the platform progress from localhost to cloud hosting while preserving existing configurations and design artifacts?
 
-Pengembangan diarahkan untuk mengurangi pemindahan berkas antar aplikasi, membantu pengguna menelusuri hubungan antara schematic dan layout, serta memudahkan peninjauan hasil simulasi dan laporan DRC/LVS. Bagi tim pengembang, struktur bersama diharapkan memudahkan pemeliharaan kontribusi dan penambahan engine tanpa mencampurkan lingkungan dependensinya. Manfaat tersebut merupakan sasaran pengembangan; peningkatan waktu pengerjaan atau kualitas desain belum diukur dalam integrasi saat ini.
+Success requires both a usable interface and a reliable engineering handoff between stages. A common dashboard alone does not establish that a schematic and its generated layout describe the same circuit.
 
-## Pengguna dan kebutuhan utama
+## Objectives and intended users
 
-Pengguna yang dituju adalah peserta Chipathon, mahasiswa, peneliti, dan pengembang yang mengerjakan desain IC analog/RF dengan alat EDA terbuka.
+The primary objective is to provide **one Gelochip website with one project workspace** for the complete analog/RF design workflow.
 
-| Kebutuhan pengguna | Respons sistem yang ditargetkan |
+The platform is intended for Chipathon participants, students, researchers, and developers working with open EDA tools. Its planned benefits are reduced manual file transfer, clearer visibility into design iterations, and easier review of simulation and verification evidence. Improvements in design time, circuit quality, or verification success rate have not yet been measured.
+
+| User need | Intended platform behavior |
 |---|---|
-| Memulai desain dari spesifikasi | Form atau percakapan untuk memasukkan fungsi rangkaian, target kinerja, dan batasan desain |
-| Membuat dan meninjau rangkaian | Workspace schematic dengan netlist, parameter perangkat, dan hasil simulasi |
-| Melanjutkan rangkaian ke layout | Penghubung antar engine yang memeriksa kecocokan input sebelum menjalankan layout |
-| Memahami hasil pemeriksaan | Viewer artefak, status pekerjaan, log, dan laporan simulasi/DRC/LVS dalam proyek yang sama |
-| Mengulang desain setelah revisi | Riwayat versi dan hubungan antara input, run, serta hasil yang dihasilkan |
-| Menjalankan pada mesin sendiri | Pengoperasian localhost dengan konfigurasi model dan runtime EDA yang sesuai |
+| Express circuit requirements | Capture circuit function, performance targets, operating conditions, and design constraints |
+| Develop and inspect a circuit | Present the schematic, netlist, device parameters, and simulation results together |
+| Continue into physical design | Validate compatible inputs before handing the design to a layout engine |
+| Understand a run's outcome | Show execution status, tool logs, artifacts, and engineering check results |
+| Revise a design | Track the relationship between input revisions, runs, and resulting artifacts |
+| Work locally | Support localhost operation with explicit model, PDK, and EDA runtime configuration |
 
-## Konsep solusi
+## Proposed platform architecture
 
-Solusi yang diusulkan menggunakan satu antarmuka web dan API penghubung untuk mengoordinasikan engine yang tetap memiliki runtime masing-masing. PandaChip menangani pembuatan schematic, AnoaChip menangani otomatisasi layout, dan Gelochip menyediakan kemampuan desain serta blok analog/RF sesuai kebutuhan alur.
-
-Satu proyek menyimpan spesifikasi, pilihan PDK, revisi desain, dan hubungan antar artefak. Sebelum melanjutkan pekerjaan ke engine berikutnya, penghubung memeriksa format input dan kompatibilitas desain. Setiap pekerjaan menghasilkan status eksekusi dan bukti pemeriksaan yang dapat ditinjau pengguna; pekerjaan yang selesai dijalankan belum tentu memenuhi seluruh spesifikasi desain.
+The target architecture uses a shared web interface and an orchestration API to coordinate engines with separate runtime environments. This keeps each engine's dependency requirements manageable while giving users a common project experience.
 
 ```text
-Pengguna
-   -> Satu website dan workspace proyek Gelochip
-      -> Spesifikasi dan pilihan PDK
-      -> PandaChip: schematic, netlist, dan simulasi
-      -> AnoaChip / Gelochip: layout GDSII
-      -> Simulasi terkait layout, DRC, dan LVS
-      -> Peninjauan laporan dan artefak
-      -> Revisi desain bila diperlukan
+                         One Gelochip website
+                                  |
+                 Project specification and design revision
+                                  |
+                 PandaChip: schematic and SPICE netlist
+                                  |
+                    Simulation and specification checks
+                                  |
+                AnoaChip / Gelochip: physical layout
+                                  |
+             Layout verification and applicable simulation
+                                  |
+                 Reports, artifacts, and design review
+                                  |
+                       Revision and another run
 ```
 
-Arsitektur ini adalah arah pengembangan. Implementasi saat ini baru menyatukan source dan menyediakan portal akses; API penghubung dan alur otomatis lintas engine belum tersedia.
+The planned orchestration layer must agree on the information exchanged between stages: circuit specifications, connectivity, port names, device parameters, model references, PDK identity, input revision, and artifact locations. It must check that information before launching the next engine and record which inputs produced each result.
 
-## Ruang lingkup dan batasan
+The project workspace should also distinguish **execution completion** from **engineering acceptance**. For example, producing a GDSII file establishes that a layout artifact was generated. Whether that layout satisfies design rules, matches the intended circuit, and meets performance targets requires the corresponding checks and review.
 
-Ruang lingkup proyek mencakup integrasi aplikasi, pengelolaan proyek dan artefak, penghubung schematic-ke-layout, serta penyajian hasil simulasi dan verifikasi untuk desain analog/RF pada PDK yang didukung engine terkait. Dukungan suatu PDK atau topologi harus diperiksa pada alur yang benar-benar digunakan; tidak semua kombinasi otomatis didukung oleh seluruh engine.
+This architecture describes the development target. The current portal provides navigation and backend availability checks; it does not implement cross-engine orchestration.
 
-Tahap pertama berfokus pada localhost. Hosting cloud menjadi tahap berikutnya setelah alur terpadu diuji. Pemilihan model lokal atau cloud tidak mengubah kebutuhan terhadap runtime EDA, model perangkat, dan rule deck yang sesuai. Platform juga tidak menjamin desain siap fabrikasi hanya karena agent selesai atau berkas GDSII berhasil dibuat; keputusan tapeout memerlukan peninjauan dan persyaratan signoff yang berlaku untuk desain tersebut.
+## Scope and engineering boundaries
 
-Pengembangan wajib mempertahankan `info.yaml`, `config.json`, serta folder dan artefak yang sudah ada seperti `OUTS`/`outputs`. Source engine dapat dihubungkan melalui komponen tambahan tanpa menimpa konfigurasi atau memindahkan hasil desain lama.
+The planned scope covers application integration, project and artifact management, schematic-to-layout handoff, and presentation of simulation and verification results for analog/RF designs supported by the selected engines.
 
-## Indikator keberhasilan dan kondisi saat ini
+PDK and topology support must be established for the actual workflow being used. Availability in one engine does not establish compatibility across the entire pipeline. Likewise, choosing a local or cloud model does not remove the need for suitable EDA binaries, device models, and rule decks.
 
-| Indikator | Kondisi saat ini | Target akhir |
+The first deployment target is localhost. Cloud hosting follows validation of the integrated workflow and its operational requirements. Fabrication readiness requires the applicable signoff process; agent completion, successful simulation, or GDSII generation alone does not establish tapeout readiness.
+
+**Preservation requirement:** existing `info.yaml`/`Info.yaml`, `config.json`, and design folders such as `OUTS` and `outputs` must remain protected. Integration work must preserve their original locations and contents rather than overwrite them as part of engine consolidation.
+
+## Current implementation and acceptance criteria
+
+| Area | Current implementation | Target acceptance condition |
 |---|---|---|
-| Source dan kontribusi branch berada di main | Sudah digabungkan secara lokal | Struktur bersama dapat dipelihara dan dikembangkan |
-| Konfigurasi dan artefak lama terjaga | Audit baseline integrasi lulus | Tetap terlindungi selama pengembangan berikutnya |
-| Akses aplikasi melalui web | Portal localhost tersedia | Satu antarmuka untuk seluruh tahap desain |
-| Perpindahan schematic/netlist ke layout | Masih manual | Transfer otomatis dengan pemeriksaan kompatibilitas |
-| Hubungan revisi, run, dan hasil pemeriksaan | Belum terpadu lintas engine | Setiap hasil dapat ditelusuri ke input dan versi desainnya |
-| Pengujian desain menyeluruh | Belum dijalankan pada lingkungan integrasi ini | Proyek contoh melewati alur schematic, simulasi, layout, dan verifikasi sesuai kriteria yang ditetapkan |
-| Hosting cloud | Belum dideploy | Deployment setelah validasi localhost dan kesiapan layanan |
+| Source consolidation | Development contributions and both ZIP imports are present on local `main` | A maintainable repository containing all three engines |
+| Artifact preservation | The integration baseline audit passed | Protected configurations and existing artifacts remain intact |
+| Web access | A localhost portal links the applications | One interface supports all design stages |
+| Schematic-to-layout handoff | Manual transfer and input adaptation | Compatible designs pass between stages without manual file transfer |
+| Design traceability | No shared revision model across engines | Each result identifies its input revision, configuration, and run |
+| Complete workflow validation | Not yet performed in the integration environment | A defined example meets its agreed simulation and verification criteria |
+| Cloud deployment | Not deployed | Deployment after local workflow and service readiness checks |
 
-Untuk pengujian akhir, tim perlu menetapkan proyek contoh, PDK, spesifikasi rangkaian, serta kriteria lulus simulasi dan DRC/LVS sebelum menjalankan evaluasi. End goal dinilai tercapai ketika proyek contoh tersebut dapat dikerjakan dan ditinjau dari website yang sama tanpa transfer berkas manual antar aplikasi, dengan bukti hasil yang dapat ditelusuri.
+Before evaluating the complete workflow, the team must select a reference circuit, PDK, operating conditions, performance targets, and simulation/DRC/LVS acceptance criteria. The end goal is achieved when that project can be developed, executed, and reviewed through the same website, without manual transfers between applications, with results traceable to the inputs used.
 
-## Tiga aplikasi, satu repository
+## Repository components
 
-| Aplikasi | Peran | Lokasi source | URL lokal |
+| Application | Responsibility | Source location | Local address |
 |---|---|---|---|
-| Workspace Portal | Navigasi dan pemeriksaan ketersediaan backend | `integration/` | http://localhost:8080 |
-| Gelochip Studio | Agent desain analog/RF, building blocks, layout dan verifikasi | `app/`, `src/gelochip/` | http://localhost:8090 |
-| AnoaChip | Auto Layouter: SPICE, simulasi spesifikasi, Glayout GDSII, DRC/LVS | `modules/AnoaChip/` | http://localhost:5175 (API :8012) |
-| PandaChip | Auto Schematic Maker: schematic xschem, netlist, simulasi OpenADA | `modules/PandaChip/` | http://localhost:8317 |
+| Workspace Portal | Navigation and backend availability checks | `integration/` | http://localhost:8080 |
+| Gelochip Studio | Analog/RF design agents, building blocks, layout, and verification | `app/`, `src/gelochip/` | http://localhost:8090 |
+| AnoaChip | Auto Layouter: SPICE, specification simulation, Glayout GDSII, DRC/LVS | `modules/AnoaChip/` | http://localhost:5175; API on :8012 |
+| PandaChip | Auto Schematic Maker: xschem schematics, netlists, and OpenADA simulation | `modules/PandaChip/` | http://localhost:8317 |
 
 ```text
 Gelochip/
-|-- integration/          Portal localhost dan pemeriksaan integrasi
+|-- integration/          Localhost portal and integration checks
 |-- modules/
-|   |-- AnoaChip/          Source ZIP AnoaChip beserta data dan dokumentasinya
-|   `-- PandaChip/         Source ZIP PandaChip beserta desain dan OpenADA
-|-- app/                  Gelochip Studio (FastAPI + React)
-|-- src/gelochip/          Agent, GLayout, primitive, blok analog/RF
-|-- scripts/              Script Gelochip dan kontribusi RF Wilton
-|-- tests/                Tes Gelochip
-|-- outputs/              Artefak lama, tetap di lokasi asal
-|-- Tapeout/              Artefak tapeout dari main
-|-- tapeout_iris/          Desain dan bukti pemeriksaan IRIS
-|-- report/               Laporan desain
-`-- integration-audit/    Baseline checksum dan catatan penggabungan
+|   |-- AnoaChip/          Imported application, data, and documentation
+|   `-- PandaChip/         Imported application, designs, and OpenADA
+|-- app/                  Gelochip Studio: FastAPI and React
+|-- src/gelochip/          Agents, GLayout, primitives, and analog/RF blocks
+|-- scripts/              Gelochip utilities and RF verification scripts
+|-- tests/                Gelochip tests
+|-- outputs/              Existing output artifacts
+|-- Tapeout/              Existing tapeout artifacts
+|-- tapeout_iris/          IRIS designs and verification evidence
+|-- report/               Design reports
+`-- integration-audit/    Preservation baseline and integration records
 ```
 
-## Mulai dari portal localhost
+## Start the localhost portal
 
-Portal hanya membutuhkan Python 3.10+ dan dapat dijalankan di Windows, Linux, atau WSL:
+The portal requires Python 3.10+ and runs on Windows, Linux, or WSL:
 
 ```powershell
 python integration/portal.py
 ```
 
-Buka **http://localhost:8080**. Jalankan aplikasi yang dibutuhkan di terminal terpisah dengan petunjuk di bawah. Status portal menunjukkan apakah backend dapat diakses; status tersebut bukan hasil DRC/LVS atau bukti keberhasilan desain.
+Open **http://localhost:8080**. Start the required applications separately using the instructions below. Portal status indicates whether a backend is reachable; it does not establish frontend readiness or a circuit's verification outcome.
 
-## Menjalankan Gelochip Studio
+## Run Gelochip Studio
 
-Gunakan Linux/WSL2 untuk alur EDA. Dari root repository:
+Use Linux or WSL2 for the EDA workflow. From the repository root:
 
 ```bash
 python3 -m venv .venv-studio
 source .venv-studio/bin/activate
 python -m pip install -r requirements-app.txt
-# Buat .env hanya bila belum ada, kemudian sesuaikan provider dan PDK.
+
+# Create .env only if it does not exist, then configure the provider and PDK.
 [ -f .env ] || cp .env.example .env
 export PYTHONPATH="$PWD/src:$PWD/src/gelochip${PYTHONPATH:+:$PYTHONPATH}"
+
 cd app/frontend
 npm ci
 npm run dev
 ```
 
-Di terminal lain, aktifkan `.venv-studio`, tetapkan `PYTHONPATH` yang sama dari root, lalu jalankan:
+In a second terminal, run the backend from the repository root:
 
 ```bash
+source .venv-studio/bin/activate
+export PYTHONPATH="$PWD/src:$PWD/src/gelochip${PYTHONPATH:+:$PYTHONPATH}"
 python -m uvicorn app.kaizen_app:app --host 127.0.0.1 --port 8090
 ```
 
-Frontend development berada di **http://localhost:5173**. Untuk menyajikan frontend dari backend :8090, build frontend memakai `npm run build`; perintah bawaan Vite memperbarui `app/static/web/`. **Jangan menjalankan build tersebut jika ingin mempertahankan hasil build lama tanpa perubahan.** Alternatif container tersedia di [panduan Docker](docs/DOCKER.md) bila file tersebut tersedia; lihat juga `Dockerfile` dan `docker-compose.yml`.
+The development frontend runs at **http://localhost:5173** and proxies requests to the backend on :8090. Serving the built frontend from :8090 requires `npm run build` in `app/frontend`; the default Vite configuration updates `app/static/web/`. Preserve any existing build artifacts before using that command. Container instructions are available in the [Docker guide](docs/DOCKER.md), [Dockerfile](Dockerfile), and [Compose configuration](docker-compose.yml).
 
-## Menjalankan AnoaChip Auto Layouter
+## Run AnoaChip Auto Layouter
 
-AnoaChip mempertahankan `pyproject.toml`, `uv.lock`, dan struktur aslinya. Dependensi Glayout di ZIP menunjuk ke **`../gLayout`**, sehingga dari lokasi baru checkout tersebut harus berada di **`modules/gLayout/`**. Source `src/gelochip/glayout/` bukan otomatis pengganti package Glayout eksternal yang diminta AnoaChip.
+AnoaChip retains its original `pyproject.toml`, `uv.lock`, and directory structure. Its Glayout dependency points to **`../gLayout`**, which resolves to **`modules/gLayout/`** in this repository. The embedded `src/gelochip/glayout/` source is not automatically a replacement for that external package.
 
-Pada Linux/WSL2, siapkan checkout Glayout yang kompatibel di lokasi tersebut, kemudian:
+On Linux or WSL2, prepare a compatible Glayout checkout at that location, then run:
 
 ```bash
 cd modules/AnoaChip
 [ -f .env ] || cp .env.example .env
 bash scripts/install.sh
+
 cd frontend
 npm ci
 cd ..
 bash scripts/run.sh
 ```
 
-Script installer melakukan download dependensi, model dan PDK, serta dapat memasang build tools melalui `sudo`. Periksa kebutuhan mesin sebelum menjalankannya. Backend menggunakan :8012, frontend :5175. README ZIP memiliki sebagian contoh port lama; konfigurasi Vite dan script run memakai port yang dicantumkan di sini.
+The installer downloads dependencies, models, and PDK resources, and may install build tools using `sudo`. The backend runs on :8012 and the frontend on :5175. Some examples in the imported README use older ports; the bundled run script and Vite configuration use the addresses shown here.
 
-Lihat [README AnoaChip](modules/AnoaChip/README.md) untuk knowledge store Postgres/MinIO, model, konfigurasi, dan pipeline layout.
+See the [AnoaChip README](modules/AnoaChip/README.md) for the layout workflow, model configuration, and Postgres/MinIO knowledge store.
 
-## Menjalankan PandaChip Auto Schematic Maker
+## Run PandaChip Auto Schematic Maker
 
-Gunakan Linux/WSL2 dengan Docker, Node.js/npm, Go 1.18+, Python, uv, dan Ollama. Runtime EDA menggunakan container `pandachip-eda`; schematic interaktif memerlukan X display sesuai script asal.
+Use Linux or WSL2 with Docker, Node.js/npm, Go 1.18+, Python, uv, and Ollama. EDA tools run in the `pandachip-eda` container. Interactive schematic viewing requires an X display as described by the original scripts.
 
 ```bash
 cd modules/PandaChip
 uv venv .venv --python python3
 uv pip install --python .venv/bin/python -e ./src jsonschema numpy matplotlib
+
 cd frontend
 npm ci
 cd ..
@@ -182,74 +201,61 @@ bash scripts/start_eda_container.sh
 bash scripts/run.sh
 ```
 
-Buka **http://localhost:8317**. Pemilihan model dan kredensial Gemini/Vertex AI mengikuti [README PandaChip](modules/PandaChip/README.md). Model dengan suffix `:cloud` memerlukan akses cloud; menjalankan website pada localhost tidak berarti modelnya offline.
+Open **http://localhost:8317**. Follow the [PandaChip README](modules/PandaChip/README.md) for model selection and Gemini/Vertex AI credentials. Models with a `:cloud` suffix require cloud access; localhost hosting does not imply offline model execution.
 
-## Alur kerja lintas aplikasi
+## Work across the applications today
 
-1. Buat schematic dan netlist melalui PandaChip.
-2. Periksa port, model transistor, tegangan perangkat, dan PDK netlist.
-3. Gunakan netlist beserta spesifikasi sebagai masukan alur AnoaChip atau Gelochip. Sesuaikan format input melalui fasilitas masing-masing aplikasi.
-4. Tinjau hasil simulasi, DRC, LVS, serta GDSII dari run yang sama sebelum menyatakan desain lolos.
+1. Generate a schematic and netlist in PandaChip.
+2. Review connectivity, port definitions, transistor models, operating voltages, and PDK requirements.
+3. Provide the netlist and specification to an AnoaChip or Gelochip workflow, adapting inputs through the application's supported facilities.
+4. Review simulation results, DRC/LVS reports, and GDSII artifacts associated with the same design revision.
 
-Saat ini belum ada API bersama, konversi otomatis schematic-ke-layout, akun bersama, atau antrean pekerjaan lintas aplikasi. Portal menghubungkan aplikasi yang sudah disatukan dalam repo. Aplikasi menyimpan hasil pada lokasi bawaan masing-masing, sehingga artefak lama tidak harus dipindah.
+A shared API, automatic format conversion, common accounts, and a cross-engine job queue are not yet implemented. Each application retains its own output locations, so existing artifacts can stay where they were created.
 
-## Branch dan aturan pemeliharaan
+## Validation
 
-- `main` lokal diselaraskan dengan `origin/main`, lalu perubahan `dev_wilton` digabungkan menggunakan merge agar riwayat kontribusi tetap ada.
-- `origin/dev_irman` dan `origin/dev_ken` sudah menjadi ancestor dari `origin/main`; tidak perlu menyalin ulang kontribusinya.
-- Branch asal tetap disimpan. Penggabungan lokal tidak otomatis melakukan push ke GitHub.
-- `info.yaml`, `config.json`, `lvs_config.json`, folder output, laporan, dan artefak tapeout yang dilindungi diperiksa dengan SHA-256. Kapitalisasi nama file asli dipertahankan.
-- Folder lama tetap berada di lokasi semula. File yang ada di checkout Wilton tetapi tidak ada di main dipertahankan juga.
-- ZIP dipisahkan di `modules/` agar nama file, konfigurasi dan versi dependensi tidak saling menimpa.
-- `node_modules` bawaan ZIP tersedia di disk, tetapi tidak perlu ditambahkan sebagai dependensi source baru. Gunakan lockfile dan `npm ci` untuk instalasi sesuai platform.
-
-## Validasi integrasi
+Run the preservation audit and portal tests from the repository root:
 
 ```bash
 python integration/verify_preservation.py
 python -m unittest discover -s integration -p "test_*.py" -v
 ```
 
-Tes portal memeriksa halaman, endpoint status, penanganan layanan offline, dan penolakan akses file di luar endpoint. Audit penggabungan ada di [catatan integrasi](integration-audit/MERGE.md).
+The recorded integration checks include 154 preservation baseline checks, four passing portal tests, Python syntax checks, ZIP-content comparisons, and a successful Gelochip frontend build in a separate test directory. Details and limitations are documented in the [integration record](integration-audit/MERGE.md).
 
-Tes Gelochip membutuhkan dependensi EDA/agent yang sudah terpasang:
+Gelochip's engine tests require the relevant EDA and agent dependencies:
 
 ```bash
 PYTHONPATH=src:src/gelochip python -m pytest tests
 ```
 
-Keberhasilan merge dan tes portal belum membuktikan pipeline LLM, simulasi, DRC/LVS, atau tapeout berhasil. Kebutuhan runtime harus tersedia sebelum pengujian desain menyeluruh.
+Repository consolidation, portal tests, and frontend compilation validate the integration foundation. A complete LLM-to-layout design run still needs its runtime dependencies, PDK, models, and engineering acceptance checks.
 
-## End goal: satu website desain chip terpadu
+## Development roadmap
 
-Target akhir proyek adalah **satu website Gelochip** yang menggabungkan Gelochip Studio, AnoaChip Auto Layouter, dan PandaChip Auto Schematic Maker dalam satu antarmuka dan satu workspace proyek. Pengguna dapat menjalankan seluruh alur tanpa berpindah aplikasi atau memindahkan netlist secara manual:
+| Stage | Deliverable | Completion criterion |
+|---|---|---|
+| 1. Integration foundation | Consolidated source, preserved artifacts, local portal | Source and preservation checks pass; applications have documented entry points |
+| 2. Shared engineering interfaces | Orchestration API and agreed exchange formats | Input compatibility checks and artifact handoff work on a reference design |
+| 3. Unified website | Project dashboard and schematic/layout/result workspaces | Users operate all stages through one project interface |
+| 4. Workflow validation | Revision tracking and complete design execution | The reference design meets predefined simulation and verification criteria |
+| 5. Cloud readiness | Authentication, isolated workers, persistent storage, and deployment configuration | Validated local behavior is maintained in the hosted environment |
 
-```text
-Prompt / spesifikasi
-  -> Schematic (PandaChip)
-  -> Netlist dan simulasi
-  -> Layout GDSII (AnoaChip / Gelochip)
-  -> DRC / LVS dan laporan
-  -> Tinjau serta unduh artefak proyek
-```
+The unified website should offer schematic and layout inspection, simulation results, job progress, logs, and downloadable artifacts in one workspace. Local and cloud model choices can share that interface while the engines retain separate backend environments.
 
-Website terpadu ditargetkan memiliki:
+For cloud deployment, the planned service boundary separates the web application, EDA workers, model access, and artifact storage. Reverse proxy configuration, authentication, worker isolation, persistent storage, and service testing must be established before public deployment. The current portal binds to loopback for local use.
 
-- Satu dashboard proyek dengan editor/viewer schematic, layout, hasil simulasi, dan laporan verifikasi.
-- Satu API penghubung dengan format pertukaran netlist, spesifikasi, PDK, dan artefak yang disepakati antar engine.
-- Alur schematic-ke-layout otomatis, dengan pemeriksaan kompatibilitas port, model perangkat, tegangan, dan PDK sebelum pekerjaan dilanjutkan.
-- Status pekerjaan, log, dan riwayat hasil dalam proyek yang sama; hasil simulasi dan DRC/LVS tetap merujuk ke versi desain yang diperiksa.
-- Pilihan model lokal atau cloud dari antarmuka yang sama, dengan lingkungan dependensi setiap engine tetap terpisah di backend.
-- Pengoperasian di **localhost terlebih dahulu**, kemudian deployment cloud setelah alur terpadu berhasil diuji.
+## Repository maintenance and preservation
 
-Tahapan pengembangan: penggabungan source dan portal lokal (saat ini), API serta format pertukaran bersama, antarmuka web terpadu, pengujian alur desain menyeluruh, lalu kesiapan hosting cloud. End goal tercapai ketika satu proyek dapat melewati alur schematic, simulasi, layout, dan verifikasi dari website yang sama, tanpa transfer file manual antar aplikasi.
+- Local `main` was aligned with `origin/main`, then merged with `dev_wilton` to retain contribution history. The `origin/dev_irman` and `origin/dev_ken` histories were already included in `origin/main` at integration time.
+- Source branches remain available. A local merge does not automatically publish changes to GitHub.
+- Protected configurations, output artifacts, reports, and tapeout files are checked against the recorded SHA-256 baseline. Original filename capitalization is preserved.
+- Existing directories remain in place. Files present in the Wilton checkout but absent from the incoming main tree were retained.
+- The imported applications live under `modules/` to prevent collisions between source paths, configurations, and dependency versions.
+- Bundled ZIP dependencies may remain on the integration machine, but new `node_modules` directories are not included as application source. Install dependencies from the original lockfiles for the target platform.
 
-Pengembangan berikutnya tetap menjaga `info.yaml`, `config.json`, dan folder serta artefak yang sudah ada seperti `OUTS`/`outputs`; integrasi harus menambahkan penghubung tanpa menimpa konfigurasi atau memindahkan hasil lama.
+## Licensing and source attribution
 
-## Arah hosting cloud
+Gelochip's license is in [LICENSE](LICENSE). AnoaChip includes its own [license](modules/AnoaChip/LICENSE), and the OpenADA source distributed with PandaChip includes [its license](modules/PandaChip/src/LICENSE). Preserve the attribution and licensing requirements of each component.
 
-Struktur ini dapat menjadi dasar pemisahan layanan web, worker EDA, penyimpanan artefak dan model. Sebelum deployment publik, perlu konfigurasi reverse proxy, autentikasi, isolasi worker, storage persisten dan pengujian layanan. Portal saat ini bind ke loopback dan ditujukan untuk penggunaan lokal.
-
-## Lisensi dan asal source
-
-Lisensi Gelochip tersedia di [LICENSE](LICENSE). AnoaChip membawa [lisensinya sendiri](modules/AnoaChip/LICENSE). OpenADA yang disertakan PandaChip memiliki [LICENSE](modules/PandaChip/src/LICENSE). Pertahankan atribusi dan lisensi komponen masing-masing. Dokumentasi asli Gelochip main tersimpan di [arsip README](integration-audit/README-origin-main.md).
+The original Gelochip main-branch documentation is retained in the [README archive](integration-audit/README-origin-main.md).
